@@ -194,7 +194,7 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   microdilution, linked to Emmy's `Opentrons/` protocol), `rules.yaml` (18 AGM rules, 6 machine-checkable over
   `wwtn.schema.Experiment`), `pubchem.py` (PUG-REST + Entrez `db=pcassay`, cached under `data/raw/pubchem/`),
   `extract.py` (LLM extraction, stub-tested only — no API key here) and `build_db.py`, which replaces `seed.py`
-  and keeps `kg.query.templates()` working. 73 kg tests pass, no network.
+  and keeps `kg.query.templates()` working. 74 kg tests pass, no network (1 GPU test skipped).
 - Decided (as agreed earlier): AGM = purposes + design rules, PubChem confirmatory AIDs = the written protocols.
   Rules carry a verbatim AGM quote and either a checkable expression or `null` (a judge item for the grader).
   Every template parameter stores *all* values observed across its exemplar AIDs, each with its AID and quoted
