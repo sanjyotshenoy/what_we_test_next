@@ -9,6 +9,9 @@ USES, HAS_RULE (Protocol -> Rule) and APPLIES_TO (Rule -> Protocol, the reverse,
 from either side). `kg/query.py`'s templates(target) keeps working: it reads APPLICABLE_TO, HAS_PARAM, MEASURES
 and ANSWERS, all still here with the same meanings.
 
+TODO(final): 3 of the 8 archetypes have a curated template, and those three are agent-curated, not yet checked by
+a person; the other five contribute a Protocol node with no steps or parameters. See kg/protocols/README.md.
+
 A Parameter's props hold the normalized value and unit plus `aid` (the exemplar it was read from) and `observed`
 (every value seen across the exemplars, each with its AID and quote), so nothing in the graph is unattributable.
 Archetypes without a curated template contribute a Protocol node with its purpose, BAO tags, question type and

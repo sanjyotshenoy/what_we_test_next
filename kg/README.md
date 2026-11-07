@@ -3,7 +3,7 @@
 | Folder | Graph | What it holds |
 | --- | --- | --- |
 | [`biology/`](biology/) | biology KG | compounds, targets, target classes, known activities: a small subset around our questions |
-| [`protocols/`](protocols/) | protocol KG | dose-response protocol templates: steps, parameters, reagents, labware, readouts |
+| [`protocols/`](protocols/) | protocol KG | experiment templates (assay type, steps, parameters, controls, readout) and the AGM design rules |
 
 Both graphs use **one file format**, so the agent can load and join them the same way.
 
@@ -26,7 +26,7 @@ Each graph writes two CSV files to its folder's `graph/` (committed, so the agen
 | column | example |
 | --- | --- |
 | `src`, `dst` | node IDs (either graph's) |
-| `rel` | `INHIBITS`, `MEMBER_OF`, `HAS_STEP`, `NEXT`, `USES`, `HAS_PARAM`, `MEASURES`, `APPLICABLE_TO`, ... |
+| `rel` | `INHIBITS`, `MEMBER_OF`, `HAS_STEP`, `NEXT`, `USES`, `HAS_PARAM`, `MEASURES`, `APPLICABLE_TO`, `ANSWERS`, `HAS_RULE`, `APPLIES_TO`, ... |
 | `props` | JSON, e.g. `{"ic50_nM": 120}` |
 | `source` | as for nodes |
 
@@ -37,6 +37,21 @@ The seed graphs use ChEMBL's protein classification: `chembl_class:<protein_clas
 
 Rules: keep every node's and edge's `source` (provenance is what makes the proposals verifiable); normalize units in
 code (µM, µL, min, °C); tag assay types and readouts with BioAssay Ontology (BAO) IDs where one exists.
+
+### Design rules as nodes
+
+The protocol graph also holds the NCATS Assay Guidance Manual's design rules as **`Rule`** nodes
+(`rule:agm/<name>`), so a proposal can be checked against the rules that apply to the template it chose:
+
+| edge | meaning |
+| --- | --- |
+| `Protocol -HAS_RULE-> Rule` | this rule applies to this experiment type (`props.severity`: `must` or `should`) |
+| `Rule -APPLIES_TO-> Protocol` | the same link the other way, so a `Rule` node can be walked from either side |
+
+A `Rule`'s props carry the AGM chapter (`agm_chapter`, `agm_nbk`, `url`), a verbatim `quote` from it, and `check`:
+an expression over the fields of `wwtn.schema.Experiment` that `kg.protocols.build_db.check_rule` evaluates
+(`True`/`False`), or `null` for the rules only a judge can score. See
+[`protocols/README.md`](protocols/README.md).
 
 ## Querying
 
@@ -69,8 +84,10 @@ JSON text, because cudf would turn a column of dicts into structs that give ever
 
 Each is also a `TODO(final)` comment where it lives (`grep -rn "TODO(final)" kg`).
 
-- **Seeds, not the real graphs.** `kg/protocols/graph/` (three hand-written templates) and whatever
-  `kg/biology/build_seed.py` builds are stand-ins for the kg/biology and kg/protocols owners' graphs.
+- **Seeds, not the real graphs.** Whatever `kg/biology/build_seed.py` builds is a stand-in for the kg/biology
+  owner's graph. `kg/protocols/graph/` is now built by `kg/protocols/build_db.py` from real sources (PubChem AIDs
+  and the AGM), but only 3 of its 8 archetypes have a curated template, and those are **agent-curated, not yet
+  human-checked** (see `kg/protocols/README.md`, "Open questions").
 - **The biology seed covers 19 kinases** (`kg/biology/README.md` lists them, with what curators should check).
 - **Activity filters** (`kg/biology/chembl_db.py`, checked on the real ChEMBL 37 dump): IC50s with an exact `=`
   value in nM, no validity flag (or "Manually validated"), wild-type assays only (mutant variants dropped).

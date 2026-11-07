@@ -5,6 +5,10 @@
 # the Bookshelf web pages answer scripts with a reCAPTCHA page. Chapter NBK IDs come from Entrez esummary
 # (db=books, 2026-11-07); `url` is the chapter page. Each `quote` was checked to be verbatim chapter text.
 #
+# TODO(final): the quotes and chapter titles are verified against the archive text, but which rules matter most,
+# and whether the grader wants the 12 judge items made deterministic (that needs new wwtn/schema.py fields), is
+# not reviewed by a person yet.
+#
 # Fields
 #   id          rule:agm/<name>
 #   text        the rule, as we apply it
