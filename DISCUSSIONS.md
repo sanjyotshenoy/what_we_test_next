@@ -186,3 +186,13 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 **Checkpoint pushes** (ramiiith, 19:57).
 - Decided: people and coding agents push `WIP:` checkpoint commits to their feature branch after each milestone
   (noting failing tests), so others can follow a branch's evolution; no squashing. In CONTRIBUTING.md and AGENTS.md.
+
+**`protocol-db` pushed** (565cb40, reviewed).
+- 8 archetypes (5 kinase + 3 non-kinase negative controls: GPCR cAMP, protease FRET, bacterial MIC linked to
+  Emmy's Opentrons protocol), 3 curated templates with per-parameter PubChem AID + verbatim quote, 18 AGM rules
+  (6 machine-checkable), `pubchem.py` / `extract.py` / `build_db.py`; `seed.py` replaced, edge types unchanged so
+  `kg/query.py` still works. 74 tests pass; `kg.query templates Q06187` returns only the 5 kinase archetypes.
+- Trial merge into main: only `DISCUSSIONS.md` conflicts (both appended); tests pass on the merged tree.
+- Open: templates are agent-curated, not human-checked; MIC `applicable_to` is a placeholder
+  (`chembl_target_type:ORGANISM`) needing the biology owner's call; `extract.py` never run against a real model;
+  new question types (target_engagement, functional_potency, growth_inhibition) need adding to the agent's routing.
