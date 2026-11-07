@@ -63,6 +63,8 @@ class Parameter(BaseModel):
 
 
 class Step(BaseModel):
+    # TODO(final): no `substeps` field, so an extracted protocol arrives flat; the curated templates nest one
+    # level of detail under a step (Step -HAS_SUBSTEP-> Step, see kg/protocols/README.md, "The tree").
     order: int = Field(ge=1)
     verb: Verb
     text: str

@@ -8,7 +8,7 @@
 # Grounding: every condition is read off the archetypes' own text. Each entry in `from` names the archetype, the
 # field it was read from (`purpose` or `notes`) and a verbatim span of that field, whitespace-normalized the way
 # build_db normalizes a purpose. Nothing here may say more than that span says; a condition no archetype text
-# supports does not belong in this file (tests/test_conditions.py checks every quote against the archetype).
+# supports does not belong in this file (tests/test_tree.py checks every quote against the archetype).
 #
 # Fields
 #   id      cond:<name>

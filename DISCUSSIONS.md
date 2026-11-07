@@ -209,3 +209,20 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 - Open: like the seed templates, these hang off `chembl_class:1100`, so the agent still has to walk `SUBCLASS_OF`
   to find them (the routing gap found when testing `main`); and whether to add the 5 archetype-only templates by
   hand or wait for a key and run `extract.py`.
+
+**Protocol DB as a shallow decision tree** (branch `protocol-db`, 2026-11-07).
+- Decided (as agreed): the template DB stops being archetype → steps → parameters and becomes a shallow decision
+  tree, in the same node/edge CSV format. Two additions: `Condition` nodes with `Protocol -REQUIRES->` /
+  `-PREFERRED_WHEN->` (the routing that was implicit in the agent's prompt: what the lab must have, what the
+  question asks, what state the target is in), and `Step -HAS_SUBSTEP-> Step` so grading can separate "right
+  stage" from "right detail". `HAS_STEP` / `NEXT` still describe the top level only.
+- Built: [`kg/protocols/conditions.yaml`](kg/protocols/conditions.yaml) — 15 conditions, each read off an
+  archetype's own `purpose` with that span quoted on the edge (11 `REQUIRES`, 6 `PREFERRED_WHEN`); 3 carry a
+  `check` expression over a design, the other 12 are `null` because a lab capability is an input to routing, not
+  something an `Experiment` can answer. 5 steps of the 3 curated templates split into 10 sub-steps — only the
+  ones whose own evidence already held the detail, each keeping a parent quote or a span inside it. Graph is now
+  140 nodes / 353 edges; `kg.query` gains `conditions()` / `steps()` and a `conditions` key on `templates()`,
+  everything else unchanged (`agent-on-kg` depends on it). 84 kg tests pass, no network.
+- Open: `REQUIRES` vs `PREFERRED_WHEN` is this branch's reading of the archetype text, not reviewed; a condition
+  exists only where an archetype says it, so `kinase_biochem_trfret` has no purified-enzyme edge until its
+  `purpose` says so; `extract.py` has no `substeps` field, so extracted templates will arrive flat.

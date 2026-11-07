@@ -16,7 +16,7 @@ Each graph writes two CSV files to its folder's `graph/` (committed, so the agen
 | column | example |
 | --- | --- |
 | `id` | `CHEMBL941` (use the source's own ID: ChEMBL, UniProt, BAO, ...; make up `proto:...` IDs only for our own nodes) |
-| `type` | `Compound`, `Target`, `TargetClass`, `Protocol`, `Step`, `Parameter`, `Reagent`, `Labware`, `Readout`, ... |
+| `type` | `Compound`, `Target`, `TargetClass`, `Protocol`, `Step`, `Parameter`, `Reagent`, `Labware`, `Readout`, `Rule`, `Condition`, ... |
 | `name` | `imatinib` |
 | `props` | a JSON object for anything else: `{"value": 10, "unit": "uM"}` |
 | `source` | where it came from: `ChEMBL 35`, `hand-curated`, `LLM-extracted from CHEMBL1234567` |
@@ -26,7 +26,7 @@ Each graph writes two CSV files to its folder's `graph/` (committed, so the agen
 | column | example |
 | --- | --- |
 | `src`, `dst` | node IDs (either graph's) |
-| `rel` | `INHIBITS`, `MEMBER_OF`, `HAS_STEP`, `NEXT`, `USES`, `HAS_PARAM`, `MEASURES`, `APPLICABLE_TO`, `ANSWERS`, `HAS_RULE`, `APPLIES_TO`, ... |
+| `rel` | `INHIBITS`, `MEMBER_OF`, `HAS_STEP`, `HAS_SUBSTEP`, `NEXT`, `USES`, `HAS_PARAM`, `MEASURES`, `APPLICABLE_TO`, `ANSWERS`, `HAS_RULE`, `APPLIES_TO`, `REQUIRES`, `PREFERRED_WHEN`, ... |
 | `props` | JSON, e.g. `{"ic50_nM": 120}` |
 | `source` | as for nodes |
 
@@ -53,6 +53,23 @@ an expression over the fields of `wwtn.schema.Experiment` that `kg.protocols.bui
 (`True`/`False`), or `null` for the rules only a judge can score. See
 [`protocols/README.md`](protocols/README.md).
 
+### Routing conditions and nested steps
+
+The protocol graph is a shallow decision tree, not a flat list of templates: besides `APPLICABLE_TO` (the target
+class) and `ANSWERS` (the question type), a `Protocol` hangs off **`Condition`** nodes (`cond:<name>`) that say
+when it is the right choice, and a `Step` may own one level of sub-steps:
+
+| edge | meaning |
+| --- | --- |
+| `Protocol -REQUIRES-> Condition` | without this the template cannot be run at all |
+| `Protocol -PREFERRED_WHEN-> Condition` | this is what makes it the better choice among the candidates |
+| `Step -HAS_SUBSTEP-> Step` | one level of detail under a top-level step; `HAS_STEP` and `NEXT` stay at the top level, so the ordered chain is unchanged |
+
+Every routing edge carries the `quote` from the archetype text it was read from, and a `Condition`'s props carry
+`text`, `derived_from` (archetype, field, quote) and `check`: the same kind of expression as a `Rule`'s, or
+`null` when only the lab or the question can answer it. Sub-step nodes are `Step` nodes with a `parent` prop; a
+top-level step has none. See [`protocols/README.md`](protocols/README.md).
+
 ## Querying
 
 `kg/query.py` loads both graphs (`kg/graph_io.py` reads and writes this format) and answers typed lookups that
@@ -64,10 +81,12 @@ python -m kg.query activities P10721        # a target's IC50s, most potent firs
 python -m kg.query summary P10721           # n, min, median, max IC50: a crude concentration-range prior
 python -m kg.query templates P10721         # protocol templates that apply, via the target's classes
 python -m kg.query classes P10721           # the target's class chain
+python -m kg.query conditions proto:kinase_biochem_lum   # when that template is the right one
+python -m kg.query steps proto:kinase_biochem_lum        # its steps, with their sub-steps
 ```
 
 From Python: `from kg.query import KG; kg = KG.load()`, then `kg.resolve`, `kg.neighbors`, `kg.classes`,
-`kg.activities`, `kg.potency_summary`, `kg.templates`. `kg.nodes_df` / `kg.edges_df` are the pandas frames and
+`kg.activities`, `kg.potency_summary`, `kg.templates`, `kg.conditions`, `kg.steps`. `kg.nodes_df` / `kg.edges_df` are the pandas frames and
 `kg.graph` is a networkx `MultiDiGraph` of the same edges, for anything the methods don't cover.
 
 ## CPU or GPU
