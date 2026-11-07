@@ -108,7 +108,11 @@ class TestSeedGraphs:
 
     def test_a_potency_template_is_found_through_the_chain(self, real_kb):
         r = real_kb.protocol_kg_templates("potency", target=DEMO_TARGET)
-        assert [t["id"] for t in r["templates"]] == ["proto:kinase_biochem_lum"]
+        # the protocol DB has more than one potency assay for a kinase (luminescence, TR-FRET): all of them
+        # answer this question type, and none of the cellular, binding or non-kinase ones do
+        ids = [t["id"] for t in r["templates"]]
+        assert "proto:kinase_biochem_lum" in ids
+        assert all(i.startswith("proto:kinase_biochem") for i in ids)
         assert r["via_classes"] == ["chembl_class:1100"]
         assert real_kb.protocol_kg_templates("thermal_shift", target=DEMO_TARGET)["templates"] == []
 
