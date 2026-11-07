@@ -16,6 +16,19 @@ REPO = Path(__file__).resolve().parent.parent
 KG_ROOT = REPO / "kg"
 SAMPLE_ROOT = REPO / "agent" / "data" / "sample_kg"   # TODO(final): drop once kg/*/graph/ exist
 
+# Gene symbols for the seed graph's 19 kinases: its Target nodes carry only a UniProt accession and a long
+# protein name, so "BTK" or "AXL" in a question would not resolve.
+# TODO(final): read these from UniProt in kg/biology/build_seed.py instead of hard-coding them here.
+GENES = {"Q04771": "ACVR1", "O14965": "AURKA", "P48729": "CSNK1A1", "P78527": "PRKDC", "Q13627": "DYRK1A",
+         "P51617": "IRAK1", "P53667": "LIMK1", "P45984": "MAPK9", "O43318": "MAP3K7", "O60285": "NUAK1",
+         "Q9NRM7": "LATS2", "P57059": "SIK1", "Q9Y2K2": "SIK3", "Q8TF76": "GSG2", "P42345": "MTOR",
+         "Q86UE8": "TLK2", "Q06187": "BTK", "Q12866": "MERTK", "P30530": "AXL"}
+
+# The question types the seed protocol graph answers (ANSWERS edges), and the words a model may use for them.
+QUESTION_TYPES = {"potency": "qtype:potency", "biochemical_potency": "qtype:potency",
+                  "cellular_potency": "qtype:cellular_potency", "cellular_activity": "qtype:cellular_potency",
+                  "cell_based": "qtype:cellular_potency", "binding": "qtype:binding", "affinity": "qtype:binding"}
+
 
 class Graph:
     """One graph: nodes by ID, edges with src/dst/rel/props."""
@@ -48,6 +61,21 @@ class Graph:
     def name(self, node_id: str) -> str:
         return self.nodes.get(node_id, {}).get("name", node_id)
 
+    def classes(self, node_id: str) -> list[str]:
+        """A target's class chain, most specific first: MEMBER_OF, then SUBCLASS_OF up to the root. The seed
+        graph puts a target in its most specific ChEMBL class (BTK -> Tec family), while protocol templates hang
+        off a broad one (Protein Kinase), so a template lookup has to walk the chain."""
+        chain, seen = [], {node_id}
+        edges = self.out(node_id, "MEMBER_OF") or self.out(node_id, "SUBCLASS_OF")
+        while edges:
+            nxt = edges[0]["dst"]
+            if nxt in seen:
+                break                                   # a cycle in the class table: stop where we are
+            seen.add(nxt)
+            chain.append(nxt)
+            edges = self.out(nxt, "SUBCLASS_OF")
+        return chain
+
 
 def fmt_uM(nM: float) -> str:
     uM = nM / 1000
@@ -62,6 +90,11 @@ class KnowledgeBase:
         if self.sample:
             folders = {g: SAMPLE_ROOT / g for g in folders}
         self.bio, self.proto = Graph(folders["biology"]), Graph(folders["protocols"])
+        for accession, gene in GENES.items():           # so a question can name a target by its gene symbol
+            node = self.bio.nodes.get(accession)
+            if node and not node["props"].get("gene"):
+                node["props"]["gene"] = gene
+        self._fps: dict | None = None                   # compound fingerprints, built on the first analog lookup
 
     @property
     def source(self) -> str:
