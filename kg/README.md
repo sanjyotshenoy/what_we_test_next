@@ -64,3 +64,18 @@ For the GPU (RAPIDS: `cudf.pandas` and the `nx-cugraph` backend), install `kg/re
 (`kg/backend.py` refuses otherwise rather than silently running on the CPU). Inside graph frames `props` is kept as
 JSON text, because cudf would turn a column of dicts into structs that give every row every key.
 `kg/tests/test_gpu.py` checks that GPU mode gives exactly the CPU results; it is skipped when no GPU is visible.
+
+## Known caveats
+
+Each is also a `TODO(final)` comment where it lives (`grep -rn "TODO(final)" kg`).
+
+- **Seeds, not the real graphs.** `kg/protocols/graph/` (three hand-written templates) and whatever
+  `kg/biology/build_seed.py` builds are stand-ins for the kg/biology and kg/protocols owners' graphs.
+- **No biology graph is committed yet.** `KG.load()` skips it with a warning until it is built from the ChEMBL dump.
+- **The SQLite reader is unverified on the real dump** (`kg/biology/chembl_db.py`): column names are from the ChEMBL
+  schema docs and tested on a fixture. The Protein Kinase class ID (1100) was confirmed against the live ChEMBL API.
+- **Activity filters to decide** once the dump is local: `data_validity_comment IS NULL` also drops rows marked
+  "Manually validated"; mutant-variant assays are counted as wild-type IC50s.
+- **Smaller gaps:** a missing document row would leave a dangling `FROM_DOC` edge; `KG` assumes every `INHIBITS`
+  edge has `ic50_nM`; one error message covers unknown and non-human target IDs; targets carry no gene name; there is
+  no optional held-out pair list (the cutoff year is the only hold-out).

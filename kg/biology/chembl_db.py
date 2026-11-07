@@ -18,6 +18,9 @@ from kg.constants import CAP_PER_TARGET
 
 DEFAULT_PATH = Path("data/raw/chembl/chembl_37/chembl_37_sqlite/chembl_37.db")
 
+# TODO(final): column names come from the ChEMBL schema docs and are tested only on a fixture DB: check them
+# against the real ChEMBL 37 dump. Also decide: `data_validity_comment IS NULL` drops rows marked "Manually
+# validated" (good data), and mutant assays (assays.variant_id not null) are counted as wild-type IC50s.
 ACTIVITIES_SQL = """
 SELECT act.activity_id, md.chembl_id AS molecule_chembl_id, md.pref_name AS molecule_pref_name,
        cs.canonical_smiles, td.chembl_id AS target_chembl_id, a.chembl_id AS assay_chembl_id,

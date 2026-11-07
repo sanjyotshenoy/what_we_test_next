@@ -100,6 +100,7 @@ def seed_frames(acts: pd.DataFrame, targets: dict[str, TargetInfo], docs: pd.Dat
                               zip(acts["standard_value"], acts["assay_chembl_id"], acts["document_chembl_id"],
                                   acts["document_year"]))))
     from_doc = acts.drop_duplicates(["assay_chembl_id", "document_chembl_id"])
+    # TODO(final): an activity whose document row is missing would leave this FROM_DOC edge dangling; assert none.
     edge_parts.append(_edges(from_doc["assay_chembl_id"], "FROM_DOC", from_doc["document_chembl_id"]))
 
     # Papers behind the activities.
@@ -172,6 +173,8 @@ def main(argv: list[str] | None = None) -> None:
     targets = {t: db.target_info(t) for t in args.targets}
     missing = [t for t, info in targets.items() if info is None]
     if missing:
+        # TODO(final): one message for unknown and non-human IDs; a targets-file line like "CHEMBL1936 KIT" is read
+        # as a single ID.
         sys.exit(f"not human single-protein targets in ChEMBL: {', '.join(missing)}")
     acts = pd.concat([db.activities(t, before_year=args.before_year, limit=CAP_PER_TARGET) for t in targets],
                      ignore_index=True)

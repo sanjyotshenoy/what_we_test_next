@@ -56,6 +56,7 @@ class KG:
         self._hierarchy = nx.from_pandas_edgelist(hierarchy, "src", "dst", create_using=nx.DiGraph)
 
         inhibits = self.edges_df[self.edges_df["rel"] == "INHIBITS"]
+        # TODO(final): assumes every INHIBITS edge has ic50_nM; a graph with Ki/Kd edges would raise KeyError.
         props = [props_of(p) for p in inhibits["props"].to_list()]
         self._inhibits = pd.DataFrame({
             "compound": inhibits["src"].to_list(), "target": inhibits["dst"].to_list(),
