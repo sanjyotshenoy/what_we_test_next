@@ -1,0 +1,307 @@
+{
+ "PC_AssayContainer": [
+  {
+   "assay": {
+    "descr": {
+     "aid": {
+      "id": 623998,
+      "version": 1
+     },
+     "aid_source": {
+      "db": {
+       "name": "Broad Institute",
+       "source_id": {
+        "str": "2046-01_Inhibitor_Dose_DryPowder_Activity"
+       },
+       "date": {
+        "std": {
+         "year": 2013,
+         "month": 4,
+         "day": 4
+        }
+       }
+      }
+     },
+     "name": "GSK3beta Measured in Biochemical System Using Plate Reader - 2046-01_Inhibitor_Dose_DryPowder_Activity",
+     "description": [
+      "Keywords: GSK3beta, kinase, inhibition, HTS",
+      "",
+      "Assay Overview:",
+      "The glycogen synthase kinase-3 beta (GSK-3b) is a known master regulator for several cellular pathways and plays a critical role in metabolism, transcription, development, cell survival, and neuronal functions.  The overall objective is to identify one or multiple series of inhibitors of GSK-3beta with micromolar potency.  Such compounds will become probe(s) with demonstrated kinase-selectivity and activation of Wnt signaling and desired effect on neuronal morphology. Structural series that demonstrates non-ATP competitive mechanism of action will be strongly preferred.  After initial characterization of potency and selectivity, dry powders of promising compounds and their analogues were ordered or synthesized.  This assay measures potency of these compounds.  4.7 ng of GSK3beta (as a GST fusion from BPS Bioscience) was incubated with varied doses of compounds (specific reaction conditions see Protocol) for 60 minutes at ambient temperature in 384 plates.  The kinase activity was measured with ADP-Glo (Promega V9103) and signals were read with Viewlux (PerkinElmer).  Positive control (GW8510 at 20 uM) was included in each plate and used to scale the data in conjunction with in-plate DMSO controls (details see Data Analysis or Comments section).",
+      "",
+      "Expected Outcome:",
+      "Inhibitors for GSK3beta activity will show as loss of luminescence signal."
+     ],
+     "protocol": [
+      "Protocol:",
+      "1) Dispense 20 uL/well of KBAPE onto 384-well plate(s) with Combi",
+      "",
+      "2) Pin 100 nL/well of compounds",
+      "",
+      "3) Dispense 1 uL/well of ATP Combi NL",
+      "",
+      "4) Incubate at room temperature for 60 minutes.",
+      "",
+      "5) Add 20uL/well of ADP-glo (Promega, V9103) with Combi, incubate at room temperature for 40 minutes",
+      "",
+      "6) Add 40 uL/well of ADP-glo (Promega, V9103) with Combi, incubate at room temperature for 30 minutes",
+      "",
+      "7) Read on Envision for luminescence",
+      "",
+      "Solutions:",
+      "",
+      "KBAPE: 4.7nM GSK3b and 7uM peptide in KBA (250 mM HEPES (pH 7.5), 50 mM MgCl2, 5 mM EGTA, 0.05% BRIJ-35)",
+      "",
+      "ATP: 140 uM ATP in KBA"
+     ],
+     "comment": [
+      "PRESENCE OF CONTROLS: Neutral control wells (NC; n=168) and positive control wells (PC; n=18) were included on every plate.",
+      "",
+      "EXPECTED OUTCOME: Active compounds result in  decreasing readout signal.",
+      "The compounds were assayed in multiple independent instances using an identical protocol; each instance is called a 'test'.  For each test, the following analysis was applied:",
+      "",
+      "ACTIVE CONCENTRATION LIMIT:",
+      "For each sample, the highest valid tested concentration (Max_Concentration) was determined and the active concentration limit (AC_limit) was set to equal  (2)(Max_Concentration).",
+      "",
+      "NORMALIZATION:",
+      "The raw signals of the plate wells were normalized using the 'Neutral Controls Minus Inhibitors' method in Genedata Assay Analyzer (v7.0.3):",
+      "The median raw signal of the intraplate neutral control wells was set to a normalized activity value of 0.",
+      "The median raw signal of the intraplate positive control wells was set to a normalized activity value of -100.",
+      "Experimental wells values were scaled to this range.",
+      "",
+      "PATTERN CORRECTION:  No plate pattern correction algorithm from Genedata Condoseo (v.7.0.3) was applied.",
+      "",
+      "MEASUREMENT USED TO DETERMINE ACTIVE CONCENTRATION (AC): AC50",
+      "AC values were calculated using the curve fitting strategies in Genedata Screener Condoseo (7.0.3).",
+      "AC values were calculated up to the active concentration limit described for each sample.",
+      "pAC was set to equal -1*log10(AC)",
+      "",
+      "PUBCHEM_ACTIVITY_OUTCOME:",
+      "Activity_Outcome = 1 (inactive) when:",
+      "a) compound shows activity but in a direction opposite to the expected outcome",
+      "in these cases, values describing curve fitting parameters (Sinf, S0, Hill Slope, log_AC50, log_AC50_SE) are set to null",
+      "b) curve fit is constant where activity is > -30% and < 30% at all tested concentrations, or",
+      "c) AC > AC_limit",
+      "Activity_Outcome = 2 (active) when:",
+      "AC <= AC_limit",
+      "Activity_Outcome = 3 (inconclusive) when:",
+      "a) Curve fitting strategy resulted in a constant fit with activity >= -70% but <= -30%, or",
+      "b) The fit was deemed not valid due to poor fit quality.",
+      "",
+      "PUBCHEM_ACTIVITY_SCORE:",
+      "If PUBCHEM_ACTIVITY_OUTCOME = 1 (inactive) or 3 (inconclusive),",
+      "then PUBCHEM_ACTIVITY_SCORE = 0",
+      "If PUBCHEM_ACTIVITY_OUTCOME = 2 (active)",
+      "then PUBCHEM_ACTIVITY_SCORE = (10)(pAC)",
+      "Scores relate to AC in this manner:",
+      "120 = 1 pM",
+      "90 = 1 nM",
+      "60 = 1 uM",
+      "30 = 1 mM",
+      "0 = 1 M",
+      "When the active concentration (AC) is calculated to be greater than the highest valid tested concentration (Max_Concentration), the PUBCHEM_ACTIVITY_SCORE is calculated using Max_Concentration as the basis.",
+      "When the active concentration (AC) is calculated to be less than the lowest tested concentration, the PUBCHEM_ACTIVITY_SCORE is calculated using the lowest tested concentration as the basis.",
+      "",
+      "DATA AGGREGATION:",
+      "Once the data for each test was processed, the test number was appended to all column headers in that test's data set. The individual test results were then aggregated as follows:",
+      "",
+      "1. The final PUBCHEM_ACTIVITY_OUTCOME was set to:",
+      "a.  '2' (active) when all test outcomes were '2' (active), or",
+      "b.  '1' (inactive) when all test outcomes were '1' (inactive), or",
+      "c.  '3' (inconclusive) when the test outcomes were mixed.",
+      "",
+      "2. The final ACTIVE_CONCENTRATION (AC) was set as follows:",
+      "a.  If the final PUBCHEM_ACTIVITY_OUTCOME = 2, AC was set as the mean of the constituent test active concentrations;",
+      "b.  If the final PUBCHEM_ACTIVITY_OUTCOME = 1 or 3, AC was left empty.",
+      "",
+      "3. The final PUBCHEM_ACTIVITY_SCORE was calculated based on the aggregated  ACTIVE_CONCENTRATION, using the same logic described above for individual test scores.",
+      "",
+      "Note:",
+      "The individual dose data point columns ('Activity_at_xxuM') reported here represent the median of valid (unmasked) replicate observations at each concentration. These values are the inputs to a curve fitting algorithm.",
+      "All other data columns represent values which are derived during the curve fitting algorithm; this may sometimes include automatic further masking of some replicate data points.",
+      "Occasionally this results in perceived inconsistencies: for example, between the derived 'Maximal_Activity' and the apparent most active data point."
+     ],
+     "target": [
+      {
+       "name": "glycogen synthase kinase-3 beta",
+       "mol_id": {
+        "protein_accession": "NP_002084.2"
+       }
+      }
+     ],
+     "activity_outcome_method": 2,
+     "results": [
+      {
+       "tid": 17,
+       "name": "Activity_at_0.00075uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.00075,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 18,
+       "name": "Activity_at_0.0021uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.0021,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 19,
+       "name": "Activity_at_0.0068uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.0068,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 20,
+       "name": "Activity_at_0.0075uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.0075,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 21,
+       "name": "Activity_at_0.0195uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.0195,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 22,
+       "name": "Activity_at_0.021uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.021,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 23,
+       "name": "Activity_at_0.06uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.06,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 24,
+       "name": "Activity_at_0.068uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.068,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 25,
+       "name": "Activity_at_0.18uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.18,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 26,
+       "name": "Activity_at_0.195uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.195,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 27,
+       "name": "Activity_at_0.5uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.5,
+        "unit": 5,
+        "dr_id": 1
+       }
+      },
+      {
+       "tid": 28,
+       "name": "Activity_at_0.6uM_(%)_TEST1",
+       "description": [
+        "The average measured activity of all accepted replicates at the specified concentration"
+       ],
+       "type": 1,
+       "unit": 15,
+       "tc": {
+        "concentration": 0.6,
+        "unit": 5,
+        "dr_id": 1
+       }
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

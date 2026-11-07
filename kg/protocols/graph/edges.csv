@@ -1,69 +1,327 @@
 src,rel,dst,props,source
-proto:kinase_biochem_lum,ANSWERS,qtype:potency,{},hand-curated
-proto:kinase_biochem_lum,APPLICABLE_TO,chembl_class:1100,{},hand-curated
-proto:kinase_biochem_lum,MEASURES,readout:luminescence_adp,{},hand-curated
-proto:kinase_biochem_lum,USES,reagent:dmso_vehicle,{},hand-curated
-proto:kinase_biochem_lum,USES,reagent:staurosporine,{},hand-curated
-proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/top_concentration,{},hand-curated
-proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/dilution_factor,{},hand-curated
-proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/n_points,{},hand-curated
-proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/replicates,{},hand-curated
-proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/dmso_percent,{},hand-curated
-proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/incubation_time,{},hand-curated
-proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step1,{},hand-curated
-proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step2,{},hand-curated
-proto:kinase_biochem_lum/step1,NEXT,proto:kinase_biochem_lum/step2,{},hand-curated
-proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step3,{},hand-curated
-proto:kinase_biochem_lum/step2,NEXT,proto:kinase_biochem_lum/step3,{},hand-curated
-proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step4,{},hand-curated
-proto:kinase_biochem_lum/step3,NEXT,proto:kinase_biochem_lum/step4,{},hand-curated
-proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step5,{},hand-curated
-proto:kinase_biochem_lum/step4,NEXT,proto:kinase_biochem_lum/step5,{},hand-curated
-proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step6,{},hand-curated
-proto:kinase_biochem_lum/step5,NEXT,proto:kinase_biochem_lum/step6,{},hand-curated
-proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step7,{},hand-curated
-proto:kinase_biochem_lum/step6,NEXT,proto:kinase_biochem_lum/step7,{},hand-curated
-proto:cell_viability_atp,ANSWERS,qtype:cellular_potency,{},hand-curated
-proto:cell_viability_atp,APPLICABLE_TO,chembl_class:1100,{},hand-curated
-proto:cell_viability_atp,MEASURES,readout:luminescence_cellular_atp,{},hand-curated
-proto:cell_viability_atp,USES,reagent:dmso_vehicle,{},hand-curated
-proto:cell_viability_atp,USES,reagent:staurosporine,{},hand-curated
-proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/top_concentration,{},hand-curated
-proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/dilution_factor,{},hand-curated
-proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/n_points,{},hand-curated
-proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/replicates,{},hand-curated
-proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/dmso_percent,{},hand-curated
-proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/incubation_time,{},hand-curated
-proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step1,{},hand-curated
-proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step2,{},hand-curated
-proto:cell_viability_atp/step1,NEXT,proto:cell_viability_atp/step2,{},hand-curated
-proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step3,{},hand-curated
-proto:cell_viability_atp/step2,NEXT,proto:cell_viability_atp/step3,{},hand-curated
-proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step4,{},hand-curated
-proto:cell_viability_atp/step3,NEXT,proto:cell_viability_atp/step4,{},hand-curated
-proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step5,{},hand-curated
-proto:cell_viability_atp/step4,NEXT,proto:cell_viability_atp/step5,{},hand-curated
-proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step6,{},hand-curated
-proto:cell_viability_atp/step5,NEXT,proto:cell_viability_atp/step6,{},hand-curated
-proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step7,{},hand-curated
-proto:cell_viability_atp/step6,NEXT,proto:cell_viability_atp/step7,{},hand-curated
-proto:kinase_binding_competition,ANSWERS,qtype:binding,{},hand-curated
-proto:kinase_binding_competition,APPLICABLE_TO,chembl_class:1100,{},hand-curated
-proto:kinase_binding_competition,MEASURES,readout:binding_signal,{},hand-curated
-proto:kinase_binding_competition,USES,reagent:dmso_vehicle,{},hand-curated
-proto:kinase_binding_competition,USES,reagent:staurosporine,{},hand-curated
-proto:kinase_binding_competition,HAS_PARAM,proto:kinase_binding_competition/param/top_concentration,{},hand-curated
-proto:kinase_binding_competition,HAS_PARAM,proto:kinase_binding_competition/param/dilution_factor,{},hand-curated
-proto:kinase_binding_competition,HAS_PARAM,proto:kinase_binding_competition/param/n_points,{},hand-curated
-proto:kinase_binding_competition,HAS_PARAM,proto:kinase_binding_competition/param/replicates,{},hand-curated
-proto:kinase_binding_competition,HAS_PARAM,proto:kinase_binding_competition/param/dmso_percent,{},hand-curated
-proto:kinase_binding_competition,HAS_PARAM,proto:kinase_binding_competition/param/incubation_time,{},hand-curated
-proto:kinase_binding_competition,HAS_STEP,proto:kinase_binding_competition/step1,{},hand-curated
-proto:kinase_binding_competition,HAS_STEP,proto:kinase_binding_competition/step2,{},hand-curated
-proto:kinase_binding_competition/step1,NEXT,proto:kinase_binding_competition/step2,{},hand-curated
-proto:kinase_binding_competition,HAS_STEP,proto:kinase_binding_competition/step3,{},hand-curated
-proto:kinase_binding_competition/step2,NEXT,proto:kinase_binding_competition/step3,{},hand-curated
-proto:kinase_binding_competition,HAS_STEP,proto:kinase_binding_competition/step4,{},hand-curated
-proto:kinase_binding_competition/step3,NEXT,proto:kinase_binding_competition/step4,{},hand-curated
-proto:kinase_binding_competition,HAS_STEP,proto:kinase_binding_competition/step5,{},hand-curated
-proto:kinase_binding_competition/step4,NEXT,proto:kinase_binding_competition/step5,{},hand-curated
+proto:kinase_biochem_lum,ANSWERS,qtype:potency,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_biochem_lum,APPLICABLE_TO,chembl_class:1100,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_biochem_lum,MEASURES,readout:kinase_biochem_lum,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/min_points_enzyme_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_enzyme_ic50,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_crc,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/even_spacing,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/even_spacing,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/bracket_expected_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/bracket_expected_ic50,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/report_ic50_criteria,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/report_ic50_criteria,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/tight_binding_limit,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/tight_binding_limit,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/substrate_at_km,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/substrate_at_km,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/initial_velocity,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/initial_velocity,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/dmso_tolerance,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/dmso_tolerance,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/vehicle_control,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/vehicle_control,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/max_min_controls,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/max_min_controls,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/reference_compound,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reference_compound,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/z_prime,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/z_prime,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/reproducibility_msr,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reproducibility_msr,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/four_parameter_fit,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/four_parameter_fit,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_RULE,rule:agm/luciferase_counterscreen,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/luciferase_counterscreen,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/top_concentration,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/dilution_factor,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/n_points,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/independent_runs,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/dmso_percent,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/compound_preincubation_time,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/kinase_reaction_time,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/kinase_reaction_temperature,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/atp_final_concentration,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/atp_stock_concentration,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/enzyme_final_concentration,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/mgcl2_concentration,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/adp_glo_reagent_time,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/detection_reagent_time,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_PARAM,proto:kinase_biochem_lum/param/plate_wells,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step1,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step2,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step1,NEXT,proto:kinase_biochem_lum/step2,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step3,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step2,NEXT,proto:kinase_biochem_lum/step3,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step4,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step3,NEXT,proto:kinase_biochem_lum/step4,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step5,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step4,NEXT,proto:kinase_biochem_lum/step5,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step6,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step5,NEXT,proto:kinase_biochem_lum/step6,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step7,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step6,NEXT,proto:kinase_biochem_lum/step7,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step8,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step7,NEXT,proto:kinase_biochem_lum/step8,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step9,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step8,NEXT,proto:kinase_biochem_lum/step9,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step10,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step9,NEXT,proto:kinase_biochem_lum/step10,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step11,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step10,NEXT,proto:kinase_biochem_lum/step11,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,USES,reagent:dmso_vehicle,"{""role"": ""negative""}","agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,USES,reagent:no_enzyme,"{""role"": ""positive""}","agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum,USES,reagent:reference_inhibitor,"{""role"": ""positive""}","agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_trfret,ANSWERS,qtype:potency,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_biochem_trfret,APPLICABLE_TO,chembl_class:1100,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_biochem_trfret,MEASURES,readout:kinase_biochem_trfret,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/min_points_enzyme_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_enzyme_ic50,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_crc,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/even_spacing,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/even_spacing,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/bracket_expected_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/bracket_expected_ic50,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/report_ic50_criteria,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/report_ic50_criteria,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/tight_binding_limit,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/tight_binding_limit,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/substrate_at_km,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/substrate_at_km,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/initial_velocity,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/initial_velocity,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/dmso_tolerance,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/dmso_tolerance,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/vehicle_control,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/vehicle_control,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/max_min_controls,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/max_min_controls,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/reference_compound,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reference_compound,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/z_prime,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/z_prime,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/reproducibility_msr,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reproducibility_msr,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_biochem_trfret,HAS_RULE,rule:agm/four_parameter_fit,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/four_parameter_fit,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,ANSWERS,qtype:binding,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_binding_competition,APPLICABLE_TO,chembl_class:1100,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_binding_competition,MEASURES,readout:kinase_binding_competition,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_binding_competition,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_crc,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,HAS_RULE,rule:agm/even_spacing,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/even_spacing,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,HAS_RULE,rule:agm/bracket_expected_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/bracket_expected_ic50,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,HAS_RULE,rule:agm/dmso_tolerance,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/dmso_tolerance,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,HAS_RULE,rule:agm/vehicle_control,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/vehicle_control,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,HAS_RULE,rule:agm/max_min_controls,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/max_min_controls,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,HAS_RULE,rule:agm/reference_compound,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reference_compound,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,HAS_RULE,rule:agm/z_prime,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/z_prime,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,HAS_RULE,rule:agm/reproducibility_msr,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reproducibility_msr,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,HAS_RULE,rule:agm/four_parameter_fit,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/four_parameter_fit,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_binding_competition,HAS_RULE,rule:agm/tracer_at_or_below_kd,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/tracer_at_or_below_kd,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,ANSWERS,qtype:cellular_potency,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:cell_viability_atp,APPLICABLE_TO,chembl_class:1100,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:cell_viability_atp,MEASURES,readout:cell_viability_atp,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:cell_viability_atp,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_crc,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_RULE,rule:agm/even_spacing,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/even_spacing,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_RULE,rule:agm/bracket_expected_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/bracket_expected_ic50,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_RULE,rule:agm/dmso_tolerance,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/dmso_tolerance,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_RULE,rule:agm/vehicle_control,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/vehicle_control,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_RULE,rule:agm/max_min_controls,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/max_min_controls,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_RULE,rule:agm/reference_compound,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reference_compound,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_RULE,rule:agm/z_prime,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/z_prime,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_RULE,rule:agm/reproducibility_msr,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reproducibility_msr,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_RULE,rule:agm/four_parameter_fit,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/four_parameter_fit,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_RULE,rule:agm/luciferase_counterscreen,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/luciferase_counterscreen,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/top_concentration,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/dilution_factor,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/n_points,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/replicates,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/dmso_percent,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/cells_per_well,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/cell_volume,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/cell_attachment_time,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/compound_exposure_time,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/incubation_temperature,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/equilibration_time,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/detection_reagent_volume,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/detection_time,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_PARAM,proto:cell_viability_atp/param/plate_wells,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step1,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step2,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step1,NEXT,proto:cell_viability_atp/step2,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step3,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step2,NEXT,proto:cell_viability_atp/step3,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step4,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step3,NEXT,proto:cell_viability_atp/step4,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step5,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step4,NEXT,proto:cell_viability_atp/step5,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step6,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step5,NEXT,proto:cell_viability_atp/step6,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step7,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step6,NEXT,proto:cell_viability_atp/step7,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step8,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step7,NEXT,proto:cell_viability_atp/step8,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step9,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step8,NEXT,proto:cell_viability_atp/step9,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step10,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step9,NEXT,proto:cell_viability_atp/step10,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,USES,reagent:dmso_vehicle,"{""role"": ""negative""}","agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,USES,reagent:reference_inhibitor,"{""role"": ""positive""}","agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,USES,reagent:medium_only,"{""role"": ""positive""}","agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp,USES,reagent:parental_cell_line,"{""role"": ""counterscreen""}","agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:kinase_cellular_target_engagement,ANSWERS,qtype:target_engagement,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_cellular_target_engagement,APPLICABLE_TO,chembl_class:1100,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_cellular_target_engagement,MEASURES,readout:kinase_cellular_target_engagement,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_crc,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/even_spacing,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/even_spacing,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/bracket_expected_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/bracket_expected_ic50,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/dmso_tolerance,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/dmso_tolerance,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/vehicle_control,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/vehicle_control,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/max_min_controls,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/max_min_controls,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/reference_compound,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reference_compound,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/z_prime,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/z_prime,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/reproducibility_msr,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reproducibility_msr,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/four_parameter_fit,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/four_parameter_fit,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/luciferase_counterscreen,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/luciferase_counterscreen,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/tracer_at_or_below_kd,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/tracer_at_or_below_kd,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,ANSWERS,qtype:functional_potency,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:gpcr_camp_functional,APPLICABLE_TO,chembl_class:1020,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:gpcr_camp_functional,APPLICABLE_TO,chembl_class:1021,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:gpcr_camp_functional,APPLICABLE_TO,chembl_class:1022,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:gpcr_camp_functional,MEASURES,readout:gpcr_camp_functional,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_crc,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/even_spacing,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/even_spacing,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/bracket_expected_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/bracket_expected_ic50,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/dmso_tolerance,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/dmso_tolerance,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/vehicle_control,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/vehicle_control,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/max_min_controls,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/max_min_controls,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/reference_compound,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reference_compound,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/z_prime,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/z_prime,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/reproducibility_msr,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reproducibility_msr,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/four_parameter_fit,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/four_parameter_fit,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:gpcr_camp_functional,HAS_RULE,rule:agm/camp_antagonist_agonist_level,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/camp_antagonist_agonist_level,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,ANSWERS,qtype:potency,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:protease_fret_activity,APPLICABLE_TO,chembl_class:1028,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:protease_fret_activity,MEASURES,readout:protease_fret_activity,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:protease_fret_activity,HAS_RULE,rule:agm/min_points_enzyme_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_enzyme_ic50,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_crc,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/even_spacing,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/even_spacing,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/bracket_expected_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/bracket_expected_ic50,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/report_ic50_criteria,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/report_ic50_criteria,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/tight_binding_limit,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/tight_binding_limit,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/substrate_at_km,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/substrate_at_km,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/initial_velocity,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/initial_velocity,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/dmso_tolerance,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/dmso_tolerance,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/vehicle_control,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/vehicle_control,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/max_min_controls,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/max_min_controls,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/reference_compound,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reference_compound,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/z_prime,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/z_prime,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/reproducibility_msr,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reproducibility_msr,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:protease_fret_activity,HAS_RULE,rule:agm/four_parameter_fit,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/four_parameter_fit,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:bacterial_mic_broth,ANSWERS,qtype:growth_inhibition,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:bacterial_mic_broth,APPLICABLE_TO,chembl_target_type:ORGANISM,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:bacterial_mic_broth,MEASURES,readout:bacterial_mic_broth,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:bacterial_mic_broth,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/min_points_crc,APPLIES_TO,proto:bacterial_mic_broth,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:bacterial_mic_broth,HAS_RULE,rule:agm/dmso_tolerance,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/dmso_tolerance,APPLIES_TO,proto:bacterial_mic_broth,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:bacterial_mic_broth,HAS_RULE,rule:agm/vehicle_control,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/vehicle_control,APPLIES_TO,proto:bacterial_mic_broth,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:bacterial_mic_broth,HAS_RULE,rule:agm/max_min_controls,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/max_min_controls,APPLIES_TO,proto:bacterial_mic_broth,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:bacterial_mic_broth,HAS_RULE,rule:agm/reference_compound,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reference_compound,APPLIES_TO,proto:bacterial_mic_broth,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:bacterial_mic_broth,HAS_RULE,rule:agm/z_prime,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/z_prime,APPLIES_TO,proto:bacterial_mic_broth,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:bacterial_mic_broth,HAS_RULE,rule:agm/reproducibility_msr,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/reproducibility_msr,APPLIES_TO,proto:bacterial_mic_broth,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:bacterial_mic_broth,HAS_RULE,rule:agm/four_parameter_fit,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+rule:agm/four_parameter_fit,APPLIES_TO,proto:bacterial_mic_broth,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
+proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/top_concentration,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/dilution_factor,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/n_points,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/replicates,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/inoculum_added,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/final_volume,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/incubation_time,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/incubation_temperature,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/read_wavelength,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/plate_wells,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step1,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step2,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth/step1,NEXT,proto:bacterial_mic_broth/step2,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step3,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth/step2,NEXT,proto:bacterial_mic_broth/step3,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step4,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth/step3,NEXT,proto:bacterial_mic_broth/step4,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step5,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth/step4,NEXT,proto:bacterial_mic_broth/step5,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step6,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth/step5,NEXT,proto:bacterial_mic_broth/step6,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step7,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth/step6,NEXT,proto:bacterial_mic_broth/step7,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,USES,reagent:growth_control,"{""role"": ""negative""}","agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,USES,reagent:sterility_control,"{""role"": ""positive""}","agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth,USES,reagent:reference_antibiotic,"{""role"": ""positive""}","agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
