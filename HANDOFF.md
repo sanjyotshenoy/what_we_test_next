@@ -263,7 +263,7 @@ screen). Deploy: automatic on push to main if the `CLOUDFLARE_API_TOKEN` repo se
 the committed `slides/.pages-prefix`); by hand `slides/tools/deploy_unlisted.sh zhang-etal-biohack` (needs
 `wrangler login`).
 
-### 4.7 Demo page (`slides/talks/biohack/demo/`)
+### 4.7 Demo page (`demo/`, moved to the repo root; symlinked into the deck)
 Static page: a search box with a predefined query and a **timeline of one query's lifecycle**: (1) ask the KB →
 "I don't know" (record held out); (2) tool calls `bio_kg.resolve`, `bio_kg.analogs`, `protocol_kg.templates`;
 (3) reasoning; (4) proposed experiment with citation chips; (5) procedure + 96-well plate map + OT-2 script +

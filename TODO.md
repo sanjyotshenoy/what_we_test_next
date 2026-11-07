@@ -10,8 +10,8 @@ When you leave something fake or unfinished behind, add a `TODO(final): ...` com
 it, delete the comment. The checklist below is a snapshot for orientation; the grep is the source of truth.
 
 **On screen (embarrassing if forgotten)**
-- [ ] Demo plays a mock trace with a "Mock trace" badge: replace `slides/talks/biohack/demo/runs/kit_imatinib.js`
-  with a real run, `mock: false`, real held-out ChEMBL assay ID (also `demo/index.html`, `slides/demo.js` notes)
+- [ ] Demo plays a mock trace with a "Mock trace" badge: replace `demo/runs/kit_imatinib.js`
+  with a real run, `mock: false`, real held-out ChEMBL assay ID (also `demo/index.html`, `slides/talks/biohack/slides/demo.js` notes)
 - [ ] Benchmark charts are empty ("—"): fill `RESULTS` in `slides/talks/biohack/slides/benchmarks.js`
 - [ ] Slides that still say "Placeholder: ...": `slides/talks/biohack/slides/blank.js`
 - [ ] Outline is the dummy one: confirm `slides/talks/biohack/slides/outline.js`

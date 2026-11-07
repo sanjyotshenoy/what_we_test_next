@@ -111,3 +111,11 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   so they may not be fully public; no documented public IP / open ports.
 - Suggested: keep the public demo static (already on Cloudflare Pages) replaying real traces; optional live mode = a
   small backend behind a Brev or Cloudflare tunnel, tested from outside the network, with recorded traces as fallback.
+
+**The demo becomes a real app** (ramiiith / professorduckydoo, 18:58).
+- Decided: the demo moved from `slides/talks/biohack/demo/` to [demo/](demo/) at the repo root, so work on it
+  doesn't redeploy the slides. It is self-contained (fonts copied in); the deck reaches it through the symlink
+  `slides/talks/biohack/demo -> ../../../demo`, which `build_site.sh` now follows (`cp -rL`). Publish demo-only
+  changes by running the Deploy slides workflow by hand.
+- Plan in [demo/README.md](demo/README.md): (1) the pipeline writes real traces in the existing format, (2) optional
+  live backend that returns a trace, `find()` fetches it, (3) recorded traces stay as the fallback.
