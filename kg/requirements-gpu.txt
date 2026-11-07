@@ -1,0 +1,6 @@
+# GPU mode for kg/ (WWTN_GPU=1; see kg/backend.py): RAPIDS for CUDA 13 drivers. On top of the root requirements:
+#   pip install -r requirements.txt -r kg/requirements-gpu.txt
+# Not needed for CPU mode, which is the default.
+--extra-index-url=https://pypi.nvidia.com
+cudf-cu13>=26.10
+nx-cugraph-cu13>=26.10
