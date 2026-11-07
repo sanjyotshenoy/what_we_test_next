@@ -26,6 +26,7 @@ DEFAULT_MODEL = os.environ.get("NEBIUS_MODEL", "openai/gpt-oss-120b")
 # The models both benchmarks compare (one per lab, a range of sizes); keep in step with MODELS in
 # slides/talks/biohack/slides/benchmarks.js. Check they are still served with `python -m wwtn.llm --models`:
 # Nebius retires models often (see its deprecation notices).
+# TODO(final): confirm these are live on our key (python -m wwtn.llm --models) before the benchmark runs.
 EVAL_MODELS = [
     "deepseek-ai/DeepSeek-V4-Pro-0813",
     "moonshotai/Kimi-K3",

@@ -2,6 +2,7 @@
 // the heading. Interactive, so clicks and scrolls stay in the page; click outside the frame or use the arrow
 // keys (after clicking the slide's margin) to move on. It takes the place of the "Demo" placeholder, which stays
 // in blank.js but is hidden. Load with Deck.section(4) before it. One step.
+// TODO(final): drop "mock trace" from the notes once the demo plays a real run.
 Deck.slide('demo', {
   before: 'blank-8',
   interactive: true,

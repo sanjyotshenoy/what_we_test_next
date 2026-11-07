@@ -35,6 +35,12 @@ schema, and build against those. Knowledge graphs use the node/edge CSV format i
 - Every folder keeps a short `README.md`: what it does, who owns it, how to run it, what it writes.
 - LLM calls go through `wwtn.llm.chat` so we can switch models in one place and compare them fairly.
 
+## Things to finish before presenting
+
+Anything that is mock, placeholder or unconfirmed carries a `TODO(final)` comment where it lives, so nothing fake
+ends up on screen. Add one whenever you leave such a thing behind, and list what is left with
+`grep -rn "TODO(final)" --exclude-dir=.git .` (see [TODO.md](TODO.md)).
+
 ## Coding agents
 
 Claude Code, Codex and others read [AGENTS.md](AGENTS.md); keep it in step with this file.

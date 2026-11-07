@@ -1,6 +1,8 @@
 // A MOCK trace of one query through the whole pipeline, for the demo page until the agent writes real ones.
 // Every number marked mock is illustrative; the IDs (ChEMBL, UniProt, BAO) are real. The shape is the trace
 // format in ../README.md: replace this file with the agent's output and the page shows the real run.
+// TODO(final): replace this mock with a real trace from the pipeline and set mock: false (the page shows a
+// "Mock trace" badge while it is true); fill in the held-out ChEMBL assay ID in validation.held_out.
 (window.DEMO_RUNS = window.DEMO_RUNS || []).push({
   id: 'kit-imatinib',
   mock: true,

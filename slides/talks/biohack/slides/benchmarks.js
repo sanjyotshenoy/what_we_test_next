@@ -10,6 +10,7 @@
 // a percentage of questions: fill one in as RESULTS[chart][model id][group key], e.g.
 //   RESULTS.propose['moonshotai/Kimi-K3'] = { bare: 40, lit: 55, kg: 80 };
 {
+// TODO(final): confirm these four are live on our Nebius key (python -m wwtn.llm --models).
 const MODELS = [
   { id: 'deepseek-ai/DeepSeek-V4-Pro-0813', name: 'DeepSeek V4 Pro' },
   { id: 'moonshotai/Kimi-K3', name: 'Kimi K3' },
@@ -17,6 +18,7 @@ const MODELS = [
   { id: 'zai-org/GLM-5.3', name: 'GLM-5.3' },
 ];
 
+// TODO(final): fill in from the benchmark runs; until then every bar is empty and labelled "—".
 const RESULTS = { propose: {}, fields: {}, code: {} };
 
 const CHARTS = [

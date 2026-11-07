@@ -1,6 +1,6 @@
 # kg/biology/: the biology knowledge graph
 
-**Owner:** _(fill in)_
+**Owner:** _(fill in)_ <!-- TODO(final): owner -->
 
 A small subgraph around our questions: compounds, their targets, target classes, and known activities (IC50s), plus
 similar compounds, whose potencies tell the agent what concentration range to test.

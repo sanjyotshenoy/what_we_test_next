@@ -1,6 +1,6 @@
 # kg/protocols/: the protocol knowledge graph
 
-**Owner:** _(fill in)_
+**Owner:** _(fill in)_ <!-- TODO(final): owner -->
 
 Dose-response protocol templates as small typed graphs: `Protocol → Step → Parameter`, with the reagents, labware,
 readout and endpoint each one uses, tagged with BioAssay Ontology (BAO) IDs and linked to target classes.

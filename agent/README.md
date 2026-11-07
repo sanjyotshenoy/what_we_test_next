@@ -1,6 +1,6 @@
 # agent/: aim 1, propose the missing experiment
 
-**Owner:** _(fill in)_
+**Owner:** _(fill in)_ <!-- TODO(final): owner -->
 
 Given a `Question` the knowledge base cannot answer ("does compound X inhibit target Y?"), decide whether the KB
 already answers it, and if not, propose the experiment that would: an `ExperimentProposal` grounded in both graphs,

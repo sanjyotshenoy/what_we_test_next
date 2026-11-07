@@ -1,6 +1,6 @@
 # benchmark/: the questions, the answers, and the grading
 
-**Owner:** _(fill in)_
+**Owner:** _(fill in)_ <!-- TODO(final): owner -->
 
 - **Questions** the KB cannot answer, built by **holding facts out**: take known (compound, target) IC50 results
   (e.g. from ChEMBL), remove them from the biology KG, and ask about them. Start with about 5 hand-picked ones in
@@ -8,6 +8,7 @@
 - **Ground truth:** the assay that was actually run (from the held-out ChEMBL assay record), as a `GroundTruth`.
 - **Writes:** `questions.jsonl` (`Question`), `ground_truth.jsonl` (`GroundTruth`), `held_out.csv` (the
   (compound, target) pairs `kg/biology/` must leave out).
+<!-- TODO(final): pick the range-accuracy metric (it must penalize very wide ranges) before writing the grader. -->
 - **Grading** (`python -m benchmark.grade agent/out/<run>.jsonl`, _to write_):
   - did it say the KB cannot answer, instead of quoting a memorized IC50?
   - field by field against the ground truth: assay type, readout, system, concentration range (does it bracket

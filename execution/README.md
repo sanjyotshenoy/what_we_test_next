@@ -1,6 +1,6 @@
 # execution/: aim 2, turn the proposal into a protocol the robot runs
 
-**Owner:** _(fill in)_
+**Owner:** _(fill in)_ <!-- TODO(final): owner -->
 
 From an `ExperimentProposal`, generate an Opentrons OT-2 protocol (Python API v2), check that it runs in the
 simulator, and, for the demo, run it on the real OT-2 (food colouring into water).

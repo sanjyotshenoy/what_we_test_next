@@ -3,6 +3,8 @@
 // footer (outline.js names the sections). When a slide needs more than that, give it its own file in slides/
 // (one module per slide, like title.js) and drop its entry here. One step each.
 {
+// TODO(final): each of these still says "Placeholder: ..." on screen; give it real content (its own file) or
+// delete it. 'blank-7' (Demo) is hidden by demo.js.
 const SLIDES = [
   ['1', 'Deciding what to test next is hard',
     'Knowledge is scattered across papers, databases and protocols; choosing the next experiment still rests on expert intuition.'],

@@ -58,6 +58,7 @@ Deck.slide('title', {
     };
     // headshots in data/team/<first-last>.jpg (360 px squares; from the CMU CPCB students page). Add a name here
     // once its file is there; the rest show their initials.
+    // TODO(final): photos for Emmy Nguyen, Jimmy Hsu and Xiaochen Zhai (they show initials for now).
     const PHOTOS = new Set(['Aidan Zhang', 'Ramith Hettiarachchi', 'Sanjyot Shenoy', 'Seh Na Mellick']);
     const face = (n) => {
       const words = n.split(' ');

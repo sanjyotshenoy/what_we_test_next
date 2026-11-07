@@ -5,6 +5,7 @@
 // footer (FOOTER gives shorter footer names where a heading is long). Steps: the heading, then one section
 // per click.
 {
+// TODO(final): confirm the sections against the finished talk (this is the dummy outline).
 const OUTLINE = [
   ['1', 'The problem: what should we test next?'],
   ['2', 'Our approach: knowledge graphs + an LLM', [
