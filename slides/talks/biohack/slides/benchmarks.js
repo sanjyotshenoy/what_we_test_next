@@ -10,7 +10,7 @@ const MODELS = [
   { id: 'deepseek-ai/DeepSeek-V4-Pro-0813', name: 'DeepSeek V4 Pro' },
   { id: 'moonshotai/Kimi-K3', name: 'Kimi K3' },
   { id: 'Qwen/Qwen3.8-27B', name: 'Qwen3.8 27B' },
-  { id: 'openai/gpt-oss-120b', name: 'gpt-oss 120B' },
+  { id: 'zai-org/GLM-5.3', name: 'GLM-5.3' },
 ];
 
 // e.g. RESULTS.propose['moonshotai/Kimi-K3'] = { abstain: '9/10', ... }

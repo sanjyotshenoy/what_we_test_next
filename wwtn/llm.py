@@ -30,7 +30,7 @@ EVAL_MODELS = [
     "deepseek-ai/DeepSeek-V4-Pro-0813",
     "moonshotai/Kimi-K3",
     "Qwen/Qwen3.8-27B",
-    "openai/gpt-oss-120b",
+    "zai-org/GLM-5.3",
 ]
 
 
