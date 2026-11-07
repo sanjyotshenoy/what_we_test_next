@@ -15,7 +15,7 @@ CREATE TABLE protein_classification (protein_class_id INTEGER PRIMARY KEY, paren
                                      class_level INTEGER);
 CREATE TABLE component_class (component_id INTEGER, protein_class_id INTEGER);
 CREATE TABLE assays (assay_id INTEGER PRIMARY KEY, chembl_id TEXT, description TEXT, assay_type TEXT,
-                     bao_format TEXT, tid INTEGER, doc_id INTEGER);
+                     bao_format TEXT, tid INTEGER, doc_id INTEGER, variant_id INTEGER);
 CREATE TABLE molecule_dictionary (molregno INTEGER PRIMARY KEY, chembl_id TEXT, pref_name TEXT);
 CREATE TABLE compound_structures (molregno INTEGER PRIMARY KEY, canonical_smiles TEXT);
 CREATE TABLE activities (activity_id INTEGER PRIMARY KEY, assay_id INTEGER, doc_id INTEGER, molregno INTEGER,
@@ -45,10 +45,11 @@ def db(tmp_path):
         (1285, 1100, "TK protein kinase group", 4), (159, 1285, "Tyrosine protein kinase PDGFR family", 5),
     ])
     con.execute("INSERT INTO component_class VALUES (255, 159)")
-    con.executemany("INSERT INTO assays VALUES (?,?,?,?,?,?,?)", [
-        (100, "CHEMBL_A1", "Inhibition of KIT", "B", "BAO_0000357", 10, 1),
-        (101, "CHEMBL_A2", "Inhibition of KIT", "B", "BAO_0000357", 10, 2),
-        (102, "CHEMBL_A3", "Inhibition of KIT", "B", "BAO_0000357", 10, 3),
+    con.executemany("INSERT INTO assays VALUES (?,?,?,?,?,?,?,?)", [
+        (100, "CHEMBL_A1", "Inhibition of KIT", "B", "BAO_0000357", 10, 1, None),
+        (101, "CHEMBL_A2", "Inhibition of KIT", "B", "BAO_0000357", 10, 2, None),
+        (102, "CHEMBL_A3", "Inhibition of KIT", "B", "BAO_0000357", 10, 3, None),
+        (103, "CHEMBL_A4", "Inhibition of KIT D816V mutant", "B", "BAO_0000357", 10, 1, 77),
     ])
     con.executemany("INSERT INTO molecule_dictionary VALUES (?,?,?)", [
         (1, "CHEMBL941", "IMATINIB"), (2, "CHEMBL2", None), (3, "CHEMBL3", None)])
@@ -61,6 +62,8 @@ def db(tmp_path):
         (1004, 100, 1, 3, "IC50", "=", 50.0, "%", None, None),        # wrong units
         (1005, 100, 1, 3, "Ki", "=", 50.0, "nM", 7.3, None),          # not an IC50
         (1006, 100, 1, 3, "IC50", "=", 60.0, "nM", 7.2, "Outside typical range"),
+        (1007, 100, 1, 3, "IC50", "=", 70.0, "nM", 7.1, "Manually validated"),   # good data: kept
+        (1008, 103, 1, 3, "IC50", "=", 80.0, "nM", 7.1, None),                   # mutant assay: dropped
     ])
     con.commit()
     con.close()
@@ -69,7 +72,7 @@ def db(tmp_path):
 
 def test_activities_cutoff_filters_and_order(db):
     frame = db.activities("CHEMBL1936", before_year=2024)
-    assert list(frame["activity_id"]) == [1001, 1000]
+    assert list(frame["activity_id"]) == [1001, 1000, 1007]
     rows = frame.to_dict("records")
     first = rows[0]
     assert first["molecule_chembl_id"] == "CHEMBL2"

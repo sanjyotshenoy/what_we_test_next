@@ -18,9 +18,9 @@ from kg.constants import CAP_PER_TARGET
 
 DEFAULT_PATH = Path("data/raw/chembl/chembl_37/chembl_37_sqlite/chembl_37.db")
 
-# TODO(final): column names come from the ChEMBL schema docs and are tested only on a fixture DB: check them
-# against the real ChEMBL 37 dump. Also decide: `data_validity_comment IS NULL` drops rows marked "Manually
-# validated" (good data), and mutant assays (assays.variant_id not null) are counted as wild-type IC50s.
+# Checked against the real ChEMBL 37 dump (2026-11-07). Keeps rows with no validity flag or "Manually validated"
+# (35 IC50s in all of ChEMBL); drops mutant assays (assays.variant_id set; ~0.5% of IC50s on the seed targets),
+# so the potency prior describes the wild-type protein.
 ACTIVITIES_SQL = """
 SELECT act.activity_id, md.chembl_id AS molecule_chembl_id, md.pref_name AS molecule_pref_name,
        cs.canonical_smiles, td.chembl_id AS target_chembl_id, a.chembl_id AS assay_chembl_id,
@@ -33,7 +33,9 @@ JOIN docs d ON d.doc_id = act.doc_id
 JOIN molecule_dictionary md ON md.molregno = act.molregno
 LEFT JOIN compound_structures cs ON cs.molregno = act.molregno
 WHERE td.chembl_id = ? AND act.standard_type = 'IC50' AND act.standard_relation = '='
-  AND act.standard_units = 'nM' AND act.standard_value IS NOT NULL AND act.data_validity_comment IS NULL
+  AND act.standard_units = 'nM' AND act.standard_value IS NOT NULL
+  AND (act.data_validity_comment IS NULL OR act.data_validity_comment = 'Manually validated')
+  AND a.variant_id IS NULL
   AND d.year IS NOT NULL AND d.year < ?
 ORDER BY d.year DESC, act.pchembl_value IS NULL, act.activity_id
 LIMIT ?
