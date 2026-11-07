@@ -196,3 +196,14 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 - Open: templates are agent-curated, not human-checked; MIC `applicable_to` is a placeholder
   (`chembl_target_type:ORGANISM`) needing the biology owner's call; `extract.py` never run against a real model;
   new question types (target_engagement, functional_potency, growth_inhibition) need adding to the agent's routing.
+
+**`agent-on-kg` finished** (head 2e948bc, reviewed).
+- The agent's tools now run on `kg.query` via a backend module: class-chain template lookup, question-type routing
+  (says which types do apply when none match), gene symbols for the 19 seed kinases, RDKit Tanimoto analogs on the
+  same target, a graph-free compound resolve (ChEMBL structure fields only, cached; never activities, which would
+  leak held-out measurements), and the abstain verdict split into `no_measurement` vs `unresolved`.
+- Verified: CHEMBL5593141 x BTK returns ibrutinib-like analogs at Tanimoto 0.58-0.60, IC50 0.72-19 nM (was
+  "similarity n/a" and arbitrary rows). 97 tests pass, 1 GPU skipped. Merge into main conflicts only in
+  DISCUSSIONS.md.
+- Open: confirm CHEMBL5593141 x BTK as a benchmark pair (TODO(final)); re-record the demo trace on the real graph
+  (needs the Nebius key on the bot's machine).
