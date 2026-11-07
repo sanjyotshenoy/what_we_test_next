@@ -61,7 +61,8 @@ class KnowledgeBase(GraphBackend):
                 "rows": []}
 
     def bio_kg_resolve(self, compound: str, target: str) -> dict:
-        c, t = self.find_compound(compound), self.find_target(target)
+        c, where = self.resolve_compound(compound)
+        t = self.find_target(target)
         rows, classes, with_templates = [], [], []
         if c:
             rows.append([c["id"], c["type"], c["name"]])
@@ -74,6 +75,10 @@ class KnowledgeBase(GraphBackend):
         missing = [x for x, n in ((compound, c), (target, t)) if not n]
         if missing:
             summary = f"Not found in the biology KG: {', '.join(missing)}."
+        elif not c.get("in_graph", True):
+            where_from = f"its structure came from {where}"
+            summary = (f"{c['id']} is not a node in the biology KG ({where_from}), so the graph holds no "
+                       f"measurement for it; the target resolved and its class chain is below.")
         elif with_templates:
             where = ", ".join(f"{self.name(x)} ({x})" for x in with_templates)
             summary = f"Both entities found; protocol templates hang off the target's class chain at {where}."
@@ -86,6 +91,8 @@ class KnowledgeBase(GraphBackend):
         if c:
             detail["compound_structure_only"] = bool(c["props"].get("structure_only"))
             detail["compound_has_smiles"] = bool(c["props"].get("smiles"))
+            detail["compound_in_graph"] = bool(c.get("in_graph", True))
+            detail["compound_source"] = where
         if t:
             detail["target_gene"] = self.gene(t)
         return {"summary": summary, "columns": ["ID", "Type", "Name"], "rows": rows, **detail}
@@ -94,13 +101,15 @@ class KnowledgeBase(GraphBackend):
         """The k compounds most similar to this one (Morgan r2, 2048 bits, Tanimoto) that have an IC50 on the
         same target, with the target-wide potency spread as context. The graph has no SIMILAR_TO edges: the
         similarity is computed here from the compounds' SMILES, so a structure-only candidate works too."""
-        c, t = self.find_compound(compound), self.find_target(target)
+        c, where = self.resolve_compound(compound)      # the graph, else the ChEMBL dump or the cached API
+        t = self.find_target(target)
         cols = ["Compound", "Similarity", "IC50"]
         if not c or not t:
             missing = [x for x, n in ((compound, c), (target, t)) if not n]
-            return {"summary": f"Not found in the biology KG: {', '.join(missing)}.", "columns": cols, "rows": []}
+            return {"summary": f"Could not resolve: {', '.join(missing)}.", "columns": cols, "rows": [],
+                    "compound_source": where if c else "unresolved"}
         gene = self.gene(t)
-        analogs, ranked = self.analogs(c["id"], t["id"], k)
+        analogs, ranked = self.analogs(c["id"], t["id"], k, smiles=c["props"].get("smiles") or None)
         spread = self.potency_summary(t["id"])
         rows = [[f"{a['name']} ({a['compound']})",
                  f"{a['similarity']:.2f}" if ranked else "n/a", fmt_uM(a["ic50_nM"])] for a in analogs]
@@ -115,8 +124,11 @@ class KnowledgeBase(GraphBackend):
                        f"spread (n={spread['n']}, median {fmt_uM(spread['median_nM'])}).")
         else:
             summary = f"No compound in the KG has a measured IC50 on {gene}."
+        if not c.get("in_graph", True):
+            summary += (f" {c['id']} is not in the knowledge graph: its structure came from {where}, "
+                        f"and only the analogs' IC50s are from the graph.")
         return {"summary": summary, "columns": cols[:2] + [f"IC50 on {gene}"], "rows": rows,
-                "ic50_nM": [a["ic50_nM"] for a in analogs],
+                "compound_id": c["id"], "compound_source": where, "ic50_nM": [a["ic50_nM"] for a in analogs],
                 "similarity": [round(a["similarity"], 3) for a in analogs] if ranked else None,
                 "ranked_by_similarity": ranked, "fingerprint": "Morgan r=2, 2048 bits, Tanimoto",
                 "target_potency_spread_nM": spread}

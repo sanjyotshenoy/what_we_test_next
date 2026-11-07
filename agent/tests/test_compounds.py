@@ -74,6 +74,7 @@ class StubAPI(CompoundResolver):
 @pytest.mark.parametrize("query", ["ibrutinib", "CHEMBL1873475"])
 def test_the_api_is_the_last_resort(tmp_path, monkeypatch, query):
     monkeypatch.setenv("CHEMBL_SQLITE", str(tmp_path / "nope.db"))
+    monkeypatch.delenv("WWTN_OFFLINE", raising=False)
     r = StubAPI(graph=None, cache=tmp_path / "cache")
     hit = r.resolve(query)
     assert hit.id == "CHEMBL1873475" and hit.smiles == "C=CC(=O)N1CCCC1" and hit.source == "ChEMBL API"
@@ -86,6 +87,7 @@ def test_the_api_is_the_last_resort(tmp_path, monkeypatch, query):
 
 def test_api_answers_are_cached_on_disk(tmp_path, monkeypatch):
     monkeypatch.setenv("CHEMBL_SQLITE", str(tmp_path / "nope.db"))
+    monkeypatch.delenv("WWTN_OFFLINE", raising=False)
     cache = tmp_path / "cache"
     first = StubAPI(graph=None, cache=cache)
     first.resolve("ibrutinib")
@@ -101,6 +103,8 @@ def test_api_answers_are_cached_on_disk(tmp_path, monkeypatch):
 def test_an_api_failure_degrades_gracefully(tmp_path, monkeypatch):
     monkeypatch.setenv("CHEMBL_SQLITE", str(tmp_path / "nope.db"))
 
+    monkeypatch.delenv("WWTN_OFFLINE", raising=False)
+
     class Broken(CompoundResolver):
         def fetch(self, url):
             self.notes.append("ChEMBL API unavailable: URLError")
@@ -112,6 +116,6 @@ def test_an_api_failure_degrades_gracefully(tmp_path, monkeypatch):
 
 
 def test_offline_env_var_turns_the_network_off(tmp_path, monkeypatch):
-    monkeypatch.setenv("WWTN_OFFLINE", "1")
+    monkeypatch.setenv("WWTN_OFFLINE", "1")   # set by the autouse fixture too; explicit here as the subject
     r = StubAPI(graph=None, cache=tmp_path)
     assert r.allow_network is False

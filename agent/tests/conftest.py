@@ -79,6 +79,13 @@ def _edges():
     ]
 
 
+@pytest.fixture(autouse=True)
+def offline(monkeypatch):
+    """No test reaches the network: agent/compounds.py honours WWTN_OFFLINE, and the ChEMBL API tests stub
+    `fetch` instead. A test that wants the stubbed API sets its own cache folder."""
+    monkeypatch.setenv("WWTN_OFFLINE", "1")
+
+
 @pytest.fixture(scope="session")
 def fixture_kg(tmp_path_factory):
     """A root holding biology/graph and protocols/graph, as `KnowledgeBase(root)` expects."""

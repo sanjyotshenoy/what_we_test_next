@@ -169,16 +169,39 @@ class GraphBackend:
         return self._fpgen
 
     def fingerprint(self, compound_id: str, smiles: str | None = None):
-        """The compound's Morgan fingerprint, or None when it has no usable SMILES. Cached per load."""
-        if compound_id in self._fps:
-            return self._fps[compound_id]
+        """The compound's Morgan fingerprint, or None when it has no usable SMILES. Cached per load: by node ID
+        for a compound in the graph, by structure for one that is not (so an off-graph query compound, resolved
+        through agent/compounds.py, is cached too)."""
         from rdkit import Chem
+        node = self.kg.node(compound_id)
         if smiles is None:
-            node = self.kg.node(compound_id)
             smiles = (node or {}).get("props", {}).get("smiles") or ""
+        key = compound_id if node is not None else f"smiles:{smiles}"
+        if key in self._fps:
+            return self._fps[key]
         mol = Chem.MolFromSmiles(smiles) if smiles else None
-        self._fps[compound_id] = self._generator().GetFingerprint(mol) if mol is not None else None
-        return self._fps[compound_id]
+        self._fps[key] = self._generator().GetFingerprint(mol) if mol is not None else None
+        return self._fps[key]
+
+    @property
+    def resolver(self):
+        """A `agent.compounds.CompoundResolver` over this graph, built on first use."""
+        if not hasattr(self, "_resolver"):
+            from .compounds import CompoundResolver
+            self._resolver = CompoundResolver(graph=self)
+        return self._resolver
+
+    def resolve_compound(self, text: str) -> tuple[dict | None, str]:
+        """(compound, where): the graph's node for `text` if it has one, else whatever agent/compounds.py can
+        resolve (local ChEMBL dump, then the cached REST API), as a node-shaped dict with `in_graph` False."""
+        node = self.find_compound(text)
+        if node:
+            return {**node, "in_graph": True}, "biology KG"
+        hit = self.resolver.resolve(text)
+        if not hit:
+            return None, "unresolved"
+        return {"id": hit.id, "type": "Compound", "name": hit.name, "in_graph": False,
+                "props": {"smiles": hit.smiles}, "source": hit.source}, hit.source
 
     def activities(self, target_id: str, limit: int = 100000) -> list[dict]:
         """Every IC50 on the target, most potent first (`KG.activities`)."""
@@ -187,10 +210,12 @@ class GraphBackend:
     def potency_summary(self, target_id: str) -> dict:
         return self.kg.potency_summary(target_id)
 
-    def analogs(self, compound_id: str, target_id: str, k: int = 3) -> tuple[list[dict], bool]:
-        """The k compounds most similar to `compound_id` that have an IC50 on `target_id`, by Tanimoto on Morgan
-        fingerprints. Returns (analogs, ranked): `ranked` is False when the query compound has no usable SMILES,
-        and the list is then the most potent compounds on the target, with no similarity."""
+    def analogs(self, compound_id: str, target_id: str, k: int = 3,
+                smiles: str | None = None) -> tuple[list[dict], bool]:
+        """The k compounds most similar to the query compound that have an IC50 on `target_id`, by Tanimoto on
+        Morgan fingerprints. The query compound need not be a node: pass the `smiles` that
+        `agent/compounds.py` resolved and the ranking works all the same. Returns (analogs, ranked); `ranked`
+        is False when there is no usable structure, and the list is then the target's most potent compounds."""
         from rdkit import DataStructs
         per_compound: dict[str, dict] = {}
         for a in self.activities(target_id):
@@ -204,7 +229,7 @@ class GraphBackend:
         for c in candidates:
             values = c.pop("ic50_nM")
             c["ic50_nM"], c["n_measurements"] = median(values), len(values)
-        query = self.fingerprint(compound_id)
+        query = self.fingerprint(compound_id, smiles)
         if query is None:
             candidates.sort(key=lambda c: (c["ic50_nM"], c["compound"]))
             return candidates[: int(k)], False

@@ -66,9 +66,47 @@ def test_fingerprints_are_cached_per_load(kb):
 
 def test_missing_entities_are_reported(kb):
     r = kb.bio_kg_analogs("NOPE", "P00001")
-    assert r["rows"] == [] and "Not found in the biology KG: NOPE" in r["summary"]
+    assert r["rows"] == [] and "Could not resolve: NOPE" in r["summary"]
+    assert r["compound_source"] == "unresolved"
 
 
 @pytest.mark.parametrize("target", ["P00001", "CHEMBL0001", "Test kinase one"])
 def test_a_target_resolves_by_id_chembl_id_or_name(kb, target):
     assert kb.bio_kg_analogs("CAND1", target)["ranked_by_similarity"] is True
+
+
+def test_a_compound_outside_the_graph_is_still_ranked(kb, monkeypatch, tmp_path):
+    """Addition 2: the similarity works from a resolved SMILES, not from a graph node, so a compound the KG
+    never heard of still gets analogs on the target."""
+    from agent.compounds import Compound, CompoundResolver
+    from agent.tests.conftest import ANALOG_A
+
+    class Stub(CompoundResolver):
+        def from_dump(self, text):
+            return Compound("CHEMBL_EXT", "external-compound", ANALOG_A, "ChEMBL dump")
+
+    monkeypatch.setattr(kb, "_resolver", Stub(graph=kb, cache=tmp_path, allow_network=False),
+                        raising=False)
+    r = kb.bio_kg_analogs("external-compound", "P00001", k=3)
+    assert r["compound_source"] == "ChEMBL dump" and r["compound_id"] == "CHEMBL_EXT"
+    assert r["ranked_by_similarity"] is True
+    assert r["similarity"][0] > 0.9                 # it is ANALOG_A's own structure
+    assert "not in the knowledge graph" in r["summary"]
+    ids = [row[0].split("(")[-1].rstrip(")") for row in r["rows"]]
+    assert ids[0] == "CMP_A"
+
+
+def test_an_off_graph_compound_is_flagged_by_resolve(kb, monkeypatch, tmp_path):
+    from agent.compounds import Compound, CompoundResolver
+    from agent.tests.conftest import ANALOG_A
+
+    class Stub(CompoundResolver):
+        def from_dump(self, text):
+            return Compound("CHEMBL_EXT", "external-compound", ANALOG_A, "ChEMBL dump")
+
+    monkeypatch.setattr(kb, "_resolver", Stub(graph=kb, cache=tmp_path, allow_network=False),
+                        raising=False)
+    r = kb.bio_kg_resolve("external-compound", "P00001")
+    assert r["compound_in_graph"] is False and r["compound_source"] == "ChEMBL dump"
+    assert r["target_classes"] == ["class:family", "class:kinase"]      # the target side still works
+    assert "no measurement for it" in r["summary"]
