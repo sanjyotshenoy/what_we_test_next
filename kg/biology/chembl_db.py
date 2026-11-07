@@ -65,10 +65,13 @@ class ChemblDB:
             "JOIN protein_classification pc ON pc.protein_class_id = cc.protein_class_id "
             "WHERE cc.component_id = ? ORDER BY pc.class_level DESC, pc.protein_class_id LIMIT 1",
             (component["component_id"],)).fetchone()
-        classes, class_id = [], start["protein_class_id"] if start else None
-        while class_id is not None:
+        classes, seen, class_id = [], set(), start["protein_class_id"] if start else None
+        while class_id is not None and class_id not in seen:   # stop on a cycle or a missing parent row
+            seen.add(class_id)
             c = self.con.execute("SELECT protein_class_id, pref_name, parent_id, class_level "
                                  "FROM protein_classification WHERE protein_class_id = ?", (class_id,)).fetchone()
+            if c is None:
+                break
             classes.append(ProteinClass(c["protein_class_id"], c["pref_name"], c["parent_id"], c["class_level"]))
             class_id = c["parent_id"]
         return TargetInfo(target["chembl_id"], target["pref_name"], component["accession"], target["organism"],

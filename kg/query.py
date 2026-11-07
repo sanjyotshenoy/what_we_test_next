@@ -14,6 +14,7 @@ Every result carries node IDs, so whatever an agent builds on it can cite them. 
 tools wrap (HANDOFF.md §3.3); analogs by chemical similarity are not here yet (every Compound node has `smiles`).
 """
 import argparse
+import sys
 from pathlib import Path
 
 import kg  # noqa: F401  - picks CPU or GPU mode before pandas/networkx are imported
@@ -64,7 +65,14 @@ class KG:
 
     @classmethod
     def load(cls, folders: list[Path] | None = None) -> "KG":
-        frames = [read_frames(folder) for folder in folders or DEFAULT_FOLDERS]
+        frames = []
+        for folder in folders or DEFAULT_FOLDERS:
+            if not (Path(folder) / "nodes.csv").exists():
+                print(f"kg: no graph in {folder} yet; skipping it (see kg/README.md to build it)", file=sys.stderr)
+                continue
+            frames.append(read_frames(folder))
+        if not frames:
+            return cls([], [])
         return cls(pd.concat([n for n, _ in frames], ignore_index=True),
                    pd.concat([e for _, e in frames], ignore_index=True))
 
@@ -77,6 +85,8 @@ class KG:
     def resolve(self, text: str, type: str | None = None) -> list[dict]:
         """Exact ID, then exact name (any case), then a Target's ChEMBL ID, then names containing the text."""
         wanted = text.strip().lower()
+        if not wanted:
+            return []
         of_type = self.nodes_df["type"] == type if type else pd.Series(True, index=self.nodes_df.index)
         is_target = self.nodes_df["type"] == "Target"
         tiers = [self._id_lower == wanted, self._name_lower == wanted, is_target & (self._chembl_lower == wanted),
@@ -85,7 +95,7 @@ class KG:
         for mask in tiers:
             tier = self.nodes_df[mask & of_type]
             tier = tier.assign(_len=tier["name"].astype(str).str.len()).sort_values(["_len", "id"])
-            for row in rows(tier.drop(columns="_len")):
+            for row in rows(tier.drop(columns="_len").head(10 + len(seen))):
                 if row["id"] not in seen:
                     seen.add(row["id"])
                     found.append(row)
@@ -93,13 +103,13 @@ class KG:
 
     def neighbors(self, id: str, rel: str | None = None, direction: str = "out") -> list[dict]:
         edges = self.edges_df if rel is None else self.edges_df[self.edges_df["rel"] == rel]
-        rows = []
+        found = []
         for side, other in (("src", "dst"), ("dst", "src")):
             if direction not in (("out", "both") if side == "src" else ("in", "both")):
                 continue
             for e in rows(edges[edges[side] == id]):
-                rows.append({"rel": e["rel"], "node": self.node(e[other]) or {"id": e[other]}, "props": e["props"]})
-        return rows
+                found.append({"rel": e["rel"], "node": self.node(e[other]) or {"id": e[other]}, "props": e["props"]})
+        return found
 
     def classes(self, target_id: str) -> list[dict]:
         """The target's TargetClass nodes, most specific first, up MEMBER_OF then SUBCLASS_OF."""

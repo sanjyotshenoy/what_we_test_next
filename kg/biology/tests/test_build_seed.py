@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import pytest
 
-from kg.biology.build_seed import LeakageError, cap, parse_args, seed_frames
+from kg.biology.build_seed import LeakageError, cap, parse_args, seed_frames, target_warnings
 from kg.biology.targets import ProteinClass, TargetInfo
 from kg.graph_io import read_frames, read_graph, write_graph
 
@@ -98,3 +98,20 @@ def test_parse_targets(tmp_path):
     assert parse_args(["--targets-file", str(listed)]).targets == ["CHEMBL1936", "CHEMBL4722"]
     assert parse_args(["--targets", "CHEMBL1936", "--targets-file", str(listed)]).targets == ["CHEMBL1936", "CHEMBL4722"]
     assert parse_args(["--targets", "CHEMBL1"]).before_year == 2024
+
+
+def test_before_year_after_cutoff_needs_flag():
+    with pytest.raises(SystemExit):
+        parse_args(["--targets", "CHEMBL1", "--before-year", "2026"])
+    assert parse_args(["--targets", "CHEMBL1", "--before-year", "2026", "--allow-held-out"]).before_year == 2026
+    assert parse_args(["--targets", "CHEMBL1", "--before-year", "2020"]).before_year == 2020
+
+
+def test_target_warnings():
+    not_kinase = TargetInfo("CHEMBL_X", "Some protease", "P0", "Homo sapiens", "SINGLE PROTEIN",
+                            [ProteinClass(5, "Protease", 0, 1), ProteinClass(0, "Protein class", None, 0)])
+    acts = pd.DataFrame([activity("CHEMBL_OLD", 50)])
+    warnings = target_warnings({"CHEMBL1936": KIT, "CHEMBL_X": not_kinase}, acts)
+    assert any("CHEMBL_X" in w and "kinase" in w for w in warnings)
+    assert any("CHEMBL_X" in w and "0 activities" in w for w in warnings)
+    assert not any("CHEMBL1936" in w for w in warnings if "kinase" in w)

@@ -126,12 +126,29 @@ def seed_frames(acts: pd.DataFrame, targets: dict[str, TargetInfo], docs: pd.Dat
     return nodes, edges
 
 
+def target_warnings(targets: dict[str, TargetInfo], acts: pd.DataFrame) -> list[str]:
+    """Targets the graph will hold but can't use well: not a protein kinase (no seed protocol applies), or no
+    activities before the cutoff."""
+    counts = acts.groupby("target_chembl_id").size() if len(acts) else pd.Series(dtype=int)
+    warnings = []
+    for t, info in targets.items():
+        if not info.is_protein_kinase:
+            warnings.append(f"{t} ({info.pref_name}) is not a protein kinase in ChEMBL's classification: no seed protocol "
+                            "template will apply to it")
+        n = int(counts.get(t, 0))
+        if n == 0:
+            warnings.append(f"{t} ({info.pref_name}) has 0 activities before the cutoff")
+    return warnings
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build the seed biology graph from the local ChEMBL dump.")
     parser.add_argument("--targets", nargs="+", default=[], help="ChEMBL target IDs, e.g. CHEMBL1936")
     parser.add_argument("--targets-file", type=Path, help="one ChEMBL target ID per line (# comments allowed)")
     parser.add_argument("--compounds", type=Path, help="CSV of structure-only compounds: compound,compound_name,smiles")
     parser.add_argument("--before-year", type=int, default=CUTOFF_YEAR, help="only documents before this year")
+    parser.add_argument("--allow-held-out", action="store_true",
+                        help=f"allow --before-year after {CUTOFF_YEAR} (lets benchmark-held-out papers in)")
     parser.add_argument("--out", type=Path, default=OUT)
     args = parser.parse_args(argv)
     targets = list(args.targets)
@@ -141,6 +158,9 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             if line:
                 targets.append(line)
     args.targets = list(dict.fromkeys(targets))
+    if args.before_year > CUTOFF_YEAR and not args.allow_held_out:
+        parser.error(f"--before-year {args.before_year} would include papers from {CUTOFF_YEAR} on, which the "
+                     "benchmark holds out; pass --allow-held-out if that is really what you want")
     if not args.targets:
         parser.error("give --targets or --targets-file")
     return args
@@ -155,7 +175,10 @@ def main(argv: list[str] | None = None) -> None:
         sys.exit(f"not human single-protein targets in ChEMBL: {', '.join(missing)}")
     acts = pd.concat([db.activities(t, before_year=args.before_year, limit=CAP_PER_TARGET) for t in targets],
                      ignore_index=True)
-    print(acts.groupby("target_chembl_id").size().to_string(), file=sys.stderr)
+    for t in targets:
+        print(f"{t}: {int((acts['target_chembl_id'] == t).sum())} activities", file=sys.stderr)
+    for warning in target_warnings(targets, acts):
+        print(f"WARNING: {warning}", file=sys.stderr)
     docs = db.documents(sorted(set(acts["document_chembl_id"])))
     extra = pd.read_csv(args.compounds, dtype=str, keep_default_na=False) if args.compounds else None
 

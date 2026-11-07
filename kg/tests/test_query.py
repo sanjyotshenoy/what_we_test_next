@@ -91,3 +91,22 @@ def test_from_lists_matches_load(kg):
 def test_unknown_id(kg):
     assert kg.node("nope") is None
     assert kg.templates("nope") == []
+
+
+def test_neighbors(kg):
+    out = kg.neighbors("P10721", rel="MEMBER_OF")
+    assert [(r["rel"], r["node"]["id"]) for r in out] == [("MEMBER_OF", "chembl_class:159")]
+    inbound = {r["node"]["id"] for r in kg.neighbors("P10721", rel="INHIBITS", direction="in")}
+    assert inbound == {"CHEMBL941", "CHEMBL2", "CHEMBL3"}
+
+
+def test_resolve_empty(kg):
+    assert kg.resolve("") == []
+    assert kg.resolve("   ") == []
+
+
+def test_load_skips_missing_folder(tmp_path, kg, capsys):
+    write_graph(tmp_path / "proto", [{"id": "proto:x", "type": "Protocol", "name": "x", "props": {}, "source": "t"}], [])
+    loaded = KG.load([tmp_path / "not_built_yet", tmp_path / "proto"])
+    assert loaded.node("proto:x") is not None
+    assert "not_built_yet" in capsys.readouterr().err

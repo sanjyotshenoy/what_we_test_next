@@ -102,3 +102,22 @@ def test_documents(db):
     assert set(docs["document_chembl_id"]) == {"CHEMBL_D2010", "CHEMBL_D2020"}
     old = docs.set_index("document_chembl_id").loc["CHEMBL_D2010"].to_dict()
     assert old == {"year": 2010, "pubmed_id": 111, "doi": "10.1/a", "title": "Old paper", "journal": "J Med Chem"}
+
+
+def test_class_chain_stops_on_cycle_and_missing_parent(tmp_path):
+    path = tmp_path / "cyclic.db"
+    con = sqlite3.connect(path)
+    con.executescript(SCHEMA)
+    con.execute("INSERT INTO target_dictionary VALUES (10, 'CHEMBL_A', 'A', 'SINGLE PROTEIN', 'Homo sapiens')")
+    con.execute("INSERT INTO target_dictionary VALUES (11, 'CHEMBL_B', 'B', 'SINGLE PROTEIN', 'Homo sapiens')")
+    con.executemany("INSERT INTO component_sequences VALUES (?, ?)", [(1, 'P1'), (2, 'P2')])
+    con.executemany("INSERT INTO target_components VALUES (?, ?)", [(10, 1), (11, 2)])
+    con.executemany("INSERT INTO protein_classification VALUES (?,?,?,?)", [
+        (5, 6, "child", 2), (6, 5, "loops back", 1),      # a cycle
+        (7, 999, "orphan", 1)])                            # parent row missing
+    con.executemany("INSERT INTO component_class VALUES (?, ?)", [(1, 5), (2, 7)])
+    con.commit()
+    con.close()
+    db = ChemblDB(path)
+    assert [c.id for c in db.target_info("CHEMBL_A").classes] == [5, 6]
+    assert [c.id for c in db.target_info("CHEMBL_B").classes] == [7]
