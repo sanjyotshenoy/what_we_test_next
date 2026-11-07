@@ -95,3 +95,26 @@ pre { margin: 0; padding: 12px; background: var(--code-bg); border-radius: 8px; 
 .checks .y { color: var(--ok); font-weight: 700; } .checks .n { color: var(--bad); font-weight: 700; }
 
 .controls { display: flex; gap: 8px; margin-left: 44px; }
+
+/* Playback. A stage "works" first: its title and a line saying what it is doing shimmer (a highlight sweeping
+   through the text). Its pieces then arrive one at a time; a tool call shows a shimmering "running…" tag before its
+   result (.res). */
+.shine { background: linear-gradient(110deg, var(--fg) 0%, var(--fg) 35%,
+    color-mix(in srgb, var(--fg) 25%, var(--bg)) 50%, var(--fg) 65%, var(--fg) 100%);
+  background-size: 200% 100%; -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; animation: shine 2.2s linear infinite; }
+@keyframes shine { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.stage .doing { display: none; margin: -4px 0 8px; font-weight: 600; }
+.stage.working .doing { display: block; }
+.stage.working .title { color: var(--muted); }
+.stage.working::before { animation: beat 1.1s ease-in-out infinite; }
+@keyframes beat { 50% { transform: scale(.82); opacity: .55; } }
+.piece { opacity: 0; transform: translateY(6px); transition: opacity .5s ease, transform .5s ease; }
+.piece:not(.in) { display: none; }
+.piece.in { opacity: 1; transform: none; animation: rise .5s ease both; }
+.piece[data-run] .res { display: none; }
+.piece[data-run].done .res { display: block; animation: rise .5s ease both; }
+.runtag { display: inline-block; font-size: .8rem; font-weight: 700; margin: 0 0 4px; }
+.fields .pair { display: contents; }
+.fields .pair:not(.in) { display: none; }
+.fields .pair.in > * { animation: rise .5s ease both; }
