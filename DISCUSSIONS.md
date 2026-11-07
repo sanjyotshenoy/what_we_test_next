@@ -179,3 +179,6 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   not a `question_type` prop), (3) returns arbitrary analogs (no SIMILAR_TO edges; needs RDKit), (4) the demo's
   imatinib × KIT question isn't in the seed graph. Fix in a follow-up PR: agent tools on `kg/query.py`, RDKit
   same-target analogs, a seed-graph demo question.
+- Done (19:55): `kg-scaffolding` merged into main via `kg-merged` (PR #3, `2dfb5a7`); kg tests pass on main. Agent
+  follow-up on branch `agent-on-kg` in progress. Next for the graph: Seh Na polishes querying + the toy KG + papers on
+  a new branch.
