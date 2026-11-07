@@ -86,3 +86,10 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 - Suggested: warn on same-series leakage (pre-2024 near-identical analogs on the same target); weight the potency
   prior by structural similarity in `agent/` (target-wide summary is coarse); report the template defaults as
   their own B1 arm; prefer the newest candidates (models have likely seen 2024–25 papers).
+
+**Scalability with NVIDIA RAPIDS** (ramiiith, after Ben Busby's talk).
+- Suggested: write the KG and query layer against plain NetworkX + pandas so GPU backends are a switch, not a port:
+  nx-cugraph (NetworkX backend dispatch, `NX_CUGRAPH_AUTOCONFIG=True`), `python -m cudf.pandas` (ChEMBL activity
+  tables), cuVS for a large embedding index. A GPU is available (RTX 5090, 32 GB, on the bot's machine).
+- At pilot scale the GPU won't show; the slide is "same code on full ChEMBL / OptimusKG, CPU vs GPU timings".
+- Open: does `kg/query.py` use NetworkX/pandas?
