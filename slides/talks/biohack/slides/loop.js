@@ -1,0 +1,113 @@
+// The problem statement as a picture: the world's scientific literature on the left, an automated cloud lab on
+// the right, and between them the missing link that turns experimental feedback plus what is already known
+// into the next experiment. The shapes are manim-web; the labels are HTML placed at the same world points.
+// Steps: 1 the literature (a stack of papers) · 2 the cloud lab (a well plate) · 3 feedback from the lab
+// reaches an empty "?" · 4 the literature feeds it too · 5 it sends the next experiment back to the lab over
+// the top, closing the loop.
+{
+// world units (16 x 9, origin at the centre, y up) -> a point in the frame, for the HTML labels
+const at = (x, y) => `left: ${(x + 8) / 16 * 100}%; top: ${(4.5 - y) / 9 * 100}%;`;
+
+const LIT = [-5.2, 0.2], LAB = [5.2, 0.2], GAP = [0, 0.2];
+
+Deck.slide('loop', {
+  steps: 5,
+  notes: 'Two things already exist: more literature than anyone can read, and labs that run experiments '
+    + 'automatically. What is missing is the link between them: given the feedback from the last experiment '
+    + 'and what is already known, what should we test next? That link is what we are building.',
+  mount(frame, { css, esc }) {
+    css(`
+      /* translate, not transform: .reveal-in animates transform */
+      .lp-label { position: absolute; translate: -50% 0; text-align: center; white-space: nowrap; }
+      .lp-name { font-size: var(--t-body); font-weight: 700; }
+      .lp-sub { font-size: var(--t-small); color: var(--muted); }
+      .lp-edge { position: absolute; translate: -50% -50%; width: 15%; text-align: center; line-height: 1.15;
+        font-size: var(--t-small); color: var(--muted); }
+      .lp-edge.lp-next { width: auto; white-space: nowrap; color: var(--accent); font-weight: 700; }
+    `);
+    const label = (x, y, name, sub, from) => `<div class="lp-label reveal-in" data-from="${from}" style="${at(x, y)}">
+      <div class="lp-name">${esc(name)}</div><div class="lp-sub">${esc(sub)}</div></div>`;
+    const edge = (x, y, text, from, extra = '') =>
+      `<div class="lp-edge ${extra} reveal-in" data-from="${from}" style="${at(x, y)}">${esc(text)}</div>`;
+
+    frame.innerHTML = `
+      <div class="deck-stage"></div>
+      <h2 class="deck-heading reveal-in" data-from="1">What should we test next?</h2>
+      ${label(LIT[0], -1.35, 'Scientific literature', 'more papers than anyone can read', 1)}
+      ${label(LAB[0], -1.35, 'Automated experimentation', 'the cloud lab', 2)}
+      ${edge(2.45, 0.85, 'experimental feedback', 3)}
+      ${edge(-2.6, 0.85, 'prior knowledge', 4)}
+      ${edge(2.5, 2.7, 'the next experiment', 5, 'lp-next')}
+      <p class="deck-caption reveal-in" data-from="5"><span class="deck-accent">The missing link:</span>
+        turn feedback and prior knowledge into the next experiment, and close the loop.</p>`;
+
+    const stage = Deck.manim(frame.querySelector('.deck-stage'), {
+      build: ({ M, P }) => {
+        // a fanned stack of papers, the top one with a few lines of "text"
+        const papers = [0, 1, 2, 3, 4].map((k) => new M.RoundedRectangle({ width: 1.5, height: 1.95,
+          cornerRadius: 0.08, color: P.series[1], fillOpacity: 0.12 + 0.04 * k, strokeWidth: 3 })
+          .moveTo([LIT[0] - 0.36 + 0.18 * k, LIT[1] + 0.3 - 0.15 * k, 0]));
+        const top = [LIT[0] + 0.36, LIT[1] - 0.3];
+        const lines = [0.55, 0.3, 0.05, -0.2, -0.45].map((dy, k) => new M.Line({
+          start: [top[0] - 0.5, top[1] + dy, 0], end: [top[0] + (k === 4 ? 0.1 : 0.5), top[1] + dy, 0],
+          color: P.series[1], strokeWidth: 3 }));
+
+        // the cloud lab as a well plate: a rounded frame with a 3 x 4 grid of wells
+        const plate = new M.RoundedRectangle({ width: 2.5, height: 1.75, cornerRadius: 0.2, color: P.series[3],
+          fillOpacity: 0.12, strokeWidth: 4 }).moveTo([LAB[0], LAB[1], 0]);
+        const wells = [];
+        for (let r = 0; r < 3; r++) {
+          for (let c = 0; c < 4; c++) {
+            wells.push(new M.Circle({ radius: 0.17, color: P.series[3], fillOpacity: (r * 4 + c) % 3 ? 0.15 : 0.7,
+              strokeWidth: 3 }).moveTo([LAB[0] - 0.84 + 0.56 * c, LAB[1] + 0.48 - 0.48 * r, 0]));
+          }
+        }
+
+        // the gap: a dashed circle with a question mark
+        const ring = new M.DashedVMobject({ vmobject: new M.Circle({ radius: 0.95, color: P.accent, strokeWidth: 5 })
+          .moveTo([GAP[0], GAP[1], 0]), numDashes: 22, dashRatio: 0.55 });
+        const mark = new M.Text({ text: '?', fontSize: 110, fontFamily: 'Lato', color: P.accent })
+          .moveTo([GAP[0], GAP[1], 0]);
+
+        // feedback and what is known come straight in from either side; the next experiment arcs over the top
+        // from the gap back to the lab (a Bézier plus a tip along its end tangent: M.CurvedArrow fills its arc)
+        const arrow = (start, end, color) => new M.Arrow({ start: [...start, 0], end: [...end, 0], color,
+          strokeWidth: 4, tipLength: 0.3, tipWidth: 0.2 });
+        const feedback = arrow([LAB[0] - 1.4, LAB[1]], [GAP[0] + 1.15, GAP[1]], P.muted);
+        const known = arrow([LIT[0] + 1.25, LIT[1]], [GAP[0] - 1.15, GAP[1]], P.muted);
+        const c = [[GAP[0] + 0.35, GAP[1] + 1.05], [GAP[0] + 1.2, GAP[1] + 2.5], [LAB[0] - 1.4, LAB[1] + 2.5],
+          [LAB[0] - 0.6, LAB[1] + 1.05]];
+        const arc = new M.CubicBezier({ points: c.map((p) => [...p, 0]), color: P.accent, strokeWidth: 6 });
+        const [dx, dy] = [c[3][0] - c[2][0], c[3][1] - c[2][1]], n = Math.hypot(dx, dy), [ux, uy] = [dx / n, dy / n];
+        const base = [c[3][0] - 0.38 * ux, c[3][1] - 0.38 * uy];
+        const tip = new M.Polygon({ vertices: [[...c[3], 0], [base[0] - 0.2 * uy, base[1] + 0.2 * ux, 0],
+          [base[0] + 0.2 * uy, base[1] - 0.2 * ux, 0]], color: P.accent, fillOpacity: 1, strokeWidth: 2 });
+
+        return { papers, lines, plate, wells, ring, mark, feedback, known, arc, tip };
+      },
+      steps: [
+        ({ papers, lines }, { M }) => [new M.LaggedStart([...papers, ...lines].map((m) => new M.FadeIn(m)),
+          { lagRatio: 0.12 })],
+        ({ plate, wells }, { M }) => [new M.Create(plate),
+          new M.LaggedStart(wells.map((w) => new M.GrowFromCenter(w)), { lagRatio: 0.08 })],
+        async ({ ring, mark, feedback }, { M, play }) => {
+          await play(new M.GrowArrow(feedback));
+          await play(new M.Create(ring), new M.FadeIn(mark));
+        },
+        ({ known }, { M }) => [new M.GrowArrow(known)],
+        async ({ mark, arc, tip }, { M, play }) => {
+          await play(new M.Indicate(mark));
+          await play(new M.Create(arc, { duration: 1 }));
+          await play(new M.FadeIn(tip, { duration: 0.3 }));
+        },
+      ],
+    });
+
+    return {
+      enter(step, animate) { Deck.show(frame, step, animate); return stage.go(step, animate); },
+      freeze: stage.freeze,
+      destroy: stage.dispose,
+    };
+  },
+});
+}
