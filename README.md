@@ -18,6 +18,7 @@ kg/biology/       biology KG: compounds, targets, target classes, known activiti
 kg/protocols/     protocol KG: dose-response templates (steps, parameters, labware), BAO-tagged
 agent/            aim 1: question -> "can the KB answer it?" -> ExperimentProposal
 execution/        aim 2: ExperimentProposal -> OT-2 protocol -> simulator (and the real robot)
+Opentrons/        hand-written reference OT-2 protocols (Emmy): script + written protocol
 wwtn/             shared code: llm.py (Nebius calls), schema.py (the data contracts)
 slides/           the presentation (live deck)
 ```
