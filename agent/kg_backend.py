@@ -25,29 +25,20 @@ SAMPLE_ROOT = REPO / "agent" / "data" / "sample_kg"   # TODO(final): drop once k
 GRAPHS = ("biology", "protocols")
 
 # The seed graph's targets carry no gene symbol (kg/README.md "known caveats": "targets carry no gene name"),
-# but questions name a kinase by its gene. One line per seed target (kg/biology/seed/targets.txt).
-# TODO(final): replace with gene names on the Target nodes (UniProt) once kg/biology carries them.
-GENE_SYMBOLS = {
-    "ACVR1": "Q04771", "ALK2": "Q04771",
-    "AURKA": "O14965", "AURORA-A": "O14965",
-    "CSNK1A1": "P48729", "CK1A": "P48729",
-    "PRKDC": "P78527", "DNA-PK": "P78527", "DNAPK": "P78527",
-    "DYRK1A": "Q13627",
-    "IRAK1": "P51617",
-    "LIMK1": "P53667",
-    "MAPK9": "P45984", "JNK2": "P45984",
-    "MAP3K7": "O43318", "TAK1": "O43318",
-    "NUAK1": "O60285",
-    "LATS2": "Q9NRM7",
-    "SIK1": "P57059",
-    "SIK3": "Q9Y2K2",
-    "HASPIN": "Q8TF76", "GSG2": "Q8TF76",
-    "MTOR": "P42345",
-    "TLK2": "Q86UE8",
-    "BTK": "Q06187",
-    "MERTK": "Q12866", "MER": "Q12866",
-    "AXL": "P30530", "UFO": "P30530",
-}
+# but questions name a kinase by its gene. One entry per seed target (kg/biology/seed/targets.txt).
+# TODO(final): read gene names from UniProt in kg/biology/build_seed.py instead of hard-coding them here.
+GENES = {"Q04771": "ACVR1", "O14965": "AURKA", "P48729": "CSNK1A1", "P78527": "PRKDC", "Q13627": "DYRK1A",
+         "P51617": "IRAK1", "P53667": "LIMK1", "P45984": "MAPK9", "O43318": "MAP3K7", "O60285": "NUAK1",
+         "Q9NRM7": "LATS2", "P57059": "SIK1", "Q9Y2K2": "SIK3", "Q8TF76": "GSG2", "P42345": "MTOR",
+         "Q86UE8": "TLK2", "Q06187": "BTK", "Q12866": "MERTK", "P30530": "AXL"}
+
+# Other names a question may use for one of those targets (synonyms, old names), and the accession they mean.
+ALSO_KNOWN_AS = {"ALK2": "Q04771", "AURORA-A": "O14965", "AURORA A": "O14965", "CK1A": "P48729",
+                 "DNA-PK": "P78527", "DNAPK": "P78527", "JNK2": "P45984", "TAK1": "O43318", "HASPIN": "Q8TF76",
+                 "MER": "Q12866", "UFO": "P30530", "BTK KINASE": "Q06187"}
+
+# gene symbol (or synonym) -> UniProt accession, from the two tables above
+ACCESSIONS = {**{g.upper(): a for a, g in GENES.items()}, **{k.upper(): v for k, v in ALSO_KNOWN_AS.items()}}
 
 # Question types as the protocol graph names them (`qtype:<name>` QuestionType nodes, kg/protocols/seed.py),
 # plus what a model may call them instead. TODO(final): follow kg/protocols' list once the protocol DB settles.
@@ -56,7 +47,7 @@ QTYPE_ALIASES = {
     "biochemical": "potency",
     "cellular_activity": "cellular_potency", "cellular": "cellular_potency", "cell_viability": "cellular_potency",
     "cell_potency": "cellular_potency", "viability": "cellular_potency",
-    "affinity": "binding", "binding_affinity": "binding", "kd": "binding",
+    "affinity": "binding", "binding_affinity": "binding", "kd": "binding", "cell_based": "cellular_potency",
 }
 
 FP_RADIUS, FP_BITS = 2, 2048   # Morgan radius 2, 2048 bits: the leakage check in DISCUSSIONS.md uses the same
@@ -114,10 +105,10 @@ class GraphBackend:
         return self._target_nodes
 
     def gene(self, target: dict) -> str:
-        """A short label for a target: its `gene` prop, else a symbol from GENE_SYMBOLS, else its name."""
+        """A short label for a target: its `gene` prop, else its GENES symbol, else its name."""
         g = target["props"].get("gene")
         if not g:
-            g = next((s for s, u in GENE_SYMBOLS.items() if u == target["id"]), None)
+            g = GENES.get(target["id"])
         return g or target.get("name") or target["id"]
 
     def find_compound(self, text: str) -> dict | None:
@@ -125,14 +116,14 @@ class GraphBackend:
         return found[0] if found else None
 
     def find_target(self, text: str) -> dict | None:
-        """A target by `gene` prop, then the GENE_SYMBOLS table, then `KG.resolve` (ID, name, ChEMBL ID)."""
+        """A target by `gene` prop, then the GENES/ALSO_KNOWN_AS tables, then `KG.resolve` (ID, name, ChEMBL ID)."""
         t = str(text or "").strip()
         if not t:
             return None
         for n in self.targets():
             if str(n["props"].get("gene", "")).upper() == t.upper():
                 return n
-        mapped = GENE_SYMBOLS.get(t.upper())
+        mapped = ACCESSIONS.get(t.upper())
         if mapped and self.kg.node(mapped):
             return self.kg.node(mapped)
         found = self.kg.resolve(t, type="Target")
@@ -160,8 +151,8 @@ class GraphBackend:
                     break
         if not target:
             for n in self.targets():
-                symbols = {str(n["props"].get("gene", "")).lower()}
-                symbols |= {s.lower() for s, u in GENE_SYMBOLS.items() if u == n["id"]}
+                symbols = {str(n["props"].get("gene", "")).lower(), str(GENES.get(n["id"], "")).lower()}
+                symbols |= {s.lower() for s, a in ACCESSIONS.items() if a == n["id"]}
                 if (words & (symbols - {""})) or str(n.get("name", "")).lower() in low:
                     target = n["id"]
                     break
@@ -239,11 +230,11 @@ class GraphBackend:
         return [c["id"] for c in self.classes(target_id)
                 if self.kg.neighbors(c["id"], "APPLICABLE_TO", direction="in")]
 
-    def templates(self, target_id: str, question_type: str | None = None) -> tuple[list[dict], list[dict]]:
-        """(matching, all_on_chain): every protocol applicable to any class on the target's chain
-        (`KG.templates`), and those whose ANSWERS edges cover `question_type`. A template with no ANSWERS edge
+    def templates(self, start_id: str, question_type: str | None = None) -> tuple[list[dict], list[dict]]:
+        """(matching, all_on_chain): every protocol applicable to any class on `start_id`'s chain (a Target or a
+        TargetClass), and those whose ANSWERS edges cover `question_type`. A template with no ANSWERS edge
         answers anything; a question type that matches nothing gives an empty `matching`, never everything."""
-        found = self.kg.templates(target_id)
+        found = self.protocols_for(start_id)
         for t in found:
             # the seed protocol graph routes with ANSWERS edges; the sample KG with a `question_type` prop
             answers = t.get("answers") or []
@@ -277,3 +268,30 @@ class GraphBackend:
                 "readout": template.get("readout", []), "params": params, "controls": controls,
                 "steps": [s for _, s in sorted(steps, key=lambda s: s[0])],
                 "props": {k: v for k, v in node.get("props", {}).items() if k != "purpose"}}
+
+    def chain(self, start_id: str) -> list[str]:
+        """`start_id` and every class above it, most specific first. A Target's chain starts at its own class;
+        a TargetClass's starts at itself, so `protocol_kg_templates` can be given either."""
+        return [start_id, *(c["id"] for c in self.classes(start_id))]
+
+    def protocols_for(self, start_id: str) -> list[dict]:
+        """Protocols APPLICABLE_TO any class on `start_id`'s chain, in the shape `KG.templates` returns (which
+        only walks a Target's chain, hence this variant for a class)."""
+        found, seen = [], set()
+        for class_id in self.chain(start_id):
+            for e in sorted(self.kg.neighbors(class_id, "APPLICABLE_TO", direction="in"),
+                            key=lambda e: e["node"]["id"]):
+                pid = e["node"]["id"]
+                if pid in seen:
+                    continue
+                seen.add(pid)
+                node = self.kg.node(pid) or {"name": pid, "props": {}}
+                out = lambda rel: [n["node"] for n in self.kg.neighbors(pid, rel)]  # noqa: E731
+                found.append({
+                    "id": pid, "name": node.get("name") or pid, "purpose": node["props"].get("purpose"),
+                    "via_class": class_id,
+                    "params": {p.get("name") or p["id"]: p.get("props", {}) for p in out("HAS_PARAM")},
+                    "readout": [r.get("name") or r["id"] for r in out("MEASURES")],
+                    "answers": [a["id"] for a in out("ANSWERS")],
+                })
+        return found
