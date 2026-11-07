@@ -207,3 +207,19 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   DISCUSSIONS.md.
 - Open: confirm CHEMBL5593141 x BTK as a benchmark pair (TODO(final)); re-record the demo trace on the real graph
   (needs the Nebius key on the bot's machine).
+
+**Protocol DB as a shallow decision tree** (635848b on `protocol-db`, reviewed).
+- 15 `Condition` nodes with 11 `REQUIRES` + 6 `PREFERRED_WHEN` edges, each citing the archetype field and verbatim
+  span it came from (3 machine-checkable, 12 judge items); 10 sub-steps under 5 parents via `HAS_SUBSTEP`, added
+  only where the evidence already held the detail. `kg/query.py` additive: `conditions()`, `steps()`, and
+  `templates()` gains only a `conditions` key. 84 tests pass; graph 140 nodes / 353 edges.
+- Open: the TR-FRET archetype has no purified-enzyme condition because its text never says so (fix the text, don't
+  infer); `extract.py` has no `substeps` field, so extracted templates arrive flat.
+- Both `protocol-db` and `agent-on-kg` conflict with main only in DISCUSSIONS.md.
+
+**`bio_kg_similar`** (4640149 on `agent-on-kg`, at Seh Na's request).
+- Ranks every Compound node by Tanimoto to the query structure and reports what each is measured on, for when the
+  question's target is thin or the useful precedent is a relative's assay design; `bio_kg_analogs` stays the
+  target-anchored potency prior. 1.9 s over the seed graph, fingerprints cached. 101 tests pass.
+- Open (offered, not built): a class-level fallback that walks up MEMBER_OF/SUBCLASS_OF when a target has too few
+  measurements and uses the family-wide spread, flagged as weaker evidence.
