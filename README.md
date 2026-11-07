@@ -2,6 +2,20 @@
 
 **Closing the Loop Between Knowledge and Discovery**: Team Zhang et al., Nucleate Pittsburgh BioHack 2026.
 
+## Calling LLMs (Nebius Token Factory)
+
+`wwtn/llm.py` wraps Nebius's OpenAI-compatible API. Put the key in `.env` (git-ignored; never commit it):
+
+```bash
+pip install -r requirements.txt
+cp .env.example .env              # then fill in NEBIUS_API_KEY
+python -m wwtn.llm --models       # the model IDs the key can use
+python -m wwtn.llm "Suggest one follow-up experiment for a CRISPR knockout screen."
+```
+
+From Python: `from wwtn.llm import chat; chat("...", model="...", system="...", temperature=0.2)`. The default
+model is `NEBIUS_MODEL` in `.env`.
+
 ## Slides
 
 **Live deck:** https://zhang-etal-biohack.pages.dev/075d295f820d3892ac1d1010c3ffdc8f31a597f041dc3d2d/talks/biohack/
