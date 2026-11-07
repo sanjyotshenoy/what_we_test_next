@@ -1,4 +1,4 @@
-// The title slide: the deck's usual title layout on a wavy background, with the team's names as the byline.
+// The title slide: the deck's usual title layout on a wavy background, with the team's faces and names as the byline.
 // No section, so no footer. One step: everything is there on arrival.
 //
 // The background is SVG drawn here, not a picture: it is sharp at any size, and it covers the whole window
@@ -56,11 +56,22 @@ Deck.slide('title', {
       names: ['Aidan Zhang', 'Emmy Nguyen', 'Jimmy Hsu', 'Ramith Hettiarachchi', 'Sanjyot Shenoy',   // by first name
         'Seh Na Mellick', 'Xiaochen Zhai'],
     };
+    // headshots in data/team/<first-last>.jpg (360 px squares; from the CMU CPCB students page). Add a name here
+    // once its file is there; the rest show their initials.
+    const PHOTOS = new Set(['Aidan Zhang', 'Ramith Hettiarachchi', 'Sanjyot Shenoy', 'Seh Na Mellick']);
+    const face = (n) => {
+      const words = n.split(' ');
+      const last = words.pop(), first = words.join(' ');   // "Seh Na" / "Mellick"
+      const pic = PHOTOS.has(n)
+        ? `<img src="data/team/${n.toLowerCase().replace(/ /g, '-')}.jpg" alt="">`
+        : `<span class="ti-initials">${esc(first[0] + last[0])}</span>`;
+      return `<figure class="ti-face">${pic}<figcaption>${esc(first)}<br>${esc(last)}</figcaption></figure>`;
+    };
     frame.innerHTML = `${BACKGROUND}
       <h1 class="deck-title ti-title reveal-in" data-from="1">${esc(TITLE.title)}</h1>
       <p class="deck-subtitle ti-subtitle reveal-in" data-from="1" style="--i:1">${esc(TITLE.subtitle)}</p>
       <p class="ti-team reveal-in" data-from="1" style="--i:2">${esc(TITLE.team)}</p>
-      <p class="ti-names reveal-in" data-from="1" style="--i:2">${TITLE.names.map(n => `<span>${esc(n)}</span>`).join('')}</p>`;
+      <div class="ti-names reveal-in" data-from="1" style="--i:2">${TITLE.names.map(face).join('')}</div>`;
     // the background is centred on the frame and sized to the window, under everything else on the slide
     css(`.wv-bg { position: absolute; left: 50%; top: 50%; width: 100vw; height: 100vh; transform: translate(-50%, -50%);
         pointer-events: none; }
@@ -72,10 +83,17 @@ Deck.slide('title', {
         --wv-rim: #6cbde9; --wv-rim-o: .35; }
       .deck-frame .ti-title { top: 16%; width: 60%; text-wrap: balance; }
       .deck-frame .ti-subtitle { top: 40%; width: 60%; }
-      .ti-team { position: absolute; left: 8%; top: 54%; margin: 0; font-size: var(--t-small); font-weight: 700;
+      .ti-team { position: absolute; left: 8%; top: 51.5%; margin: 0; font-size: var(--t-small); font-weight: 700;
         color: var(--accent); }
-      .ti-names { position: absolute; left: 8%; top: 59.5%; width: 50%; margin: 0; display: flex; flex-wrap: wrap;
-        gap: .45em 1.4em; font-size: var(--t-body); }`);
+      /* the team, four to a row: a round headshot (or initials) over the first and last name */
+      .ti-names { position: absolute; left: 8%; top: 57%; width: 44%; margin: 0; display: grid;
+        grid-template-columns: repeat(4, 1fr); gap: calc(1.2 * var(--u)) 0; }
+      .ti-face { margin: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+      .ti-face img, .ti-initials { width: calc(5.8 * var(--u)); height: calc(5.8 * var(--u)); border-radius: 50%;
+        object-fit: cover; box-shadow: 0 0 0 calc(.25 * var(--u)) color-mix(in srgb, var(--bg) 85%, transparent); }
+      .ti-initials { display: grid; place-items: center; font-weight: 700; font-size: var(--t-small); color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 14%, var(--bg)); }
+      .ti-face figcaption { margin-top: calc(.5 * var(--u)); font-size: var(--t-micro); line-height: 1.15; }`);
     return { enter: (step, animate) => Deck.show(frame, step, animate) };
   },
 });
