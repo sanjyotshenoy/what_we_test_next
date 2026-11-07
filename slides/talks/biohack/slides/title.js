@@ -53,8 +53,8 @@ Deck.slide('title', {
       title: 'Closing the Loop Between Knowledge and Discovery',
       subtitle: 'Nucleate Pittsburgh BioHack 2026',
       team: 'Team Zhang et al.',
-      names: ['Sanjyot Shenoy', 'Seh Na Mellick', 'Jimmy Hsu', 'Aidan Zhang', 'Xiaochen Zhai',
-        'Ramith Hettiarachchi', 'Emmy Nguyen'],
+      names: ['Aidan Zhang', 'Emmy Nguyen', 'Jimmy Hsu', 'Ramith Hettiarachchi', 'Sanjyot Shenoy',   // by first name
+        'Seh Na Mellick', 'Xiaochen Zhai'],
     };
     frame.innerHTML = `${BACKGROUND}
       <h1 class="deck-title ti-title reveal-in" data-from="1">${esc(TITLE.title)}</h1>
