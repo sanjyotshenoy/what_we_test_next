@@ -48,7 +48,7 @@ def test_a_measured_pair_is_answered_from_the_sample_kg(sample_kb):
 
 
 def test_the_tool_registry_matches_the_methods(sample_kb):
-    assert TOOL_NAMES == {"bio_kg_resolve", "bio_kg_analogs", "protocol_kg_templates"}
+    assert TOOL_NAMES == {"bio_kg_resolve", "bio_kg_analogs", "bio_kg_similar", "protocol_kg_templates"}
     for name in TOOL_NAMES:
         assert callable(getattr(sample_kb, name))
     assert sample_kb.call("not_a_tool", {})["error"] is True

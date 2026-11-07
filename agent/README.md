@@ -18,8 +18,8 @@ citing the nodes it used.
   `--runs-js demo/runs` also writes the trace for the demo page; `--model` picks the LLM.
 - **Live demo:** `python -m agent.server` serves the deck and the demo page with the agent behind it (see
   `demo/README.md`).
-- **How it works:** `tools.py` puts the two graphs behind three functions the model can call (`bio_kg_resolve`,
-  `bio_kg_analogs`, `protocol_kg_templates`); `propose.py` is a tool-calling loop on `wwtn.llm.chat_raw` that
+- **How it works:** `tools.py` puts the two graphs behind four functions the model can call (`bio_kg_resolve`,
+  `bio_kg_analogs`, `bio_kg_similar`, `protocol_kg_templates`); `propose.py` is a tool-calling loop on `wwtn.llm.chat_raw` that
   ends when the model calls `propose_experiment`; `trace.py` records every call, the model's reasoning between
   calls and the proposal, which is what the demo page plays. Until `kg/*/graph/` exist, the tools fall back to
   the hand-written sample in `data/sample_kg/` (TODO(final) there) through the same code path.
@@ -33,6 +33,7 @@ the seed graphs do not carry yet. `tools.py` shapes its results for the model an
 | --- | --- | --- |
 | `bio_kg_resolve(compound, target)` | both nodes, plus the target's **whole class chain**, most specific first, and which of those classes actually carry templates | `KG.resolve`, `KG.classes` |
 | `bio_kg_analogs(compound, target, k)` | the k compounds most similar to this one **with an IC50 on the same target** (RDKit Morgan r=2, 2048 bits, Tanimoto; repeated measurements as a median), with the target-wide potency spread as context | `KG.activities`, `KG.potency_summary` |
+| `bio_kg_similar(compound, k)` | the k compounds most similar to this one **anywhere in the graph**, with what each has been measured on (target, median IC50, n): the way in when the target itself is thin, or to borrow a well-studied relative's assay | `KG.nodes_df`, `KG.neighbors` over `INHIBITS` |
 | `protocol_kg_templates(question_type, target_class="", target="")` | the templates applicable to the target (or a class) **or to any class above it**, filtered by the question type their `ANSWERS` edges name | `KG.neighbors` over `APPLICABLE_TO`, `KG.classes` |
 
 Three things the seed graphs leave to the agent, each a `TODO(final)` where it lives:

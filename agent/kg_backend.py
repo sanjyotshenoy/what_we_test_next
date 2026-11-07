@@ -244,6 +244,44 @@ class GraphBackend:
         ranked = sorted((c for c, _ in with_fp), key=lambda c: (-c["similarity"], c["ic50_nM"], c["compound"]))
         return ranked[: int(k)], True
 
+    def similar_compounds(self, compound_id: str, k: int = 5, smiles: str | None = None) -> list[dict]:
+        """The k compounds in the graph most similar to the query one, whatever they were measured against, with
+        what each is measured on (`measured_on`: target, gene, median IC50, n). `analogs()` answers "what is
+        known about this target"; this answers "what is known about compounds like this one", which is the way
+        in when the target itself is thin (TLK2 has 7 IC50s) or when the useful precedent is an assay design
+        rather than a potency."""
+        from rdkit import DataStructs
+        query = self.fingerprint(compound_id, smiles)
+        if query is None:
+            return []
+        frame = self.kg.nodes_df[self.kg.nodes_df["type"] == "Compound"]
+        others, fps = [], []
+        for id_ in frame["id"].to_list():
+            if id_ == compound_id:
+                continue
+            fp = self.fingerprint(id_)
+            if fp is not None:
+                others.append(id_)
+                fps.append(fp)
+        if not others:
+            return []
+        sims = DataStructs.BulkTanimotoSimilarity(query, fps)
+        top = sorted(zip(sims, others), key=lambda s: (-s[0], s[1]))[: int(k)]
+        found = []
+        for similarity, id_ in top:
+            per_target: dict[str, list[float]] = {}
+            for e in self.kg.neighbors(id_, "INHIBITS", direction="out"):
+                ic50 = e["props"].get("ic50_nM")
+                if ic50 is not None:
+                    per_target.setdefault(e["node"]["id"], []).append(float(ic50))
+            measured_on = [{"target": t, "gene": self.gene(self.kg.node(t) or {"id": t, "props": {}}),
+                            "ic50_nM": median(values), "n_measurements": len(values)}
+                           for t, values in per_target.items()]
+            measured_on.sort(key=lambda m: m["ic50_nM"])
+            found.append({"compound": id_, "name": self.name(id_), "similarity": float(similarity),
+                          "measured_on": measured_on})
+        return found
+
     # --- classes and templates -------------------------------------------------------------------------------
 
     def classes(self, target_id: str) -> list[dict]:

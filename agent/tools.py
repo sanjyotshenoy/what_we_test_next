@@ -8,6 +8,7 @@ functions the LLM can call, each returning rows the demo page can show.
 The graphs come from `kg.query.KG` through `agent/kg_backend.py` (loaded once); each tool is one of its lookups,
 shaped for the model: `bio_kg_resolve` = resolve + the class chain, `bio_kg_analogs` = the target's IC50s ranked
 by RDKit Tanimoto similarity to the query compound plus the target-wide potency spread,
+`bio_kg_similar` = the same similarity over every compound in the graph, for when the target itself is thin,
 `protocol_kg_templates` = the protocols APPLICABLE_TO any class on the target's chain, routed by ANSWERS.
 
 Every tool returns {"summary", "columns", "rows", ...}: `rows` are what the page tabulates, the rest is extra
@@ -144,6 +145,32 @@ class KnowledgeBase(GraphBackend):
                 "ranked_by_similarity": ranked, "fingerprint": "Morgan r=2, 2048 bits, Tanimoto",
                 "target_potency_spread_nM": spread}
 
+    def bio_kg_similar(self, compound: str, k: int = 5) -> dict:
+        """The k compounds in the graph most similar to this one, whatever target they were measured against,
+        with what each is measured on. Use when the target itself has few measurements, or to borrow an assay
+        from a well-studied relative; `bio_kg_analogs` is the one to use for a potency prior on the target."""
+        c, where = self.resolve_compound(compound)
+        cols = ["Compound", "Similarity", "Measured on"]
+        if not c:
+            return {"summary": f"Could not resolve: {compound}.", "columns": cols, "rows": [],
+                    "compound_source": "unresolved"}
+        found = self.similar_compounds(c["id"], k, smiles=c["props"].get("smiles") or None)
+        rows = [[f"{s['name']} ({s['compound']})", f"{s['similarity']:.2f}",
+                 ", ".join(f"{m['gene']} {fmt_uM(m['ic50_nM'])}" for m in s["measured_on"]) or "nothing measured"]
+                for s in found]
+        if found:
+            summary = (f"{len(found)} compound(s) in the graph most similar to {c['id']} "
+                       f"(Tanimoto {found[-1]['similarity']:.2f}–{found[0]['similarity']:.2f}), with what each "
+                       "has been measured on.")
+        else:
+            summary = f"{c['id']} has no usable structure, so similar compounds cannot be ranked."
+        if not c.get("in_graph", True):
+            summary += f" {c['id']} is not in the graph itself: its structure came from {where}."
+        return {"summary": summary, "columns": cols, "rows": rows, "compound_id": c["id"],
+                "compound_source": where, "fingerprint": "Morgan r=2, 2048 bits, Tanimoto",
+                "similar": [{"compound": s["compound"], "similarity": round(s["similarity"], 3),
+                             "measured_on": s["measured_on"]} for s in found]}
+
     def protocol_kg_templates(self, question_type: str, target_class: str = "", target: str = "") -> dict:
         """Templates for this question type that apply to the target (or a class) or to any class above it: the
         seed graph puts a target in its most specific ChEMBL class while the templates hang off a broad one
@@ -221,6 +248,16 @@ TOOL_SPECS = [
             "compound": {"type": "string"}, "target": {"type": "string"},
             "k": {"type": "integer", "description": "how many, default 3"}},
             "required": ["compound", "target"]}}},
+    {"type": "function", "function": {
+        "name": "bio_kg_similar",
+        "description": "The compounds in the graph most similar to the given one, whatever target they were "
+                       "measured against, with what each is measured on. Use it when the target has too few "
+                       "measurements to set a range, or to find a well-studied relative whose assay you can "
+                       "follow; for a potency prior on the target itself use bio_kg_analogs.",
+        "parameters": {"type": "object", "properties": {
+            "compound": {"type": "string"},
+            "k": {"type": "integer", "description": "how many, default 5"}},
+            "required": ["compound"]}}},
     {"type": "function", "function": {
         "name": "protocol_kg_templates",
         "description": "Protocol templates in the protocol knowledge graph for a question type on a target (or a "
