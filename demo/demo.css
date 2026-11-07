@@ -1,8 +1,9 @@
-/* The demo page: the deck's palette and font (Lato, from the deck's vendor/), light by default, dark from the
-   system or ?theme=dark. Sizes are rem so the page reads the same embedded in a slide or full screen. */
-@font-face { font-family: Lato; font-weight: 400; src: url(../../../vendor/fonts/Lato-Regular.woff2) format('woff2'); }
-@font-face { font-family: Lato; font-weight: 600; src: url(../../../vendor/fonts/Lato-Semibold.woff2) format('woff2'); }
-@font-face { font-family: Lato; font-weight: 700; src: url(../../../vendor/fonts/Lato-Bold.woff2) format('woff2'); }
+/* The demo page: the deck's palette and font (Lato, copied into fonts/ so the page stands alone), light by
+   default, dark from the system or ?theme=dark. Sizes are rem so the page reads the same embedded in a slide or full
+   screen. */
+@font-face { font-family: Lato; font-weight: 400; src: url(fonts/Lato-Regular.woff2) format('woff2'); }
+@font-face { font-family: Lato; font-weight: 600; src: url(fonts/Lato-Semibold.woff2) format('woff2'); }
+@font-face { font-family: Lato; font-weight: 700; src: url(fonts/Lato-Bold.woff2) format('woff2'); }
 
 :root {
   --bg: #fbfaf8; --card: #ffffff; --fg: #1d2129; --muted: #5c6370; --accent: #2f55d4; --ok: #1f9d55; --bad: #cf3434;

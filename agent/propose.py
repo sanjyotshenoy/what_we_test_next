@@ -2,7 +2,7 @@
 
     python -m agent.propose --question "Does imatinib inhibit the KIT kinase, and how potently?"
     python -m agent.propose --questions benchmark/questions.jsonl --out agent/out/kg.jsonl
-    python -m agent.propose --question "..." --runs-js slides/talks/biohack/demo/runs   # a trace for the demo page
+    python -m agent.propose --question "..." --runs-js demo/runs   # a trace for the demo page
 
 The agent is a tool-calling loop on the LLM (wwtn.llm.chat_raw): it resolves the entities in the biology KG,
 pulls analogs with measured activity to set the concentration range, fetches a protocol template for the target

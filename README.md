@@ -10,7 +10,8 @@ domain: does compound X inhibit target Y, answered by an IC50 dose-response (a s
 ## Layout
 
 Each workstream owns a folder; folders exchange files whose formats are fixed in `wwtn/schema.py` (JSON Lines)
-and [kg/README.md](kg/README.md) (graph CSVs). Read [CONTRIBUTING.md](CONTRIBUTING.md) before your first push.
+and [kg/README.md](kg/README.md) (graph CSVs). Read [CONTRIBUTING.md](CONTRIBUTING.md) before your first push. New here (or briefing a coding agent)? Start with [HANDOFF.md](HANDOFF.md): the whole project so far in one file; what we have discussed and decided since
+is in [DISCUSSIONS.md](DISCUSSIONS.md).
 
 ```
 benchmark/        questions the KB can't answer (held-out facts), ground truth, grading
@@ -18,6 +19,7 @@ kg/biology/       biology KG: compounds, targets, target classes, known activiti
 kg/protocols/     protocol KG: dose-response templates (steps, parameters, labware), BAO-tagged
 agent/            aim 1: question -> "can the KB answer it?" -> ExperimentProposal
 execution/        aim 2: ExperimentProposal -> OT-2 protocol -> simulator (and the real robot)
+Opentrons/        hand-written reference OT-2 protocols (Emmy): script + written protocol
 wwtn/             shared code: llm.py (Nebius calls), schema.py (the data contracts)
 slides/           the presentation (live deck)
 ```
@@ -53,8 +55,9 @@ search engines, so share it only with people who should see it. The deck is in `
 [protein-design-interactive-slides](https://github.com/ramithuh/protein-design-interactive-slides) (see
 `slides/README.md` and `slides/AGENTS.md`).
 
-- **Demo page:** `slides/talks/biohack/demo/` (also the "Demo" slide, and `demo/` next to the live deck): one
-  query through the whole pipeline, played from a trace file. See its README for the trace format.
+- **Demo page:** [`demo/`](demo/) at the repo root (also the "Live demo" slide, and `demo/` next to the live deck):
+  one query through the whole pipeline, played from a trace file. Its README has the trace format and the plan for
+  making it real. Changes there don't redeploy the slides.
 - **Present locally:** `cd slides && python -m http.server 8000`, then open http://localhost:8000/talks/biohack/
   (or open `slides/talks/biohack/index.html` straight from disk).
 - **Check every slide:** `python slides/tools/check_deck.py slides/talks/biohack` (needs Playwright).

@@ -35,6 +35,11 @@ schema, and build against those. Knowledge graphs use the node/edge CSV format i
 - Every folder keeps a short `README.md`: what it does, who owns it, how to run it, what it writes.
 - LLM calls go through `wwtn.llm.chat` so we can switch models in one place and compare them fairly.
 
+## Record decisions
+
+When a discussion settles something (or leaves it open), add a short dated entry to
+[DISCUSSIONS.md](DISCUSSIONS.md): decided / suggested / open, and the file it changed.
+
 ## Things to finish before presenting
 
 Anything that is mock, placeholder or unconfirmed carries a `TODO(final)` comment where it lives, so nothing fake

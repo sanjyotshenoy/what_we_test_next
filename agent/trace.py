@@ -1,4 +1,4 @@
-"""A trace of one run: what the demo page plays (format: slides/talks/biohack/demo/README.md).
+"""A trace of one run: what the demo page plays (format: demo/README.md).
 
 The agent fills it as it goes (`set_lookup`, `add_call`, `add_reasoning`, `set_proposal`); every addition is
 also sent to listeners (`trace.on(fn)`), which is how the live server streams a run to the page. At the end,

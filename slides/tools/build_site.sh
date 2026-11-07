@@ -13,7 +13,8 @@ out=$(realpath -m "${1:-$repo/site}")
 rm -rf "$out"
 mkdir -p "$out"
 cp "$repo/index.html" "$out/"
-cp -r "$repo/web" "$repo/vendor" "$repo/talks" "$out/"
+# -L: copy what symlinks point to, so a talk can link in a folder kept elsewhere (talks/biohack/demo -> /demo)
+cp -rL "$repo/web" "$repo/vendor" "$repo/talks" "$out/"
 # the checker's pictures (talks/*/check/), if any are lying around locally
 find "$out/talks" -mindepth 2 -maxdepth 2 -type d -name check -exec rm -rf {} +
 echo "site: $(find "$out" -type f | wc -l) files, $(du -sh "$out" | cut -f1) in $out"

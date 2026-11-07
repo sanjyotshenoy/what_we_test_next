@@ -57,10 +57,10 @@ Deck.slide('title', {
       names: ['Aidan Zhang', 'Emmy Nguyen', 'Jimmy Hsu', 'Ramith Hettiarachchi', 'Sanjyot Shenoy',   // by first name
         'Seh Na Mellick', 'Xiaochen Zhai'],
     };
-    // headshots in data/team/<first-last>.jpg (360 px squares; from the CMU CPCB students page). Add a name here
+    // headshots in data/team/<first-last>.jpg (360 px squares; from the CMU CPCB students page, Emmy's and Xiaochen's from them). Add a name here
     // once its file is there; the rest show their initials.
-    // TODO(final): photos for Emmy Nguyen, Jimmy Hsu and Xiaochen Zhai (they show initials for now).
-    const PHOTOS = new Set(['Aidan Zhang', 'Ramith Hettiarachchi', 'Sanjyot Shenoy', 'Seh Na Mellick']);
+    // TODO(final): photo for Jimmy Hsu (he shows initials for now).
+    const PHOTOS = new Set(['Aidan Zhang', 'Emmy Nguyen', 'Ramith Hettiarachchi', 'Sanjyot Shenoy', 'Seh Na Mellick', 'Xiaochen Zhai']);
     const face = (n) => {
       const words = n.split(' ');
       const last = words.pop(), first = words.join(' ');   // "Seh Na" / "Mellick"

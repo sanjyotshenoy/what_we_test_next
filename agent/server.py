@@ -2,7 +2,7 @@
 stage by stage (server-sent events). Also serves slides/, so the deck and the demo page come from the same origin.
 
     python -m agent.server                      # http://localhost:8008/talks/biohack/demo/  (and the deck one level up)
-    python -m agent.server --model moonshotai/Kimi-K3 --record slides/talks/biohack/demo/runs
+    python -m agent.server --model moonshotai/Kimi-K3 --record demo/runs
 
     POST /api/run   {"query": "...", "model"?: "...", "fresh"?: true}   -> {"id", "model", "cached"}
     GET  /api/runs/{id}/events                                           -> text/event-stream of trace events
@@ -162,6 +162,12 @@ def build(server: Server, slides: Path) -> FastAPI:
         return StreamingResponse(gen(), media_type="text/event-stream",
                                  headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
+    # demo/ lives at the repo root and reaches the deck through a symlink (talks/biohack/demo -> ../../../demo);
+    # StaticFiles won't follow a symlink out of its folder, so mount demo/ itself at both addresses, ahead of "/"
+    demo = REPO / "demo"
+    if demo.is_dir():
+        app.mount("/talks/biohack/demo", StaticFiles(directory=str(demo), html=True), name="demo-in-deck")
+        app.mount("/demo", StaticFiles(directory=str(demo), html=True), name="demo")
     if slides.is_dir():
         app.mount("/", StaticFiles(directory=str(slides), html=True), name="slides")
     return app
