@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What we test next · demo</title>
+<!--
+  One query through the whole pipeline: the KB says "I don't know", the agent queries the two graphs, proposes an
+  experiment, writes the OT-2 protocol, and the proposal is checked against the record held out of the KB.
+  Static: the page plays traces from runs/*.js (format in README.md). ?all shows every stage at once;
+  ?theme=dark|light overrides the system theme; ?run=<id> picks a trace.
+-->
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="dot"></span>What we test next</div>
+  <span id="mock" class="badge" hidden>Mock trace · numbers are illustrative</span>
+</header>
+
+<main>
+  <form id="ask" class="ask" autocomplete="off">
+    <input id="q" type="text" aria-label="Question" placeholder="Ask a question the literature can’t answer yet…">
+    <button type="submit">Run</button>
+  </form>
+  <div id="suggest" class="suggest"></div>
+  <p id="msg" class="msg" hidden></p>
+
+  <ol id="timeline" class="timeline"></ol>
+  <div id="controls" class="controls" hidden>
+    <button id="next" type="button">Next step</button>
+    <button id="all" type="button" class="quiet">Show all</button>
+  </div>
+</main>
+
+<script src="runs/kit_imatinib.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>

@@ -53,6 +53,8 @@ search engines, so share it only with people who should see it. The deck is in `
 [protein-design-interactive-slides](https://github.com/ramithuh/protein-design-interactive-slides) (see
 `slides/README.md` and `slides/AGENTS.md`).
 
+- **Demo page:** `slides/talks/biohack/demo/` (also the "Demo" slide, and `demo/` next to the live deck): one
+  query through the whole pipeline, played from a trace file. See its README for the trace format.
 - **Present locally:** `cd slides && python -m http.server 8000`, then open http://localhost:8000/talks/biohack/
   (or open `slides/talks/biohack/index.html` straight from disk).
 - **Check every slide:** `python slides/tools/check_deck.py slides/talks/biohack` (needs Playwright).
