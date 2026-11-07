@@ -1,0 +1,11 @@
+# pictures written by tools/check_deck.py
+talks/*/check/
+__pycache__/
+.DS_Store
+node_modules/
+# wrangler's local cache (tools/deploy_pages.sh)
+.wrangler/
+# the built site (tools/build_site.sh)
+site/
+# PDFs from tools/export_pdf.py (they would otherwise be published with the talk)
+talks/*/*.pdf
