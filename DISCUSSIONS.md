@@ -103,3 +103,11 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 - Suggested: store or filter `assays.confidence_score` (cell-based / low-confidence assignments become INHIBITS
   edges); dedupe node IDs across graphs in `KG.__init__`; same-series leakage warning in `benchmark/check.py`.
 - Open: PR / merge into main; GPU timings on the RTX 5090 once a full-size graph exists.
+
+**Compute and a public demo** (ramiiith, 18:50).
+- Brev credits: the team's one-time promo code is on ramiiith's account; share access by org invite / SSH keys,
+  never by posting credentials. The RTX 5090 on the bot's machine covers the GPU speedup demo.
+- Brev tunnels give a shareable URL but go through Cloudflare authentication (first visit needs a browser login),
+  so they may not be fully public; no documented public IP / open ports.
+- Suggested: keep the public demo static (already on Cloudflare Pages) replaying real traces; optional live mode = a
+  small backend behind a Brev or Cloudflare tunnel, tested from outside the network, with recorded traces as fallback.
