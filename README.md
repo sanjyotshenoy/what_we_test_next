@@ -2,6 +2,34 @@
 
 **Closing the Loop Between Knowledge and Discovery**: Team Zhang et al., Nucleate Pittsburgh BioHack 2026.
 
+Literature agents can answer a question when someone has already done the experiment. When the honest answer is
+**"I don't know"**, we propose the experiment that would answer it (aim 1), grounded in a knowledge graph of
+biology and one of experimental protocols, and turn it into a protocol an Opentrons OT-2 can run (aim 2). First
+domain: does compound X inhibit target Y, answered by an IC50 dose-response (a serial dilution).
+
+## Layout
+
+Each workstream owns a folder; folders exchange files whose formats are fixed in `wwtn/schema.py` (JSON Lines)
+and [kg/README.md](kg/README.md) (graph CSVs). Read [CONTRIBUTING.md](CONTRIBUTING.md) before your first push.
+
+```
+benchmark/        questions the KB can't answer (held-out facts), ground truth, grading
+kg/biology/       biology KG: compounds, targets, target classes, known activities
+kg/protocols/     protocol KG: dose-response templates (steps, parameters, labware), BAO-tagged
+agent/            aim 1: question -> "can the KB answer it?" -> ExperimentProposal
+execution/        aim 2: ExperimentProposal -> OT-2 protocol -> simulator (and the real robot)
+wwtn/             shared code: llm.py (Nebius calls), schema.py (the data contracts)
+slides/           the presentation (live deck)
+```
+
+```
+benchmark/questions.jsonl --> agent/ <-- kg/biology/graph, kg/protocols/graph
+                                |
+                     agent/out/<run>.jsonl --> execution/ --> OT-2 protocol + simulation
+                                |
+                         benchmark/grade (against ground_truth.jsonl)
+```
+
 ## Calling LLMs (Nebius Token Factory)
 
 `wwtn/llm.py` wraps Nebius's OpenAI-compatible API. Put the key in `.env` (git-ignored; never commit it):
