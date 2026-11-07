@@ -83,10 +83,11 @@ Deck.slide('title', {
         --wv-rim: #6cbde9; --wv-rim-o: .35; }
       .deck-frame .ti-title { top: 16%; width: 60%; text-wrap: balance; }
       .deck-frame .ti-subtitle { top: 40%; width: 60%; }
-      .ti-team { position: absolute; left: 8%; top: 51.5%; margin: 0; font-size: var(--t-small); font-weight: 700;
-        color: var(--accent); }
+      /* the team's name sits large on the wave, bottom right */
+      .ti-team { position: absolute; right: 7%; top: 68%; margin: 0; font-size: var(--t-heading); font-weight: 700;
+        color: var(--accent); white-space: nowrap; }
       /* the team, four to a row: a round headshot (or initials) over the first and last name */
-      .ti-names { position: absolute; left: 8%; top: 57%; width: 44%; margin: 0; display: grid;
+      .ti-names { position: absolute; left: 8%; top: 53%; width: 44%; margin: 0; display: grid;
         grid-template-columns: repeat(4, 1fr); gap: calc(1.2 * var(--u)) 0; }
       .ti-face { margin: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
       .ti-face img, .ti-initials { width: calc(5.8 * var(--u)); height: calc(5.8 * var(--u)); border-radius: 50%;
