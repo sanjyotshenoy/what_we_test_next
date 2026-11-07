@@ -93,3 +93,13 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   tables), cuVS for a large embedding index. A GPU is available (RTX 5090, 32 GB, on the bot's machine).
 - At pilot scale the GPU won't show; the slide is "same code on full ChEMBL / OptimusKG, CPU vs GPU timings".
 - Open: does `kg/query.py` use NetworkX/pandas?
+
+**`kg-scaffolding` branch** (zetamac, 18:40; reviewed).
+- Built: `kg/backend.py` (one codebase, `WWTN_GPU=1` switches to cudf.pandas + nx-cugraph, refuses if pandas or
+  networkx were imported first), `kg/graph_io.py`, `kg/query.py` (pandas frames + networkx MultiDiGraph),
+  `kg/biology/build_seed.py` + `chembl_db.py` (local ChEMBL 37 SQLite dump, IC50 '=' nM before 2024, `LeakageError`
+  on post-cutoff or undated rows), `kg/protocols/seed.py` (3 templates). 43 tests pass, 1 GPU test skipped (no RAPIDS
+  on the review machine). Biology graph not built yet (needs the ~30 GB dump).
+- Suggested: store or filter `assays.confidence_score` (cell-based / low-confidence assignments become INHIBITS
+  edges); dedupe node IDs across graphs in `KG.__init__`; same-series leakage warning in `benchmark/check.py`.
+- Open: PR / merge into main; GPU timings on the RTX 5090 once a full-size graph exists.
