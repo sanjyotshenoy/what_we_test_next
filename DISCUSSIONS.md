@@ -137,3 +137,18 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   confirmatory AIDs time-split by deposition date (richer step-level ground truth than paper methods). For OT-2
   generation, use Emmy's reference protocol (`Opentrons/`) as the few-shot example, pin the API level (2.28) in the
   in-context docs, pass labware `load_name`s from `lab.yaml`, and feed back simulator errors (≤ 3 fixes).
+
+**PR #1: live agent + demo figures** (ramiiith / allgofine, 19:28).
+- `agent/propose.py` + `agent/tools.py` (tool-calling loop over the KGs, traced), `agent/server.py` (FastAPI: runs
+  the agent live and streams the trace to the page), demo stepping, model switch, theme button, two figures. Agent
+  still uses hand-written sample graphs (`agent/data/sample_kg`).
+- Merged with main's demo move on branch `pr1-merged` (demo files into `demo/`; server mounts `demo/` itself since
+  StaticFiles won't follow the symlink). Open: fast-forward main to it.
+
+**Populating the experiment DB** (zetamac, 19:31).
+- Decided: decouple OT-2 code generation for now; focus on the database.
+- Suggested: a template = one generalizable experiment type (purpose and when to use it from the Assay Guidance
+  Manual; abstract step tree, parameter ranges and exemplar AIDs from PubChem confirmatory assays; AGM rules as a
+  `rule` table). Populate by LLM extraction of ~5–20 AIDs per archetype, aligned and hand-checked. Grading trees take
+  the skeleton from templates but values from the held-out paper / AID (not circular). AGM rules → deterministic
+  soundness checks.
