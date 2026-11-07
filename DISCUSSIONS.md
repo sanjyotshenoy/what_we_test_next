@@ -152,3 +152,11 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   `rule` table). Populate by LLM extraction of ~5–20 AIDs per archetype, aligned and hand-checked. Grading trees take
   the skeleton from templates but values from the held-out paper / AID (not circular). AGM rules → deterministic
   soundness checks.
+
+**Demo platform split: ouroboros** (Sanjyot / professorduckydoo / ramiiith, 19:40).
+- Decided: the full demo platform lives in its own private repo, `sanjyotshenoy/ouroboros`, and pulls from this
+  research repo (one-way). This repo keeps `demo/` as the offline fallback; the bot gets read-only access via a
+  deploy key. Interfaces ouroboros depends on (the trace format in `demo/README.md`, `wwtn/`, `agent/`) change only
+  with a note here.
+- Suggested (not decided): no git submodule (it would break the slides deploy and force ouroboros access on every
+  clone); the deck's demo slide can point at ouroboros' deployed URL once there is one.
