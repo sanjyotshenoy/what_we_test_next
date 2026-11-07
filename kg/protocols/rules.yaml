@@ -1,0 +1,235 @@
+# Design rules from the NCATS Assay Guidance Manual (AGM; NCBI Bookshelf NBK53196).
+#
+# Grounding: every rule quotes its chapter. The chapters were read from the NCBI open-access archive of the book
+# (https://ftp.ncbi.nlm.nih.gov/pub/litarch/44/e5/assayguide_NBK53196.tar.gz, archive dated 2026-07-16), because
+# the Bookshelf web pages answer scripts with a reCAPTCHA page. Chapter NBK IDs come from Entrez esummary
+# (db=books, 2026-11-07); `url` is the chapter page. Each `quote` was checked to be verbatim chapter text.
+#
+# TODO(final): the quotes and chapter titles are verified against the archive text, but which rules matter most,
+# and whether the grader wants the 12 judge items made deterministic (that needs new wwtn/schema.py fields), is
+# not reviewed by a person yet.
+#
+# Fields
+#   id          rule:agm/<name>
+#   text        the rule, as we apply it
+#   applies_to  archetype IDs from archetypes.yaml, or "all"
+#   check       an expression over wwtn.schema.Experiment fields (top_concentration_uM, dilution_factor, n_points,
+#               replicates, controls, assay_type, readout, system) plus context values the caller passes
+#               (expected_ic50_uM: the potency prior), evaluated by kg.protocols.build_db.check_rule. True = passes.
+#               null = not checkable from an Experiment: a judge item for the grader.
+#   severity    must | should
+#   source      chapter title, NBK ID, url, quote
+
+- id: rule:agm/min_points_enzyme_ic50
+  text: Use at least 10 inhibitor concentrations for an enzyme IC50.
+  applies_to: [proto:kinase_biochem_lum, proto:kinase_biochem_trfret, proto:protease_fret_activity]
+  check: n_points >= 10
+  severity: should
+  source:
+    chapter: Basics of Enzymatic Assays for HTS
+    nbk: NBK92007
+    quote: "Use a minimum of 10 inhibitor concentrations for an accurate IC50 determination."
+
+- id: rule:agm/min_points_crc
+  text: >-
+    A concentration-response curve needs at least 8 concentrations; more concentrations (up to 12) are better
+    than more replicates.
+  applies_to: all
+  check: n_points >= 8
+  severity: must
+  source:
+    chapter: HTS Assay Validation
+    nbk: NBK83783
+    quote: "A minimum of 8 concentrations at half-log intervals is recommended. In general, it is better to have more concentrations (up to 12) rather than more replicates."
+
+- id: rule:agm/even_spacing
+  text: Space concentrations evenly on a log scale, 3-fold or half-log (3.16-fold) steps.
+  # The MIC archetype is excluded: CLSI broth microdilution uses 2-fold steps by definition.
+  applies_to: [proto:kinase_biochem_lum, proto:kinase_biochem_trfret, proto:kinase_binding_competition,
+               proto:cell_viability_atp, proto:kinase_cellular_target_engagement, proto:gpcr_camp_functional,
+               proto:protease_fret_activity]
+  check: 2.9 <= dilution_factor <= 3.2
+  severity: should
+  source:
+    chapter: Basics of Enzymatic Assays for HTS
+    nbk: NBK92007
+    quote: "Equally spaced concentration ranges (i.e. 3-fold or half-log dilutions) provide the best data sets for analysis."
+
+- id: rule:agm/bracket_expected_ic50
+  text: >-
+    Centre the series on the expected IC50: about half the points above it and half below, with full top and
+    bottom plateaus. Checked as: the expected IC50 (potency prior) lies within two dilution steps of the series'
+    log midpoint.
+  applies_to: [proto:kinase_biochem_lum, proto:kinase_biochem_trfret, proto:kinase_binding_competition,
+               proto:cell_viability_atp, proto:kinase_cellular_target_engagement, proto:gpcr_camp_functional,
+               proto:protease_fret_activity]
+  check: abs(log10(expected_ic50_uM) - log10(top_concentration_uM / dilution_factor ** ((n_points - 1) / 2))) <= 2 * log10(dilution_factor)
+  severity: should
+  source:
+    chapter: Basics of Enzymatic Assays for HTS
+    nbk: NBK92007
+    quote: "Ideally, half the data points on the IC50 curve are above the IC50 value and half are below the IC50 value, including a minimum and maximum signal."
+
+- id: rule:agm/report_ic50_criteria
+  text: >-
+    Report an IC50 only if maximum inhibition exceeds 50%, top and bottom are within 15% of theory, and the 95%
+    confidence limits span no more than 2-5 fold.
+  applies_to: [proto:kinase_biochem_lum, proto:kinase_biochem_trfret, proto:protease_fret_activity]
+  check: null   # a criterion on results, not on the design
+  severity: must
+  source:
+    chapter: Basics of Enzymatic Assays for HTS
+    nbk: NBK92007
+    quote: "The maximum % inhibition should be greater than 50%."
+
+- id: rule:agm/tight_binding_limit
+  text: >-
+    An IC50 cannot be measured below half the enzyme concentration (tight binding): keep the enzyme concentration
+    well below the expected IC50.
+  applies_to: [proto:kinase_biochem_lum, proto:kinase_biochem_trfret, proto:protease_fret_activity]
+  check: null   # Experiment has no enzyme concentration field
+  severity: must
+  source:
+    chapter: Basics of Enzymatic Assays for HTS
+    nbk: NBK92007
+    quote: "The lower limit for determining an IC50 is ½ the enzyme concentration (tight binding inhibitors, 3)."
+
+- id: rule:agm/substrate_at_km
+  text: >-
+    To detect competitive inhibitors, run at substrate concentrations at or below Km; for kinases, ATP around or
+    below its Km ([S] = Km detects all mechanisms).
+  applies_to: [proto:kinase_biochem_lum, proto:kinase_biochem_trfret, proto:protease_fret_activity]
+  check: null
+  severity: should
+  source:
+    chapter: Basics of Enzymatic Assays for HTS
+    nbk: NBK92007
+    quote: "Subsequent reactions need to be conducted with optimum ATP concentration, around or below the Km value using initial velocity conditions."
+
+- id: rule:agm/initial_velocity
+  text: Measure under initial-velocity conditions, i.e. less than 10% of the substrate converted.
+  applies_to: [proto:kinase_biochem_lum, proto:kinase_biochem_trfret, proto:protease_fret_activity]
+  check: null
+  severity: must
+  source:
+    chapter: Basics of Enzymatic Assays for HTS
+    nbk: NBK92007
+    quote: "Initial velocity is the initial linear portion of the enzyme reaction when less than 10% of the substrate has been depleted or less than 10% of the product has formed."
+
+- id: rule:agm/dmso_tolerance
+  text: >-
+    Test the assay's DMSO tolerance and keep every well at the same final DMSO. Enzyme and binding assays often
+    tolerate 5-10%; cell-based assays usually only up to 0.5% (the cAMP chapter says most cells tolerate up to 1%:
+    the two chapters differ, so check the cell line).
+  applies_to: all
+  check: null   # Experiment has no DMSO field
+  severity: must
+  source:
+    chapter: Assay Development for Protein Kinase Enzymes
+    nbk: NBK91991
+    quote: "Generally, enzymatic or biomolecular binding assays are more tolerant of high DMSO concentrations (often up to 5 - 10% DMSO). Cell based assays usually can tolerate up to 0.5% DMSO."
+
+- id: rule:agm/vehicle_control
+  text: >-
+    Include vehicle (DMSO) wells: the "Max" signal with no test compound, which normalisation needs.
+  applies_to: all
+  check: any(("dmso" in c.lower()) or ("vehicle" in c.lower()) or ("growth control" in c.lower()) for c in controls)
+  severity: must
+  source:
+    chapter: HTS Assay Validation
+    nbk: NBK83783
+    quote: "In in-vitro assays that measure receptor-ligand binding or enzyme activity measurement with substrate conversion to products, maximum signal represents a readout signal in the absence test compounds."
+
+- id: rule:agm/max_min_controls
+  text: >-
+    Each plate needs both a Max and a Min signal control (e.g. vehicle and no-enzyme / reference inhibitor at a
+    saturating concentration), so Z' and percent inhibition can be computed.
+  applies_to: all
+  check: len(controls) >= 2
+  severity: must
+  source:
+    chapter: HTS Assay Validation
+    nbk: NBK83783
+    quote: "Compute the Z’ factor and/or the SW for each plate where Max and Min controls are present"
+
+- id: rule:agm/reference_compound
+  text: >-
+    Run at least one control (reference) compound in every run, ideally as potent as the best compound
+    available, and track its potency over runs.
+  applies_to: all
+  check: null   # whether a listed control is a titrated reference compound needs judgement
+  severity: should
+  source:
+    chapter: Assay Operations for SAR Support
+    nbk: NBK91994
+    quote: "All other assays should have at least a primary control (Regular Monitoring)."
+
+- id: rule:agm/z_prime
+  text: Accept a plate only if Z' >= 0.4 (or signal window >= 2).
+  applies_to: all
+  check: null   # a QC criterion on run data
+  severity: must
+  source:
+    chapter: HTS Assay Validation
+    nbk: NBK83783
+    quote: "The recommended acceptance criterion is Z’ factor ≥ 0.4, which is comparable to a SW ≥ 2."
+
+- id: rule:agm/reproducibility_msr
+  text: >-
+    Potency must be reproducible between runs (minimum significant ratio, MSR, at most 3); if not, add
+    concentrations, replicates or repeat runs (each compound once per run on 2 or more runs).
+  applies_to: all
+  check: null
+  severity: should
+  source:
+    chapter: HTS Assay Validation
+    nbk: NBK83783
+    quote: "For example, each compound may be tested once per run on 2 or more runs."
+
+- id: rule:agm/four_parameter_fit
+  text: >-
+    Fit concentration-response data with the four-parameter logistic; fix the top or bottom only when the
+    compound's potency puts that plateau outside the tested range.
+  applies_to: all
+  check: null   # analysis rule
+  severity: should
+  source:
+    chapter: Assay Operations for SAR Support
+    nbk: NBK91994
+    quote: "The 4PL model is the best model for concentration -response data, but there are cases where it should not be used."
+
+- id: rule:agm/luciferase_counterscreen
+  text: >-
+    Luciferase-coupled readouts are prone to luciferase inhibitors: confirm actives with a counterscreen or an
+    orthogonal (non-luciferase) assay.
+  applies_to: [proto:kinase_biochem_lum, proto:cell_viability_atp, proto:kinase_cellular_target_engagement]
+  check: null
+  severity: should
+  source:
+    chapter: Interferences with Luciferase Reporter Enzymes
+    nbk: NBK374281
+    quote: "Role of Primary, Secondary, Orthogonal and Counterscreen Assays in the Identification of Assay Artifacts"
+
+- id: rule:agm/tracer_at_or_below_kd
+  text: >-
+    In competition binding, use the labelled ligand at or below its Kd and keep less than 10% of it bound (no
+    ligand depletion).
+  applies_to: [proto:kinase_binding_competition, proto:kinase_cellular_target_engagement]
+  check: null
+  severity: must
+  source:
+    chapter: Receptor Binding Assays for HTS and Drug Discovery
+    nbk: NBK91992
+    quote: "For competition assays, the radioligand concentration should be at or below the Kd"
+
+- id: rule:agm/camp_antagonist_agonist_level
+  text: >-
+    For GPCR antagonists in a cAMP assay, stimulate with agonist at EC50-EC80, within the linear range of the
+    cAMP standard curve; Gi-coupled receptors need forskolin to raise cAMP first.
+  applies_to: [proto:gpcr_camp_functional]
+  check: null
+  severity: must
+  source:
+    chapter: Measurement of cAMP for Gαs- and Gαi Protein-Coupled Receptors (GPCRs)
+    nbk: NBK464633
+    quote: "At the chosen EC50-80 concentration of agonist, the measured agonist response should not exceed the linear range of the cAMP standard curve."

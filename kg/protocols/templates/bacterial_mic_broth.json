@@ -1,0 +1,124 @@
+{
+  "id": "proto:bacterial_mic_broth",
+  "curation": "agent-curated from PubChem AIDs 449774, 1503, 463100, 624097 and the team's Opentrons MIC protocol (read by hand, 2026-11-07); re-run extract.py when a key is available",
+  "todo": "TODO(final): agent-curated, not yet checked by a person; every value is quoted from the AID or file named next to it",
+  "purpose": "Find the minimum inhibitory concentration (MIC) of a compound against a bacterial strain: 2-fold serial dilution in cation-adjusted Mueller-Hinton broth, a standard inoculum added 1:1, overnight growth, turbidity read. A non-kinase negative control for routing.",
+  "notes": [
+    "463100 and 624097 are checkerboard synergy assays (compound x imipenem); only their shared broth-microdilution conditions (medium, inoculum, volume, incubation, readout) are used here.",
+    "Three of the four AIDs are from one Scripps project (metallo-beta-lactamase inhibitors). PubChem 'Activity outcome method' is 'Other' for 449774, 463100, 624097 and 'Confirmatory' for 1503.",
+    "The Opentrons exemplar is on the main branch, not this one: Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py. Its write-up (.docx) names both CAMHB and 'regular M9 broth' for the broth; the script's liquid label says CAMHB.",
+    "Inoculum: each source adds about 1e6 CFU/mL in an equal volume, so wells start near 5e5 CFU/mL (derived)."
+  ],
+  "exemplars": [
+    {"aid": 449774, "source": "The Scripps Research Institute Molecular Screening Center", "deposited": "2010-07-26", "target": "Escherichia coli BL21 (wild type)", "name": "Late stage counterscreen results from the probe development efforts to identify common IMP-1 and VIM-2 inhibitors: wildtype E. coli growth inhibition dose response assay (MIC: minimum inhibitory concentration)"},
+    {"aid": 1503, "source": "Burnham Center for Chemical Genomics", "deposited": "2009-01-12", "target": "Escherichia coli (DnaK)", "name": "Minimal Inhibitory Concentration assay in E. Coli for small molecule DnaK Modulators targeting the b-domain."},
+    {"aid": 463100, "source": "The Scripps Research Institute Molecular Screening Center", "deposited": "2010-08-18", "target": "E. coli BL21 expressing VIM-2 (synergy with imipenem)", "name": "Late stage assay provider counterscreen results from the probe development efforts to identify common IMP-1 and VIM-2 inhibitors: VIM-2-transformed E. coli growth inhibition dose response assay in the presence of imipenem"},
+    {"aid": 624097, "source": "The Scripps Research Institute Molecular Screening Center", "deposited": "2012-04-12", "target": "E. coli BL21 expressing IMP-1 (synergy with imipenem)", "name": "Late stage assay provider results from the probe development efforts to identify inhibitors of VIM-2 metallo-beta-lactamase (nonselective):IMP-1-transformed E. coli growth inhibition in the presence of imipenem (synergy)"},
+    {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "ref": "main", "source": "Emmy Nguyen (team), simplified from the Bridges lab (CMU) protocol", "name": "MIC 2-fold broth microdilution, CLSI 100 + 100 uL format (OT-2)"}
+  ],
+  "parameters": {
+    "top_concentration": {"observed": [
+      {"value": 50, "unit": "uM", "aid": 449774, "quote": "10-point two-fold serial dilutions starting at a nominal test concentration of 50 uM"},
+      {"value": 100, "unit": "uM", "aid": 624097, "quote": "highest concentration tested (i.e. 100 uM)"}
+    ]},
+    "dilution_factor": {"observed": [
+      {"value": 2, "unit": "fold", "aid": 449774, "quote": "10-point two-fold serial dilutions"},
+      {"value": 2, "unit": "fold", "aid": 463100, "quote": "10 point two-fold serial dilutions across the plate"},
+      {"value": 2, "unit": "fold", "aid": 624097, "quote": "two-fold serial broth dilution method"},
+      {"value": 2, "unit": "fold", "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Col 1-10 : 2-fold antibiotic series + bacteria"}
+    ]},
+    "n_points": {"observed": [
+      {"value": 10, "unit": "concentrations", "aid": 449774, "quote": "10-point two-fold serial dilutions"},
+      {"value": 10, "unit": "concentrations", "aid": 463100, "quote": "10 point two-fold serial dilutions across the plate"},
+      {"value": 10, "unit": "concentrations", "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Col 1-10 : 2-fold antibiotic series + bacteria"}
+    ]},
+    "replicates": {"observed": [
+      {"value": 3, "unit": "wells per concentration", "aid": 449774, "quote": "Compounds and Imipenem were tested in triplicate"},
+      {"value": 8, "unit": "wells per concentration", "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Final plate (all 8 rows A-H are replicates):"}
+    ]},
+    "inoculum_added": {"observed": [
+      {"value": 1000000, "unit": "CFU/mL", "aid": 449774, "quote": "bacterial inoculums of 1 x 106 CFU/mL", "derived": "'1 x 106' read as 1 x 10^6 (superscript lost)"},
+      {"value": 1000000, "unit": "CFU/mL", "aid": 624097, "quote": "1 x 10^6 CFU/mL"},
+      {"value": 1000000, "unit": "CFU/mL", "aid": 463100, "quote": "bacterial inoculums of 1E6 CFU/mL"},
+      {"value": 1000000, "unit": "CFU/mL", "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Bacteria, ~1e6 CFU/mL"}
+    ]},
+    "final_volume": {"observed": [
+      {"value": 0.06, "unit": "mL", "aid": 449774, "quote": "All testing was performed in 384 well plates in 0.06 mL final volume."},
+      {"value": 0.06, "unit": "mL", "aid": 463100, "quote": "performed in 384 well plates in 0.06 mL final volume"},
+      {"value": 0.06, "unit": "mL", "aid": 624097, "quote": "All testing was performed in 384 well plates in 0.06 mL final volume."},
+      {"value": 100, "unit": "uL", "aid": 1503, "quote": "mixing 90 uL of an OD600 = 0.001 with 10 uL of various concentrations of compound", "derived": "90 uL + 10 uL"},
+      {"value": 200, "unit": "uL", "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "200 uL final per well"}
+    ]},
+    "incubation_time": {"observed": [
+      {"value": 18, "unit": "h", "aid": 449774, "quote": "incubated for 18 hours at 37 C in a humidified environment"},
+      {"value": 18, "unit": "h", "aid": 463100, "quote": "incubated for 18 hours at 37 C in a humidified environment"},
+      {"value": 18, "unit": "h", "aid": 624097, "quote": "incubated for 18 hours at 37 C in a humidified environment"},
+      {"value": "overnight", "unit": null, "aid": 1503, "quote": "grown overnight in a 96-well plate"}
+    ]},
+    "incubation_temperature": {"observed": [
+      {"value": 37, "unit": "C", "aid": 449774, "quote": "incubated for 18 hours at 37 C"},
+      {"value": 37, "unit": "C", "aid": 463100, "quote": "incubated for 18 hours at 37 C"},
+      {"value": 37, "unit": "C", "aid": 624097, "quote": "incubated for 18 hours at 37 C"}
+    ]},
+    "read_wavelength": {"observed": [
+      {"value": 590, "unit": "nm", "aid": 449774, "quote": "Absorbance (OD590) was read"},
+      {"value": 590, "unit": "nm", "aid": 463100, "quote": "Absorbance (OD590) was read"},
+      {"value": 590, "unit": "nm", "aid": 624097, "quote": "Absorbance (OD590) was read"},
+      {"value": 530, "unit": "nm", "aid": 1503, "quote": "Optical density at 530 nm was measured"}
+    ]},
+    "plate_wells": {"observed": [
+      {"value": 384, "unit": "wells", "aid": 449774, "quote": "384 well plates"},
+      {"value": 96, "unit": "wells", "aid": 1503, "quote": "grown overnight in a 96-well plate"},
+      {"value": 96, "unit": "wells", "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "corning_96_wellplate_360ul_flat"}
+    ]}
+  },
+  "steps": [
+    {"verb": "prepare", "text": "Prepare cation-adjusted Mueller-Hinton broth (CAMHB) and the compound at 2x the top concentration.", "params": ["top_concentration"],
+     "evidence": [{"aid": 449774, "quote": "Imipenem or test compound was titrated in Cation Adjusted Mueller-Hinton Broth (CAMHB) immediately prior to testing."},
+                  {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "A2 = antibiotic (2x top concentration)"}]},
+    {"verb": "serial_dilute", "text": "Make a 2-fold, 10-point dilution series in broth across the plate.", "params": ["dilution_factor", "n_points", "replicates", "plate_wells"],
+     "evidence": [{"aid": 449774, "quote": "10-point two-fold serial dilutions"}, {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Step 4: serial dilution, column 1 -> 10, then discard 100 uL from column 10"}],
+     "substeps": [
+       {"verb": "serial_dilute", "text": "Carry half the volume from each column into the next, mixing, from column 1 to column 10.", "params": ["dilution_factor", "n_points"],
+        "evidence": [{"aid": 449774, "quote": "10-point two-fold serial dilutions"},
+                     {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Step 4: serial dilution, column 1 -> 10"}]},
+       {"verb": "dispense", "text": "Discard the carried-over volume from the last diluted column, so every well holds the same volume.", "params": [],
+        "evidence": [{"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "then discard 100 uL from column 10"}]}
+     ]},
+    {"verb": "prepare", "text": "Grow the strain to log phase and dilute it in broth to the inoculum density (2x final).", "params": ["inoculum_added"],
+     "evidence": [{"aid": 449774, "quote": "E. coli previously grown in CAMHB to log phase OD600 of 0.5 - 0.7"}]},
+    {"verb": "add", "text": "Add an equal volume of inoculum to every well except the sterility control.", "params": ["final_volume"],
+     "evidence": [{"aid": 449774, "quote": "Next, 30 uL of CAMHB inoculated with BL21 wild type E.coli 1 x 106 CFU/mL was added to wells."},
+                  {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Step 5: 100 uL bacteria into columns 1-11, fresh tip each column"}],
+     "substeps": [
+       {"verb": "add", "text": "Add an equal volume of inoculum to the compound columns and the growth control.", "params": ["final_volume"],
+        "evidence": [{"aid": 449774, "quote": "30 uL of CAMHB inoculated with BL21 wild type E.coli 1 x 106 CFU/mL was added to wells."},
+                     {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Step 5: 100 uL bacteria into columns 1-11"}]},
+       {"verb": "add", "text": "Change the tip between columns, so compound is not carried back into the inoculum.", "params": [],
+        "evidence": [{"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "fresh tip each column"}]}
+     ]},
+    {"verb": "mix", "text": "Mix each well after adding the inoculum.", "params": [],
+     "evidence": [{"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "MIX_REPS = 3"}]},
+    {"verb": "incubate", "text": "Incubate about 18 h at 37 C.", "params": ["incubation_time", "incubation_temperature"],
+     "evidence": [{"aid": 449774, "quote": "incubated for 18 hours at 37 C in a humidified environment"}]},
+    {"verb": "read", "text": "Read turbidity (OD590 / OD530) or score visible growth; MIC = lowest concentration with no growth.", "params": ["read_wavelength"],
+     "evidence": [{"aid": 449774, "quote": "Absorbance (OD590) was read on a Tecan Spectraflour Plus plate reader"}, {"aid": 1503, "quote": "Optical density at 530 nm was measured"}]}
+  ],
+  "controls": [
+    {"name": "growth control: bacteria in broth, no compound", "role": "negative", "reagent": "reagent:growth_control",
+     "evidence": [{"aid": 449774, "quote": "High_Control is defined as wells containing BL21 E.coli."},
+                  {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Col 11 : growth control, broth + bacteria"}]},
+    {"name": "sterility control: broth only, no bacteria", "role": "positive", "reagent": "reagent:sterility_control",
+     "evidence": [{"aid": 624097, "quote": "High_Control is defined as wells containing media only (no bacteria)."},
+                  {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Col 12 : sterility control, broth only"}]},
+    {"name": "reference antibiotic at an inhibitory concentration (imipenem 50 uM)", "role": "positive", "reagent": "reagent:reference_antibiotic",
+     "evidence": [{"aid": 449774, "quote": "Low_Control is defined as wells containing Imipenem (50 uM)."}]}
+  ],
+  "readout": {"name": "absorbance (bacterial turbidity)", "bao": "BAO:0000070",
+    "evidence": [{"aid": 449774, "quote": "Absorbance (OD590) was read"}]},
+  "analysis": [
+    {"text": "MIC = the lowest concentration whose signal falls below the no-growth cutoff (mean + 3 SD of the inhibited controls), or by CLSI visual reading.",
+     "evidence": [{"aid": 449774, "quote": "The reported MIC values were generated by identifying the lowest concentration of inhibitor that yields a value that is less than the cutoff value."},
+                  {"aid": 1503, "quote": "The MIC was read as the concentration producing a greater than 2-fold reduction in growth"}]}
+  ]
+}
