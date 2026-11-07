@@ -119,3 +119,13 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   changes by running the Deploy slides workflow by hand.
 - Plan in [demo/README.md](demo/README.md): (1) the pipeline writes real traces in the existing format, (2) optional
   live backend that returns a trace, `find()` fetches it, (3) recorded traces stay as the fallback.
+
+**Seed biology graph pushed** (zetamac, `kg-scaffolding` @ b175563, 19:17).
+- 19 kinases (targets of the candidate papers), ChEMBL 37 before 2024: 15,359 nodes / 19,179 edges (17,719 IC50s),
+  4.9 MB; filters checked on the real dump (keep "Manually validated", drop mutant assays); 22 candidate compounds
+  structure-only. Curation notes in `kg/biology/README.md` (per-target counts, thin targets, 2,000-per-target cap).
+- Leakage check (RDKit Morgan r2 Tanimoto vs all pre-2024 compounds with IC50s): no candidate has an IC50 edge; max
+  similarity 0.29–0.67, none ≥ 0.7 (borderline CHEMBL6162604 0.67, CHEMBL6172406 0.62).
+- Suggested for curation (Seh Na): prefer candidates with some moderately similar same-target analogs (where the KG
+  can beat a guess); decide on thin targets (TLK2, LATS2, SIK1, SIK3) as drop vs a "sparse" stratum.
+- Open: push the candidate-paper list / (compound, target) pairs (`benchmark-v0`); merge `kg-scaffolding` into main.
