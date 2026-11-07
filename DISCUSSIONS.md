@@ -75,3 +75,14 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   parameterized assay design → simulator-checked OT-2 execution, fidelity vs soundness, calibrated judges.
   Don't claim "first" for experiment design, time splits, rubric trees, LLM→OT-2 or abstention alone.
 - Scope it as a spec + pilot (5–10 questions, one target class, 4 models).
+
+**Seed KG + query layer** (zetamac, branch `benchmark-v0`, not pushed yet as of 18:00).
+- Built: ChEMBL client, candidate-paper script, seed biology graph (`kg/biology/build_seed.py`: targets of kept
+  candidates, their pre-2024 IC50s with compound/assay/paper, ChEMBL protein-class chain; candidate compounds
+  structure-only), seed protocol graph (`kg/protocols/seed.py`: 3 kinase templates, potency / cellular / binding,
+  default 10 µM, 3-fold, 10 points, 3 replicates), `kg/query.py` (`resolve`, `neighbors`, `classes`,
+  `activities`, `potency_summary`, `templates`; offline, IDs on every result), `benchmark/check.py` (cutoff,
+  no answer edge, coverage, integrity).
+- Suggested: warn on same-series leakage (pre-2024 near-identical analogs on the same target); weight the potency
+  prior by structural similarity in `agent/` (target-wide summary is coarse); report the template defaults as
+  their own B1 arm; prefer the newest candidates (models have likely seen 2024–25 papers).
