@@ -53,6 +53,7 @@ Deck.slide('title', {
       title: 'Closing the Loop Between Knowledge and Discovery',
       subtitle: 'Nucleate Pittsburgh BioHack 2026',
       team: 'Team Zhang et al.',
+      track: '(Biotech Track: Problem #2)',
       names: ['Aidan Zhang', 'Emmy Nguyen', 'Jimmy Hsu', 'Ramith Hettiarachchi', 'Sanjyot Shenoy',   // by first name
         'Seh Na Mellick', 'Xiaochen Zhai'],
     };
@@ -72,6 +73,7 @@ Deck.slide('title', {
       <h1 class="deck-title ti-title reveal-in" data-from="1">${esc(TITLE.title)}</h1>
       <p class="deck-subtitle ti-subtitle reveal-in" data-from="1" style="--i:1">${esc(TITLE.subtitle)}</p>
       <p class="ti-team reveal-in" data-from="1" style="--i:2">${esc(TITLE.team)}</p>
+      <p class="ti-track reveal-in" data-from="1" style="--i:2">${esc(TITLE.track)}</p>
       <div class="ti-names reveal-in" data-from="1" style="--i:2">${TITLE.names.map(face).join('')}</div>`;
     // the background is centred on the frame and sized to the window, under everything else on the slide
     css(`.wv-bg { position: absolute; left: 50%; top: 50%; width: 100vw; height: 100vh; transform: translate(-50%, -50%);
@@ -87,6 +89,8 @@ Deck.slide('title', {
       /* the team's name sits large on the wave, bottom right */
       .ti-team { position: absolute; right: 7%; top: 68%; margin: 0; font-size: var(--t-heading); font-weight: 700;
         color: var(--accent); white-space: nowrap; }
+      .ti-track { position: absolute; right: 7%; top: 76%; margin: 0; font-size: var(--t-body); color: var(--muted);
+        white-space: nowrap; }
       /* the team, four to a row: a round headshot (or initials) over the first and last name */
       .ti-names { position: absolute; left: 8%; top: 53%; width: 44%; margin: 0; display: grid;
         grid-template-columns: repeat(4, 1fr); gap: calc(1.2 * var(--u)) 0; }

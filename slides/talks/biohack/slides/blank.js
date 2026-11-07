@@ -18,9 +18,9 @@ const SLIDES = [
     'From paper N, predict the experiment of its follow-up paper N+1, then score the proposals against what was actually done.'],
   ['4', 'Results',
     'Graph retrieval vs. plain RAG vs. no retrieval.'],
-  ['4', 'Demo',
+  ['5', 'Demo',
     'A live query, from question to proposed experiment.'],
-  ['5', 'Closing the loop',
+  ['6', 'Closing the loop',
     'Feed lab results back into the graphs, so each round of experiments improves the next suggestion.'],
 ];
 

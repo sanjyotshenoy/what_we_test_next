@@ -13,11 +13,12 @@ const OUTLINE = [
     ['2.2', 'A knowledge graph of experiments'],
   ]],
   ['3', 'Evaluation: predicting the next experiment from past papers'],
-  ['4', 'Results and demo'],
-  ['5', 'Closing the loop with the lab'],
+  ['4', 'Results'],
+  ['5', 'Live demo'],
+  ['6', 'Closing the loop with the lab'],
 ];
 
-const FOOTER = { 1: 'Problem', 2: 'Approach', 3: 'Evaluation', 4: 'Results', 5: 'Next steps' };
+const FOOTER = { 1: 'Problem', 2: 'Approach', 3: 'Evaluation', 4: 'Results', 5: 'Live demo', 6: 'Next steps' };
 Deck.sections(OUTLINE.map(([num, heading]) => [num, FOOTER[num] || heading]));
 
 Deck.slide('outline', {
