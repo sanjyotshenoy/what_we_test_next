@@ -1,0 +1,49 @@
+id,type,name,props,source
+reagent:dmso_vehicle,Reagent,DMSO vehicle (negative control),"{""bao"": ""BAO:0000079""}",hand-curated
+reagent:staurosporine,Reagent,staurosporine (positive control),"{""bao"": ""BAO:0000080""}",hand-curated
+proto:kinase_biochem_lum,Protocol,"Biochemical kinase inhibition, luminescence readout","{""bao_endpoint"": ""BAO:0000190"", ""bao_format"": ""BAO:0000357"", ""purpose"": ""Measure the potency (IC50) of an inhibitor on a purified kinase.""}",hand-curated
+qtype:potency,QuestionType,potency,{},hand-curated
+readout:luminescence_adp,Readout,luminescence (ADP or ATP detection),{},hand-curated
+proto:kinase_biochem_lum/param/top_concentration,Parameter,top_concentration,"{""unit"": ""uM"", ""value"": 10}",hand-curated
+proto:kinase_biochem_lum/param/dilution_factor,Parameter,dilution_factor,"{""unit"": ""fold"", ""value"": 3}",hand-curated
+proto:kinase_biochem_lum/param/n_points,Parameter,n_points,"{""unit"": ""concentrations"", ""value"": 10}",hand-curated
+proto:kinase_biochem_lum/param/replicates,Parameter,replicates,"{""unit"": ""wells per concentration"", ""value"": 3}",hand-curated
+proto:kinase_biochem_lum/param/dmso_percent,Parameter,dmso_percent,"{""unit"": ""% v/v"", ""value"": 1}",hand-curated
+proto:kinase_biochem_lum/param/incubation_time,Parameter,incubation_time,"{""unit"": ""min"", ""value"": 60}",hand-curated
+proto:kinase_biochem_lum/step1,Step,Serially dilute the compound in DMSO across the series.,"{""order"": 1, ""verb"": ""serial_dilute""}",hand-curated
+proto:kinase_biochem_lum/step2,Step,Dispense kinase and substrate in assay buffer into the plate.,"{""order"": 2, ""verb"": ""dispense""}",hand-curated
+proto:kinase_biochem_lum/step3,Step,Transfer the compound series into the assay wells.,"{""order"": 3, ""verb"": ""transfer""}",hand-curated
+proto:kinase_biochem_lum/step4,Step,Pre-incubate compound with kinase.,"{""order"": 4, ""verb"": ""incubate""}",hand-curated
+proto:kinase_biochem_lum/step5,Step,Start the reaction with ATP; after the reaction time add the detection reagent.,"{""order"": 5, ""verb"": ""dispense""}",hand-curated
+proto:kinase_biochem_lum/step6,Step,Incubate for the detection signal to develop.,"{""order"": 6, ""verb"": ""incubate""}",hand-curated
+proto:kinase_biochem_lum/step7,Step,Read luminescence on the plate reader.,"{""order"": 7, ""verb"": ""read""}",hand-curated
+proto:cell_viability_atp,Protocol,"Cell viability, luminescent ATP readout","{""bao_endpoint"": ""BAO:0000190"", ""bao_format"": ""BAO:0000219"", ""purpose"": ""Measure the effect of a compound on the viability of cultured cells.""}",hand-curated
+qtype:cellular_potency,QuestionType,cellular_potency,{},hand-curated
+readout:luminescence_cellular_atp,Readout,luminescence (cellular ATP),{},hand-curated
+proto:cell_viability_atp/param/top_concentration,Parameter,top_concentration,"{""unit"": ""uM"", ""value"": 10}",hand-curated
+proto:cell_viability_atp/param/dilution_factor,Parameter,dilution_factor,"{""unit"": ""fold"", ""value"": 3}",hand-curated
+proto:cell_viability_atp/param/n_points,Parameter,n_points,"{""unit"": ""concentrations"", ""value"": 10}",hand-curated
+proto:cell_viability_atp/param/replicates,Parameter,replicates,"{""unit"": ""wells per concentration"", ""value"": 3}",hand-curated
+proto:cell_viability_atp/param/dmso_percent,Parameter,dmso_percent,"{""unit"": ""% v/v"", ""value"": 1}",hand-curated
+proto:cell_viability_atp/param/incubation_time,Parameter,incubation_time,"{""unit"": ""h"", ""value"": 72}",hand-curated
+proto:cell_viability_atp/step1,Step,Seed cells into the plate and let them attach.,"{""order"": 1, ""verb"": ""dispense""}",hand-curated
+proto:cell_viability_atp/step2,Step,Serially dilute the compound in DMSO across the series.,"{""order"": 2, ""verb"": ""serial_dilute""}",hand-curated
+proto:cell_viability_atp/step3,Step,Transfer the compound series onto the cells.,"{""order"": 3, ""verb"": ""transfer""}",hand-curated
+proto:cell_viability_atp/step4,Step,Incubate cells with compound.,"{""order"": 4, ""verb"": ""incubate""}",hand-curated
+proto:cell_viability_atp/step5,Step,Add the ATP detection reagent.,"{""order"": 5, ""verb"": ""dispense""}",hand-curated
+proto:cell_viability_atp/step6,Step,Incubate for the signal to stabilise.,"{""order"": 6, ""verb"": ""incubate""}",hand-curated
+proto:cell_viability_atp/step7,Step,Read luminescence on the plate reader.,"{""order"": 7, ""verb"": ""read""}",hand-curated
+proto:kinase_binding_competition,Protocol,Kinase competition binding,"{""bao_endpoint"": null, ""bao_format"": ""BAO:0000357"", ""purpose"": ""Measure how strongly a compound binds a kinase, by competition with a labelled ligand.""}",hand-curated
+qtype:binding,QuestionType,binding,{},hand-curated
+readout:binding_signal,Readout,binding signal (labelled ligand displaced),{},hand-curated
+proto:kinase_binding_competition/param/top_concentration,Parameter,top_concentration,"{""unit"": ""uM"", ""value"": 10}",hand-curated
+proto:kinase_binding_competition/param/dilution_factor,Parameter,dilution_factor,"{""unit"": ""fold"", ""value"": 3}",hand-curated
+proto:kinase_binding_competition/param/n_points,Parameter,n_points,"{""unit"": ""concentrations"", ""value"": 10}",hand-curated
+proto:kinase_binding_competition/param/replicates,Parameter,replicates,"{""unit"": ""wells per concentration"", ""value"": 3}",hand-curated
+proto:kinase_binding_competition/param/dmso_percent,Parameter,dmso_percent,"{""unit"": ""% v/v"", ""value"": 1}",hand-curated
+proto:kinase_binding_competition/param/incubation_time,Parameter,incubation_time,"{""unit"": ""min"", ""value"": 60}",hand-curated
+proto:kinase_binding_competition/step1,Step,Serially dilute the compound in DMSO across the series.,"{""order"": 1, ""verb"": ""serial_dilute""}",hand-curated
+proto:kinase_binding_competition/step2,Step,Dispense kinase and labelled ligand into the plate.,"{""order"": 2, ""verb"": ""dispense""}",hand-curated
+proto:kinase_binding_competition/step3,Step,Transfer the compound series into the assay wells.,"{""order"": 3, ""verb"": ""transfer""}",hand-curated
+proto:kinase_binding_competition/step4,Step,Incubate to binding equilibrium.,"{""order"": 4, ""verb"": ""incubate""}",hand-curated
+proto:kinase_binding_competition/step5,Step,Read the binding signal.,"{""order"": 5, ""verb"": ""read""}",hand-curated
