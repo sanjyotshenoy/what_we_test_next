@@ -21,3 +21,38 @@ it, delete the comment. The checklist below is a snapshot for orientation; the g
 - [ ] Confirm the four benchmark models are live on our key: `wwtn/llm.py` and `benchmarks.js`
 - [ ] Pick the range-accuracy metric before writing the grader: `benchmark/README.md`
 - [ ] Owners in each folder README: `agent/`, `execution/`, `benchmark/`, `kg/biology/`, `kg/protocols/`
+
+## Pipeline gaps (2026-11-07 19:20; not yet built or decided)
+
+**LLM orchestration**
+- [ ] Agent loop: system prompt, tool schemas wrapping `kg/query.py`, max steps, stop condition; which Nebius models
+  support function calling (JSON-action fallback otherwise)
+- [ ] Step 1, "can the KB answer this?": the abstain/answer decision (what it queries, criteria, prompt)
+- [ ] Literature-search tool for the "+lit" arm (Europe PMC? Paperclip?), **date-filtered to the cutoff** so it
+  cannot find the held-out paper
+- [ ] Similarity tool: RDKit analogs on the same target (not in `kg/query.py` yet)
+- [ ] Decide: range from priors + AGM rules deterministically, or by the LLM
+- [ ] Structured output: `ExperimentProposal` via pydantic, retry on invalid JSON, citation validator (IDs must
+  appear in tool results)
+- [ ] The three arms with equal budgets: bare / + literature / + KGs
+- [ ] Run harness: models × arms × questions, retries, rate limits, caching, token/cost logging, temperature/seed,
+  run IDs, trace logging (feeds the grader and the demo)
+
+**Execution (aim 2)**
+- [ ] Proposal → hardware-agnostic procedure JSON → plate design; `execution/lab.yaml` inventory
+- [ ] OT-2 code generation: template baseline + LLM loop with simulator feedback (≤ 3 fixes); simulate harness
+- [ ] Per-well concentration audit from the simulator's command log
+- [ ] Plate reader / PyLabRobot path and a human approval gate (live run only)
+
+**Benchmark and grading**
+- [ ] Push the candidate (paper, compound, target) list (`benchmark-v0`)
+- [ ] Ground truth from held-out papers into the schema; paper-text / methods retrieval (Europe PMC) for the judge
+- [ ] `benchmark/rubric.yaml`: tree, branch weights, range metric
+- [ ] Judge: model from a different family, blinding, prompts, ~10 human labels for calibration
+- [ ] Aggregation into `RESULTS` with uncertainty (bootstrap CIs; n is small)
+
+**Glue**
+- [ ] Merge `kg-scaffolding` into main; Nebius key in `.env` on the shared machine; confirm the 4 models; cost
+  estimate for the run grid
+- [ ] Trace exporter to the demo format; decide the demo repo split
+- [ ] Owners and a timeline for the rest
