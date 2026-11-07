@@ -140,7 +140,8 @@ def build(archetypes: dict | None = None, templates: dict | None = None,
 
         if not template:
             continue
-        source = f"agent-curated from PubChem AIDs {', '.join(str(e['aid']) for e in template['exemplars'] if 'aid' in e)}"
+        aids = ", ".join(str(e["aid"]) for e in template["exemplars"] if "aid" in e)
+        source = f"agent-curated from PubChem AIDs {aids}"
 
         for name, parameter in template["parameters"].items():
             observed = parameter["observed"]

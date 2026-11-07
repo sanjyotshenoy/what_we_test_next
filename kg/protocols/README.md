@@ -24,7 +24,7 @@ Two sources, as the team agreed (see DISCUSSIONS.md, "What each source is for"):
 | [`extract.py`](extract.py) | LLM extraction of one AID's protocol text into the pydantic schema (closed verb set, units normalized in code, provenance per field), via `wwtn.llm.chat`. **Never run for real: no API key here**; unit-tested with a stubbed client |
 | [`build_db.py`](build_db.py) | assembles everything into `graph/nodes.csv` + `graph/edges.csv` in the [kg/README.md](../README.md) format |
 | [`graph/`](graph/) | the built graph, committed: 115 nodes / 326 edges |
-| [`tests/`](tests/) | no network: two trimmed real PubChem JSONs in `tests/fixtures/` |
+| [`tests/`](tests/) | 35 tests, no network: two trimmed real PubChem JSONs in `tests/fixtures/` |
 
 `seed.py` (three hand-written templates) is gone: `build_db.py` replaces it and writes the same `graph/` folder,
 with `APPLICABLE_TO`, `ANSWERS`, `HAS_PARAM`, `MEASURES`, `HAS_STEP`, `NEXT` and `USES` unchanged, so
@@ -39,7 +39,7 @@ python -m kg.protocols.build_db --check         # summary only, writes nothing
 python -m kg.query templates Q13627             # the templates that apply to DYRK1A, via its class chain
 python -m kg.protocols.pubchem candidates proto:kinase_biochem_lum    # needs network; caches under data/raw/
 python -m kg.protocols.pubchem show 623998                            # one AID's protocol text and series
-python -m pytest -q kg                          # 73 tests, no network
+python -m pytest -q kg                          # 74 tests, no network (1 GPU test skipped)
 ```
 
 Soundness checks from the rules:

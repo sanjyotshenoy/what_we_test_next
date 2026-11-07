@@ -63,6 +63,11 @@ def test_extract_accepts_a_fenced_answer(record):
     assert protocol.aid == 623998
 
 
+def test_extract_accepts_an_unclosed_fence(record):
+    protocol = extract(record, chat_fn=Stub(f"```json\n{answer(record)}"))
+    assert protocol.aid == 623998
+
+
 def test_extract_retries_once_on_a_schema_error_then_succeeds(record):
     bad = json.dumps({"aid": record["aid"], "assay_type": "x", "readout": "y", "system": "z", "steps": []})
     stub = Stub(bad, answer(record))

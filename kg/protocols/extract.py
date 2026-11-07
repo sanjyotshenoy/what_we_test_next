@@ -193,8 +193,9 @@ def extract(record: dict, archetype: str | None = None, chat_fn=chat, **kwargs) 
 def _json_block(answer: str) -> str:
     """The JSON object in a model answer, tolerating a ```json fence or text around it."""
     text = answer.strip()
-    if "```" in text:
-        text = text.split("```json")[-1].split("```")[-2] if "```json" in text else text.split("```")[1]
+    if "```" in text:   # a fenced block, with or without a closing fence
+        text = text.split("```json")[-1] if "```json" in text else text.split("```", 1)[1]
+        text = text.split("```")[0]
     start, end = text.find("{"), text.rfind("}")
     if start < 0 or end < start:
         raise ValueError(f"no JSON object in the answer: {answer[:200]!r}")
