@@ -1,0 +1,21 @@
+# ChEMBL target IDs the seed graph is built around (the kinases of the benchmark's candidate papers).
+# Edit this list and rebuild: python -m kg.biology.build_seed --targets-file kg/biology/seed/targets.txt --compounds kg/biology/seed/compounds.csv
+CHEMBL1075163
+CHEMBL2292
+CHEMBL2793
+CHEMBL2842
+CHEMBL3142
+CHEMBL3357
+CHEMBL3836
+CHEMBL4179
+CHEMBL4722
+CHEMBL4895
+CHEMBL5251
+CHEMBL5331
+CHEMBL5404
+CHEMBL5776
+CHEMBL5784
+CHEMBL5903
+CHEMBL5907
+CHEMBL6082
+CHEMBL6149
