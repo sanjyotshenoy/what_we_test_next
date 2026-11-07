@@ -21,7 +21,17 @@ from openai import OpenAI
 load_dotenv()
 
 BASE_URL = os.environ.get("NEBIUS_BASE_URL", "https://api.tokenfactory.nebius.com/v1/")
-DEFAULT_MODEL = os.environ.get("NEBIUS_MODEL", "meta-llama/Meta-Llama-3.1-70B-Instruct")
+DEFAULT_MODEL = os.environ.get("NEBIUS_MODEL", "openai/gpt-oss-120b")
+
+# The models both benchmarks compare (one per lab, a range of sizes); keep in step with MODELS in
+# slides/talks/biohack/slides/benchmarks.js. Check they are still served with `python -m wwtn.llm --models`:
+# Nebius retires models often (see its deprecation notices).
+EVAL_MODELS = [
+    "deepseek-ai/DeepSeek-V4-Pro-0813",
+    "moonshotai/Kimi-K3",
+    "Qwen/Qwen3.8-27B",
+    "openai/gpt-oss-120b",
+]
 
 
 @lru_cache(maxsize=1)
