@@ -245,7 +245,12 @@ class GraphBackend:
         answers anything; a question type that matches nothing gives an empty `matching`, never everything."""
         found = self.kg.templates(target_id)
         for t in found:
-            t["question_types"] = sorted({qtype(a) for a in t.get("answers") or []})
+            # the seed protocol graph routes with ANSWERS edges; the sample KG with a `question_type` prop
+            answers = t.get("answers") or []
+            if not answers:
+                prop = (self.kg.node(t["id"]) or {}).get("props", {}).get("question_type")
+                answers = [prop] if prop else []
+            t["question_types"] = sorted({qtype(a) for a in answers})
         wanted = qtype(question_type) if question_type else ""
         if not wanted:
             return list(found), found
