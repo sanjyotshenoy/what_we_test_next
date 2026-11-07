@@ -161,3 +161,12 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 - Suggested (not decided): no git submodule (it would break the slides deploy and force ouroboros access on every
   clone); the deck's demo slide can point at ouroboros' deployed URL once there is one.
 - Done (19:45): `pr1-merged` merged into main as PR #2 (`d80ade2`); live deck redeployed with the agent's real trace.
+
+**Benchmark data plan** (zetamac, 19:51).
+- Decided: a simple KG on relatively well-studied kinases (ChEMBL subgraph, `kg-scaffolding`), handed to Seh Na to
+  validate and polish; candidate papers and benchmark edges come from her. Protocol templates from NCATS AGM +
+  PubChem BioAssay (hierarchical trees); with templates in context, an LLM extracts each held-out paper's protocol
+  as the ground truth the judge grades against.
+- Suggested guardrails: the template gives structure, the paper gives values (extractor leaves fields empty when the
+  paper is silent; quote a span per field); hand spot-check extracted ground truth; extract with a model that is not
+  among those evaluated (and judge with another).
