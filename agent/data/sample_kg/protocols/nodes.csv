@@ -1,0 +1,15 @@
+id,type,name,props,source
+proto:kinase_glo,Protocol,"biochemical kinase inhibition, luminescence readout","{""question_type"": ""potency"", ""system"": ""recombinant kinase domain"", ""top_uM_default"": 10, ""dilution_factor"": 3, ""n_points"": 10, ""replicates"": 3}",hand-curated sample
+proto:cell_ctg,Protocol,"cell viability, luminescence (ATP) readout","{""question_type"": ""cellular_activity"", ""system"": ""cultured cell line"", ""top_uM_default"": 30, ""dilution_factor"": 3, ""n_points"": 8, ""replicates"": 3}",hand-curated sample
+BAO:0000357,Format,single protein format,{},BAO
+BAO:0000219,Format,cell based format,{},BAO
+BAO:0000190,Endpoint,IC50,{},BAO
+readout:luminescence,Readout,luminescence,{},hand-curated sample
+reagent:dmso,Reagent,DMSO vehicle,{},hand-curated sample
+reagent:staurosporine,Reagent,staurosporine (positive control),"{""compound"": ""CHEMBL388978""}",hand-curated sample
+labware:plate96,Labware,corning_96_wellplate_360ul_flat,{},hand-curated sample
+step:kg1,Step,"Fill the dilution columns with assay buffer",{},hand-curated sample
+step:kg2,Step,"Add the compound at the top concentration to column 1",{},hand-curated sample
+step:kg3,Step,"Serial dilution across the columns, mixing after each transfer",{},hand-curated sample
+step:kg4,Step,"Add the vehicle and the positive control to the last two columns",{},hand-curated sample
+step:kg5,Step,"Add enzyme and substrate, incubate, add detection reagent, read luminescence",{},hand-curated sample

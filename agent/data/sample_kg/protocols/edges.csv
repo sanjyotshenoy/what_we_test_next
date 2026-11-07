@@ -1,0 +1,21 @@
+src,dst,rel,props,source
+proto:kinase_glo,class:tyrosine_kinase,APPLICABLE_TO,{},hand-curated sample
+proto:cell_ctg,class:tyrosine_kinase,APPLICABLE_TO,{},hand-curated sample
+proto:kinase_glo,BAO:0000357,HAS_FORMAT,{},hand-curated sample
+proto:cell_ctg,BAO:0000219,HAS_FORMAT,{},hand-curated sample
+proto:kinase_glo,BAO:0000190,MEASURES,{},hand-curated sample
+proto:cell_ctg,BAO:0000190,MEASURES,{},hand-curated sample
+proto:kinase_glo,readout:luminescence,USES,"{""role"": ""readout""}",hand-curated sample
+proto:cell_ctg,readout:luminescence,USES,"{""role"": ""readout""}",hand-curated sample
+proto:kinase_glo,reagent:dmso,USES,"{""role"": ""vehicle control""}",hand-curated sample
+proto:kinase_glo,reagent:staurosporine,USES,"{""role"": ""positive control""}",hand-curated sample
+proto:kinase_glo,labware:plate96,USES,"{""role"": ""plate""}",hand-curated sample
+proto:kinase_glo,step:kg1,HAS_STEP,"{""order"": 1}",hand-curated sample
+proto:kinase_glo,step:kg2,HAS_STEP,"{""order"": 2}",hand-curated sample
+proto:kinase_glo,step:kg3,HAS_STEP,"{""order"": 3}",hand-curated sample
+proto:kinase_glo,step:kg4,HAS_STEP,"{""order"": 4}",hand-curated sample
+proto:kinase_glo,step:kg5,HAS_STEP,"{""order"": 5}",hand-curated sample
+step:kg1,step:kg2,NEXT,{},hand-curated sample
+step:kg2,step:kg3,NEXT,{},hand-curated sample
+step:kg3,step:kg4,NEXT,{},hand-curated sample
+step:kg4,step:kg5,NEXT,{},hand-curated sample

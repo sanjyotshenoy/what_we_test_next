@@ -1,0 +1,14 @@
+src,dst,rel,props,source
+P10721,class:tyrosine_kinase,MEMBER_OF,{},hand-curated sample
+P00519,class:tyrosine_kinase,MEMBER_OF,{},hand-curated sample
+P09619,class:tyrosine_kinase,MEMBER_OF,{},hand-curated sample
+CHEMBL255863,P10721,INHIBITS,"{""ic50_nM"": 200, ""assay"": ""biochemical""}","hand-curated sample, approximate"
+CHEMBL1421,P10721,INHIBITS,"{""ic50_nM"": 20, ""assay"": ""biochemical""}","hand-curated sample, approximate"
+CHEMBL535,P10721,INHIBITS,"{""ic50_nM"": 50, ""assay"": ""biochemical""}","hand-curated sample, approximate"
+CHEMBL941,P00519,INHIBITS,"{""ic50_nM"": 250, ""assay"": ""biochemical""}","hand-curated sample, approximate"
+CHEMBL941,P09619,INHIBITS,"{""ic50_nM"": 100, ""assay"": ""biochemical""}","hand-curated sample, approximate"
+CHEMBL255863,P00519,INHIBITS,"{""ic50_nM"": 30, ""assay"": ""biochemical""}","hand-curated sample, approximate"
+CHEMBL1421,P00519,INHIBITS,"{""ic50_nM"": 1, ""assay"": ""biochemical""}","hand-curated sample, approximate"
+CHEMBL941,CHEMBL255863,SIMILAR_TO,"{""similarity"": 0.71}","hand-curated sample, approximate"
+CHEMBL941,CHEMBL1421,SIMILAR_TO,"{""similarity"": 0.38}","hand-curated sample, approximate"
+CHEMBL941,CHEMBL535,SIMILAR_TO,"{""similarity"": 0.29}","hand-curated sample, approximate"
