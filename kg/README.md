@@ -71,7 +71,7 @@ Each is also a `TODO(final)` comment where it lives (`grep -rn "TODO(final)" kg`
 
 - **Seeds, not the real graphs.** `kg/protocols/graph/` (three hand-written templates) and whatever
   `kg/biology/build_seed.py` builds are stand-ins for the kg/biology and kg/protocols owners' graphs.
-- **No biology graph is committed yet.** `KG.load()` skips it with a warning until it is built from the ChEMBL dump.
+- **The biology seed covers 19 kinases** (`kg/biology/README.md` lists them, with what curators should check).
 - **Activity filters** (`kg/biology/chembl_db.py`, checked on the real ChEMBL 37 dump): IC50s with an exact `=`
   value in nM, no validity flag (or "Manually validated"), wild-type assays only (mutant variants dropped).
 - **Smaller gaps:** a missing document row would leave a dangling `FROM_DOC` edge; `KG` assumes every `INHIBITS`
