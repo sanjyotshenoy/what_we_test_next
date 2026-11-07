@@ -103,8 +103,12 @@ def propose(question: Question, model: str | None = None, kb: KnowledgeBase | No
     lookup = kb.lookup(compound, target)
     found = lookup.pop("found")
     answer = lookup.pop("answer", None)
-    lookup["note"] = ("The knowledge base already holds this measurement, so no experiment is needed." if found else
-                      "No measurement for this pair in the knowledge base: the agent must propose the experiment, not the answer.")
+    notes = {"answered": "The knowledge base already holds this measurement, so no experiment is needed.",
+             "no_measurement": "No measurement for this pair in the knowledge base: the agent must propose the "
+                               "experiment, not the answer.",
+             "unresolved": "The knowledge base cannot even resolve one side of the question, so it has no "
+                           "grounds to answer: the agent must propose the experiment."}
+    lookup["note"] = notes.get(lookup.get("kind", ""), notes["no_measurement" if not found else "answered"])
     trace.set_lookup(lookup)
     say("lookup", lookup["verdict"], "·", lookup["result"])
     if found:

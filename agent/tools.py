@@ -40,23 +40,34 @@ class KnowledgeBase(GraphBackend):
     # --- the tools ------------------------------------------------------------------------------------------
 
     def lookup(self, compound: str, target: str) -> dict:
-        """Stage 1, before the agent runs: does the biology KG hold a measurement for this pair?"""
+        """Stage 1, before the agent runs: does the biology KG hold a measurement for this pair?
+
+        The two ways of not knowing are kept apart in `kind`, because the benchmark's abstain metric scores them
+        differently: `unresolved` (the KB has never heard of this compound or target) is not the same claim as
+        `no_measurement` (both are in the graph, the pair genuinely has no measurement). `verdict` keeps its old
+        two values, so the trace and the demo page are unaffected."""
         args = {"compound": compound, "target": target}
         c, t = self.find_compound(compound), self.find_target(target)
         if not c or not t:
             missing = [x for x, n in ((compound, c), (target, t)) if not n]
-            return {"tool": "kb.search", "args": args, "verdict": "I don’t know", "found": False,
-                    "result": f"Not in the knowledge base: {', '.join(missing)}.", "rows": []}
+            which = "compound" if not c and t else "target" if not t and c else "compound and target"
+            return {"tool": "kb.search", "args": args, "verdict": "I don’t know", "kind": "unresolved",
+                    "found": False, "unresolved": missing,
+                    "result": f"Not in the knowledge base: {', '.join(missing)} "
+                              f"({which} unknown to the KB, so it cannot say whether a measurement exists).",
+                    "rows": []}
         hits = [h for h in self.kg.neighbors(c["id"], "INHIBITS")
                 if h["node"]["id"] == t["id"] and "ic50_nM" in h["props"]]
         if hits:
             values = [float(h["props"]["ic50_nM"]) for h in hits]
             p = {**hits[0]["props"], "ic50_nM": median(values)}
             how = f"median of {len(values)} measurements" if len(values) > 1 else (p.get("assay") or "assay")
-            return {"tool": "kb.search", "args": args, "verdict": "answered", "found": True, "answer": p,
+            return {"tool": "kb.search", "args": args, "verdict": "answered", "kind": "answered",
+                    "found": True, "answer": p,
                     "result": f"{c['name']} inhibits {t['name']}: IC50 {fmt_uM(p['ic50_nM'])} ({how}).",
                     "rows": [[c["id"], "INHIBITS", t["id"], json.dumps(h["props"])] for h in hits[:5]]}
-        return {"tool": "kb.search", "args": args, "verdict": "I don’t know", "found": False,
+        return {"tool": "kb.search", "args": args, "verdict": "I don’t know", "kind": "no_measurement",
+                "found": False, "resolved": [c["id"], t["id"]],
                 "result": f"No measured activity for {c['name']} against {t['name']} in the knowledge base.",
                 "rows": []}
 

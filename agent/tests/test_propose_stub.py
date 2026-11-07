@@ -71,7 +71,8 @@ def test_the_loop_runs_the_graph_tools_and_records_a_trace(kb, script):
     assert [c["tool"] for c in data["calls"]] == ["bio_kg.resolve", "bio_kg.analogs", "protocol_kg.templates"]
     for call in data["calls"]:
         assert set(call) >= {"tool", "args", "summary", "rows"}
-    assert data["lookup"]["verdict"] == "I don’t know"
+    assert data["lookup"]["verdict"] == "I don’t know" and data["lookup"]["kind"] == "no_measurement"
+    assert "must propose the experiment" in data["lookup"]["note"]
     assert data["plate"]["points"] == 10 and data["plate"]["top_uM"] == 10
     assert sent, "the stub was called"
     # the tool results the model saw carry the real graph rows
@@ -87,6 +88,7 @@ def test_a_pair_the_kb_already_answers_needs_no_experiment(kb, script):
     assert proposal.answerable_from_kb is True and proposal.experiment is None
     assert "IC50" in (proposal.answer or "")
     assert trace.to_dict()["lookup"]["verdict"] == "answered"
+    assert trace.to_dict()["lookup"]["kind"] == "answered"
 
 
 def test_entities_come_from_the_graph_without_an_llm(kb, script):

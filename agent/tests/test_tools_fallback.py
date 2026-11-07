@@ -123,3 +123,26 @@ class TestSeedGraphs:
     def test_gene_symbols_resolve(self, real_kb):
         for symbol in ("BTK", "AXL", "MERTK", "MTOR", "AURKA"):
             assert real_kb.find_target(symbol), symbol
+
+
+def test_the_abstain_verdict_has_two_kinds(sample_kb):
+    """Addition 3: the benchmark's abstain metric needs "never heard of it" apart from "nobody measured it"."""
+    unknown = sample_kb.lookup("not-a-compound", "KIT")
+    assert unknown["verdict"] == "I don’t know" and unknown["kind"] == "unresolved"
+    assert unknown["unresolved"] == ["not-a-compound"] and "compound unknown to the KB" in unknown["result"]
+
+    unmeasured = sample_kb.lookup("imatinib", "KIT")
+    assert unmeasured["verdict"] == "I don’t know" and unmeasured["kind"] == "no_measurement"
+    assert unmeasured["resolved"] == ["CHEMBL941", "P10721"]
+
+    answered = sample_kb.lookup("imatinib", "ABL1")
+    assert answered["verdict"] == "answered" and answered["kind"] == "answered"
+
+    both = sample_kb.lookup("nope", "also-nope")
+    assert both["kind"] == "unresolved" and "compound and target unknown" in both["result"]
+
+
+def test_the_lookup_keeps_the_fields_the_trace_documents(sample_kb):
+    for args in (("imatinib", "KIT"), ("imatinib", "ABL1"), ("nope", "KIT")):
+        lookup = sample_kb.lookup(*args)
+        assert {"tool", "args", "result", "verdict", "rows"} <= set(lookup)
