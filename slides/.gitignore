@@ -9,3 +9,5 @@ node_modules/
 site/
 # PDFs from tools/export_pdf.py (they would otherwise be published with the talk)
 talks/*/*.pdf
+# the unlisted deploy link (tools/deploy_unlisted.sh): anyone with it can view the decks
+.pages-prefix
