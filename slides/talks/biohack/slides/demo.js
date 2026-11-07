@@ -8,8 +8,8 @@
 Deck.slide('demo', {
   before: 'blank-8',
   interactive: true,
-  notes: 'Live demo. Type or pick the query and press Run: the stages play one by one (Next step skips ahead, Show '
-    + 'all jumps to the end). Full screen: the link at the bottom right opens it in its own tab. The numbers are a '
+  notes: 'Live demo. Type or pick the query and press Run: a stage plays, then waits for Next step (Show all '
+    + 'jumps to the end). Full screen: the link at the bottom right opens it in its own tab. The numbers are a '
     + 'mock trace until the agent writes real ones.',
   mount(frame, { css }) {
     css(`.deck-frame .dm-frame { position: absolute; left: 1.5%; top: 2.5%; width: 97%; height: 88%; border: 0;

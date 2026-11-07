@@ -10,8 +10,10 @@ When you leave something fake or unfinished behind, add a `TODO(final): ...` com
 it, delete the comment. The checklist below is a snapshot for orientation; the grep is the source of truth.
 
 **On screen (embarrassing if forgotten)**
-- [ ] Demo plays a mock trace with a "Mock trace" badge: replace `slides/talks/biohack/demo/runs/kit_imatinib.js`
-  with a real run, `mock: false`, real held-out ChEMBL assay ID (also `demo/index.html`, `slides/demo.js` notes)
+- [ ] Demo: `runs/kit-imatinib.js` is a real agent run but against the hand-written sample graphs
+  (`agent/data/sample_kg`); rerun it against `kg/*/graph` once they exist. The mock `runs/kit_imatinib.js`
+  stays until `execution/` and `benchmark/` feed the trace (procedure, protocol, simulation, validation), then
+  drop it (also `demo/index.html`, `slides/demo.js` notes)
 - [ ] Benchmark charts are empty ("—"): fill `RESULTS` in `slides/talks/biohack/slides/benchmarks.js`
 - [ ] Slides that still say "Placeholder: ...": `slides/talks/biohack/slides/blank.js`
 - [ ] Outline is the dummy one: confirm `slides/talks/biohack/slides/outline.js`
@@ -21,3 +23,4 @@ it, delete the comment. The checklist below is a snapshot for orientation; the g
 - [ ] Confirm the four benchmark models are live on our key: `wwtn/llm.py` and `benchmarks.js`
 - [ ] Pick the range-accuracy metric before writing the grader: `benchmark/README.md`
 - [ ] Owners in each folder README: `agent/`, `execution/`, `benchmark/`, `kg/biology/`, `kg/protocols/`
+- [ ] `agent/`: baselines (bare LLM, LLM + literature search) for a fair comparison; delete `agent/data/sample_kg`

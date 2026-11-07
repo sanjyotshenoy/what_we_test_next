@@ -4,7 +4,7 @@
 // TODO(final): replace this mock with a real trace from the pipeline and set mock: false (the page shows a
 // "Mock trace" badge while it is true); fill in the held-out ChEMBL assay ID in validation.held_out.
 (window.DEMO_RUNS = window.DEMO_RUNS || []).push({
-  id: 'kit-imatinib',
+  id: 'kit-imatinib-mock',
   mock: true,
   query: 'Does imatinib inhibit the KIT kinase, and how potently?',
   model: 'moonshotai/Kimi-K3',
