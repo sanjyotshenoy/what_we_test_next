@@ -170,3 +170,12 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 - Suggested guardrails: the template gives structure, the paper gives values (extractor leaves fields empty when the
   paper is silent; quote a span per field); hand spot-check extracted ground truth; extract with a model that is not
   among those evaluated (and judge with another).
+
+**Merging `kg-scaffolding`** (ramiiith, 19:52).
+- Suggested: merge (pending zetamac); trial merge conflicts only in `requirements.txt` (keep all lines).
+- Found by testing: on `main` the agent auto-switches from `agent/data/sample_kg` to `kg/*/graph` once they exist,
+  and then (1) misses templates (targets are MEMBER_OF their most specific class, templates hang off Protein Kinase
+  `chembl_class:1100`; the agent doesn't walk SUBCLASS_OF), (2) returns every template (routing is via ANSWERS edges,
+  not a `question_type` prop), (3) returns arbitrary analogs (no SIMILAR_TO edges; needs RDKit), (4) the demo's
+  imatinib × KIT question isn't in the seed graph. Fix in a follow-up PR: agent tools on `kg/query.py`, RDKit
+  same-target analogs, a seed-graph demo question.
