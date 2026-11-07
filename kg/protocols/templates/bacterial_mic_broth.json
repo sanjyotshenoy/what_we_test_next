@@ -77,12 +77,26 @@
      "evidence": [{"aid": 449774, "quote": "Imipenem or test compound was titrated in Cation Adjusted Mueller-Hinton Broth (CAMHB) immediately prior to testing."},
                   {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "A2 = antibiotic (2x top concentration)"}]},
     {"verb": "serial_dilute", "text": "Make a 2-fold, 10-point dilution series in broth across the plate.", "params": ["dilution_factor", "n_points", "replicates", "plate_wells"],
-     "evidence": [{"aid": 449774, "quote": "10-point two-fold serial dilutions"}, {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Step 4: serial dilution, column 1 -> 10, then discard 100 uL from column 10"}]},
+     "evidence": [{"aid": 449774, "quote": "10-point two-fold serial dilutions"}, {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Step 4: serial dilution, column 1 -> 10, then discard 100 uL from column 10"}],
+     "substeps": [
+       {"verb": "serial_dilute", "text": "Carry half the volume from each column into the next, mixing, from column 1 to column 10.", "params": ["dilution_factor", "n_points"],
+        "evidence": [{"aid": 449774, "quote": "10-point two-fold serial dilutions"},
+                     {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Step 4: serial dilution, column 1 -> 10"}]},
+       {"verb": "dispense", "text": "Discard the carried-over volume from the last diluted column, so every well holds the same volume.", "params": [],
+        "evidence": [{"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "then discard 100 uL from column 10"}]}
+     ]},
     {"verb": "prepare", "text": "Grow the strain to log phase and dilute it in broth to the inoculum density (2x final).", "params": ["inoculum_added"],
      "evidence": [{"aid": 449774, "quote": "E. coli previously grown in CAMHB to log phase OD600 of 0.5 - 0.7"}]},
     {"verb": "add", "text": "Add an equal volume of inoculum to every well except the sterility control.", "params": ["final_volume"],
      "evidence": [{"aid": 449774, "quote": "Next, 30 uL of CAMHB inoculated with BL21 wild type E.coli 1 x 106 CFU/mL was added to wells."},
-                  {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Step 5: 100 uL bacteria into columns 1-11, fresh tip each column"}]},
+                  {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Step 5: 100 uL bacteria into columns 1-11, fresh tip each column"}],
+     "substeps": [
+       {"verb": "add", "text": "Add an equal volume of inoculum to the compound columns and the growth control.", "params": ["final_volume"],
+        "evidence": [{"aid": 449774, "quote": "30 uL of CAMHB inoculated with BL21 wild type E.coli 1 x 106 CFU/mL was added to wells."},
+                     {"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "Step 5: 100 uL bacteria into columns 1-11"}]},
+       {"verb": "add", "text": "Change the tip between columns, so compound is not carried back into the inoculum.", "params": [],
+        "evidence": [{"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "fresh tip each column"}]}
+     ]},
     {"verb": "mix", "text": "Mix each well after adding the inoculum.", "params": [],
      "evidence": [{"file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py", "quote": "MIX_REPS = 3"}]},
     {"verb": "incubate", "text": "Incubate about 18 h at 37 C.", "params": ["incubation_time", "incubation_temperature"],

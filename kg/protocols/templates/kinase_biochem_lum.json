@@ -105,7 +105,13 @@
     {"verb": "incubate", "optional": true, "text": "Pre-incubate compound with kinase.", "params": ["compound_preincubation_time"],
      "evidence": [{"aid": 686948, "quote": "Following addition of compound and a 20 minute incubation"}]},
     {"verb": "add", "text": "Start the reaction with ATP (at a concentration chosen for the kinase).", "params": ["atp_final_concentration", "atp_stock_concentration"],
-     "evidence": [{"aid": 623998, "quote": "Dispense 1 uL/well of ATP Combi NL"}, {"aid": 686948, "quote": "1 uL of substrate (ATP and poly-E4Y from Sigma-Aldrich, St. Louis, MO) is added"}]},
+     "evidence": [{"aid": 623998, "quote": "Dispense 1 uL/well of ATP Combi NL"}, {"aid": 686948, "quote": "1 uL of substrate (ATP and poly-E4Y from Sigma-Aldrich, St. Louis, MO) is added"}],
+     "substeps": [
+       {"verb": "add", "text": "Dispense the ATP solution into every well.", "params": ["atp_final_concentration", "atp_stock_concentration"],
+        "evidence": [{"aid": 623998, "quote": "Dispense 1 uL/well of ATP Combi NL"}]},
+       {"verb": "add", "text": "Where the peptide substrate is not already in the enzyme mix, add it together with the ATP.", "params": [],
+        "evidence": [{"aid": 686948, "quote": "1 uL of substrate (ATP and poly-E4Y from Sigma-Aldrich, St. Louis, MO) is added"}]}
+     ]},
     {"verb": "incubate", "text": "Run the kinase reaction.", "params": ["kinase_reaction_time", "kinase_reaction_temperature"],
      "evidence": [{"aid": 623998, "quote": "Incubate at room temperature for 60 minutes."}]},
     {"verb": "add", "text": "Add ADP-Glo reagent to stop the reaction and deplete the remaining ATP.", "params": [],
@@ -113,7 +119,13 @@
     {"verb": "incubate", "text": "Incubate for ATP depletion.", "params": ["adp_glo_reagent_time"],
      "evidence": [{"aid": 588811, "quote": "The stopped reaction is allowed to incubate for 40 mins."}]},
     {"verb": "detect", "text": "Add Kinase Detection Reagent, which converts ADP to ATP and reads it with luciferase.", "params": [],
-     "evidence": [{"aid": 588811, "quote": "Kinase Detection Reagent ( Promega, #V9102) is added to simultaneously convert ADP to ATP"}]},
+     "evidence": [{"aid": 588811, "quote": "Kinase Detection Reagent ( Promega, #V9102) is added to simultaneously convert ADP to ATP"}],
+     "substeps": [
+       {"verb": "add", "text": "Add Kinase Detection Reagent (Promega V9102).", "params": [],
+        "evidence": [{"aid": 588811, "quote": "Kinase Detection Reagent ( Promega, #V9102) is added"}]},
+       {"verb": "detect", "text": "The reagent converts the ADP formed to ATP, which the luciferase reaction turns into light.", "params": [],
+        "evidence": [{"aid": 588811, "quote": "to simultaneously convert ADP to ATP"}]}
+     ]},
     {"verb": "incubate", "text": "Incubate for the luminescent signal to develop.", "params": ["detection_reagent_time"],
      "evidence": [{"aid": 623998, "quote": "incubate at room temperature for 30 minutes"}]},
     {"verb": "read", "text": "Read luminescence on a plate reader.", "params": [],

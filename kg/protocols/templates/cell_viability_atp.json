@@ -102,7 +102,13 @@
     {"verb": "serial_dilute", "text": "Make the compound series in DMSO: 10 points, 1:3, top 40-50 uM.", "params": ["top_concentration", "dilution_factor", "n_points", "replicates"],
      "evidence": [{"aid": 1691, "quote": "10-point, 1:3 dilution series starting at a nominal concentration of 40 uM"}]},
     {"verb": "add", "text": "Add nanolitres of compound, DMSO alone, or the positive control to the cells.", "params": ["dmso_percent"],
-     "evidence": [{"aid": 1691, "quote": "100 nL of test compound in DMSO"}, {"aid": 1413, "quote": "25 nL of test compound in DMSO, or DMSO alone were added to the appropriate wells"}]},
+     "evidence": [{"aid": 1691, "quote": "100 nL of test compound in DMSO"}, {"aid": 1413, "quote": "25 nL of test compound in DMSO, or DMSO alone were added to the appropriate wells"}],
+     "substeps": [
+       {"verb": "add", "text": "Add nanolitres of each compound concentration in DMSO to the test wells.", "params": ["dmso_percent"],
+        "evidence": [{"aid": 1691, "quote": "100 nL of test compound in DMSO"}, {"aid": 1413, "quote": "25 nL of test compound in DMSO"}]},
+       {"verb": "add", "text": "Add the same volume of DMSO alone to the vehicle-control wells.", "params": ["dmso_percent"],
+        "evidence": [{"aid": 1413, "quote": "or DMSO alone were added to the appropriate wells"}]}
+     ]},
     {"verb": "incubate", "text": "Incubate cells with compound at 37 C, 5% CO2.", "params": ["compound_exposure_time", "incubation_temperature"],
      "evidence": [{"aid": 1691, "quote": "After 72 hours incubation at 37 degrees C in 5% CO2"}]},
     {"verb": "incubate", "text": "Equilibrate the plates to room temperature.", "params": ["equilibration_time"],

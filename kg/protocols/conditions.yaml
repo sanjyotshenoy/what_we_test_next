@@ -1,0 +1,168 @@
+# Routing conditions: the part of the decision tree that `applicable_to` does not carry.
+#
+# An archetype's `applicable_to` routes by target class. Everything else a template needs (what the lab can do,
+# what the question asks, what state the target is in) was implicit in the agent's prompt; these make it explicit
+# and inspectable, as `Condition` nodes with `Protocol -REQUIRES-> Condition` and `Protocol -PREFERRED_WHEN->
+# Condition` edges (kg/protocols/build_db.py).
+#
+# Grounding: every condition is read off the archetypes' own text. Each entry in `from` names the archetype, the
+# field it was read from (`purpose` or `notes`) and a verbatim span of that field, whitespace-normalized the way
+# build_db normalizes a purpose. Nothing here may say more than that span says; a condition no archetype text
+# supports does not belong in this file (tests/test_conditions.py checks every quote against the archetype).
+#
+# Fields
+#   id      cond:<name>
+#   text    the condition, as a person would read it
+#   check   an expression over the same context dict as a rule's `check` (wwtn.schema.Experiment fields plus any
+#           context the caller passes), evaluated by kg.protocols.build_db.check_condition. True = the design
+#           satisfies the condition. null = not answerable from an Experiment: the lab's capabilities or the
+#           question itself decide it (12 of 15), so it is an input to routing, not a check on the output.
+#   from    where it came from, one entry per edge: archetype, field, relation (REQUIRES | PREFERRED_WHEN), quote
+#
+# TODO(final): REQUIRES/PREFERRED_WHEN is this file's reading of the archetype text ("when X is available" ->
+# REQUIRES, "use for / an alternative when" -> PREFERRED_WHEN); not reviewed by a person.
+# TODO(final): proto:kinase_biochem_trfret is also a purified-enzyme assay, but its `purpose` does not say so, so
+# it carries no cond:recombinant_enzyme_available edge. Say it in archetypes.yaml first, then add the edge.
+
+- id: cond:recombinant_enzyme_available
+  text: Purified recombinant target protein is available for an in vitro reaction.
+  check: '"recombinant" in system.lower() or "purified" in system.lower()'
+  from:
+    - archetype: proto:kinase_biochem_lum
+      field: purpose
+      relation: REQUIRES
+      quote: when recombinant enzyme is available
+    - archetype: proto:protease_fret_activity
+      field: purpose
+      relation: REQUIRES
+      quote: on a purified protease
+
+- id: cond:phospho_specific_antibody_available
+  text: A phospho-specific antibody against the substrate site exists, so the product can be detected directly.
+  check: null
+  from:
+    - archetype: proto:kinase_biochem_trfret
+      field: purpose
+      relation: REQUIRES
+      quote: when a phospho-specific antibody exists
+
+- id: cond:orthogonal_non_luminescent_readout_needed
+  text: The question needs a readout that compounds interfering with luciferase cannot affect.
+  check: '"luminescence" not in readout.lower() and "luciferase" not in readout.lower()'
+  from:
+    - archetype: proto:kinase_biochem_trfret
+      field: purpose
+      relation: PREFERRED_WHEN
+      quote: as an orthogonal readout that luciferase inhibitors cannot interfere with
+
+- id: cond:labelled_tracer_available
+  text: A labelled ATP-site ligand (tracer) for the target exists, to be displaced by the compound.
+  check: null
+  from:
+    - archetype: proto:kinase_binding_competition
+      field: purpose
+      relation: REQUIRES
+      quote: by its displacement of a labelled ATP-site ligand
+
+- id: cond:no_convenient_activity_assay
+  text: The target has no convenient catalytic-activity assay.
+  check: null
+  from:
+    - archetype: proto:kinase_binding_competition
+      field: purpose
+      relation: PREFERRED_WHEN
+      quote: Use for kinases without a convenient activity assay
+
+- id: cond:target_in_inactive_conformation
+  text: The target is studied in an inactive conformation, so there is no turnover to inhibit.
+  check: null
+  from:
+    - archetype: proto:kinase_binding_competition
+      field: purpose
+      relation: PREFERRED_WHEN
+      quote: for inactive conformations
+
+- id: cond:question_is_affinity_not_inhibition
+  text: The question asks how tightly the compound binds, not how much it inhibits.
+  check: null
+  from:
+    - archetype: proto:kinase_binding_competition
+      field: purpose
+      relation: PREFERRED_WHEN
+      quote: when the question is affinity rather than inhibition
+
+- id: cond:cultured_cell_line_available
+  text: A cell line for the system can be cultured and kept alive through the assay.
+  check: '"cell" in system.lower()'
+  from:
+    - archetype: proto:cell_viability_atp
+      field: purpose
+      relation: REQUIRES
+      quote: the growth or survival of cultured cells
+    - archetype: proto:kinase_cellular_target_engagement
+      field: purpose
+      relation: REQUIRES
+      quote: a compound occupies the target kinase inside living cells
+
+- id: cond:target_dependent_cell_line_available
+  text: A cell line whose growth depends on the target is available, with its parental line as counterscreen.
+  check: null
+  from:
+    - archetype: proto:cell_viability_atp
+      field: purpose
+      relation: PREFERRED_WHEN
+      quote: a cell line whose growth depends on the target kinase
+
+- id: cond:question_is_cellular_activity
+  text: The question is whether the compound works in cells, not whether it engages the target.
+  check: null
+  from:
+    - archetype: proto:cell_viability_atp
+      field: purpose
+      relation: PREFERRED_WHEN
+      quote: 'Answers "is it active in cells?" but not target engagement on its own'
+
+- id: cond:luciferase_tagged_target_expressible
+  text: The target can be expressed in cells as a luciferase fusion, with a cell-permeable tracer to displace.
+  check: null
+  from:
+    - archetype: proto:kinase_cellular_target_engagement
+      field: purpose
+      relation: REQUIRES
+      quote: by displacing a fluorescent tracer from a luciferase-tagged kinase
+
+- id: cond:target_is_gs_or_gi_coupled_gpcr
+  text: The target is a Gs- or Gi-coupled GPCR, so cAMP changes report its function.
+  check: null       # the class half of this is already the APPLICABLE_TO edge to the GPCR families
+  from:
+    - archetype: proto:gpcr_camp_functional
+      field: purpose
+      relation: REQUIRES
+      quote: potency at a Gs- or Gi-coupled GPCR
+
+- id: cond:fluorogenic_peptide_substrate_available
+  text: A quenched fluorogenic or FRET peptide substrate the target cleaves is available.
+  check: null
+  from:
+    - archetype: proto:protease_fret_activity
+      field: purpose
+      relation: REQUIRES
+      quote: from the cleavage rate of a quenched fluorogenic or FRET peptide substrate
+
+- id: cond:target_is_whole_organism
+  text: The target is a whole organism (a bacterial strain), not a protein whose potency is in question.
+  check: null
+  from:
+    - archetype: proto:bacterial_mic_broth
+      field: purpose
+      relation: REQUIRES
+      quote: For antibacterial activity, not for a protein target's potency
+
+- id: cond:strain_growth_readable_in_broth
+  text: The strain's growth can be read in broth, so a well with no visible growth marks the MIC.
+  check: null
+  from:
+    - archetype: proto:bacterial_mic_broth
+      field: purpose
+      relation: REQUIRES
+      quote: stops visible growth of a bacterial strain

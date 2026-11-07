@@ -1,6 +1,7 @@
 src,rel,dst,props,source
 proto:kinase_biochem_lum,ANSWERS,qtype:potency,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:kinase_biochem_lum,APPLICABLE_TO,chembl_class:1100,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_biochem_lum,REQUIRES,cond:recombinant_enzyme_available,"{""archetype_field"": ""purpose"", ""quote"": ""when recombinant enzyme is available""}",hand-curated from the archetypes' own purpose text (quote per edge)
 proto:kinase_biochem_lum,MEASURES,readout:kinase_biochem_lum,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:kinase_biochem_lum,HAS_RULE,rule:agm/min_points_enzyme_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 rule:agm/min_points_enzyme_ic50,APPLIES_TO,proto:kinase_biochem_lum,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
@@ -58,6 +59,8 @@ proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step4,{},"agent-curat
 proto:kinase_biochem_lum/step3,NEXT,proto:kinase_biochem_lum/step4,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step5,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_lum/step4,NEXT,proto:kinase_biochem_lum/step5,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step5,HAS_SUBSTEP,proto:kinase_biochem_lum/step5/sub1,"{""order"": 1}","agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step5,HAS_SUBSTEP,proto:kinase_biochem_lum/step5/sub2,"{""order"": 2}","agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step6,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_lum/step5,NEXT,proto:kinase_biochem_lum/step6,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step7,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
@@ -66,6 +69,8 @@ proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step8,{},"agent-curat
 proto:kinase_biochem_lum/step7,NEXT,proto:kinase_biochem_lum/step8,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step9,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_lum/step8,NEXT,proto:kinase_biochem_lum/step9,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step9,HAS_SUBSTEP,proto:kinase_biochem_lum/step9/sub1,"{""order"": 1}","agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
+proto:kinase_biochem_lum/step9,HAS_SUBSTEP,proto:kinase_biochem_lum/step9/sub2,"{""order"": 2}","agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step10,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_lum/step9,NEXT,proto:kinase_biochem_lum/step10,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_lum,HAS_STEP,proto:kinase_biochem_lum/step11,{},"agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
@@ -75,6 +80,8 @@ proto:kinase_biochem_lum,USES,reagent:no_enzyme,"{""role"": ""positive""}","agen
 proto:kinase_biochem_lum,USES,reagent:reference_inhibitor,"{""role"": ""positive""}","agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948"
 proto:kinase_biochem_trfret,ANSWERS,qtype:potency,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:kinase_biochem_trfret,APPLICABLE_TO,chembl_class:1100,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_biochem_trfret,REQUIRES,cond:phospho_specific_antibody_available,"{""archetype_field"": ""purpose"", ""quote"": ""when a phospho-specific antibody exists""}",hand-curated from the archetypes' own purpose text (quote per edge)
+proto:kinase_biochem_trfret,PREFERRED_WHEN,cond:orthogonal_non_luminescent_readout_needed,"{""archetype_field"": ""purpose"", ""quote"": ""as an orthogonal readout that luciferase inhibitors cannot interfere with""}",hand-curated from the archetypes' own purpose text (quote per edge)
 proto:kinase_biochem_trfret,MEASURES,readout:kinase_biochem_trfret,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:kinase_biochem_trfret,HAS_RULE,rule:agm/min_points_enzyme_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 rule:agm/min_points_enzyme_ic50,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
@@ -108,6 +115,10 @@ proto:kinase_biochem_trfret,HAS_RULE,rule:agm/four_parameter_fit,"{""severity"":
 rule:agm/four_parameter_fit,APPLIES_TO,proto:kinase_biochem_trfret,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 proto:kinase_binding_competition,ANSWERS,qtype:binding,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:kinase_binding_competition,APPLICABLE_TO,chembl_class:1100,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_binding_competition,REQUIRES,cond:labelled_tracer_available,"{""archetype_field"": ""purpose"", ""quote"": ""by its displacement of a labelled ATP-site ligand""}",hand-curated from the archetypes' own purpose text (quote per edge)
+proto:kinase_binding_competition,PREFERRED_WHEN,cond:no_convenient_activity_assay,"{""archetype_field"": ""purpose"", ""quote"": ""Use for kinases without a convenient activity assay""}",hand-curated from the archetypes' own purpose text (quote per edge)
+proto:kinase_binding_competition,PREFERRED_WHEN,cond:target_in_inactive_conformation,"{""archetype_field"": ""purpose"", ""quote"": ""for inactive conformations""}",hand-curated from the archetypes' own purpose text (quote per edge)
+proto:kinase_binding_competition,PREFERRED_WHEN,cond:question_is_affinity_not_inhibition,"{""archetype_field"": ""purpose"", ""quote"": ""when the question is affinity rather than inhibition""}",hand-curated from the archetypes' own purpose text (quote per edge)
 proto:kinase_binding_competition,MEASURES,readout:kinase_binding_competition,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:kinase_binding_competition,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 rule:agm/min_points_crc,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
@@ -133,6 +144,9 @@ proto:kinase_binding_competition,HAS_RULE,rule:agm/tracer_at_or_below_kd,"{""sev
 rule:agm/tracer_at_or_below_kd,APPLIES_TO,proto:kinase_binding_competition,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 proto:cell_viability_atp,ANSWERS,qtype:cellular_potency,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:cell_viability_atp,APPLICABLE_TO,chembl_class:1100,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:cell_viability_atp,REQUIRES,cond:cultured_cell_line_available,"{""archetype_field"": ""purpose"", ""quote"": ""the growth or survival of cultured cells""}",hand-curated from the archetypes' own purpose text (quote per edge)
+proto:cell_viability_atp,PREFERRED_WHEN,cond:target_dependent_cell_line_available,"{""archetype_field"": ""purpose"", ""quote"": ""a cell line whose growth depends on the target kinase""}",hand-curated from the archetypes' own purpose text (quote per edge)
+proto:cell_viability_atp,PREFERRED_WHEN,cond:question_is_cellular_activity,"{""archetype_field"": ""purpose"", ""quote"": ""Answers \""is it active in cells?\"" but not target engagement on its own""}",hand-curated from the archetypes' own purpose text (quote per edge)
 proto:cell_viability_atp,MEASURES,readout:cell_viability_atp,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:cell_viability_atp,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 rule:agm/min_points_crc,APPLIES_TO,proto:cell_viability_atp,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
@@ -179,6 +193,8 @@ proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step4,{},"agent-curat
 proto:cell_viability_atp/step3,NEXT,proto:cell_viability_atp/step4,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
 proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step5,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
 proto:cell_viability_atp/step4,NEXT,proto:cell_viability_atp/step5,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step5,HAS_SUBSTEP,proto:cell_viability_atp/step5/sub1,"{""order"": 1}","agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
+proto:cell_viability_atp/step5,HAS_SUBSTEP,proto:cell_viability_atp/step5/sub2,"{""order"": 2}","agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
 proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step6,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
 proto:cell_viability_atp/step5,NEXT,proto:cell_viability_atp/step6,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
 proto:cell_viability_atp,HAS_STEP,proto:cell_viability_atp/step7,{},"agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
@@ -195,6 +211,8 @@ proto:cell_viability_atp,USES,reagent:medium_only,"{""role"": ""positive""}","ag
 proto:cell_viability_atp,USES,reagent:parental_cell_line,"{""role"": ""counterscreen""}","agent-curated from PubChem AIDs 1691, 1699, 1413, 1972"
 proto:kinase_cellular_target_engagement,ANSWERS,qtype:target_engagement,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:kinase_cellular_target_engagement,APPLICABLE_TO,chembl_class:1100,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:kinase_cellular_target_engagement,REQUIRES,cond:cultured_cell_line_available,"{""archetype_field"": ""purpose"", ""quote"": ""a compound occupies the target kinase inside living cells""}",hand-curated from the archetypes' own purpose text (quote per edge)
+proto:kinase_cellular_target_engagement,REQUIRES,cond:luciferase_tagged_target_expressible,"{""archetype_field"": ""purpose"", ""quote"": ""by displacing a fluorescent tracer from a luciferase-tagged kinase""}",hand-curated from the archetypes' own purpose text (quote per edge)
 proto:kinase_cellular_target_engagement,MEASURES,readout:kinase_cellular_target_engagement,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:kinase_cellular_target_engagement,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 rule:agm/min_points_crc,APPLIES_TO,proto:kinase_cellular_target_engagement,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
@@ -224,6 +242,7 @@ proto:gpcr_camp_functional,ANSWERS,qtype:functional_potency,{},"hand-curated fro
 proto:gpcr_camp_functional,APPLICABLE_TO,chembl_class:1020,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:gpcr_camp_functional,APPLICABLE_TO,chembl_class:1021,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:gpcr_camp_functional,APPLICABLE_TO,chembl_class:1022,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:gpcr_camp_functional,REQUIRES,cond:target_is_gs_or_gi_coupled_gpcr,"{""archetype_field"": ""purpose"", ""quote"": ""potency at a Gs- or Gi-coupled GPCR""}",hand-curated from the archetypes' own purpose text (quote per edge)
 proto:gpcr_camp_functional,MEASURES,readout:gpcr_camp_functional,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:gpcr_camp_functional,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 rule:agm/min_points_crc,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
@@ -249,6 +268,8 @@ proto:gpcr_camp_functional,HAS_RULE,rule:agm/camp_antagonist_agonist_level,"{""s
 rule:agm/camp_antagonist_agonist_level,APPLIES_TO,proto:gpcr_camp_functional,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 proto:protease_fret_activity,ANSWERS,qtype:potency,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:protease_fret_activity,APPLICABLE_TO,chembl_class:1028,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:protease_fret_activity,REQUIRES,cond:recombinant_enzyme_available,"{""archetype_field"": ""purpose"", ""quote"": ""on a purified protease""}",hand-curated from the archetypes' own purpose text (quote per edge)
+proto:protease_fret_activity,REQUIRES,cond:fluorogenic_peptide_substrate_available,"{""archetype_field"": ""purpose"", ""quote"": ""from the cleavage rate of a quenched fluorogenic or FRET peptide substrate""}",hand-curated from the archetypes' own purpose text (quote per edge)
 proto:protease_fret_activity,MEASURES,readout:protease_fret_activity,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:protease_fret_activity,HAS_RULE,rule:agm/min_points_enzyme_ic50,"{""severity"": ""should""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 rule:agm/min_points_enzyme_ic50,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
@@ -282,6 +303,8 @@ proto:protease_fret_activity,HAS_RULE,rule:agm/four_parameter_fit,"{""severity""
 rule:agm/four_parameter_fit,APPLIES_TO,proto:protease_fret_activity,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 proto:bacterial_mic_broth,ANSWERS,qtype:growth_inhibition,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:bacterial_mic_broth,APPLICABLE_TO,chembl_target_type:ORGANISM,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
+proto:bacterial_mic_broth,REQUIRES,cond:target_is_whole_organism,"{""archetype_field"": ""purpose"", ""quote"": ""For antibacterial activity, not for a protein target's potency""}",hand-curated from the archetypes' own purpose text (quote per edge)
+proto:bacterial_mic_broth,REQUIRES,cond:strain_growth_readable_in_broth,"{""archetype_field"": ""purpose"", ""quote"": ""stops visible growth of a bacterial strain""}",hand-curated from the archetypes' own purpose text (quote per edge)
 proto:bacterial_mic_broth,MEASURES,readout:bacterial_mic_broth,{},"hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 proto:bacterial_mic_broth,HAS_RULE,rule:agm/min_points_crc,"{""severity"": ""must""}",NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
 rule:agm/min_points_crc,APPLIES_TO,proto:bacterial_mic_broth,{},NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)
@@ -312,10 +335,14 @@ proto:bacterial_mic_broth,HAS_PARAM,proto:bacterial_mic_broth/param/plate_wells,
 proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step1,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
 proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step2,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
 proto:bacterial_mic_broth/step1,NEXT,proto:bacterial_mic_broth/step2,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth/step2,HAS_SUBSTEP,proto:bacterial_mic_broth/step2/sub1,"{""order"": 1}","agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth/step2,HAS_SUBSTEP,proto:bacterial_mic_broth/step2/sub2,"{""order"": 2}","agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
 proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step3,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
 proto:bacterial_mic_broth/step2,NEXT,proto:bacterial_mic_broth/step3,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
 proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step4,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
 proto:bacterial_mic_broth/step3,NEXT,proto:bacterial_mic_broth/step4,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth/step4,HAS_SUBSTEP,proto:bacterial_mic_broth/step4/sub1,"{""order"": 1}","agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
+proto:bacterial_mic_broth/step4,HAS_SUBSTEP,proto:bacterial_mic_broth/step4/sub2,"{""order"": 2}","agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
 proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step5,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
 proto:bacterial_mic_broth/step4,NEXT,proto:bacterial_mic_broth/step5,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"
 proto:bacterial_mic_broth,HAS_STEP,proto:bacterial_mic_broth/step6,{},"agent-curated from PubChem AIDs 449774, 1503, 463100, 624097"

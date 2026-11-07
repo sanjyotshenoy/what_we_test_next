@@ -1,13 +1,19 @@
-"""Build the protocol graph from archetypes.yaml, templates/*.json and rules.yaml (replaces seed.py's output).
+"""Build the protocol graph from archetypes.yaml, templates/*.json, rules.yaml and conditions.yaml.
 
     python -m kg.protocols.build_db            # writes kg/protocols/graph/{nodes,edges}.csv
     python -m kg.protocols.build_db --check     # build in memory and print a summary, write nothing
 
-Node types: Protocol (one per archetype), Step, Parameter, Reagent, Readout, QuestionType, Rule, TargetClass
-(referenced, defined by the biology graph). Edges: ANSWERS, APPLICABLE_TO, HAS_STEP, NEXT, HAS_PARAM, MEASURES,
-USES, HAS_RULE (Protocol -> Rule) and APPLIES_TO (Rule -> Protocol, the reverse, so a Rule node can be walked
-from either side). `kg/query.py`'s templates(target) keeps working: it reads APPLICABLE_TO, HAS_PARAM, MEASURES
-and ANSWERS, all still here with the same meanings.
+Node types: Protocol (one per archetype), Step, Parameter, Reagent, Readout, QuestionType, Rule, Condition,
+TargetClass (referenced, defined by the biology graph). Edges: ANSWERS, APPLICABLE_TO, HAS_STEP, NEXT,
+HAS_SUBSTEP (Step -> Step, one level of detail under a top-level step), HAS_PARAM, MEASURES, USES, HAS_RULE
+(Protocol -> Rule) and APPLIES_TO (Rule -> Protocol, the reverse, so a Rule node can be walked from either
+side), REQUIRES and PREFERRED_WHEN (Protocol -> Condition: the routing conditions, each edge carrying the
+archetype field and the span it was read from). `kg/query.py`'s templates(target) keeps working: it reads
+APPLICABLE_TO, HAS_PARAM, MEASURES and ANSWERS, all still here with the same meanings.
+
+The shallow decision tree is therefore: a question and a target class pick candidate Protocols
+(APPLICABLE_TO, ANSWERS); REQUIRES / PREFERRED_WHEN say when each candidate is the right one; HAS_STEP / NEXT
+give the stages and HAS_SUBSTEP the detail under a stage, so a grading tree can score the two separately.
 
 TODO(final): 3 of the 8 archetypes have a curated template, and those three are agent-curated, not yet checked by
 a person; the other five contribute a Protocol node with no steps or parameters. See kg/protocols/README.md.
@@ -32,9 +38,11 @@ HERE = Path(__file__).parent
 OUT = HERE / "graph"
 ARCHETYPES = HERE / "archetypes.yaml"
 RULES = HERE / "rules.yaml"
+CONDITIONS = HERE / "conditions.yaml"
 TEMPLATES = HERE / "templates"
 SOURCE_ARCH = "hand-curated from the NCATS Assay Guidance Manual, BAO (OLS4) and ChEMBL protein classes"
 SOURCE_RULES = "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)"
+SOURCE_CONDITIONS = "hand-curated from the archetypes' own purpose text (quote per edge)"
 
 # Controls named in the curated templates -> the Reagent node they share, with the BAO control role where one
 # exists (BAO:0000079 negative control, BAO:0000080 positive control; checked in OLS4, 2026-11-07).
@@ -46,6 +54,10 @@ def load_archetypes(path: Path = ARCHETYPES) -> dict[str, dict]:
 
 
 def load_rules(path: Path = RULES) -> list[dict]:
+    return yaml.safe_load(path.read_text())
+
+
+def load_conditions(path: Path = CONDITIONS) -> list[dict]:
     return yaml.safe_load(path.read_text())
 
 
@@ -77,11 +89,19 @@ def check_rule(rule: dict, experiment: dict) -> bool | None:
         return None
 
 
-def build(archetypes: dict | None = None, templates: dict | None = None,
-          rules: list[dict] | None = None) -> tuple[list[dict], list[dict]]:
+def check_condition(condition: dict, experiment: dict) -> bool | None:
+    """A routing condition's `check`, evaluated like a rule's: True / False, or None when the condition is not
+    answerable from an Experiment (no expression, or a value it needs is missing) and the lab or the question
+    has to answer it instead."""
+    return check_rule(condition, experiment)
+
+
+def build(archetypes: dict | None = None, templates: dict | None = None, rules: list[dict] | None = None,
+          conditions: list[dict] | None = None) -> tuple[list[dict], list[dict]]:
     archetypes = archetypes if archetypes is not None else load_archetypes()
     templates = templates if templates is not None else load_templates()
     rules = rules if rules is not None else load_rules()
+    conditions = conditions if conditions is not None else load_conditions()
     nodes, edges = [], []
 
     seen = set()
@@ -103,6 +123,13 @@ def build(archetypes: dict | None = None, templates: dict | None = None,
             "url": f"https://www.ncbi.nlm.nih.gov/books/{rule['source']['nbk']}/",
             "quote": rule["source"]["quote"],
         }, source=SOURCE_RULES)
+
+    for condition in conditions:
+        node(condition["id"], "Condition", condition["text"].strip(), {
+            "check": condition.get("check"), "machine_checkable": bool(condition.get("check")),
+            # one entry per edge below: the archetype, the field and the span this condition was read from
+            "derived_from": condition["from"],
+        }, source=SOURCE_CONDITIONS)
 
     for id, archetype in archetypes.items():
         template = templates.get(id)
@@ -126,6 +153,15 @@ def build(archetypes: dict | None = None, templates: dict | None = None,
         edge(id, "ANSWERS", question_type)
         for class_id in archetype["applicable_to"]:
             edge(id, "APPLICABLE_TO", class_id)
+
+        # the rest of the routing: REQUIRES = without this the template cannot be run, PREFERRED_WHEN = this is
+        # what makes it the better choice. Both read off this archetype's own text, quote on the edge.
+        for condition in conditions:
+            for origin in condition["from"]:
+                if origin["archetype"] != id:
+                    continue
+                edge(id, origin["relation"], condition["id"],
+                     {"archetype_field": origin["field"], "quote": origin["quote"]}, SOURCE_CONDITIONS)
 
         readout_id = f"readout:{id.split(':', 1)[1]}"
         readout = template["readout"] if template else {"name": archetype["readout"],
@@ -157,14 +193,27 @@ def build(archetypes: dict | None = None, templates: dict | None = None,
         previous = None
         for i, step in enumerate(template["steps"], start=1):
             step_id = f"{id}/step{i}"
+            substeps = step.get("substeps", [])
             node(step_id, "Step", step["text"], {
                 "verb": step["verb"], "order": i, "optional": bool(step.get("optional")),
                 "params": step.get("params", []), "evidence": step.get("evidence", []),
+                "n_substeps": len(substeps),
             }, source)
             edge(id, "HAS_STEP", step_id, {}, source)
             if previous:
                 edge(previous, "NEXT", step_id, {}, source)
             previous = step_id
+            # One level deeper: the detail a step's own evidence already spells out. A sub-step has a `parent`
+            # (a top-level step has none) and its `order` counts within that parent; HAS_STEP and NEXT stay at
+            # the top level, so the ordered chain is unchanged.
+            for j, substep in enumerate(substeps, start=1):
+                substep_id = f"{step_id}/sub{j}"
+                node(substep_id, "Step", substep["text"], {
+                    "verb": substep["verb"], "order": j, "parent": step_id,
+                    "optional": bool(substep.get("optional")),
+                    "params": substep.get("params", []), "evidence": substep.get("evidence", []),
+                }, source)
+                edge(step_id, "HAS_SUBSTEP", substep_id, {"order": j}, source)
 
         for control in template["controls"]:
             reagent_id = control.get("reagent") or f"reagent:{control['name'][:40]}"
@@ -186,9 +235,16 @@ def main() -> None:
     for n in nodes:
         counts[n["type"]] = counts.get(n["type"], 0) + 1
     rules = load_rules()
+    conditions = load_conditions()
     checkable = sum(1 for r in rules if r.get("check"))
-    print(f"{len(nodes)} nodes ({', '.join(f'{v} {k}' for k, v in sorted(counts.items()))}), {len(edges)} edges; "
-          f"{checkable}/{len(rules)} rules machine-checkable")
+    checkable_conditions = sum(1 for c in conditions if c.get("check"))
+    rels = {}
+    for e in edges:
+        rels[e["rel"]] = rels.get(e["rel"], 0) + 1
+    print(f"{len(nodes)} nodes ({', '.join(f'{v} {k}' for k, v in sorted(counts.items()))}), {len(edges)} edges "
+          f"({', '.join(f'{v} {k}' for k, v in sorted(rels.items()))}); "
+          f"{checkable}/{len(rules)} rules and {checkable_conditions}/{len(conditions)} conditions "
+          f"machine-checkable")
     if not args.check:
         write_graph(OUT, nodes, edges)
         print(f"wrote {OUT}/nodes.csv and {OUT}/edges.csv")
