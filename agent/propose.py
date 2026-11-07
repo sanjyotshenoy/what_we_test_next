@@ -1,6 +1,6 @@
 """Aim 1: given a Question the knowledge base cannot answer, propose the missing experiment.
 
-    python -m agent.propose --question "Does imatinib inhibit the KIT kinase, and how potently?"
+    python -m agent.propose --question "Does CHEMBL5593141 inhibit the BTK kinase, and how potently?"
     python -m agent.propose --questions benchmark/questions.jsonl --out agent/out/kg.jsonl
     python -m agent.propose --question "..." --runs-js demo/runs   # a trace for the demo page
 
@@ -18,7 +18,7 @@ from pathlib import Path
 from wwtn.llm import DEFAULT_MODEL, chat_raw, message_dict, reasoning_of
 from wwtn.schema import Experiment, ExperimentProposal, Question, read_jsonl, write_jsonl
 
-from .tools import TOOL_SPECS, KnowledgeBase
+from .tools import DEMO_QUESTION, TOOL_SPECS, KnowledgeBase
 from .trace import Trace, slug
 
 MAX_ROUNDS = 8
@@ -31,9 +31,11 @@ measurement does not exist yet.
 
 Work in this order, one tool call at a time:
 1. bio_kg_resolve: the compound, the target and the target's class.
-2. bio_kg_analogs: similar compounds with measured activity on the target; their IC50s set the expected potency.
-3. protocol_kg_templates: the protocol template for this question type and target class (format, readout, \
-controls, default series).
+2. bio_kg_analogs: the structurally nearest compounds with a measured IC50 on the target; their IC50s and the \
+target-wide spread returned with them set the expected potency.
+3. protocol_kg_templates: the protocol template for this question type; pass the target (not only its class) so \
+the tool walks the class chain, since templates hang off a broad class such as chembl_class:1100 while a target \
+belongs to a narrow one (format, readout, controls, default series).
 4. propose_experiment, exactly once, with the final design.
 
 Before each tool call, write ONE sentence of visible reasoning (at most 25 words): the key fact from the last \
@@ -49,7 +51,7 @@ PROPOSE_SPEC = {"type": "function", "function": {
     "parameters": {"type": "object", "properties": {
         "assay_type": {"type": "string", "description": "e.g. biochemical kinase inhibition (dose-response); BAO terms where possible"},
         "readout": {"type": "string", "description": "e.g. luminescence (ADP formed)"},
-        "system": {"type": "string", "description": "e.g. recombinant KIT kinase domain"},
+        "system": {"type": "string", "description": "e.g. recombinant BTK kinase domain"},
         "top_concentration_uM": {"type": "number"},
         "dilution_factor": {"type": "number", "description": "3 for a 1:3 series"},
         "n_points": {"type": "integer"},
@@ -73,10 +75,9 @@ def entities(question: Question, kb: KnowledgeBase, model: str) -> tuple[str, st
     KG's node names, else extracted by the model."""
     if question.compound and question.target:
         return question.compound, question.target
-    text = question.text.lower()
-    comp = next((n["name"] for n in kb.bio.nodes.values() if n["type"] == "Compound" and n["name"].lower() in text), None)
-    targ = next((n["props"].get("gene") or n["name"] for n in kb.bio.nodes.values() if n["type"] == "Target"
-                 and (str(n["props"].get("gene", "")).lower() in text.split() if n["props"].get("gene") else n["name"].lower() in text)), None)
+    comp_id, targ_id = kb.mentions(question.text)      # matched against the graph, no LLM call
+    comp = comp_id
+    targ = kb.gene(kb.node(targ_id)) if targ_id else None
     if comp and targ:
         return question.compound or comp, question.target or targ
     m = chat_raw(f"Question: {question.text}\nReply with JSON only: {{\"compound\": ..., \"target\": ...}} "
@@ -170,7 +171,8 @@ def propose(question: Question, model: str | None = None, kb: KnowledgeBase | No
 def main() -> None:
     ap = argparse.ArgumentParser(description="Propose the experiment that would answer a question the KB cannot.")
     src = ap.add_mutually_exclusive_group(required=True)
-    src.add_argument("--question", help="one question, as text")
+    src.add_argument("--question", nargs="?", const=DEMO_QUESTION,
+                     help=f"one question, as text (bare: the demo question, {DEMO_QUESTION!r})")
     src.add_argument("--questions", help="a Question JSON Lines file (benchmark/questions.jsonl)")
     ap.add_argument("--id", help="run/question ID for --question (default: from the text)")
     ap.add_argument("--model", help=f"model ID (default: {DEFAULT_MODEL})")
