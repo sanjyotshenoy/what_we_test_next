@@ -160,3 +160,4 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   with a note here.
 - Suggested (not decided): no git submodule (it would break the slides deploy and force ouroboros access on every
   clone); the deck's demo slide can point at ouroboros' deployed URL once there is one.
+- Done (19:45): `pr1-merged` merged into main as PR #2 (`d80ade2`); live deck redeployed with the agent's real trace.
