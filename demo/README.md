@@ -58,7 +58,7 @@ is no backend, so the page plays the recorded traces.
 | --- | --- |
 | `id`, `query`, `model`, `mock` | the question; `mock: true` shows the "illustrative" badge |
 | `note` | shown as a badge: e.g. which graphs the run used |
-| `lookup` | `{tool, args, result, verdict, note, rows?}`: what the KB says on its own |
+| `lookup` | `{tool, args, result, verdict, note, rows?}`: what the KB says on its own. `kind` splits the `I don't know` verdict for the benchmark's abstain metric: `no_measurement` (both sides resolved, the pair is genuinely unmeasured) or `unresolved` (the KB does not know the compound or the target); `answered` otherwise. Added field, nothing renamed |
 | `calls` | the graph tool calls, each `{tool, args, summary, rows, columns?}` |
 | `reasoning` | list of strings, the model's visible reasoning between tool calls; `thinking` holds the raw reasoning tokens when the model exposes them (not shown) |
 | `proposal` | the `ExperimentProposal` of `wwtn/schema.py` (`experiment`, `citations`, ...) |
