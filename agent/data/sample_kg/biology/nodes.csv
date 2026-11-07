@@ -1,0 +1,10 @@
+id,type,name,props,source
+CHEMBL941,Compound,imatinib,{},hand-curated sample
+CHEMBL255863,Compound,nilotinib,{},hand-curated sample
+CHEMBL1421,Compound,dasatinib,{},hand-curated sample
+CHEMBL535,Compound,sunitinib,{},hand-curated sample
+CHEMBL388978,Compound,staurosporine,"{""role"": ""pan-kinase inhibitor""}",hand-curated sample
+P10721,Target,KIT (mast/stem cell growth factor receptor),"{""gene"": ""KIT"", ""organism"": ""human""}",hand-curated sample
+P00519,Target,ABL1 (tyrosine-protein kinase ABL1),"{""gene"": ""ABL1"", ""organism"": ""human""}",hand-curated sample
+P09619,Target,PDGFRB (platelet-derived growth factor receptor beta),"{""gene"": ""PDGFRB"", ""organism"": ""human""}",hand-curated sample
+class:tyrosine_kinase,TargetClass,tyrosine kinase,{},hand-curated sample

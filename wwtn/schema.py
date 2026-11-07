@@ -66,12 +66,12 @@ class ExecutionResult(BaseModel):
 
 
 def read_jsonl(path: str | Path, model: type[T]) -> list[T]:
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         return [model.model_validate_json(line) for line in f if line.strip()]
 
 
 def write_jsonl(path: str | Path, items: Iterable[BaseModel]) -> None:
     Path(path).parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         for item in items:
             f.write(item.model_dump_json() + "\n")

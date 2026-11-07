@@ -7,20 +7,31 @@
 <!--
   One query through the whole pipeline: the KB says "I don't know", the agent queries the two graphs, proposes an
   experiment, writes the OT-2 protocol, and the proposal is checked against the record held out of the KB.
-  Static: the page plays traces from runs/*.js (format in README.md). ?all shows every stage at once;
-  ?theme=dark|light overrides the system theme; ?run=<id> picks a trace.
+  Plays traces from runs/*.js (format in README.md), or a live run from agent/server.py when the page is served by
+  it (python -m agent.server). Each stage waits for "Next step"; ?auto plays on by itself. ?all shows every stage
+  at once; ?theme=dark|light overrides the system theme
+  (the button at the top right switches it, and the choice is remembered in the browser);
+  ?run=<id> picks a trace; ?static ignores the backend; ?api=<base url> points at one elsewhere; ?model=<id> and
+  ?fresh pass through to live runs.
 -->
 <link rel="stylesheet" href="demo.css">
 </head>
 <body>
 <header class="top">
   <div class="brand"><span class="dot"></span>What we test next</div>
-  <span id="mock" class="badge" hidden>Mock trace · numbers are illustrative</span>
+  <span class="badges">
+    <span id="live" class="badge live" hidden>Live</span>
+    <span id="mock" class="badge" hidden>Mock trace · numbers are illustrative</span>
+    <span id="note" class="badge note" hidden></span>
+    <button id="theme" type="button" class="theme" aria-label="Switch theme"></button>
+  </span>
 </header>
 
 <main>
   <form id="ask" class="ask" autocomplete="off">
     <input id="q" type="text" aria-label="Question" placeholder="Ask a question the literature can’t answer yet…">
+    <label id="livebox" class="livebox" hidden><input id="golive" type="checkbox"> Run live
+      <select id="model" aria-label="Model"></select></label>
     <button type="submit">Run</button>
   </form>
   <div id="suggest" class="suggest"></div>
@@ -33,7 +44,12 @@
   </div>
 </main>
 
-<!-- TODO(final): load the real trace(s) here; runs/kit_imatinib.js is a mock -->
+<!-- Traces, real runs first. kit-imatinib.js: python -m agent.propose --question "..." --id kit-imatinib
+     --runs-js demo/runs. kit_imatinib.js is the mock, kept while execution/ and benchmark/
+     have no output: it is the only trace with the procedure, protocol and validation stages. -->
+<!-- TODO(final): rerun the real trace against kg/*/graph (today: agent/data/sample_kg), and drop the mock once a
+     real trace has every stage. -->
+<script src="runs/kit-imatinib.js"></script>
 <script src="runs/kit_imatinib.js"></script>
 <script src="demo.js"></script>
 </body>

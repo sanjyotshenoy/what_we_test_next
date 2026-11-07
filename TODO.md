@@ -10,8 +10,10 @@ When you leave something fake or unfinished behind, add a `TODO(final): ...` com
 it, delete the comment. The checklist below is a snapshot for orientation; the grep is the source of truth.
 
 **On screen (embarrassing if forgotten)**
-- [ ] Demo plays a mock trace with a "Mock trace" badge: replace `demo/runs/kit_imatinib.js`
-  with a real run, `mock: false`, real held-out ChEMBL assay ID (also `demo/index.html`, `slides/talks/biohack/slides/demo.js` notes)
+- [ ] Demo: `demo/runs/kit-imatinib.js` is a real agent run but against the hand-written sample graphs
+  (`agent/data/sample_kg`); rerun it against `kg/*/graph` once they exist. The mock `demo/runs/kit_imatinib.js`
+  stays until `execution/` and `benchmark/` feed the trace (procedure, protocol, simulation, validation), then
+  drop it (also `demo/index.html`, `slides/talks/biohack/slides/demo.js` notes)
 - [ ] Benchmark charts are empty ("—"): fill `RESULTS` in `slides/talks/biohack/slides/benchmarks.js`
 - [ ] Slides that still say "Placeholder: ...": `slides/talks/biohack/slides/blank.js`
 - [ ] Outline is the dummy one: confirm `slides/talks/biohack/slides/outline.js`
@@ -21,12 +23,14 @@ it, delete the comment. The checklist below is a snapshot for orientation; the g
 - [ ] Confirm the four benchmark models are live on our key: `wwtn/llm.py` and `benchmarks.js`
 - [ ] Pick the range-accuracy metric before writing the grader: `benchmark/README.md`
 - [ ] Owners in each folder README: `agent/`, `execution/`, `benchmark/`, `kg/biology/`, `kg/protocols/`
+- [ ] `agent/`: baselines (bare LLM, LLM + literature search) for a fair comparison; delete `agent/data/sample_kg`
 
 ## Pipeline gaps (2026-11-07 19:20; not yet built or decided)
 
 **LLM orchestration**
-- [ ] Agent loop: system prompt, tool schemas wrapping `kg/query.py`, max steps, stop condition; which Nebius models
-  support function calling (JSON-action fallback otherwise)
+- [ ] Agent loop: a first tool-calling loop exists (`agent/propose.py`, `agent/tools.py`, PR #1) on the sample
+  graphs; still to do: switch its tools to `kg/query.py`, check which Nebius models support function calling
+  (JSON-action fallback otherwise)
 - [ ] Step 1, "can the KB answer this?": the abstain/answer decision (what it queries, criteria, prompt)
 - [ ] Literature-search tool for the "+lit" arm (Europe PMC? Paperclip?), **date-filtered to the cutoff** so it
   cannot find the held-out paper

@@ -6,6 +6,9 @@ NEBIUS_MODEL picks the default model; `python -m wwtn.llm --models` lists what t
     from wwtn.llm import chat
     print(chat("Suggest one follow-up experiment for a CRISPR knockout screen."))
 
+    from wwtn.llm import chat_raw, reasoning_of        # tool calling, and the model's reasoning text
+    message = chat_raw(messages, tools=[...]); message.tool_calls; reasoning_of(message)
+
     python -m wwtn.llm "your prompt"          # one-off from the command line
     python -m wwtn.llm --models               # list available model IDs
 
@@ -51,6 +54,33 @@ def chat(prompt: str | list[dict], model: str | None = None, system: str | None 
         messages = [{"role": "system", "content": system}, *messages]
     response = client().chat.completions.create(model=model or DEFAULT_MODEL, messages=messages, **kwargs)
     return response.choices[0].message.content
+
+
+def chat_raw(prompt: str | list[dict], model: str | None = None, system: str | None = None,
+             tools: list[dict] | None = None, **kwargs):
+    """One chat completion, returning the full assistant message (an openai ChatCompletionMessage) instead of just
+    its text: for tool calling (`message.tool_calls`) and the model's own reasoning (`reasoning_of(message)`).
+    Append `message_dict(message)` to the messages list to continue the conversation."""
+    messages = prompt if isinstance(prompt, list) else [{"role": "user", "content": prompt}]
+    if system:
+        messages = [{"role": "system", "content": system}, *messages]
+    if tools:
+        kwargs["tools"] = tools
+    response = client().chat.completions.create(model=model or DEFAULT_MODEL, messages=messages, **kwargs)
+    return response.choices[0].message
+
+
+def reasoning_of(message) -> str:
+    """The model's reasoning text from a `chat_raw` message, or "" if the model gave none. Nebius passes it
+    through under `reasoning_content` (DeepSeek, Kimi, GLM, Qwen) or `reasoning` (gpt-oss)."""
+    extra = message.model_extra or {}
+    return (extra.get("reasoning_content") or extra.get("reasoning") or "").strip()
+
+
+def message_dict(message) -> dict:
+    """A `chat_raw` message as a dict to append to the conversation. Keeps tool_calls and the reasoning field:
+    every model we tried accepts it echoed back, and DeepSeek's interleaved thinking expects it."""
+    return message.model_dump(exclude_none=True)
 
 
 def models() -> list[str]:
