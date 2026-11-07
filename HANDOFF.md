@@ -235,8 +235,8 @@ Actions; to run locally, put the key in `.env`.
 Live, code-drawn deck (HTML + manim-web, Reveal.js for navigation; no build, works offline from disk). Read
 `slides/AGENTS.md` before editing. Each slide is a JS module in `slides/`; order = `<script>` tags in `index.html`.
 Current slides:
-1. **title** — title, subtitle, team photos (Aidan, Ramith, Sanjyot, Seh Na from the CMU CPCB students page; Emmy her own; in
-   `data/team/`; Jimmy, Xiaochen show initials until photos arrive — add file
+1. **title** — title, subtitle, team photos (Aidan, Ramith, Sanjyot, Seh Na from the CMU CPCB students page; Emmy's and Xiaochen's their own; in
+   `data/team/`; Jimmy shows initials until his photo arrives — add file
    `data/team/<first-last>.jpg` and the name to `PHOTOS` in `title.js`), "Team Zhang et al." large on the wave,
    "(Biotech Track: Problem #2)".
 2. **outline** — 6 sections: Problem · Approach (2.1 biology KG, 2.2 experiment KG) · Evaluation · Results ·
@@ -282,7 +282,7 @@ On screen:
   `demo/index.html`, notes in `slides/demo.js`.
 - Fill benchmark chart `RESULTS` — `slides/benchmarks.js`.
 - Replace or delete the "Placeholder:" slides — `slides/blank.js`; confirm the outline — `slides/outline.js`.
-- Photos for Jimmy Hsu, Xiaochen Zhai — `slides/title.js`.
+- Photo for Jimmy Hsu — `slides/title.js`.
 Behind the scenes:
 - Confirm the four models are live on the key — `wwtn/llm.py`, `benchmarks.js`.
 - Pick the range-accuracy metric (penalizing width) before writing the grader — `benchmark/README.md`.

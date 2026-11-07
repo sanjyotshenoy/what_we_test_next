@@ -15,7 +15,7 @@ it, delete the comment. The checklist below is a snapshot for orientation; the g
 - [ ] Benchmark charts are empty ("—"): fill `RESULTS` in `slides/talks/biohack/slides/benchmarks.js`
 - [ ] Slides that still say "Placeholder: ...": `slides/talks/biohack/slides/blank.js`
 - [ ] Outline is the dummy one: confirm `slides/talks/biohack/slides/outline.js`
-- [ ] Title slide photos for Jimmy Hsu, Xiaochen Zhai: `slides/talks/biohack/slides/title.js`
+- [ ] Title slide photo for Jimmy Hsu: `slides/talks/biohack/slides/title.js`
 
 **Behind the scenes**
 - [ ] Confirm the four benchmark models are live on our key: `wwtn/llm.py` and `benchmarks.js`
