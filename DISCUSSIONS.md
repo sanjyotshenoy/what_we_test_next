@@ -182,3 +182,7 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 - Done (19:55): `kg-scaffolding` merged into main via `kg-merged` (PR #3, `2dfb5a7`); kg tests pass on main. Agent
   follow-up on branch `agent-on-kg` in progress. Next for the graph: Seh Na polishes querying + the toy KG + papers on
   a new branch.
+
+**Checkpoint pushes** (ramiiith, 19:57).
+- Decided: people and coding agents push `WIP:` checkpoint commits to their feature branch after each milestone
+  (noting failing tests), so others can follow a branch's evolution; no squashing. In CONTRIBUTING.md and AGENTS.md.

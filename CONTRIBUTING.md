@@ -23,6 +23,8 @@ schema, and build against those. Knowledge graphs use the node/edge CSV format i
 
 - Commit small and often; `git pull --rebase` before you push. Pushing straight to `main` is fine when you only
   touched your own folder. For changes to shared files, use a branch and a PR, or say so in Discord first.
+- **Work in progress:** on a feature branch, push checkpoints as you go (`WIP: ...` commits, say if tests still
+  fail) so others can follow how it evolves; no need to squash. Same for coding agents.
 - **Never commit secrets.** API keys go in `.env` (git-ignored); see `.env.example`.
 - **Data:** small files (under ~10 MB) can be committed, in your folder's `data/`. Anything bigger goes in a
   `data/raw/` folder (git-ignored); commit the script that downloads it instead.

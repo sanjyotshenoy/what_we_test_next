@@ -10,5 +10,7 @@ first. In short:
 - Run code from the repo root as modules (`python -m <folder>.<module>`).
 - Mark anything mock, placeholder or unconfirmed that you leave behind with a `TODO(final): ...` comment at that
   spot (see [TODO.md](TODO.md)); remove it when the real thing is in.
+- Work on a branch, and commit + push `WIP: ...` checkpoints after each milestone (say if tests still fail), so
+  the team can follow progress; never push to `main` without the person's OK.
 - Pushing to `main` redeploys the slides if `slides/` changed; for slide work follow `slides/AGENTS.md` and run
   `check_deck.py` before pushing. Push only when the person asks.
