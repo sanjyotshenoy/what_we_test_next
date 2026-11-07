@@ -129,3 +129,11 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 - Suggested for curation (Seh Na): prefer candidates with some moderately similar same-target analogs (where the KG
   can beat a guess); decide on thin targets (TLK2, LATS2, SIK1, SIK3) as drop vs a "sparse" stratum.
 - Open: push the candidate-paper list / (compound, target) pairs (`benchmark-v0`); merge `kg-scaffolding` into main.
+
+**What each source is for** (zetamac, 19:24).
+- Agreed: NCATS Assay Guidance Manual → generalizable template rules (also grader checks for soundness); PubChem
+  BioAssay → specific written protocols; Opentrons tutorial in context for OT-2 code generation.
+- Suggested: PubChem protocols as template sources / step-tree examples, or an extra question set from PubChem
+  confirmatory AIDs time-split by deposition date (richer step-level ground truth than paper methods). For OT-2
+  generation, use Emmy's reference protocol (`Opentrons/`) as the few-shot example, pin the API level (2.28) in the
+  in-context docs, pass labware `load_name`s from `lab.yaml`, and feed back simulator errors (≤ 3 fixes).
