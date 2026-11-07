@@ -1,0 +1,77 @@
+# Discussion log
+
+Concise record of what the team discussed and decided (mostly in Discord), newest last. One entry per topic:
+**decided** / **suggested** (proposed, not yet agreed) / **open**. Append as we go; keep each entry short and link
+to the file it changed. Snapshot of the whole project: [HANDOFF.md](HANDOFF.md).
+
+## 2026-11-07
+
+**The idea** (meeting). When a literature agent (PaperQA-style) says "I don't know", propose the experiment that
+would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 2 = execute. First domain:
+"does compound X inhibit target Y?" → IC50 dose-response by serial dilution.
+- Decided: verifiable setup by holding facts out of the KB; the OT-2 run is a demo (food colouring), the
+  simulator is the evaluation.
+
+**Repo structure** → [README.md](README.md), [CONTRIBUTING.md](CONTRIBUTING.md), `wwtn/schema.py`.
+- Decided: one folder per workstream; folders exchange JSONL/CSV in fixed formats; `TODO(final)` tags anything
+  mock ([TODO.md](TODO.md)).
+
+**Two benchmarks + models** → `slides/.../benchmarks.js`, `wwtn/llm.py`.
+- Decided: B1 = is the proposed experiment right (bare / + literature / + KGs); B2 = does the OT-2 protocol run.
+  Models (Nebius): DeepSeek-V4-Pro-0813, Kimi-K3, Qwen3.8-27B, GLM-5.3 (GLM replaced gpt-oss on request).
+- Open: confirm the four are live on our key.
+
+**Modality vs parameters** (Seh Na's write-up).
+- Suggested: the assay type follows from the question's form (rule layer); the KG matters for *parameters*
+  (analog IC50s set the concentration range); sparse analogs → widen to a two-stage screen.
+- Risks: with IC50-only questions modality is constant (ties across arms); hold out by ChEMBL *document* (same-paper
+  analogs leak the answer); the range metric must penalize width.
+
+**Robot side.**
+- Suggested: agent writes a hardware-agnostic procedure, a backend compiles it; lab inventory file (`lab.yaml`);
+  audit final per-well concentrations (the simulator passes wrong biology); human approves before the robot moves.
+- Opentrons API for the OT-2-only case (official simulator, more LLM training data); PyLabRobot if OT-2 and plate
+  reader are both driven from one script.
+- Done: Emmy's reference MIC protocol in [Opentrons/](Opentrons/).
+
+**Retrieval design.**
+- Suggested: no GraphRAG library; seed index (names/IDs → nodes) + typed tools (`resolve`, `neighbors`,
+  `analogs`, `templates`) returning small tables with citable IDs; node text cards from templates (not an LLM),
+  embedded with Qwen3-Embedding-8B; build them after removing held-out facts.
+- Open: does each Nebius model support function calling (else a JSON action loop)?
+
+**Protocol "KG" and KB expansion.**
+- Decided: the only real graph for now is the biology KG; protocols are a structured table keyed by (question
+  type, target class), assay-level ("what"), not robot steps; promote to a graph when adding experiment instances.
+- Suggested: KB has a read path (seed index + tools) and a write path (ingest, our results, extracted facts), each
+  with provenance; writes go to overlay files so benchmark snapshots stay fixed.
+- Suggested: continual-update demo v0 (curated) → v1 (+ the held-out paper as the "new paper") → v2 (+ our
+  measured IC50); show the effect by re-asking. Evidence rows in ChEMBL activity shape + summary edges in the
+  base KG's (Biolink) format, re-derived from evidence; conflicts kept, not overwritten.
+
+**Data sources and schema.**
+- Suggested: ChEMBL (activities, assays, docs/year: facts + ground truth), PubChem BioAssay (protocol text),
+  NCATS Assay Guidance Manual (10–20 design rules), Opentrons tutorial (code skeleton). Scope: kinases, IC50 '='
+  in nM, confidence ≥ 8, time split by `docs.year`. Tables: `activity`, `assay`, `template`, `rule`.
+- Open: check real column names / licences before building.
+
+**Benchmark grading.**
+- Agreed: structure the ground truth (same schema as outputs); deterministic checks for deterministic fields,
+  LLM judge only for fuzzy ones (it sees the whole experiment, grades only its fields, quotes the paper text).
+- Agreed: score **fidelity** (matches the paper) separately from **soundness** (would it answer the question);
+  soundness rubric: right compound × target, readout measures the asked quantity, interpretable controls,
+  feasible with our inventory (deterministic vs `lab.yaml`).
+- Suggested: judge hygiene (blind, different model family, per-field judge–human agreement on ~10 labels);
+  multiple acceptable references (best match); grade parameters conditional on the chosen design.
+- Agreed direction: a **rubric tree** (design / parameters / controls / execution; precedent: PaperBench) covering
+  both benchmarks; stretch: 2–3 orthogonal experiments scored by coverage.
+- Open: branch weights and the range metric, fixed before writing the grader (`benchmark/rubric.yaml`).
+
+**Is it a new benchmark?** (literature search).
+- Nothing found covering the whole chain. Closest: Gamow Labs LabBench (withheld next step, no execution),
+  SCOPE 2608.03501 (ML, hidden experiments), Text2WetLab (protocol → OT-2 code, experiment given), BioLab bench
+  2606.31763, SciPredict 2604.10718 (motivates abstention).
+- Defensible claim: first benchmark scoring held-out bioassay questions end to end: abstain → KG-cited,
+  parameterized assay design → simulator-checked OT-2 execution, fidelity vs soundness, calibrated judges.
+  Don't claim "first" for experiment design, time splits, rubric trees, LLM→OT-2 or abstention alone.
+- Scope it as a spec + pilot (5–10 questions, one target class, 4 models).

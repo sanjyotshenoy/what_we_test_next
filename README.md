@@ -10,7 +10,8 @@ domain: does compound X inhibit target Y, answered by an IC50 dose-response (a s
 ## Layout
 
 Each workstream owns a folder; folders exchange files whose formats are fixed in `wwtn/schema.py` (JSON Lines)
-and [kg/README.md](kg/README.md) (graph CSVs). Read [CONTRIBUTING.md](CONTRIBUTING.md) before your first push. New here (or briefing a coding agent)? Start with [HANDOFF.md](HANDOFF.md): the whole project so far in one file.
+and [kg/README.md](kg/README.md) (graph CSVs). Read [CONTRIBUTING.md](CONTRIBUTING.md) before your first push. New here (or briefing a coding agent)? Start with [HANDOFF.md](HANDOFF.md): the whole project so far in one file; what we have discussed and decided since
+is in [DISCUSSIONS.md](DISCUSSIONS.md).
 
 ```
 benchmark/        questions the KB can't answer (held-out facts), ground truth, grading
