@@ -1,0 +1,42 @@
+# Publish the slides on every push to main that touches them, to the same unlisted Cloudflare Pages link as a
+# deploy by hand (slides/tools/deploy_unlisted.sh, prefix in slides/.pages-prefix). Also runnable from the
+# Actions tab. Needs one repository secret, CLOUDFLARE_API_TOKEN (Cloudflare Pages: Edit); without it the run
+# only warns.
+name: Deploy slides
+
+on:
+  push:
+    branches: [main]
+    paths: ['slides/**', '.github/workflows/deploy-slides.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-slides
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: 895b91a612476b6fb3252582fbee2184
+    steps:
+      - name: Token missing
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::warning::Add the CLOUDFLARE_API_TOKEN repository secret to deploy the slides."
+      - uses: actions/checkout@v4
+        if: env.CLOUDFLARE_API_TOKEN != ''
+      - uses: actions/setup-node@v4
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        with:
+          node-version: 22
+      - name: Deploy to Cloudflare Pages
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          # a missing prefix would publish under a new link and take the shared one down
+          test -s slides/.pages-prefix
+          npm install -g wrangler@4.124.0
+          slides/tools/deploy_unlisted.sh zhang-etal-biohack
