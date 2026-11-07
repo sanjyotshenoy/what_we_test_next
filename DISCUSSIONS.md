@@ -223,3 +223,21 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   target-anchored potency prior. 1.9 s over the seed graph, fingerprints cached. 101 tests pass.
 - Open (offered, not built): a class-level fallback that walks up MEMBER_OF/SUBCLASS_OF when a target has too few
   measurements and uses the family-wide spread, flagged as weaker evidence.
+
+**Antimicrobial re-framing: data check** (Seh Na, after a mentor meeting, 22:20).
+- Proposal: given a candidate antimicrobial from a virtual screen, use microbiome knowledge to pick which strains
+  to test (pathogens hit, commensals spared) and generate the MIC assay. Big win: aim 1 and aim 2 become the same
+  experiment, since Emmy's OT-2 protocol *is* an MIC broth microdilution.
+- Checked against the live ChEMBL API (all 798,852 MIC activities paginated): pathogen side is rich (115,942
+  compounds, 8,916 papers, 1,281 organism targets, 78,809 activities from 2023+ so a time split works). Commensal
+  side is not: 3,338 activities (0.42%), 1,812 compound x species pairs vs 245,556 on the pathogen side (~74x
+  asymmetry); F. prausnitzii, A. muciniphila, C. scindens and Roseburia have **zero** MIC records; only 110 of
+  8,916 papers report both arms (16 of them 2023+), and novel compounds' commensal values are usually censored
+  at ">128 ug/mL".
+- Suggested: benchmark the **pathogen** side (hold out 2023+ papers; grade panel recall + whether the series
+  brackets the true MIC); keep commensal-sparing as the **story/demo**, explicitly illustrative, on Catacutan 2025,
+  Munoz 2024 (lolamicin), Goldstein 2013 and Maier 2021.
+- Two traps: ChEMBL is **species**-level (10 of 2,784 organism targets are strain-resolved; strain IDs are in assay
+  free text), and most gut commensals are **anaerobes** needing CLSI M11 agar dilution, not the M07 broth
+  microdilution we generate — a scientific-credibility issue, cheap to fix in the prompt and the protocol KG.
+- Open: whether to pivot at all given the clock; nothing has been rebuilt.
