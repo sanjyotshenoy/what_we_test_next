@@ -48,6 +48,19 @@ Three things the seed graphs leave to the agent, each a `TODO(final)` where it l
   fingerprints per load. A query compound with no usable structure falls back to the target's most potent
   compounds and the overall spread, and says so rather than implying a similarity it does not have.
 
+`compounds.py` resolves a compound the graph does not hold: name or ChEMBL ID in, structure out, trying the
+graph, then the local ChEMBL SQLite dump (`kg/biology/chembl_db.py`, or `CHEMBL_SQLITE`), then the ChEMBL REST
+API cached under `data/raw/chembl_compounds/`. It asks for **structure fields only** (`molecule_chembl_id`,
+`pref_name`, `canonical_smiles`): the live ChEMBL release still holds the IC50s the benchmark hides, so reading
+activities there would leak the answer. With that SMILES, `bio_kg_analogs` ranks analogs for a compound that is
+not a node at all, and says in its summary that the structure came from outside the graph. No dump, no network
+(`WWTN_OFFLINE=1`) or an unknown compound degrades to "unresolved" with a note, never an exception.
+
+`kb.lookup()` (stage 1, before the model is called) distinguishes the two ways of not knowing in a `kind` field,
+which the benchmark's abstain metric needs apart: `no_measurement` (both sides resolved; the pair is genuinely
+unmeasured) and `unresolved` (the KB does not know the compound or the target), plus `answered`. `verdict` keeps
+its old values and nothing is renamed, so the trace contract in `demo/README.md` holds.
+
 ## The demo question
 
 `DEMO_COMPOUND`/`DEMO_TARGET`/`DEMO_QUESTION` in `tools.py`: **CHEMBL5593141 x BTK** (`Q06187`), "Does
