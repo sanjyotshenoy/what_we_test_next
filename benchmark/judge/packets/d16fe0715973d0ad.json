@@ -1,0 +1,197 @@
+{
+  "item_id": "d16fe0715973d0ad",
+  "generator_input": {
+    "id": "case-14",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Mitogen-activated protein kinase kinase kinase 7 (O43318) by CHEMBL1077979. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1077979",
+        "name": "CHEMBL1077979",
+        "type": "Compound",
+        "smiles": "COc1cc(O)c2c(c1)/C=C/C[C@H](O)[C@H](O)C(=O)/C=C\\C[C@H](C)OC2=O"
+      },
+      {
+        "id": "O43318",
+        "name": "Mitogen-activated protein kinase kinase kinase 7",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL1738757",
+        "ic50_nM": 6.3,
+        "assay": "CHEMBL5680965",
+        "description": "Inhibition of human wild type TAK1 using RB-S6P as substrate preincubated for 2 hrs followed by ATP addition and measured every 2 mins for 2.5 hrs by spectrophotometric analysis",
+        "document": "CHEMBL5678804",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1835063",
+        "ic50_nM": 356.0,
+        "assay": "CHEMBL4629878",
+        "description": "Inhibition of human TAK1 using casein as substrate in presence of [gamma-33P]-ATP by hotspot kinase assay",
+        "document": "CHEMBL4627396",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL2012881",
+        "ic50_nM": 650.0,
+        "assay": "CHEMBL2013789",
+        "description": "Inhibition of MAP3K7",
+        "document": "CHEMBL2010637",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL3822835",
+        "ic50_nM": 156.0,
+        "assay": "CHEMBL4412493",
+        "description": "Inhibition of TAK1 (unknown origin)",
+        "document": "CHEMBL4411291",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL3823303",
+        "ic50_nM": 8.0,
+        "assay": "CHEMBL4412492",
+        "description": "Inhibition of recombinant FLAG-tagged TAK1 (unknown origin) co-expressed with TAB (unknown origin) in baculovirus using BT-MKK as substrate after 1 hr by AlphaScreen assay",
+        "document": "CHEMBL4411291",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"biochemical kinase inhibition (concentration-response)\",\n  \"system\": \"purified recombinant human MAP3K7/TAK1 (O43318) kinase in vitro; no cell system used\",\n  \"readout\": \"ADP-Glo luminescence (ATP-depletion + ADP-detection, proportional to kinase activity)\",\n  \"steps\": [\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a serial dilution of CHEMBL1077979 in DMSO, plus vehicle-only, no-enzyme, no-compound and reference-inhibitor controls, in assay plates.\",\n      \"parameters\": {\n        \"top_concentration_uM\": {\"value\": 30, \"status\": \"assumption\", \"evidence\": \"no packet evidence for this compound's potency range; chosen to span likely activity window\"},\n        \"dilution_factor\": {\"value\": 3, \"status\": \"assumption\", \"evidence\": \"standard semi-log spacing; not packet-sourced\"},\n        \"n_points\": {\"value\": 10, \"status\": \"assumption\"},\n        \"replicates\": {\"value\": 3, \"status\": \"assumption\"},\n        \"vehicle_fraction\": {\"value\": 0.01, \"status\": \"assumption\", \"note\": \"final DMSO 1%; keep constant across all wells including controls\"}\n      }\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Combine compound dilutions with kinase, substrate and ATP; preincubate compound with enzyme before ATP addition (mirroring CHEMBL5680965-style preincubation), then run the reaction within the linear range.\",\n      \"parameters\": {\n        \"enzyme_concentration\": {\"value\": null, \"status\": \"unresolved\", \"note\": \"no packet value; must be titrated to give <10-20% ATP conversion\"},\n        \"substrate_concentration\": {\"value\": null, \"status\": \"unresolved\", \"note\": \"substrate identity (e.g. MKK-type vs casein) not established for this compound; see limitations\"},\n        \"ATP_concentration\": {\"value\": null, \"status\": \"unresolved\", \"note\": \"no packet value; if ATP-competitive behavior is suspected, run at ~Km,ATP after determining it\"},\n        \"reaction_time\": {\"value\": null, \"status\": \"unresolved\", \"note\": \"packet example used 2.5 h kinetic reads (CHEMBL5680965) but that assay used a different readout; time must be set from a pilot linear-range experiment\"},\n        \"temperature\": {\"value\": null, \"status\": \"unresolved\", \"note\": \"commonly 25-37 C but no packet support; set by lab convention\"}\n      }\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Stop the reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent and read luminescence.\",\n      \"parameters\": {\n        \"reagent_volumes\": {\"value\": null, \"status\": \"unresolved\", \"note\": \"follow ADP-Glo manufacturer protocol; no packet evidence\"},\n        \"depletion_time\": {\"value\": null, \"status\": \"unresolved\"},\n        \"detection_time\": {\"value\": null, \"status\": \"unresolved\"}\n      }\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize each well to no-compound (100% activity) and no-enzyme (0% activity) controls; fit percent inhibition vs log10 concentration with a four-parameter logistic model; report IC50 with 95% CI and Hill slope; assess replicate CV and control-window quality.\",\n      \"parameters\": {\n        \"fit_model\": \"4-parameter logistic (variable Hill slope)\",\n        \"acceptance_criteria\": {\"value\": null, \"status\": \"assumption\", \"note\": \"proposed: control Z'-factor > 0.5, replicate CV < 20%, monotonic response; not packet-sourced\"}\n      }\n    }\n  ],\n  \"top_concentration_uM\": 30,\n  \"dilution_factor\": 3,\n  \"n_points\": 10,\n  \"replicates\": 3,\n  \"controls\": [\n    \"vehicle-only (DMSO at matched final fraction) = 100% activity control\",\n    \"no-enzyme wells = background/0% activity for ADP-Glo\",\n    \"no-substrate wells (ATP-only) to confirm ADP-Glo depletion background\",\n    \"reference inhibitor well (any established TAK1 inhibitor available in-lab) as positive inhibition control\",\n    \"compound-only blank at top concentration to detect luminescence quenching/interference by CHEMBL1077979\"\n  ],\n  \"rationale\": \"The question asks for biochemical inhibition of O43318 (MAP3K7/TAK1), so the kinase luminescence protocol (kinase-prepare -> kinase-react -> kinase-detect -> analyse) is selected and the cell-viability cards are excluded: CellTiter-Glo measures cellular ATP/viability, not kinase inhibition, and cannot establish target-specific causality. ADP-Glo is chosen as a homogeneous, radiolabel-free luminescent readout compatible with kinase reactions; retained ChEMBL examples confirm TAK1 inhibition is measurable with multiple biochemical formats (spectrophotometric RB-S6P assay CHEMBL5680965, [gamma-33P]-ATP casein hotspot CHEMBL4629878, AlphaScreen CHEMBL4412492), supporting feasibility but not supplying parameters for this compound. A 30 uM top concentration with 3-fold dilution over 10 points and triplicates is a design assumption intended to span a wide potency window, since no evidence about CHEMBL1077979 potency exists in the packet. Preincubation of compound with enzyme before ATP addition is adopted by analogy to CHEMBL5680965 (2 h preincubation), which may improve sensitivity for slow-binding inhibitors; the exact preincubation time is unresolved.\",\n  \"citations\": [\"CHEMBL5680965\", \"CHEMBL4629878\", \"CHEMBL4412492\", \"CHEMBL2013789\", \"CHEMBL4412493\"],\n  \"limitations\": [\n    \"No IC50 or activity data for CHEMBL1077979 exists in the packet; no potency value is predicted or supplied.\",\n    \"Enzyme, substrate, ATP concentrations, reaction time and temperature are unsupported by the packet and must be established by pilot linear-range and Km titrations.\",\n    \"Substrate choice is unresolved: retained examples used RB-S6P, casein, or BT-MKK; substrate identity can shift measured IC50.\",\n    \"The retained IC50 values (CHEMBL1738757, CHEMBL1835063, CHEMBL2012881, CHEMBL3822835, CHEMBL3823303) are for other compounds and are contextual only; they are not similarity-ranked and cannot estimate this compound's potency.\",\n    \"The compound's SMILES suggests a polyphenolic/lactone-like structure; potential assay interference (luminescence quenching, aggregation, redox activity) should be checked via the compound-only blank and, if suspected, an orthogonal readout.\",\n    \"If inhibition is ATP-competitive, IC50 depends on ATP concentration relative to Km; without Km determination the reported IC50 is condition-specific.\",\n    \"Biochemical inhibition of isolated TAK1 does not demonstrate cellular target engagement or viability effects; any cellular follow-up would require separate, target-specific causality experiments (e.g. pathway readout plus rescue/competition), not ATP viability alone.\",\n    \"All numeric design parameters (top concentration, dilution factor, points, replicates, vehicle fraction, acceptance criteria) are explicitly labeled assumptions, not sourced facts.\"\n  ]\n}"
+}

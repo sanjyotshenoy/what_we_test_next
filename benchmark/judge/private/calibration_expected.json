@@ -1,0 +1,16 @@
+{
+  "a4f0c6d1": {
+    "suitability": 0
+  },
+  "b7d2e9a3": {
+    "procedural_soundness": 0
+  },
+  "c1e8f4b2": {
+    "numerical_soundness": 0
+  },
+  "d3a9b5e7": {
+    "suitability": 2,
+    "procedural_soundness": 1,
+    "numerical_soundness": 1
+  }
+}

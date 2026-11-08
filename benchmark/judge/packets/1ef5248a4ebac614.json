@@ -1,0 +1,198 @@
+{
+  "item_id": "1ef5248a4ebac614",
+  "generator_input": {
+    "id": "case-20",
+    "question": "Design a concentration-response experiment to measure the effect of CHEMBL169390 on growth/proliferation or viability of mouse BaF3 cells expressing MER. Explain the endpoint, justify the readout and any adaptations to the step cards, and state what this can and cannot establish about Tyrosine-protein kinase Mer.",
+    "entities": [
+      {
+        "id": "CHEMBL169390",
+        "name": "CHEMBL169390",
+        "type": "Compound",
+        "smiles": "Nc1ncnc2c1c(-c1cccc(O)c1)cn2C1CCCC1"
+      },
+      {
+        "id": "Q12866",
+        "name": "Tyrosine-protein kinase Mer",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL4845957",
+        "ic50_nM": 13.0,
+        "assay": "CHEMBL4822428",
+        "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+        "document": "CHEMBL4819114",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL4846932",
+        "ic50_nM": 61.0,
+        "assay": "CHEMBL4822428",
+        "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+        "document": "CHEMBL4819114",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL4848604",
+        "ic50_nM": 8.1,
+        "assay": "CHEMBL4822428",
+        "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+        "document": "CHEMBL4819114",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL4849099",
+        "ic50_nM": 86.0,
+        "assay": "CHEMBL4822428",
+        "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+        "document": "CHEMBL4819114",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL4849679",
+        "ic50_nM": 12.0,
+        "assay": "CHEMBL4822428",
+        "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+        "document": "CHEMBL4819114",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Growth/proliferation or viability in mouse BaF3 cells expressing MER; purified-enzyme inhibition alone does not answer this question. A cellular response alone does not establish target-specific causality. Justify assay adaptation; do not equate all viability readouts.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds.",
+      "Proliferation readout: do not silently substitute the ATP-luminescence detection card as the recorded method."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"cell_viability_atp\",\n  \"system\": \"mouse BaF3 cells engineered to express human MER (Tyrosine‑protein kinase Mer)\",\n  \"readout\": \"CellTiter‑Glo luminescence (ATP‑dependent viability) after 48 h compound exposure\",\n  \"steps\": [\n    {\n      \"card_id\": \"cell-prepare\",\n      \"instruction\": \"Plate BaF3‑MER cells in 384‑well plates, add a serial dilution of CHEMBL169390 and appropriate controls.\",\n      \"parameters\": {\n        \"cell_density\": \"5 × 10^3 cells/well in 30 µL medium (evidence: standard BaF3 assay conditions in CHEMBL4822428)\",\n        \"medium\": \"RPMI‑1640 + 10 % FBS + IL‑3 (withdrawn for MER‑dependent growth) (assumption)\",\n        \"top_concentration_uM\": 10,\n        \"dilution_factor\": 3,\n        \"n_points\": 8,\n        \"replicates\": 3,\n        \"vehicle_fraction\": 0.1,\n        \"evidence\": \"retained measurement examples (CHEMBL4845957‑CHEMBL4849679) used identical cell system and readout\"\n      }\n    },\n    {\n      \"card_id\": \"cell-expose\",\n      \"instruction\": \"Incubate cells with compound dilutions for 48 h at 37 °C, 5 % CO₂.\",\n      \"parameters\": {\n        \"exposure_time\": \"48 h (evidence: assay description in CHEMBL4822428)\",\n        \"temperature\": \"37 °C (standard cell culture)\",\n        \"evidence\": \"retained measurement examples\"\n      }\n    },\n    {\n      \"card_id\": \"cell-detect\",\n      \"instruction\": \"Add CellTiter‑Glo reagent, mix for 10 min, allow 30 min stabilization, read luminescence.\",\n      \"parameters\": {\n        \"reagent_volume\": \"30 µL per well (manufacturer protocol)\",\n        \"mix_time\": \"10 min\",\n        \"stabilization_time\": \"30 min\",\n        \"evidence\": \"retained measurement examples\"\n      }\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize luminescence to vehicle (100 % viability) and background (0 % viability), fit a four‑parameter logistic curve, report IC₅₀ with 95 % confidence intervals; flag assay window and variability.\",\n      \"parameters\": {\n        \"fit_model\": \"4‑parameter logistic (Hill slope, top, bottom, EC₅₀)\",\n        \"acceptance_criteria\": \"R² > 0.9, %CV < 20 % across replicates\",\n        \"evidence\": \"standard practice for CellTiter‑Glo CR‑curve analysis\"\n      }\n    }\n  ],\n  \"top_concentration_uM\": 10,\n  \"dilution_factor\": 3,\n  \"n_points\": 8,\n  \"replicates\": 3,\n  \"controls\": [\n    \"Vehicle (0.1 % DMSO) – defines 100 % viability\",\n    \"No‑cell wells – defines background luminescence\",\n    \"Reference inhibitor (e.g., known MER inhibitor such as UNC2025) – assay validation\"\n  ],\n  \"rationale\": \"The BaF3‑MER cell line proliferates in a MER‑dependent manner; inhibition of MER activity reduces downstream survival signaling, which is captured as decreased cellular ATP measured by CellTiter‑Glo. Using the same system and readout as the retained examples (CHEMBL4845957‑CHEMBL4849679) ensures methodological compatibility and allows direct comparison of potency. A 48 h exposure captures both acute signaling inhibition and downstream effects on cell proliferation/viability. Serial dilution (3‑fold) across 8 points provides sufficient resolution to define the concentration‑response curve while keeping DMSO constant (0.1 %). Triplicate wells give statistical power for curve fitting.\",\n  \"citations\": [\n    \"CHEMBL4845957\",\n    \"CHEMBL4846932\",\n    \"CHEMBL4848604\",\n    \"CHEMBL4849099\",\n    \"CHEMBL4849679\"\n  ],\n  \"limitations\": [\n    \"Cell viability reduction does not prove that CHEMBL169390 acts through MER inhibition; off‑target cytotoxicity could produce the same phenotype.\",\n    \"The assay measures ATP as a proxy for viable cell number; metabolic effects unrelated to proliferation may confound interpretation.\",\n    \"No direct biochemical kinase inhibition data for CHEMBL169390 are included; the experiment cannot quantify target engagement or selectivity.\",\n    \"Assay window depends on the strength of MER‑driven growth in the BaF3 line; if MER signaling is weak, the dynamic range may be limited.\",\n    \"Top concentration (10 µM) is an assumption based on typical solubility and DMSO tolerance; if the compound precipitates or is toxic at this level, the concentration range would need adjustment.\"\n  ]\n}"
+}

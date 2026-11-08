@@ -1,0 +1,197 @@
+{
+  "item_id": "6ba89e7f7e4e823b",
+  "generator_input": {
+    "id": "case-16",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of NUAK family SNF1-like kinase 1 (O60285) by CHEMBL1615278. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1615278",
+        "name": "CHEMBL1615278",
+        "type": "Compound",
+        "smiles": "C[C@@H](Oc1cc(-n2cnc3ccc(OC4CCN(C)CC4)cc32)sc1C(N)=O)c1ccccc1C(F)(F)F"
+      },
+      {
+        "id": "O60285",
+        "name": "NUAK family SNF1-like kinase 1",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL201511",
+        "ic50_nM": 43000.0,
+        "assay": "CHEMBL962086",
+        "description": "Inhibition of human recombinant ARK5",
+        "document": "CHEMBL1157465",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL2064666",
+        "ic50_nM": 26.0,
+        "assay": "CHEMBL2067586",
+        "description": "Inhibition of human ARK5",
+        "document": "CHEMBL2062375",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL2333163",
+        "ic50_nM": 1700.0,
+        "assay": "CHEMBL2344169",
+        "description": "Inhibition of ARK5 (unknown origin)",
+        "document": "CHEMBL2331160",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL2436172",
+        "ic50_nM": 570.0,
+        "assay": "CHEMBL2439293",
+        "description": "Inhibition of human ARK5",
+        "document": "CHEMBL2434927",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL3104851",
+        "ic50_nM": 2510.0,
+        "assay": "CHEMBL3108328",
+        "description": "Inhibition of ARK5 (unknown origin)",
+        "document": "CHEMBL3102702",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"biochemical kinase inhibition assay with ADP-Glo luminescence readout\",\n  \"system\": \"Cell-free recombinant NUAK family SNF1-like kinase 1 (O60285); enzyme source/construct unresolved\",\n  \"readout\": \"Luminescence from ADP detection after ATP depletion, used as a proxy for kinase activity\",\n  \"steps\": [\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a compound dilution series and vehicle/no-compound controls, keeping vehicle constant across wells.\",\n      \"parameters\": \"top_concentration_uM=100 (provisional design assumption, not sourced); dilution_factor=3 (provisional design assumption); n_points=10 (provisional design assumption); replicates=3 (provisional design assumption); vehicle_fraction=unresolved (vehicle identity and final % not specified in packet)\"\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Combine CHEMBL1615278 with recombinant NUAK1, substrate and ATP; run the reaction under pre-validated initial-rate conditions.\",\n      \"parameters\": \"enzyme_concentration=unresolved; substrate_identity_and_concentration=unresolved; ATP_concentration=unresolved (ATP Km not in packet); reaction_time=unresolved; temperature=unresolved\"\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Stop the kinase reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence.\",\n      \"parameters\": \"reagent_volumes=unresolved; depletion_time=unresolved; detection_time=unresolved; use an ADP-Glo-compatible procedure as indicated by the step card\"\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize against vehicle and no-enzyme controls, fit a concentration-response curve, and report apparent biochemical IC50 with uncertainty and assay limitations.\",\n      \"parameters\": \"fit_model=four-parameter logistic (provisional design assumption); acceptance_criteria=unresolved (control separation, replicate precision, curve convergence, and absence of precipitation must be defined; exact thresholds not in packet)\"\n    }\n  ],\n  \"top_concentration_uM\": 100,\n  \"dilution_factor\": 3,\n  \"n_points\": 10,\n  \"replicates\": 3,\n  \"controls\": [\n    \"vehicle-only no-compound control\",\n    \"no-enzyme background control\",\n    \"no-compound enzyme activity control\",\n    \"ADP detection/ATP-only control\",\n    \"reference inhibitor control (identity unresolved; not sourced)\"\n  ],\n  \"rationale\": \"The question asks for biochemical inhibition of O60285, so the cell-free kinase ADP-Glo cards are selected; cell-viability cards would measure cellular ATP/viability and would not establish direct kinase inhibition. The ordered prerequisites are kinase-prepare, kinase-react, kinase-detect, then analyse. Retained assay descriptions mentioning inhibition of recombinant/human ARK5 provide contextual support for a biochemical kinase-inhibition format, but their IC50 values are for other compounds and are not used to estimate CHEMBL1615278 potency. The concentration series and replicate count are provisional design assumptions because the packet does not supply potency, solubility, or assay-range information.\",\n  \"citations\": [\n    \"CHEMBL1615278\",\n    \"O60285\",\n    \"CHEMBL962086\",\n    \"CHEMBL2067586\"\n  ],\n  \"limitations\": [\n    \"No packet evidence specifies NUAK1 enzyme source/construct, substrate identity, ATP Km, enzyme/substrate/ATP concentrations, reaction time, temperature, reagent volumes, depletion/detection times, vehicle tolerance, reference inhibitor, or acceptance thresholds; these remain unresolved.\",\n    \"Top concentration 100 uM, 3-fold dilution, 10 points, and n=3 are provisional design assumptions, not sourced facts; they should be adjusted for compound solubility and validated assay linearity.\",\n    \"Retained IC50 examples are for other compounds and are not direct estimates for CHEMBL1615278; no IC50 is predicted here.\",\n    \"Biochemical ADP-Glo inhibition supports direct in vitro kinase inhibition only; it does not establish cellular viability effects or target-specific causality in cells.\",\n    \"Compound-dependent luminescence interference, precipitation, and ATP-competition effects are unresolved and require counter-screens.\",\n    \"The retained ARK5 descriptions are treated as contextually compatible with O60285, but this equivalence is assumed from the packet context and not independently verified.\"\n  ]\n}"
+}

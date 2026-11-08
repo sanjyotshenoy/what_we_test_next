@@ -1,0 +1,198 @@
+{
+  "item_id": "cb70078844b2894c",
+  "generator_input": {
+    "id": "case-5",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Tyrosine-protein kinase receptor UFO (P30530) by CHEMBL118266. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL118266",
+        "name": "CHEMBL118266",
+        "type": "Compound",
+        "smiles": "c1cncc(-c2csc(-c3cccnc3)n2)c1"
+      },
+      {
+        "id": "P30530",
+        "name": "Tyrosine-protein kinase receptor UFO",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL1231206",
+        "ic50_nM": 428.0,
+        "assay": "CHEMBL5212755",
+        "description": "Selectivity interaction (Upstate Kinase Profiler service (Millipore)) EUB0000056c AXL",
+        "document": "CHEMBL5212743",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL178455",
+        "ic50_nM": 360.0,
+        "assay": "CHEMBL5232564",
+        "description": "Inhibition of AXL (unknown origin)",
+        "document": "CHEMBL5230155",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL2022968",
+        "ic50_nM": 15.0,
+        "assay": "CHEMBL5113280",
+        "description": "Inhibition of human Axl using KKSRGDYMTMQIG as substrate incubated for 40 mins in the presence of [gamma33P]ATP by scintillation counting analysis",
+        "document": "CHEMBL5108089",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL2036792",
+        "ic50_nM": 14.0,
+        "assay": "CHEMBL4189000",
+        "description": "Inhibition of AXL (unknown origin)",
+        "document": "CHEMBL4184298",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL2036808",
+        "ic50_nM": 37.0,
+        "assay": "CHEMBL4189000",
+        "description": "Inhibition of AXL (unknown origin)",
+        "document": "CHEMBL4184298",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds.",
+      "The weak recorded activity does not justify an infeasible dose range; solubility, toxicity and assay limits remain unresolved."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"biochemical kinase inhibition assay using ADP-Glo luminescence\",\n  \"system\": \"Cell-free Tyrosine-protein kinase receptor UFO (AXL; P30530) kinase reaction; exact enzyme construct/source is unresolved.\",\n  \"readout\": \"Luminescence from ADP-Glo ADP detection, proportional to kinase activity; inhibition is inferred from reduced signal versus vehicle controls.\",\n  \"steps\": [\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a compound dilution series in vehicle, with matched vehicle/no-compound controls and a reference-inhibitor control.\",\n      \"parameters\": \"top_concentration_uM=100 (provisional assumption, not sourced); dilution_factor=3 (provisional assumption); n_points=10 (provisional assumption); replicates=3 (provisional assumption); vehicle_fraction=unresolved, must be constant across wells and tolerated by the kinase assay.\"\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Combine compound with AXL kinase and substrate, then initiate the reaction with ATP under prevalidated conditions; include no-enzyme and no-ATP/substrate background controls.\",\n      \"parameters\": \"enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved (ideally set relative to experimentally determined Km, but no packet support); reaction_time=unresolved; temperature=unresolved; buffer composition=unresolved.\"\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Stop the kinase reaction, deplete residual ATP, add ADP detection reagent, and measure luminescence according to a validated ADP-Glo protocol.\",\n      \"parameters\": \"reagent_volumes=unresolved; depletion_time=unresolved; detection_time=unresolved; exact ADP-Glo protocol must be fixed before the run.\"\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize luminescence to vehicle and background controls, fit a concentration-response curve, and report IC50 with uncertainty and assay limitations.\",\n      \"parameters\": \"fit_model=four-parameter logistic with Hill slope (provisional assumption); acceptance_criteria=unresolved, but must predefine signal window, replicate variability, curve convergence, and control performance before unblinding.\"\n    }\n  ],\n  \"top_concentration_uM\": 100,\n  \"dilution_factor\": 3,\n  \"n_points\": 10,\n  \"replicates\": 3,\n  \"controls\": [\n    \"matched vehicle/no-compound control\",\n    \"no-enzyme background control\",\n    \"no-ATP or no-substrate negative reaction control\",\n    \"reference AXL kinase inhibitor positive control (identity and concentration unresolved)\",\n    \"compound-only luminescence interference control at top concentration\"\n  ],\n  \"rationale\": \"A cell-free AXL kinase assay with ADP-Glo detection directly measures biochemical kinase inhibition and avoids confounding cellular viability. The ordered cards satisfy prerequisites: dilution series, kinase reaction, ADP detection, then analysis. The concentration series is broad enough to span a response only as a provisional design assumption; no packet evidence supports CHEMBL118266 potency, solubility, or DMSO tolerance. Retained AXL assay examples show biochemical inhibition formats are feasible, including a peptide-substrate scintillation assay and profiler/unknown-origin AXL assays, but their IC50 values are contextual only and are not used to predict CHEMBL118266 potency.\",\n  \"citations\": [\n    \"CHEMBL5113280\",\n    \"CHEMBL5212755\",\n    \"CHEMBL5232564\",\n    \"CHEMBL4189000\"\n  ],\n  \"limitations\": [\n    \"No packet evidence provides CHEMBL118266 potency, solubility, DMSO tolerance, selectivity, or AXL assay parameters.\",\n    \"Enzyme construct/source, substrate identity and concentration, ATP concentration relative to Km, buffer, temperature, reaction time, and ADP-Glo reagent volumes/times are unresolved.\",\n    \"Top concentration, dilution factor, n_points, and replicates are provisional design assumptions, not sourced facts.\",\n    \"Reference inhibitor identity and quantitative acceptance criteria are unresolved.\",\n    \"Biochemical inhibition does not establish cellular activity or target-specific causality; cell viability would require a separate assay and is not used here.\",\n    \"Retained IC50s for other compounds are contextual evidence only and must not be treated as estimates for CHEMBL118266.\",\n    \"Compound-dependent luminescence interference, aggregation, and assay artifacts are not resolved by the packet.\"\n  ]\n}"
+}

@@ -1,0 +1,52 @@
+{
+  "a4f0c6d1": {
+    "expected_dimensions": {
+      "suitability": 0
+    },
+    "actual": {
+      "suitability": 0,
+      "procedural_soundness": 1,
+      "numerical_soundness": 1
+    },
+    "schema_errors": [],
+    "anchors_match": true
+  },
+  "b7d2e9a3": {
+    "expected_dimensions": {
+      "procedural_soundness": 0
+    },
+    "actual": {
+      "suitability": 0,
+      "procedural_soundness": 0,
+      "numerical_soundness": 1
+    },
+    "schema_errors": [],
+    "anchors_match": true
+  },
+  "c1e8f4b2": {
+    "expected_dimensions": {
+      "numerical_soundness": 0
+    },
+    "actual": {
+      "suitability": 2,
+      "procedural_soundness": 1,
+      "numerical_soundness": 0
+    },
+    "schema_errors": [],
+    "anchors_match": true
+  },
+  "d3a9b5e7": {
+    "expected_dimensions": {
+      "suitability": 2,
+      "procedural_soundness": 1,
+      "numerical_soundness": 1
+    },
+    "actual": {
+      "suitability": 2,
+      "procedural_soundness": 1,
+      "numerical_soundness": 1
+    },
+    "schema_errors": [],
+    "anchors_match": true
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "item_id": "d29170dad55c5026",
+  "generator_input": {
+    "id": "case-9",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Activin receptor type-1 (Q04771) by CHEMBL1078178. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1078178",
+        "name": "MOMELOTINIB",
+        "type": "Compound",
+        "smiles": "N#CCNC(=O)c1ccc(-c2ccnc(Nc3ccc(N4CCOCC4)cc3)n2)cc1"
+      },
+      {
+        "id": "Q04771",
+        "name": "Activin receptor type-1",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL1230714",
+        "ic50_nM": 35.0,
+        "assay": "CHEMBL3365510",
+        "description": "Inhibition of human recombinant human ALK2 kinase after 45 mins by liquid scintillation counting in presence of ATP [gamma-32P]",
+        "document": "CHEMBL3352089",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL136106",
+        "ic50_nM": 4.0,
+        "assay": "CHEMBL4815728",
+        "description": "Inhibition of human ALK2 using casein as substrate incubated for 30 mins in presence of [gamma33P]ATP by radiometric hotspot kinase assay",
+        "document": "CHEMBL4813958",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL136244",
+        "ic50_nM": 284.0,
+        "assay": "CHEMBL4815728",
+        "description": "Inhibition of human ALK2 using casein as substrate incubated for 30 mins in presence of [gamma33P]ATP by radiometric hotspot kinase assay",
+        "document": "CHEMBL4813958",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1614712",
+        "ic50_nM": 2900.0,
+        "assay": "CHEMBL3789973",
+        "description": "Inhibition of ACVR1 (unknown origin) in presence of [gamma33P]ATP",
+        "document": "CHEMBL3785066",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL2385579",
+        "ic50_nM": 53.4,
+        "assay": "CHEMBL2390524",
+        "description": "Inhibition of ALK2 (unknown origin)",
+        "document": "CHEMBL2384981",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds.",
+      "The reference description mixes binding and enzyme inhibition. Numerical scientific comparison is not assessable until the endpoint is reviewed."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"Biochemical kinase-inhibition concentration-response assay\",\n  \"system\": \"Recombinant human Activin receptor type-1 (ACVR1/ALK2, Q04771); the exact kinase construct, purity, activation state, and substrate are unresolved.\",\n  \"readout\": \"ADP-Glo luminescence measuring ADP generated by kinase activity; decreased signal indicates biochemical inhibition after compound-interference controls are excluded.\",\n  \"steps\": [\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare CHEMBL1078178 dilutions immediately before use, keeping vehicle constant across all wells. Include vehicle, background, detection-interference, and reference controls. The proposed range is a broad screening assumption, not a potency estimate.\",\n      \"parameters\": {\n        \"top_concentration_uM\": \"10 uM; provisional assay-design assumption\",\n        \"dilution_factor\": \"3-fold; provisional assay-design assumption\",\n        \"n_points\": \"10; provisional assay-design assumption\",\n        \"replicates\": \"3 independent replicates; provisional assay-design assumption\",\n        \"vehicle_fraction\": \"Unresolved; select and validate a constant concentration that does not materially alter enzyme activity or luminescence\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Combine compound, ACVR1 kinase, substrate, and ATP. Establish linear initial-rate conditions before testing inhibition. Any compound-enzyme preincubation and its duration remain unresolved.\",\n      \"parameters\": {\n        \"enzyme_concentration\": \"Unresolved; titrate to obtain robust signal within the linear reaction range\",\n        \"substrate_concentration\": \"Unresolved; identity and concentration require validation. Casein is contextually supported only for a different radiometric format in CHEMBL4815728\",\n        \"ATP_concentration\": \"Unresolved; determine experimentally, preferably relative to the validated ATP Km because ATP concentration can affect apparent inhibitor potency\",\n        \"reaction_time\": \"Unresolved; use a validated linear interval. The 30-45 minute examples do not establish an ADP-Glo condition for this experiment\",\n        \"temperature\": \"Unresolved\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Stop the kinase reaction and deplete residual ATP, then perform the ADP detection reaction and record luminescence. Include compound-containing detection controls to identify luminescence quenching or enhancement.\",\n      \"parameters\": {\n        \"reagent_volumes\": \"Unresolved; dependent on plate format and validated reagent procedure\",\n        \"depletion_time\": \"Unresolved\",\n        \"detection_time\": \"Unresolved\"\n      }\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Subtract appropriate background, normalize vehicle to 0% inhibition and a validated fully inhibited or no-enzyme control to 100%, inspect replicate curves and interference controls, and fit concentration-response data. Report the fitted IC50 with confidence intervals and replicate-level results; do not infer it from other compounds.\",\n      \"parameters\": {\n        \"fit_model\": \"Provisional four-parameter logistic model with concentration on a log scale; reassess if controls or curve shape do not support it\",\n        \"acceptance_criteria\": \"Quantitative thresholds unresolved pending validation; prespecify control separation, replicate variability, signal linearity, curve-fit quality, and absence of material compound interference\"\n      }\n    }\n  ],\n  \"top_concentration_uM\": 10,\n  \"dilution_factor\": 3,\n  \"n_points\": 10,\n  \"replicates\": 3,\n  \"controls\": [\n    \"Vehicle-only kinase reaction as the uninhibited activity control\",\n    \"No-enzyme and/or no-substrate background controls\",\n    \"A validated maximally inhibited control for normalization; reference-inhibitor identity and concentration are unresolved\",\n    \"ATP/ADP detection controls to verify the luminescent readout\",\n    \"Compound-containing no-enzyme and ADP-detection controls for autofluorescence-independent luminescence quenching, enhancement, or other interference\",\n    \"Constant-vehicle controls across the dilution series\"\n  ],\n  \"rationale\": \"The question requires direct biochemical inhibition of Q04771, so only the kinase cards are used; cellular ATP viability would measure a different endpoint. ADP-Glo provides a biochemical kinase-activity readout compatible with the supplied detection card. The retained examples establish that ALK2/ACVR1 inhibition has been measured biochemically, including radiometric assays using labeled ATP and, in CHEMBL4815728, casein substrate, but they do not validate ADP-Glo conditions for CHEMBL1078178. The 10 uM top concentration, 3-fold dilution, 10 points, and triplicates are explicitly provisional choices for broad curve coverage and uncertainty estimation, not sourced parameters or a potency prediction.\",\n  \"citations\": [\n    \"Q04771\",\n    \"CHEMBL1078178\",\n    \"CHEMBL3365510\",\n    \"CHEMBL4815728\",\n    \"CHEMBL3789973\",\n    \"CHEMBL2390524\"\n  ],\n  \"limitations\": [\n    \"No packet evidence supplies CHEMBL1078178-specific ACVR1 potency, assay conditions, solubility, aggregation behavior, or luminescence interference; no IC50 is predicted.\",\n    \"Retained IC50 values concern other compounds and different assays and must not be transferred to CHEMBL1078178.\",\n    \"The retained assays are radiometric or incompletely described, so they do not support specific ADP-Glo reagent volumes, incubation times, enzyme/substrate concentrations, ATP concentration, temperature, or vehicle fraction.\",\n    \"The proposed concentration-series numbers and four-parameter fit are assumptions requiring pilot validation, especially if the top concentration is limited by solubility or interference.\",\n    \"Biochemical ACVR1 inhibition alone does not demonstrate cellular viability effects or target-specific cellular causality; those would require separate cellular and mechanistic experiments.\"\n  ]\n}"
+}

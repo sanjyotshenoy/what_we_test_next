@@ -1,0 +1,153 @@
+{
+  "item_id": "95892b1809a249c6",
+  "generator_input": {
+    "id": "case-3",
+    "question": "Design a concentration-response experiment to measure the effect of CHEMBL3936761 on growth/viability of Rec-1 cells. Explain what this experiment can and cannot establish about BTK inhibition.",
+    "entities": [
+      {
+        "id": "CHEMBL3936761",
+        "name": "ZANUBRUTINIB",
+        "type": "Compound",
+        "smiles": "C=CC(=O)N1CCC([C@@H]2CCNc3c(C(N)=O)c(-c4ccc(Oc5ccccc5)cc4)nn32)CC1"
+      },
+      {
+        "id": "Q06187",
+        "name": "Tyrosine-protein kinase BTK",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Growth/viability in Rec-1 cells; purified-kinase inhibition alone does not answer this question. Do not claim BTK-specific causality from viability alone.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"Cell viability ATP luminescence concentration-response assay\",\n  \"system\": \"Rec-1 cells (as specified in the question; cell-line provenance is not in the packet)\",\n  \"readout\": \"ATP-dependent luminescence as a proxy for viable cell number/metabolic activity\",\n  \"steps\": [\n    {\n      \"card_id\": \"cell-prepare\",\n      \"instruction\": \"Plate Rec-1 cells and prepare an 8-point, 3-fold compound dilution series plus vehicle, no-cell background, and optional reference controls; keep vehicle concentration constant across compound wells.\",\n      \"parameters\": \"cell_density: unresolved; medium: unresolved; top_concentration_uM: 10 (provisional assumption, not sourced); dilution_factor: 3 (provisional assumption, not sourced); n_points: 8 (provisional assumption, not sourced); replicates: 3 (provisional assumption, not sourced); vehicle_fraction: unresolved; keep constant across wells (assumption: use the lowest tolerated constant vehicle level)\"\n    },\n    {\n      \"card_id\": \"cell-expose\",\n      \"instruction\": \"Expose cells to CHEMBL3936761 for a fixed exposure period under culture conditions, with vehicle-matched and untreated controls.\",\n      \"parameters\": \"exposure_time: unresolved (provisional assumption: 72 h, not sourced); temperature: unresolved (provisional assumption: 37 °C with appropriate CO2, not sourced)\"\n    },\n    {\n      \"card_id\": \"cell-detect\",\n      \"instruction\": \"Apply an ATP-based viability reagent, mix, stabilize, and measure luminescence; include no-cell background wells.\",\n      \"parameters\": \"reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved; follow a validated reagent protocol, but no packet-supported values are available\"\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize luminescence to vehicle and background controls, fit a concentration-response curve, and report potency with uncertainty and assay limitations; do not infer BTK inhibition from viability alone.\",\n      \"parameters\": \"fit_model: four-parameter logistic concentration-response fit (provisional assumption, not sourced); acceptance_criteria: unresolved; require replicate consistency, report confidence intervals, and flag poor or edge-limited fits\"\n    }\n  ],\n  \"top_concentration_uM\": 10,\n  \"dilution_factor\": 3,\n  \"n_points\": 8,\n  \"replicates\": 3,\n  \"controls\": [\n    \"vehicle-only wells with the same vehicle fraction as compound wells\",\n    \"no-cell background wells\",\n    \"untreated/vehicle-normalized cell control\",\n    \"optional reference inhibitor positive control (identity and concentration unresolved; not sourced)\"\n  ],\n  \"rationale\": \"This design measures whether CHEMBL3936761 produces a concentration-dependent change in Rec-1 ATP-based viability. It can establish a cellular viability/growth response and a conditional cellular potency estimate under the chosen assay conditions. It cannot establish biochemical BTK inhibition, because no BTK enzyme assay is included, and it cannot establish target-specific causality, because viability is downstream and may reflect off-target effects, assay interference, growth arrest, or cytotoxicity. Biochemical inhibition would require a BTK (Q06187) enzyme assay; target-specific causality would require cellular BTK engagement/occupancy or phospho-BTK measurements and, ideally, rescue or genetic dependence controls, none of which are supplied. The numeric concentration series, replicate count, and exposure time are provisional design assumptions, not sourced facts.\",\n  \"citations\": [\n    \"CHEMBL3936761\",\n    \"Q06187\"\n  ],\n  \"limitations\": [\n    \"No retained measurement examples or packet-supported values for cell density, medium, exposure time, reagent volumes/times, vehicle fraction, or acceptance thresholds.\",\n    \"Cell viability is not a direct measure of BTK biochemical inhibition; it cannot distinguish BTK-mediated effects from off-target cytotoxicity or nonspecific assay effects.\",\n    \"Target-specific causality for BTK is not established without BTK engagement, phospho-BTK, occupancy, rescue, or genetic-dependence experiments.\",\n    \"The top concentration, dilution factor, number of points, replicates, and exposure time are provisional assumptions and may be unsuitable for the actual compound/cell system.\",\n    \"No IC50 is predicted; any fitted potency is conditional on the unresolved assay conditions and controls.\"\n  ]\n}"
+}

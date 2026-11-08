@@ -1,0 +1,197 @@
+{
+  "item_id": "6bce1a4dc2a91e0e",
+  "generator_input": {
+    "id": "case-10",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Dual specificity tyrosine-phosphorylation-regulated kinase 1A (Q13627) by CHEMBL1077347. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1077347",
+        "name": "CHEMBL1077347",
+        "type": "Compound",
+        "smiles": "N#Cc1c(N)cc2[nH]nc(N)c2c1-c1ccccc1"
+      },
+      {
+        "id": "Q13627",
+        "name": "Dual specificity tyrosine-phosphorylation-regulated kinase 1A",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL1213041",
+        "ic50_nM": 700.0,
+        "assay": "CHEMBL4673836",
+        "description": "Inhibition of DYRK1A (unknown origin) by [33P]-ATP filter binding kinase assay",
+        "document": "CHEMBL4673203",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1230165",
+        "ic50_nM": 6.8,
+        "assay": "CHEMBL4266682",
+        "description": "Inhibition of recombinant human DYRK1A by radiometric filter-binding assay",
+        "document": "CHEMBL4265878",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1232500",
+        "ic50_nM": 240.0,
+        "assay": "CHEMBL3105981",
+        "description": "Competitive inhibition of DYRK1A (unknown origin) using ATP",
+        "document": "CHEMBL3102826",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1234833",
+        "ic50_nM": 2100.0,
+        "assay": "CHEMBL1806286",
+        "description": "Inhibition of DYRK1A",
+        "document": "CHEMBL1800061",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1236620",
+        "ic50_nM": 55.0,
+        "assay": "CHEMBL2394351",
+        "description": "Inhibition of DYRK1A (unknown origin) using YRASPSRPESPRPPA-NH2 as substrate preincubated for 10 mins prior to substrate addition by LDH assay",
+        "document": "CHEMBL2390846",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"Biochemical kinase concentration-response inhibition assay\",\n  \"system\": \"Purified recombinant human DYRK1A (Q13627); exact expression construct, catalytic domain, activation state, and buffer composition are unresolved.\",\n  \"readout\": \"ADP-Glo luminescence reporting ADP formation and thus residual kinase activity after CHEMBL1077347 treatment.\",\n  \"steps\": [\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a 10-point, threefold CHEMBL1077347 dilution series from 100 uM, with matched vehicle at every concentration. Include vehicle-only, no-compound enzyme, no-enzyme background, and reference-inhibitor controls. These series settings are provisional assumptions for an initial range-finding assay, not sourced compound-specific conditions; revise the top concentration if solubility, precipitation, or assay interference is observed.\",\n      \"parameters\": {\n        \"top_concentration_uM\": \"100 uM; provisional assumption\",\n        \"dilution_factor\": \"3-fold; provisional assumption\",\n        \"n_points\": \"10; provisional assumption\",\n        \"replicates\": \"3 independent replicates; provisional assumption\",\n        \"vehicle_fraction\": \"Unresolved; keep constant across wells and validate vehicle tolerance. Vehicle identity and maximum tolerated fraction are not supplied.\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Combine compound or control with DYRK1A, substrate, and ATP and run the kinase reaction. Preincubation, if used, must be reported separately because it can affect apparent inhibition. Select ATP and substrate concentrations experimentally rather than transferring conditions from the retained radiometric, filter-binding, or LDH assays.\",\n      \"parameters\": {\n        \"enzyme_concentration\": \"Unresolved; titrate to obtain a robust signal within the approximately linear reaction range.\",\n        \"substrate_concentration\": \"Unresolved; substrate identity and concentration are not supplied.\",\n        \"ATP_concentration\": \"Unresolved; ATP concentration can influence apparent potency, especially for ATP-competitive inhibitors.\",\n        \"reaction_time\": \"Unresolved; determine by a reaction-linearity pilot.\",\n        \"temperature\": \"Unresolved.\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence according to the validated ADP-Glo procedure. Include compound-only detection controls to assess luminescence quenching, enhancement, or other interference.\",\n      \"parameters\": {\n        \"reagent_volumes\": \"Unresolved; dependent on plate format and validated reagent protocol.\",\n        \"depletion_time\": \"Unresolved.\",\n        \"detection_time\": \"Unresolved.\"\n      }\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Subtract appropriate background, normalize vehicle-treated enzyme activity to 100% and a fully inhibited or no-enzyme reference as justified, and fit concentration-response data only if the tested range defines the curve adequately. Report individual replicates, fit uncertainty, curve constraints, and any interference or solubility observations. Do not infer an IC50 from other compounds.\",\n      \"parameters\": {\n        \"fit_model\": \"Four-parameter logistic concentration-response model as a provisional assumption; use a simpler or constrained model if the data do not support all parameters.\",\n        \"acceptance_criteria\": \"Require consistent vehicle controls, acceptable replicate agreement, adequate signal above background, and a reaction within its linear range. Numeric thresholds and rules for fitting incomplete curves remain unresolved.\"\n      }\n    }\n  ],\n  \"top_concentration_uM\": 100,\n  \"dilution_factor\": 3,\n  \"n_points\": 10,\n  \"replicates\": 3,\n  \"controls\": [\n    \"Vehicle-only control at every compound concentration\",\n    \"No-compound DYRK1A activity control\",\n    \"No-enzyme background control\",\n    \"Reference DYRK1A inhibitor control; inhibitor identity and concentration unresolved\",\n    \"Compound-only ADP-Glo interference control without enzyme\",\n    \"Optional ATP/ADP detection standards; implementation unresolved\"\n  ],\n  \"rationale\": \"The question requires direct biochemical inhibition, so the kinase cards are used without cellular viability steps. ADP-Glo measures kinase-dependent ADP production and is compatible with a concentration-response design, although none of the retained examples validates ADP-Glo conditions for this compound. The retained assays establish that DYRK1A inhibition has been measured biochemically using radiometric filter-binding, ATP-competition, and LDH-coupled formats. Their widely differing IC50 values concern other compounds and different assays and therefore support neither a potency estimate nor direct transfer of reaction conditions for CHEMBL1077347. The proposed concentration range and replication are explicitly provisional range-finding choices.\",\n  \"citations\": [\n    \"Q13627\",\n    \"CHEMBL1077347\",\n    \"CHEMBL4673836\",\n    \"CHEMBL4266682\",\n    \"CHEMBL3105981\",\n    \"CHEMBL1806286\",\n    \"CHEMBL2394351\"\n  ],\n  \"limitations\": [\n    \"No CHEMBL1077347-specific potency, solubility, selectivity, or assay-interference evidence is supplied; no IC50 is predicted.\",\n    \"The 100 uM top concentration, threefold dilution, 10 points, and three replicates are assumptions rather than sourced parameters.\",\n    \"Enzyme construct and concentration, substrate identity and concentration, ATP concentration, buffer, preincubation, reaction time, temperature, vehicle tolerance, plate format, and detection timings remain unresolved.\",\n    \"The retained measurements use other compounds and heterogeneous assay formats; they are contextual evidence only.\",\n    \"This biochemical assay can demonstrate inhibition of DYRK1A activity under the tested conditions but does not by itself establish cellular efficacy, selectivity, or target-specific causality.\",\n    \"Cell viability was not measured and would not, by itself, establish DYRK1A-specific mechanism.\"\n  ]\n}"
+}

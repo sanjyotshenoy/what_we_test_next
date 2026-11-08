@@ -1,0 +1,197 @@
+{
+  "item_id": "4decfbf66ae0fe09",
+  "generator_input": {
+    "id": "case-11",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Mitogen-activated protein kinase 9 (P45984) by CHEMBL10. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL10",
+        "name": "SB-203580",
+        "type": "Compound",
+        "smiles": "C[S+]([O-])c1ccc(-c2nc(-c3ccc(F)cc3)c(-c3ccncc3)[nH]2)cc1"
+      },
+      {
+        "id": "P45984",
+        "name": "Mitogen-activated protein kinase 9",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL101035",
+        "ic50_nM": 1800.0,
+        "assay": "CHEMBL1050683",
+        "description": "Displacement of N,N'-(2,2'-(3,3'-disulfanediylbis(2,5-dioxopyrrolidine-3,1-diyl))bis(ethane-2,1-diyl))bis(2-(3-(3-tert-butyl-5-(3-naphthalen-1-ylureido)-1H-pyrazol-1-yl)phenylamino)acetamide) from inactive form of JNK2 by enzyme fragment complementation assay",
+        "document": "CHEMBL1156773",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL103667",
+        "ic50_nM": 27.0,
+        "assay": "CHEMBL1050683",
+        "description": "Displacement of N,N'-(2,2'-(3,3'-disulfanediylbis(2,5-dioxopyrrolidine-3,1-diyl))bis(ethane-2,1-diyl))bis(2-(3-(3-tert-butyl-5-(3-naphthalen-1-ylureido)-1H-pyrazol-1-yl)phenylamino)acetamide) from inactive form of JNK2 by enzyme fragment complementation assay",
+        "document": "CHEMBL1156773",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1087421",
+        "ic50_nM": 794.33,
+        "assay": "CHEMBL1108469",
+        "description": "Inhibition of N-terminal histidine-tagged human full length JNK2-alpha-2 by radiometric filter binding assay",
+        "document": "CHEMBL1153754",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1088633",
+        "ic50_nM": 1258.93,
+        "assay": "CHEMBL1108469",
+        "description": "Inhibition of N-terminal histidine-tagged human full length JNK2-alpha-2 by radiometric filter binding assay",
+        "document": "CHEMBL1153754",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL118258",
+        "ic50_nM": 4660.0,
+        "assay": "CHEMBL820304",
+        "description": "Inhibition of human c-Jun N-terminal kinase 2",
+        "document": "CHEMBL1147483",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"biochemical kinase inhibition (ADP-Glo luminescence)\",\n  \"system\": \"Purified recombinant human MAPK9/JNK2 (P45984) with a kinase substrate and ATP in vitro\",\n  \"readout\": \"Luminescence proportional to ADP produced, converted to percent inhibition of kinase activity\",\n  \"steps\": [\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a serial dilution of CHEMBL10 in DMSO, plus vehicle, no-enzyme, no-compound, and positive-inhibitor reference controls.\",\n      \"parameters\": {\n        \"top_concentration_uM\": \"30 (assumption; no packet evidence for CHEMBL10 potency on P45984 — chosen to span likely sub-µM–tens-µM range)\",\n        \"dilution_factor\": \"3 (assumption; standard for broad IC50 coverage)\",\n        \"n_points\": \"10 (assumption; gives ~4-log span)\",\n        \"replicates\": \"3 (assumption; supports uncertainty reporting)\",\n        \"vehicle_fraction\": \"unresolved — packet gives no supported DMSO tolerance for this enzyme; keep constant across wells (assumption: ≤1%)\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Combine compound dilutions with kinase, substrate, and ATP; incubate under conditions kept in the initial-rate regime.\",\n      \"parameters\": {\n        \"enzyme_concentration\": \"unresolved — no packet value; titrate so that <10% ATP is consumed\",\n        \"substrate_concentration\": \"unresolved — no packet value; use saturating substrate if competitive-with-substrate behavior is not the focus\",\n        \"ATP_concentration\": \"unresolved — no packet value; set near the reported Km of the enzyme batch or test at least two ATP levels to probe ATP competitiveness\",\n        \"reaction_time\": \"unresolved — no packet value; verify linearity with a time-course pilot\",\n        \"temperature\": \"unresolved — no packet value; 30 or 37 °C must be fixed by lab convention (assumption: 25–37 °C, stated explicitly in the report)\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Stop the reaction and deplete residual ATP with ADP-Glo reagent, then add detection reagent and read luminescence.\",\n      \"parameters\": {\n        \"reagent_volumes\": \"unresolved — follow the ADP-Glo manufacturer's protocol; no packet support for specific volumes\",\n        \"depletion_time\": \"unresolved — per manufacturer protocol\",\n        \"detection_time\": \"unresolved — per manufacturer protocol\"\n      }\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize luminescence to no-enzyme (0% activity) and vehicle (100% activity) controls, fit percent inhibition vs. log10 concentration, and report IC50 with confidence intervals.\",\n      \"parameters\": {\n        \"fit_model\": \"4-parameter logistic (assumption; standard for concentration-response)\",\n        \"acceptance_criteria\": \"unresolved — e.g., Z' factor and DMSO-only control window thresholds must be set by the lab; no packet evidence\"\n      }\n    }\n  ],\n  \"top_concentration_uM\": 30,\n  \"dilution_factor\": 3,\n  \"n_points\": 10,\n  \"replicates\": 3,\n  \"controls\": [\n    \"Vehicle (DMSO) control defining 100% kinase activity\",\n    \"No-enzyme / no-substrate background control defining 0% activity\",\n    \"No-compound control\",\n    \"Reference inhibitor control (a known JNK2 inhibitor from the same lab's validated stock, if available; identity unresolved in packet)\"\n  ],\n  \"rationale\": \"The question asks for biochemical inhibition of purified MAPK9 (JNK2), so the kinase ADP-Glo luminescence chain (kinase-prepare → kinase-react → kinase-detect → analyse) is the matching format; cell-viability cards are excluded because they measure cellular ATP status, not target-specific kinase inhibition. Retained ChEMBL records confirm that JNK2 inhibition is measured biochemically (radiometric filter binding, CHEMBL1108469; enzyme fragment complementation, CHEMBL1050683; generic JNK2 inhibition, CHEMBL820304), supporting an isolated-enzyme readout as the appropriate system. However, none of these examples involve CHEMBL10, and their IC50 values (e.g., 27–4660 nM for other compounds) are contextual only and are not used to estimate CHEMBL10 potency. All numeric series parameters are therefore explicitly labeled assumptions, and all reaction/detection conditions are unresolved pending lab validation.\",\n  \"citations\": [\n    \"CHEMBL1050683\",\n    \"CHEMBL1108469\",\n    \"CHEMBL820304\"\n  ],\n  \"limitations\": [\n    \"No retrieved measurement of CHEMBL10 against P45984 exists in the packet; no IC50 is predicted or supplied.\",\n    \"Enzyme, substrate, and ATP concentrations, reaction time, temperature, and detection reagent conditions are unsupported by the packet and must be established by pilot experiments and manufacturer protocols.\",\n    \"The retained examples use radiometric and EFC formats, not ADP-Glo; the luminescence format is chosen for the requested readout, not from direct packet precedent.\",\n    \"This design measures biochemical inhibition only; it does not address cellular viability or target-specific causality in cells, which would require orthogonal cellular target-engagement experiments.\",\n    \"If CHEMBL10 is ATP-competitive, the measured IC50 depends on the ATP concentration relative to Km; this should be reported with the assay conditions.\"\n  ]\n}"
+}

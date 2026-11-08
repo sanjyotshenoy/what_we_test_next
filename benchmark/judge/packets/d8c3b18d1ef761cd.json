@@ -1,0 +1,197 @@
+{
+  "item_id": "d8c3b18d1ef761cd",
+  "generator_input": {
+    "id": "case-13",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of LIM domain kinase 1 (P53667) by CHEMBL1258633. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1258633",
+        "name": "CHEMBL1258633",
+        "type": "Compound",
+        "smiles": "CC(C)Nc1ncc(-c2cc(-c3ccccc3Cl)nc(-c3ccccn3)n2)s1"
+      },
+      {
+        "id": "P53667",
+        "name": "LIM domain kinase 1",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL1269082",
+        "ic50_nM": 7100.0,
+        "assay": "CHEMBL3227038",
+        "description": "Inhibition of LIMK1 (unknown origin) using cofilin-2 as substrate after 60 mins by Kinase-Glo assay",
+        "document": "CHEMBL3217427",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1483395",
+        "ic50_nM": 2800.0,
+        "assay": "CHEMBL3227038",
+        "description": "Inhibition of LIMK1 (unknown origin) using cofilin-2 as substrate after 60 mins by Kinase-Glo assay",
+        "document": "CHEMBL3217427",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1488435",
+        "ic50_nM": 4400.0,
+        "assay": "CHEMBL1839797",
+        "description": "Inhibition of LIMK1 using cofilin-2 as substrate after 60 mins by Kinase-Glo assay",
+        "document": "CHEMBL1833960",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1571017",
+        "ic50_nM": 3000.0,
+        "assay": "CHEMBL3227038",
+        "description": "Inhibition of LIMK1 (unknown origin) using cofilin-2 as substrate after 60 mins by Kinase-Glo assay",
+        "document": "CHEMBL3217427",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1581452",
+        "ic50_nM": 12700.0,
+        "assay": "CHEMBL1839797",
+        "description": "Inhibition of LIMK1 using cofilin-2 as substrate after 60 mins by Kinase-Glo assay",
+        "document": "CHEMBL1833960",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"Biochemical kinase luminescence (ADP‑Glo)\",\n  \"system\": \"Recombinant human LIM domain kinase 1 (LIMK1, UniProt P53667)\",\n  \"readout\": \"Luminescence proportional to ADP generated from ATP turnover\",\n  \"steps\": [\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a serial dilution of CHEMBL1258633 in assay buffer with DMSO vehicle; include 0 µM (vehicle) and a reference inhibitor if available.\",\n      \"parameters\": {\n        \"top_concentration_uM\": \"50 µM (assumption, typical upper limit for initial screening of small‑molecule kinase inhibitors)\",\n        \"dilution_factor\": \"3 (assumption, gives ~8‑point curve spanning 50 µM → ~0.02 µM)\",\n        \"n_points\": \"8 (assumption, provides sufficient resolution for curve fitting)\",\n        \"replicates\": \"3 (assumption, standard practice for biochemical assays)\",\n        \"vehicle_fraction\": \"0.5 % DMSO (assumption, kept low to avoid enzyme inhibition)\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Add recombinant LIMK1, cofilin‑2 peptide substrate, and ATP to each well; incubate under conditions proven for LIMK1 assays.\",\n      \"parameters\": {\n        \"enzyme_concentration\": \"5 nM (assumption, yields linear product formation within the assay window)\",\n        \"substrate_concentration\": \"1 µM cofilin‑2 peptide (evidence: retained examples used cofilin‑2 as substrate) \",\n        \"ATP_concentration\": \"10 µM (assumption, near Km for many kinases and compatible with ADP‑Glo)\",\n        \"reaction_time\": \"60 min (evidence: all retained LIMK1 examples employed a 60 min incubation) \",\n        \"temperature\": \"30 °C (assumption, common for kinase‑Glo/ADP‑Glo assays)\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Terminate the kinase reaction, deplete remaining ATP with ADP‑Glo reagent, then add detection reagent and read luminescence.\",\n      \"parameters\": {\n        \"reagent_volumes\": \"10 µL ADP‑Glo™ reagent + 10 µL detection reagent per 20 µL reaction (assumption, follows manufacturer protocol)\",\n        \"depletion_time\": \"30 min (assumption, sufficient for ATP consumption)\",\n        \"detection_time\": \"10 min (assumption, per ADP‑Glo kit instructions)\"\n      }\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize luminescence to 0 % inhibition (vehicle) and 100 % inhibition (no‑enzyme control); fit a four‑parameter logistic curve; report IC₅₀ with 95 % confidence interval and note assay constraints.\",\n      \"parameters\": {\n        \"fit_model\": \"4‑parameter logistic (Hill slope) \",\n        \"acceptance_criteria\": \"R² ≥ 0.90, Hill slope between 0.5–1.5, %CV ≤ 20 % across replicates\"\n      }\n    }\n  ],\n  \"top_concentration_uM\": 50,\n  \"dilution_factor\": 3,\n  \"n_points\": 8,\n  \"replicates\": 3,\n  \"controls\": [\n    \"Vehicle (0 µM compound, 0.5 % DMSO)\",\n    \"No‑enzyme (background ADP signal)\",\n    \"Maximum activity (enzyme + substrate + ATP, no inhibitor)\"\n  ],\n  \"rationale\": \"The retained measurement examples (CHEMBL1269082, CHEMBL1483395, CHEMBL1488435, CHEMBL1571017, CHEMBL1581452) all used a Kinase‑Glo luminescence format with cofilin‑2 as substrate, a 60 min reaction, and reported IC₅₀ values for LIMK1. ADP‑Glo is a compatible luminescence‑based readout that directly measures ADP formation and is widely used for kinase inhibition studies. Selecting recombinant LIMK1 and a peptide substrate mirrors the published context, ensuring mechanistic relevance. The concentration range (50 µM → ~0.02 µM) and three‑fold dilution provide a broad span to capture both low‑ and high‑potency behavior while keeping DMSO below 1 % to avoid nonspecific effects. Replicates and control wells address assay variability and enable proper normalization.\",\n  \"citations\": [\n    \"CHEMBL1269082\",\n    \"CHEMBL1483395\",\n    \"CHEMBL1488435\",\n    \"CHEMBL1571017\",\n    \"CHEMBL1581452\"\n  ],\n  \"limitations\": [\n    \"The exact kinetic parameters (Km for ATP, Km for cofilin‑2) of the recombinant LIMK1 preparation are not provided; enzyme concentration is therefore an assumption.\",\n    \"No reference LIMK1 inhibitor is available in the packet, so the maximum‑inhibition control relies on the no‑enzyme background rather than a validated positive control.\",\n    \"Cell‑based viability assays are omitted because they cannot distinguish target‑specific inhibition from off‑target cytotoxicity; the design focuses solely on biochemical inhibition.\",\n    \"All numeric parameters (top concentration, dilution factor, enzyme and substrate concentrations, temperature, incubation times) are based on common practice and the retained assay descriptions, but are not directly sourced from experimental data for CHEMBL1258633.\"\n  ]\n}"
+}
