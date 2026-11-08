@@ -241,3 +241,22 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   free text), and most gut commensals are **anaerobes** needing CLSI M11 agar dilution, not the M07 broth
   microdilution we generate — a scientific-credibility issue, cheap to fix in the prompt and the protocol KG.
 - Open: whether to pivot at all given the clock; nothing has been rebuilt.
+
+**The concentration anchor** (zetamac, 23:49; built on branch `anchor-rule` off `integration`).
+- The seam: templates know the *shape* of an assay (points, spacing, controls), the biology graph knows the *scale*
+  for this compound (analog potencies). Combining them was the model's uncited judgement, so the number that most
+  decides whether the experiment works had no provenance and no check.
+- Built in three layers: a deterministic `agent/anchor.py` (analogs -> top concentration, with the derivation
+  recorded), `rule:agm/anchor_series_on_analogs` in rules.yaml (machine-checkable given the analog median), and a
+  prompt/trace/grader layer — the model must state the anchor and the analog IDs behind it, may depart **with a
+  stated reason**, and `check_series_consistent_with_analogs` catches both ignoring the analogs and citing ones that
+  were never retrieved.
+- Finding: the AGM gives **no numeric multiplier**, only "half the data points above the IC50 and half below". So
+  the multiplier is *derived* from that sentence (centre on the median: median x spacing^((n-1)/2)) = 140x for
+  3-fold/10 points, 78x for the template's own shape. The bare 100x survives only as a flagged heuristic fallback.
+- Demo numbers: analogs 8.2 / 0.72 / 19 nM, median 8.2 nM; template default top 12 uM bottoms out at 2.05 nM,
+  *above* the best analog; the anchor gives 0.638 uM, 1.27 decades lower.
+- Also merged: branch `integration` = main + protocol-db + agent-on-kg (requirements.txt kept both deps; a test that
+  pinned "one potency template" loosened, since the protocol DB now has luminescence *and* TR-FRET). 191 tests pass.
+- Open: the one-dilution-step tolerance in the grader check is unreviewed; `integration` and `anchor-rule` still
+  need merging into main.
