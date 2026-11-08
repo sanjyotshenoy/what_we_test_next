@@ -1,0 +1,22 @@
+{
+ "round": 1,
+ "error_fed_back": "UnexpectedTipAttachError [line 38]: Error 3012 UNEXPECTED_TIP_ATTACH (UnexpectedTipAttachError): Cannot perform pick up tip with a tip already attached.",
+ "seconds": 42.0,
+ "usage": {
+  "prompt_tokens": 2279,
+  "total_tokens": 11801,
+  "completion_tokens": 9522,
+  "completion_tokens_details": {
+   "reasoning_tokens": 7840
+  },
+  "prompt_tokens_details": null,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 2279,
+  "reasoning_tokens": 7840
+ },
+ "finish_reason": "stop",
+ "cost_usd": 0.045087,
+ "code_extracted": true,
+ "passes_after": false,
+ "error_after": "The robot run cannot start: the protocol requires a p300_single_gen2 on the right mount, but that pipette is not attached. Only the 8-channel pipette from the labware requirements is available."
+}

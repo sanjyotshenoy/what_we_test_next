@@ -1,0 +1,40 @@
+{
+ "empty_tips": {
+  "6": [
+   "B2",
+   "C2",
+   "D2",
+   "F2",
+   "G2",
+   "H2",
+   "A3",
+   "C3",
+   "D3",
+   "E3",
+   "G3",
+   "H3",
+   "A4",
+   "B4",
+   "D4",
+   "E4",
+   "F4",
+   "H4",
+   "A5",
+   "B5",
+   "C5",
+   "E5",
+   "F5",
+   "G5"
+  ]
+ },
+ "manual": {
+  "operator_instructions": {
+   "score": 1,
+   "why": "load_liquid declares all 6 reservoir wells with volumes; tip map in comments (lines 29-32)."
+  },
+  "tip_count_stated": {
+   "score": 1,
+   "why": "Comments give tips per step (8 broth, 2 per antibiotic, 88 bacteria = 104) and they match the run."
+  }
+ }
+}

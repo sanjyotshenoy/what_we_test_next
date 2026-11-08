@@ -1,0 +1,26 @@
+{
+ "model": "kimi-k3.1-pro",
+ "model_id": "moonshotai/Kimi-K3.1-Pro",
+ "sample": 1,
+ "reasoning_effort": "high",
+ "finish_reason": "stop",
+ "seconds": 65.4,
+ "usage": {
+  "prompt_tokens": 181,
+  "total_tokens": 11123,
+  "completion_tokens": 10942,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "created_cache_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 9069
+  }
+ },
+ "price_per_token": {
+  "input": 2e-06,
+  "output": 1e-05
+ },
+ "cost_usd": 0.109782,
+ "code_extracted": true
+}

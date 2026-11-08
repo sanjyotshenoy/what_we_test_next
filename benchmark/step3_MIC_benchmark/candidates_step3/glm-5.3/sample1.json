@@ -1,0 +1,26 @@
+{
+ "model": "glm-5.3",
+ "model_id": "zai-org/GLM-5.3",
+ "sample": 1,
+ "reasoning_effort": "high",
+ "finish_reason": "stop",
+ "seconds": 73.5,
+ "usage": {
+  "prompt_tokens": 104,
+  "total_tokens": 19638,
+  "completion_tokens": 19534,
+  "completion_tokens_details": {
+   "reasoning_tokens": 17428
+  },
+  "prompt_tokens_details": null,
+  "prompt_cache_hit_tokens": 0,
+  "prompt_cache_miss_tokens": 104,
+  "reasoning_tokens": 17428
+ },
+ "price_per_token": {
+  "input": 1.4e-06,
+  "output": 4.4e-06
+ },
+ "cost_usd": 0.086095,
+ "code_extracted": true
+}

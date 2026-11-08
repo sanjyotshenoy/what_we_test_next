@@ -1,0 +1,697 @@
+[
+ {
+  "protocol": "protocols/step3_standard_answer.py",
+  "api_note": "apiLevel 2.28 lowered to 2.27 for simulation",
+  "gate": 1,
+  "pipettes": [
+   "p300_multi"
+  ],
+  "scores": {
+   "plate_layout": 1.0,
+   "dilution_series": 1.0,
+   "controls": 1.0,
+   "final_volume_ratio": 1.0,
+   "eight_channel": 1.0,
+   "contamination": 1.0,
+   "max_300": 1.0,
+   "plate_slot": 1.0,
+   "tip_balance": 1.0,
+   "labware_close": 1.0,
+   "mixing": 1.0,
+   "reservoir_volumes": 1.0,
+   "tip_choice": 1.0,
+   "tip_count": 1.0,
+   "operator_instructions": 1.0,
+   "run_time": 1.0
+  },
+  "reward": 1.0,
+  "reward_of_20.5": 20.5,
+  "pending": [],
+  "evidence": {
+   "rows_per_antibiotic": {
+    "Abx1": 2,
+    "Abx2": 2,
+    "Abx3": 2,
+    "Abx4": 2
+   },
+   "wells_with_2_antibiotics": [],
+   "series": {
+    "Abx1": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx2": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx3": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx4": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    }
+   },
+   "controls": {
+    "assay_rows": 8,
+    "rows_with_growth": 8,
+    "rows_with_sterility": 8
+   },
+   "inoculated_wells": {
+    "n": 88,
+    "volume_range": [
+     200.0,
+     200.0
+    ],
+    "bacteria_fraction_range": [
+     0.5,
+     0.5
+    ]
+   },
+   "nozzles_outside_labware": [],
+   "contamination": {
+    "events": 0,
+    "into_reservoir": 0,
+    "examples": []
+   },
+   "peak_well_ul": 200.0,
+   "plate_slots": [
+    "5"
+   ],
+   "partial_pickups": {
+    "n": 4,
+    "unbalanced": []
+   },
+   "not_next_to_plate": [],
+   "mixing": {
+    "combining_dispenses": 47,
+    "fewest_mix_cycles_after": 3,
+    "mixes_over_75pct": 0
+   },
+   "reservoir_draw_ml": {
+    "3:A2": 0.4,
+    "3:A6": 8.8,
+    "3:A1": 9.6,
+    "3:A4": 0.4,
+    "3:A5": 0.4,
+    "3:A3": 0.4
+   },
+   "reservoir_short": [],
+   "below_min_volume": [],
+   "tips": {
+    "tips_used": 104,
+    "racks_loaded": 2,
+    "racks_used": 2,
+    "fits_on_deck": true,
+    "reused_positions": [],
+    "stated": {
+     "score": 1,
+     "why": "Comments give tips per step (8 broth, 2 per antibiotic, 88 bacteria = 104) and they match the run."
+    }
+   },
+   "operator_instructions": {
+    "score": 1,
+    "why": "load_liquid declares all 6 reservoir wells with volumes; tip map in comments (lines 29-32)."
+   },
+   "run_time": {
+    "seconds": 803.5,
+    "minutes": 13.4,
+    "counts": {
+     "pickups": 16,
+     "liquid_s": 301.5,
+     "asp_disp": 132,
+     "drops": 16,
+     "mix_cmds": 62,
+     "mix_cycles": 156
+    },
+    "vs_standard": 1.0,
+    "raw_score": 1.0,
+    "counted": true
+   }
+  },
+  "notes": []
+ },
+ {
+  "protocol": "candidates_step3/deepseek-v4.1-flash-1017/sample1.fix1.py",
+  "api_note": null,
+  "gate": 1,
+  "pipettes": [
+   "p300_multi_gen2"
+  ],
+  "scores": {
+   "plate_layout": 1.0,
+   "dilution_series": 1.0,
+   "controls": 1.0,
+   "final_volume_ratio": 1.0,
+   "eight_channel": 1.0,
+   "contamination": 0.0,
+   "max_300": 1.0,
+   "plate_slot": 0.0,
+   "tip_balance": 1.0,
+   "labware_close": 1.0,
+   "mixing": 0.0,
+   "reservoir_volumes": 1.0,
+   "tip_choice": 1.0,
+   "tip_count": 1.0,
+   "operator_instructions": 0.5,
+   "run_time": 0.0
+  },
+  "reward": 0.6951,
+  "reward_of_20.5": 14.25,
+  "pending": [],
+  "evidence": {
+   "rows_per_antibiotic": {
+    "Abx1": 2,
+    "Abx2": 2,
+    "Abx3": 2,
+    "Abx4": 2
+   },
+   "wells_with_2_antibiotics": [],
+   "series": {
+    "Abx1": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx2": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx3": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx4": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    }
+   },
+   "controls": {
+    "assay_rows": 8,
+    "rows_with_growth": 8,
+    "rows_with_sterility": 8
+   },
+   "inoculated_wells": {
+    "n": 88,
+    "volume_range": [
+     200.0,
+     200.0
+    ],
+    "bacteria_fraction_range": [
+     0.5,
+     0.5
+    ]
+   },
+   "nozzles_outside_labware": [],
+   "contamination": {
+    "events": 96,
+    "into_reservoir": 80,
+    "examples": [
+     {
+      "cmd": 137,
+      "well": "4:A2",
+      "foreign": [
+       "Abx1"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     },
+     {
+      "cmd": 137,
+      "well": "4:A2",
+      "foreign": [
+       "Abx1"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     },
+     {
+      "cmd": 137,
+      "well": "4:A2",
+      "foreign": [
+       "Abx2"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     },
+     {
+      "cmd": 137,
+      "well": "4:A2",
+      "foreign": [
+       "Abx2"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     }
+    ]
+   },
+   "peak_well_ul": 200.0,
+   "plate_slots": [
+    "2"
+   ],
+   "partial_pickups": {
+    "n": 0,
+    "unbalanced": []
+   },
+   "not_next_to_plate": [],
+   "mixing": {
+    "combining_dispenses": 20,
+    "fewest_mix_cycles_after": 0,
+    "mixes_over_75pct": 0
+   },
+   "reservoir_draw_ml": {
+    "3:E1": 0.2,
+    "4:A1": 9.6,
+    "3:A1": 0.2,
+    "4:A2": 8.8,
+    "3:C1": 0.2,
+    "3:B1": 0.2,
+    "3:D1": 0.2,
+    "3:F1": 0.2,
+    "3:H1": 0.2,
+    "3:G1": 0.2
+   },
+   "reservoir_short": [],
+   "below_min_volume": [],
+   "tips": {
+    "tips_used": 40,
+    "racks_loaded": 1,
+    "racks_used": 1,
+    "fits_on_deck": true,
+    "reused_positions": [],
+    "stated": null
+   },
+   "operator_instructions": {
+    "score": 0.5,
+    "why": "The .py names media A1 / bacteria A2 / waste A12 but not which antibiotic goes in which source-plate row or any volume; that is only in the answer text."
+   },
+   "run_time": {
+    "seconds": 379.2,
+    "minutes": 6.3,
+    "counts": {
+     "pickups": 5,
+     "liquid_s": 153.2,
+     "asp_disp": 68,
+     "other": 25,
+     "drops": 5,
+     "mix_cmds": 10,
+     "mix_cycles": 32
+    },
+    "vs_standard": 0.47,
+    "raw_score": 1.0,
+    "counted": false
+   }
+  },
+  "notes": []
+ },
+ {
+  "protocol": "candidates_step3/glm-5.3/sample1.fix2.py",
+  "api_note": "passes at apiLevel 2.13; replayed at 2.14 because older levels do not report tip heights",
+  "gate": 1,
+  "pipettes": [
+   "p300_multi_gen2"
+  ],
+  "scores": {
+   "plate_layout": 1.0,
+   "dilution_series": 0.5,
+   "controls": 0.5,
+   "final_volume_ratio": 1.0,
+   "eight_channel": 1.0,
+   "contamination": 0.0,
+   "max_300": 1.0,
+   "plate_slot": 0.0,
+   "tip_balance": 1.0,
+   "labware_close": 1.0,
+   "mixing": 0.0,
+   "reservoir_volumes": 1.0,
+   "tip_choice": 1.0,
+   "tip_count": 1.0,
+   "operator_instructions": 1.0,
+   "run_time": 0.0
+  },
+  "reward": 0.6098,
+  "reward_of_20.5": 12.5,
+  "pending": [],
+  "evidence": {
+   "rows_per_antibiotic": {
+    "Abx1": 2,
+    "Abx2": 2,
+    "Abx3": 2,
+    "Abx4": 2
+   },
+   "wells_with_2_antibiotics": [],
+   "series": {
+    "Abx1": {
+     "levels": 11,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx2": {
+     "levels": 11,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx3": {
+     "levels": 11,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx4": {
+     "levels": 11,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    }
+   },
+   "controls": {
+    "assay_rows": 8,
+    "rows_with_growth": 8,
+    "rows_with_sterility": 0
+   },
+   "inoculated_wells": {
+    "n": 96,
+    "volume_range": [
+     100.0,
+     100.0
+    ],
+    "bacteria_fraction_range": [
+     0.5,
+     0.5
+    ]
+   },
+   "nozzles_outside_labware": [],
+   "contamination": {
+    "events": 24,
+    "into_reservoir": 16,
+    "examples": [
+     {
+      "cmd": 139,
+      "well": "5:A6",
+      "foreign": [
+       "Abx1",
+       "Media"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     },
+     {
+      "cmd": 139,
+      "well": "5:A6",
+      "foreign": [
+       "Abx1",
+       "Media"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     },
+     {
+      "cmd": 139,
+      "well": "5:A6",
+      "foreign": [
+       "Abx2",
+       "Media"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     },
+     {
+      "cmd": 139,
+      "well": "5:A6",
+      "foreign": [
+       "Abx2",
+       "Media"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     }
+    ]
+   },
+   "peak_well_ul": 100.0,
+   "plate_slots": [
+    "2"
+   ],
+   "partial_pickups": {
+    "n": 0,
+    "unbalanced": []
+   },
+   "not_next_to_plate": [],
+   "mixing": {
+    "combining_dispenses": 22,
+    "fewest_mix_cycles_after": 0,
+    "mixes_over_75pct": 0
+   },
+   "reservoir_draw_ml": {
+    "6:H1": 0.1,
+    "6:C1": 0.1,
+    "6:D1": 0.1,
+    "6:F1": 0.1,
+    "5:A1": 4.4,
+    "6:G1": 0.1,
+    "5:A6": 4.8,
+    "6:E1": 0.1,
+    "6:A1": 0.1,
+    "6:B1": 0.1
+   },
+   "reservoir_short": [],
+   "below_min_volume": [],
+   "tips": {
+    "tips_used": 96,
+    "racks_loaded": 1,
+    "racks_used": 1,
+    "fits_on_deck": true,
+    "reused_positions": [],
+    "stated": null
+   },
+   "operator_instructions": {
+    "score": 1,
+    "why": "Comments name every reservoir and stock-plate well with a volume to load (media and bacteria >= 6 mL, each stock well >= 200 uL of 2x stock); racks are full. Volumes used here are those stated minimums."
+   },
+   "run_time": {
+    "seconds": 326.6,
+    "minutes": 5.4,
+    "counts": {
+     "pickups": 12,
+     "liquid_s": 76.6,
+     "asp_disp": 53,
+     "other": 1,
+     "drops": 12,
+     "mix_cmds": 11,
+     "mix_cycles": 33
+    },
+    "vs_standard": 0.41,
+    "raw_score": 1.0,
+    "counted": false
+   }
+  },
+  "notes": []
+ },
+ {
+  "protocol": "candidates_step3/gpt-oss-120b/sample1.fix3.py",
+  "api_note": null,
+  "gate": 1,
+  "pipettes": [
+   "p300_multi_gen2"
+  ],
+  "scores": {
+   "plate_layout": 0.0,
+   "dilution_series": 0.0,
+   "controls": 0.0,
+   "final_volume_ratio": 0.0,
+   "eight_channel": 0.0,
+   "contamination": 0.0,
+   "max_300": 1.0,
+   "plate_slot": 0.0,
+   "tip_balance": 1.0,
+   "labware_close": 1.0,
+   "mixing": 0.0,
+   "reservoir_volumes": 1.0,
+   "tip_choice": 1.0,
+   "tip_count": 1.0,
+   "operator_instructions": 0.5,
+   "run_time": 0.0
+  },
+  "reward": 0.2561,
+  "reward_of_20.5": 5.25,
+  "pending": [],
+  "evidence": {
+   "rows_per_antibiotic": {},
+   "wells_with_2_antibiotics": [],
+   "series": {
+    "Abx1": "absent",
+    "Abx2": "absent",
+    "Abx3": "absent",
+    "Abx4": "absent"
+   },
+   "controls": {
+    "assay_rows": 0,
+    "rows_with_growth": 0,
+    "rows_with_sterility": 0
+   },
+   "inoculated_wells": {
+    "n": 88,
+    "volume_range": [
+     100.0,
+     200.0
+    ],
+    "bacteria_fraction_range": [
+     0.5,
+     1.0
+    ]
+   },
+   "nozzles_outside_labware": [
+    "cmd 48: tipped nozzle H outside corning_96_wellplate_360ul_flat in slot 2 (target B1)",
+    "cmd 50: tipped nozzle G outside corning_96_wellplate_360ul_flat in slot 2 (target C1)",
+    "cmd 50: tipped nozzle H outside corning_96_wellplate_360ul_flat in slot 2 (target C1)",
+    "cmd 52: tipped nozzle F outside corning_96_wellplate_360ul_flat in slot 2 (target D1)",
+    "cmd 52: tipped nozzle G outside corning_96_wellplate_360ul_flat in slot 2 (target D1)"
+   ],
+   "contamination": {
+    "events": 1145,
+    "into_reservoir": 0,
+    "examples": [
+     {
+      "cmd": 48,
+      "well": "2:C1",
+      "foreign": [
+       "Abx1"
+      ],
+      "where": "aspirate",
+      "reservoir": false
+     },
+     {
+      "cmd": 48,
+      "well": "2:E1",
+      "foreign": [
+       "Abx2"
+      ],
+      "where": "aspirate",
+      "reservoir": false
+     },
+     {
+      "cmd": 48,
+      "well": "2:G1",
+      "foreign": [
+       "Abx3"
+      ],
+      "where": "aspirate",
+      "reservoir": false
+     },
+     {
+      "cmd": 50,
+      "well": "2:C1",
+      "foreign": [
+       "Abx1",
+       "Media"
+      ],
+      "where": "aspirate",
+      "reservoir": false
+     }
+    ]
+   },
+   "peak_well_ul": 200.0,
+   "plate_slots": [
+    "2"
+   ],
+   "partial_pickups": {
+    "n": 0,
+    "unbalanced": []
+   },
+   "not_next_to_plate": [],
+   "mixing": {
+    "combining_dispenses": 12,
+    "fewest_mix_cycles_after": 0,
+    "mixes_over_75pct": 189
+   },
+   "reservoir_draw_ml": {
+    "4:A2": 8.8,
+    "4:A1": 9.6,
+    "3:G1": 0.1,
+    "3:D1": 0.1,
+    "3:E1": 0.1,
+    "3:B1": 0.1,
+    "3:C1": 0.1,
+    "3:A1": 0.1,
+    "3:H1": 0.1,
+    "3:F1": 0.1
+   },
+   "reservoir_short": [],
+   "below_min_volume": [],
+   "tips": {
+    "tips_used": 120,
+    "racks_loaded": 2,
+    "racks_used": 2,
+    "fits_on_deck": true,
+    "reused_positions": [],
+    "stated": null
+   },
+   "operator_instructions": {
+    "score": 0.5,
+    "why": "Comments map every stock-plate well (each 'already contains 100 uL' of 2x stock, used as stated) and the two reservoir wells, but give no media/bacteria volumes. Racks are full."
+   },
+   "run_time": {
+    "seconds": 946.3,
+    "minutes": 15.8,
+    "counts": {
+     "pickups": 15,
+     "liquid_s": 304.3,
+     "asp_disp": 218,
+     "drops": 15,
+     "mix_cmds": 20,
+     "mix_cycles": 60,
+     "other": 21
+    },
+    "vs_standard": 1.18,
+    "raw_score": 0.5,
+    "counted": false
+   }
+  },
+  "notes": [
+   "cmd 50: aspirate 100 uL from 2:C1 holding 0 uL",
+   "cmd 50: aspirate 100 uL from 2:D1 holding 0 uL",
+   "cmd 50: aspirate 100 uL from 2:E1 holding 0 uL",
+   "cmd 50: aspirate 100 uL from 2:F1 holding 0 uL",
+   "cmd 50: aspirate 100 uL from 2:G1 holding 0 uL",
+   "cmd 50: aspirate 100 uL from 2:H1 holding 0 uL"
+  ]
+ },
+ {
+  "protocol": "candidates_step3/nemotron-3-super/sample1.fix3.py",
+  "api_note": null,
+  "gate": 0,
+  "reward": 0.0,
+  "errors": [
+   "OutOfTipsError [line 102]: "
+  ]
+ }
+]

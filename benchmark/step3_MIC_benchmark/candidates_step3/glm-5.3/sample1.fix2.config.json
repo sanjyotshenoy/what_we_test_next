@@ -1,0 +1,13 @@
+{
+ "liquids": {
+  "5:A1": ["Media", 6000],
+  "5:A6": ["Bacteria", 6000],
+  "6:A1": ["Abx1", 200], "6:B1": ["Abx1", 200],
+  "6:C1": ["Abx2", 200], "6:D1": ["Abx2", 200],
+  "6:E1": ["Abx3", 200], "6:F1": ["Abx3", 200],
+  "6:G1": ["Abx4", 200], "6:H1": ["Abx4", 200]
+ },
+ "manual": {
+  "operator_instructions": {"score": 1, "why": "Comments name every reservoir and stock-plate well with a volume to load (media and bacteria >= 6 mL, each stock well >= 200 uL of 2x stock); racks are full. Volumes used here are those stated minimums."}
+ }
+}

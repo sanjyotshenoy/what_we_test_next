@@ -1,0 +1,24 @@
+{
+ "round": 2,
+ "error_fed_back": "The robot run cannot start: the protocol requires a p300_single_gen2 on the left mount, but that pipette is not attached. Only the 8-channel pipette from the labware requirements is available.",
+ "seconds": 24.9,
+ "usage": {
+  "prompt_tokens": 7446,
+  "total_tokens": 11719,
+  "completion_tokens": 4273,
+  "prompt_tokens_details": {
+   "cached_tokens": 4800,
+   "created_cache_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1945
+  },
+  "prompt_cache_hit_tokens": 4800,
+  "prompt_cache_miss_tokens": 2646
+ },
+ "finish_reason": "stop",
+ "cost_usd": 0.006079,
+ "code_extracted": true,
+ "passes_after": false,
+ "error_after": "OutOfTipsError [line 103]: "
+}

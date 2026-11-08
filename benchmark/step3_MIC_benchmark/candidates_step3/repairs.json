@@ -1,0 +1,228 @@
+[
+ {
+  "model": "glm-5.3",
+  "rounds": 2,
+  "passes": true,
+  "final_protocol": "/Users/jimmyhsu/Desktop/Nucleate Biohack 2026/Opentrons/plr_bench/candidates_step3/glm-5.3/sample1.fix2.py",
+  "log": [
+   {
+    "round": 1,
+    "error_fed_back": "UnexpectedTipAttachError [line 38]: Error 3012 UNEXPECTED_TIP_ATTACH (UnexpectedTipAttachError): Cannot perform pick up tip with a tip already attached.",
+    "seconds": 42.0,
+    "usage": {
+     "prompt_tokens": 2279,
+     "total_tokens": 11801,
+     "completion_tokens": 9522,
+     "completion_tokens_details": {
+      "reasoning_tokens": 7840
+     },
+     "prompt_tokens_details": null,
+     "prompt_cache_hit_tokens": 0,
+     "prompt_cache_miss_tokens": 2279,
+     "reasoning_tokens": 7840
+    },
+    "finish_reason": "stop",
+    "cost_usd": 0.045087,
+    "code_extracted": true,
+    "passes_after": false,
+    "error_after": "The robot run cannot start: the protocol requires a p300_single_gen2 on the right mount, but that pipette is not attached. Only the 8-channel pipette from the labware requirements is available."
+   },
+   {
+    "round": 2,
+    "error_fed_back": "The robot run cannot start: the protocol requires a p300_single_gen2 on the right mount, but that pipette is not attached. Only the 8-channel pipette from the labware requirements is available.",
+    "seconds": 107.4,
+    "usage": {
+     "prompt_tokens": 4038,
+     "total_tokens": 26763,
+     "completion_tokens": 22725,
+     "completion_tokens_details": {
+      "reasoning_tokens": 20743
+     },
+     "prompt_tokens_details": {
+      "cached_tokens": 2240
+     },
+     "prompt_cache_hit_tokens": 2240,
+     "prompt_cache_miss_tokens": 1798,
+     "reasoning_tokens": 20743
+    },
+    "finish_reason": "stop",
+    "cost_usd": 0.105643,
+    "code_extracted": true,
+    "passes_after": true,
+    "error_after": null
+   }
+  ]
+ },
+ {
+  "model": "deepseek-v4.1-flash-1017",
+  "rounds": 1,
+  "passes": true,
+  "final_protocol": "/Users/jimmyhsu/Desktop/Nucleate Biohack 2026/Opentrons/plr_bench/candidates_step3/deepseek-v4.1-flash-1017/sample1.fix1.py",
+  "log": [
+   {
+    "round": 1,
+    "error_fed_back": "LocationTypeError [line 37]: location should be a Well, Location, TrashBin or WasteChute, but it is [A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, B2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, C2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, D2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, E2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, F2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, G2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, H2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2]",
+    "seconds": 67.4,
+    "usage": {
+     "prompt_tokens": 2298,
+     "total_tokens": 13018,
+     "completion_tokens": 10720,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "created_cache_tokens": 2176
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 9599
+     }
+    },
+    "finish_reason": "stop",
+    "cost_usd": 0.013553,
+    "code_extracted": true,
+    "passes_after": true,
+    "error_after": null
+   }
+  ]
+ },
+ {
+  "model": "nemotron-3-super",
+  "rounds": 3,
+  "passes": false,
+  "final_protocol": "/Users/jimmyhsu/Desktop/Nucleate Biohack 2026/Opentrons/plr_bench/candidates_step3/nemotron-3-super/sample1.fix3.py",
+  "log": [
+   {
+    "round": 1,
+    "error_fed_back": "RuntimeError [line 83]: Invalid target for multichannel transfer: [B1 of Corning 96 Well Plate 360 \u00b5L Flat on 3]",
+    "seconds": 19.8,
+    "usage": {
+     "prompt_tokens": 4826,
+     "total_tokens": 8012,
+     "completion_tokens": 3186,
+     "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "created_cache_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 653
+     },
+     "prompt_cache_hit_tokens": 0,
+     "prompt_cache_miss_tokens": 4826
+    },
+    "finish_reason": "stop",
+    "cost_usd": 0.004315,
+    "code_extracted": true,
+    "passes_after": false,
+    "error_after": "The robot run cannot start: the protocol requires a p300_single_gen2 on the left mount, but that pipette is not attached. Only the 8-channel pipette from the labware requirements is available."
+   },
+   {
+    "round": 2,
+    "error_fed_back": "The robot run cannot start: the protocol requires a p300_single_gen2 on the left mount, but that pipette is not attached. Only the 8-channel pipette from the labware requirements is available.",
+    "seconds": 24.9,
+    "usage": {
+     "prompt_tokens": 7446,
+     "total_tokens": 11719,
+     "completion_tokens": 4273,
+     "prompt_tokens_details": {
+      "cached_tokens": 4800,
+      "created_cache_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1945
+     },
+     "prompt_cache_hit_tokens": 4800,
+     "prompt_cache_miss_tokens": 2646
+    },
+    "finish_reason": "stop",
+    "cost_usd": 0.006079,
+    "code_extracted": true,
+    "passes_after": false,
+    "error_after": "OutOfTipsError [line 103]: "
+   },
+   {
+    "round": 3,
+    "error_fed_back": "OutOfTipsError [line 103]: ",
+    "seconds": 20.6,
+    "usage": {
+     "prompt_tokens": 9830,
+     "total_tokens": 13619,
+     "completion_tokens": 3789,
+     "prompt_tokens_details": {
+      "cached_tokens": 7424,
+      "created_cache_tokens": 0
+     },
+     "completion_tokens_details": {
+      "reasoning_tokens": 1437
+     },
+     "prompt_cache_hit_tokens": 7424,
+     "prompt_cache_miss_tokens": 2406
+    },
+    "finish_reason": "stop",
+    "cost_usd": 0.006359,
+    "code_extracted": true,
+    "passes_after": false,
+    "error_after": "OutOfTipsError [line 102]: "
+   }
+  ]
+ },
+ {
+  "model": "gpt-oss-120b",
+  "rounds": 3,
+  "passes": true,
+  "final_protocol": "/Users/jimmyhsu/Desktop/Nucleate Biohack 2026/Opentrons/plr_bench/candidates_step3/gpt-oss-120b/sample1.fix3.py",
+  "log": [
+   {
+    "round": 1,
+    "error_fed_back": "AttributeError [line 128]: 'ProtocolContext' object has no attribute 'trash_container'",
+    "seconds": 24.3,
+    "usage": {
+     "prompt_tokens": 5534,
+     "total_tokens": 13413,
+     "completion_tokens": 7879,
+     "prompt_tokens_details": {
+      "cached_tokens": 48
+     }
+    },
+    "finish_reason": "stop",
+    "cost_usd": 0.005557,
+    "code_extracted": true,
+    "passes_after": false,
+    "error_after": "ProtocolCommandFailedError [line 87]: Error 4000 GENERAL_ERROR (ProtocolCommandFailedError): TipNotAttachedError: Pipette should have a tip attached, but does not."
+   },
+   {
+    "round": 2,
+    "error_fed_back": "ProtocolCommandFailedError [line 87]: Error 4000 GENERAL_ERROR (ProtocolCommandFailedError): TipNotAttachedError: Pipette should have a tip attached, but does not.",
+    "seconds": 16.6,
+    "usage": {
+     "prompt_tokens": 8057,
+     "total_tokens": 14009,
+     "completion_tokens": 5952,
+     "prompt_tokens_details": {
+      "cached_tokens": 5520
+     }
+    },
+    "finish_reason": "stop",
+    "cost_usd": 0.00478,
+    "code_extracted": true,
+    "passes_after": false,
+    "error_after": "OutOfTipsError [line 174]: "
+   },
+   {
+    "round": 3,
+    "error_fed_back": "OutOfTipsError [line 174]: ",
+    "seconds": 18.1,
+    "usage": {
+     "prompt_tokens": 10384,
+     "total_tokens": 16609,
+     "completion_tokens": 6225,
+     "prompt_tokens_details": {
+      "cached_tokens": 8048
+     }
+    },
+    "finish_reason": "stop",
+    "cost_usd": 0.005293,
+    "code_extracted": true,
+    "passes_after": true,
+    "error_after": null
+   }
+  ]
+ }
+]

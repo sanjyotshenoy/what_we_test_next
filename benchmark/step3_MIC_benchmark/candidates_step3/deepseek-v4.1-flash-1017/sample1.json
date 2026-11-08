@@ -1,0 +1,26 @@
+{
+ "model": "deepseek-v4.1-flash-1017",
+ "model_id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+ "sample": 1,
+ "reasoning_effort": "high",
+ "finish_reason": "stop",
+ "seconds": 86.9,
+ "usage": {
+  "prompt_tokens": 119,
+  "total_tokens": 25632,
+  "completion_tokens": 25513,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "created_cache_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 23547
+  }
+ },
+ "price_per_token": {
+  "input": 3e-07,
+  "output": 1.2e-06
+ },
+ "cost_usd": 0.030651,
+ "code_extracted": true
+}

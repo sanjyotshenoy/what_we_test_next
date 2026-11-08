@@ -1,0 +1,34 @@
+{
+ "liquids": {
+  "5:A1": [
+   "Media",
+   22000
+  ],
+  "5:A2": [
+   "Abx1",
+   22000
+  ],
+  "5:A3": [
+   "Abx2",
+   22000
+  ],
+  "5:A4": [
+   "Abx3",
+   22000
+  ],
+  "5:A5": [
+   "Abx4",
+   22000
+  ],
+  "5:A6": [
+   "Bacteria",
+   22000
+  ]
+ },
+ "manual": {
+  "operator_instructions": {
+   "score": 0.5,
+   "why": "Reservoir wells are named in code comments but the file gives no volumes to load; racks are full, so no tip map is needed."
+  }
+ }
+}
