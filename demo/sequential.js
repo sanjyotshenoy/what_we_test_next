@@ -17,7 +17,7 @@
   function controls() {
     $('pause').textContent = paused ? 'Resume' : 'Pause';
     $('pause').disabled = $('next').disabled = $('all').disabled = cursor >= stages.length;
-    $('message').textContent = cursor >= stages.length ? 'Playback complete · saved software results, not biological validation.' : `${paused ? 'Paused' : 'Playing recording'} · ${cursor} / ${stages.length} milestones`;
+    $('message').textContent = cursor >= stages.length ? 'Experiment plan and simulation results ready.' : `${paused ? 'Paused · ' : ''}${stages[Math.max(0, cursor - 1)]?.title || 'Preparing example'}`;
   }
   function collapseLongText(container) {
     for (const el of container.querySelectorAll('p, pre')) {
@@ -46,7 +46,7 @@
     if (cursor >= stages.length) return;
     const stage = stages[cursor++];
     const li = document.createElement('li'); li.className = 'stage';
-    li.innerHTML = `<h3>${esc(stage.title)} <span class="pill unknown">Saved</span></h3>${stage.html}`;
+    li.innerHTML = `<h3>${esc(stage.title)} <span class="pill unknown">Example output</span></h3>${stage.html}`;
     collapseLongText(li);
     $('timeline').append(li); controls(); schedule();
     li.style.scrollMarginTop = `${$('toolbar').getBoundingClientRect().height + 16}px`;
@@ -63,7 +63,7 @@
     return '';
   }
   function build(data) {
-    const out = [{title:'Start with the recorded experiment request', html:card(paragraph('This is a software rehearsal. Assay settings were supplied as synthetic test inputs; simulation does not establish biological applicability.') + paragraph('The following milestones reconstruct the flow from saved artifacts. Delays are presentation pacing, not original tool durations.'))}];
+    const out = [{title:'Plan the experiment', html:card(paragraph('Follow the stack as it gathers evidence, proposes an experiment, generates OT-2 protocols and checks them in the simulator.') + detail('About this example', 'Precomputed model and tool outputs, presented step by step. Assay settings are synthetic test inputs. Simulation is a software check, not a physical experiment or biological validation; pacing does not reproduce original tool durations.'))}];
     for (const e of data.evidence || []) {
       const r = e.result || {};
       const titles = {planning_context:'Load protocol context', biology_lookup:'Look up biological evidence', literature_search:'Search the literature', literature_read:'Read a retrieved passage'};
@@ -84,13 +84,13 @@
         out.push({title:`Simulator result · ${run.run_id}`,html:card(`<p class="${pass ? 'ok' : 'bad'}">${pass ? 'Saved simulation passed (protocol hash verified by the viewer).' : 'No verified simulation pass available.'}</p>` + detail('Saved simulator report',snapshot?.simulation || run.simulation) + paragraph('No physical execution or biological outcome is implied.'))});
       }
     }
-    out.push({title:'Review the saved outcome',html:card(paragraph('The recorded planning and simulation artifacts are ready to inspect. Strain selection, evidence applicability and physical execution remain separate review steps.') + '<a href="/">Open the full results viewer</a>')});
+    out.push({title:'Review the experiment plan',html:card(paragraph('The experiment plan, generated protocols and simulation results are ready to inspect. Strain selection, evidence applicability and physical execution remain separate review steps.') + '<a href="/">Open the full results viewer</a>')});
     return out;
   }
   function start(index) {
     stopTimer(); selected=index; cursor=0; paused=false;
     const data=recordings[index]; stages=build(data); $('timeline').replaceChildren(); $('toolbar').hidden=false;
-    $('provenance').textContent=`Source session: ${data.session} · evidence in saved retrieval order; proposals and simulation artifacts follow. Playback is reconstructed, not an exact agent transcript.`;
+    $('provenance').textContent=`Precomputed example · model and tool outputs · ${data.session}`;
     for (const b of $('queries').querySelectorAll('button')) b.setAttribute('aria-pressed',String(Number(b.dataset.index)===index));
     advance();
   }
@@ -110,9 +110,9 @@
         const runs=r.batches.flatMap(b=>b.manifest.runs || []);
         const compounds=[...new Set(runs.map(x=>x.compound))].join(' + ');
         const species=[...new Set(runs.map(x=>x.species?.name).filter(Boolean))].join(' + ');
-        return `<button data-index="${i}" aria-pressed="false"><strong>Plan MIC experiments: ${esc(compounds)}</strong>${esc(species)}<small>Recorded software rehearsal · ${runs.length} generated protocols · synthetic assay settings</small></button>`;
+        return `<button data-index="${i}" aria-pressed="false"><strong>Plan MIC experiments: ${esc(compounds)}</strong>${esc(species)}<small>Example query · ${runs.length} generated protocols</small></button>`;
       }).join('');
-      $('message').textContent=recordings.length?'Choose a recording to begin gradual playback.':'No published recordings are available.';
+      $('message').textContent=recordings.length?'Choose an example query to see the workflow.':'No published examples are available.';
     } catch(e) { $('message').textContent=e.message+' Reload to retry. No live fallback was started.'; }
   })();
 })();

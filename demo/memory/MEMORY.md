@@ -101,3 +101,8 @@ allowlist. This change does not alter either access rule.
 Sequential UI refinement: no header playback badge; new milestones scroll into
 view, and long prose/detail blocks collapse at 100 words with expandable text.
 Saved-result provenance remains in the introductory copy and session description.
+
+Presentation language now describes example queries and the active workflow step,
+not recordings or milestone counts. A compact precomputed-example provenance line
+and expandable About note retain the distinction from fresh inference/physical
+execution. No model selector is shown without corresponding model trajectories.
