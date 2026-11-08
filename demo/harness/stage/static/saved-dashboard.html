@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>What we test next · operator</title>
-<link rel="stylesheet" href="/static/app.css"><link rel="stylesheet" href="/static/saved-dashboard.css">
+<link rel="stylesheet" href="/static/app.css"><link rel="stylesheet" href="/static/saved-dashboard.css"><link rel="stylesheet" href="/static/dashboard-workflow.css">
 <script src="/static/vendor/cytoscape.min.js"></script>
 <script src="/static/vendor/smiles-drawer-2.0.0.min.js"></script>
 </head>
@@ -19,5 +19,5 @@
 <section id="plate" class="panel"><h2>96-well plate <span class="tag">planned</span></h2><select id="run-select" aria-label="Compound and species protocol"></select><div id="plate-svg"></div><div id="well-detail" class="caption" role="status"></div></section>
 <section id="video" class="panel"><h2><button id="show-simulation" class="small" aria-pressed="true">Generated protocol</button><button id="show-recording" class="small" aria-pressed="false">Robot recording</button></h2><div id="simulation-stage"></div><p id="simulation-action" class="caption" role="status"></p><video id="vid" controls preload="metadata" playsinline muted hidden></video><p id="video-note" class="caption">Loading recording…</p></section>
 <section id="robot" class="panel"><h2>Simulator <span id="robot-state" class="tag">no run selected</span></h2><div id="simulation-controls"><button id="sim-play" disabled>Play</button><button id="sim-next" disabled>Step</button><button id="sim-reset" disabled>Reset</button><label>Command <input id="sim-seek" type="range" min="0" max="0" value="0" disabled></label><span id="sim-position"></span></div><div id="downloads" class="caption"></div><div id="robot-summary" class="caption"></div><ol id="feed"></ol></section>
-</main><aside id="graph-tooltip" role="tooltip" hidden></aside><script src="/static/dashboard-visuals.js"></script><script src="/static/dashboard-layout.js"></script><script src="/static/saved-dashboard.js"></script>
+</main><dialog id="workflow-dialog" aria-labelledby="workflow-detail-title" aria-describedby="workflow-detail-summary"><div class="workflow-detail-header"><div class="workflow-detail-top"><h2 id="workflow-detail-title"></h2><button id="workflow-close" autofocus>Close</button></div><p id="workflow-detail-summary"></p><p id="workflow-detail-meta"></p></div><div id="workflow-detail-body"></div></dialog><aside id="graph-tooltip" role="tooltip" hidden></aside><script src="/static/dashboard-visuals.js"></script><script src="/static/dashboard-layout.js"></script><script src="/static/dashboard-workflow.js"></script><script src="/static/saved-dashboard.js"></script>
 </body></html>

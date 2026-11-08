@@ -82,6 +82,25 @@ Verification: 17 regression tests passed, including the persisted browser test
 Deployed static UI also passed resize/focus/molecule checks. No service restart,
 write/inference request or external molecule request was needed.
 
+## Agent workflow map — 2026-11-08
+
+The agent pane now renders seven clickable blocks: protocol context; biological
+and literature evidence branches; experiment design; design checks; generated
+protocols; simulation. This is a conceptual map of saved artifacts, not a claimed
+parallel execution trace. Counts derive from the selected session. Review-needed
+rules remain amber; simulation passes require the viewer's verified report as well
+as the manifest status. A missing report never earns a verified badge.
+
+Click/Enter opens a formatted detail dialog with inputs/results, proposals,
+provenance, rule review requirements or artifact downloads. Close/Escape returns
+focus to the block; Escape closes a dialog without also exiting pane focus mode.
+Session changes clear the old map/details. New files: dashboard-workflow.js/css.
+
+Verification: the workflow browser test exercised all seven blocks across all eight
+trajectories, downloads, keyboard focus, mobile dialog bounds and a missing-report
+case. It and the existing pane browser regression passed. Deployed map and proposal
+dialog were visually inspected. No writes, inference or service restart required.
+
 ## Views and access
 
 | View | URL | Behavior |

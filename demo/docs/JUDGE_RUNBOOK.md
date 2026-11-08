@@ -54,3 +54,9 @@ browser; **Reset layout** restores the default proportions. Divider arrow keys w
 for keyboard resizing. Click a compound node to show its structure and exact graph
 SMILES in the molecule pane; **Run compounds** returns to the saved-run molecules.
 The drawing is generated locally and does not change the selected experiment.
+
+The Agent workflow pane is a clickable map. Select any block for saved inputs,
+evidence, proposals, rule checks or protocol/simulator downloads. Amber indicates
+review requirements; green simulation status requires hash-verified saved reports.
+Escape closes the details and returns to the selected block. The branches group
+evidence sources and do not imply that the agent executed those calls in parallel.

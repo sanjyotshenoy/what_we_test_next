@@ -7,8 +7,9 @@ const details = (title, value) => `<details><summary>${esc(title)}</summary>${pr
 let catalog, data, runs=[], generation=0, graph;
 initializeVisuals();
 initializeDashboardLayout();
+initializeWorkflow();
 function clearResult() {
-  stopSimulation(); hideGraphTooltip();
+  stopSimulation(); hideGraphTooltip(); clearWorkflow();
   data=null; runs=[];
   for(const id of ['log','question','molecules','plate-svg','well-detail','downloads','robot-summary','feed','run-select']) $(id).replaceChildren();
   if(graph) {graph.destroy(); graph=null;}
@@ -56,10 +57,8 @@ async function selectSession() {
     if(!result.batches?.length) throw new Error('Saved artifacts are missing for this example.');
     data=result;$('question').textContent=question(data);
     $('status').textContent=`Precomputed · ${data.session}`;
-    $('log').innerHTML=(data.evidence||[]).map(e=>details(e.tool,{inputs:e.args,result:e.result})).join('');
+    renderWorkflow(data);
     for(const batch of data.batches) {
-      for(const c of batch.batch?.compounds||[]) $('log').insertAdjacentHTML('beforeend',details(`Proposal · ${c.compound}`,c));
-      $('log').insertAdjacentHTML('beforeend',details('Compiler checks and review requirements',{rules:batch.rules,review:batch.manifest.review}));
       for(const run of batch.manifest.runs||[]) runs.push({batch,run,snapshot:batch.runs.find(r=>r.run_id===run.run_id)});
     }
     $('run-select').innerHTML=runs.map(({run},i)=>`<option value="${i}">${esc(run.compound)} / ${esc(run.species?.name)} · ${esc(run.run_id)}</option>`).join('');
