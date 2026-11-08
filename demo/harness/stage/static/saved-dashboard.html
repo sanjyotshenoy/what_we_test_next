@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What we test next · operator</title>
+<title>Project Ouroboros - Dashboard</title>
 <link rel="stylesheet" href="/static/app.css"><link rel="stylesheet" href="/static/saved-dashboard.css"><link rel="stylesheet" href="/static/dashboard-workflow.css">
 <script src="/static/vendor/cytoscape.min.js"></script>
 <script src="/static/vendor/smiles-drawer-2.0.0.min.js"></script>
 </head>
 <body>
 <header><div class="brand"><span class="logo">⟲</span> Ouroboros</div>
-<div class="controls"><span class="tag" id="source-tag">Precomputed</span><select id="model" aria-label="Model" disabled></select><select id="trace-switch" aria-label="Switch to precomputed trace" hidden disabled><option value="">Switch to precomputed…</option></select><button id="live-stop" class="small" hidden>Interrupt run</button><button id="theme-toggle" class="small" type="button" aria-pressed="false">Light mode</button><details id="header-more"><summary>More</summary><div id="header-menu"><button id="reset-layout" class="small">Reset layout</button><a href="/planner">Live planning</a></div></details></div></header>
+<div class="controls"><span class="tag" id="source-tag">Precomputed</span><select id="model" aria-label="Model" disabled></select><select id="trace-switch" aria-label="Switch to precomputed trace" hidden disabled><option value="">Switch to precomputed…</option></select><button id="live-stop" class="small" hidden>Interrupt run</button><button id="theme-toggle" class="small" type="button" aria-pressed="false">Light mode</button><details id="header-more"><summary>More</summary><div id="header-menu"><button id="fullscreen-toggle" class="small" type="button" aria-keyshortcuts="F" aria-pressed="false" title="Toggle fullscreen (F)">Fullscreen (F)</button><span id="fullscreen-notice" role="status" hidden></span><button id="reset-layout" class="small">Reset layout</button><a href="/planner">Live planning</a></div></details></div></header>
 <main>
 <section id="agent" class="panel"><h2>Agent workflow <span id="run-tag" class="tag">saved</span></h2>
 <div id="selection"><label for="query">Scientific question</label><select id="query" disabled></select><p id="question"></p><details id="live-inputs" hidden><summary>Supplied inputs</summary><pre id="live-input-text" class="live-text"></pre></details>

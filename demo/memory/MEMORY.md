@@ -313,3 +313,16 @@ Deployed-origin browser checks covered widths 320–1920px, one-row header heigh
 menu bounds, selector/theme access and interrupt visibility without writes or
 inference. Three existing layout/live/public browser regressions passed. Static
 changes require no service restart; the sequential walkthrough is untouched.
+
+## Dashboard title and fullscreen shortcut — 2026-11-08
+
+Browser tab title is now exactly **Project Ouroboros - Dashboard** for saved/live
+operator views. Press F (or Shift+F) to toggle browser fullscreen; More also has a
+Fullscreen (F) button. The shortcut ignores typing in inputs, textareas, selects,
+editable elements, composition/repeated keys and Ctrl/Meta/Alt combinations.
+Fullscreen state updates the button label; unavailable browser support shows a
+short message. Pane-focus Escape does not intercept an active fullscreen view.
+
+Deployed Chromium checks verified the title, actual Fullscreen API entry/exit,
+keyboard and menu operation, and typing/select guards with no JS errors or
+inference. Static update only; sequential assets and running jobs are unchanged.

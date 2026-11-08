@@ -75,7 +75,7 @@ function initializeDashboardLayout() {
   }
   function reset() {sizes=structuredClone(defaults);save();apply();}
   $('reset-layout').onclick=reset;
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&focused&&!document.querySelector('dialog[open]')){e.preventDefault();focusPanel(focused);}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&focused&&!document.fullscreenElement&&!document.querySelector('dialog[open]')){e.preventDefault();focusPanel(focused);}});
   new ResizeObserver(updateGeometry).observe(main);
   new ResizeObserver(updateGeometry).observe(document.querySelector('header'));
   new ResizeObserver(updateGeometry).observe($('cy'));
@@ -85,6 +85,29 @@ function initializeDashboardLayout() {
 
 function initializeDashboardHeader() {
   const more=document.getElementById('header-more'),menu=document.getElementById('header-menu');
+  const fullscreen=document.getElementById('fullscreen-toggle'),notice=document.getElementById('fullscreen-notice');
+  async function toggleFullscreen() {
+    notice.hidden=true;more.open=false;
+    try {
+      if(document.fullscreenElement) await document.exitFullscreen();
+      else await document.documentElement.requestFullscreen();
+    } catch(_) {
+      notice.textContent='Fullscreen is unavailable in this browser or window.';
+      notice.hidden=false;more.open=true;
+    }
+  }
+  fullscreen.onclick=toggleFullscreen;
+  document.addEventListener('fullscreenchange',()=>{
+    const active=Boolean(document.fullscreenElement);
+    fullscreen.textContent=active?'Exit fullscreen (F)':'Fullscreen (F)';
+    fullscreen.setAttribute('aria-pressed',String(active));
+  });
+  document.addEventListener('keydown',event=>{
+    const target=event.target;
+    if(event.key.toLowerCase()!=='f'||event.repeat||event.isComposing||event.defaultPrevented||event.ctrlKey||event.metaKey||event.altKey||
+       target?.closest?.('input,textarea,select,[role="textbox"]')||target?.isContentEditable) return;
+    event.preventDefault();toggleFullscreen();
+  });
   const compact=matchMedia('(max-width:1100px)');
   const controls=['model','trace-switch','theme-toggle'].map(id=>{
     const element=document.getElementById(id),anchor=document.createComment(`header ${id}`);
