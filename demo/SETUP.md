@@ -6,11 +6,13 @@ OpenCode profile, model weights or local Qwen server is required.
 
 ## Existing Brev deployment
 
+This document primarily covers installation on a new host. For current public URLs,
+authentication, forwarding and reboot limits, use memory/REMOTE_HANDOFF.md.
 For the already configured `biohackdemo` VM, read the
 [current remote handoff](memory/REMOTE_HANDOFF.md) first. It uses systemd services,
 not the tmux launcher below. Do not start both. Authentication is configured on that
 VM; three consecutive fresh autonomous rehearsals now pass with the final GLM
-settings. Earlier failures are preserved in the verification log. The installation and
+settings. Eight further four-model example sessions now also pass; see docs/PRECOMPUTED_EXAMPLES.md. Earlier failures are preserved in the verification log. The installation and
 historical verification instructions below also apply to new clean deployments.
 
 ## Install
@@ -106,7 +108,9 @@ Outputs live in ignored `demo/harness/planning_runs/<session>/`: proposal JSONL,
 field evidence, source maps, plate maps, run sheets, protocols, rule checks and
 simulator reports. Each protocol/report hash must match to display a pass.
 
-The first two commands reproduce the 34-test verification suite. The smoke and
+The first two commands run the runtime suite (historically 34 tests; a later
+sequential boundary test was added). The full suite was not rerun after every UI
+edit; six current public-boundary tests and targeted browser checks were rerun. The smoke and
 replay commands are optional; the replay example uses port 7102 to avoid the
 existing operator on 7100.
 
@@ -123,7 +127,9 @@ report hashes and completed agent answer. Keep synthetic labels. Do not manually
 edit artifacts and then call the run autonomous. A new biological question still
 needs a reviewed panel, evidence applicability and required controls.
 
-The original `demo/index.html?theme=dark` and slide symlink remain unchanged.
+The active sequential UI is served at `/sequential` by the public viewer, using
+the catalog in `sequential-models.json` and reviewed VM artifacts. It is light-only
+and uses no live inference. The original `demo/index.html?theme=dark` and slide symlink remain unchanged.
 They use the existing trace/agent.server interface. Port 7100 serves the planner;
 `/legacy` retains the seed demo UI and needs `STAGE_AGENT=stage` to use its tools.
 Do not use the legacy page with the planner and expect its panels to populate.

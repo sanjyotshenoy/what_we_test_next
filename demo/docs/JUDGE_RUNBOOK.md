@@ -1,87 +1,38 @@
-# Private judge demo
+# Presenting the demo
 
-Public access stays closed. These addresses are loopback on Brev; use the team's
-private connection/port forwarding to view them from a laptop.
+Start at https://demo-o10eetwuq.gobrev.dev/sequential . Choose GLM, Kimi, Qwen or
+DeepSeek, then one of the two scientific questions. All eight combinations have
+verified precomputed trajectories. The workflow progresses automatically with
+processing shimmer, follows new content by scrolling, and stays in light mode.
+Long prose has Show more/less; click plate wells for concentration/volume details.
+Selecting another question/model cancels the previous progression.
 
-- Prepared judge view: `http://127.0.0.1:7200` (`wwtn-viewer.service`).
-- Private operator: `http://127.0.0.1:7100` (`wwtn-stage.service`).
-- Internal OpenCode: `127.0.0.1:4096`; never publish this API.
+Question 1 designs ciprofloxacin MIC experiments across E. coli and P. aeruginosa.
+Question 2 compares ciprofloxacin and tetracycline hydrochloride in E. coli. Both
+use real graph identities and retrieved literature; assay settings are supplied
+synthetic inputs. These are experiment plans, not new measured MICs or proof of a
+biological winner. Known graph measurements are background, not missing-link claims.
+The separate haspin example and synthetic compound card were removed.
 
-## Presenting
+The root https://demo-o10eetwuq.gobrev.dev/ is the full read-only artifact viewer.
+Its default remains the earlier real-identity judge session. Use it for source
+inspection, protocols, simulator downloads and the separate 30-second robot video.
+The video is fixed, not live, and does not prove physical execution of the displayed
+protocol. The sequential view does not play that video.
 
-Start in the prepared judge view. It opens a completed real-graph software
-rehearsal: ciprofloxacin against E. coli and P. aeruginosa. Show the actual ChEMBL
-MIC observations and Paperclip passage in the evidence notebook, switch between
-the two generated runs, inspect wells, and download a protocol or simulator report.
-The proposal rationale visibly labels the assay settings as synthetic test inputs.
-The graph entities and retrieved evidence are real; biological applicability has
-not been established for unspecified strains.
+For a fresh run, trusted members use https://operator-o10eetwuq.gobrev.dev/ and
+sign in with their allowlisted Brev account. It is one shared operator session:
+coordinate before changing models, starting or stopping a run. The default is GLM-5.3.
+New runs are private until reviewed/published; judges keep seeing approved results.
+The older operator rehearsal presets remain software fixtures; they are distinct
+from the new prompts in demo/examples/. No physical robot is controlled by this app.
 
-Play the **Robot recording** panel: it is a fixed 30-second, silent, 25.1× version
-of the supplied 12-minute-33-second recording. It loops until paused and supports
-seeking/full screen. Playback has no relationship to agent or simulator state.
-It is not a live feed or proof that the displayed generated protocol ran physically.
-The local copy removes a Drive/network dependency during the presentation.
+If inference fails, keep using precomputed examples; never label a failed run as
+successful. Supported compilation remains MIC broth microdilution with separate
+compound/species protocols, growth and sterility controls. Four-antibiotic
+single-plate references and step-3 rubric integration are not implemented here.
 
-To demonstrate a fresh run, open the private operator, select **New session**, then
-**Load real-graph rehearsal**, then **Run planning agent**. The alternative
-**Load software rehearsal** uses two synthetic compounds and two synthetic species.
-Both presets supply assay parameters explicitly so the planner can complete a
-software test without inventing laboratory settings. Watch the context, evidence,
-submission and simulation tools in Agent activity. New designs run only in the
-simulator. A rejected submission, truncated response or stopped agent is not a pass.
-
-Judges continue seeing the prepared results while the operator runs new requests.
-The viewer does not automatically expose every new session. Keep it on the prepared
-results if a live provider or retrieval call fails. Do not describe saved results as
-newly generated. The robot video remains available independently.
-
-## Supported scope
-
-The current compiler supports MIC broth microdilution, two-fold dilution, a 96-well
-plate, and growth/sterility controls. Multiple compound/species combinations become
-separate sequential runs. The simulator checks compatible generated OT-2 Python;
-it does not support arbitrary experimental methods or establish biological validity.
-Emmy's supplied four-antibiotic single-plate reference and Jimmy's rubric remain
-separate references. This demo does not claim to implement that layout or grade it.
-
-## Private operation and recovery
-
-Read-only readiness checks, from the repository root:
-
-```bash
-systemctl is-active wwtn-opencode wwtn-stage wwtn-viewer
-curl -fsS http://127.0.0.1:7100/api/health
-curl -fsS http://127.0.0.1:7200/api/health
-curl -fsS http://127.0.0.1:7200/api/recording
-ss -ltn '( sport = :4096 or sport = :7100 or sport = :7200 or sport = :80 or sport = :443 )'
-```
-
-The three demo listeners must be on `127.0.0.1` only. No Caddy/TLS listener is
-installed by this work. The services are enabled and restart on failure. Do not
-start the historical tmux launcher alongside them. Do not restart OpenCode or the
-operator during a run: use Stop first and verify `agent_status` is `idle`.
-The viewer is independent of both and continues serving saved artifacts.
-
-The viewer's explicit session allowlist is ignored
-`demo/private/published_sessions.json`. Review artifacts before changing it, then
-restart only `wwtn-viewer`. The operator's prepared starting session is set through
-`DEMO_DEFAULT_SESSION` in its systemd `presentation.conf` drop-in. It selects saved
-artifacts for viewing; a new prompt starts its own new session.
-
-Media is intentionally not committed: original `demo/.downloads/IMG_2874.mov`,
-clip/poster/manifest under ignored `demo/harness/stage/static/media/`. To regenerate
-on this VM with ffmpeg/ffprobe installed:
-
-```bash
-demo/.venv/bin/python -m demo.harness.prepare_video demo/.downloads/IMG_2874.mov
-```
-
-The runtime doesn't need ffmpeg; it serves the prepared MP4 with byte-range
-support. Copy the ignored media and approved result artifacts separately when
-moving hosts; a Git clone alone does not contain them. Never copy private keys
-into the repository or the viewer.
-
-<!-- TODO(final): Domain review, strain selection, additional control support,
-benchmark grading integration and any future external HTTPS/auth publication
-remain separate work. Public access must stay closed until explicitly authorized. -->
+For recovery, ports, access, Codex Remote and ignored state, read
+[REMOTE_HANDOFF.md](../memory/REMOTE_HANDOFF.md). For evidence and failed-attempt
+history, read [PRECOMPUTED_EXAMPLES.md](PRECOMPUTED_EXAMPLES.md). No paid inference
+is needed just to present or test the sequential view.

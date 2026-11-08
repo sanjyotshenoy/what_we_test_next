@@ -1,19 +1,22 @@
 # Demo workstream
 
-The current judge demo is the Ouroboros planner and prepared-results viewer on
-Brev. Start with the [judge runbook](docs/JUDGE_RUNBOOK.md),
-[current memory](memory/MEMORY.md), and [setup](SETUP.md).
+Start with [current memory](memory/MEMORY.md), [remote handoff](memory/REMOTE_HANDOFF.md),
+[presentation runbook](docs/JUDGE_RUNBOOK.md), and [setup](SETUP.md).
 
-- Private operator: loopback port 7100; prepared judge view: loopback port 7200.
-- Default: GLM-5.3 with low reasoning effort, 16,384 output tokens and bounded tool
-  attempts. Three consecutive autonomous rehearsals passed, producing eight
-  simulator passes. The verification checkpoint has 34 passing tests.
-- Biology lookup reads the real ChEMBL bacterial graph. Rehearsal assay settings
-  are explicitly synthetic; literature retrieval and simulator runs are real.
-- The supplied robot video is a fixed 30-second recording, independent of the
-  generated protocols. It is labelled recorded, not a live feed.
-- Public access remains closed. Do not start another launcher alongside the
-  systemd services, publish the operator, or deploy slides as part of this setup.
+- **Sequential:** https://demo-o10eetwuq.gobrev.dev/sequential — public, light-mode
+  walkthrough of two scientific questions across four LLMs. Automatic progression,
+  processing shimmer, auto-scroll, compact expandable text and interactive plates.
+- **Judge/results:** https://demo-o10eetwuq.gobrev.dev/ — public, approved artifacts
+  and separate physical robot recording.
+- **Operator:** https://operator-o10eetwuq.gobrev.dev/ — Brev login, current org-member
+  allowlist, one shared live session. Independent from the read-only viewer.
+- Brev branch: `demo/judge-rehearsal`, directory `/home/ubuntu/what_we_test_next`.
+  Codex Remote host: `brev-o10eetwuq`; daemon/login verified on 2026-11-08.
+- Eight accepted model/query trajectories, sixteen verified simulator passes.
+  [Exact results and retry history](docs/PRECOMPUTED_EXAMPLES.md). Real identities
+  and evidence; synthetic assay inputs; no newly measured biological outcomes.
+- [Deployment](deploy/README.md) records Brev forwarding and the operator socket's
+  reboot limitation. Do not start duplicate launchers or expose internal OpenCode.
 
 ## Legacy slide-linked demo
 
@@ -117,15 +120,15 @@ running for one question. The planner's `/legacy` page uses the legacy `stage` a
 only when launched with `STAGE_AGENT=stage`; the default is `planner`.
 
 For public-access preparation and the private-operator/read-only-viewer boundary,
-see [deployment notes](deploy/README.md). The current operator interface is shared
-and must not be published as a multi-user application.
+see [deployment notes](deploy/README.md). The current operator interface is shared and authenticated; it is not an isolated
+multi-user application.
 
-## Sequential recorded walkthrough
+## Sequential precomputed walkthrough
 
 The results viewer now also serves `/sequential`: select one of its approved
-recordings, then follow saved retrievals, proposals, compiler checks and simulation
-reports with automatic pacing, pause/resume, Next step, Show all and Replay.
-It uses only the existing published-session allowlist and read-only artifact APIs.
+trajectories, then follow saved retrievals, proposals, compiler checks and simulation
+reports with automatic progression, processing animation and scrolling.
+It uses only the published-session allowlist and read-only artifact APIs.
 No new model call, private transcript, or physical execution is triggered. Timing
 is illustrative and milestones are reconstructed from saved artifacts, not an
 exact agent transcript. Synthetic assay inputs and scientific limitations remain
@@ -134,8 +137,9 @@ visible. The original `index.html` and slide entry point are preserved.
 The sequential LLM dropdown uses `sequential-models.json`: four team evaluation
 model IDs, plus a verified session-to-model mapping. It filters already published
 sessions; missing models show a not-ready state, never another model's output.
-To add a precomputed trajectory, run the chosen model privately through the operator,
+To add a precomputed trajectory, use the independent precompute runner or a coordinated
+private operator session,
 verify the result and model identity, publish the reviewed session through the existing
 viewer allowlist, and add its exact session/model pair to this manifest. Restart
 only the viewer when its session allowlist changes. The dropdown itself never runs
-inference or changes the operator's model. Current mapped examples are GLM-5.3.
+inference or changes the operator's model. All four models now have both queries; see docs/PRECOMPUTED_EXAMPLES.md.

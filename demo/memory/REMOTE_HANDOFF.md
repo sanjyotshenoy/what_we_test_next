@@ -1,168 +1,95 @@
-# Brev / Codex Remote handoff — 2026-11-08
+# Brev / Codex Remote handoff
 
-**Current checkpoint:** read [MEMORY.md](MEMORY.md) and the
-[judge runbook](../docs/JUDGE_RUNBOOK.md) first. Judge preparation now lives on
-`demo/judge-rehearsal` (runtime `0f946db`), with GLM-5.3 low reasoning as the default,
-three consecutive successful autonomous rehearsals, 34 passing tests, a fixed
-30-second robot recording, and the prepared viewer running on loopback port 7200.
-Public access remains closed; nothing was pushed.
+Current as of 2026-11-08. Read [MEMORY.md](MEMORY.md) first; earlier deployment and
+credential-setup history is in [REMOTE_HANDOFF_HISTORY.md](REMOTE_HANDOFF_HISTORY.md).
+This file is operational guidance, not permission to change access policies.
 
-## Historical checkpoint before judge preparation
+## Resume work
 
-Start here for the demo workstream. This is a verified checkpoint, not a claim of
-production readiness. Recheck Git status and service health before changing anything:
-another teammate or remote Codex session may now be working here.
+Host `brev-o10eetwuq`, Brev instance `biohackdemo`, directory
+`/home/ubuntu/what_we_test_next`, branch `demo/judge-rehearsal`. Select that workspace
+in Codex Remote. Always check `git status --short --branch` before editing. Preserve
+uncommitted work; never reset or switch the shared VM checkout to an older clone.
+Current sequential/runtime checkpoint is `55d8759`, plus later documentation commits.
+No push/main merge was performed for this work; a read-only Git deploy key is used.
 
-## Workspace and source of truth
+Codex executable: `/home/ubuntu/.local/bin/codex` (not always on noninteractive PATH).
+At verification, `app-server daemon version` reported running, CLI/server 0.167.0,
+backend pid. Process includes --remote-control; `login status` reported ChatGPT login.
+This verifies host readiness, not the user's mobile connection. No fresh pairing
+code was generated and no remote-control/permission settings were changed.
 
-- Brev instance: `biohackdemo`; Codex Remote host: `brev-o10eetwuq`.
-- Brev working directory: `/home/ubuntu/what_we_test_next`.
-- Active branch: `demo/public-readiness`; last runtime change: `2717540`.
-  This handoff is added by a later documentation-only commit on that branch.
-- Permanent companion clone: `/home/ruh/what_we_test_next_demo` on the original host.
-  This is a separate clone, not a shared filesystem with Brev. Coordinate writers;
-  push/pull agreed commits, and never overwrite a dirty checkout.
-- Original workspace `/home/ruh/what_we_test_next` and other worktrees were left
-  untouched. They may contain unfinished work; do not reset/stash/merge it implicitly.
-- `codex/consolidate-demo` was merged into GitHub `main` at `f329771`.
-- `6f390af` adds the supplied four-antibiotic reference files under `Opentrons/`.
-  The reference and public-readiness commits are on this branch, not yet merged into
-  `main` as of this checkpoint. No further main merge was performed.
-
-Read root `AGENTS.md`, `CONTRIBUTING.md`, and `demo/AGENTS.md`. Default implementation
-scope is `demo/`; shared `wwtn/`, `execution/`, `kg/`, benchmark and slides remain
-team-owned. Get specific authorization before changing their behavior. Keep mock,
-synthetic and unverified material explicitly labelled. Do not infer a physical run
-or biological validity from simulator success.
-
-## What's running
-
-The private services are systemd-managed, enabled for reboot startup and configured
-with restart-on-failure. They run as `ubuntu`, with owner-only creation permissions,
-not as root. Reboot/crash recovery was configured, not tested by rebooting the VM.
-
-| Component | Endpoint/state |
-| --- | --- |
-| Private operator UI | `127.0.0.1:7100`, `wwtn-stage.service` |
-| Internal OpenCode | `127.0.0.1:4096`, `wwtn-opencode.service` |
-| Read-only published-results viewer | Code/tests prepared; not running; intended loopback port 7200 |
-| Caddy HTTPS/auth proxy | Configuration prepared; not installed/started/externally verified |
-| Codex CLI | 0.167.0, `/home/ubuntu/.local/bin/codex`; ChatGPT login confirmed |
-| Codex Remote Control | Daemon started successfully; pairing supplied to user; verify client connection in app |
-
-Do not start the old tmux launcher alongside systemd: the ports would collide.
-The user explicitly requested keeping public access closed until prepared. No
-public ports were opened by this work. The public hostname, access policy and
-whether judges can submit independent experiments remain unanswered.
-
-Read-only checks from the repository root:
+Read-only checks:
 
 ```bash
+/home/ubuntu/.local/bin/codex app-server daemon version
+/home/ubuntu/.local/bin/codex login status
 git status --short --branch
-git log -1 --oneline
-systemctl is-active wwtn-opencode wwtn-stage
-systemctl is-enabled wwtn-opencode wwtn-stage
+systemctl is-active wwtn-opencode wwtn-stage wwtn-viewer
+systemctl is-active wwtn-viewer-forward.socket wwtn-operator-forward.socket
 curl -fsS http://127.0.0.1:7100/api/health
-ss -ltn '( sport = :7100 or sport = :4096 or sport = :7200 )'
+curl -fsS http://127.0.0.1:7200/api/health
 ```
 
-If a deliberate restart is needed after checking for active work, use
-`sudo systemctl restart wwtn-opencode wwtn-stage`. Restarting the stage loses its
-in-memory current-session selection; saved artifacts remain on disk. Do not
-restart during someone else's run. Unit definitions are generated by
-`demo/deploy/install_services.py`; that installer refuses to overwrite existing units.
+Official Remote usage: https://developers.openai.com/blog/mastering-codex-remote-for-engineering
+For a client-side failure, check the selected host/workspace and the app's connection
+state before restarting anything. Remote sessions may be doing active work.
 
-## Credentials and provider
+## Network and services
 
-Nebius and Paperclip authentication have been configured on Brev. Nebius's model-list
-request succeeded and included `openai/gpt-oss-120b`; both autonomous rehearsals made
-actual inference and Paperclip retrieval calls. Default model is still that Nebius
-model. No 5090 endpoint was confirmed, no local model was installed, and Tailscale
-was not configured on Brev by this work.
+| Component | Listener / forwarding | Lifecycle |
+| --- | --- | --- |
+| OpenCode | 127.0.0.1:4096 | wwtn-opencode enabled, active |
+| Operator | 127.0.0.1:7100 | wwtn-stage enabled, active |
+| Judge + sequential | 127.0.0.1:7200 | wwtn-viewer enabled, active |
+| Judge ingress | socket 7201 → 127.0.0.1:7200 | wwtn-viewer-forward.socket enabled, active |
+| Operator ingress | socket 7101 → 127.0.0.1:7100 | wwtn-operator-forward.socket active, **not enabled** |
 
-Credential locations, for operational context only (never display their contents):
+Forward services use systemd-socket-proxyd. Brev HTTPS destination ports are 7201
+and 7101, not the loopback app ports. Brev handles public TLS and operator login;
+Caddy is not installed or active. Never expose 4096. Do not start legacy tmux
+launchers alongside systemd services. No new inference starts from the viewer.
 
-- Nebius source: organization secret named `NEBIUS_API_KEY` in Brev Secrets.
-- Runtime seed: git-ignored `demo/.env`, mode 0600.
-- OpenCode private profiles/auth/runtime state: `demo/harness/opencode/private/`
-  and its ignored `xdg/` tree.
-- Paperclip device-login state: `demo/harness/paperclip/private/`.
-- Git pulls use the VM's dedicated read-only deploy key configured in Git's
-  `core.sshCommand`. Do not assume Brev can push branches using that key.
+- Public viewer: https://demo-o10eetwuq.gobrev.dev ; walkthrough: /sequential.
+  Brev port ID `nport-3LpUrWC1nR7XkrW1qZjTltSuEce`, anonymous enabled.
+- Operator: https://operator-o10eetwuq.gobrev.dev ; Brev port ID
+  `nport-3LpWC4Pv7dAgipVm7b6lXSq48kZ`, anonymous disabled, two current org members.
+  Email allowlist does not automatically track future membership.
 
-Preserve these files and ignored environments when updating. Do not print, log,
-commit, or send secrets through chat. A Brev Secret update does not automatically
-refresh the running demo's credential profile. Do not delete existing auth to debug.
+**Reboot gap:** the operator forward socket was started for testing but not enabled.
+After reboot the operator URL may return 503 even when the backend is healthy.
+Inspect it; starting the existing socket (`sudo systemctl start
+wwtn-operator-forward.socket`) restores the existing route. No reboot was tested.
+Changing boot policy or audience should be an explicit operational decision.
 
-## Validation and actual limitations
+When investigating 503, check service/listener/forwarder before changing Brev ports.
+Use a browser User-Agent for external probes: bare urllib can get a separate
+Cloudflare 403. Signed-out operator requests should redirect to Brev authentication;
+viewer /api/prompt POST should return 405 and /api/keys should return 404.
 
-- 29 tests passed on Brev: 22 main-environment tests plus 7 evidence tests.
-- After the final malformed-JSON error-message change, both transport tests passed
-  again on Brev.
-- Four direct-backend synthetic compound/species runs passed the OT-2 simulator,
-  267 commands each, before the public-readiness changes. These were not autonomous.
-- Browser tests cover packaged replay, plate wells, run switching, downloads,
-  desktop/mobile layout and the original slide-linked entry point. The new viewer
-  also has browser and route tests for hiding controls and blocking unpublished data.
-- No public TLS certificate, anonymous/authenticated external-access check, or
-  production load/spending-budget verification has been completed.
+## Updating and publishing
 
-Two fresh autonomous rehearsals were attempted and preserved:
+Coordinate with the operator. Static sequential assets are read per request; changes
+do not need an operator restart. Changes to public_view.py or its allowlist require
+only `sudo systemctl restart wwtn-viewer`. Never restart OpenCode or stage during a
+live run. Check /api/health for idle first. Stage restart loses in-memory selection,
+not saved artifacts. The independent viewer remains usable during inference.
 
-1. `ses_e45b4eb34ffe2R79o5bUaLd52M`: malformed `planning_context` arguments
-   (`{"": {}}`), rejected submissions, then malformed model-generated JSON.
-2. `ses_e45ae9206ffeUX7erdKXyRnDpu`: context, search and paper passage retrieval
-   succeeded; submission was rejected for missing/inconsistent protocol citations;
-   the next model tool response contained invalid JSON.
+Publication requires reviewed session artifacts plus an entry in ignored
+`demo/private/published_sessions.json`. To include that session in the sequential
+model picker, also map it to its verified model in `demo/sequential-models.json`.
+The current viewer has ten sessions; sequential maps eight. Keep published sessions
+immutable; new experiments need new sessions. Preserve the two original default
+sessions unless deliberately replacing the judge presentation.
 
-Neither produced a compiled batch. Do not call these successful end-to-end runs.
-Artifacts live under ignored `demo/harness/planning_runs/`; OpenCode retains session
-history. Inspect only the relevant session and avoid dumping raw private state/logs.
-The failure source is not yet proven beyond the observed malformed tool response;
-do not claim an output-token limit or specific provider bug without evidence.
+Inference uses Nebius; current live operator default remains GLM-5.3 low reasoning.
+Four models are used by the precomputed examples. No local 5090 inference is needed.
+Credentials already exist under demo/.env, harness/opencode/private and
+harness/paperclip/private; never show contents or overwrite authentication during
+updates. Source secret name is NEBIUS_API_KEY in Brev Secrets. Do not copy secrets
+into Git, handoffs, public snapshots or browser assets.
 
-Changes already made: actionable evidence-argument errors, clearer planner schema
-instructions, explicit rejection of malformed/non-object tool JSON, bounded prompt
-and HTTP body sizes, bounded SSE queues and sanitized upstream transport errors.
-The adapter never repairs invented arguments or silently retries/switches models.
-
-## Next work
-
-1. Investigate the existing failed sessions and provider/tool-schema boundary before
-   spending on another bounded rehearsal. Preserve validation checks; do not loosen
-   citation/assay checks merely to make the synthetic example pass. Any model change
-   should be explicit and documented. LLM routing still uses the migrated custom
-   adapter, an acknowledged difference from the root `wwtn.llm.chat` convention.
-2. Agree on public hostname and access policy, and whether judges only view results
-   or run independent experiments. The private operator has one shared global session;
-   independent users require session ownership, concurrency and spend enforcement.
-3. For read-only publication, review exact sessions, configure authentication/TLS,
-   validate Caddy, and test externally before exposing anything. Never publish 4096
-   or the key-management/operator API. See [deployment notes](../deploy/README.md).
-4. Review the supplied OT-2 reference with its author. Files are
-   `Opentrons/MIC_4Abx_2Replicates_1Plate_200uL.py`,
-   `Opentrons/mic_4abx_ot2_full_layout_one_page.html`, and `Opentrons/step3_rubric.csv`.
-   They were imported unchanged; Python syntax and CSV structure were checked.
-   The rubric has 17 criteria with numeric weights totalling 20.5. The reference
-   requires API 2.28, whereas the demo simulator setup targets 2.27. Sparse-tip
-   hardware review, compatible simulation and rubric integration remain pending.
-   Current demo compilation uses separate sequential compound/species runs; it does
-   not implement this four-antibiotic single-plate reference layout.
-
-## Reproduce tests
-
-From the repository root (no credentials required):
-
-```bash
-demo/.venv/bin/python -m unittest demo.harness.test_public_view demo.harness.test_planning_pipeline demo.harness.test_reliability demo.harness.test_biology demo.harness.test_tool_stream demo.harness.test_browser
-demo/.venv-paperclip/bin/python -m unittest demo.harness.test_planning_evidence
-```
-
-The optional direct simulator smoke is
-`demo/.venv/bin/python -m demo.harness.smoke --simulate`; it creates labelled synthetic
-artifacts. A new autonomous run uses the rehearsal prompt in
-`demo/harness/stage/static/data/rehearsal.txt` through the private operator, after
-checking no other run is active. Do not substitute direct smoke results for autonomy.
-
-<!-- TODO(final): Complete the live model reliability investigation, agreed public
-access design and external HTTPS/auth checks before calling this production-ready. -->
+Ignored planning artifacts, private receipts, media and auth must be backed up
+through approved private storage; Git bundles transfer code only. The original
+four-antibiotic reference and old failures are preserved in history. Current
+validation and scientific limitations are in MEMORY.md and PRECOMPUTED_EXAMPLES.md.

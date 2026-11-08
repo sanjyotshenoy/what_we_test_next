@@ -1,161 +1,97 @@
-# Demo memory — current checkpoint, 2026-11-08
+# Demo memory — current state
 
-Active branch: `demo/judge-rehearsal`. Runtime implementation commit: `0f946db`;
-subsequent documentation commits record verification. No push or main merge was
-requested or performed. Work stayed within `demo/`.
+Verified 2026-11-08, approximately 12:06 America/New_York. This file and
+[REMOTE_HANDOFF.md](REMOTE_HANDOFF.md) supersede the archived append-only notes.
+Read `demo/AGENTS.md`; no project_guide.md was present. Work remains scoped to demo/.
 
-Start with the [judge runbook](../docs/JUDGE_RUNBOOK.md). The
-[remote handoff](REMOTE_HANDOFF.md) retains the Brev/credential/history details;
-its earlier default model and unstarted viewer descriptions are historical.
+## Workspace and continuity
 
-## What is ready privately
+Brev `biohackdemo`, host `brev-o10eetwuq`, checkout
+`/home/ubuntu/what_we_test_next`, branch **demo/judge-rehearsal**. Latest runtime
+checkpoint before this documentation update: `55d8759` (light-mode sequential UI).
+The checkout was clean at inspection. Recheck before editing: remote users may
+start new work. Do not reset, switch or overwrite unfinished work.
 
-- Operator: `127.0.0.1:7100`, `wwtn-stage.service`.
-- Internal OpenCode: `127.0.0.1:4096`, `wwtn-opencode.service`.
-- Prepared judge view: `127.0.0.1:7200`, `wwtn-viewer.service`.
-- All three are systemd-managed and enabled. No public listeners, proxy, TLS or
-  firewall changes. Public access must stay closed until explicitly authorized.
-- User chose a view-only judge experience while the team operates privately.
-- User's fixed robot recording is locally prepared: 30 seconds, silent, 25.1×,
-  H.264/720p. The UI labels it recorded and unrelated to the selected simulation.
+Companion implementation clone `/home/ruh/wwtn-sequential-demo` uses branch
+`demo/sequential-replay`. Commits were transferred by Git bundle and cherry-picked
+onto Brev; commit IDs therefore differ. `/home/ruh/what_we_test_next_demo` is the
+older public-readiness clone. Original `/home/ruh/what_we_test_next` and others'
+worktrees were not changed. No sequential changes were pushed or merged into main.
+GitHub main previously received consolidate-demo at `f329771`; do not assume it
+contains this deployment. Brev's repo deploy key is read-only.
 
-Default planning model is now **Nebius `zai-org/GLM-5.3`**, temperature 0,
-`reasoning_effort=low`, 16,384 output tokens, at most 16 model steps. Request metadata
-confirmed these settings reach the provider. GPT-OSS remains a manual alternative;
-there is no automatic model switch. The existing custom provider adapter remains
-the documented exception to the shared `wwtn.llm.chat` convention.
+## Views and access
 
-The submission tool now exposes the validator's actual nested schema. Citation
-rejections list exact retrieved IDs; validation remains strict. Truncation is an
-explicit error. Busy runs reject additional prompts and key/model changes; model
-changes start a new conversation. The UI restores controls after completion and
-labels a stopped-before-compilation run distinctly.
+| View | URL | Behavior |
+| --- | --- | --- |
+| Sequential | https://demo-o10eetwuq.gobrev.dev/sequential | Public, precomputed model/query walkthrough |
+| Judge/results | https://demo-o10eetwuq.gobrev.dev/ | Public, approved artifacts and separate robot video |
+| Operator | https://operator-o10eetwuq.gobrev.dev/ | Brev login; current two org-member email allowlist; shared live session |
 
-## Verified
+The operator allowlist is a membership snapshot, not automatic future-member access.
+No anonymous operator access. Internal OpenCode is never published. Forwarding,
+ports, reboot limitations and health commands are in the handoff and deploy README.
 
-34 tests pass: 27 main/browser/transport/recording/boundary tests plus 7 evidence
-checks. Fresh authenticated Paperclip searches and full-text reads succeeded
-standalone and inside the autonomous loops. Browser checks verified desktop/mobile
-layout, plate/run selection, downloads, video playback/seeking, and no JS errors.
+## Sequential product decisions
 
-Three consecutive autonomous rehearsals with the final GLM settings succeeded:
+Headline: **From a scientific question to a robot-ready protocol**. Light mode only.
+User chooses an LLM and a scientific question; steps automatically progress, shimmer
+while processing, and scroll both when the placeholder appears and when results
+expand. No Pause/Next/Show all/Replay/Speed/full-results toolbar or per-step badges.
+Text over 100 words has Show more/less. Compact precomputed provenance remains.
+First step is Scientist’s query plus expandable supplied inputs.
 
-| Session | Case | Runs | Elapsed |
-| --- | --- | ---: | ---: |
-| `ses_e4584faa3ffe1IRLWBu4RnowCT` | Real graph identities, synthetic assay settings | 2 | 24.1 s |
-| `ses_e45849c51ffeAj4a8dVLJkTK2M` | Synthetic 2×2 fixture | 4 | 33.1 s |
-| `ses_e45830dcdffec6BtfRHpmnGmZo` | Real graph, operated through browser with video playing | 2 | 35.7 s |
+Evidence links and clickable 96-well maps use saved artifacts. Wells preserve
+concentration, volume, controls and surplus-row accounting. The standalone haspin
+missing-link example was removed at user request; do not reintroduce it or claim
+known MIC links are missing. The original demo/index.html and slide symlink remain.
 
-All eight simulations passed (267 commands each). The fixture's first submission
-was rejected for duplicate question IDs; the agent corrected it and succeeded
-within the existing budget. No manual argument or artifact repair was performed.
-These are software checks, not biological validation or physical execution.
+## Questions, models and evidence
 
-The viewer allowlist contains the last two sessions above, with the real-graph
-session first. Operator `DEMO_DEFAULT_SESSION` selects that same completed session
-on startup. A fresh prompt still creates a fresh live session. Approved results,
-rehearsal receipts and media are ignored local files, not supplied by a Git clone.
+1. What minimum ciprofloxacin concentration inhibits growth of E. coli and
+   P. aeruginosa? Design experiments rather than claim a new measured MIC.
+2. Which inhibits E. coli at a lower concentration: ciprofloxacin or tetracycline
+   hydrochloride? Design matched experiments rather than claim a measured winner.
 
-Earlier GPT-OSS failures and a GLM 8,192-token reasoning-limit failure are preserved.
-One model run is not guaranteed to succeed; the prepared view works without live
-LLM or Paperclip access. Do not retry a failed run without inspecting its outcome.
+All four models have both trajectories: GLM-5.3, Kimi-K3, Qwen3.8-27B and DeepSeek
+V4-Pro-0813. Eight accepted sessions / sixteen protocol-hash-verified simulator
+passes. Exact IDs and one Qwen failed attempt/retry are in
+[PRECOMPUTED_EXAMPLES.md](../docs/PRECOMPUTED_EXAMPLES.md). Qwen's comparison retry
+used an explicit object-format instruction; these are not controlled model scores.
 
-## Remaining scope
+Models really retrieved graph/literature evidence and generated/validated/simulated
+protocols. Assay settings are supplied synthetic inputs; strains remain unspecified.
+No physical execution or biological result is established by these simulations.
+The fixed 30-second robot recording is separate and does not show execution of
+these generated protocols. Robot-ready means an output for lab review, not hardware
+or biological certification. Four-antibiotic reference integration remains pending.
 
-A reviewed biological question/strain, reference-protocol hardware review, four-
-antibiotic single-plate compiler support, automated step-3 benchmark grading,
-and public hostname/auth/TLS decisions remain open. The demo does not support
-arbitrary experimental protocols. No local 5090 endpoint was identified.
+## Files and operations
 
-- [Setup](../SETUP.md), [verification log](../docs/11-08-2026.md),
-  [pipeline](../harness/PIPELINE.md), [remaining TODOs](../docs/PIPELINE_TODO.md).
-- [Packaged historical replay](../replays/README.md) remains distinct from the new
-  live runs; no physical robot is controlled by the app.
+- `sequential.html`, `sequential.js`, `sequential.css`: UI; `sequential-models.json`:
+  eight reviewed session/model mappings; exposed via explicit public-view routes.
+- `harness/stage/public_view.py`: read-only server; `planning_view.py`: hash-checked
+  snapshots; `demo/private/published_sessions.json`: ignored allowlist, currently ten
+  sessions (eight new plus two original judge defaults).
+- `examples/*.txt`: prompts; `python -m demo.harness.precompute_examples`: creates
+  independent OpenCode sessions without changing the operator selection. It performs
+  paid inference/retrieval; do not run merely to preview or test the UI.
+- `harness/planning_runs/`, `private/precomputed/`, credentials and video are ignored
+  VM state. A Git clone does not contain these. Never print or commit secrets.
+- Update this memory when behavior changes; log milestones in docs/11-08-2026.md.
 
-<!-- TODO(final): Domain review and external access decisions are still required
-before describing this as a biological or publicly deployed production system. -->
+## Verification and remaining gaps
 
+Historical full runtime suite: 34 tests passed before sequential work. After changes,
+six public-boundary tests passed, and browser checks exercised all eight combinations,
+plate details, model switching/cancellation, mobile width, text expansion, shimmer,
+light mode under dark OS preference and scrolling after content reveal. Public HTTPS
+page/catalog returned 200. Do not describe the old full-suite result as freshly rerun.
 
-## Documentation maintenance
-
-The demo README now leads with the active judge configuration and labels the old
-slide-linked trace workflow as legacy. `docs/PIPELINE_TODO.md` separates completed
-software verification from pending scientific review and broader reliability work.
-`SETUP.md` contains the full 34-test command set and uses a separate loopback port
-for optional replay, avoiding the running operator. Historical failures remain in
-the handoff and verification log. This documentation-only reconciliation did not
-rerun paid rehearsals, restart services, or change access settings.
-
-## Sequential playback addition
-
-User requested a gradual multi-query walkthrough using Sanjyot's trajectories.
-`/sequential` on the prepared viewer reconstructs milestones from its existing
-approved sessions, with selectable recordings, pause/resume, speed, step, show-all
-and replay. It does not expose private transcripts or broaden the session list.
-The original slide-linked demo is preserved. Source is `sequential.html`,
-`sequential.js`, `sequential.css`; served through explicit public-view asset routes.
-Later access setup (after the historical checkpoint above): the judge viewer is
-public via Brev HTTPS; the separate operator requires the current org-member email
-allowlist. This change does not alter either access rule.
-
-Sequential UI refinement: no header playback badge; new milestones scroll into
-view, and long prose/detail blocks collapse at 100 words with expandable text.
-Saved-result provenance remains in the introductory copy and session description.
-
-Presentation language now describes example queries and the active workflow step,
-not recordings or milestone counts. A compact precomputed-example provenance line
-and expandable About note retain the distinction from fresh inference/physical
-execution. No model selector is shown without corresponding model trajectories.
-
-Removed per-step Example output badges. Added the four team evaluation models to
-an LLM dropdown, backed by `sequential-models.json`. Only verified session/model
-pairs are shown; currently GLM-5.3 has the two approved trajectories. Others show
-not-ready. Changing selection cancels progression and clears the prior output.
-
-User requested a presentation-only flow: removed Pause, Next step, Show all,
-Replay, Speed and Explore full results controls. Selecting a query starts automatic
-3.5-second milestone progression and scrolling; selecting another query/model
-cancels the previous progression. Text expansion and model/query selection remain.
-
-First sequential milestone is now Scientist’s query: a concise request reconstructed
-from the saved compound, assay and panel, with supplied experiment inputs expandable.
-Removed introductory explanatory copy and About this example. This is a display
-summary of saved inputs, not a claim to quote the original user prompt verbatim.
-
-Visual additions: xymol.ai-style text shimmer and processing dots between steps;
-interactive 96-well maps from each generated plate artifact, retaining control roles
-and surplus-row accounting; known-evidence diagrams for MIC graph lookups. Separate
-haspin missing-link example copies only the existing benchmark input packet (case 1),
-labels its edge as deliberately masked, and does not imply a MIC trajectory or a
-new model/simulator result. No held-out answer is imported. Source remains in slides;
-all new code/data stays in demo/.
-
-Query cards and first milestone now lead with scientific questions: minimum
-ciprofloxacin concentration inhibiting growth in the two named species, or comparing
-two synthetic candidate compounds across two placeholder bacteria. Requests explicitly
-ask for experiment design and simulation, not an already measured biological answer.
-These are display summaries of existing inputs, not verbatim historical prompts.
-
-Removed standalone haspin example at user request. Precomputation uses independent
-OpenCode sessions, preserving the operator model/session, via
-`python -m demo.harness.precompute_examples`. Two prompts in examples/ use real
-entity identities and explicit supplied synthetic assay settings: ciprofloxacin
-across two species, and ciprofloxacin vs tetracycline hydrochloride in E. coli.
-Private receipts track model/query/session/status. Review before publishing; no
-failed model result may be relabelled as success or silently substituted.
-
-Precompute inspection: Qwen's first antibiotic-comparison attempt submitted batch
-as a string on all attempts; strict validation rejected it and no simulation ran.
-Failure receipt preserved. Added an explicit object-serialization instruction to
-the comparison prompt before a single new-session retry; no artifact repair or
-validator relaxation. Other models' prior successful prompts remain in session logs.
-
-Precomputation completed: eight accepted sessions, two per model; sixteen protocol-
-hash-verified simulator passes. `docs/PRECOMPUTED_EXAMPLES.md` records identities,
-elapsed times and Qwen's failed first comparison attempt / successful explicit-object
-retry. Sequential selector now maps only these eight real-entity design trajectories.
-Original judge sessions remain published for existing links; operator unchanged.
-
-Auto-scroll now realigns after each result replaces the short processing placeholder.
-Previously the initial scroll could be clamped at the document bottom, leaving new
-result content below the fold. Both phases honor reduced-motion preferences.
+Codex managed remote daemon 0.167.0 is running with --remote-control; ChatGPT login
+is valid. Phone-side reconnection was not tested. No daemon restart, pairing or
+permission changes were made. All three demo services are active/enabled. Operator
+forward socket is active but disabled at boot; viewer forward socket is enabled.
+Reboot recovery was not tested. Scientific/domain/hardware review, strain selection,
+independent-user live sessions, broad reliability/load testing and main integration
+remain open. No production-certification claim.

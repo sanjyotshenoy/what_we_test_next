@@ -1,6 +1,8 @@
 # Demo workstream
 
-Read `SETUP.md`, `memory/MEMORY.md`, and `docs/PIPELINE_TODO.md` first.
+Read `memory/MEMORY.md`, `memory/REMOTE_HANDOFF.md`, `SETUP.md`, and
+`docs/PIPELINE_TODO.md` first. Files ending `_HISTORY.md` and dated logs are
+historical, not current operating instructions. No separate project_guide.md is used.
 Keep implementation and private state within demo/. Shared contracts, execution,
 KG and slides remain team-owned: adapt here, do not modify those folders.
 Preserve index.html and the slide symlink. No push or main merge without a request.

@@ -31,8 +31,10 @@ with the final GLM settings completed eight simulations; 34 tests pass. One run
 exercised rejection and agent correction of duplicate question IDs. The private
 judge viewer opens reviewed results, and the fixed 30-second robot recording plays
 independently. User chose view-only judges while the team operates privately.
-Public access remains closed. Assay parameters in both presets remain software-test
-inputs, including the preset that resolves real graph identities.
+Brev now publishes the read-only judge/sequential viewer; the shared operator is
+authenticated for the current org-member allowlist. Eight new four-model sessions
+provide sixteen additional simulator passes (see PRECOMPUTED_EXAMPLES.md). Assay
+parameters remain supplied synthetic inputs, including real-identity examples.
 
 ## Next useful work, in order
 
@@ -93,6 +95,6 @@ inputs, including the preset that resolves real graph identities.
 ## Parked until the scope calls for them
 
 Screening/ranking integration (point 1), GNN work and its evaluation decisions,
-physical robot execution, additional assay families, and external publication.
-Private loopback deployment is already configured; it does not authorize public access.
-Existing records cover those topics; this checklist does not authorize expanding scope.
+physical robot execution and additional assay families. Public read-only viewing and
+authenticated operator access are now configured; see the current handoff. This
+checklist does not authorize expanding the audience or exposing new endpoints.
