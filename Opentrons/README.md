@@ -17,9 +17,9 @@ demo, the inoculum can be swapped for food colouring.
 
 ## Hardware demonstration
 
-[![OT-2 deck during the team's liquid-handling demonstration](media/ot2-run-demo.jpg)](media/ot2-run-demo.mp4)
+[![OT-2 deck during the team's liquid-handling demonstration](https://zhang-etal-biohack.pages.dev/media/ot2-run-demo.jpg)](https://zhang-etal-biohack.pages.dev/media/ot2-run-demo.mp4)
 
-[Watch the OT-2 run (27 seconds)](media/ot2-run-demo.mp4). A recording of the team's liquid-handling demonstration with colored liquids.
+[Watch the OT-2 run (27 seconds)](https://zhang-etal-biohack.pages.dev/media/ot2-run-demo.mp4). A recording of the team's liquid-handling demonstration with colored liquids.
 
 The repository copy is H.264, 1280 × 720, about 7.7 MB, compressed from the supplied `My Movie.mp4` while preserving its full duration. The original recording is unchanged outside the repository.
 
