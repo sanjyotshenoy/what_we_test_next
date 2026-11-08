@@ -53,5 +53,5 @@ three averaged. This replaces the earlier single-sample before/after repair char
 <!-- TODO(final): Obtain underlying runs and reconcile the reported aggregate.
 The supplied with-plan aggregate is 46.7, while displayed model scores average 46.06. -->
 The chart preserves the supplied aggregate and flags it visibly. No wet-lab result
-or statistical significance is established. Existing PowerPoint exports predate
-this HTML update and have not been regenerated.
+or statistical significance is established. The current editable animated PowerPoint includes this comparison. Older exports
+still contain the earlier before/after repair chart.
