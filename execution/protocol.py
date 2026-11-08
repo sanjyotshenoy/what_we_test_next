@@ -444,17 +444,24 @@ def run_sheet(design: PlateDesign, experiment: Any = None, lab: Lab | None = Non
     for analysis in (template or {}).get("analysis", []):
         lines.append(f"- **analysis** - {analysis.get('text', '')}")
 
-    atmospheres = lab.atmospheres("incubation")
-    if atmospheres:
-        lines.append(f"- incubation atmosphere available: {', '.join(sorted(atmospheres))}")
+    wanted = _value(experiment, "atmosphere")
+    if wanted:
+        # the person carrying the plate to the incubator is the one who has to act on this
+        lines.append(f"- **atmosphere** - incubate **{wanted}**; this lab has "
+                     f"{', '.join(sorted(lab.atmospheres('incubation'))) or 'nothing recorded'}")
 
     assumed, unconfirmed = lab.assumed(), lab.unconfirmed()
     if assumed or unconfirmed or protocol.warnings:
         lines += ["", "## Check before trusting a result", ""]
+        seen: set[str] = set()
         for key, why in assumed.items():
-            lines.append(f"- **assumed** {key}: {' '.join(why.split())}")
+            text = " ".join(why.split())
+            seen.add(text)
+            lines.append(f"- **assumed** {key}: {text}")
         for item in unconfirmed:
-            lines.append(f"- **unconfirmed** {item}")
+            # lab.unconfirmed() repeats the assumptions above; say each thing once
+            if not any(text in item for text in seen):
+                lines.append(f"- **unconfirmed** {item}")
         for warning in protocol.warnings:
             lines.append(f"- **warning** {warning}")
 

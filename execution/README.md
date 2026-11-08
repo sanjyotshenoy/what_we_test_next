@@ -151,3 +151,27 @@ not wrong — they hold the same series, so they are spare replicates — but th
 planned for, and a person reading the map would not expect them. The same fact is why the reagent estimate
 multiplies by every row of the plate rather than the rows the panel uses: a short panel costs as much medium as
 a full one. Panels that are a multiple of 8 rows avoid it entirely.
+
+## The whole chain, runnable today
+
+`generate.py` is the executable end of the contract `wwtn/schema.py` already described: proposals in,
+protocols out.
+
+```sh
+python -m execution.generate agent/out/run1.jsonl --out execution/out/run1 --simulate
+python -m execution.generate execution/examples/mic_selectivity.jsonl --simulate     # no API key needed
+```
+
+For each `ExperimentProposal` that proposes an experiment it writes `<out>/<question_id>/protocol.py` and
+`protocol_run_sheet.md`, and one `ExecutionResult` line into `<out>/results.jsonl`. A proposal the KB already
+answers produces nothing — there is no experiment to run. A proposal the lab cannot run produces no protocol
+either: `check_feasible`'s violations go into `error`, so the reason is recorded rather than a file that would
+fail on the robot.
+
+`execution/examples/mic_selectivity.jsonl` is a hand-written proposal for the four-species selectivity panel —
+*C. difficile*, *E. faecalis*, *B. fragilis*, *B. longum* at n=2, which is exactly 8 rows — topped at
+256 µg/mL. Ten two-fold steps from there reach 0.5, which sits above the commensals' censored ">128" and below
+a typical pathogen MIC, so **one ladder brackets both arms**; it has to, because every row of a plate shares the
+same series. 256 rather than a round 200 keeps every rung on the doubling ladder MICs are reported on. It exists
+because `agent/` needs `NEBIUS_API_KEY` and no machine here has one: this is how the rest of the chain gets
+exercised end to end in the meantime, and it does — the generated protocol simulates clean.
