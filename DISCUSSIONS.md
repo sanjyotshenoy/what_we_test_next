@@ -230,8 +230,12 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   experiment, since Emmy's OT-2 protocol *is* an MIC broth microdilution.
 - Checked against the live ChEMBL API (all 798,852 MIC activities paginated): pathogen side is rich (115,942
   compounds, 8,916 papers, 1,281 organism targets, 78,809 activities from 2023+ so a time split works). Commensal
-  side is not: 3,338 activities (0.42%), 1,812 compound x species pairs vs 245,556 on the pathogen side (~74x
-  asymmetry); F. prausnitzii, A. muciniphila, C. scindens and Roseburia have **zero** MIC records; only 110 of
+  side is not: 3,338 activities (0.42%), 1,812 compound x species pairs vs 245,556 on the pathogen side.
+  **Corrected 2026-11-08: that ratio is 135x (245,556 / 1,812), not the 74x originally written here.** 74 is
+  the percentage of rows with relation '=' - two different numbers from the same data check, conflated, and
+  then repeated in Discord, in screening/README.md and in a slide suggestion before anyone divided them. At
+  the activity level rather than the pair level the ratio is 239x (798,852 / 3,338), so always say which
+  pair of numbers a ratio comes from; F. prausnitzii, A. muciniphila, C. scindens and Roseburia have **zero** MIC records; only 110 of
   8,916 papers report both arms (16 of them 2023+), and novel compounds' commensal values are usually censored
   at ">128 ug/mL".
 - Suggested: benchmark the **pathogen** side (hold out 2023+ papers; grade panel recall + whether the series

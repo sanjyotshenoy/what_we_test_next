@@ -104,7 +104,7 @@ Three properties of those rows decide how the modelling has to work:
   MIC is 128" — and these are disproportionately the *commensal* rows, which are exactly the ones this stage
   cares about. They must be handled as threshold observations, not dropped and not treated as numbers.
 - **The two halves are wildly unbalanced.** 245,556 compound × species pairs on the pathogen side against
-  **1,812** for gut commensals — a ~74× asymmetry. A `cold_species` score computed on ChEMBL's commensal rows
+  **1,812** for gut commensals — a **135× asymmetry** (245,556 / 1,812). A `cold_species` score on the commensal rows
   alone is measured on almost nothing, which is why item 3 under "Not done yet" matters so much.
 
 Species-level counts, if you need them for choosing holdouts: *S. aureus* 160,257 · *P. aeruginosa* 57,708 ·
@@ -172,3 +172,10 @@ In the order they would help:
 4. **A censored likelihood** instead of excluding censored rows from the regression metrics.
 5. **Protocol normalisation** — at minimum, splitting broth from agar dilution, since the gut commensals in the
    panel are anaerobes that need CLSI M11 agar dilution, not the M07 broth microdilution `execution/` generates.
+
+### A naming collision to know about
+
+`screening/splits.py` (the module) and `screening/splits/` (where it writes) share a name. It resolves to the
+module today because the directory has no `__init__.py` — but adding one would shadow `screening.splits` and
+break every import of it. If that ever needs fixing, rename the output directory, not the module, since the
+module name is in every downstream import.
