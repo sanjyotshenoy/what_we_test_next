@@ -1,0 +1,75 @@
+{
+  "assay_type": "biochemical kinase inhibition (concentration-response)",
+  "system": "recombinant human HASPIN (Q8TF76) in vitro kinase reaction",
+  "readout": "ADP-Glo luminescence (ATP-depletion + ADP-detection, proportional to kinase activity)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold serial dilution of CHEMBL5426285 in DMSO, then dilute into assay buffer so final DMSO is 1% (v/v) in all wells including controls. Include vehicle-only (100% activity), no-enzyme (background), no-compound reference, and a positive-control inhibitor well if available.",
+      "parameters": {
+        "top_concentration_uM": {"value": 30, "unit": "µM", "evidence": "assumption — no packet evidence for this compound's potency range; chosen to span a wide window above/below the retrieved HASPIN IC50 range (34–770 nM, CHEMBL1952329, CHEMBL14285, CHEMBL269538, CHEMBL3774448, CHEMBL3775393)"},
+        "dilution_factor": {"value": 3, "unit": "fold", "evidence": "assumption — standard geometric spacing giving ~30 µM to ~1.5 nM over 10 points"},
+        "n_points": {"value": 10, "unit": "points", "evidence": "assumption — sufficient for 4-parameter curve fitting"},
+        "replicates": {"value": 3, "unit": "wells per concentration", "evidence": "assumption — supports mean ± SD and outlier detection"},
+        "vehicle_fraction": {"value": 0.01, "unit": "v/v DMSO", "evidence": "assumption — typical tolerated solvent level; must be confirmed non-inhibitory in a preliminary DMSO-tolerance check"}
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound dilutions with recombinant human HASPIN, a HASPIN-compatible peptide/protein substrate, and Mg-ATP; incubate under linear-range conditions pre-verified by a time-course and enzyme-titration pilot.",
+      "parameters": {
+        "enzyme_concentration": {"value": null, "unit": "nM", "evidence": "unresolved — no packet data; determine empirically so that <10% of ATP is consumed (ADP-Glo linearity requirement)"},
+        "substrate_concentration": {"value": null, "unit": "µM", "evidence": "unresolved — no packet data; use saturating or Km-appropriate concentration after pilot"},
+        "ATP_concentration": {"value": null, "unit": "µM", "evidence": "unresolved — ideally at or near the HASPIN ATP Km so ATP-competitive inhibition is detectable; Km not supplied in packet"},
+        "reaction_time": {"value": null, "unit": "min", "evidence": "unresolved — set from linear-range pilot"},
+        "temperature": {"value": 25, "unit": "°C", "evidence": "assumption — ambient-room condition typical for ADP-Glo kinase assays; 30–37 °C also defensible if validated"}
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Add ADP-Glo reagent to stop the reaction and deplete unconsumed ATP, then add kinase detection reagent to convert ADP to luminescent signal; read plate luminescence.",
+      "parameters": {
+        "reagent_volumes": {"value": "equal volume of each ADP-Glo reagent to reaction volume (e.g., 5 µL + 5 µL + 10 µL in 384-well format)", "unit": "µL", "evidence": "assumption — per vendor-standard ADP-Glo protocol; no packet evidence"},
+        "depletion_time": {"value": 40, "unit": "min", "evidence": "assumption — vendor-typical ATP depletion incubation"},
+        "detection_time": {"value": 30, "unit": "min", "evidence": "assumption — vendor-typical detection incubation before read"}
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract no-enzyme background, normalize each well to the vehicle (100% activity) and no-activity (0%) controls, fit a 4-parameter logistic concentration-response curve to obtain IC50 with 95% CI; report Hill slope and any partial-inhibition behavior.",
+      "parameters": {
+        "fit_model": {"value": "4-parameter logistic (variable slope)", "evidence": "assumption — standard for concentration-response"},
+        "acceptance_criteria": {"value": "Z' ≥ 0.5 between vehicle and no-activity controls; DMSO-only wells within ±10% of untreated; replicate CV < 20%; fitted top and bottom within 15% of 100%/0%", "evidence": "assumption — conventional assay-quality thresholds"}
+      }
+    }
+  ],
+  "top_concentration_uM": 30,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle control (1% DMSO, no compound) — defines 100% HASPIN activity",
+    "No-enzyme control — defines luminescence background",
+    "No-substrate / no-ATP control — confirms signal is kinase-activity dependent",
+    "Reference inhibitor control (a retrieved HASPIN inhibitor if obtainable, e.g., compound related to CHEMBL1952329) — confirms assay sensitivity",
+    "DMSO-tolerance check across 0.1–2% DMSO"
+  ],
+  "rationale": "The question asks for biochemical inhibition of human HASPIN by CHEMBL5426285, so the kinase-prepare/react/detect/analyse chain (proto:kinase_biochem_lum) is the matched path; cell-viability cards are excluded because they measure cellular ATP/health, not target-specific inhibition. ADP-Glo luminescence quantifies ADP produced by HASPIN, giving a direct biochemical readout. The concentration series (30 µM, 3-fold, 10 points) is an assumption chosen to bracket the wide range of retrieved HASPIN IC50 values (34–770 nM) for other compounds, which are contextual evidence of assay feasibility only, not estimates for CHEMBL5426285. Enzyme, substrate, ATP, and time parameters are unresolved because the packet contains no kinetic data for Q8TF76; they must be set by pilot experiments ensuring linear reaction progress and <10% ATP consumption.",
+  "citations": [
+    "CHEMBL5426285",
+    "Q8TF76",
+    "CHEMBL1952329",
+    "CHEMBL14285",
+    "CHEMBL269538",
+    "CHEMBL3774448",
+    "CHEMBL3775393"
+  ],
+  "limitations": [
+    "No potency value for CHEMBL5426285 is predicted or supplied; the retrieved IC50s are for other compounds and are not estimates for the query compound.",
+    "HASPIN kinetic parameters (ATP Km, substrate identity/concentration, enzyme linear range) are not in the packet; enzyme_concentration, substrate_concentration, ATP_concentration, and reaction_time are unresolved pending pilot experiments.",
+    "Retrieved assay descriptions state 'HASPIN (unknown origin)' for several examples, so species/construct comparability to human Q8TF76 is unverified.",
+    "Biochemical inhibition establishes enzyme-level activity only; it does not demonstrate cellular target engagement or viability effects, and cellular observations would not by themselves establish HASPIN-specific causality.",
+    "If CHEMBL5426285 is ATP-competitive, the measured IC50 depends on the chosen ATP concentration; IC50 at [ATP]=Km should be reported for comparability.",
+    "Compound solubility at 30 µM in 1% DMSO is unverified; a solubility/precipitation check is required before the run."
+  ]
+}

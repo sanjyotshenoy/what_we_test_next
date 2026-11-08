@@ -1,0 +1,68 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence‑based ADP‑Glo)",
+  "system": "recombinant human HASPIN (Q8TF76) purified protein",
+  "readout": "luminescence proportional to ADP production (inverse of kinase activity)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 8‑point, 3‑fold serial dilution of CHEMBL5426285 in assay buffer containing 0.5 % DMSO (vehicle). Include a DMSO‑only vehicle control and a reference inhibitor control (e.g., 1 µM staurosporine).",
+      "parameters": {
+        "top_concentration_uM": "10 µM (chosen to span >100‑fold above typical IC₅₀s reported for HASPIN inhibitors such as CHEMBL1952329, 34 nM, see citation) ",
+        "dilution_factor": "3",
+        "n_points": "8",
+        "replicates": "3",
+        "vehicle_fraction": "0.5 % DMSO (kept constant across all wells)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Add recombinant HASPIN (final 5 nM), peptide substrate (H3‑T3 peptide, 10 µM), and ATP (100 µM) to each well containing compound or control. Incubate 30 min at 30 °C.",
+      "parameters": {
+        "enzyme_concentration": "5 nM (saturating for linear range, typical for ADP‑Glo assays)",
+        "substrate_concentration": "10 µM (≈K_m for H3‑T3 peptide, literature precedent)",
+        "ATP_concentration": "100 µM (≥10× K_m for ATP, to minimise competition effects)",
+        "reaction_time": "30 min (ensures <20 % substrate conversion, linear phase)",
+        "temperature": "30 °C (standard for kinase‑luminescence assays)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Terminate the reaction with ADP‑Glo™ stop‑and‑detect reagent, incubate 40 min for ATP depletion, then add detection reagent and incubate 20 min before reading luminescence.",
+      "parameters": {
+        "reagent_volumes": "25 µL stop‑and‑detect reagent per 25 µL reaction (as per kit protocol)",
+        "depletion_time": "40 min",
+        "detection_time": "20 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100 % activity) and reference inhibitor (0 % activity). Fit a four‑parameter logistic curve (variable slope) to obtain IC₅₀ and 95 % confidence intervals. Accept fit if R² ≥ 0.9 and standard error of IC₅₀ ≤ 0.3 log‑units.",
+      "parameters": {
+        "fit_model": "four‑parameter logistic (variable slope)",
+        "acceptance_criteria": "R² ≥ 0.9; SE ≤ 0.3 log‑units; no systematic deviation in residuals"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.5 % DMSO)",
+    "no‑enzyme blank",
+    "reference inhibitor (1 µM staurosporine)"
+  ],
+  "rationale": "The chosen concentration range (10 µM → 0.005 µM) brackets the potency of known HASPIN inhibitors (e.g., CHEMBL1952329 IC₅₀ = 34 nM, CHEMBL3774448 IC₅₀ = 259 nM) providing sufficient data points to define the sigmoidal curve. A 3‑fold dilution series balances assay throughput with resolution. Replicates of three give an estimate of intra‑assay variability without excessive plate consumption. The enzyme, substrate, and ATP concentrations are set to keep the reaction in the initial linear range and to avoid substrate depletion, which is standard for ADP‑Glo kinase assays. Controls allow correction for background luminescence, DMSO effects, and assay maximum inhibition.",
+  "citations": [
+    "CHEMBL1952329 (IC₅₀ = 34 nM, assay CHEMBL2184774)",
+    "CHEMBL3774448 (IC₅₀ = 259 nM, assay CHEMBL3778428)",
+    "CHEMBL269538 (IC₅₀ = 590 nM, assay CHEMBL5242305)",
+    "CHEMBL14285 (IC₅₀ = 770 nM, assay CHEMBL5242305)"
+  ],
+  "limitations": [
+    "The assay measures enzymatic activity in vitro; cellular permeability, metabolism, and off‑target effects are not assessed.",
+    "If CHEMBL5426285 interferes with the luminescence chemistry (e.g., quenching), apparent inhibition may be artifactual; a counter‑screen with ADP‑Glo in the absence of kinase is recommended.",
+    "Exact K_m values for HASPIN with the chosen peptide substrate are assumed from literature; deviations could affect apparent potency.",
+    "No direct literature on CHEMBL5426285’s solubility; the top concentration assumes ≤10 µM is fully soluble in 0.5 % DMSO; precipitation would invalidate high‑concentration points."
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "grader": "Codex; provisional uncalibrated review of final outputs, no paid judge calls",
+  "scale": "0\u20132 per axis; three cases; equal-weight sum illustrative only",
+  "grades": [
+    {
+      "model": "zai-org/GLM-5.3",
+      "slug": "glm-5.3",
+      "case_id": "case-1",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 1,
+      "total_out_of_6": 4,
+      "evidence": "Appropriate biochemical route and explicit unresolved settings. Series fields imply 1.524 nM minimum, but rationale says about 5 nM. Temperature is assigned 25 C and elsewhere called unresolved; unsupported <10% conversion rule is introduced."
+    },
+    {
+      "model": "zai-org/GLM-5.3",
+      "slug": "glm-5.3",
+      "case_id": "case-2",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 1,
+      "total_out_of_6": 4,
+      "evidence": "Correct family and contextual series rationale. Detection wording says equal volumes but gives 5 + 5 + 10 uL; vendor-typical numbers are assumptions, not input evidence. Some reaction criteria are introduced as requirements without packet support."
+    },
+    {
+      "model": "zai-org/GLM-5.3",
+      "slug": "glm-5.3",
+      "case_id": "case-3",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 1,
+      "total_out_of_6": 4,
+      "evidence": "Correct cellular endpoint and explicit limits on causality. Many settings are unresolved or assumptions. Rationale introduces compound mechanism/off-target facts absent from the packet; a compound name present in entity metadata does not support these claims."
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "slug": "deepseek-v4.1-flash-1017",
+      "case_id": "case-1",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 1,
+      "total_out_of_6": 4,
+      "evidence": "Correct family, sensible card order, honest unresolved lab conditions. Arbitrary 100 uM/3-fold/8-point range lacks grounding in retained values and does not bracket the 14 nM reference; that diagnostic alone is not the scientific score."
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "slug": "deepseek-v4.1-flash-1017",
+      "case_id": "case-2",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 0,
+      "total_out_of_6": 3,
+      "evidence": "Procedure explicitly asks for 11 points, but both parameter string and top-level n_points say 10. Conflicting instructions prevent an unambiguous numerical design. Other lab settings appropriately remain unresolved."
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "slug": "deepseek-v4.1-flash-1017",
+      "case_id": "case-3",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 1,
+      "total_out_of_6": 4,
+      "evidence": "Correct viability endpoint and causality limitations; unresolved laboratory settings are acknowledged. 10 uM, 3-fold, 8 points and exposure conditions are clearly provisional, with no retained measurement evidence."
+    },
+    {
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "slug": "kimi-k3.1-pro",
+      "case_id": "case-1",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 2,
+      "total_out_of_6": 5,
+      "evidence": "Correct family and order; missing conditions are unresolved rather than invented. Contextual 34\u2013770 nM examples motivate a provisional 10 uM/3-fold/10-point range, and the stated 0.51 nM endpoint is arithmetically correct. Numerical credit concerns the supported series design and uncertainty handling, not validation of unresolved lab conditions."
+    },
+    {
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "slug": "kimi-k3.1-pro",
+      "case_id": "case-2",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 2,
+      "total_out_of_6": 5,
+      "evidence": "Correct family and order; correctly calculated range, explicit assumptions, same-target contextual evidence and unknown-origin comparability caveat. Numerical credit concerns coherent provisional series choices, not a validated full SOP."
+    },
+    {
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "slug": "kimi-k3.1-pro",
+      "case_id": "case-3",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 1,
+      "total_out_of_6": 4,
+      "evidence": "Correct cellular endpoint and explicit inability to infer BTK mechanism. All four numeric series/replicate fields are null with a clear lack-of-evidence explanation. This is honest partial completion, not an invalid numeric proposal; no concentration coverage can be calculated."
+    },
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "slug": "nemotron-3-super",
+      "case_id": "case-1",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 0,
+      "total_out_of_6": 3,
+      "evidence": "Correct family and broad order, but says the highest contextual IC50 is 255 nM although input maximum is 770 nM. Says 8 points span to 15 nM although 10 uM/3^7 is 4.572 nM. Unsupported similarity, Km, optimal temperature and reagent claims; numerical score reflects identifiable evidence/arithmetic errors."
+    },
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "slug": "nemotron-3-super",
+      "case_id": "case-2",
+      "suitability": 2,
+      "steps": 1,
+      "numerical_soundness": 1,
+      "total_out_of_6": 4,
+      "evidence": "Correct family and broad order; valid series fields. Unsupported ATP Km, reaction conditions and reagent timings, and unsupported claim that examples are similar compounds. A valid citation ID does not support these added values."
+    },
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "slug": "nemotron-3-super",
+      "case_id": "case-3",
+      "suitability": 2,
+      "steps": 0,
+      "numerical_soundness": 1,
+      "total_out_of_6": 3,
+      "evidence": "Correct cellular endpoint and caveats; numeric series/replicates are honestly unresolved, but other culture/detection numbers are asserted without evidence. The procedure omits the analyse card and does not supply normalization, fitting or uncertainty-reporting instructions. Missing essential analysis earns zero on steps; no series coverage is calculable."
+    }
+  ]
+}

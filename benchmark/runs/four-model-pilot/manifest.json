@@ -1,0 +1,438 @@
+{
+  "started_utc": "2026-11-08T05:39:47.471820+00:00",
+  "system_prompt": "You are participating in an experiment-design pilot. Use only the supplied input packet as evidence. Do not access tools, web, raw graphs, or remembered compound-specific measurements. Select and order step cards, bind supported parameters, and state unresolved settings explicitly. Follow the output_contract. If its numeric fields cannot be justified, use null and explain in limitations rather than inventing evidence. Any provisional design choice must be explicitly labeled as an assumption, not a sourced fact. Distinguish biochemical inhibition, cellular viability, and target-specific causality. Return one valid JSON object only; keep it concise (under 1800 words). Cite only IDs present in the packet. Do not predict a withheld IC50.",
+  "settings": {
+    "temperature": 0,
+    "max_tokens": 8192,
+    "reasoning_effort": "low",
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "model_mapping": {
+    "glm-5.3": "zai-org/GLM-5.3",
+    "deepseek-v4.1-flash-1017": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+    "kimi-k3.1-pro": "moonshotai/Kimi-K3.1-Pro",
+    "nemotron-3-super": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "deepseek_name_resolution": "User said V5.1 Flash 1017; selected V4.1 Flash 1017 based on available catalog and earlier conversation.",
+  "rates": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": {
+      "model_id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "model_name": "DeepSeek V4.1 Flash 1017",
+      "input_price_per_million_tokens": 0.3,
+      "input_cached_price_per_million_tokens": 0.006,
+      "output_price_per_million_tokens": 1.2
+    },
+    "moonshotai/Kimi-K3.1-Pro": {
+      "model_id": "moonshotai/Kimi-K3.1-Pro",
+      "model_name": "Kimi-K3.1-Pro",
+      "input_price_per_million_tokens": 2,
+      "input_cached_price_per_million_tokens": 0.2,
+      "output_price_per_million_tokens": 10
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "model_id": "nvidia/nemotron-3-super-120b-a12b",
+      "model_name": "Nemotron-3-Super-120b-a12b",
+      "input_price_per_million_tokens": 0.3,
+      "input_cached_price_per_million_tokens": 0.06,
+      "output_price_per_million_tokens": 0.9
+    },
+    "zai-org/GLM-5.3": {
+      "model_id": "zai-org/GLM-5.3",
+      "model_name": "GLM-5.3",
+      "input_price_per_million_tokens": 1.4,
+      "input_cached_price_per_million_tokens": 0.26,
+      "output_price_per_million_tokens": 4.4
+    }
+  },
+  "pricing_source": "https://tokenfactory.nebius.com/api/public/models_info",
+  "estimated_conservative_reservation_usd": 0.5264040000000001,
+  "budget_ceiling_usd": 1.0,
+  "reservation_method": "UTF-8 bytes + 4096 framing tokens per request, full output cap, uncached list prices",
+  "max_requests": 12,
+  "sdk_retries": 0,
+  "requests": [
+    {
+      "model": "zai-org/GLM-5.3",
+      "slug": "glm-5.3",
+      "case_id": "case-1",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "started_utc": "2026-11-08T05:39:47.472345+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "056734510e1a4779bbfb0a5c0ad372f3",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1728,
+        "prompt_tokens": 1667,
+        "total_tokens": 3395,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 46,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": null,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1667,
+        "reasoning_tokens": 46
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.009937,
+      "finished_utc": "2026-11-08T05:39:53.769969+00:00"
+    },
+    {
+      "model": "zai-org/GLM-5.3",
+      "slug": "glm-5.3",
+      "case_id": "case-2",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "started_utc": "2026-11-08T05:39:53.770119+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "9fb8345d3af0480996b0135b407542c0",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1891,
+        "prompt_tokens": 1735,
+        "total_tokens": 3626,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 72,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 128
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1607,
+        "reasoning_tokens": 72
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.010749400000000001,
+      "finished_utc": "2026-11-08T05:39:59.714594+00:00"
+    },
+    {
+      "model": "zai-org/GLM-5.3",
+      "slug": "glm-5.3",
+      "case_id": "case-3",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "started_utc": "2026-11-08T05:39:59.714905+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "83e10bf72fbf429b96666b623324604a",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1404,
+        "prompt_tokens": 1272,
+        "total_tokens": 2676,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 64,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 128
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1144,
+        "reasoning_tokens": 64
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.007958400000000001,
+      "finished_utc": "2026-11-08T05:40:05.356876+00:00"
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "slug": "deepseek-v4.1-flash-1017",
+      "case_id": "case-1",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "started_utc": "2026-11-08T05:40:05.357296+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-a2205da45515ce81",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4298,
+        "prompt_tokens": 1672,
+        "total_tokens": 5970,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3376,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0056592,
+      "finished_utc": "2026-11-08T05:40:21.097395+00:00"
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "slug": "deepseek-v4.1-flash-1017",
+      "case_id": "case-2",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "started_utc": "2026-11-08T05:40:21.097771+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-bef770da7870e5f7",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4173,
+        "prompt_tokens": 1737,
+        "total_tokens": 5910,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3221,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0055287,
+      "finished_utc": "2026-11-08T05:40:37.675751+00:00"
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "slug": "deepseek-v4.1-flash-1017",
+      "case_id": "case-3",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "started_utc": "2026-11-08T05:40:37.676212+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-900184dc88f737fe",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 3444,
+        "prompt_tokens": 1300,
+        "total_tokens": 4744,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 2521,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 1280,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0045228,
+      "finished_utc": "2026-11-08T05:40:51.400449+00:00"
+    },
+    {
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "slug": "kimi-k3.1-pro",
+      "case_id": "case-1",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "started_utc": "2026-11-08T05:40:51.400976+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-b546709a1a292663",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1615,
+        "prompt_tokens": 1780,
+        "total_tokens": 3395,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 518,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.01971,
+      "finished_utc": "2026-11-08T05:41:02.330667+00:00"
+    },
+    {
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "slug": "kimi-k3.1-pro",
+      "case_id": "case-2",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "started_utc": "2026-11-08T05:41:02.331161+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-884c83afa0524a3b",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1853,
+        "prompt_tokens": 1851,
+        "total_tokens": 3704,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 788,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.022232,
+      "finished_utc": "2026-11-08T05:41:23.767974+00:00"
+    },
+    {
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "slug": "kimi-k3.1-pro",
+      "case_id": "case-3",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "started_utc": "2026-11-08T05:41:23.768506+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-a1e65dbdf58f28e0",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1509,
+        "prompt_tokens": 1410,
+        "total_tokens": 2919,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 344,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.01791,
+      "finished_utc": "2026-11-08T05:41:31.695536+00:00"
+    },
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "slug": "nemotron-3-super",
+      "case_id": "case-1",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "started_utc": "2026-11-08T05:41:31.696144+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-31ff73fb-8d9b-4a78-8f48-f3b38ab6adeb",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 1019,
+        "prompt_tokens": 1767,
+        "total_tokens": 2786,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 151,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1767
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0014472,
+      "finished_utc": "2026-11-08T05:41:36.259472+00:00"
+    },
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "slug": "nemotron-3-super",
+      "case_id": "case-2",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "started_utc": "2026-11-08T05:41:36.260119+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-d4ca380b-4fc4-404d-9815-cdd46919fd29",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 846,
+        "prompt_tokens": 1836,
+        "total_tokens": 2682,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 148,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1836
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0013122,
+      "finished_utc": "2026-11-08T05:41:39.779812+00:00"
+    },
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "slug": "nemotron-3-super",
+      "case_id": "case-3",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "started_utc": "2026-11-08T05:41:39.780400+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-0d625a52-d0dd-478c-93d9-41c09363558d",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 581,
+        "prompt_tokens": 1312,
+        "total_tokens": 1893,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 122,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1312
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0009165,
+      "finished_utc": "2026-11-08T05:41:42.805064+00:00"
+    }
+  ],
+  "total_prompt_tokens": 19339,
+  "total_completion_tokens": 24361,
+  "estimated_total_usd": 0.10788339999999999
+}

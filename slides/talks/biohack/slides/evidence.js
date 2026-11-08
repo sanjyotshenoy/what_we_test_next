@@ -59,13 +59,13 @@ add('evidence-pilot',3,'Three auditable evaluation cases',()=>`
  <p>Input evidence and reviewer-only answers are separate. The packet builder excludes the query pair and its documents.</p><p class="ev-note">These are kinase/cell cases. No model scores or validated MIC benchmark are available.</p>
  <p class="ev-links"><a href="graph/index.html" target="_blank" rel="noopener">Inspect the cases and answer toggles ↗</a></p>`,
  'Three manually selected diagnostic cases · reviewer calibration and source-leakage review still required',
- 'slides/talks/biohack/graph/BENCHMARK.md and slides/tools/prep_benchmark_cases.py. Cases are not independent samples for a generalization claim. Runtime graph masking is not wired into the agent. Structured step output extends the current agent contract. Proposed model shortlist: DeepSeek V4.1 Flash 1017, Kimi K3.1 Pro, GLM-5.3 Flash, Nemotron 3 Super; provider IDs and availability remain unconfirmed.');
+ 'slides/talks/biohack/graph/BENCHMARK.md and slides/tools/prep_benchmark_cases.py. Cases are not independent samples for a generalization claim. Runtime graph masking is not wired into the agent. Structured step output extends the current agent contract. Completed fixed-packet pilot: DeepSeek V4.1 Flash 1017, Kimi K3.1 Pro, GLM 5.3 (not Flash), Nemotron 3 Super, and GPT-OSS-120B. The following slides show provisional Codex grades; this is not an agent retrieval comparison.');
 add('evidence-boundary',4,'What is built, and what still needs connecting',()=>`
  <table class="ev-table"><thead><tr><th>Implemented and inspectable</th><th>Still to establish</th></tr></thead><tbody>
  <tr><td>MIC graph with provenance and censored measurements</td><td>MIC-aware agent retrieval; current helper defaults to kinase IC50</td></tr>
  <tr><td>Protocol templates, sourced rules and parameter derivations</td><td>Domain review of MIC routing and culture conditions</td></tr>
  <tr><td>Computed plate map, independent audit, simulated OT-2 example</td><td>Hard audit gates, non-two-fold support and confirmed hardware</td></tr>
- <tr><td>Three diagnostic case packets and extensive software tests</td><td>Model comparison, measured time savings and biological validation</td></tr></tbody></table>`,
+ <tr><td>Five-model diagnostic pilot and extensive software tests</td><td>Independent grading, measured time savings and biological validation</td></tr></tbody></table>`,
  'Claim today: inspectable components and a verified execution example · not an autonomous MIC discovery loop',
  'Audit of agent/README.md, kg/biology/README.md, execution/README.md, benchmark/README.md and graph/BENCHMARK.md at main 30886d3. Unknown oxygen tolerance currently passes optimistically. The earlier animated trace includes mock execution/validation and is deliberately not the central proof in this deck.');
 add('evidence-next',6,'The next proof is one connected MIC experiment',()=>`

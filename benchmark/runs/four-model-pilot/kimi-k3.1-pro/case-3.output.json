@@ -1,0 +1,72 @@
+{
+  "assay_type": "Cellular concentration-response growth/viability assay",
+  "system": "Rec-1 cells treated with CHEMBL3936761 (zanubrutinib)",
+  "readout": "ATP-dependent luminescence using the CellTiter-Glo procedure specified by the step cards",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Plate Rec-1 cells and prepare a CHEMBL3936761 dilution series with matched vehicle across all treated wells. Include untreated, vehicle, background, and reference-control wells. The concentration range, dilution factor, point count, and replicate count require pilot justification because no retained measurements or supported culture conditions are supplied.",
+      "parameters": {
+        "cell_density": "unresolved; optimize for Rec-1 growth and a linear, non-saturated detection signal over the exposure period",
+        "medium": "unresolved; use a Rec-1-compatible culture medium, with formulation and supplements to be justified",
+        "top_concentration_uM": "unresolved",
+        "dilution_factor": "unresolved",
+        "n_points": "unresolved",
+        "replicates": "unresolved; independent biological replicates are required, but their number is not supported by the packet",
+        "vehicle_fraction": "unresolved; keep constant across compound and vehicle-control wells and verify Rec-1 tolerance"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose the cells to CHEMBL3936761 or controls under justified Rec-1 culture conditions. Include an exposure-duration series in pilot work if a single duration cannot be justified.",
+      "parameters": {
+        "exposure_time": "unresolved; no supported treatment duration is supplied",
+        "temperature": "unresolved; do not assign a sourced value from this packet"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Apply the ATP-based viability reagent, mix and stabilize according to a supported CellTiter-Glo procedure, and measure luminescence. Keep processing consistent across plates and include reagent-only background wells.",
+      "parameters": {
+        "reagent_volume": "unresolved; establish from the supported reagent procedure and well volume",
+        "mix_time": "unresolved",
+        "stabilization_time": "unresolved"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract background, normalize treated signals to matched vehicle controls, and inspect untreated and reference controls. Fit a concentration-response curve only if the tested range and data quality support it; otherwise report pointwise responses and uncertainty. Do not infer a biochemical BTK IC50 from this cellular fit.",
+      "parameters": {
+        "fit_model": "Assumption: a four-parameter logistic model may be used if supported by the response range; otherwise no curve fit",
+        "acceptance_criteria": "Assumption: prespecify acceptable control variability, background separation, replicate agreement, and curve-fit diagnostics; numeric thresholds are unresolved"
+      }
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Untreated Rec-1 cells",
+    "Vehicle-matched Rec-1 cells at the same vehicle fraction as compound-treated wells",
+    "No-cell medium and reagent background wells",
+    "A justified reference growth/viability control; identity and concentration unresolved",
+    "Optional orthogonal BTK target-engagement or proximal-pathway controls for a separate mechanistic follow-up, not as substitutes for viability controls"
+  ],
+  "rationale": "The selected cards match the requested Rec-1 growth/viability question and ATP-luminescence readout. The biochemical kinase cards are not part of the primary workflow because they measure isolated-enzyme activity rather than cellular growth/viability. A broad pilot concentration range and adequate replication would be needed to capture both no-effect and maximal-response regions, but the packet supplies no eligible retained measurements or Rec-1 assay conditions from which to justify numeric settings. This experiment can estimate a cellular concentration-response relationship for CHEMBL3936761 under the chosen conditions. It cannot, by itself, demonstrate BTK inhibition, BTK target engagement, or that BTK inhibition causes the viability effect. Those claims require separate biochemical BTK testing and cellular mechanistic evidence, such as target engagement or proximal BTK-pathway modulation with appropriate specificity controls.",
+  "citations": [
+    "CHEMBL3936761",
+    "Q06187",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "No retained measurement examples are available; therefore numeric concentration-series and replicate fields are null rather than invented, and no IC50 is predicted.",
+    "Cell density, medium, exposure time, vehicle tolerance, reagent processing conditions, and acceptance thresholds remain unresolved.",
+    "ATP luminescence is an indirect viability/growth readout and can reflect changes in cell number, death, or metabolism; orthogonal growth and death measurements would help distinguish these possibilities.",
+    "Reduced Rec-1 viability does not establish biochemical inhibition of Q06187 or target-specific causality; off-target, general cytotoxic, and BTK-independent mechanisms remain possible.",
+    "A biochemical BTK assay would establish direct enzyme inhibition only under its own conditions and would not alone prove cellular target engagement or causality."
+  ]
+}
