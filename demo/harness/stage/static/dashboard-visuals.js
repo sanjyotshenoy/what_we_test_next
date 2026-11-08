@@ -1,4 +1,31 @@
 /* Read-only visualizations. Live KG context is kept separate from retrieved evidence. */
+function initializeDashboardTheme() {
+  const button=$('theme-toggle');
+  let theme='dark';
+  try {if(localStorage.getItem('ouroboros-dashboard-theme')==='light') theme='light';} catch(_) {}
+  function apply(value) {
+    document.documentElement.dataset.theme=value;
+    button.textContent=value==='light'?'Dark mode':'Light mode';
+    button.setAttribute('aria-pressed',String(value==='light'));
+    button.setAttribute('aria-label',`Switch to ${value==='light'?'dark':'light'} mode`);
+    applyGraphTheme();
+  }
+  apply(theme);
+  button.onclick=()=>{
+    theme=document.documentElement.dataset.theme==='light'?'dark':'light';apply(theme);
+    try {localStorage.setItem('ouroboros-dashboard-theme',theme);} catch(_) {}
+  };
+}
+function applyGraphTheme() {
+  if(!graph||graph.destroyed()) return;
+  const css=getComputedStyle(document.documentElement), color=name=>css.getPropertyValue(name).trim();
+  graph.style()
+    .selector('node').style({'color':color('--text'),'background-color':n=>n.data('record')?.type==='Compound'?color('--compound'):color('--target')})
+    .selector('edge').style({'color':color('--muted'),'line-color':color('--graph-edge'),'target-arrow-color':color('--graph-edge')})
+    .selector('node.relevant').style({'border-color':color('--graph-highlight')})
+    .selector('node.selected-compound').style({'border-color':color('--note')})
+    .selector('edge.relevant').style({'line-color':color('--accent')}).update();
+}
 function prettyValue(value, depth=0) {
   if(value===null||value===undefined) return '<span class="muted">Not supplied</span>';
   if(typeof value!=='object') return `<span>${esc(value)}</span>`;
@@ -67,6 +94,7 @@ async function drawGraph(mode='all') {
       {selector:'node.selected-compound',style:{'z-index':30,'border-width':3,'border-color':'#f0c674',width:30,height:30,label:'data(label)','font-size':mode==='all'?42:12}},
       {selector:'edge.relevant',style:{opacity:1,'line-color':'#58a6ff',width:mode==='all'?6:2}}
     ],layout:{name:mode==='all'?'preset':'circle',padding:45}});
+  applyGraphTheme();
   graph.on('mouseover','node, edge',e=>showGraphTooltip(e));
   graph.on('mouseout','node, edge',()=>{if(!tooltipPinned) $('graph-tooltip').hidden=true;});
   graph.on('tap','node, edge',e=>{

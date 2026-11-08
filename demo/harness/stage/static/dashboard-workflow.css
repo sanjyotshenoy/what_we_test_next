@@ -66,3 +66,49 @@
 @media(prefers-reduced-motion:reduce){.workflow-node.running {animation:none}}
 
 #live-inputs {font-size:.75rem} #live-input-text {max-height:160px;overflow:auto}
+
+/* Dashboard themes: colors also drive the canvas graph without rebuilding it. */
+:root {color-scheme:dark; --graph-edge:#53657e; --graph-highlight:#fff}
+:root[data-theme="light"] {
+  color-scheme:light;
+  --bg:#edf2f8; --panel:#fff; --panel2:#f3f6fb; --line:#ccd6e3;
+  --text:#1c2d43; --muted:#53657d; --accent:#165db4;
+  --good:#207546; --warn:#865500; --bad:#b42332; --violet:#7046ad;
+  --compound:#2869b2; --target:#25804c; --note:#9b6400;
+  --graph-edge:#7a8ba1; --graph-highlight:#174789;
+}
+[data-theme="light"] .panel h2 {color:var(--text)}
+[data-theme="light"] #log {background:radial-gradient(ellipse at top,#eaf2ff,transparent 65%)}
+[data-theme="light"] .workflow-heading > span,
+[data-theme="light"] .workflow-kicker,
+[data-theme="light"] .workflow-kicker > span,
+[data-theme="light"] .workflow-copy small,
+[data-theme="light"] .workflow-chevron,
+[data-theme="light"] #workflow-detail-summary {color:var(--muted)}
+[data-theme="light"] .workflow-node {border-color:#c4d3e5;background:linear-gradient(120deg,#fff,#f2f6fc);box-shadow:0 3px 10px #1c35500a}
+[data-theme="light"] .workflow-node:hover,
+[data-theme="light"] .workflow-node:focus-visible,
+[data-theme="light"] .workflow-node.selected {border-color:var(--accent);background:#eaf3ff}
+[data-theme="light"] .workflow-icon {color:#205da2;background:#dfeeff}
+[data-theme="light"] .workflow-node.review {border-color:#b68a37;background:#fffbef}
+[data-theme="light"] .workflow-node.review .workflow-kicker > span {color:#805200}
+[data-theme="light"] .workflow-node.verified {border-color:#79a78d;background:#edf8f1}
+[data-theme="light"] .workflow-node.verified .workflow-icon {color:#216f47;background:#d9efdf}
+[data-theme="light"] .workflow-node.verified .workflow-kicker > span {color:#216f47}
+[data-theme="light"] .workflow-node.bad {border-color:var(--bad);background:#fff1f2}
+[data-theme="light"] .workflow-node.pending {opacity:1;background:#f7f9fc}
+[data-theme="light"] .workflow-node.running {border-color:#2672bf;background:#e5f2ff;box-shadow:0 0 0 2px #2672bf30}
+[data-theme="light"] .workflow-node.running .workflow-kicker > span {color:#15559b}
+[data-theme="light"] .workflow-fork {stroke:#8b9db5}
+[data-theme="light"] #workflow-dialog {border-color:#b1c3d8;box-shadow:0 20px 90px #18324e30}
+[data-theme="light"] #workflow-dialog::backdrop {background:#253c5659}
+[data-theme="light"] #graph-tooltip {box-shadow:0 8px 30px #18324e30}
+[data-theme="light"] #live-output h3 {color:var(--accent)}
+[data-theme="light"] .well.sample {background:#facbd1;color:#70232d;border-color:#bb6b77}
+[data-theme="light"] .well.growth {background:#c7ecd5;color:#185432;border-color:#61a578}
+[data-theme="light"] .well.sterility {background:#cbdff5;color:#204b7b;border-color:#6c94bd}
+[data-theme="light"] .well.surplus {border-color:#4c617a}
+[data-theme="light"] .well.sim-active {outline-color:var(--accent)}
+[data-theme="light"] .deck-slot.active rect {fill:#dcecff}
+[data-theme="light"] #feed li.now {color:var(--accent);background:#e5effb}
+[data-theme="light"] #feed li.done {color:var(--muted)}
