@@ -1,86 +1,74 @@
 window.DATA=window.DATA||{};window.DATA.pilotResults={
   "models": [
     {
-      "id": "moonshotai/Kimi-K3.1-Pro",
+      "id": "kimi-k3.1-pro",
       "name": "Kimi K3.1 Pro",
       "axes": {
-        "suitability": 6,
-        "steps": 3,
-        "numerical_soundness": 5
+        "suitability": 2.0,
+        "steps": 1.0,
+        "numerical_soundness": 1.4
       },
-      "total": 14,
-      "maximum": 18,
-      "input_tokens": 5041,
-      "output_tokens": 4977,
-      "estimated_usd": 0.059851999999999995
+      "total": 4.4,
+      "maximum": 6,
+      "critical_failures": 0
     },
     {
-      "id": "zai-org/GLM-5.3",
-      "name": "GLM 5.3",
-      "axes": {
-        "suitability": 6,
-        "steps": 3,
-        "numerical_soundness": 3
-      },
-      "total": 12,
-      "maximum": 18,
-      "input_tokens": 4674,
-      "output_tokens": 5023,
-      "estimated_usd": 0.0286448
-    },
-    {
-      "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "id": "deepseek-v4.1-flash-1017",
       "name": "DeepSeek V4.1 Flash",
       "axes": {
-        "suitability": 6,
-        "steps": 3,
-        "numerical_soundness": 2
+        "suitability": 2.0,
+        "steps": 1.0,
+        "numerical_soundness": 1.0
       },
-      "total": 11,
-      "maximum": 18,
-      "input_tokens": 4709,
-      "output_tokens": 11915,
-      "estimated_usd": 0.0157107
+      "total": 4.0,
+      "maximum": 6,
+      "critical_failures": 1
     },
     {
-      "id": "nvidia/nemotron-3-super-120b-a12b",
+      "id": "glm-5.3",
+      "name": "GLM 5.3",
+      "axes": {
+        "suitability": 1.8,
+        "steps": 0.9,
+        "numerical_soundness": 0.75
+      },
+      "total": 3.45,
+      "maximum": 6,
+      "critical_failures": 8
+    },
+    {
+      "id": "nemotron-3-super",
       "name": "Nemotron 3 Super",
       "axes": {
-        "suitability": 6,
-        "steps": 2,
-        "numerical_soundness": 2
+        "suitability": 1.9,
+        "steps": 0.45,
+        "numerical_soundness": 0.5
       },
-      "total": 10,
-      "maximum": 18,
-      "input_tokens": 4915,
-      "output_tokens": 2446,
-      "estimated_usd": 0.0036759
+      "total": 2.85,
+      "maximum": 6,
+      "critical_failures": 17
     },
     {
-      "id": "openai/gpt-oss-120b",
+      "id": "gpt-oss-120b",
       "name": "GPT-OSS-120B",
       "axes": {
-        "suitability": 4,
-        "steps": 3,
-        "numerical_soundness": 3
+        "suitability": 1.45,
+        "steps": 0.85,
+        "numerical_soundness": 0.05
       },
-      "total": 10,
-      "maximum": 18,
-      "input_tokens": 4792,
-      "output_tokens": 3663,
-      "estimated_usd": 0.0029166
+      "total": 2.35,
+      "maximum": 6,
+      "critical_failures": 19
     }
   ],
-  "cases_per_model": 3,
+  "cases_per_model": 20,
   "responses_per_case": 1,
-  "grader": "Provisional Codex review; uncalibrated, not expert-validated",
-  "method": "Fixed isolated input packets; same requested settings; no tools or retrieval during generation",
-  "total_tokens": 52155,
-  "estimated_total_usd": 0.1108,
-  "sources": [
-    "benchmark/runs/four-model-pilot/provisional_grades.json",
-    "benchmark/runs/four-model-pilot/manifest.json",
-    "benchmark/runs/gpt-oss-120b-pilot/RESULTS.md",
-    "benchmark/runs/gpt-oss-120b-pilot/manifest.json"
-  ]
+  "grader": "Blinded Astra medium; provisional, not expert-validated",
+  "prompt_sha256": "ec4b8c8b102064327b6d965a63a8324db224af12acf9a8ef1d631cacb57bb202",
+  "new_generation_tokens": 310831,
+  "new_generation_estimate_usd": 0.67468755,
+  "unconfirmed_allowance_usd": 0.305636,
+  "judge_usage": "Token counts and billing unavailable; no additional Nebius calls",
+  "source_commit": "c1a0e32",
+  "source_report": "https://github.com/sanjyotshenoy/what_we_test_next/blob/c1a0e32/benchmark/judge/RESULTS.md"
 };
