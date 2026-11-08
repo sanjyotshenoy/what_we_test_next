@@ -15,7 +15,12 @@ Deck.slide('pitch-results', {steps:4,
  .pf-example{position:absolute;top:68%;left:0;right:0;border-left:3px solid var(--accent);padding-left:1.1em;}
  .pf-example small{font-size:var(--t-caption);color:var(--muted);}
  .pf-example p{font-size:var(--t-body);line-height:1.35;margin:.4em 0;}
- .pf-method{position:absolute;left:7%;right:7%;top:28%;font-size:var(--t-small);color:var(--muted)}
+ .pf-method{position:absolute;left:7%;right:7%;top:29%;font-size:var(--t-small);color:var(--muted);text-align:center}
+ .pf-results-plot .deck-plot-key{left:7%;right:7%;top:19%;gap:1em 2em;}
+ .pf-results-plot .deck-plot-chart{left:13%;right:9%;top:41%;height:34%;}
+ .pf-results-plot .deck-plot-group{width:90%;justify-content:space-between;gap:0;}
+ .pf-results-plot .deck-plot-bar{width:calc(6 * var(--u));}
+ .pf-results-plot .deck-plot-label{top:calc(100% + 2.2 * var(--u));}
  `);
  frame.innerHTML=`<h2 class="deck-heading">Can the model design the missing experiment?</h2>
  <div class="pf-intro reveal-in" data-show="1 2 3">
@@ -28,7 +33,7 @@ Deck.slide('pitch-results', {steps:4,
  <div class="pf-example reveal-in" data-from="3"><small>EXAMPLE · KINASE BENCHMARK</small><p>Design a concentration–response experiment to measure<br>haspin inhibition by CHEMBL4278808.</p></div>
  </div>`;
  const plot=Deck.groupedBars(frame,{max:18,ticks:3,format:v=>`${v}/18`,series:d.models.map(m=>({key:m.id,label:m.name})),groups:[{key:'total',label:['3 cases · 3 criteria · 0–2 points each · maximum 18'],values:Object.fromEntries(d.models.map(m=>[m.id,m.total]))}],footnote:[]});
- plot.root.classList.add('reveal-in');
+ plot.root.classList.add('reveal-in','pf-results-plot');
  plot.root.dataset.from='4';
  frame.insertAdjacentHTML('beforeend','<div class="pf-method reveal-in" data-from="4">Same fixed inputs for every model · 3 kinase/cell cases · no live retrieval</div>');
  return{enter:(s,a)=>{Deck.show(frame,s,a);plot.show(s>=4?1:0,a);}};
