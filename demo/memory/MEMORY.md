@@ -228,3 +228,37 @@ identities, provenance requirements and limitations. No duplicated prompt copy o
 automatic inference is introduced. A resumed run restores its own question/model.
 The browser regression verifies both full prompts and selected-prompt submission;
 public boundary and worker tests remain in place.
+
+## Live workflow and visible output — 2026-11-08
+
+Starting a public run now opens its live dashboard automatically. The flowchart
+populates as evidence and compiled/simulated artifacts arrive, with the active
+backend stage highlighted. A separate Model output block represents generation;
+the UI does not infer a tool stage before the model has selected it. Submission
+emits actual validation/compilation progress. Queued, returned, rejected, stopped
+and failed stages remain distinct; simulator verification still requires hashes.
+
+The Live output tab receives visible assistant completion content incrementally,
+plus tool input/result previews. Clicking Model output shows its current turn in a
+live dialog; a draft proposal preview is available before compilation. Provider
+reasoning fields, request metadata, credentials and transport exceptions are not
+forwarded. Output is escaped/text-rendered, not executed. The isolated worker adapts
+SDK streaming to the existing wwtn.llm.chat interface without changing wwtn/.
+Incomplete/truncated streams are never dispatched as complete tool actions. No
+retry, fake typing animation or fallback model was introduced.
+
+Events stay in the run's owner-only in-memory state (up to 2,000 events / two million
+text characters), use monotonic cursors, and expire with the existing run. Tool
+previews are limited to 6,000 characters and explicitly marked when truncated.
+Dashboard polls at one-second intervals and refetches final artifacts after a
+terminal state. It preserves graph zoom, selected molecules, pane focus, open
+output dialogs, and playback of an unchanged selected protocol. Long supplied
+inputs are collapsed so the workflow remains visible. Stop is available directly
+in the dashboard. The saved/sequential workflow remains read-only and unchanged.
+
+Verification: 41 affected tests passed, including real tool progress/rejection,
+streamed visible-content forwarding and reasoning-field exclusion, truncated
+stream rejection, bounded event cursors, owner access, progressive stage/artifact
+updates, output escaping, selection preservation and existing dashboard/browser
+regressions. Provider output was mocked; no paid inference was performed.
+TODO(final): Rehearse live streaming end-to-end using a visitor-supplied Nebius key.

@@ -2,7 +2,7 @@
 'use strict';
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const api = async path => {const r=await fetch(path); if(!r.ok) throw new Error(`Saved results unavailable (${r.status}).`); return r.json();};
+const api = async path => {const r=await fetch(path); if(!r.ok) throw Object.assign(new Error(`Results unavailable (${r.status}).`),{status:r.status}); return r.json();};
 const details = (title, value) => `<details><summary>${esc(title)}</summary>${prettyValue(value)}</details>`;
 let catalog, data, runs=[], generation=0, graph, liveQuestion='';
 const liveSession=new URLSearchParams(location.search).get('run');
@@ -75,16 +75,128 @@ $('model').onchange=selectModel;$('query').onchange=selectSession;$('run-select'
 $('kg-fit').onclick=()=>graph?.fit(undefined,50);
 $('kg-all').onclick=()=>drawGraph('all');
 $('kg-focus').onclick=()=>drawGraph('focus');
+let liveCursor=0, liveModelText='', liveTimer=null, liveSnapshotKey='', liveTextBlock=null;
+const liveNodeRecords={};
+let liveRefresh=0;
+function appendLiveEvents(job) {
+  const container=$('live-output-events'), scroller=$('live-output');
+  const follow=scroller.scrollHeight-scroller.scrollTop-scroller.clientHeight<90;
+  if(job.events_truncated) $('live-feed-note').textContent='Earlier activity expired from the bounded feed. Artifact details remain available.';
+  for(const event of job.events||[]) {
+    if(event.id<=liveCursor) continue;
+    liveCursor=event.id;
+    if(['tool_start','tool_result'].includes(event.kind)&&event.stage) {
+      liveNodeRecords[event.stage]=event;
+      if(event.tool==='planning_submit'&&event.kind==='tool_start') liveNodeRecords.proposal=event;
+    }
+    if(event.kind==='model_delta') {
+      if(!liveTextBlock) addRecord('Generated model output');
+      liveTextBlock.append(document.createTextNode(event.text||''));
+      liveModelText=(liveModelText+(event.text||'')).slice(-200000);
+      continue;
+    }
+    liveTextBlock=null;
+    if(event.kind==='model_start') {liveModelText='';addRecord(`Model turn ${event.turn} · visible output`);}
+    else if(event.kind==='model_end') continue;
+    else {
+      addRecord(`${event.elapsed??0}s · ${event.message}`);
+      if(event.text) liveTextBlock.textContent=event.text+(event.truncated?'\n[Preview truncated; inspect workflow artifacts for the full record.]':'');
+      liveTextBlock=null;
+    }
+  }
+  while(container.children.length>100) container.firstElementChild.remove();
+  const modelView=$('workflow-model-output');
+  if(modelView) {
+    const body=$('workflow-detail-body'),atEnd=body.scrollHeight-body.scrollTop-body.clientHeight<90;
+    modelView.textContent=liveModelText||'Waiting for visible model output…';
+    if(atEnd) body.scrollTop=body.scrollHeight;
+  }
+  if(follow) scroller.scrollTop=scroller.scrollHeight;
+  function addRecord(title) {
+    const article=document.createElement('article'),heading=document.createElement('h3');
+    heading.textContent=title;liveTextBlock=document.createElement('pre');liveTextBlock.className='live-text';
+    article.append(heading,liveTextBlock);container.append(article);
+  }
+}
+async function updateLiveArtifacts(snapshot, job) {
+  const signature=JSON.stringify(snapshot);
+  if(signature!==liveSnapshotKey) {
+    const previousEvidence=JSON.stringify(data?.evidence||[]);
+    const previous=runs[Number($('run-select').value)];
+    const key=item=>item?`${item.batch.manifest.batch_id}/${item.run.run_id}`:'';
+    const runSignature=item=>JSON.stringify(item?{run:item.run,snapshot:item.snapshot}:null);
+    const priorRun=runSignature(previous);
+    data=snapshot;liveSnapshotKey=signature;
+    runs=data.batches.flatMap(batch=>(batch.manifest.runs||[]).map(run=>({batch,run,snapshot:batch.runs.find(r=>r.run_id===run.run_id)})));
+    $('run-select').innerHTML=runs.map(({run},i)=>`<option value="${i}">${esc(run.compound)} / ${esc(run.species?.name)} · ${esc(run.run_id)}</option>`).join('');
+    const selected=Math.max(0,runs.findIndex(item=>key(item)===key(previous)));$('run-select').value=String(selected);
+    if(runSignature(runs[selected])!==priorRun) drawRun();
+    if(!graph) await drawGraph();
+    else if(previousEvidence!==JSON.stringify(data.evidence)) {
+      if($('kg-focus').getAttribute('aria-pressed')==='true') {
+        const zoom=graph.zoom(),pan=graph.pan();await drawGraph('focus');graph?.zoom(zoom);graph?.pan(pan);
+      } else {
+        const ids=new Set(retrievedGraph().nodes.map(n=>n.id));
+        graph.nodes().forEach(n=>n.toggleClass('relevant',ids.has(n.id())));
+        graph.edges().forEach(e=>e.toggleClass('relevant',ids.has(e.data('source'))&&ids.has(e.data('target'))));
+      }
+    }
+    if(!$('structure').classList.contains('selected-molecule')) drawMolecules();
+  }
+  renderWorkflow(data,job);
+}
+async function pollLive() {
+  const refresh=++liveRefresh;
+  try {
+    let [job,snapshot]=await Promise.all([api(`/api/runs/${encodeURIComponent(liveSession)}?after=${liveCursor}`),api(`/api/planning?session=${encodeURIComponent(liveSession)}`)]);
+    if(!['starting','running'].includes(job.state)) snapshot=await api(`/api/planning?session=${encodeURIComponent(liveSession)}`);
+    if(refresh!==liveRefresh) return;
+    appendLiveEvents(job);await updateLiveArtifacts(snapshot,job);
+    if(refresh!==liveRefresh) return;
+    $('run-tag').textContent=job.state;$('status').textContent=`${job.message} · ${job.session}`;
+    const active=['starting','running'].includes(job.state);
+    $('live-stop').disabled=!active;
+    if(active) liveTimer=setTimeout(pollLive,1000);
+  } catch(e) {
+    if(refresh!==liveRefresh) return;
+    if(e.status===404) {renderWorkflow(data,{state:'expired'});$('status').textContent='This private run has expired or is unavailable to this browser.';$('live-stop').disabled=true;return;}
+    $('status').textContent=`Live updates interrupted: ${e.message} Retrying…`;
+    liveTimer=setTimeout(pollLive,5000);
+  }
+}
+function setupLive() {
+  $('live-toolbar').hidden=false;
+  for(const [id,output] of [['live-workflow-tab',false],['live-output-tab',true]]) $(id).onclick=()=>{
+    $('log').hidden=output;$('live-output').hidden=!output;
+    $('live-workflow-tab').setAttribute('aria-pressed',String(!output));$('live-output-tab').setAttribute('aria-pressed',String(output));
+  };
+  $('live-stop').onclick=async()=>{
+    ++liveRefresh;clearTimeout(liveTimer);
+    $('live-stop').disabled=true;
+    try {
+      const response=await fetch(`/api/runs/${encodeURIComponent(liveSession)}/stop`,{method:'POST',headers:{'Content-Type':'application/json','X-Demo-Run':'1'},body:'{}'});
+      if(!response.ok) throw new Error(`Stop unavailable (${response.status})`);
+      const job=await response.json();renderWorkflow(data,job);$('status').textContent=job.message;$('run-tag').textContent=job.state;
+      await pollLive();
+    } catch(e) {$('status').textContent=e.message;$('live-stop').disabled=false;liveTimer=setTimeout(pollLive,1000);}
+  };
+  addEventListener('pagehide',()=>clearTimeout(liveTimer),{once:true});
+}
+
 (async()=>{try {
   if(liveSession) {
     const job=await api(`/api/runs/${encodeURIComponent(liveSession)}`);
     liveQuestion=job.question;
     $('source-tag').textContent='Your run';$('run-tag').textContent=job.state;
-    $('source-note').textContent='New run with your supplied key. Proposed and simulated results are not biological measurements. Reload to see newly generated artifacts.';
+    $('source-note').textContent='New run with your supplied key. Proposed and simulated results are not biological measurements. Stages and artifacts update automatically while this run progresses.';
     $('model').innerHTML=`<option>${esc(job.model)}</option>`;
-    $('query').innerHTML=`<option value="${esc(liveSession)}">${esc(job.question)}</option>`;
+    $('query').innerHTML=`<option value="${esc(liveSession)}">${esc(job.question.split('\n')[0])}</option>`;
     document.querySelector('a[href="/planner"]').href=`/planner?run=${encodeURIComponent(liveSession)}`;
-    await selectSession();return;
+    data={session:liveSession,evidence:[],batches:[]};
+    $('question').textContent=liveQuestion.split('\n')[0].replace(/^Scientist question: /,'');
+    $('live-inputs').hidden=false;$('live-input-text').textContent=liveQuestion;
+    renderWorkflow(data,job);setupLive();
+    await pollLive();return;
   }
   catalog=await api('/api/precomputed');
   $('model').innerHTML=catalog.models.map(m=>`<option value="${esc(m.id)}">${esc(m.label)}</option>`).join('');

@@ -49,3 +49,20 @@
 .workflow-record summary {font-size:.8rem}
 .workflow-downloads {display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; font-size:.8rem}
 @media(prefers-reduced-motion:reduce){.workflow-node {transition:none}.workflow-node:hover {transform:none}}
+
+.workflow-node.pending {opacity:.58}
+.workflow-node.running {border-color:#69c3ff; background:linear-gradient(120deg,#234766,#172e42); box-shadow:0 0 0 2px #58a6ff35; animation:workflow-pulse 1.8s ease-in-out infinite}
+.workflow-node.running .workflow-kicker > span {color:#a2dcff}
+@keyframes workflow-pulse {50%{box-shadow:0 0 0 4px #58a6ff18}}
+#live-toolbar {display:flex;gap:6px;padding:8px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+#live-toolbar button {font-size:.76rem}
+#live-toolbar button[aria-pressed="true"] {border-color:var(--accent)}
+#live-stop {margin-left:auto}
+#live-output {min-height:0;flex:1;overflow:auto;padding:12px;font-size:.8rem}
+#live-output article {border-bottom:1px solid var(--line);padding:10px 0}
+#live-output h3 {font-size:.8rem;margin:0 0 8px;color:#9ccfff}
+.live-text {white-space:pre-wrap;overflow-wrap:anywhere;font-size:.74rem;line-height:1.5;font-family:ui-monospace,monospace}
+#live-toolbar[hidden],#live-output[hidden],#log[hidden] {display:none!important}
+@media(prefers-reduced-motion:reduce){.workflow-node.running {animation:none}}
+
+#live-inputs {font-size:.75rem} #live-input-text {max-height:160px;overflow:auto}

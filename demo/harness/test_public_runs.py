@@ -52,7 +52,7 @@ class RunBoundaryTests(AioHTTPTestCase):
         data = await r.json(); session = data['session']
         self.assertNotIn('test-key-only', json.dumps(data))
         self.assertEqual((await self.start_run()).status, 429)
-        for route in (f'/api/runs/{session}', f'/api/planning?session={session}'):
+        for route in (f'/api/runs/{session}', f'/api/runs/{session}?after=0', f'/api/planning?session={session}'):
             self.assertEqual((await self.client.get(route)).status, 200)
             async with ClientSession(cookie_jar=CookieJar(unsafe=True)) as stranger:
                 response = await stranger.get(self.client.make_url(route))
@@ -115,6 +115,19 @@ class WorkerTests(unittest.TestCase):
         with patch('sys.stdin', io.StringIO('{"key":""}\n')), patch.dict('os.environ', {'NEBIUS_API_KEY': 'saved-key'}):
             with self.assertRaises(ValueError): public_worker.main()
 
+    def test_real_tool_adapter_preserves_progress_and_rejection(self):
+        import shutil
+        import uuid
+        session='test_live_'+uuid.uuid4().hex
+        try:
+            with patch('sys.stdout',new_callable=io.StringIO) as out:
+                result=public_worker.tool('planning_submit',{'batch':{}},session)
+            self.assertEqual(result['status'],'rejected')
+            events=[json.loads(line) for line in out.getvalue().splitlines()]
+            self.assertIn('checks',[event.get('stage') for event in events])
+        finally:
+            shutil.rmtree(planning_view.session_path(session),ignore_errors=True)
+
     def test_turn_limit(self):
         chat = Mock(return_value='{"tool":"planning_context","args":{}}')
         with patch.object(public_worker, 'tool', return_value={'error': 'budget exhausted'}), patch('sys.stdout', new_callable=io.StringIO):
@@ -131,7 +144,7 @@ class ProcessTests(unittest.IsolatedAsyncioTestCase):
         # Neither provider network access nor the six production tools are invoked.
         code = '''import sys, types, os
 from demo.harness import public_worker
-client=types.SimpleNamespace(max_retries=2)
+client=types.SimpleNamespace(max_retries=2,chat=types.SimpleNamespace(completions=types.SimpleNamespace(create=lambda **kw: None)))
 def get_client():
     assert os.environ['NEBIUS_API_KEY']=='pipe-test-key'
     return client
@@ -171,3 +184,46 @@ public_worker.main()
             await asyncio.gather(task, return_exceptions=True)
         self.assertEqual(job['state'], 'stopped')
         self.assertIsNotNone(processes[0].returncode)
+
+
+class VisibleStreamingTests(unittest.TestCase):
+    def test_visible_content_streams_but_reasoning_is_excluded(self):
+        from types import SimpleNamespace as NS
+        from demo.harness.visible_stream import completion_bridge
+        class Stream:
+            closed = False
+            def __iter__(self):
+                yield NS(choices=[NS(delta=NS(content=None, reasoning_content='PRIVATE-REASONING'),finish_reason=None)])
+                yield NS(choices=[NS(delta=NS(content='a'*260, reasoning_content='PRIVATE-REASONING'),finish_reason=None)])
+                # First output is published before the stream reaches its end.
+                self_test.assertEqual(parts,['a'*260])
+                yield NS(choices=[NS(delta=NS(content='done'),finish_reason='stop')])
+            def close(self): self.closed=True
+        self_test=self;parts=[];stream=Stream();create=Mock(return_value=stream)
+        result=completion_bridge(create,parts.append)(model='test')
+        self.assertEqual(result.choices[0].message.content,'a'*260+'done')
+        self.assertNotIn('PRIVATE-REASONING',''.join(parts))
+        self.assertTrue(stream.closed)
+        self.assertTrue(create.call_args.kwargs['stream'])
+
+    def test_truncated_stream_is_not_accepted_as_a_complete_action(self):
+        from types import SimpleNamespace as NS
+        from demo.harness.visible_stream import completion_bridge
+        stream=Mock()
+        stream.__iter__=Mock(return_value=iter([NS(choices=[NS(delta=NS(content='{"done":true}'),finish_reason='length')])]))
+        with self.assertRaises(ValueError): completion_bridge(Mock(return_value=stream),lambda text:None)()
+        stream.close.assert_called_once()
+
+    def test_event_cursor_bounds_and_allowlisted_fields(self):
+        manager=public_runs.PublicRuns()
+        job=dict(session='test',state='running',message='',model='model',question='question')
+        manager.record(job,dict(state='running',message='Generating',kind='model_start',stage='model',turn=1))
+        manager.record(job,dict(state='running',message='Visible text',kind='model_delta',stage='model',text='{}',
+                                reasoning_content='PRIVATE-REASONING',api_key='PRIVATE-KEY'))
+        public=manager.public(job,after=1)
+        self.assertEqual([e['id'] for e in public['events']],[2])
+        self.assertNotIn('PRIVATE',json.dumps(public))
+        self.assertNotIn('events',manager.public(job))
+        for _ in range(2100):manager.record(job,dict(state='running',message='Text',kind='model_delta',text='chunk'))
+        self.assertEqual(len(job['events']),2000)
+        self.assertTrue(manager.public(job,after=0)['events_truncated'])

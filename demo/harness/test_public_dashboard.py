@@ -67,12 +67,14 @@ class PublicDashboardBrowserTests(unittest.TestCase):
                         route.fulfill(status=202,content_type='application/json',body=json.dumps(dict(
                             session='public_test',state='finished',message='Browser test only',model='test',question='test')))
                     page.route('**/api/runs',fake_start)
-                    page.route('**/api/runs/public_test',lambda r:r.fulfill(status=200,content_type='application/json',body=json.dumps(dict(
+                    page.route('**/api/runs/public_test*',lambda r:r.fulfill(status=200,content_type='application/json',body=json.dumps(dict(
                             session='public_test',state='finished',message='Browser test only',model='test',question='test'))))
-                    page.click('#start');page.wait_for_selector('#live-results:visible')
+                    page.route('**/api/planning?session=public_test',lambda r:r.fulfill(status=200,content_type='application/json',body=json.dumps(dict(session='public_test',evidence=[],batches=[]))))
+                    page.click('#start');page.wait_for_url('**/?run=public_test')
+                    page.wait_for_selector('#live-toolbar:visible')
                     self.assertEqual(sent[0]['question'],(DEMO/'examples/antibiotic-comparison.txt').read_text())
                     self.assertEqual(sent[0]['key'],'test-key-never-real')
-                    self.assertEqual(page.locator('#live-key').input_value(),'')
+                    self.assertEqual(page.locator('#live-key').count(),0)
                     storage=page.evaluate('JSON.stringify({local:localStorage,session:sessionStorage})')
                     self.assertNotIn('test-key-never-real',storage)
                     self.assertNotIn('test-key-never-real',page.url)

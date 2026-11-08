@@ -1,6 +1,7 @@
 /* Conceptual data flow reconstructed from saved artifacts, not an execution timeline. */
 let workflowNodes=[], workflowTrigger=null;
 const workflowIcons={
+  model:'M4 5h16v14H4z M7 9l3 3-3 3 M12 15h5',
   context:'M5 4h14v16H5z M8 8h8 M8 12h8 M8 16h5',
   biology:'M12 5v5 M5 17l7-7 7 7 M9 3h6v4H9z M2 16h6v5H2z M16 16h6v5h-6z',
   literature:'M10 17a7 7 0 1 1 0-14 7 7 0 0 1 0 14 M15 15l6 6',
@@ -32,14 +33,40 @@ function workflowMap(snapshot) {
   ];
 }
 function workflowNode(node) {
-  return `<button type="button" class="workflow-node ${node.tone||''}" data-workflow-node="${node.id}" aria-haspopup="dialog" aria-controls="workflow-dialog" aria-label="${esc(node.title)}: ${esc(node.subtitle)}. Open details."><span class="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="${workflowIcons[node.id]}"/></svg></span><span class="workflow-copy"><span class="workflow-kicker">${node.number} <span>${esc(node.badge)}</span></span><strong>${esc(node.title)}</strong><small>${esc(node.subtitle)}</small></span><span class="workflow-chevron" aria-hidden="true">↗</span></button>`;
+  return `<button type="button" class="workflow-node ${node.tone||''}" data-workflow-node="${node.id}" ${node.active?'aria-current="step"':''} aria-haspopup="dialog" aria-controls="workflow-dialog" aria-label="${esc(node.title)}: ${esc(node.subtitle)}. Open details."><span class="workflow-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="${workflowIcons[node.id]}"/></svg></span><span class="workflow-copy"><span class="workflow-kicker">${node.number} <span>${esc(node.badge)}</span></span><strong>${esc(node.title)}</strong><small>${esc(node.subtitle)}</small></span><span class="workflow-chevron" aria-hidden="true">↗</span></button>`;
 }
-function renderWorkflow(snapshot) {
-  clearWorkflow();workflowNodes=workflowMap(snapshot);
+function renderWorkflow(snapshot, live=null) {
+  const previous=workflowNodes.length;
+  if(!live) clearWorkflow();
+  workflowNodes=workflowMap(snapshot);
+  if(live) {
+    workflowNodes.unshift({id:'model',number:'LLM',title:'Model output',subtitle:`Turn ${live.turn||0} / 16`,badge:'Waiting',description:'Visible model output streamed from the provider. Draft actions are not validated results; internal reasoning is not displayed.'});
+    const active=['starting','running'].includes(live.state);
+    for(const node of workflowNodes) {
+      const step=live.steps?.[node.id];
+      if(node.badge==='Unavailable'||node.id==='simulation'&&!node.records.length) {node.badge=active?'Queued':'Not reached';node.tone='pending';}
+      if(step==='returned'&&['Queued','Not reached','Waiting'].includes(node.badge)) node.badge=node.id==='proposal'?'Draft ready':'Returned';
+      if(step==='failed') {node.badge='Needs attention';node.tone='bad';}
+      node.active=active&&(live.stage||'model')===node.id;
+      if(node.active) {node.badge=node.id==='model'?'Generating':'Running';node.tone='running';}
+      if(!active&&live.stage===node.id&&['failed','stopped'].includes(live.state)) {node.badge=live.state==='stopped'?'Stopped':'Failed';node.tone=live.state==='stopped'?'pending':'bad';}
+    }
+    if(previous&&$('log').querySelector('[data-workflow-node="model"]')) {
+      for(const node of workflowNodes) {
+        const button=$('log').querySelector(`[data-workflow-node="${node.id}"]`);
+        button.className=`workflow-node ${node.tone||''}${button.classList.contains('selected')?' selected':''}`;
+        button.querySelector('.workflow-kicker > span').textContent=node.badge;
+        button.querySelector('.workflow-copy small').textContent=node.subtitle;
+        button.setAttribute('aria-label',`${node.title}: ${node.badge}. ${node.subtitle}. Open details.`);
+        if(node.active) button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');
+      }
+      return;
+    }
+  }
   const node=id=>workflowNode(workflowNodes.find(n=>n.id===id));
   const edge='<div class="workflow-edge" aria-hidden="true"><span></span></div>';
   const fork='<svg class="workflow-fork" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M150 0V7Q150 12 145 12H80Q75 12 75 17V24 M150 7Q150 12 155 12H220Q225 12 225 17V24"/></svg>';
-  $('log').innerHTML=`<div class="workflow-heading"><span>FROM EVIDENCE TO EXECUTION</span><small>Click a block to inspect</small></div><div class="workflow-map" aria-label="Saved scientific workflow">${node('context')}${fork}<div class="workflow-branches">${node('biology')}${node('literature')}</div><div class="workflow-join">${fork}</div>${node('proposal')}${edge}${node('checks')}${edge}${node('protocols')}${edge}${node('simulation')}</div><p class="workflow-note">Map of saved artifacts. Branches group evidence sources; they do not indicate parallel execution.</p>`;
+  $('log').innerHTML=`<div class="workflow-heading"><span>FROM EVIDENCE TO EXECUTION</span><small>Click a block to inspect</small></div><div class="workflow-map" aria-label="Saved scientific workflow">${live?node('model')+edge:''}${node('context')}${fork}<div class="workflow-branches">${node('biology')}${node('literature')}</div><div class="workflow-join">${fork}</div>${node('proposal')}${edge}${node('checks')}${edge}${node('protocols')}${edge}${node('simulation')}</div><p class="workflow-note">${live?'Live stages populate from returned artifacts. Highlighted blocks are currently running.':'Map of saved artifacts. Branches group evidence sources; they do not indicate parallel execution.'}</p>`;
 }
 function clearWorkflow() {
   const dialog=$('workflow-dialog');
@@ -57,6 +84,7 @@ function showWorkflowDetails(id) {
   $('workflow-detail-summary').textContent=node.description;
   $('workflow-detail-meta').textContent=`${node.subtitle} · ${data.session}`;
   let content='';
+  if(id==='model') content='<pre id="workflow-model-output" class="live-text"></pre>';
   if(node.evidence) content=node.evidence.map((e,i)=>`<article class="workflow-record"><h3>${esc(e.tool.replaceAll('_',' '))} <span>${i+1}</span></h3>${e.retrieved_at?`<p class="muted">${esc(e.retrieved_at)}</p>`:''}${details('Tool inputs',e.args)}${details('Saved result',e.result)}</article>`).join('');
   if(node.proposals) content=node.proposals.map(c=>`<article class="workflow-record"><h3>${esc(c.compound)}</h3>${prettyValue(c.proposal)}${details('Parameter provenance',c.evidence_links)}</article>`).join('');
   if(node.batches) content=node.batches.map(b=>`<article class="workflow-record"><h3>Design review</h3>${prettyValue(b.rules)}${details('Review requirements',b.manifest.review)}</article>`).join('');
@@ -67,7 +95,9 @@ function showWorkflowDetails(id) {
     const files=id==='simulation'?[['simulation.json','Simulator report']]:[['protocol.py','OT-2 protocol'],['run_sheet.md','Run sheet'],['plate.json','Plate map']];
     return `<article class="workflow-record"><h3>${esc(run.run_id)} · ${esc(run.compound)}</h3><p class="muted">${esc(run.species?.name)}</p>${body}${artifactLinks(r,files)}</article>`;
   }).join('');
+  if(!content&&typeof liveNodeRecords!=='undefined'&&liveNodeRecords[id]) {const event=liveNodeRecords[id];content=`<p>Live tool ${event.kind==='tool_start'?'input':'output'} preview. Draft inputs are not validated results.</p><pre class="live-text">${esc(event.text||event.message)}</pre>`;}
   $('workflow-detail-body').innerHTML=content||'<p>No saved records are available for this stage.</p>';
+  if(id==='model') $('workflow-model-output').textContent=typeof liveModelText==='string'&&liveModelText||'Waiting for visible model output…';
   for(const button of $('log').querySelectorAll('[data-workflow-node]')) button.classList.toggle('selected',button.dataset.workflowNode===id);
   workflowTrigger=$('log').querySelector(`[data-workflow-node="${id}"]`);
   $('workflow-dialog').showModal();$('workflow-detail-body').scrollTop=0;

@@ -26,7 +26,8 @@ el('live-form').onsubmit=async event=>{
   try {
     const job=await request('/api/runs',body);session=job.session;body.key='';
     history.replaceState(null,'',`/planner?run=${encodeURIComponent(session)}`);
-    el('live-events').replaceChildren();lastMessage='';show(job);timer=setTimeout(poll,1000);
+    el('live-events').replaceChildren();lastMessage='';show(job);
+    location.assign(`/?run=${encodeURIComponent(session)}`);
   } catch(e) {el('live-status').textContent=e.message;el('start').disabled=false;}
   finally {body.key='';}
 };
