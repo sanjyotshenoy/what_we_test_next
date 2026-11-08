@@ -93,7 +93,7 @@ class VisitorAdmissionTests(AioHTTPTestCase):
         self.visitors = Visitors(clock=lambda: self.now)
         return public_view.make_app(['published'], visitors=self.visitors)
 
-    async def test_thirty_browsers_then_busy_and_expiry(self):
+    async def test_thirty_browsers_then_busy_without_expiry(self):
         tokens = []
         for _ in range(30):
             self.client.session.cookie_jar.clear()
@@ -118,11 +118,14 @@ class VisitorAdmissionTests(AioHTTPTestCase):
         self.assertEqual(response.status, 200)
         self.assertEqual(response.cookies['demo_visitor'].value, tokens[0])
         self.assertEqual(len(self.visitors.sessions), 30)
-        self.now += 31
+        self.now += 86400 * 365
         self.client.session.cookie_jar.clear()
-        self.assertEqual((await self.client.get('/')).status, 200)
-        self.assertEqual(len(self.visitors.sessions), 2)
-        self.assertIn(tokens[0], self.visitors.sessions)
+        self.assertEqual((await self.client.get('/')).status, 429)
+        self.assertEqual(len(self.visitors.sessions), 30)
+        self.client.session.cookie_jar.update_cookies({'demo_visitor': tokens[0]})
+        response = await self.client.get('/api/visitor')
+        self.assertEqual(response.status, 200)
+        self.assertEqual(response.cookies['demo_visitor'].value, tokens[0])
 
     async def test_simultaneous_arrivals_do_not_overbook(self):
         import asyncio

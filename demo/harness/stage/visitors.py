@@ -10,13 +10,14 @@ BUSY = '''<!doctype html><html lang="en"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="refresh" content="15"><title>Project Ouroboros — Demo busy</title>
 <body style="background:#101820;color:#eef4f7;font:18px system-ui;max-width:38rem;margin:15vh auto;padding:24px">
-<h1>The demo is currently full</h1><p>All 30 dashboard visitor slots are in use.
-This page will retry automatically every 15 seconds as slots become available.</p>
+<h1>The demo is currently full</h1><p>All 30 dashboard visitor slots are reserved.
+Visitor slots do not expire automatically. This page will retry automatically
+every 15 seconds; admission resets when the demo service restarts.</p>
 <p><a href="" style="color:#80dfcf">Try again now</a></p></body></html>'''
 
 
 class Visitors:
-    def __init__(self, limit=30, ttl=120, clock=time.monotonic):
+    def __init__(self, limit=30, ttl=None, clock=time.monotonic):
         self.limit, self.ttl, self.clock = limit, ttl, clock
         self.sessions = {}
 
@@ -30,7 +31,7 @@ class Visitors:
             return await handler(request)
         now = self.clock()
         for token, entry in list(self.sessions.items()):
-            if now - entry['seen'] >= self.ttl:
+            if self.ttl is not None and now - entry['seen'] >= self.ttl:
                 del self.sessions[token]
         token = request.cookies.get(COOKIE)
         if token not in self.sessions:

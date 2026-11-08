@@ -398,3 +398,16 @@ workers. Health and a deployed-origin Chromium check passed: saved runs rendered
 HttpOnly visitor cookie set, heartbeat successful, no browser JS errors. An initial
 network-idle navigation check timed out; explicit page-readiness checks passed.
 The full 100-arrival test ran against an isolated test server, not the live demo.
+
+## Remove visitor inactivity expiry — 2026-11-08
+
+User explicitly requested removing the two-minute dashboard session expiration.
+Admission now defaults to no expiry; the 30-slot limit remains. Slots persist in
+memory until viewer restart, even after a browser closes or loses its cookie.
+The busy page states this behavior. This supersedes the previous idle-timeout
+policy. Live-run execution limits and private-result retention are unchanged.
+The regression advances admission time by one year, verifying all 30 reservations
+remain and the original cookie still works while a new visitor is rejected.
+
+Ten public-boundary tests passed. Deployed with zero active public workers;
+wwtn-viewer is active and its health check passed. No inference was started.
