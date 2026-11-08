@@ -119,3 +119,14 @@ only when launched with `STAGE_AGENT=stage`; the default is `planner`.
 For public-access preparation and the private-operator/read-only-viewer boundary,
 see [deployment notes](deploy/README.md). The current operator interface is shared
 and must not be published as a multi-user application.
+
+## Sequential recorded walkthrough
+
+The results viewer now also serves `/sequential`: select one of its approved
+recordings, then follow saved retrievals, proposals, compiler checks and simulation
+reports with automatic pacing, pause/resume, Next step, Show all and Replay.
+It uses only the existing published-session allowlist and read-only artifact APIs.
+No new model call, private transcript, or physical execution is triggered. Timing
+is illustrative and milestones are reconstructed from saved artifacts, not an
+exact agent transcript. Synthetic assay inputs and scientific limitations remain
+visible. The original `index.html` and slide entry point are preserved.

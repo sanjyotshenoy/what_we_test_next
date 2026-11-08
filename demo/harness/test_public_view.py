@@ -58,6 +58,16 @@ class PublicViewTests(AioHTTPTestCase):
         response = await self.client.get(base + 'batch.json')
         self.assertEqual(response.status, 404)
 
+    async def test_sequential_assets_are_explicit_and_read_only(self):
+        for route in ('/sequential', '/sequential-assets/sequential.js',
+                      '/sequential-assets/sequential.css', '/sequential-assets/demo.css',
+                      '/sequential-assets/fonts/Lato-Regular.woff2'):
+            self.assertEqual((await self.client.get(route)).status, 200, route)
+        for route in ('/sequential-assets/.env', '/sequential-assets/private/published_sessions.json',
+                      '/sequential-assets/harness/stage/server.py'):
+            self.assertEqual((await self.client.get(route)).status, 404, route)
+        self.assertEqual((await self.client.post('/sequential')).status, 405)
+
     async def test_missing_allowlist_fails_closed(self):
         for sessions in ([], ['../escape']):
             with self.assertRaises(ValueError):

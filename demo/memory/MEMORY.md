@@ -85,3 +85,15 @@ software verification from pending scientific review and broader reliability wor
 for optional replay, avoiding the running operator. Historical failures remain in
 the handoff and verification log. This documentation-only reconciliation did not
 rerun paid rehearsals, restart services, or change access settings.
+
+## Sequential playback addition
+
+User requested a gradual multi-query walkthrough using Sanjyot's trajectories.
+`/sequential` on the prepared viewer reconstructs milestones from its existing
+approved sessions, with selectable recordings, pause/resume, speed, step, show-all
+and replay. It does not expose private transcripts or broaden the session list.
+The original slide-linked demo is preserved. Source is `sequential.html`,
+`sequential.js`, `sequential.css`; served through explicit public-view asset routes.
+Later access setup (after the historical checkpoint above): the judge viewer is
+public via Brev HTTPS; the separate operator requires the current org-member email
+allowlist. This change does not alter either access rule.

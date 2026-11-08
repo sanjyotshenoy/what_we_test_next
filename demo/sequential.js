@@ -1,0 +1,83 @@
+/* Saved artifact walkthrough, not a transcript or a wall-clock reconstruction.
+   Only the existing published-session API is used; no operator endpoints. */
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const detail = (title, value) => `<details><summary>${esc(title)}</summary><pre>${esc(typeof value === 'string' ? value : JSON.stringify(value, null, 2))}</pre></details>`;
+  const card = content => `<div class="card record">${content}</div>`;
+  const paragraph = text => `<p>${esc(text)}</p>`;
+  let recordings = [], selected = null, stages = [], cursor = 0, timer = null, paused = false;
+  const api = async path => { const r = await fetch(path); if (!r.ok) throw new Error(`Could not load saved results (${r.status}).`); return r.json(); };
+  function stopTimer() { clearTimeout(timer); timer = null; }
+  function schedule() {
+    stopTimer();
+    if (!paused && cursor < stages.length) timer = setTimeout(advance, 3500 / Number($('speed').value));
+  }
+  function controls() {
+    $('pause').textContent = paused ? 'Resume' : 'Pause';
+    $('pause').disabled = $('next').disabled = $('all').disabled = cursor >= stages.length;
+    $('message').textContent = cursor >= stages.length ? 'Playback complete · saved software results, not biological validation.' : `${paused ? 'Paused' : 'Playing recording'} · ${cursor} / ${stages.length} milestones`;
+  }
+  function advance() {
+    stopTimer();
+    if (cursor >= stages.length) return;
+    const stage = stages[cursor++];
+    const li = document.createElement('li'); li.className = 'stage';
+    li.innerHTML = `<h3>${esc(stage.title)} <span class="pill">Saved</span></h3>${stage.html}`;
+    $('timeline').append(li); controls(); schedule();
+  }
+  function build(data) {
+    const out = [{title:'Start with the recorded experiment request', html:card(paragraph('This is a software rehearsal. Assay settings were supplied as synthetic test inputs; simulation does not establish biological applicability.') + paragraph('The following milestones reconstruct the flow from saved artifacts. Delays are presentation pacing, not original tool durations.'))}];
+    for (const e of data.evidence || []) {
+      const r = e.result || {};
+      const titles = {planning_context:'Load protocol context', biology_lookup:'Look up biological evidence', literature_search:'Search the literature', literature_read:'Read a retrieved passage'};
+      out.push({title:titles[e.tool] || e.tool, html:card(`<div class="call">${esc(e.tool)}</div>` + paragraph(e.retrieved_at || '') + detail('Recorded tool inputs', e.args) + (e.tool === 'literature_read' ? paragraph(r.passage || r.note || '') : '') + detail('Recorded tool result', r))});
+    }
+    for (const b of data.batches || []) {
+      const m = b.manifest;
+      for (const c of b.batch?.compounds || []) {
+        const p = c.proposal, e = p.experiment || {};
+        out.push({title:`Propose an experiment · ${c.compound}`, html:card(paragraph(p.rationale) + `<dl class="fields">${[['Assay',e.assay_type],['Panel',(e.panel || []).map(s=>s.name).join(', ')],['Series',`${e.top_concentration ?? e.top_concentration_uM} ${e.concentration_unit || 'uM'}; 1:${e.dilution_factor}; ${e.n_points} points`],['Replicates',e.replicates],['Controls',(e.controls||[]).join(', ')]].map(([k,v])=>`<div class="pair in"><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` + detail('Saved proposal and citations',p) + detail('Parameter provenance',c.evidence_links))});
+      }
+      out.push({title:'Inspect compiler rule checks',html:card(detail('Saved rule results',b.rules) + paragraph('These are software checks; they are not held-out benchmark grading or domain review.'))});
+      for (const run of m.runs || []) {
+        const snapshot = b.runs.find(r=>r.run_id===run.run_id);
+        const base = `/api/artifacts/${encodeURIComponent(data.session)}/${encodeURIComponent(m.batch_id)}/${encodeURIComponent(run.run_id)}/`;
+        out.push({title:`Compile ${run.run_id} · ${run.compound} / ${run.species?.name || ''}`,html:card(paragraph('A separate OT-2 protocol was generated for this compound–species pair.') + `<p><a href="${base}protocol.py">Download protocol</a> · <a href="${base}run_sheet.md">Run sheet</a> · <a href="${base}plate.json">Plate map</a></p>` + detail('Sources and well layout',{sources:snapshot?.sources,plate:snapshot?.plate}) + detail('Compiler warnings',run.warnings || []))});
+        const pass = !!snapshot?.simulation && run.simulation?.status === 'passed';
+        out.push({title:`Simulator result · ${run.run_id}`,html:card(`<p class="${pass ? 'ok' : 'bad'}">${pass ? 'Saved simulation passed (protocol hash verified by the viewer).' : 'No verified simulation pass available.'}</p>` + detail('Saved simulator report',snapshot?.simulation || run.simulation) + paragraph('No physical execution or biological outcome is implied.'))});
+      }
+    }
+    out.push({title:'Review the saved outcome',html:card(paragraph('The recorded planning and simulation artifacts are ready to inspect. Strain selection, evidence applicability and physical execution remain separate review steps.') + '<a href="/">Open the full results viewer</a>')});
+    return out;
+  }
+  function start(index) {
+    stopTimer(); selected=index; cursor=0; paused=false;
+    const data=recordings[index]; stages=build(data); $('timeline').replaceChildren(); $('toolbar').hidden=false;
+    $('provenance').textContent=`Source session: ${data.session} · evidence in saved retrieval order; proposals and simulation artifacts follow. Playback is reconstructed, not an exact agent transcript.`;
+    for (const b of $('queries').querySelectorAll('button')) b.setAttribute('aria-pressed',String(Number(b.dataset.index)===index));
+    advance();
+  }
+  $('pause').onclick=()=>{paused=!paused;controls();schedule();};
+  $('next').onclick=()=>{paused=true;advance();};
+  $('all').onclick=()=>{paused=true;stopTimer();while(cursor<stages.length)advance();};
+  $('restart').onclick=()=>{if(selected!==null)start(selected);};
+  $('speed').onchange=schedule;
+  $('theme').onclick=()=>{const root=document.documentElement;root.dataset.theme=(root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';};
+  $('queries').onclick=e=>{const b=e.target.closest('button');if(b)start(Number(b.dataset.index));};
+  (async()=>{
+    try {
+      const sessions=await api('/api/planning/sessions');
+      recordings=await Promise.all(sessions.map(s=>api(`/api/planning?session=${encodeURIComponent(s.session)}`)));
+      recordings=recordings.filter(r=>r.batches?.length);
+      $('queries').innerHTML=recordings.map((r,i)=>{
+        const runs=r.batches.flatMap(b=>b.manifest.runs || []);
+        const compounds=[...new Set(runs.map(x=>x.compound))].join(' + ');
+        const species=[...new Set(runs.map(x=>x.species?.name).filter(Boolean))].join(' + ');
+        return `<button data-index="${i}" aria-pressed="false"><strong>Plan MIC experiments: ${esc(compounds)}</strong>${esc(species)}<small>Recorded software rehearsal · ${runs.length} generated protocols · synthetic assay settings</small></button>`;
+      }).join('');
+      $('message').textContent=recordings.length?'Choose a recording to begin gradual playback.':'No published recordings are available.';
+    } catch(e) { $('message').textContent=e.message+' Reload to retry. No live fallback was started.'; }
+  })();
+})();

@@ -13,6 +13,9 @@ from aiohttp import web
 from demo.harness.stage import planning_view, recording
 
 STATIC = Path(__file__).parent / 'static'
+DEMO_STATIC = Path(__file__).resolve().parents[2]
+SEQUENTIAL_FILES = {'demo.css', 'sequential.css', 'sequential.js',
+                    'fonts/Lato-Regular.woff2', 'fonts/Lato-Semibold.woff2', 'fonts/Lato-Bold.woff2'}
 STATIC_FILES = {'planner.css', 'planner.js'}
 DOWNLOAD_FILES = planning_view.BATCH_FILES | (planning_view.RUN_FILES - {'simulator.log'})
 
@@ -57,6 +60,15 @@ def make_app(published, *, request_limit=600):
             raise web.HTTPNotFound()
         return web.FileResponse(STATIC / name)
 
+    async def sequential(request):
+        return web.FileResponse(DEMO_STATIC / 'sequential.html')
+
+    async def sequential_asset(request):
+        name = request.match_info['name']
+        if name not in SEQUENTIAL_FILES:
+            raise web.HTTPNotFound()
+        return web.FileResponse(DEMO_STATIC / name)
+
     async def health(request):
         return web.json_response({'ok': True, 'opencode': False, 'replay': True,
                                   'read_only': True, 'default_session': published[0]})
@@ -100,7 +112,8 @@ def make_app(published, *, request_limit=600):
         return web.FileResponse(path, headers={'Content-Disposition': f'attachment; filename="{path.name}"'})
 
     app = web.Application(middlewares=[boundary], client_max_size=1024)
-    app.add_routes([web.get('/', index), web.get('/static/{name}', static),
+    app.add_routes([web.get('/sequential', sequential),
+                    web.get('/sequential-assets/{name:.*}', sequential_asset), web.get('/', index), web.get('/static/{name}', static),
                     web.get('/api/health', health), web.get('/api/models', models),
                     web.get('/api/planning/sessions', sessions), web.get('/api/planning', planning),
                     web.get('/api/artifacts/{session}/{batch}/{filename:.*}', artifact)])
