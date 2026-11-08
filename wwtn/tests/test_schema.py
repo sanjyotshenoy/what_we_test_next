@@ -25,6 +25,21 @@ def test_nanomolar_converts_because_the_unit_is_the_same_quantity():
     assert e.top_concentration_uM == pytest.approx(0.5)
 
 
+def test_an_explicit_unit_is_never_overwritten_by_the_legacy_field():
+    # the regression this pair of fields exists to prevent: taking the value from top_concentration_uM used to
+    # force the unit to uM with it, relabelling 256 ug/mL as 256 uM. agent/propose.py offers the model
+    # top_concentration_uM and nothing else, so this is the shape it will emit the day it learns about units.
+    e = Experiment(**MIC, concentration_unit="ug/mL", top_concentration_uM=256)
+    assert (e.top_concentration, e.concentration_unit) == (256.0, "ug/mL")
+    assert e.top_concentration_uM is None          # there is no micromolar value for a mass concentration
+
+
+def test_an_explicit_micromolar_unit_still_round_trips():
+    e = Experiment(**MIC, concentration_unit="nM", top_concentration_uM=500)
+    assert (e.top_concentration, e.concentration_unit) == (500.0, "nM")
+    assert e.top_concentration_uM == pytest.approx(0.5)
+
+
 def test_a_record_written_against_the_old_schema_still_loads():
     # agent/anchor.py, the recorded demo traces and benchmark/ground_truth.jsonl all predate the unit field
     e = Experiment(**MIC, top_concentration_uM=12.0)

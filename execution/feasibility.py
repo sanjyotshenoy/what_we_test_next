@@ -77,7 +77,11 @@ def _atmospheres_for(species: Any) -> list[str]:
         return ["anaerobic"]
     if "aerob" in tolerance:
         return ["aerobic"]
-    return ["aerobic"]          # unknown: assume the common case, and the warning below says we assumed
+    # TODO(final): "unknown" is treated as an aerobe and passes with NO violation and NO warning, so a panel
+    # assembled without this field set gets no protection - the wrong failure direction for a project about
+    # gut anaerobes. Left as-is by team decision (2026-11-08: not a priority before the demo). The fix is to
+    # warn on every "unknown", or to default the tolerance from the biology KG rather than from optimism.
+    return ["aerobic"]
 
 
 def check_feasible(experiment: Any, lab: Lab | None = None, panel: Sequence[Any] | None = None,

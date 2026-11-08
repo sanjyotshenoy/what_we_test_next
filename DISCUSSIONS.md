@@ -448,7 +448,8 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 - `execution/protocol.py`: `to_ot2` -> a file the OT-2 accepts (**verified**: simulates clean in opentrons 8.8.2,
   266-step run log), `run_sheet` -> the off-robot half. Two outputs on purpose - nothing in the API incubates 18 h
   anaerobically or reads OD590, so a `.py` alone is an experiment with no measurement in it.
-- Three guards: `audit(design)` first (a map that fails its own arithmetic never becomes a protocol), the
+- Three guards: `audit(design)` first (every disagreement **reported as a warning** - not a hard gate; see
+  the correction below), the
   (liquid, volume) movements compared against `plate.py`'s plan, and `unimplemented_steps()` naming any on-robot
   verb the template asks for that the generator does not perform. Empty for `bacterial_mic_broth`. `TODO(final)`:
   the order is still `plate.py`'s hard-coded MIC sequence, so the guard reports the gap rather than closing it.

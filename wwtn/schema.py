@@ -94,12 +94,22 @@ class Experiment(BaseModel):
 
     @model_validator(mode="after")
     def _reconcile_concentration(self) -> "Experiment":
-        """Keep `top_concentration` canonical and `top_concentration_uM` a faithful derivative of it."""
+        """Keep `top_concentration` canonical and `top_concentration_uM` a faithful derivative of it.
+
+        **An explicitly given `concentration_unit` always wins.** Taking the value from the legacy
+        `top_concentration_uM` field used to force the unit to µM along with it, which silently relabelled
+        `Experiment(concentration_unit="ug/mL", top_concentration_uM=256)` as 256 µM - the exact
+        molecular-weight-sized error this pair of fields exists to prevent. That combination is not far-fetched:
+        `agent/propose.py` currently offers the model `top_concentration_uM` and nothing else, so the moment it
+        learns about units this is the shape it will emit. The unit field is authoritative; the `_uM` in the
+        legacy field's name is not.
+        """
         micromolar = {"uM": 1.0, "nM": 1e-3}
         if not self.top_concentration and self.top_concentration_uM:
-            # written against the old schema: one number, µM implied
+            # written against the old schema: one number, and µM implied *only* if no unit was given
             object.__setattr__(self, "top_concentration", self.top_concentration_uM)
-            object.__setattr__(self, "concentration_unit", "uM")
+            if "concentration_unit" not in self.model_fields_set:
+                object.__setattr__(self, "concentration_unit", "uM")
         factor = micromolar.get(self.concentration_unit)
         object.__setattr__(self, "top_concentration_uM",
                            None if factor is None else self.top_concentration * factor)
