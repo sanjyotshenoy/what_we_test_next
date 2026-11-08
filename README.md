@@ -31,6 +31,12 @@ Connecting those bacterial components into one agent-driven workflow remains int
 - [Execution](execution/): lab constraints, plate planning, protocol generation, and simulation.
 - [Watch the OT-2 hardware run](Opentrons/media/ot2-run-demo.mp4): 27-second video of the team’s liquid-handling demonstration.
 
+## OT-2 hardware demonstration
+
+[![OT-2 deck with a well plate, tips, and colored liquids during the team’s run](Opentrons/media/ot2-run-demo.jpg)](Opentrons/media/ot2-run-demo.mp4)
+
+[Watch the 27-second run](Opentrons/media/ot2-run-demo.mp4).
+
 ## Layout
 
 Each workstream owns a folder; folders exchange files whose formats are fixed in `wwtn/schema.py` (JSON Lines)
@@ -81,20 +87,3 @@ model is `NEBIUS_MODEL` in `.env`.
 **Live deck:** https://zhang-etal-biohack.pages.dev/
 
 - [Standalone Q/A](https://zhang-etal-biohack.pages.dev/talks/pitch-preview/qa.html)
-
-The main URL opens the current pitch with the original slides appended as backup. The site is publicly
-accessible with search-engine indexing disabled; old long URLs remain supported. The combined deck is in
-`slides/talks/pitch-preview/`, and the original deck is in `slides/talks/biohack/`, built on
-[protein-design-interactive-slides](https://github.com/ramithuh/protein-design-interactive-slides) (see
-`slides/README.md` and `slides/AGENTS.md`).
-
-- **Demo page:** [`demo/`](demo/) at the repo root (also the "Live demo" slide, and `demo/` next to the live deck):
-  a recorded trace viewer. Its README documents the trace format and implementation status.
-  The current pitch also embeds the [graph and benchmark explorer](https://zhang-etal-biohack.pages.dev/talks/biohack/graph/).
-- **Present locally:** `cd slides && python -m http.server 8000`, then open http://localhost:8000/
-  (or open `slides/talks/pitch-preview/index.html` straight from disk).
-- **Check every slide:** `python slides/tools/check_deck.py slides/talks/pitch-preview` (needs Playwright).
-- **Deploy:** every push to `main` that touches `slides/` redeploys the link above
-  (`.github/workflows/deploy-slides.yml`; needs the `CLOUDFLARE_API_TOKEN` repository secret). By hand:
-  `slides/tools/deploy_unlisted.sh zhang-etal-biohack` (needs `wrangler login`). The main URL stays fixed;
-  `slides/.pages-prefix` preserves legacy long links.
