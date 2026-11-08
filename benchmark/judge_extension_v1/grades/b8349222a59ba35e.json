@@ -1,0 +1,59 @@
+{
+  "item_id": "b8349222a59ba35e",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Purified P30530 turnover directly addresses biochemical inhibition, with interference controls and explicit limits on cellular or selective causal interpretation. ADP-Glo compatibility is appropriately provisional.",
+      "response_quotes": [
+        "This experiment measures biochemical activity under defined conditions; it does not establish cellular viability effects, intracellular target engagement, kinase selectivity or target-specific cellular causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Qualification, dilution preparation, kinase reaction, ordered ATP depletion/ADP detection and controlled normalization/fitting form a coherent outline. Essential reaction and detection settings, reference inhibitor and numerical QC thresholds remain unresolved, so this is not executable.",
+      "response_quotes": [
+        "reagent_volumes, depletion_time, detection_time, detection temperature, plate type and reader settings: unresolved; require a validated compatible detection procedure."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Explicit numeric abstention leaves top dose and concentration endpoints undefined. Threefold spacing, ten doses and technical triplicates are disclosed assumptions; the radiometric 40-minute example is correctly limited to a qualification candidate. No arithmetic contradiction or fabricated numerical support is evident.",
+      "response_quotes": [
+        "No supported soluble top concentration is available, so top_concentration_uM is null."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained radiometric and sparse-method assays to proposed ADP-Glo.",
+    "Compatibility of candidate substrate and incubation with unresolved kinase preparation and detection chemistry.",
+    "Solubility, vehicle tolerance and optimal reaction and detection conditions."
+  ],
+  "assumption_handling": "Separates retrieved substrate/time context from provisional design assumptions and unresolved settings; does not transfer other-compound potency to the query. Clearly distinguishes technical wells from independent runs.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": null,
+    "prose_consistent": true,
+    "notes": "Top dose is null, so no absolute series can be calculated. Ten threefold doses end at T/19683. No explicit endpoint contradicts this; technical wells are distinguished from independent runs."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and essential operating conditions require domain qualification before execution; concentration range remains unresolved."
+}

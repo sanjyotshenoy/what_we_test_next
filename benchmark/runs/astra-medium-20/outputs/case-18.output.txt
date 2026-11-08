@@ -1,0 +1,54 @@
+{
+  "assay_type": "Cellular concentration-response assay of ATP-associated viability, with an orthogonal growth endpoint",
+  "system": "Mouse BaF3 cells expressing recombinant human AXL (Tyrosine-protein kinase receptor UFO, P30530), treated with CHEMBL4845957",
+  "readout": "Background-corrected CellTiter-Glo luminescence relative to matched vehicle at the exposure endpoint. This measures cellular ATP as a viability proxy; parallel viable-cell counts at treatment start and endpoint distinguish reduced net growth from net cell loss.",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Verify cell identity and recombinant human AXL expression. Establish culture conditions and whether growth depends on AXL, including the role of IL-3 or other growth support. Pilot seeding density and exposure duration to obtain a measurable vehicle growth window and an ATP signal within the assay's useful range. Prepare a concentration series only after assessing compound solubility and vehicle tolerance. Keep vehicle concentration constant across treatments.",
+      "parameters": "Cell density, medium, growth supplements, top concentration, dilution factor, number of concentrations, replicate count and vehicle fraction: unresolved. Proposed design assumption: use logarithmically spaced concentrations, technical replication within plates and independent experiments; select spacing and counts to resolve both response plateaus and the transition after a pilot. No specific numeric settings are supported by the packet."
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose the prepared cells to CHEMBL4845957 and controls under validated culture conditions. Record the final concentrations and actual treatment duration. Use matched parallel cultures for the orthogonal endpoint.",
+      "parameters": "Exposure time and temperature: unresolved. Proposed design assumption: choose duration based on observed vehicle growth without nutrient limitation or signal saturation, rather than importing a biochemical reaction time."
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Apply CellTiter-Glo, mix, stabilize and measure luminescence using a procedure validated for the chosen plate and sample volume. Include compound-dependent detection-interference controls with a fixed ATP input and no cells, alongside cell-free blanks. Confirm that the measured signal tracks viable-cell abundance over the relevant range.",
+      "parameters": "Reagent volume, mixing time and stabilization time: unresolved; the packet supplies the detection sequence but no operating settings."
+    },
+    {
+      "card_id": "new: parallel viable-cell enumeration",
+      "instruction": "Proposed adaptation: obtain viable-cell counts using a validated counting method on parallel samples at treatment start and endpoint. This additional endpoint is needed because ATP changes alone cannot establish altered proliferation or death. Compare endpoint counts both with vehicle and with the starting count.",
+      "parameters": "Counting method, viability discriminator and sample allocation: unresolved. This is a proposed design choice, not a supplied experimental observation."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize background-corrected luminescence to matched vehicle. Examine interference controls and viable-cell counts before interpreting ATP suppression as reduced viability. Proposed analysis assumption: fit a four-parameter logistic concentration-response model if the measured range supports it, and report replicate variability and uncertainty across independent experiments. Define any cellular IC50 explicitly as the concentration yielding 50% of vehicle ATP signal; do not equate a fitted midpoint with that value unless the fitted response scale supports the equivalence. If 50% is not bracketed or the fit is unstable, report a bound or that the value is not estimable. Report growth/count results separately.",
+      "parameters": "Fit model: provisional four-parameter logistic model. Acceptance criteria: reproducible vehicle growth and signal, acceptable background, unsaturated readout, effective reference control, no material detection interference, and adequate concentration coverage. Numeric thresholds and uncertainty method: unresolved and to be prespecified after assay qualification."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Matched vehicle-treated AXL-expressing BaF3 cells for normalization; untreated cells to assess vehicle effects.",
+    "Cell-free medium/reagent blanks and compound-containing blanks to characterize background.",
+    "Fixed-ATP, cell-free detection controls across compound concentrations to identify luminescence interference.",
+    "A validated cellular viability-reducing reference control; identity and concentration unresolved.",
+    "Starting viable-cell count and endpoint vehicle count to establish the growth window.",
+    "Proposed mechanism follow-up: matched parental BaF3 cells and an IL-3-supported rescue/comparison arm, with independently validated growth conditions; these provide context but do not by themselves establish AXL specificity."
+  ],
+  "rationale": "The question concerns a cellular growth/viability phenotype, so cell-prepare, cell-expose and cell-detect are selected in prerequisite order, followed by analyse. The ATP readout is explicitly offered by the cellular cards, but no retained measurement examples support its numeric implementation for this compound and system. Parallel counting addresses the distinction between ATP metabolism, growth arrest and cell loss. The kinase-react and kinase-detect cards are omitted because purified-enzyme ATP turnover and ADP-Glo detection do not measure BaF3 viability. Any later biochemical assay would answer a separate question about direct kinase inhibition.",
+  "citations": ["CHEMBL4845957", "P30530", "cell-prepare", "cell-expose", "cell-detect", "analyse"],
+  "limitations": [
+    "No retained measurement examples are provided. The four numeric design fields are null because the packet cannot justify their values; this is a qualification-dependent proposal, not an execution-ready protocol.",
+    "Concentration range must be established through solubility, vehicle-tolerance and response-ranging work. Neither potency nor a withheld IC50 is inferred.",
+    "AXL expression does not demonstrate AXL-dependent growth. Construct details, signaling state and growth-factor requirements are unresolved.",
+    "ATP suppression can reflect altered metabolism, fewer cells or detection interference. Counts can assess net growth and cell loss but cannot alone establish the molecular mechanism of death or directly quantify division rate.",
+    "A concentration-dependent phenotype in these cells does not establish direct biochemical inhibition, binding or target-specific causality for P30530. AXL signaling/engagement measurements and genetic perturbation or rescue would be needed to strengthen causality, with off-target effects still considered.",
+    "The recombinant mouse cell system does not establish efficacy in human tumors or organisms."
+  ]
+}

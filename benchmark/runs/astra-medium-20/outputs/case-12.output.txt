@@ -1,0 +1,51 @@
+{
+  "assay_type": "Biochemical kinase concentration-response; proposed ADP-Glo adaptation",
+  "system": "Active isolated Interleukin-1 receptor-associated kinase 1 (P51617), suitable substrate and ATP; enzyme construct, source and substrate identity unresolved",
+  "readout": "Luminescence from ADP detection as a measure of kinase activity; decreased corrected signal indicates inhibition only after detection-interference controls pass",
+  "steps": [
+    {
+      "card_id": "qualification (justified new step)",
+      "instruction": "Before testing the definitive series, qualify active IRAK1 and substrate for an ADP-Glo assay. Establish an enzyme/time window with measurable signal and limited substrate conversion, and qualify compound solubility, vehicle tolerance and detection compatibility. This added step is needed because the retained biochemical protocols do not validate ADP-Glo conditions.",
+      "parameters": "ATP starting condition: 10 uM, transferred provisionally from CHEMBL5738876 and CHEMBL5738897; compatibility with this assay remains an assumption. Enzyme concentration, substrate identity/concentration, buffer, reaction volume, temperature, reaction duration and acceptance thresholds: unresolved; establish experimentally before proceeding."
+    },
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare CHEMBL1738757 as a 10-point, threefold serial dilution beginning at 10 uM final reaction concentration. Keep final DMSO constant across doses and controls. Use three independent reaction wells per concentration as an explicitly assumed precision-oriented design choice. Prepare the vehicle, background and reference controls alongside the series.",
+      "parameters": "top_concentration: 10 uM; dilution_factor: 3; n_points: 10, supported as starting design by CHEMBL5738876 and CHEMBL5738897, not validated for CHEMBL1738757. Replicates: 3 technical wells, assumption without source support. Vehicle fraction and stock preparation: unresolved pending solubility and enzyme-tolerance qualification."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, active IRAK1, qualified substrate and ATP using the conditions established in qualification; maintain equal volumes and vehicle across the plate. Initiate and terminate reactions consistently.",
+      "parameters": "ATP: provisional 10 uM, CHEMBL5738876 and CHEMBL5738897. Enzyme and substrate concentrations, temperature, reaction time, buffer composition, reaction volume and any preincubation: unresolved; no values supplied by the packet."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence. Include compound-containing fixed-ADP controls to detect interference with the coupled readout.",
+      "parameters": "Order supported by kinase-detect. Reagent volumes, depletion time, detection time, detection temperature and reader settings: unresolved; require a qualified procedure before execution."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract qualified background and normalize activity to vehicle-treated active enzyme; calculate percent inhibition as 100 minus percent activity. Inspect replicate agreement, reference response and compound-interference controls. As an assumed analysis choice, fit a four-parameter logistic curve against log concentration when an interpretable transition is sampled; report IC50 with uncertainty only if identifiable. Otherwise report the tested range and lack of a reliable estimate, and redesign the range within verified solubility limits.",
+      "parameters": "Fit model: four-parameter logistic, provisional assumption. CHEMBL5738897 used highest-dose activity below 65% as a fitting gate; this is contextual evidence, not a sufficient universal acceptance criterion. Numerical thresholds for control separation, replicate variability and interference: unresolved and must be prespecified during qualification."
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Active IRAK1 plus substrate and ATP with matched DMSO and no inhibitor: uninhibited activity reference, consistent with CHEMBL5738897.",
+    "No-enzyme wells with matched reaction components and vehicle: proposed background control, an assay-design assumption.",
+    "Staurosporine reference series: 10 doses, fourfold dilution from 20 uM, as described in CHEMBL5738897; suitability and expected response in this ADP-Glo adaptation remain unconfirmed.",
+    "Fixed-ADP detection controls across the compound concentration range and matched vehicle: proposed interference control, an assumption; ADP level and ATP matrix unresolved."
+  ],
+  "rationale": "The question requires inhibition of isolated IRAK1 catalytic activity, so select kinase-prepare, kinase-react, kinase-detect and analyse rather than cellular viability cards. ADP-Glo is an explicit proposed readout adaptation available in the packet, not an established format for the retained assays. CHEMBL5738876 and CHEMBL5738897 support a practical initial concentration series and ATP setting for the same target, subject to qualification for this compound and format. Three technical replicates are a provisional choice to estimate within-run variability; they do not establish between-run reproducibility. Other compounds' retained potencies neither predict the queried potency nor guarantee range coverage.",
+  "citations": ["P51617", "CHEMBL1738757", "CHEMBL5738876", "CHEMBL5738897", "CHEMBL5729521", "kinase-detect"],
+  "limitations": [
+    "This is a conditional design, not an execution-ready protocol: enzyme construct/source/activity, substrate, buffer, volumes, vehicle fraction, timing, temperature and detection settings are unsupported and unresolved.",
+    "Transferring a HotSpot or unspecified kinase assay design to ADP-Glo requires qualification; 10 uM ATP does not establish ATP saturation or a relationship to ATP Km.",
+    "The 10 uM starting concentration may fail to bracket a response. Solubility, aggregation and detection interference may limit usable concentrations; no potency is predicted.",
+    "Three technical replicates, the logistic fit and proposed additional controls are assumptions, not sourced parameters. Independent repeat experiments and their number remain unresolved.",
+    "A biochemical inhibition curve alone does not establish direct binding, selectivity, cellular target engagement, cellular viability effects or target-specific cellular causality."
+  ]
+}

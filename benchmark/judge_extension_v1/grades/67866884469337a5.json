@@ -1,0 +1,60 @@
+{
+  "item_id": "67866884469337a5",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes cell-free kinase inhibition with interference qualification and appropriately limits cellular and selectivity claims.",
+      "response_quotes": [
+        "Cell-free DNA-dependent protein kinase catalytic subunit (P78527) activity challenged with CHEMBL104468"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent qualification, preparation, reaction, ATP depletion/ADP detection and analysis includes relevant controls. Essential enzyme, activation, substrate, timing and detection settings remain explicitly unresolved.",
+      "response_quotes": [
+        "Stop the kinase reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "This is a conditional experimental design, not an executable validated protocol."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honest abstention on the concentration series and replication prevents a complete numerical design. The 10 uM ATP starting candidate is accurately attributed and its transfer explicitly provisional.",
+      "response_quotes": [
+        "ATP starting candidate: 10 uM, supported only as a condition in CHEMBL1243970; transferring it to this luminescent assay is an assumption requiring validation."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of the radioactive reference assay and proposed ADP-Glo adaptation.",
+    "Validated enzyme composition, activation requirements, substrate and operational conditions.",
+    "Compound solubility, vehicle tolerance, usable concentration range and assay precision."
+  ],
+  "assumption_handling": "Clearly distinguishes the sourced radioactive-assay ATP condition from provisional transfer, labels control and analysis proposals, and openly leaves essential settings and series fields unresolved.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Series is null, so no dilution arithmetic can be checked. The 10 uM ATP candidate matches the supplied example and is disclosed as provisional."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and essential operating conditions need domain review and qualification before implementation."
+}

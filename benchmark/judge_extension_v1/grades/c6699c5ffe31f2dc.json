@@ -1,0 +1,58 @@
+{
+  "item_id": "c6699c5ffe31f2dc",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses viability in human TMD8 cells using an ATP proxy, with baseline and direct counts for interpretation and explicit limits on BTK mechanism claims.",
+      "response_quotes": [
+        "not a direct proliferation or BTK activity measurement."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Ordered preparation, exposure, detection and analysis include appropriate intended controls. Essential culture, exposure, detection and reference-control settings remain unresolved, so this is an honest outline rather than an executable procedure.",
+      "response_quotes": [
+        "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved; plate format and instrument settings: unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Explicit numeric abstention avoids unsupported settings but supplies no concentration series or replication count. Null series fields cannot earn the top score; no explicit arithmetic contradiction is present.",
+      "response_quotes": [
+        "Concentration, spacing, point count, and replication fields are null because numerical choices cannot be justified; qualification and range-finding are required before execution."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of a particular CellTiter-Glo implementation with these TMD8 culture and compound conditions is not established.",
+    "Optimal TMD8 culture density, medium, exposure duration, temperature, solvent tolerance and concentration range lack supplied evidence."
+  ],
+  "assumption_handling": "Baseline wells, direct counts, interference controls and logistic fitting are explicitly labeled assumptions; missing operational and numerical settings are consistently unresolved without invented source support.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Top concentration, dilution factor, point count and replication are null. No quantitative series exists to check; prose accurately describes abstention."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and qualification must resolve assay compatibility and essential culture, dosing and detection conditions before execution."
+}

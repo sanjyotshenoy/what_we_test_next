@@ -1,0 +1,52 @@
+{
+  "assay_type": "Biochemical kinase concentration-response assay; ADP-Glo is a provisional format requiring validation",
+  "system": "Cell-free, catalytically active human MAP3K7/TAK1 (O43318) with a validated substrate and ATP. Construct, activation state, purity and requirement for TAB are unresolved.",
+  "readout": "Luminescence reporting kinase-generated ADP after residual ATP depletion and ADP detection; reduced corrected signal indicates reduced biochemical activity only if detection interference is excluded.",
+  "steps": [
+    {
+      "card_id": "new: qualify biochemical and detection conditions",
+      "instruction": "Before the concentration-response run, qualify active enzyme, substrate and ATP conditions with enzyme and time titrations. Establish a linear reaction window and usable control separation. Compare ATP/ADP standards with and without compound to identify detection interference. This added prerequisite is necessary because no retained example validates ADP-Glo for this system.",
+      "parameters": "Provisional assumption: start substrate qualification with casein, supported as a TAK1 substrate by CHEMBL4629878, but not validated here for ADP-Glo. Enzyme construct, TAB requirement, enzyme/substrate/ATP concentrations, buffer, magnesium, pH, volumes, reaction time and temperature: unresolved. ATP must be fixed and reported after qualification; its relation to ATP Km is unresolved. Compound solvent compatibility, solubility and reagent timing: unresolved."
+    },
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a logarithmic compound series after establishing a soluble, detection-compatible upper concentration. Keep vehicle constant across concentrations and controls. Use a pilot to locate an interpretable response window, then select the final series to cover both plateaus where feasible. Include independently prepared repeat runs to assess reproducibility.",
+      "parameters": "Top concentration, dilution factor and number of points: unresolved pending solubility and pilot data; do not infer these from other compounds' potencies. Replicates: 3 wells per concentration per run, an explicit provisional design assumption to estimate within-run variability, not a sourced condition. Vehicle identity/fraction, reference compound and dose, and repeat-run count: unresolved."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine CHEMBL1077979, qualified active TAK1, validated substrate and ATP under the conditions established during qualification. Initiate consistently with ATP and maintain identical timing across wells. Fix and report any compound-enzyme preincubation; investigate time dependence separately if observed.",
+      "parameters": "Enzyme concentration, substrate concentration, ATP concentration, reaction time, temperature and preincubation duration: unresolved. ATP initiation is a provisional procedural choice consistent with CHEMBL5680965; that assay's two-hour preincubation and kinetic spectrophotometric measurement schedule are not transferred to this endpoint assay."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction and deplete residual ATP, then perform ADP detection and measure luminescence. Use qualified reagent conditions and matched timing for all wells, including interference and background controls.",
+      "parameters": "Reagent identities/formulation, volumes, depletion time, detection time, detection temperature and instrument settings: unresolved. The sequence is supported by kinase-detect, but numeric operating conditions are absent from the packet."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract matched no-enzyme background and normalize to vehicle activity. Calculate percent inhibition as 100 times [1 minus (sample signal minus background)/(vehicle signal minus background)]. As a provisional analysis choice, fit a four-parameter logistic curve versus log concentration and report an IC50 with uncertainty only when a well-defined curve spans 50% inhibition and fit parameters are identifiable. Retain well-level data and distinguish technical wells from independent runs. Report incomplete curves or interference rather than forcing an IC50.",
+      "parameters": "Fit model: four-parameter logistic, explicit provisional assumption. Acceptance checks: adequate control separation, qualified linear enzyme reaction, consistent replicates, no precipitation and no material detection interference; numeric thresholds are unresolved and must be prespecified from qualification. Confidence interval method and independent-run aggregation: unresolved."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": 3,
+  "controls": [
+    "Vehicle plus active enzyme, substrate and ATP: uninhibited activity; vehicle fraction must match compound wells.",
+    "No-enzyme wells with substrate, ATP and detection reagents: background; include compound-matched backgrounds as needed.",
+    "Qualified TAK1 inhibitor reference curve: identity and concentrations unresolved; retained examples are candidates for qualification, not validated controls under these conditions.",
+    "ATP/ADP detection standards with compound across the tested range and vehicle counterparts: test luminescence/reagent interference independently of kinase inhibition.",
+    "Compound solubility and vehicle-tolerance checks under final reaction conditions."
+  ],
+  "rationale": "The question requires biochemical inhibition of O43318, so kinase-prepare, kinase-react and kinase-detect followed by analyse match the requested system. Cell viability cards do not. ADP-Glo is a provisional choice available in the packet's kinase cards, not a demonstrated TAK1 procedure in the retained measurements. CHEMBL4629878 supports casein as a substrate in a radiometric assay; CHEMBL5680965 supports an alternative RB-S6P spectrophotometric system. CHEMBL4412492 uses tagged TAK1 co-expressed with TAB and BT-MKK with AlphaScreen, indicating that construct, partner and substrate details require attention without proving that its conditions transfer. CHEMBL2013789 and CHEMBL4412493 have insufficient procedural detail to resolve settings. None of these other-compound potencies establishes a range or potency for CHEMBL1077979.",
+  "citations": ["O43318", "CHEMBL1077979", "kinase-prepare", "kinase-react", "kinase-detect", "analyse", "CHEMBL4629878", "CHEMBL5680965", "CHEMBL4412492", "CHEMBL2013789", "CHEMBL4412493"],
+  "limitations": [
+    "Top concentration, dilution factor and point count are null because no query-specific solubility, pilot response or compatible concentration range is supplied. Three technical replicates are an explicitly provisional design assumption, not a sourced parameter.",
+    "This is a qualification-dependent design, not an execution-ready protocol: enzyme system, reaction composition, timing and detection settings remain unresolved.",
+    "Retained measurements use different assay formats, constructs and substrates. Their potencies cannot be transferred or used to predict the withheld IC50.",
+    "Apparent inhibition may arise from detection interference, precipitation or other assay artifacts. Confirm a credible response with an independently qualified orthogonal biochemical readout, such as the radiometric format represented by CHEMBL4629878.",
+    "An IC50 depends on the selected ATP, enzyme and timing conditions. Biochemical inhibition does not establish cellular viability effects, cellular target engagement, kinase selectivity or target-specific causal effects in cells."
+  ]
+}

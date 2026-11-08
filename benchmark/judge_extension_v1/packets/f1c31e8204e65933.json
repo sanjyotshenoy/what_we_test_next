@@ -1,0 +1,156 @@
+{
+  "item_id": "f1c31e8204e65933",
+  "generator_input": {
+    "id": "case-18",
+    "question": "Design a concentration-response experiment to measure the effect of CHEMBL4845957 on growth/proliferation or viability of mouse BaF3 cells expressing recombinant human AXL. Explain the endpoint, justify the readout and any adaptations to the step cards, and state what this can and cannot establish about Tyrosine-protein kinase receptor UFO.",
+    "entities": [
+      {
+        "id": "CHEMBL4845957",
+        "name": "CHEMBL4845957",
+        "type": "Compound",
+        "smiles": "CC(C)n1cc(C(=O)Nc2ccc(Oc3cc(NC(=O)C4CC4)ncn3)cc2)c(=O)n(-c2ccc(F)cc2)c1=O"
+      },
+      {
+        "id": "P30530",
+        "name": "Tyrosine-protein kinase receptor UFO",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Growth/proliferation or viability in mouse BaF3 cells expressing recombinant human AXL; purified-enzyme inhibition alone does not answer this question. A cellular response alone does not establish target-specific causality. Justify assay adaptation; do not equate all viability readouts.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"Cellular concentration-response assay of ATP-associated viability, with an orthogonal growth endpoint\",\n  \"system\": \"Mouse BaF3 cells expressing recombinant human AXL (Tyrosine-protein kinase receptor UFO, P30530), treated with CHEMBL4845957\",\n  \"readout\": \"Background-corrected CellTiter-Glo luminescence relative to matched vehicle at the exposure endpoint. This measures cellular ATP as a viability proxy; parallel viable-cell counts at treatment start and endpoint distinguish reduced net growth from net cell loss.\",\n  \"steps\": [\n    {\n      \"card_id\": \"cell-prepare\",\n      \"instruction\": \"Verify cell identity and recombinant human AXL expression. Establish culture conditions and whether growth depends on AXL, including the role of IL-3 or other growth support. Pilot seeding density and exposure duration to obtain a measurable vehicle growth window and an ATP signal within the assay's useful range. Prepare a concentration series only after assessing compound solubility and vehicle tolerance. Keep vehicle concentration constant across treatments.\",\n      \"parameters\": \"Cell density, medium, growth supplements, top concentration, dilution factor, number of concentrations, replicate count and vehicle fraction: unresolved. Proposed design assumption: use logarithmically spaced concentrations, technical replication within plates and independent experiments; select spacing and counts to resolve both response plateaus and the transition after a pilot. No specific numeric settings are supported by the packet.\"\n    },\n    {\n      \"card_id\": \"cell-expose\",\n      \"instruction\": \"Expose the prepared cells to CHEMBL4845957 and controls under validated culture conditions. Record the final concentrations and actual treatment duration. Use matched parallel cultures for the orthogonal endpoint.\",\n      \"parameters\": \"Exposure time and temperature: unresolved. Proposed design assumption: choose duration based on observed vehicle growth without nutrient limitation or signal saturation, rather than importing a biochemical reaction time.\"\n    },\n    {\n      \"card_id\": \"cell-detect\",\n      \"instruction\": \"Apply CellTiter-Glo, mix, stabilize and measure luminescence using a procedure validated for the chosen plate and sample volume. Include compound-dependent detection-interference controls with a fixed ATP input and no cells, alongside cell-free blanks. Confirm that the measured signal tracks viable-cell abundance over the relevant range.\",\n      \"parameters\": \"Reagent volume, mixing time and stabilization time: unresolved; the packet supplies the detection sequence but no operating settings.\"\n    },\n    {\n      \"card_id\": \"new: parallel viable-cell enumeration\",\n      \"instruction\": \"Proposed adaptation: obtain viable-cell counts using a validated counting method on parallel samples at treatment start and endpoint. This additional endpoint is needed because ATP changes alone cannot establish altered proliferation or death. Compare endpoint counts both with vehicle and with the starting count.\",\n      \"parameters\": \"Counting method, viability discriminator and sample allocation: unresolved. This is a proposed design choice, not a supplied experimental observation.\"\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize background-corrected luminescence to matched vehicle. Examine interference controls and viable-cell counts before interpreting ATP suppression as reduced viability. Proposed analysis assumption: fit a four-parameter logistic concentration-response model if the measured range supports it, and report replicate variability and uncertainty across independent experiments. Define any cellular IC50 explicitly as the concentration yielding 50% of vehicle ATP signal; do not equate a fitted midpoint with that value unless the fitted response scale supports the equivalence. If 50% is not bracketed or the fit is unstable, report a bound or that the value is not estimable. Report growth/count results separately.\",\n      \"parameters\": \"Fit model: provisional four-parameter logistic model. Acceptance criteria: reproducible vehicle growth and signal, acceptable background, unsaturated readout, effective reference control, no material detection interference, and adequate concentration coverage. Numeric thresholds and uncertainty method: unresolved and to be prespecified after assay qualification.\"\n    }\n  ],\n  \"top_concentration_uM\": null,\n  \"dilution_factor\": null,\n  \"n_points\": null,\n  \"replicates\": null,\n  \"controls\": [\n    \"Matched vehicle-treated AXL-expressing BaF3 cells for normalization; untreated cells to assess vehicle effects.\",\n    \"Cell-free medium/reagent blanks and compound-containing blanks to characterize background.\",\n    \"Fixed-ATP, cell-free detection controls across compound concentrations to identify luminescence interference.\",\n    \"A validated cellular viability-reducing reference control; identity and concentration unresolved.\",\n    \"Starting viable-cell count and endpoint vehicle count to establish the growth window.\",\n    \"Proposed mechanism follow-up: matched parental BaF3 cells and an IL-3-supported rescue/comparison arm, with independently validated growth conditions; these provide context but do not by themselves establish AXL specificity.\"\n  ],\n  \"rationale\": \"The question concerns a cellular growth/viability phenotype, so cell-prepare, cell-expose and cell-detect are selected in prerequisite order, followed by analyse. The ATP readout is explicitly offered by the cellular cards, but no retained measurement examples support its numeric implementation for this compound and system. Parallel counting addresses the distinction between ATP metabolism, growth arrest and cell loss. The kinase-react and kinase-detect cards are omitted because purified-enzyme ATP turnover and ADP-Glo detection do not measure BaF3 viability. Any later biochemical assay would answer a separate question about direct kinase inhibition.\",\n  \"citations\": [\"CHEMBL4845957\", \"P30530\", \"cell-prepare\", \"cell-expose\", \"cell-detect\", \"analyse\"],\n  \"limitations\": [\n    \"No retained measurement examples are provided. The four numeric design fields are null because the packet cannot justify their values; this is a qualification-dependent proposal, not an execution-ready protocol.\",\n    \"Concentration range must be established through solubility, vehicle-tolerance and response-ranging work. Neither potency nor a withheld IC50 is inferred.\",\n    \"AXL expression does not demonstrate AXL-dependent growth. Construct details, signaling state and growth-factor requirements are unresolved.\",\n    \"ATP suppression can reflect altered metabolism, fewer cells or detection interference. Counts can assess net growth and cell loss but cannot alone establish the molecular mechanism of death or directly quantify division rate.\",\n    \"A concentration-dependent phenotype in these cells does not establish direct biochemical inhibition, binding or target-specific causality for P30530. AXL signaling/engagement measurements and genetic perturbation or rescue would be needed to strengthen causality, with off-target effects still considered.\",\n    \"The recombinant mouse cell system does not establish efficacy in human tumors or organisms.\"\n  ]\n}\n"
+}

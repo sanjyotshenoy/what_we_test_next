@@ -1,0 +1,59 @@
+{
+  "item_id": "dedd0c8537a9ad79",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Direct biochemical ALK2 turnover endpoint with appropriately limited purified-system interpretation; luminescence adaptation is explicitly conditional on qualification.",
+      "response_quotes": [
+        "ADP-dependent luminescence as a measure of kinase turnover, normalized to vehicle activity and reaction background"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Ordered qualification, preparation, reaction, ATP depletion, ADP detection and analysis include appropriate background and interference controls. Essential reaction and detection settings remain unresolved, so this is an honest outline rather than an executable protocol.",
+      "response_quotes": [
+        "No fully executable ADP-Glo recipe is supplied."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Explicit numerical abstention on top concentration prevents a defined series. Provisional factor, point count and technical replication are clearly disclosed; the stated 19,683-fold span equals 3^9 and has no arithmetic contradiction.",
+      "response_quotes": [
+        "Top concentration: unresolved, hence null."
+      ],
+      "input_evidence_paths": [
+        "generator_input.output_contract",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of radiometric ALK2 precedents and casein with the proposed ADP-Glo adaptation.",
+    "Suitable enzyme construct, activation state, reaction matrix, ATP/substrate levels, timing and detection operating parameters.",
+    "Compound solubility, vehicle tolerance and usable top concentration."
+  ],
+  "assumption_handling": "Clearly separates supplied radiometric precedents from provisional ADP-Glo adaptation and labels dilution spacing, point count, technical replication and fit model as assumptions. Does not transfer other compounds\u2019 potency values or imply technical wells are independent experiments.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": null,
+    "prose_consistent": true,
+    "notes": "3^9 = 19,683, agreeing with the claimed span. Minimum concentration cannot be calculated because top concentration is null; numerical series remains incomplete."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and qualification are needed for assay compatibility and unresolved operating conditions before execution."
+}

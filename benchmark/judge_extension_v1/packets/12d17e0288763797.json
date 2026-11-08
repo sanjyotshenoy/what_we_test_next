@@ -1,0 +1,197 @@
+{
+  "item_id": "12d17e0288763797",
+  "generator_input": {
+    "id": "case-15",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Casein kinase I isoform alpha (P48729) by CHEMBL1234833. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1234833",
+        "name": "CHEMBL1234833",
+        "type": "Compound",
+        "smiles": "CC(C)c1cnn2c(NCc3ccccc3)cc(N[C@@H](CO)[C@H](O)CO)nc12"
+      },
+      {
+        "id": "P48729",
+        "name": "Casein kinase I isoform alpha",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL1080583",
+        "ic50_nM": 14.0,
+        "assay": "CHEMBL1114223",
+        "description": "Inhibition of CK1",
+        "document": "CHEMBL1155389",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1336",
+        "ic50_nM": 250.0,
+        "assay": "CHEMBL1244314",
+        "description": "Inhibition of recombinant CK1 by radioactive phosphotransfer assay in presence of 10 uM ATP",
+        "document": "CHEMBL1240340",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1400095",
+        "ic50_nM": 3180.0,
+        "assay": "CHEMBL5739207",
+        "description": "Identification of CSNK1A1 Inhibitors: In order to identify inhibitors of CSNK1A1, the CSNK1A1 knockdown signatures in CMap were compared to all CMap compound signatures, and resultant compounds were ranked by strength of signature similarity. The top ranked compound from this analysis (compound 1) was predicted to act as a CSNK1A1 inhibitor.The CMap prediction was confirmed using Kinomescan (FIG. 1 ). Compound 1 bound to only six out of over 400 kinases tested in the assay, including CSNK1A1.",
+        "document": "CHEMBL5729673",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL14762",
+        "ic50_nM": 4000.0,
+        "assay": "CHEMBL2089673",
+        "description": "Inhibition of CK1 after 30 mins by liquid scintillation counter",
+        "document": "CHEMBL2086256",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1476741",
+        "ic50_nM": 12900.0,
+        "assay": "CHEMBL5739207",
+        "description": "Identification of CSNK1A1 Inhibitors: In order to identify inhibitors of CSNK1A1, the CSNK1A1 knockdown signatures in CMap were compared to all CMap compound signatures, and resultant compounds were ranked by strength of signature similarity. The top ranked compound from this analysis (compound 1) was predicted to act as a CSNK1A1 inhibitor.The CMap prediction was confirmed using Kinomescan (FIG. 1 ). Compound 1 bound to only six out of over 400 kinases tested in the assay, including CSNK1A1.",
+        "document": "CHEMBL5729673",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"Biochemical kinase concentration-response inhibition assay; proposed ADP-Glo format, pending qualification\",\n  \"system\": \"Purified recombinant Casein kinase I isoform alpha (P48729), ATP and a validated phosphorylation substrate, exposed to CHEMBL1234833\",\n  \"readout\": \"ADP-dependent luminescence as a measure of kinase turnover; reduced background-corrected signal indicates apparent biochemical inhibition\",\n  \"steps\": [\n    {\n      \"card_id\": \"qualification (justified new step)\",\n      \"instruction\": \"Before a definitive concentration-response run, qualify the enzyme, substrate and ADP-Glo readout. Establish an enzyme/time window with linear turnover, adequate signal and limited substrate consumption; assess ATP dependence and compound solubility and vehicle tolerance. This additional step is needed because the packet does not supply validated conditions for this compound and isoform in ADP-Glo.\",\n      \"parameters\": \"Enzyme construct, purity, substrate identity, buffer, pH, salts, cofactors, reaction volume, ATP dependence, solvent and solubility limit: unresolved. Assumption: ADP-Glo can provide a suitable turnover readout after qualification. The 10 uM ATP in CHEMBL1244314 is a radioactive-assay precedent, not a validated ADP-Glo setting.\"\n    },\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a logarithmically spaced CHEMBL1234833 dilution series with matched vehicle and controls. Set the upper concentration from verified solubility, tolerated vehicle and a preliminary range-finding experiment. Select spacing and point count to sample both plateaus and the transition if observable. Use replicate wells to estimate technical variability and repeat the experiment independently to assess reproducibility.\",\n      \"parameters\": \"top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved. Series range and replication counts must be specified after qualification rather than inferred from other compounds' potencies. Logarithmic spacing and independent repeat experiments are proposed design choices, not sourced procedures.\"\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Combine compound, qualified P48729 enzyme and substrate under the chosen reaction conditions; initiate consistently with ATP. Keep timing and any preincubation identical across the series and controls. Measure turnover within the qualified reaction window.\",\n      \"parameters\": \"enzyme_concentration: unresolved; substrate_concentration: unresolved; ATP_concentration: unresolved; reaction_time: unresolved; temperature: unresolved; preincubation: unresolved. CHEMBL2089673 describes 30 minutes with scintillation detection, which cannot establish a reaction time for this format.\"\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Stop kinase activity and deplete residual ATP, then perform the ADP detection reaction and measure luminescence. Apply identical reagent addition and detection timing to all wells. Include compound-spiked detection controls to identify signal interference independently of kinase inhibition.\",\n      \"parameters\": \"reagent_volumes: unresolved; depletion_time: unresolved; detection_time: unresolved; reader settings: unresolved. Obtain and validate the specific reagent procedure before execution; the packet supplies the detection sequence but no numerical reagent settings.\"\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Subtract appropriate background and normalize activity to vehicle-treated enzyme. Calculate percent inhibition as 100 times one minus the ratio of background-corrected sample signal to background-corrected vehicle signal. As a proposed analysis assumption, fit a four-parameter concentration-response model against log concentration when the data support the fit. Report an experimentally measured IC50 with uncertainty, slope, plateaus and replicate variation only when identifiable; otherwise report an unbracketed response or bound. Exclude interpretation as kinase inhibition when detection interference explains the signal change.\",\n      \"parameters\": \"fit_model: proposed four-parameter logistic model, an analysis assumption rather than a packet-validated method; acceptance_criteria: numerical thresholds unresolved and to be prespecified during qualification. Require adequate control separation, reproducible reference behavior, acceptable replicate dispersion, linear turnover and no material detection interference before accepting a potency estimate.\"\n    }\n  ],\n  \"top_concentration_uM\": null,\n  \"dilution_factor\": null,\n  \"n_points\": null,\n  \"replicates\": null,\n  \"controls\": [\n    \"Vehicle-treated complete enzyme reaction for uninhibited activity, with identical final vehicle throughout the series.\",\n    \"No-enzyme reaction containing substrate, ATP and vehicle for assay background; compound-matched backgrounds where necessary.\",\n    \"Qualified reference inhibitor of P48729 for assay performance; identity, concentration and acceptable response unresolved. Retained comparator compounds are candidates for qualification, not established controls in this format.\",\n    \"Known ADP/ATP mixtures with and without compound, processed through detection, to assess luminescence interference and signal recovery; mixture concentrations unresolved.\",\n    \"Proposed orthogonal phosphotransfer confirmation of an apparent inhibitory response, with independently qualified conditions, to distinguish turnover inhibition from detection artifacts.\"\n  ],\n  \"rationale\": \"The question concerns enzyme inhibition, so the kinase-prepare, kinase-react, kinase-detect and analyse cards are appropriate; cell viability cards are not. ADP-Glo is a proposed format supplied by the kinase cards, not a method validated by the retained examples. CHEMBL1244314 supplies a recombinant CK1 radioactive-phosphotransfer precedent, while CHEMBL2089673 supplies a scintillation endpoint precedent. Their parameters require requalification for this isoform and readout. CHEMBL5739207 describes signature matching and Kinomescan binding, which does not directly validate catalytic inhibition conditions. Other compounds' retained potencies do not estimate CHEMBL1234833 potency or justify a particular concentration range.\",\n  \"citations\": [\"P48729\", \"CHEMBL1234833\", \"kinase-prepare\", \"kinase-react\", \"kinase-detect\", \"analyse\", \"CHEMBL1244314\", \"CHEMBL2089673\", \"CHEMBL5739207\"],\n  \"limitations\": [\n    \"The four numerical design fields are null because the packet does not justify executable values for this compound and format. Qualification and range finding must resolve them before running the definitive experiment.\",\n    \"The packet does not specify enzyme construct, substrate, buffer, cofactors, reagent procedure or validated reaction conditions. This is a staged experimental proposal, not a fully executable protocol.\",\n    \"The retained examples span different methods and are not similarity-ranked; generic CK1 descriptions do not independently establish isoform-specific assay compatibility.\",\n    \"Apparent potency depends on assay conditions, including ATP and incubation time. No withheld or remembered IC50 is supplied.\",\n    \"Biochemical inhibition of purified P48729 does not establish kinase selectivity, cellular viability effects, cellular target engagement or a target-specific cellular causal mechanism. Those require separate evidence.\"\n  ]\n}\n"
+}

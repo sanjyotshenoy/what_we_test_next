@@ -1,0 +1,256 @@
+{
+  "summary": {
+    "model": "Astra medium",
+    "n": 20,
+    "axis_means": {
+      "suitability": 2.0,
+      "procedural_soundness": 1.0,
+      "numerical_soundness": 1.1
+    },
+    "mean_total_out_of_6": 4.1,
+    "cases_with_critical_failure": 0
+  },
+  "grades": [
+    {
+      "case_id": "case-1",
+      "item_id": "af056fef56fd29cd",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total": 5,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/af056fef56fd29cd.json"
+    },
+    {
+      "case_id": "case-2",
+      "item_id": "85ea639f4b6f0a5b",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/85ea639f4b6f0a5b.json"
+    },
+    {
+      "case_id": "case-3",
+      "item_id": "7b5443b7e3f4114e",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/7b5443b7e3f4114e.json"
+    },
+    {
+      "case_id": "case-4",
+      "item_id": "f2c2344036f8f2cb",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/f2c2344036f8f2cb.json"
+    },
+    {
+      "case_id": "case-5",
+      "item_id": "b8349222a59ba35e",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/b8349222a59ba35e.json"
+    },
+    {
+      "case_id": "case-6",
+      "item_id": "7e8a245aa0565508",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/7e8a245aa0565508.json"
+    },
+    {
+      "case_id": "case-7",
+      "item_id": "67866884469337a5",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/67866884469337a5.json"
+    },
+    {
+      "case_id": "case-8",
+      "item_id": "66d8be9031aeb33e",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/66d8be9031aeb33e.json"
+    },
+    {
+      "case_id": "case-9",
+      "item_id": "dedd0c8537a9ad79",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/dedd0c8537a9ad79.json"
+    },
+    {
+      "case_id": "case-10",
+      "item_id": "92f2de9bd49f1d56",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/92f2de9bd49f1d56.json"
+    },
+    {
+      "case_id": "case-11",
+      "item_id": "64a8c2a259e63e6d",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/64a8c2a259e63e6d.json"
+    },
+    {
+      "case_id": "case-12",
+      "item_id": "7b8352c6aee9fafe",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total": 5,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/7b8352c6aee9fafe.json"
+    },
+    {
+      "case_id": "case-13",
+      "item_id": "1dc30f7c931a2dc9",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/1dc30f7c931a2dc9.json"
+    },
+    {
+      "case_id": "case-14",
+      "item_id": "58b36d3478a9e1e2",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/58b36d3478a9e1e2.json"
+    },
+    {
+      "case_id": "case-15",
+      "item_id": "12d17e0288763797",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/12d17e0288763797.json"
+    },
+    {
+      "case_id": "case-16",
+      "item_id": "6f42f71aefee60ae",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/6f42f71aefee60ae.json"
+    },
+    {
+      "case_id": "case-17",
+      "item_id": "253175673be1fa96",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/253175673be1fa96.json"
+    },
+    {
+      "case_id": "case-18",
+      "item_id": "f1c31e8204e65933",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/f1c31e8204e65933.json"
+    },
+    {
+      "case_id": "case-19",
+      "item_id": "c6699c5ffe31f2dc",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/c6699c5ffe31f2dc.json"
+    },
+    {
+      "case_id": "case-20",
+      "item_id": "9cb3ff8e878ff13d",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total": 4,
+      "critical_failures": 0,
+      "grade_file": "../../judge_extension_v1/grades/9cb3ff8e878ff13d.json"
+    }
+  ],
+  "status": "Provisional same-model AI judging; different transport and reasoning effort from prior candidates"
+}

@@ -1,0 +1,47 @@
+{
+  "assay_type": "Biochemical LIMK1 concentration-response assay using Kinase-Glo",
+  "system": "Isolated active LIM domain kinase 1 (P53667) with cofilin-2 substrate; enzyme source, construct and activation state unresolved",
+  "readout": "Luminescence reflecting ATP remaining after the kinase reaction. Inhibition should increase residual ATP and signal relative to the active-enzyme vehicle control; verify this direction with calibration and interference controls.",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare CHEMBL1258633 dilutions with matched vehicle and controls. First establish solubility and vehicle tolerance, then perform a range-finding experiment; select a definitive series that brackets both response plateaus if experimentally attainable. Do not infer the query compound's range from other compounds' potencies.",
+      "parameters": "top_concentration_uM, dilution_factor and n_points: unresolved until range finding; vehicle_fraction: unresolved until tolerance testing. Replicates: 3 technical wells per concentration and control, an explicit design assumption to estimate within-run variability, not a reported condition. Independent-run replication remains unresolved."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, active LIMK1, cofilin-2 and ATP. Before the definitive experiment, establish enzyme loading and a reaction interval with measurable ATP consumption that remains responsive to inhibition. Evaluate the reported 60-minute duration, retaining it only if time-course qualification supports it.",
+      "parameters": "substrate identity: cofilin-2, supported by CHEMBL3227038 and CHEMBL1839797; reaction_time: 60 min is a supported precedent, provisional for this implementation. Enzyme concentration, substrate concentration, ATP concentration, temperature, buffer, reaction volume, addition order and any preincubation: unresolved. ATP concentration must be fixed, documented and qualified rather than inferred from the assay name."
+    },
+    {
+      "card_id": "adapted-kinase-detect: Kinase-Glo residual-ATP detection",
+      "instruction": "After the kinase reaction, apply a validated Kinase-Glo detection procedure and measure residual-ATP luminescence. This new step replaces the supplied ADP-Glo-specific kinase-detect card because the evidence describes Kinase-Glo. Do not perform ADP-Glo ATP depletion or ADP conversion in this workflow. Qualify signal proportionality with ATP standards in the assay matrix and test compound effects on detection.",
+      "parameters": "Detection reagent formulation, volume, mixing, incubation, signal-stability window and instrument settings: unresolved; require the actual validated reagent procedure. Prerequisite: kinase-react."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "After checking controls, normalize each signal to the active-enzyme vehicle baseline and a validated no-turnover reference: percent inhibition = 100 × (sample signal − active vehicle signal)/(no-turnover signal − active vehicle signal). As an explicit analysis assumption, fit a four-parameter logistic response against log concentration with appropriately estimated confidence intervals. Report measured IC50 only when a reliable curve brackets 50% inhibition; otherwise report the tested range and an appropriate bound or state that IC50 is not estimable.",
+      "parameters": "fit_model: four-parameter logistic, provisional design assumption. Acceptance criteria: adequate control separation, reproducible wells, calibrated residual-ATP response, qualified reaction kinetics, soluble compound and no material detection interference. Numerical thresholds and between-run reproducibility requirements: unresolved and must be set before definitive data analysis."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": 3,
+  "controls": [
+    "Active LIMK1 + cofilin-2 + ATP with matched vehicle: uninhibited activity baseline.",
+    "No-enzyme mixture with cofilin-2 + ATP and matched vehicle: provisional no-turnover reference; qualify matrix comparability.",
+    "ATP-free detection blank and ATP standards in the assay matrix: background and signal calibration.",
+    "Compound dilution series added to fixed-ATP detection mixtures without kinase turnover: test luminescence enhancement, suppression or ATP-related interference.",
+    "Independently validated LIMK1 inhibitor: positive inhibition control; identity and concentration unresolved. Retained compounds are contextual candidates, not validated controls for this implementation."
+  ],
+  "rationale": "CHEMBL3227038 and CHEMBL1839797 directly support a biochemical LIMK1 assay using cofilin-2, a 60-minute reaction and Kinase-Glo detection. Matching that format requires adapting the supplied ADP-Glo detection card because the two readouts measure different nucleotide quantities. The retained compounds demonstrate assay precedent but are not similarity-ranked and cannot establish CHEMBL1258633 potency or a definitive concentration range. Technical triplicates are an explicit provisional design choice for variability estimation. Cell preparation, exposure and viability cards are excluded because the question concerns biochemical inhibition.",
+  "citations": ["P53667", "CHEMBL1258633", "CHEMBL3227038", "CHEMBL1839797", "CHEMBL3217427", "CHEMBL1833960"],
+  "limitations": [
+    "Top concentration, dilution factor and point count are null because the packet supplies no query-compound potency, solubility or range-finding evidence sufficient to justify a definitive series. This is a conditional design, not a fully executable protocol.",
+    "Enzyme origin is unknown in CHEMBL3227038; neither retained description specifies the enzyme construct, activity state, concentrations, ATP level, buffer, temperature or detection timing and volumes.",
+    "The 60-minute precedent does not establish linear kinetics or suitable ATP consumption under newly chosen conditions; these require qualification.",
+    "An apparent biochemical IC50 depends on assay conditions, including ATP and substrate concentrations, and may be confounded by detection interference or nonspecific inhibition. No query potency is predicted.",
+    "Biochemical inhibition does not establish cellular viability effects, intracellular target engagement, selectivity, or LIMK1-specific causality in cells. Those require separate evidence."
+  ]
+}

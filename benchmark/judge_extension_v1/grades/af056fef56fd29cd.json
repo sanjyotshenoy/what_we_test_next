@@ -1,0 +1,61 @@
+{
+  "item_id": "af056fef56fd29cd",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes purified haspin biochemical inhibition with ADP detection and limits conclusions to the qualified biochemical system.",
+      "response_quotes": [
+        "reduced corrected signal indicates reduced kinase activity only if detection interference is excluded."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent ordered preparation, qualification, reaction, ATP depletion, ADP detection and analysis with appropriate controls. Essential reaction and detection conditions remain unresolved, so this is an honest outline requiring qualification rather than an executable procedure.",
+      "response_quotes": [
+        "Obtain and validate the reagent procedure before execution.",
+        "Unresolved; no supported depletion duration is supplied."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 2,
+      "rationale": "Ten threefold concentrations from 10 uM end at 0.000508053 uM, consistent with prose. The supplied 34\u2013770 nM other-compound interval contextually motivates broad exploration without claiming query potency or assay equivalence. Choices are provisional and technical triplicates are distinguished from independent runs.",
+      "response_quotes": [
+        "ten nonzero concentrations from 10 uM to approximately 0.000508 uM, plus separate vehicle wells.",
+        "All proposed numeric settings are design assumptions pending qualification, not extracted reaction conditions."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained assays to proposed ADP-Glo format is unknown.",
+    "Suitable enzyme construct, substrate, buffer, ATP, reaction and detection operating conditions are not established by supplied evidence.",
+    "Compound solubility, vehicle tolerance and reference inhibitor performance require validation."
+  ],
+  "assumption_handling": "Clearly separates provisional concentration and replication choices from contextual measurements and unresolved operational settings; does not transfer other-compound potencies or assert manufacturer support.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "10/3^9 = 0.000508052634 uM = 0.508052634 nM. Supplied examples span 34\u2013770 nM. Three replicates explicitly mean technical wells."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay comparability and essential biochemical and detection parameters require domain review and qualification before execution."
+}

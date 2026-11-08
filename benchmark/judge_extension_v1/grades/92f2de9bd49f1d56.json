@@ -1,0 +1,60 @@
+{
+  "item_id": "92f2de9bd49f1d56",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses isolated DYRK1A biochemical inhibition with a provisional ADP readout and appropriately limits inference beyond this endpoint.",
+      "response_quotes": [
+        "ADP-Glo is an explicitly provisional adaptation offered by the supplied cards, contingent on detectable ADP production and absence of detection interference."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, reaction, ATP depletion, ADP detection and analysis sequence includes relevant controls. Essential operating parameters and control qualification remain unresolved; this is an honest outline, not an executable protocol.",
+      "response_quotes": [
+        "Stop kinase activity and deplete residual ATP; subsequently perform ADP detection and read luminescence.",
+        "enzyme_concentration, substrate_concentration, ATP_concentration, reaction_time and temperature: unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Explicit abstention from a numerical concentration series and replication counts earns partial credit. No material numerical contradiction is present, but null series fields cannot earn full credit.",
+      "response_quotes": [
+        "top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved pending a precision-based design;"
+      ],
+      "input_evidence_paths": [
+        "generator_input.output_contract",
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained radiometric and LDH assays with the proposed ADP-Glo adaptation is not established.",
+    "Enzyme construct, substrate, ATP and other operating conditions and assay performance cannot be validated from supplied evidence."
+  ],
+  "assumption_handling": "Clearly separates provisional ADP-Glo and fitting assumptions from supplied system and detection-sequence evidence; labels unsupported settings unresolved and declines potency transfer.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Series and replicate counts are null, so no dilution endpoint can be calculated. Normalization equation is internally consistent. The cited 10-minute preincubation appears in supplied evidence and is explicitly not adopted as validated."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and assay qualification are needed for unresolved compatibility and operational conditions."
+}

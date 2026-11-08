@@ -1,0 +1,59 @@
+{
+  "item_id": "58b36d3478a9e1e2",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes cell-free TAK1 inhibition with an ADP readout, requires interference exclusion, and appropriately limits cellular and selectivity conclusions.",
+      "response_quotes": [
+        "reduced corrected signal indicates reduced biochemical activity only if detection interference is excluded."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent qualification, preparation, reaction, ATP depletion, detection and analysis sequence includes background, vehicle and detection-interference controls. Essential reaction composition, timing, detection settings and reference-control identity remain unresolved, making this an honest outline rather than an executable protocol.",
+      "response_quotes": [
+        "This is a qualification-dependent design, not an execution-ready protocol: enzyme system, reaction composition, timing and detection settings remain unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Explicitly abstains from specifying a concentration series. Three technical wells are transparently provisional and independent repeats are distinguished; normalization arithmetic is coherent. Null series fields preclude a score of 2.",
+      "response_quotes": [
+        "Top concentration, dilution factor and point count are null because no query-specific solubility, pilot response or compatible concentration range is supplied."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of ADP-Glo with the proposed TAK1 construct and casein substrate is not established by supplied evidence.",
+    "Optimal enzyme, substrate, ATP, buffer, reaction and detection conditions and compound solubility remain unknown."
+  ],
+  "assumption_handling": "Clearly labels ADP-Glo, casein qualification, ATP initiation, triplicate wells and four-parameter fitting as provisional choices. Accurately separates retained assay descriptions from unsupported transfers and explicitly lists unresolved settings.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "No concentration series is provided, so endpoints cannot be computed. Three wells per concentration per run are technical replicates; independent-run count is unresolved. Normalization yields 0% inhibition at vehicle signal and 100% at background."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and experimental qualification are needed to establish assay compatibility and operating conditions before execution."
+}
