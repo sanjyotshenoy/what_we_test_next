@@ -118,12 +118,18 @@ export async function completeToolResponse(upstream, url, init, onRepair = () =>
   if (!request.stream) return upstream(url, init)
   request.stream = false
   delete request.stream_options
+  // Operational metadata only: never log prompts, arguments, headers or keys.
+  onRepair('request ' + JSON.stringify({model: request.model, max_tokens: request.max_tokens,
+    reasoning_effort: request.reasoning_effort, tools: request.tools?.length || 0}))
   const response = await upstream(url, { ...init, body: JSON.stringify(request) })
   if (!response.ok) return response
   const data = await response.json()
   if (!Array.isArray(data.choices) || data.choices.length === 0) throw new Error("Missing response choices")
   for (const choice of data.choices) {
     if (!choice.message || !choice.finish_reason) throw new Error("Incomplete response choice")
+    if (choice.finish_reason === 'length') {
+      throw new Error('Model output limit reached; this turn did not complete. Review settings before a new run.')
+    }
     const message = choice.message || {}
     const calls = message.tool_calls || []
     if (calls.length && choice.finish_reason !== 'tool_calls' && choice.finish_reason !== 'stop') {

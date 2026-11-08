@@ -66,7 +66,7 @@ Artifacts live under ignored `demo/harness/planning_runs/<session>/batches/<batc
 
 Simulation state is explicitly `not_run`, `passed`, `failed` or `timeout`.
 Changed protocol hashes cannot reuse a simulation result. No tool connects to a robot.
-The recorded single-species OT-2 run is a separate proof of concept, not execution
+The recorded OT-2 run is a separate proof of concept, not execution
 of any newly proposed batch. Incubation and measurement remain off-robot steps.
 
 ## Verification and environment

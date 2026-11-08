@@ -46,6 +46,28 @@ class BrowserTests(unittest.TestCase):
                         self.assertFalse(page.locator('#model').is_visible())
                         self.assertEqual(page.locator('#saved option').count(), 1)
                         self.assertIn('view only', page.locator('#connection').inner_text())
+                        recording = page.request.get(url + '/api/recording').json()
+                        if recording.get('available'):
+                            # Poll browser properties without wait_for_function's eval;
+                            # the viewer intentionally disallows unsafe-eval in CSP.
+                            video = page.locator('#robot-video')
+                            for _ in range(50):
+                                if video.evaluate('(v) => v.readyState >= 2'): break
+                                page.wait_for_timeout(100)
+                            self.assertGreaterEqual(video.evaluate('(v) => v.readyState'), 2)
+                            self.assertIn('Recorded', page.locator('#recording-card').inner_text())
+                            self.assertAlmostEqual(video.evaluate('(v) => v.duration'), 30, delta=.1)
+                            video.evaluate('(v) => v.play()')
+                            for _ in range(50):
+                                if video.evaluate('(v) => v.currentTime > .5'): break
+                                page.wait_for_timeout(100)
+                            self.assertGreater(video.evaluate('(v) => v.currentTime'), .5)
+                            video.evaluate('(v) => {v.pause(); v.currentTime = 20}')
+                            for _ in range(50):
+                                if not video.evaluate('(v) => v.seeking'): break
+                                page.wait_for_timeout(100)
+                            self.assertFalse(video.evaluate('(v) => v.seeking'))
+                            self.assertAlmostEqual(video.evaluate('(v) => v.currentTime'), 20, delta=.1)
                         self.assertFalse(page.evaluate('document.documentElement.scrollWidth > innerWidth'))
                         self.assertEqual(errors, [])
                         self.assertEqual(failures, [])

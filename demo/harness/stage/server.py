@@ -41,7 +41,10 @@ class Hub:
     def __init__(self):
         self.clients: set[asyncio.Queue] = set()
         self.session_id: str | None = None
-        self.model = {"providerID": "nebius", "modelID": os.environ.get("HARNESS_NEBIUS_MODEL", "openai/gpt-oss-120b")}
+        configured = json.loads((OC_DIR / 'opencode.json').read_text())['model']
+        provider, model = configured.split('/', 1)
+        override = os.environ.get('HARNESS_NEBIUS_MODEL')
+        self.model = {"providerID": 'nebius' if override else provider, "modelID": override or model}
         self.key_profile: str | None = None
         self.panels: dict[str, list] = {"kg": [], "structure": [], "plate": []}   # replayed on page reload (not robot)
         self.oc_ok = False
@@ -60,12 +63,15 @@ hub = Hub()
 async def oc(method: str, path: str, body=None, timeout=30):
     if REPLAY:
         raise web.HTTPConflict(text="Replay mode: live agent operations are disabled")
-    async with aiohttp.ClientSession(headers=oc_auth()) as s:
-        async with s.request(method, OC_URL + path, json=body, timeout=aiohttp.ClientTimeout(total=timeout)) as r:
-            text = await r.text()
-            if r.status >= 400:
-                raise web.HTTPBadGateway(text="Planner backend request failed.")
-            return json.loads(text) if text else None
+    try:
+        async with aiohttp.ClientSession(headers=oc_auth()) as s:
+            async with s.request(method, OC_URL + path, json=body, timeout=aiohttp.ClientTimeout(total=timeout)) as r:
+                text = await r.text()
+                if r.status >= 400:
+                    raise web.HTTPBadGateway(text="Planner backend request failed.")
+                return json.loads(text) if text else None
+    except (aiohttp.ClientError, asyncio.TimeoutError, ValueError):
+        raise web.HTTPBadGateway(text='Planner backend unavailable; no result confirmed.') from None
 
 
 FORWARD = {"message.part.updated", "message.part.delta", "message.updated", "session.status", "session.idle",
@@ -307,7 +313,18 @@ async def api_keys_post(request):
 
 
 async def api_health(request):
-    return web.json_response({"ok": True, "opencode": hub.oc_ok, "session": hub.session_id, "agent": AGENT})
+    status = 'idle'
+    if hub.session_id and not REPLAY:
+        try:
+            statuses = await oc('GET', '/session/status')
+            status = statuses.get(hub.session_id, {}).get('type', 'idle')
+        except web.HTTPBadGateway:
+            status = 'unavailable'
+    default = os.environ.get('DEMO_DEFAULT_SESSION', '')
+    if not planning_view.TOKEN.fullmatch(default) or not (planning_view.RUNS / default).is_dir():
+        default = None
+    return web.json_response({"ok": True, "opencode": hub.oc_ok, "session": hub.session_id,
+                              "agent": AGENT, "agent_status": status, "default_session": default})
 
 
 async def api_planning(request):
