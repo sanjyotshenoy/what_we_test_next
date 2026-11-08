@@ -255,3 +255,8 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   check that fails loudly instead of a thing someone has to remember.
 - Open: confirm the real hardware (which pipettes are mounted, labware counts, any anaerobic capability, which
   Cytation); the panel is passed in because `Experiment` has no panel field yet.
+- Update (00:31): at Seh Na's request `lab.yaml` now claims **both atmospheres**, on the assumption the OT-2 sits
+  in an anaerobic chamber. Recorded under `capabilities.assumed` and surfaced as a warning on *every* verdict, so
+  nothing can quietly rest on it (drop it before reporting a real result). The atmosphere check now runs **both
+  ways** - an obligate aerobe fails in an anaerobic-only setup as surely as an anaerobe fails in air - and a
+  species marked `facultative` passes either way.

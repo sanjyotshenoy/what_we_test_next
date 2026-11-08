@@ -21,9 +21,13 @@ simulator, and, for the demo, run it on the real OT-2 (food colouring into water
 `lab.yaml` describes this lab as a **capability model, not an equipment list**: the instruments, the labware on
 hand with its physical limits, and the conditions available. Most of it is read off the team's real OT-2
 protocol in [`Opentrons/`](../Opentrons/); everything else carries a `TODO(final)` for whoever is standing next
-to the robot. The line that does the most work is `capabilities.atmosphere`, which is **assumed aerobic-only** —
-deliberately the safe default, since assuming a chamber we do not have would quietly produce protocols that
-cannot be run, and most gut commensals are obligate anaerobes.
+to the robot. The line that does the most work is `capabilities.atmosphere`. It currently claims **both aerobic and
+anaerobic**, on the assumption that the OT-2 sits in a chamber — a real arrangement, but not yet true of this
+lab. Assumed capabilities are listed under `capabilities.assumed` and surface as a warning on **every** verdict,
+so no result can quietly rest on one. Drop `anaerobic` back out before reporting anything real, or install the
+chamber. The check runs in **both directions**: an obligate aerobe (*P. aeruginosa*) fails in an anaerobic-only
+setup exactly as an obligate anaerobe (*B. fragilis*) fails in air, and a species marked `facultative` passes
+either way.
 
 `feasibility.py` answers "can we run this, and if not, why not" as arithmetic, never a model's opinion:
 

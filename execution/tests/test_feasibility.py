@@ -2,6 +2,8 @@
 
 The point of these is that a verdict is arithmetic, so each one pins a number rather than a mood.
 """
+import copy
+
 import pytest
 
 from execution.feasibility import check_feasible, feasible_panel_size
@@ -32,12 +34,41 @@ def test_a_small_aerobic_panel_is_runnable(lab):
     assert v.plates_needed == 1
 
 
+def only(lab: Lab, *atmospheres: str) -> Lab:
+    """The same lab with its atmosphere replaced, so the check can be tested in both directions whatever
+    lab.yaml currently claims."""
+    spec = copy.deepcopy(lab.spec)
+    spec["capabilities"]["atmosphere"] = list(atmospheres)
+    return Lab(spec)
+
+
 def test_an_anaerobe_in_an_aerobic_lab_is_refused(lab):
-    v = check_feasible(mic(), lab, panel=[*AEROBE, ANAEROBE])
+    v = check_feasible(mic(), only(lab, "aerobic"), panel=[*AEROBE, ANAEROBE])
     assert not v.feasible
-    assert any("anaerobic" in x for x in v.violations)
-    assert any("B. fragilis" in x for x in v.violations)
+    assert any("B. fragilis" in x and "anaerobic" in x for x in v.violations)
     assert any("M11" in s or "agar dilution" in s for s in v.suggestions)
+
+
+def test_an_obligate_aerobe_in_a_chamber_is_refused_too(lab):
+    """The check runs both ways: P. aeruginosa is an obligate aerobe, so an anaerobic-only setup fails it."""
+    panel = [{"id": "p1", "name": "P. aeruginosa", "atmosphere": "aerobic"}, ANAEROBE]
+    v = check_feasible(mic(), only(lab, "anaerobic"), panel=panel)
+    assert not v.feasible
+    assert any("P. aeruginosa" in x for x in v.violations)
+    assert not any("B. fragilis" in x for x in v.violations)
+
+
+def test_a_facultative_species_runs_either_way(lab):
+    panel = [{"id": "e1", "name": "E. coli", "atmosphere": "facultative"}]
+    assert check_feasible(mic(), only(lab, "aerobic"), panel=panel).feasible
+    assert check_feasible(mic(), only(lab, "anaerobic"), panel=panel).feasible
+
+
+def test_the_assumed_chamber_is_reported_in_every_verdict(lab):
+    """lab.yaml currently claims anaerobic as an ASSUMPTION; no verdict may hide that."""
+    v = check_feasible(mic(), lab, panel=[*AEROBE, ANAEROBE])
+    assert v.feasible
+    assert any("ASSUMED" in w for w in v.warnings)
 
 
 def test_too_many_concentrations_for_the_plate(lab):

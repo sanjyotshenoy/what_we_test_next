@@ -79,6 +79,11 @@ class Lab:
     def atmospheres(self) -> set[str]:
         return set(self.capabilities.get("atmosphere", []))
 
+    def assumed(self) -> dict[str, str]:
+        """Capabilities the file claims but flags as not yet true, so a verdict can say which of its answers
+        rest on an assumption."""
+        return dict(self.capabilities.get("assumed", {}))
+
     def can_incubate_at(self, celsius: float, tolerance: float = 2.0) -> bool:
         return any(abs(float(t) - float(celsius)) <= tolerance for t in self.capabilities.get("incubation_C", []))
 
@@ -94,4 +99,6 @@ class Lab:
         for key, value in self.capabilities.items():
             if value == "unconfirmed":
                 found.append(f"capability '{key}' is unconfirmed")
+        for key, why in self.assumed().items():
+            found.append(f"capability '{key}' is ASSUMED, not verified: {why}")
         return found

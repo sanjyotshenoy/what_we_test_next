@@ -63,10 +63,13 @@ labware:
     count: 2
 
 capabilities:
-  # TODO(final): confirm. Assumed aerobic-only, which is the safe default: if it is wrong the checks are
-  # needlessly strict, whereas assuming an anaerobic chamber we do not have would silently produce protocols
-  # that cannot be run. Most gut commensals are obligate anaerobes, so this decides whether a panel is runnable.
-  atmosphere: [aerobic]
+  # ASSUMED for the demo (Seh Na, 2026-11-08): the OT-2 sits in an anaerobic chamber, so both atmospheres are
+  # available. This is a real arrangement - people do put liquid handlers in Coy-style chambers - but it is not
+  # yet true of this lab, so every verdict carries it as a stated assumption rather than letting it pass silently.
+  # TODO(final): make this true, or drop `anaerobic` back out before anyone reports a result from it.
+  atmosphere: [aerobic, anaerobic]
+  assumed:
+    atmosphere: "anaerobic requires the OT-2 to be inside a chamber; assumed for the demo, not yet installed"
   incubation_C: [30, 37]
   shaking: unconfirmed             # TODO(final)
   solvent_limits:

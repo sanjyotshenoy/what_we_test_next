@@ -75,13 +75,22 @@ def check_feasible(experiment: Any, lab: Lab | None = None, panel: Sequence[dict
 
     # --- the conditions the panel needs -----------------------------------------------------------------
     have = lab.atmospheres()
-    needs_anaerobic = [s for s in panel if str(s.get("atmosphere", "aerobic")).startswith("anaer")]
-    if needs_anaerobic and "anaerobic" not in have:
-        names = ", ".join(s.get("name") or s.get("id", "?") for s in needs_anaerobic)
-        v.violations.append(f"{len(needs_anaerobic)} species need anaerobic incubation and this lab is "
-                            f"{'/'.join(sorted(have)) or 'unspecified'}-only: {names}")
-        v.suggestions.append(f"drop the {len(needs_anaerobic)} anaerobe(s), or run them by hand "
-                             "(CLSI M11 agar dilution) and flag them for a person")
+    # a species may name one atmosphere, several, or "facultative" (grows either way); it is runnable if any of
+    # the ones it will tolerate is available. Checked in both directions: an obligate aerobe such as
+    # P. aeruginosa is as unrunnable in an anaerobic-only setup as B. fragilis is in air.
+    for species in panel:
+        wanted = species.get("atmosphere", "aerobic")
+        wanted = [wanted] if isinstance(wanted, str) else list(wanted)
+        if any(str(w).startswith("facult") for w in wanted):
+            continue
+        tolerates = {str(w) for w in wanted}
+        if not (tolerates & have):
+            name = species.get("name") or species.get("id", "?")
+            v.violations.append(f"{name} needs {'/'.join(sorted(tolerates))} incubation; this lab has "
+                                f"{'/'.join(sorted(have)) or 'nothing specified'}")
+    if any("incubation" in x for x in v.violations):
+        v.suggestions.append("drop the species that do not fit the available atmosphere, or run them by hand "
+                             "(anaerobes: CLSI M11 agar dilution) and flag them for a person")
     temperature = _value(experiment, "incubation_C")
     if temperature is not None and not lab.can_incubate_at(temperature):
         v.violations.append(f"incubation at {temperature} C is not available "
