@@ -15,6 +15,16 @@ Simplified from the Bridges lab (CMU) protocol `MIC_2Fold_Dilution_A4B4M4Am3Bm3_
 the script as `MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL.py`; the file here has `_modified` added. For the
 demo, the inoculum can be swapped for food colouring.
 
+## Hardware demonstration
+
+[![OT-2 deck during the team's liquid-handling demonstration](media/ot2-run-demo.jpg)](media/ot2-run-demo.mp4)
+
+[Watch the OT-2 run (27 seconds)](media/ot2-run-demo.mp4). A recording of the team's liquid-handling demonstration with colored liquids.
+
+The repository copy is H.264, 1280 × 720, about 7.7 MB, compressed from the supplied `My Movie.mp4` while preserving its full duration. The original recording is unchanged outside the repository.
+
+## Simulation
+
 Check it in the simulator (needs a recent `opentrons` package for API level 2.28):
 
 ```bash

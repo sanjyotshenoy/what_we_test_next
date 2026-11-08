@@ -29,6 +29,7 @@ Connecting those bacterial components into one agent-driven workflow remains int
 - [Knowledge graphs](kg/): biological measurements and protocol knowledge with source information.
 - [Benchmarks](benchmark/): held-out cases, recorded model outputs, and checks of experiment choice, procedure, and numerical consistency.
 - [Execution](execution/): lab constraints, plate planning, protocol generation, and simulation.
+- [Watch the OT-2 hardware run](Opentrons/media/ot2-run-demo.mp4): 27-second video of the team’s liquid-handling demonstration.
 
 ## Layout
 
