@@ -260,3 +260,8 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   nothing can quietly rest on it (drop it before reporting a real result). The atmosphere check now runs **both
   ways** - an obligate aerobe fails in an anaerobic-only setup as surely as an anaerobe fails in air - and a
   species marked `facultative` passes either way.
+- Next (00:37, Seh Na): `plate.py` — experiment + lab + panel -> the well map (one row per species per replicate,
+  series along the columns, controls last, spilling onto further plates), plus `audit()` which **replays the
+  transfer plan independently** to check it. Every well carries both `prepared_uM` (2x, during the dilution) and
+  `final_uM` (what the cells see after the inoculum halves it); conflating them would double every reported MIC,
+  so the audit tests break the map on purpose and require it to object. 24 execution tests, 166 overall.

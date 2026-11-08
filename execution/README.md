@@ -52,6 +52,34 @@ capacity (max minus the dead volume the tips cannot reach), and the readout agai
 verdict is never a bare boolean: it names each violation with its numbers, suggests repairs, and reports
 anything `lab.yaml` admits is unconfirmed.
 
+## The plate map, and the audit that checks it
+
+`plate.py` turns an experiment plus the panel into the **actual well map** — one row per species per replicate,
+the series along the columns, growth and sterility controls last, spilling onto further plates when the panel
+outgrows one. It is arithmetic, not generation.
+
+```python
+from execution.plate import plate_design, audit
+design = plate_design(experiment, Lab.load(), panel)
+print(design.render())
+assert audit(design) == []
+```
+```
+plate 1 of 1  (2-fold, 10 points, final concentrations in uM)
+             1        2        3        4        5        6        7        8        9       10       11       12
+  A         64       32       16        8        4        2        1      0.5     0.25    0.125       GC       SC   S. aureus
+  B         64       32       16        8        4        2        1      0.5     0.25    0.125       GC       SC   B. fragilis
+```
+
+**Every well carries two concentrations, and the distinction is not cosmetic.** Following the team's own
+protocol, the compound is prepared at **2×** and an equal volume of inoculum halves it, so `prepared_uM` (128 in
+column 1 above) is what sits in the plate during the dilution and `final_uM` (64) is what the cells see.
+Reporting one where the other is meant doubles every MIC, and looks entirely plausible — so both are stored, and
+`audit()` **replays the transfer plan independently** to check them. It is written not to share arithmetic with
+`plate_design`, so a wrong map shows up as a disagreement instead of being echoed back; the tests break the map
+on purpose (compound in the growth control, inoculum in the sterility control, a prepared value recorded as
+final) and require the audit to object.
+
 `feasible_panel_size(lab, replicates, plates)` is the trade-off in one call: 1 species at n=8 (the current MIC
 protocol's layout), or 8 species at n=1, on one plate.
 
