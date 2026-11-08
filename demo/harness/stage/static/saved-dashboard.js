@@ -84,16 +84,17 @@ let liveReasoningText='',liveReasoningBlock=null;
 let liveRefresh=0, liveJobState='starting', liveOutputChunks=0, liveOutputCharacters=0;
 function appendLiveEvents(job) {
   const container=$('live-output-events'), scroller=$('live-output');
-  const follow=scroller.scrollHeight-scroller.scrollTop-scroller.clientHeight<90;
+  let received=false;
   if(job.events_truncated) $('live-feed-note').textContent='Earlier activity expired from the bounded feed. Artifact details remain available.';
   for(const event of job.events||[]) {
     if(event.id<=liveCursor) continue;
-    liveCursor=event.id;
+    liveCursor=event.id;received=true;
     if(['tool_start','tool_result'].includes(event.kind)&&event.stage) {
       liveNodeRecords[event.stage]=event;
       if(event.tool==='planning_submit'&&event.kind==='tool_start') liveNodeRecords.proposal=event;
     }
     if(event.kind==='model_reasoning') {
+      liveTextBlock=null;
       if(!liveReasoningBlock) {
         const article=document.createElement('article'),heading=document.createElement('h3');
         heading.textContent='Provider reasoning · reported text';
@@ -106,6 +107,7 @@ function appendLiveEvents(job) {
       continue;
     }
     if(event.kind==='model_delta') {
+      liveReasoningBlock=null;
       if(!liveTextBlock) addRecord('Generated model output');
       liveTextBlock.append(document.createTextNode(event.text||''));
       liveModelText=(liveModelText+(event.text||'')).slice(-200000);
@@ -113,7 +115,7 @@ function appendLiveEvents(job) {
       $('live-receipt').textContent=`${liveOutputChunks} output chunks · ${liveOutputCharacters.toLocaleString()} characters received · last output at run +${event.elapsed??0}s`;
       continue;
     }
-    liveTextBlock=null;
+    liveTextBlock=null;liveReasoningBlock=null;
     if(event.kind==='model_start') {liveModelText='';liveReasoningText='';liveReasoningBlock=null;$('reasoning-state').textContent='— not received this turn';addRecord(`Model turn ${event.turn} · visible output`);}
     else if(event.kind==='model_end') continue;
     else {
@@ -132,7 +134,10 @@ function appendLiveEvents(job) {
     modelView.textContent=liveModelText||'Waiting for visible model output…';
     if(atEnd) body.scrollTop=body.scrollHeight;
   }
-  if(follow) scroller.scrollTop=scroller.scrollHeight;
+  if(received) {
+    $('reasoning-text').scrollTop=$('reasoning-text').scrollHeight;
+    scroller.scrollTop=scroller.scrollHeight;
+  }
   function addRecord(title) {
     const article=document.createElement('article'),heading=document.createElement('h3');
     heading.textContent=title;liveTextBlock=document.createElement('pre');liveTextBlock.className='live-text';
@@ -243,7 +248,9 @@ function setupLive() {
   for(const [id,output] of [['live-workflow-tab',false],['live-output-tab',true]]) $(id).onclick=()=>{
     $('log').hidden=output;$('live-output').hidden=!output;$('live-preview').hidden=output;
     $('live-workflow-tab').setAttribute('aria-pressed',String(!output));$('live-output-tab').setAttribute('aria-pressed',String(output));
+    requestAnimationFrame(()=>{const pane=output?$('live-output'):$('reasoning-text');pane.scrollTop=pane.scrollHeight;});
   };
+  $('provider-reasoning').addEventListener('toggle',()=>{if($('provider-reasoning').open) $('reasoning-text').scrollTop=$('reasoning-text').scrollHeight;});
   $('live-expand').onclick=()=>$('live-output-tab').click();
   $('live-stop').onclick=async()=>{
     try {await interruptLive();await pollLive();} catch(e) {interruptFailed(e);}
