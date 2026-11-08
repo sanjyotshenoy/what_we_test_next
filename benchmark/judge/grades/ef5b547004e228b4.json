@@ -1,0 +1,62 @@
+{
+  "item_id": "ef5b547004e228b4",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes purified MER biochemical inhibition and limits the result to the isolated reaction, recognizing detection interference.",
+      "response_quotes": [
+        "Purified human Tyrosine-protein kinase Mer (Q12866) with CHEMBL1231206",
+        "A biochemical IC50 demonstrates inhibition of the isolated MER reaction only."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion/ADP detection and analysis are coherently ordered with relevant intended controls. Essential reaction and detection settings remain unresolved; interference testing lacks a defined signal-containing compound-spike design. This is an honest validation outline rather than a supported executable protocol.",
+      "response_quotes": [
+        "Stop the reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence using a validated ADP-Glo procedure.",
+        "MER construct, substrate, enzyme and substrate concentrations, ATP Km, vehicle fraction, reaction time, temperature, and ADP-Glo volumes and incubation times remain unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The 10 \u00b5M, threefold, ten-point design is internally consistent and explicitly provisional. Broad exploration of unknown potency is plausible, but the exact range and spacing lack quantitative contextual justification or pilot evidence. Buffer values match the supplied mobility-shift description and remain conditional on validation.",
+      "response_quotes": [
+        "10 \u00b5M; provisional design assumption, not source-supported",
+        "The broad dilution series and triplicates are explicitly provisional assumptions intended to locate an unknown response range, not predictions of CHEMBL1231206 potency."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of the mobility-shift buffer and available MER construct/substrate with ADP-Glo is not established.",
+    "Optimal enzyme, substrate, ATP, reaction duration, temperature and detection settings require validation.",
+    "Compound solubility and vehicle tolerance are unknown."
+  ],
+  "assumption_handling": "Clearly separates sourced buffer values and ATP-at-Km principle from provisional choices and unresolved settings. Does not claim remembered potency or transfer mobility-shift substrate/time as validated ADP-Glo settings. Independent replicates are named but not operationally defined.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten concentrations yield 10 to 0.000508052634 \u00b5M (0.508052634 nM). No explicit endpoint list contradicts this series. Three independent replicates are specified; technical wells are not defined."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and essential operating conditions require domain review and pilot validation."
+}

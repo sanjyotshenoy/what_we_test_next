@@ -1,0 +1,61 @@
+{
+  "item_id": "6ba89e7f7e4e823b",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Selects a cell-free NUAK1 activity endpoint and distinguishes apparent biochemical inhibition from cellular causality; detection interference remains explicitly unresolved.",
+      "response_quotes": [
+        "Cell-free recombinant NUAK family SNF1-like kinase 1 (O60285); enzyme source/construct unresolved",
+        "it does not establish cellular viability effects or target-specific causality in cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, sequential ATP depletion/ADP detection, normalization and fitting are coherently ordered with intended controls. Essential reaction and detection settings, initial-rate validation, reference control identity and interference counter-screen details remain unresolved, so this is an outline rather than an executable validated procedure.",
+      "response_quotes": [
+        "Stop the kinase reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence.",
+        "enzyme_concentration=unresolved; substrate_identity_and_concentration=unresolved; ATP_concentration=unresolved (ATP Km not in packet); reaction_time=unresolved; temperature=unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "100 \u00b5M, threefold, ten points is internally consistent, but selecting that range and three replicates receives no contextual quantitative justification beyond being provisional. Replicate type is unspecified. Clear uncertainty labeling avoids fabricated numerical evidence, but does not justify a score of 2.",
+      "response_quotes": [
+        "Top concentration 100 uM, 3-fold dilution, 10 points, and n=3 are provisional design assumptions, not sourced facts; they should be adjusted for compound solubility and validated assay linearity."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained ARK5 assays to the proposed recombinant NUAK1 ADP-Glo assay is not established.",
+    "Suitability of enzyme construct, substrate, ATP concentration and detection conditions cannot be assessed from the supplied evidence.",
+    "Compound solubility, vehicle tolerance and luminescence interference are unknown."
+  ],
+  "assumption_handling": "Numerical choices and fitting model are explicitly labeled provisional, and missing operational parameters remain unresolved. Other-compound measurements are not presented as query potency. The numerical series lacks a contextual rationale despite honest disclosure.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points imply 100 to 0.0050805263 \u00b5M (5.0805263 nM). No contradictory endpoint or full series is stated. Three replicates are not identified as technical or independent."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay comparability and essential operational conditions remain unresolved; domain review and experimental validation are required."
+}

@@ -1,0 +1,66 @@
+{
+  "item_id": "92eabb6eb9e5764c",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Recombinant human HASPIN biochemical concentration-response directly addresses the request and explicitly limits conclusions to enzyme-level activity.",
+      "response_quotes": [
+        "Biochemical inhibition establishes enzyme-level activity only; it does not demonstrate cellular target engagement or viability effects"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, sequential ATP depletion/ADP detection and normalization are coherent and include intended controls. Core reaction conditions and substrate identity remain unresolved; detection volumes are ambiguous and compound-dependent detection interference is not addressed. This remains an outline requiring validation.",
+      "response_quotes": [
+        "enzyme_concentration, substrate_concentration, ATP_concentration, and reaction_time are unresolved pending pilot experiments.",
+        "equal volume of each ADP-Glo reagent to reaction volume (e.g., 5 µL + 5 µL + 10 µL in 384-well format)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The dilution arithmetic is consistent, but equal volumes of both detection reagents to a 5 µL reaction would be 5 + 5 + 5 µL, whereas the example specifies 5 + 5 + 10 µL. This material reagent-ratio contradiction is demonstrable without an external protocol.",
+      "response_quotes": [
+        "equal volume of each ADP-Glo reagent to reaction volume (e.g., 5 µL + 5 µL + 10 µL in 384-well format)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Contradictory detection reagent-volume specification.",
+      "response_quote": "equal volume of each ADP-Glo reagent to reaction volume (e.g., 5 µL + 5 µL + 10 µL in 384-well format)",
+      "reason": "The stated equality and numerical example cannot both be followed; the detection reagent amount differs twofold."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained assays to recombinant human HASPIN and the proposed ADP-Glo assay.",
+    "Supported substrate, enzyme, ATP, buffer and reaction conditions, and validated detection volumes/incubations.",
+    "Compound solubility, DMSO tolerance and compound interference with luminescence."
+  ],
+  "assumption_handling": "Range and most operational values are labeled provisional, with other-compound measurements used as context and comparability limitations acknowledged. Vendor-typical assertions and the claim that <10% ATP consumption is an ADP-Glo linearity requirement lack supplied support. Assumption labels do not resolve the explicit volume contradiction.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": true,
+    "notes": "30/3^9 = 0.0015241579 µM = 1.5241579 nM, consistent with ~1.5 nM. Retrieved range 34–770 nM is correct. Three replicates explicitly refer to wells, not independent experiments. Separate detection-volume contradiction identified above."
+  },
+  "needs_human_review": true,
+  "review_reason": "Resolve reagent volumes and unsupported detection requirements; verify assay compatibility and establish missing reaction conditions."
+}

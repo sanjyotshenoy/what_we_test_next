@@ -1,0 +1,73 @@
+{
+  "item_id": "3238c5b70a321be4",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Recombinant Mer biochemical ADP production directly addresses the requested kinase endpoint without cellular causal claims.",
+      "response_quotes": [
+        "biochemical luminescence (ADP-Glo)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 0,
+      "rationale": "Preparation, reaction and ordered depletion/detection are included, but normalization and curve fitting are absent throughout. Mentioning IC50 estimation does not provide the essential analysis stage. Operational concentrations and validation also remain unresolved.",
+      "response_quotes": [
+        "Serial dilutions enable IC50 estimation; replicates and controls ensure assay quality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Preparation specifies vehicle fraction 0.01 (1% DMSO), whereas the control specifies 0.01% DMSO: a 100-fold contradiction. The unresolved top is honest abstention, preventing assessment of a complete series.",
+      "response_quotes": [
+        "0.01 (1% DMSO)",
+        "vehicle (0.01 % DMSO)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.output_contract",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "procedural_soundness",
+      "issue": "Missing analysis stage",
+      "response_quote": "Serial dilutions enable IC50 estimation; replicates and controls ensure assay quality.",
+      "reason": "Neither normalization nor concentration-response fitting is specified anywhere, leaving the measurement workflow incomplete."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Inconsistent vehicle concentrations",
+      "response_quote": "0.01 (1% DMSO)",
+      "reason": "A 0.01 fraction is 1%, whereas the stated control is 0.01%, producing a 100-fold mismatch."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of supplied ELISA, unspecified MER and microfluidic assays with ADP-Glo.",
+    "Compatibility and validation of enzyme construct, substrate, ATP concentrations, linearity and positive control.",
+    "Manufacturer support for detection volumes and incubation times; no manufacturer protocol was supplied."
+  ],
+  "assumption_handling": "Top, enzyme, substrate and ATP concentrations are explicitly unresolved, and reaction time/temperature are acknowledged as unsupported for Mer. Detection settings invoke an unavailable manufacturer protocol, and DMSO tolerance is unsupported. Replicates are not identified as technical or independent.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Unresolved top prevents endpoint calculation. Ten 3-fold points span T to T/19683. Vehicle fraction 0.01 equals 1%, conflicting with control 0.01%."
+  },
+  "needs_human_review": true,
+  "review_reason": "Vehicle contradiction, missing analysis stage, unresolved assay compatibility and unsupported operating settings need review."
+}

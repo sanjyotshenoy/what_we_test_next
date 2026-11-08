@@ -1,0 +1,63 @@
+{
+  "item_id": "828894dfbd1ec09f",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly measures ATP-based viability in the requested BaF3-MER system and explicitly limits target-specific causal interpretation.",
+      "response_quotes": [
+        "CellTiter‑Glo measures ATP as a proxy for viability",
+        "Cell‑based assay does not prove direct target engagement; off‑target pathways may influence proliferation."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, exposure, detection and analysis include vehicle, background and reference controls. The examples support 48-hour CellTiter-Glo exposure, but not the asserted density, medium or detection timing. Culture requirements, readout validation and independent replication remain unresolved; this is not a supported executable protocol.",
+      "response_quotes": [
+        "Seed BaF3-MER cells at 5×10^4 cells/mL in RPMI‑1640 + 10% FBS, prepare compound dilution series and vehicle controls.",
+        "Add CellTiter-Glo reagent, mix 2 min, stabilize 10 min, measure luminescence."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The dilution design is arithmetically coherent and references contextual cellular potencies, but 10 µM cannot ensure coverage for this compound. Numerical culture, solvent, detection and acceptance settings lack evidence or provisional labeling. Three replicates are not identified as technical or biological. No material arithmetic contradiction is present.",
+      "response_quotes": [
+        "Testing up to 10 µM ensures coverage of potential activity while keeping DMSO ≤0.5 %."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of the proposed BaF3-MER culture with retained assays, including construct and growth-factor dependence.",
+    "Optimal density, medium, culture conditions, solvent tolerance and detection settings are unsupported by supplied evidence.",
+    "Actual compound solubility, activity range and assay performance are unknown."
+  ],
+  "assumption_handling": "Endpoint and causal limitations are acknowledged, but unsupported operating conditions and coverage confidence are presented as settled settings rather than labeled assumptions or unresolved requirements.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": true,
+    "notes": "Eight concentrations run from 10 to 0.00457247 µM (4.57247 nM). No explicit lower endpoint or list contradicts the calculation. The contextual 8–86 nM reasonably rounds 8.1–86 nM. Coverage assurance and DMSO feasibility are not established."
+  },
+  "needs_human_review": true,
+  "review_reason": "Unsupported operating settings and unresolved assay comparability require review; guaranteed concentration coverage needs qualification."
+}

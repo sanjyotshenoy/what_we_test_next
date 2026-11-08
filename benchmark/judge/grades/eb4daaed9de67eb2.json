@@ -1,0 +1,62 @@
+{
+  "item_id": "eb4daaed9de67eb2",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Purified IRAK1 activity directly addresses the biochemical endpoint, with explicit limits on cellular inference and no predicted potency.",
+      "response_quotes": [
+        "ADP-Glo luminescence proportional to ADP produced (kinase activity), converted to % inhibition vs. DMSO vehicle control.",
+        "Biochemical inhibition alone does not demonstrate cellular target engagement or therapeutic mechanism"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, ADP detection and analysis are coherent and ordered, with appropriate intended controls. Essential enzyme, substrate and detection conditions remain unresolved. The interference control lacks an explicit ADP signal challenge. This is an outline requiring validation.",
+      "response_quotes": [
+        "Stop the reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent to convert ADP to luminescence",
+        "unresolved \u2014 no packet evidence specifies substrate identity or concentration"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series and ATP value occur in the retained descriptions and have no demonstrable arithmetic contradiction. However, ATP is bound as supported without establishing compatibility with the adapted assay, and the assumed detection ratio is called manufacturer-equivalent without supplied manufacturer evidence. Quantitative support for these settings remains incomplete.",
+      "response_quotes": [
+        "10 uM \u2014 supported by CHEMBL5738876 and CHEMBL5738897 (reactions carried out at 10 uM ATP)",
+        "follow ADP-Glo manufacturer-equivalent 1:1:1 volume ratio as an assumption"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained assays with recombinant IRAK1 ADP-Glo, including ATP and substrate conditions.",
+    "Actual detection reagent ratios and incubation requirements; no manufacturer protocol is supplied.",
+    "The assertion of a radiometric source readout is not established by the supplied descriptions."
+  ],
+  "assumption_handling": "Most absent settings and replicate count are explicitly unresolved or assumptions. Potency inference is appropriately declined. Manufacturer equivalence and the radiometric source-readout claim exceed supplied evidence, and transferability of ATP settings remains unresolved. Replicates are not identified as technical versus independent runs.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points span 10 to 0.0005080526 uM (0.5080526 nM). No conflicting endpoint list appears. The positive-control 20 uM, fourfold, ten-point series matches the retained description and reaches 0.00007629395 uM."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay comparability and detection settings need domain validation; numerical support for transfer to ADP-Glo is incomplete."
+}

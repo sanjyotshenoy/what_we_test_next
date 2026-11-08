@@ -1,0 +1,61 @@
+{
+  "item_id": "cafaa83e177c1c35",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Addresses viability in the requested engineered BaF3 system and separates ATP-associated viability from proliferation and target-specific causality.",
+      "response_quotes": [
+        "This is a viability/growth-associated endpoint, not a direct measurement of proliferation, AXL phosphorylation, or kinase inhibition."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Ordered preparation, exposure, ATP detection and analysis include relevant controls. Cell density, medium, detection settings, reference control and acceptance thresholds remain unresolved, so this is an outline requiring validation.",
+      "response_quotes": [
+        "Technical wells per experiment remain unresolved.",
+        "Numeric thresholds require pilot validation."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 2,
+      "rationale": "The broad logarithmic pilot series is contextually justified by absence of prior measurements, explicitly provisional and arithmetically consistent. Independent experiments are distinguished from unresolved technical wells; operational settings are not claimed as sourced.",
+      "response_quotes": [
+        "10 uM; provisional assumption, not sourced from compound-specific evidence.",
+        "A broad logarithmic series and independent replication are provisional assumptions intended to characterize the response without predicting a withheld IC50."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility with any reference assay is not established by supplied evidence.",
+    "Optimal culture medium, cytokine conditions, density, exposure duration and temperature are unsupported.",
+    "Compound solubility, ATP-readout interference and AXL-dependent growth require experimental validation."
+  ],
+  "assumption_handling": "Specific concentration and exposure settings are labeled provisional, while absent operational bindings are explicitly unresolved. No supplied evidence is claimed to validate these settings.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "10/3^9 = 0.0005080526 uM, consistent with approximately 0.00051 uM. Three replicates explicitly mean independent experiments."
+  },
+  "needs_human_review": true,
+  "review_reason": "Culture conditions, assay compatibility, interference controls and operational parameters need domain review and pilot validation."
+}

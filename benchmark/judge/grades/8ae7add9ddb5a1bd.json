@@ -1,0 +1,59 @@
+{
+  "item_id": "8ae7add9ddb5a1bd",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes cell-free haspin kinase inhibition with an ADP readout and limits cellular and mechanistic interpretation.",
+      "response_quotes": [
+        "Cell-free recombinant haspin (Q8TF76); no cellular viability system"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, ATP depletion/ADP detection and analysis are coherently ordered with vehicle and background controls. Essential reaction and detection settings, validation criteria and reference inhibitor remain unresolved; this is an outline rather than an executable procedure.",
+      "response_quotes": [
+        "enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved; reaction_time=unresolved; temperature=unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The 100 \u00b5M, threefold, eight-point series is arithmetically valid but lacks contextual justification for its range or replication. Choices are disclosed assumptions, not fabricated evidence.",
+      "response_quotes": [
+        "Top concentration, dilution factor, n_points and replicates are provisional design assumptions, not evidence-supported; they may need adjustment for compound solubility and assay window."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained haspin assays to the proposed recombinant haspin ADP-Glo assay is unknown.",
+    "Compatible substrate, enzyme and ATP settings, reaction conditions, detection settings, compound solubility and vehicle tolerance cannot be established from supplied evidence."
+  ],
+  "assumption_handling": "Clearly labels numerical choices as provisional and operational conditions as unresolved; appropriately avoids transferring other compounds\u2019 potencies. Does not justify concentration range or distinguish technical from independent replicates.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.04572473708276177,
+    "prose_consistent": true,
+    "notes": "Eight points imply 100 to 0.0457247371 \u00b5M (45.7247371 nM). No conflicting endpoint or list is stated; series fields agree with prose."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and essential operating conditions require domain validation; concentration range and replicate design need justification."
+}

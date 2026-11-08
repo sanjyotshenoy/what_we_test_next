@@ -1,0 +1,61 @@
+{
+  "item_id": "0ac3101b0f02ecd5",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses purified human HASPIN biochemical inhibition and limits interpretation to biochemical rather than cellular potency.",
+      "response_quotes": [
+        "ADP-Glo luminescence reporting ADP formation",
+        "A biochemical IC50 can depend on ATP concentration and other assay conditions and is not a cellular potency measurement."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, kinase reaction, ATP depletion/detection and analysis with relevant controls and pilot validation. Essential reaction and detection conditions remain unresolved, and interference controls are optional and incompletely specified; this is not yet executable.",
+      "response_quotes": [
+        "Before the full experiment, pilot enzyme, substrate, ATP, and time conditions to establish an initial-rate reaction",
+        "Optional vehicle-only and compound-only luminescence-interference controls"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 2,
+      "rationale": "Explicitly provisional ten-point threefold series is arithmetically consistent and justified contextually by supplied other-compound values, without predicting query potency. Operational unknowns are separated from design assumptions.",
+      "response_quotes": [
+        "3-fold; provisional assumption providing approximately 0.00051\u201310 \u00b5M coverage.",
+        "All numeric concentration-series and replication settings are provisional design assumptions, not sourced assay conditions."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained HASPIN assays to the proposed purified human enzyme assay is not established.",
+    "Enzyme construct, substrate compatibility and optimal reaction/detection settings lack supplied validation."
+  ],
+  "assumption_handling": "Series and replication are explicitly provisional; retained potencies are contextual only. Unsupported operating conditions remain unresolved. Three replicates are not identified as technical or independent experiments.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "10/3^9 = 0.0005080526 \u00b5M, consistent with approximately 0.00051 \u00b5M. Supplied contextual range is 34\u2013770 nM."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay comparability and essential experimental settings require domain review and pilot validation."
+}

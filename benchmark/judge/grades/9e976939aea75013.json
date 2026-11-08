@@ -1,0 +1,71 @@
+{
+  "item_id": "9e976939aea75013",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 0,
+      "rationale": "The biochemical endpoint and target match, but the response materially overclaims that the chosen conditions establish ATP/substrate competition and exclude assay artefacts. The activity concentration-response and listed controls establish neither.",
+      "response_quotes": [
+        "ensuring that any observed inhibition reflects competition with ATP or substrate binding rather than assay artefacts."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, sequential ATP depletion/detection and normalization/fitting form a coherent outline with vehicle and no-enzyme controls. Substrate identity, enzyme validation, linear reaction range, detection-reagent volume, interference controls and reference control remain insufficiently supported or absent. Supplied cards do not validate the operational settings.",
+      "response_quotes": [
+        "Terminate the kinase reaction with ADP‑Glo™ stop‑and‑detect reagents, deplete remaining ATP, then add the luminescence detection reagent and read signal."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Dilution arithmetic is consistent and the top concentration is disclosed as assumed. However, important reagent volumes and incubation settings are attributed to an unavailable standard protocol, and claimed reproduction of enzyme/substrate concentrations has no supplied source. Examples support 10 µM ATP and a 30-minute CK1 endpoint only, not these other quantitative conditions.",
+      "response_quotes": [
+        "20 µL stop‑and‑detect mix per 20 µL reaction (per ADP‑Glo protocol)",
+        "The chosen enzyme, substrate, and ATP concentrations reproduce conditions reported for CK1 assays"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "suitability",
+      "issue": "Unsupported mechanistic and artefact-exclusion conclusion",
+      "response_quote": "ensuring that any observed inhibition reflects competition with ATP or substrate binding rather than assay artefacts.",
+      "reason": "The supplied evidence and proposed controls cannot distinguish inhibition mechanism or exclude detection interference."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Fabricated source support for material operational settings",
+      "response_quote": "20 µL stop‑and‑detect mix per 20 µL reaction (per ADP‑Glo protocol)",
+      "reason": "No ADP-Glo protocol providing this volume is supplied; the step card lists reagent volumes as slots without values."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of heterogeneous CK1 examples with recombinant human CK1α ADP-Glo is unestablished; CHEMBL1244314 explicitly uses radioactive phosphotransfer and CHEMBL1114223 does not specify ADP-Glo.",
+    "Optimal enzyme/substrate concentrations, peptide identity, expression system, temperature, DMSO tolerance and detection conditions are not established by the packet."
+  ],
+  "assumption_handling": "The top concentration, solubility uncertainty and unavailable Km are acknowledged. Those caveats do not cure specific assertions of standard-protocol support, non-inhibitory DMSO, reproduction of reported enzyme/substrate conditions or confirmed mechanism. Replicates are not distinguished as technical versus independent.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.04572473708276177,
+    "prose_consistent": true,
+    "notes": "Minimum is 0.0457247 µM, consistent with ~0.05 µM. Series spans 3.33985 log10 units, consistent with >3. No numerical range validation is inferred from contextual example potencies."
+  },
+  "needs_human_review": true,
+  "review_reason": "Material unsupported causal and source claims, unresolved assay compatibility and unvalidated operating conditions require domain review."
+}

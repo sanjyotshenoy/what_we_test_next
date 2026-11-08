@@ -1,0 +1,194 @@
+{
+  "item_id": "8eca6bf6a5817b1f",
+  "generator_input": {
+    "id": "case-2",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of human HASPIN by CHEMBL5426285. Propose an ordered procedure and justify its parameters; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL5426285",
+        "name": "5-(6-BENZOTHIAZOLYLMETHYLENE)-3,5-DIHYDRO-2-(((1S)-1-(METHOXYMETHYL)-3-METHYLBUTYL)AMINO)-4H-IMIDAZOL-4-ONE, (5Z)-",
+        "type": "Compound",
+        "smiles": "COC[C@@H](CC(C)C)NC1=N/C(=C\\c2ccc3ncsc3c2)C(=O)N1"
+      },
+      {
+        "id": "Q8TF76",
+        "name": "Serine/threonine-protein kinase haspin",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL14285",
+        "ic50_nM": 770.0,
+        "assay": "CHEMBL5242305",
+        "description": "Inhibition of HASPIN (unknown origin)",
+        "document": "CHEMBL5241090",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1952329",
+        "ic50_nM": 34.0,
+        "assay": "CHEMBL2184774",
+        "description": "Inhibition of haspin",
+        "document": "CHEMBL2176972",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL269538",
+        "ic50_nM": 590.0,
+        "assay": "CHEMBL5242305",
+        "description": "Inhibition of HASPIN (unknown origin)",
+        "document": "CHEMBL5241090",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL3774448",
+        "ic50_nM": 259.0,
+        "assay": "CHEMBL3778428",
+        "description": "Inhibition of Haspin (unknown origin)",
+        "document": "CHEMBL3774321",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL3775393",
+        "ic50_nM": 255.0,
+        "assay": "CHEMBL3778428",
+        "description": "Inhibition of Haspin (unknown origin)",
+        "document": "CHEMBL3774321",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"biochemical kinase inhibition (luminescence‑based ADP‑Glo)\",\n  \"system\": \"recombinant human HASPIN (Q8TF76) purified protein\",\n  \"readout\": \"luminescence proportional to ADP production (inverse of kinase activity)\",\n  \"steps\": [\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a 8‑point, 3‑fold serial dilution of CHEMBL5426285 in assay buffer containing 0.5 % DMSO (vehicle). Include a DMSO‑only vehicle control and a reference inhibitor control (e.g., 1 µM staurosporine).\",\n      \"parameters\": {\n        \"top_concentration_uM\": \"10 µM (chosen to span >100‑fold above typical IC₅₀s reported for HASPIN inhibitors such as CHEMBL1952329, 34 nM, see citation) \",\n        \"dilution_factor\": \"3\",\n        \"n_points\": \"8\",\n        \"replicates\": \"3\",\n        \"vehicle_fraction\": \"0.5 % DMSO (kept constant across all wells)\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Add recombinant HASPIN (final 5 nM), peptide substrate (H3‑T3 peptide, 10 µM), and ATP (100 µM) to each well containing compound or control. Incubate 30 min at 30 °C.\",\n      \"parameters\": {\n        \"enzyme_concentration\": \"5 nM (saturating for linear range, typical for ADP‑Glo assays)\",\n        \"substrate_concentration\": \"10 µM (≈K_m for H3‑T3 peptide, literature precedent)\",\n        \"ATP_concentration\": \"100 µM (≥10× K_m for ATP, to minimise competition effects)\",\n        \"reaction_time\": \"30 min (ensures <20 % substrate conversion, linear phase)\",\n        \"temperature\": \"30 °C (standard for kinase‑luminescence assays)\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Terminate the reaction with ADP‑Glo™ stop‑and‑detect reagent, incubate 40 min for ATP depletion, then add detection reagent and incubate 20 min before reading luminescence.\",\n      \"parameters\": {\n        \"reagent_volumes\": \"25 µL stop‑and‑detect reagent per 25 µL reaction (as per kit protocol)\",\n        \"depletion_time\": \"40 min\",\n        \"detection_time\": \"20 min\"\n      }\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize luminescence to vehicle (100 % activity) and reference inhibitor (0 % activity). Fit a four‑parameter logistic curve (variable slope) to obtain IC₅₀ and 95 % confidence intervals. Accept fit if R² ≥ 0.9 and standard error of IC₅₀ ≤ 0.3 log‑units.\",\n      \"parameters\": {\n        \"fit_model\": \"four‑parameter logistic (variable slope)\",\n        \"acceptance_criteria\": \"R² ≥ 0.9; SE ≤ 0.3 log‑units; no systematic deviation in residuals\"\n      }\n    }\n  ],\n  \"top_concentration_uM\": 10,\n  \"dilution_factor\": 3,\n  \"n_points\": 8,\n  \"replicates\": 3,\n  \"controls\": [\n    \"vehicle (0.5 % DMSO)\",\n    \"no‑enzyme blank\",\n    \"reference inhibitor (1 µM staurosporine)\"\n  ],\n  \"rationale\": \"The chosen concentration range (10 µM → 0.005 µM) brackets the potency of known HASPIN inhibitors (e.g., CHEMBL1952329 IC₅₀ = 34 nM, CHEMBL3774448 IC₅₀ = 259 nM) providing sufficient data points to define the sigmoidal curve. A 3‑fold dilution series balances assay throughput with resolution. Replicates of three give an estimate of intra‑assay variability without excessive plate consumption. The enzyme, substrate, and ATP concentrations are set to keep the reaction in the initial linear range and to avoid substrate depletion, which is standard for ADP‑Glo kinase assays. Controls allow correction for background luminescence, DMSO effects, and assay maximum inhibition.\",\n  \"citations\": [\n    \"CHEMBL1952329 (IC₅₀ = 34 nM, assay CHEMBL2184774)\",\n    \"CHEMBL3774448 (IC₅₀ = 259 nM, assay CHEMBL3778428)\",\n    \"CHEMBL269538 (IC₅₀ = 590 nM, assay CHEMBL5242305)\",\n    \"CHEMBL14285 (IC₅₀ = 770 nM, assay CHEMBL5242305)\"\n  ],\n  \"limitations\": [\n    \"The assay measures enzymatic activity in vitro; cellular permeability, metabolism, and off‑target effects are not assessed.\",\n    \"If CHEMBL5426285 interferes with the luminescence chemistry (e.g., quenching), apparent inhibition may be artifactual; a counter‑screen with ADP‑Glo in the absence of kinase is recommended.\",\n    \"Exact K_m values for HASPIN with the chosen peptide substrate are assumed from literature; deviations could affect apparent potency.\",\n    \"No direct literature on CHEMBL5426285’s solubility; the top concentration assumes ≤10 µM is fully soluble in 0.5 % DMSO; precipitation would invalidate high‑concentration points.\"\n  ]\n}"
+}

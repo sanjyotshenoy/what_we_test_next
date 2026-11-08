@@ -1,0 +1,61 @@
+{
+  "item_id": "cd19e38741bef4ff",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses recombinant O43318 biochemical inhibition through ADP production and limits cellular and causal inference.",
+      "response_quotes": [
+        "biochemical kinase inhibition concentration-response using ADP-Glo luminescence",
+        "A biochemical result alone does not establish cellular activity or target-specific causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, reaction, ATP depletion, ADP detection and analysis with appropriate intended controls. Enzyme/cofactor/substrate validation, reaction conditions, detection timings and interference-control implementation remain unresolved; this is an outline rather than an executable validated protocol.",
+      "response_quotes": [
+        "Stop the kinase reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence.",
+        "Reference inhibitor identity and exact acceptance thresholds are unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is arithmetically coherent and explicitly provisional. Broad coverage of unknown potency is plausible but does not specifically justify the top concentration, spacing or replicate count using available context. No fabricated numerical evidence or explicit arithmetic contradiction is present.",
+      "response_quotes": [
+        "top_concentration_uM=100 (provisional design assumption, not sourced); dilution_factor=3 (provisional); n_points=10 (provisional); replicates=3 (provisional)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained assay formats with the proposed ADP-Glo assay is unestablished.",
+    "Suitable enzyme/TAB configuration, substrate, ATP concentration and reaction/detection conditions are not supplied.",
+    "Compound solubility, vehicle tolerance and detector interference at proposed concentrations are unknown."
+  ],
+  "assumption_handling": "Labels numerical design and tentative 1 h/25\u00b0C settings as provisional and identifies unresolved conditions. BT-MKK/TAB support is restricted to a retained TAK1 assay rather than presented as direct ADP-Glo validation. Replicates are not distinguished as technical wells versus independent runs.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points imply 100 to 0.0050805263 \u00b5M (5.0805263 nM). No contradictory endpoint or list is supplied; arithmetic does not establish range adequacy."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and operational parameter validation require domain review; concentration-series justification remains provisional."
+}

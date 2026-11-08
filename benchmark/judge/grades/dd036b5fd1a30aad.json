@@ -1,0 +1,64 @@
+{
+  "item_id": "dd036b5fd1a30aad",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Recombinant human HASPIN and ADP production directly address biochemical inhibition, with cellular and off-target extrapolation explicitly limited.",
+      "response_quotes": [
+        "recombinant human HASPIN kinase",
+        "does not account for cellular permeability or off‑target effects"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "The reaction, ATP depletion, detection and analysis are coherently ordered with relevant intended controls. Substrate identity, reagent volumes, reaction validation and detection-interference controls remain unresolved. Reference inhibitor zero activity is not established by its retained potency.",
+      "response_quotes": [
+        "Normalize luminescence to vehicle (100 % activity) and reference inhibitor (0 % activity)",
+        "per manufacturer protocol"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is arithmetically consistent and contextually motivated, but retained compounds are not similarity-ranked and cannot ensure full inhibition. The supplied evidence does not establish ATP Km or the selected enzyme, substrate, timing and reference concentrations. These settings are not clearly labeled provisional. Technical triplicates do not specify independent replication.",
+      "response_quotes": [
+        "starting at 10 µM",
+        "ATP at its Km (≈50 µM)",
+        "similar HASPIN inhibitors (≈770 nM) to ensure full inhibition"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained HASPIN assays with recombinant human HASPIN ADP-Glo.",
+    "Compatibility of the unspecified substrate and support for the asserted approximate ATP Km and reaction conditions.",
+    "Whether 1 µM CHEMBL1952329 establishes zero activity in this assay."
+  ],
+  "assumption_handling": "Limitations acknowledge recombinant-versus-native activity and physiological ATP differences but do not label operational settings provisional or establish validation requirements. Similarity and guaranteed full inhibition overstate contextual evidence.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "10/3^9 = 0.0005080526 µM = 0.5080526 nM. No explicit contradictory endpoint is given. The supplied 770 nM maximum is correct but does not establish query potency or full inhibition."
+  },
+  "needs_human_review": true,
+  "review_reason": "Unresolved assay comparability, operational support, ATP Km and reference-control normalization require domain review."
+}

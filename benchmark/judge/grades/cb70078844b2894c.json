@@ -1,0 +1,62 @@
+{
+  "item_id": "cb70078844b2894c",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Addresses cell-free AXL kinase inhibition with ADP detection and explicitly limits cellular and causal conclusions.",
+      "response_quotes": [
+        "Cell-free Tyrosine-protein kinase receptor UFO (AXL; P30530) kinase reaction",
+        "Biochemical inhibition does not establish cellular activity or target-specific causality"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Ordered preparation, reaction, ATP depletion, ADP detection and analysis are coherent, with relevant intended controls. Enzyme, substrate, reaction and detection conditions, reference control and acceptance criteria remain unresolved, so this is an outline awaiting validation.",
+      "response_quotes": [
+        "Stop the kinase reaction, deplete residual ATP, add ADP detection reagent, and measure luminescence",
+        "exact ADP-Glo protocol must be fixed before the run."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The provisional 100 micromolar, threefold, ten-point series is internally consistent, but broad coverage alone provides insufficient contextual justification for the top dose and spacing. Replicate count is assumed without rationale or distinction between wells and independent experiments. No fabricated numerical support is claimed.",
+      "response_quotes": [
+        "top_concentration_uM=100 (provisional assumption, not sourced); dilution_factor=3 (provisional assumption); n_points=10 (provisional assumption); replicates=3 (provisional assumption)",
+        "The concentration series is broad enough to span a response only as a provisional design assumption"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained assay examples with the proposed AXL construct, substrate and ADP-Glo format.",
+    "Compound solubility, tolerated vehicle fraction, aggregation and detection interference.",
+    "Optimal biochemical operating conditions and quantitative control acceptance thresholds."
+  ],
+  "assumption_handling": "Numerical design choices and fit model are explicitly provisional; unsupported operational conditions are clearly unresolved. Other-compound potencies are appropriately not treated as query potency estimates. Validation is deferred rather than falsely attributed to supplied evidence.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points span 100 to 0.0050805263 micromolar (5.0805263 nM). No explicit minimum or concentration list is supplied; stated parameters agree across fields. Coverage is unestablished."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility, operational parameter selection, compound feasibility and control validation require domain review before execution."
+}

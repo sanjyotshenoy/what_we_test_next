@@ -1,0 +1,602 @@
+{
+  "4decfbf66ae0fe09": {
+    "model": "glm-5.3",
+    "case_id": "case-11",
+    "output_sha256": "36efd70a7c1b978ff071764c3a64e8ab8ee8fb8ecf8a558f25d2bb1a1b9929ff",
+    "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816"
+  },
+  "e4f8b6b20bb600ec": {
+    "model": "nemotron-3-super",
+    "case_id": "case-11",
+    "output_sha256": "6c1e544d1b6bc03832e056e38a512a3669df9e2dfbf9fb927b1343ab42f04ec6",
+    "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816"
+  },
+  "3238c5b70a321be4": {
+    "model": "nemotron-3-super",
+    "case_id": "case-4",
+    "output_sha256": "2257929f1cef6966db5a183454e0c96efc0819b956d139fb6b72318a9d434c7c",
+    "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c"
+  },
+  "0f29f39b6a76405b": {
+    "model": "glm-5.3",
+    "case_id": "case-9",
+    "output_sha256": "309820a38e78506941d35970c88a0ffde2f8eac7e926516d6a0a9bbacd7863d9",
+    "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5"
+  },
+  "a69669dddd4a56ba": {
+    "model": "glm-5.3",
+    "case_id": "case-16",
+    "output_sha256": "eff24dca737fc7ae482faff4820fccb3a41d4c9ca714d96f4d3edd79196f7ad9",
+    "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6"
+  },
+  "d8c3b18d1ef761cd": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-13",
+    "output_sha256": "0c81256587f7a9b0fd4939e6bdc9e9f5f744059016e1d2740da5935f20007010",
+    "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef"
+  },
+  "133c11182e54ffed": {
+    "model": "nemotron-3-super",
+    "case_id": "case-14",
+    "output_sha256": "ddcf3a41f5a3e32fd80c3e4fa78696125838128e23bb4ffd8a1d97cb3bd24505",
+    "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5"
+  },
+  "791611345e5dc3e4": {
+    "model": "nemotron-3-super",
+    "case_id": "case-7",
+    "output_sha256": "c5ba0ce1be1f22daa96c29662675d8a6ec812d8d570b4ea943e924d8e54ba156",
+    "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0"
+  },
+  "b7b05e2b4368db21": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-5",
+    "output_sha256": "ce0c4476dcf64323570e0a14340f058bf7c0bfd7fbb3c3785950d5def5eddb9b",
+    "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24"
+  },
+  "3333d2a6be0184ec": {
+    "model": "glm-5.3",
+    "case_id": "case-19",
+    "output_sha256": "26e6dbf39c303fba16ae205d3fe4b149b63e5b347974832a8a358b76ce966b6a",
+    "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a"
+  },
+  "d90acf70aae6b0f1": {
+    "model": "glm-5.3",
+    "case_id": "case-7",
+    "output_sha256": "388e0002523656a07e89c300ad7268098faeb27da583a112c085fc3324d79958",
+    "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0"
+  },
+  "d29170dad55c5026": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-9",
+    "output_sha256": "96337b492696877694ccf3cd41e11185f38362f37c47b272427fea1e920344b3",
+    "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5"
+  },
+  "309e255d936bde74": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-10",
+    "output_sha256": "05c70f2a834f8f302ec909fae48a1efb2d9d000cad7166284ddc950350c7accf",
+    "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62"
+  },
+  "ef5b547004e228b4": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-4",
+    "output_sha256": "2d8c99cac284cf2a666b8f4b73063037d02f9e38bf323d15899eb69adce3bf3d",
+    "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c"
+  },
+  "b1e1c9272ab41b54": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-3",
+    "output_sha256": "18b83d437364c72a18a0df885a6936bd1b9f427d593fb62eb1744c683310814f",
+    "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f"
+  },
+  "0ac3101b0f02ecd5": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-2",
+    "output_sha256": "185b72ee4c743562ce8f37594497b126b01eeb8f63bf9dca0d81bfb625341794",
+    "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783"
+  },
+  "15646d04351cce25": {
+    "model": "nemotron-3-super",
+    "case_id": "case-16",
+    "output_sha256": "3ec527be37fd308ef6b3ae29f0ce56000c5b7d2b478c1410c73e4c6d9d7aeec8",
+    "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6"
+  },
+  "1ef5248a4ebac614": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-20",
+    "output_sha256": "9af5abd50faa102f8ff33c0aa5c3ef331b94a8ee3ae48bee0e0ce38f1f7139e9",
+    "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad"
+  },
+  "f27e285bb39fe778": {
+    "model": "nemotron-3-super",
+    "case_id": "case-5",
+    "output_sha256": "db2436cb64046db684deef2662bde417b568df76df9ff84f1f8bdbc8a050d299",
+    "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24"
+  },
+  "522e2657d01b73df": {
+    "model": "nemotron-3-super",
+    "case_id": "case-8",
+    "output_sha256": "c7d95223523815b7d1f5e6290765b4cdc0bfbfb2c96540860f591183a8a6ecb7",
+    "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd"
+  },
+  "29e9029900a07ba3": {
+    "model": "nemotron-3-super",
+    "case_id": "case-3",
+    "output_sha256": "e4a3711b7326bfab604fc824d83e9a708b0905632beab9554df0f9d5be9545f8",
+    "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f"
+  },
+  "b67fad5bffd3da89": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-3",
+    "output_sha256": "ab10116fc030aca769be94a34681dbcfebad0eaf93ae47c1a27a23858b7b45fd",
+    "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f"
+  },
+  "771b8d3d229e349b": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-11",
+    "output_sha256": "2806815265d818c20a6a499fa06046bcaaa2a976651915b5a2ea725ca735671d",
+    "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816"
+  },
+  "cafaa83e177c1c35": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-18",
+    "output_sha256": "8d178d82373605999e22c3af0c3abf0b0c3eca483cdd4188c0d2f53a80caa72b",
+    "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646"
+  },
+  "cf7f584d7ce28a65": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-10",
+    "output_sha256": "b09126645188500c521507c448bf54c3e1e5a6d41477b3840b96a2f68cbffc40",
+    "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62"
+  },
+  "2f4e004c19e70765": {
+    "model": "glm-5.3",
+    "case_id": "case-4",
+    "output_sha256": "7150de42cd3f5e100401e57c2757c3dc089490c19566ee35bb7fe65a5e31eff4",
+    "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c"
+  },
+  "8cbafb366ad956ec": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-7",
+    "output_sha256": "4934192a7cfb965cb08ceae6f915dfa956bac171e4e80581547f2d87571b2248",
+    "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0"
+  },
+  "1e4a8a020919e648": {
+    "model": "glm-5.3",
+    "case_id": "case-6",
+    "output_sha256": "e8dd1629a5d11afad29ca03f1c19c18a58846f8060ae591fa08fb698751f2bdd",
+    "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b"
+  },
+  "8ceb51e9110d94f9": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-13",
+    "output_sha256": "952468d666f4cec765bc8fdb4cdcbd2d747bebcf54f6f1ae69d52d2ef2b467e7",
+    "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef"
+  },
+  "2017adbfb16fde48": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-6",
+    "output_sha256": "ffae45ce2986bfae3efd96c78ac00be853db7006f0736e5619d0e913adb5fe96",
+    "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b"
+  },
+  "5e59ed8c3be53990": {
+    "model": "glm-5.3",
+    "case_id": "case-15",
+    "output_sha256": "7a7707b6f14ce8e82582c86004c4afd8105b7d239773d54dd13d8ef891c0ec05",
+    "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358"
+  },
+  "2fe24c7e1892d28e": {
+    "model": "glm-5.3",
+    "case_id": "case-17",
+    "output_sha256": "5c1bad217616c5cda27418c8d6e2673bbabba1b3722a75b127ab71473ee3bfca",
+    "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90"
+  },
+  "aa720d9ca852d7a8": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-8",
+    "output_sha256": "ac6733639e1a8f7dde98ecdbbe7c5146ffe67dfbe8c12542d8052666bd163402",
+    "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd"
+  },
+  "b4adb803f7f71d07": {
+    "model": "glm-5.3",
+    "case_id": "case-3",
+    "output_sha256": "23f0302764bfdabe45023a8feff05a52b0e04de2d6bfacceb1e52e35c6892a70",
+    "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f"
+  },
+  "83c50a6498ecc0a0": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-15",
+    "output_sha256": "d84f4f529b96203eb02f214c6bf224789f8e1ea6c308671d847cf09261052d37",
+    "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358"
+  },
+  "0f7262e17622a393": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-14",
+    "output_sha256": "e87bd56ff977d7abe29591e0e35652cf3caecfe78de2593ec6883980b890be67",
+    "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5"
+  },
+  "e3d064f787861e3c": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-11",
+    "output_sha256": "8d57ec5665165ed76714abee970d386eb80cb71f564659dc0c15c28bb65b36ac",
+    "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816"
+  },
+  "8e58f05178b574b2": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-1",
+    "output_sha256": "526b5ceac8f2a09b848a31de37c82775cbbdaf5478e991f7b0f7278c5e4c8ad0",
+    "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad"
+  },
+  "91b38f4b03625f67": {
+    "model": "glm-5.3",
+    "case_id": "case-20",
+    "output_sha256": "b41e35aba68dedde72f85bc6146ee9105acff2170c10dda7bd41c5539836b303",
+    "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad"
+  },
+  "833ade92c9d629b8": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-12",
+    "output_sha256": "b84dda0affce57ad7e8634f91b4f95cddd30716f5da44bd8cd8a4f26874d395c",
+    "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac"
+  },
+  "a3a14416c130224d": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-4",
+    "output_sha256": "c2218eb1bec958331ed51f3d43f3df15784160c5bfe8c276932429adcd1d26d4",
+    "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c"
+  },
+  "6bce1a4dc2a91e0e": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-10",
+    "output_sha256": "5dd9bde5eb94b0d13f120850cc1ce7905b8305baca2f6fff7c8240e3d1c70cfa",
+    "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62"
+  },
+  "76e2e5f4eefbb591": {
+    "model": "nemotron-3-super",
+    "case_id": "case-1",
+    "output_sha256": "9a076a15df0993896925f026d5c5876cd3c8773faba286a651fc6f8d4af04370",
+    "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad"
+  },
+  "cfd8b76bf46f0694": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-18",
+    "output_sha256": "fcbb9f459e7bb7b332f1ec1b200eefe5058d3553c6d1d24ec00445457c93003e",
+    "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646"
+  },
+  "35e04cd0c9f40380": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-4",
+    "output_sha256": "760854517dd7e4f82705b922213b7b141d9004ee340163d2e85dacc6190469ee",
+    "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c"
+  },
+  "8ae7add9ddb5a1bd": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-1",
+    "output_sha256": "c731234bb0c561fcf1c9704ec18ffa6e79f3e8404f934acc63c895b0c4dac1ac",
+    "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad"
+  },
+  "2817a87b44b68a55": {
+    "model": "glm-5.3",
+    "case_id": "case-5",
+    "output_sha256": "383854dd009bc60ac327f5ea89af3b6eb63f0ea6de3c2f83fc343d2c4da27f15",
+    "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24"
+  },
+  "c6b8e056db2b5799": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-19",
+    "output_sha256": "c85333df1d008110310f894d3d509dbc37c55659ceda5ebd58d504c059fec0c4",
+    "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a"
+  },
+  "d9dc22b3385d32d6": {
+    "model": "nemotron-3-super",
+    "case_id": "case-13",
+    "output_sha256": "bc4b9328c96faadff289cce23f381eee58091c38f357e193dc96f28d74809f7a",
+    "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef"
+  },
+  "a007796bba3bdbde": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-12",
+    "output_sha256": "a34044fc300b97fb2a3832cae8dd7a867b084a61a063b4e8b4126e05da276461",
+    "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac"
+  },
+  "6ba89e7f7e4e823b": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-16",
+    "output_sha256": "6506f6979ef37031414d0aa8ff004d71138ce445f06dab2aa77b2acd65344f08",
+    "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6"
+  },
+  "828894dfbd1ec09f": {
+    "model": "nemotron-3-super",
+    "case_id": "case-20",
+    "output_sha256": "4497515a524d3da58e8f479085a7714aa0908e4b218841a2e18335eef3ffa2ef",
+    "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad"
+  },
+  "95892b1809a249c6": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-3",
+    "output_sha256": "e0b297d25f90a023776762cc271436541e8094ecc3cc2430f72616183457fe25",
+    "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f"
+  },
+  "85b722c7c9914d83": {
+    "model": "glm-5.3",
+    "case_id": "case-8",
+    "output_sha256": "2c0ccd7068d388c8543d5b7921f303c011d8ffa71233c636e2317f0cc3884ace",
+    "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd"
+  },
+  "7aedc1475e4d6dd1": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-20",
+    "output_sha256": "47c39872d6be233b04f5588aa5666b5ab2c20b91dd803fbecde96289653d54fd",
+    "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad"
+  },
+  "b102b7eb2aa1b3dd": {
+    "model": "nemotron-3-super",
+    "case_id": "case-6",
+    "output_sha256": "9afe96bd97f5a9ac75b7aa4f1c3c3ce8b93a446f3c4639e84b4a05fe54280863",
+    "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b"
+  },
+  "2af410eaaa5e6d45": {
+    "model": "nemotron-3-super",
+    "case_id": "case-17",
+    "output_sha256": "bba569e31fe377d70beb6ec1d1e6d85c40c301a34a7143665cb3c86f334ccfe8",
+    "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90"
+  },
+  "4f3bc1d12686746b": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-5",
+    "output_sha256": "7ca424596242978276562e303137c07dc57bbdee207807f51715049dac6cefe9",
+    "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24"
+  },
+  "1d9eb92748ca5df6": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-7",
+    "output_sha256": "d08071432e6fbb635d5389b92487f1ebccfa5196cfd8a91be87baa77bcc92f58",
+    "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0"
+  },
+  "32d2e6c9e0c21a8b": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-2",
+    "output_sha256": "ddb375b85a1dbfbb623af60c2bb9fa389578f594a28dfbe1793e9f2c0e55669a",
+    "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783"
+  },
+  "2de92efed8557af1": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-9",
+    "output_sha256": "d06fc051f25e41533c14e704d13cac024b76dc7411d122d567a66717cef6aa28",
+    "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5"
+  },
+  "cb70078844b2894c": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-5",
+    "output_sha256": "f44a2868b102ef9abba1bbccf44b5bc210a27cfa3dedd4d7a61086d58d4de7a2",
+    "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24"
+  },
+  "eb4daaed9de67eb2": {
+    "model": "glm-5.3",
+    "case_id": "case-12",
+    "output_sha256": "4e245828b9a04fbbc223366f15e16fa9434baeef5f3d6b774a2a5e062a0e266f",
+    "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac"
+  },
+  "0fc9d7cf8210a474": {
+    "model": "nemotron-3-super",
+    "case_id": "case-18",
+    "output_sha256": "02e2a62e60b05bb5ffadaeb2aee4562b53cc0a0f6e005178c6dcc59d8fc18eba",
+    "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646"
+  },
+  "6c4ff34cf5f82cf9": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-19",
+    "output_sha256": "4fe1e5f8eb8e90f7279e47575706d1518a02338ed0de12d7e1b5e1804c3f0756",
+    "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a"
+  },
+  "f35ec7bcee38ce33": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-1",
+    "output_sha256": "4f5df473b72078c2f81bfa0ab2c615e14e5b00ccf7bbec5a0df2c82b9eae0c4d",
+    "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad"
+  },
+  "877abaeddde8845f": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-19",
+    "output_sha256": "c64255f44fc42e6718f3c23ea5e6ccec3731b7918004e203de65fa2866eded36",
+    "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a"
+  },
+  "cf131e309fbf9629": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-11",
+    "output_sha256": "22386ba3f9d89d1e39ff42ae89fe255a6b83b704e5733ff4c0d0898657c2497a",
+    "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816"
+  },
+  "6b4729a1f5563b5e": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-17",
+    "output_sha256": "29820ec12c5c50eaf85ebdeb83d858b9c7f4fceed92ba1cfd0d6d22c5cbdce8e",
+    "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90"
+  },
+  "f71795fbb03ea861": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-6",
+    "output_sha256": "43008e41ab827bb25573b993f6c6b8cfcf2bdaad511e9a3a04540e353ef36619",
+    "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b"
+  },
+  "ce8af08bec081432": {
+    "model": "nemotron-3-super",
+    "case_id": "case-19",
+    "output_sha256": "cfb15289f6d7eb9b5267e273fa068ebfeeacb3d2aa3cf2600fb72e39d8d1ade4",
+    "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a"
+  },
+  "e84585c38e9dfeee": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-6",
+    "output_sha256": "343343e98fda234431bca07581ec6d24a90768af8b329de68aece90a0f74c8ce",
+    "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b"
+  },
+  "33e7c9cad94591a0": {
+    "model": "glm-5.3",
+    "case_id": "case-13",
+    "output_sha256": "59515f246b102277a3492733c2b89cadb5b1462b805710db2461eeccd4f0c18d",
+    "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef"
+  },
+  "6c09caa8409241ff": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-7",
+    "output_sha256": "ecf9ee13c210b05d9108c10a0ad3c95bcc2143a620d3b77cc887e955a38a108b",
+    "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0"
+  },
+  "ab2a9c329770e98c": {
+    "model": "glm-5.3",
+    "case_id": "case-10",
+    "output_sha256": "e2368116a7ca8c67c5eb5cff7d401897a1aae1e8ac38d92f8f9ba771067407c9",
+    "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62"
+  },
+  "5f735043c60ffdce": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-8",
+    "output_sha256": "f2d0cc9037828962b0a39b6b1bcffbc1a254e3a6df98ee0ec7d5427d60da58cf",
+    "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd"
+  },
+  "fba110a2ac658eae": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-9",
+    "output_sha256": "14379d90c0d49ee19058bd773ac47e7c4ca5f245724b9f6c52f13d0035de4ebc",
+    "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5"
+  },
+  "022bf58c1491ac17": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-13",
+    "output_sha256": "118530934e38f246bff52a4574b7a07558821ebabfa85524da001c89f11e0739",
+    "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef"
+  },
+  "cd19e38741bef4ff": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-14",
+    "output_sha256": "68ac76d9135a30f9fafa8d5fc0cf4b5cd639ebbfb162332467819edcf5c0791a",
+    "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5"
+  },
+  "a41f668bfe2e9268": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-15",
+    "output_sha256": "07ec4f203ff62693fffa3c3c59fe20479a41bdbb4959bfb8c2a71df35e316eb3",
+    "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358"
+  },
+  "5e70b5d0b7eb38bc": {
+    "model": "nemotron-3-super",
+    "case_id": "case-9",
+    "output_sha256": "dd941820a235c54dc967e6abe31be7e261ddcfbd7421d843d9cdbe866b67caaf",
+    "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5"
+  },
+  "d050f7df0d3d471f": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-16",
+    "output_sha256": "7c191a4a994c2d62db14ce4fb515e3f7b95dde11128427479e1a9557c68eacef",
+    "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6"
+  },
+  "d16fe0715973d0ad": {
+    "model": "glm-5.3",
+    "case_id": "case-14",
+    "output_sha256": "eac043e28e599bcb64a07fae6cc8f36ce747147483101924847ae69b54fc187d",
+    "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5"
+  },
+  "9e976939aea75013": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-15",
+    "output_sha256": "8fa2227537767a9a8277fc5ad982dffeeda0b4fabd7b6b97c09f376d3983a9cc",
+    "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358"
+  },
+  "018ee4628d5cdd83": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-20",
+    "output_sha256": "0ee77b647486657f976998ac7a37db4b9bc6fc9727b3263534aa110e18f0f68f",
+    "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad"
+  },
+  "f52366eba62c5589": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-14",
+    "output_sha256": "253cc3836f7dd6301772c80b81ffb23c5879ad6b9cc9cfe6b7c11a820c834328",
+    "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5"
+  },
+  "b1c1ec2a04bfaa47": {
+    "model": "glm-5.3",
+    "case_id": "case-1",
+    "output_sha256": "20ea03716a93145baa73ecb69469e3662dcbf2e76a3d30691de087e7dfb25c7e",
+    "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad"
+  },
+  "8eca6bf6a5817b1f": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-2",
+    "output_sha256": "b82ad468c547fa7cc34f93f1bbe644e8364e886c76edd858749003849b40225e",
+    "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783"
+  },
+  "fd606adfbe76d1e8": {
+    "model": "kimi-k3.1-pro",
+    "case_id": "case-17",
+    "output_sha256": "0a01b130155d1e28d9a06e2ab2b24477631a286af7ed6b1b9166ba0eba4d0bed",
+    "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90"
+  },
+  "dd036b5fd1a30aad": {
+    "model": "nemotron-3-super",
+    "case_id": "case-2",
+    "output_sha256": "683c85345b7eeb7ec9472218c8a7491a72e88e01989ab3b3c6044239711b748b",
+    "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783"
+  },
+  "7a8dcb484a60748c": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-16",
+    "output_sha256": "bea85c514754292542be26e34f33a17e63dcbe547ca52d0540b8249b474f32a1",
+    "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6"
+  },
+  "d4400e2a06df78ad": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-12",
+    "output_sha256": "b85259cb8089b34b2ca133f141ca87d41578b038d75a37bbf5942e4ab6c6049a",
+    "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac"
+  },
+  "3dda258ece00a3d7": {
+    "model": "deepseek-v4.1-flash-1017",
+    "case_id": "case-18",
+    "output_sha256": "6f3091437725b052ee88512763bd3135765149458d27c0d43ca95d1084eb00af",
+    "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646"
+  },
+  "92eabb6eb9e5764c": {
+    "model": "glm-5.3",
+    "case_id": "case-2",
+    "output_sha256": "a675f1def5c6f1a5077fe24be027a388ea4507263d0349044d4bb3888b5aa599",
+    "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783"
+  },
+  "e785ef0cf1673f49": {
+    "model": "glm-5.3",
+    "case_id": "case-18",
+    "output_sha256": "8c8648989adf21f435807c951e066dd3783eb56a35bc9b123126335f338adfe9",
+    "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646"
+  },
+  "42e529dcd69dc3a0": {
+    "model": "nemotron-3-super",
+    "case_id": "case-15",
+    "output_sha256": "0deffc7705ad3fe88884bff7f7dffe81e54e3c7805a3da240163dee8c27275ca",
+    "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358"
+  },
+  "483610fbb00c10e4": {
+    "model": "nemotron-3-super",
+    "case_id": "case-10",
+    "output_sha256": "ec975df1ff87ced5f9acc08b8592228f18f6f6708d8ddfe280cdfaa85a10b682",
+    "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62"
+  },
+  "2d4d1fb74b2e7aa4": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-8",
+    "output_sha256": "a38c6586a629c4054482248e5007538bb574a9c3ae1ca5c99efee02eb1a2ab06",
+    "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd"
+  },
+  "74eeba61bc958a18": {
+    "model": "gpt-oss-120b",
+    "case_id": "case-17",
+    "output_sha256": "9e2bd6fdc0dd08003b670c408abae2b9fde9d7c6dc4c8f6bd9ea7fc788e74531",
+    "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90"
+  },
+  "5ec830e8b1754e7d": {
+    "model": "nemotron-3-super",
+    "case_id": "case-12",
+    "output_sha256": "fade5afff652851b0a252f4dc447b742904dd523e4a14e749ff31235b505e15d",
+    "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac"
+  }
+}

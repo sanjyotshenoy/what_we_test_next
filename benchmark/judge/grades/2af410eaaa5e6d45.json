@@ -1,0 +1,75 @@
+{
+  "item_id": "2af410eaaa5e6d45",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Matches the requested RPMI-8226 cellular viability endpoint with ATP luminescence and explicitly limits target-specific causality.",
+      "response_quotes": [
+        "human RPMI-8226 cells",
+        "Cell viability does not prove Aurora kinase A is the responsible target; off‑target cytotoxicity could contribute."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 0,
+      "rationale": "Preparation, exposure and detection are ordered with intended controls, but normalization, curve fitting and uncertainty analysis are absent from the entire response. An essential analysis stage for the requested concentration-response experiment is missing.",
+      "response_quotes": [
+        "Add CellTiter-Glo reagent, mix, stabilize, measure luminescence."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.question"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Arithmetic is consistent, but the materially important upper concentration is justified by biochemical potency evidence absent from the packet. The response admits biochemical IC50 was not provided; the coverage claim is not labeled a provisional range-finding assumption.",
+      "response_quotes": [
+        "concentration range up to 10 µM covers expected cellular activity based on biochemical potency of JNJ-7706621.",
+        "biochemical IC50 not provided."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "procedural_soundness",
+      "issue": "Essential analysis stage omitted.",
+      "response_quote": "Add CellTiter-Glo reagent, mix, stabilize, measure luminescence.",
+      "reason": "Signal collection is not followed by normalization or curve fitting to derive the requested concentration-response result."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Missing claimed evidence for concentration-range justification.",
+      "response_quote": "concentration range up to 10 µM covers expected cellular activity based on biochemical potency of JNJ-7706621.",
+      "reason": "No biochemical potency evidence is supplied to support the claimed coverage."
+    }
+  ],
+  "not_assessable_components": [
+    "Assay comparability is not established by supplied evidence.",
+    "Optimal RPMI-8226 medium, density, exposure duration, culture conditions and vehicle tolerance are not supported by the packet.",
+    "CellTiter-Glo reagent ratio and timing compatibility lack a supplied validating procedure."
+  ],
+  "assumption_handling": "Density is unresolved and compound stability and solubility are explicitly assumed. Medium, exposure, vehicle fraction and detection settings are asserted without support or provisional labels. Replicate independence is unspecified.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": true,
+    "notes": "Eight threefold concentrations span 10 to 0.00457247 µM (4.57247 nM). No stated lower endpoint conflicts with this calculation. Three replicates are not identified as technical or biological."
+  },
+  "needs_human_review": true,
+  "review_reason": "Critical analysis omission and unsupported potency-based range claim; operational suitability and assay compatibility remain unresolved."
+}

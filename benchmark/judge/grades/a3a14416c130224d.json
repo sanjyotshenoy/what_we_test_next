@@ -1,0 +1,59 @@
+{
+  "item_id": "a3a14416c130224d",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses cell-free Mer inhibition and appropriately limits interpretation to biochemical activity.",
+      "response_quotes": [
+        "This design measures biochemical inhibition only; it does not demonstrate cellular viability effects or target-specific causality in cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion/ADP detection, and analysis are coherently ordered with vehicle and background controls. Essential operating conditions, positive-control selection, and validation remain unresolved; this is an outline rather than an executable protocol.",
+      "response_quotes": [
+        "reagent_volumes=unresolved; depletion_time=unresolved; detection_time=unresolved; follow ADP-Glo reagent instructions after assay-specific validation"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is internally consistent and explicitly provisional, but lacks contextual justification for its selection. Replicate type and rationale are unspecified; no fabricated numerical source is claimed.",
+      "response_quotes": [
+        "The concentration series and replicate numbers are provisional design assumptions, not sourced facts."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "ADP-Glo compatibility with the chosen Mer construct, substrate, and CHEMBL1231206 is unestablished.",
+    "Compound solubility, vehicle tolerance, and optimal biochemical operating conditions are unknown.",
+    "Comparability of retained ELISA/LabChip measurements to ADP-Glo is unresolved."
+  ],
+  "assumption_handling": "Clearly labels numerical settings as provisional and separates contextual reference conditions from unresolved ADP-Glo conditions. Honest uncertainty does not supply missing design rationale or operational validation.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Computed range is 100 to 0.005080526342529086 \u00b5M (5.080526342529086 nM). No prose endpoint contradicts the series. Three replicates are not identified as technical or independent."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and essential operating/control conditions require domain review before implementation."
+}

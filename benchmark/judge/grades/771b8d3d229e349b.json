@@ -1,0 +1,69 @@
+{
+  "item_id": "771b8d3d229e349b",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Purified MAPK9 turnover directly addresses biochemical inhibition, with appropriately limited conclusions. Compatibility with ADP-Glo remains unestablished.",
+      "response_quotes": [
+        "The assay measures biochemical inhibition only; it does not address cellular permeability, off‑target effects, or cytotoxicity."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, depletion, detection and analysis are coherent and include vehicle, background and reference controls. Essential operating settings lack support, while linearity optimization and interference testing remain outstanding; this is an incomplete outline.",
+      "response_quotes": [
+        "Terminate the kinase reaction, deplete remaining ATP with the ADP‑Glo™ reagent, then add the detection reagent and read luminescence."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The series endpoint is consistent, but material detection volumes are attributed to a kit protocol absent from supplied evidence. This is unsupported claimed source evidence, rather than merely disclosed provisional numbers. Asserted ATP Km, standard temperature and sufficient statistical power also lack support.",
+      "response_quotes": [
+        "as per kit protocol (e.g., 5 µL ADP‑Glo™ reagent + 5 µL detection reagent per 20 µL reaction)",
+        "unresolved – 10 µM (≈ Km for MAPK9) to maintain sensitivity to competitive inhibition"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Fabricated source support for material detection-volume settings.",
+      "response_quote": "as per kit protocol (e.g., 5 µL ADP‑Glo™ reagent + 5 µL detection reagent per 20 µL reaction)",
+      "reason": "No kit protocol or volume guidance was supplied. The claimed protocol support cannot justify these quantitative settings; this does not establish that the volumes themselves are scientifically wrong."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of ADP-Glo with the selected MAPK9 preparation and substrate.",
+    "Comparability of retained displacement/radiometric assays with the proposed luminescent turnover assay.",
+    "Optimal enzyme, substrate, ATP, temperature, timing, reagent ratios, DMSO tolerance and compound solubility.",
+    "Precision of three replicates, which are not distinguished as technical or independent."
+  ],
+  "assumption_handling": "Some concentrations are explicitly unresolved and interference is acknowledged. Specific Km, standard temperature, kit-volume attribution, potency-range coverage and statistical-power claims remain unsupported. Retained examples do not establish a luminescent turnover protocol.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.04572473708276177,
+    "prose_consistent": true,
+    "notes": "100/3^7 = 0.0457247 µM, consistent with approximately 0.05 µM. Supplied evidence does not validate the asserted typical potency range or CHEMBL10 range coverage."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and unsupported operating conditions, including the kit-volume source claim, require domain review."
+}

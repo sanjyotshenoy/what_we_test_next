@@ -1,0 +1,61 @@
+{
+  "item_id": "3dda258ece00a3d7",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses cellular viability in BaF3-AXL cells and limits conclusions about kinase activity and target causality.",
+      "response_quotes": [
+        "CellTiter-Glo ATP luminescence as a surrogate for viable cell number/metabolic activity",
+        "ATP viability alone does not establish AXL target engagement, kinase inhibition, or target-specific causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent ordered preparation, exposure, detection and analysis with vehicle, background and comparative controls. Essential culture and detection parameters, acceptance thresholds and positive control remain unresolved.",
+      "response_quotes": [
+        "Cell density, medium composition, IL-3/growth-factor status, reagent volumes, mixing/stabilization times, and acceptance thresholds are unresolved and must be set from validated lab procedures."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Series is internally consistent and explicitly provisional, but the general desire for a broad range does not justify the particular top dose and spacing contextually. Exposure, vehicle tolerance and replicate count lack validation; no fabricated support is claimed.",
+      "response_quotes": [
+        "top_concentration_uM: 30 (provisional assumption, not sourced); dilution_factor: 3 (provisional assumption); n_points: 8 (provisional assumption)",
+        "A broad dilution series and replicates are needed to estimate a cellular concentration-response."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.question"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability to a reference assay is not established.",
+    "Optimal cell density, medium, IL-3/growth-factor state, exposure duration and culture conditions are unsupported.",
+    "Compound solubility, tolerated vehicle fraction and ATP readout interference are unestablished."
+  ],
+  "assumption_handling": "Numerical settings are clearly provisional and unresolved operating conditions acknowledged. Invoking validated vendor/lab procedures does not supply missing procedures. Replicates are not distinguished as technical or independent biological repeats.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.013717421124828532,
+    "prose_consistent": true,
+    "notes": "Eight concentrations run from 30 to 0.0137174211 uM (13.7174211 nM). No explicit minimum or full series is claimed; stated settings do not contradict one another."
+  },
+  "needs_human_review": true,
+  "review_reason": "Resolve culture/growth-factor dependence, detection validation and concentration-range justification before execution; assay comparability is unknown."
+}

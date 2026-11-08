@@ -1,0 +1,157 @@
+{
+  "item_id": "74eeba61bc958a18",
+  "generator_input": {
+    "id": "case-17",
+    "question": "Design a concentration-response experiment to measure the effect of CHEMBL191003 on growth/proliferation or viability of human RPMI-8226 cells. Explain the endpoint, justify the readout and any adaptations to the step cards, and state what this can and cannot establish about Aurora kinase A.",
+    "entities": [
+      {
+        "id": "CHEMBL191003",
+        "name": "JNJ-7706621",
+        "type": "Compound",
+        "smiles": "Nc1nc(Nc2ccc(S(N)(=O)=O)cc2)nn1C(=O)c1c(F)cccc1F"
+      },
+      {
+        "id": "O14965",
+        "name": "Aurora kinase A",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Growth/proliferation or viability in human RPMI-8226 cells; purified-enzyme inhibition alone does not answer this question. A cellular response alone does not establish target-specific causality. Justify assay adaptation; do not equate all viability readouts.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds.",
+      "Proliferation readout: do not silently substitute the ATP-luminescence detection card as the recorded method."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"cell viability (ATP‑luminescence)\",\n  \"system\": \"human RPMI‑8226 multiple myeloma cells\",\n  \"readout\": \"luminescence measured with CellTiter‑Glo (ATP content as proxy for viable cell number)\",\n  \"steps\": [\n    {\n      \"card_id\": \"cell-prepare\",\n      \"instruction\": \"Plate RPMI‑8226 cells in 96‑well white plates, add a 8‑point serial dilution of JNJ‑7706621 (CHEMBL191003) and appropriate controls.\",\n      \"parameters\": {\n        \"cell_density\": \"5 × 10⁴ cells well⁻¹ (typical for 24 h attachment, evidence from standard RPMI‑8226 protocols)\",\n        \"medium\": \"RPMI‑1640 + 10 % FBS, 1 % pen‑strep\",\n        \"top_concentration_uM\": \"10 µM (assumption – common upper limit for kinase inhibitors when no prior cytotoxicity data are available)\",\n        \"dilution_factor\": \"3 (standard 3‑fold dilution series)\",\n        \"n_points\": \"8 (covers ~2.5 log range)\",\n        \"replicates\": \"3 (biological replicates per concentration)\",\n        \"vehicle_fraction\": \"0.1 % DMSO v/v (kept constant across all wells)\"\n      }\n    },\n    {\n      \"card_id\": \"cell-expose\",\n      \"instruction\": \"Incubate plates with compound under standard culture conditions.\",\n      \"parameters\": {\n        \"exposure_time\": \"72 h (assumption – typical endpoint for proliferation/viability assays in myeloma cells)\",\n        \"temperature\": \"37 °C, 5 % CO₂\"\n      }\n    },\n    {\n      \"card_id\": \"cell-detect\",\n      \"instruction\": \"Add CellTiter‑Glo reagent, mix, allow signal stabilization, then read luminescence.\",\n      \"parameters\": {\n        \"reagent_volume\": \"100 µL per well (per manufacturer protocol)\",\n        \"mix_time\": \"2 min orbital shaking\",\n        \"stabilization_time\": \"10 min at room temperature\"\n      }\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize luminescence to vehicle (100 % viability) and background (0 % viability), fit a four‑parameter logistic curve, report EC₅₀ with 95 % confidence intervals and assay quality metrics.\",\n      \"parameters\": {\n        \"fit_model\": \"four‑parameter logistic (Hill slope, bottom, top, EC₅₀)\",\n        \"acceptance_criteria\": \"R² ≥ 0.80 and %CV ≤ 20 % across replicates\"\n      }\n    }\n  ],\n  \"top_concentration_uM\": 10,\n  \"dilution_factor\": 3,\n  \"n_points\": 8,\n  \"replicates\": 3,\n  \"controls\": [\n    \"vehicle control (0.1 % DMSO)\",\n    \"medium‑only background (no cells)\",\n    \"reference Aurora‑A inhibitor (e.g., alisertib) if available – otherwise untreated control\"\n  ],\n  \"rationale\": \"CellTiter‑Glo provides a robust, homogeneous ATP‑based readout that correlates with viable cell number and is compatible with 96‑well format. RPMI‑8226 is a human plasma‑cell line that expresses Aurora kinase A (O14965) and is commonly used to assess antiproliferative activity of kinase inhibitors. The chosen concentration range (10 µM → ~0.015 µM) spans typical IC₅₀ values for Aurora‑A inhibitors, allowing detection of both cytostatic and cytotoxic effects. Replicates and a vehicle fraction of 0.1 % DMSO minimize plate‑to‑plate variability and DMSO‑induced toxicity.\",\n  \"citations\": [\n    \"CHEMBL191003\",\n    \"O14965\"\n  ],\n  \"limitations\": [\n    \"The assay measures overall cell viability and cannot distinguish whether growth inhibition is due to on‑target Aurora‑A inhibition or off‑target effects of JNJ‑7706621.\",\n    \"No direct biochemical readout of Aurora‑A activity is included; therefore causality between target inhibition and phenotype remains unproven.\",\n    \"Assumed parameters (top concentration, exposure time, cell density) are not derived from prior evidence for this compound and should be validated in pilot runs.\",\n    \"If a reference Aurora‑A inhibitor is not available, the ability to benchmark target‑specific potency is limited.\"\n  ]\n}"
+}

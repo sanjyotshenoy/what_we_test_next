@@ -1,0 +1,197 @@
+{
+  "item_id": "1e4a8a020919e648",
+  "generator_input": {
+    "id": "case-6",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Aurora kinase A (O14965) by CHEMBL1092509. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1092509",
+        "name": "CHEMBL1092509",
+        "type": "Compound",
+        "smiles": "O=C1Nc2c(Br)cccc2/C1=C1/Nc2ccccc2/C1=N\\O"
+      },
+      {
+        "id": "O14965",
+        "name": "Aurora kinase A",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL110381",
+        "ic50_nM": 5540.0,
+        "assay": "CHEMBL2382841",
+        "description": "Inhibition of aurora-A (unknown origin)",
+        "document": "CHEMBL2380198",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1336",
+        "ic50_nM": 3800.0,
+        "assay": "CHEMBL2066306",
+        "description": "Inhibition of Aurora A",
+        "document": "CHEMBL2062390",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1483261",
+        "ic50_nM": 5.559,
+        "assay": "CHEMBL2403991",
+        "description": "Inhibition of Aurora A kinase (unknown origin) by Z'-LYTE kinase assay",
+        "document": "CHEMBL2401630",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1512579",
+        "ic50_nM": 1450.0,
+        "assay": "CHEMBL2033074",
+        "description": "Inhibition of human recombinant Aurora A kinase using biotinylated peptide substrate preincubated for 15 mins with compound measured after 30 mins by fluorescence analysis",
+        "document": "CHEMBL2029348",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1533728",
+        "ic50_nM": 2340.0,
+        "assay": "CHEMBL2033074",
+        "description": "Inhibition of human recombinant Aurora A kinase using biotinylated peptide substrate preincubated for 15 mins with compound measured after 30 mins by fluorescence analysis",
+        "document": "CHEMBL2029348",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"biochemical kinase inhibition (luminescent ADP detection, ADP-Glo format)\",\n  \"system\": \"Purified recombinant human Aurora kinase A (O14965) with peptide substrate in vitro\",\n  \"readout\": \"Luminescence proportional to ADP produced, normalized to no-inhibitor and no-enzyme controls\",\n  \"steps\": [\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a serial dilution of CHEMBL1092509 in DMSO, plus vehicle-only, no-enzyme, and reference-inhibitor control wells.\",\n      \"parameters\": {\n        \"top_concentration_uM\": \"50 (assumption; no packet evidence for solubility or potency of CHEMBL1092509 — must be confirmed by solubility check)\",\n        \"dilution_factor\": \"3 (assumption; gives ~3.3 log range over 10 points)\",\n        \"n_points\": \"10 (assumption)\",\n        \"replicates\": \"3 (assumption; triplicates for curve fitting uncertainty)\",\n        \"vehicle_fraction\": \"1% DMSO final, constant across all wells including controls (assumption; keep below levels known to perturb kinase assays)\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Preincubate kinase with compound, then initiate reaction with substrate/ATP and incubate.\",\n      \"parameters\": {\n        \"preincubation_time\": \"15 min (supported by CHEMBL2033074 protocol: 'preincubated for 15 mins with compound')\",\n        \"reaction_time\": \"30 min (supported by CHEMBL2033074: 'measured after 30 mins')\",\n        \"enzyme_concentration\": \"unresolved — no packet value; titrate enzyme to give linear signal within assay window\",\n        \"substrate_concentration\": \"unresolved — no packet value; use biotinylated/peptide substrate at saturating or Km-appropriate level after titration\",\n        \"ATP_concentration\": \"unresolved — no packet value; set relative to Aurora A ATP Km (not supplied) so competitive inhibition can be assessed\",\n        \"temperature\": \"unresolved — no packet value; room temperature or 30°C typical but unsupported here\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Stop reaction with ADP-Glo reagent to deplete residual ATP, then add detection reagent and read luminescence.\",\n      \"parameters\": {\n        \"reagent_volumes\": \"unresolved — follow ADP-Glo manufacturer ratio (1:1:1), not specified in packet\",\n        \"depletion_time\": \"unresolved — manufacturer default (commonly 30–60 min), not supported by packet\",\n        \"detection_time\": \"unresolved — manufacturer default (commonly 30–60 min), not supported by packet\"\n      }\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize each well to mean vehicle control (100% activity) and no-enzyme control (0% activity); fit log(inhibitor) vs. normalized activity with a four-parameter logistic model; report IC50 with 95% CI and Hill slope; verify <10% ATP consumption in uninhibited wells.\",\n      \"parameters\": {\n        \"fit_model\": \"4-parameter logistic (assumption; standard for concentration-response)\",\n        \"acceptance_criteria\": \"unresolved — Z' factor > 0.5 and DMSO-only signal within linear assay range proposed as assumption, not sourced\"\n      }\n    }\n  ],\n  \"top_concentration_uM\": 50,\n  \"dilution_factor\": 3,\n  \"n_points\": 10,\n  \"replicates\": 3,\n  \"controls\": [\n    \"Vehicle-only (DMSO at matched fraction) = 100% activity control\",\n    \"No-enzyme control = background/0% activity control\",\n    \"Reference Aurora A inhibitor on the same plate to confirm assay performance (identity/concentration unresolved — no packet example for CHEMBL1092509)\",\n    \"No-compound, no-substrate blank for luminescence background\"\n  ],\n  \"rationale\": \"The question asks for biochemical inhibition of Aurora kinase A by CHEMBL1092509, so the kinase-luminescence cards (kinase-prepare/react/detect) are selected and the cell-viability cards are excluded: cellular ATP depletion would conflate cytotoxicity with target-specific inhibition and cannot establish Aurora A causality. ADP-Glo is chosen as a homogeneous luminescent readout compatible with the retained assay descriptions; the packet shows Aurora A biochemical assays using peptide substrates with 15 min compound preincubation and 30 min reaction (CHEMBL2033074, CHEMBL2029348), which are the only reaction conditions directly supported by the packet and are adopted here. Other retained examples (CHEMBL2382841, CHEMBL2066306, CHEMBL2403991) confirm that biochemical Aurora A inhibition assays with IC50 readouts are an established format, but their IC50 values for different compounds are contextual only and are not used to estimate potency of CHEMBL1092509. The concentration series, replicates, and DMSO fraction are labeled assumptions because the packet contains no solubility or potency data for CHEMBL1092509.\",\n  \"citations\": [\n    \"CHEMBL2033074\",\n    \"CHEMBL2029348\",\n    \"CHEMBL2382841\",\n    \"CHEMBL2066306\",\n    \"CHEMBL2403991\"\n  ],\n  \"limitations\": [\n    \"No IC50 or potency estimate for CHEMBL1092509 is provided or predicted; the retained IC50s are for other compounds and assays.\",\n    \"Enzyme, substrate, and ATP concentrations are unsupported by the packet and must be established by pilot titration (linear initial-velocity conditions, substrate conversion <10%).\",\n    \"Temperature, detection reagent volumes, and incubation times for ADP-Glo steps are not specified in the packet and remain unresolved pending manufacturer protocol.\",\n    \"Compound solubility at 50 µM top concentration is unverified; top concentration may need adjustment after solubility testing.\",\n    \"This biochemical assay measures direct enzymatic inhibition only; it does not address cellular viability, permeability, or target-specific causality in cells, which would require separate orthogonal experiments.\",\n    \"If the compound is ATP-competitive, the IC50 will depend on the chosen ATP concentration; ATP Km for this Aurora A preparation is not supplied.\"\n  ]\n}"
+}

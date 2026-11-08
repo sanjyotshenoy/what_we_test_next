@@ -1,0 +1,59 @@
+{
+  "item_id": "018ee4628d5cdd83",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses MER-expressing BaF3 cellular viability with an ATP proxy and appropriately limits proliferation and target-causality claims.",
+      "response_quotes": [
+        "CellTiter-Glo measures ATP as a viability/metabolic proxy; it does not distinguish growth arrest from cytotoxicity, nor does it directly measure proliferation rate."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, exposure, detection and analysis with relevant intended controls, but culture, detection, replication and acceptance parameters remain unresolved. This is not executable as supplied.",
+      "response_quotes": [
+        "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved; follow a supported CellTiter-Glo procedure."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honest numeric abstention leaves no concentration series or replication design. Two-day exposure has supplied support; no potency or source support is fabricated. Null series fields cannot earn 2.",
+      "response_quotes": [
+        "top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Assay comparability beyond shared system, readout and exposure descriptions.",
+    "Optimal cell density, medium, temperature and MER-dependent culture conditions.",
+    "Detection conditions, reference inhibitor suitability and assay performance."
+  ],
+  "assumption_handling": "Unsupported temperature, 4PL fitting and parental/reference controls are explicitly provisional or unresolved. Supported exposure is separated from missing settings, but the quantitative design remains incomplete.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Null/unresolved series prevents dilution arithmetic. Two days matches retained descriptions. Replicates are unresolved."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay comparability and essential culture, detection and control settings require domain review before execution."
+}

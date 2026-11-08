@@ -1,0 +1,61 @@
+{
+  "item_id": "33e7c9cad94591a0",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly measures purified LIMK1 biochemical activity and appropriately limits inference to enzymatic inhibition. Alternative format compatibility is explicitly acknowledged as assumed.",
+      "response_quotes": [
+        "Purified LIM domain kinase 1 (P53667) with cofilin-2 substrate in vitro",
+        "A biochemical IC50 establishes enzymatic inhibition only; it does not demonstrate cellular target engagement or viability effects"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, ADP detection and analysis are coherently ordered. Essential concentrations, detection conditions and acceptance thresholds remain unresolved. Compound-only no-kinase wells do not establish sensitivity to suppression of a positive ADP signal. Replicate independence is unspecified; this is an outline requiring validation.",
+      "response_quotes": [
+        "Stop the reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent and read luminescence.",
+        "must be titrated to give linear signal over the reaction window"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 2,
+      "rationale": "The provisional 30 µM, threefold, ten-point series is internally consistent and contextually justified by other-compound measurements, without predicting query potency. Assumptions and unresolved settings are clearly separated from supplied facts. The cited 60 minutes appears in retained descriptions, although transfer needs validation.",
+      "response_quotes": [
+        "The concentration series (30 µM top, 3-fold, 10 points) is an explicit assumption",
+        "those IC50s are contextual only and are not used to predict CHEMBL1258633 potency."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility and quantitative comparability of reference Kinase-Glo assays with proposed ADP-Glo and purified LIMK1 construct.",
+    "Optimal temperature, reagent concentrations, vehicle tolerance, reaction linearity and detection conditions are not established by supplied evidence."
+  ],
+  "assumption_handling": "Unsupported settings are largely labeled assumptions or unresolved. The rationale calls ADP-Glo comparable, but limitations qualify compatibility as assumed rather than evidenced. Triplicates are not identified as technical or independent experiments.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": true,
+    "notes": "Ten points span 30 to 0.0015241579 µM (1.5241579 nM). No contradictory endpoint is asserted. Contextual 2800–12700 nM correctly converts to 2.8–12.7 µM; query-compound coverage is not established."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility, construct selection, operating conditions and detection-interference controls require domain review before execution."
+}

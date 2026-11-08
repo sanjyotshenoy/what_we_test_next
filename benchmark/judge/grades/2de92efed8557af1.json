@@ -1,0 +1,71 @@
+{
+  "item_id": "2de92efed8557af1",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 1,
+      "rationale": "Purified ACVR1 and ADP production address biochemical inhibition and cellular limitations are stated, but the activity interpretation and normalization are inconsistent.",
+      "response_quotes": [
+        "luminescence proportional to ADP production (inverse of kinase activity)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 0,
+      "rationale": "The reaction and detection stages are ordered, but no-compound control is assigned zero activity while vehicle defines full activity. This invalidates the stated normalization; listing a no-enzyme blank elsewhere does not correct the instruction.",
+      "response_quotes": [
+        "Normalize luminescence to 0 % activity (no‑compound control) and 100 % activity (vehicle control)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Series arithmetic is consistent, but the response falsely attributes 10 µM ATP and 30-minute incubation to CHEMBL1614712, which supplies neither setting. No supplied example establishes ATP concentration. Claimed assured potency coverage and solubility are unsupported.",
+      "response_quotes": [
+        "10 µM (near Km for ATP in ALK family kinases, as used in CHEMBL1614712 assay)",
+        "30 min (consistent with radiometric ACVR1 assay in CHEMBL1614712)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "procedural_soundness",
+      "issue": "Incompatible activity normalization anchors.",
+      "response_quote": "Normalize luminescence to 0 % activity (no‑compound control) and 100 % activity (vehicle control)",
+      "reason": "No-compound control is not established as inactive; assigning it zero activity conflicts with the active vehicle anchor and undermines inhibition estimates."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Fabricated source support for ATP concentration.",
+      "response_quote": "10 µM (near Km for ATP in ALK family kinases, as used in CHEMBL1614712 assay)",
+      "reason": "The cited example specifies radiolabeled ATP but no concentration or Km; the claimed support for this material assay setting is absent."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of ADP-Glo purified kinase-domain measurements with retained radiometric assays.",
+    "Compatibility and kinetic parameters of the proposed peptide substrate and ACVR1 preparation.",
+    "Validated detection reagent volumes/times, solvent tolerance, compound solubility and detection interference."
+  ],
+  "assumption_handling": "Limitations acknowledge unknown Km, reference potency and higher-concentration solubility. These do not resolve specific unsupported claims of sourced ATP settings, typical linear enzyme concentration, manufacturer conditions, or assured range coverage and solubility.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": true,
+    "notes": "Eight 3-fold points span 10 to 0.0045724737 µM (4.5724737 nM). No explicit minimum contradicts this. Triplicates are not distinguished as technical or independent replication."
+  },
+  "needs_human_review": true,
+  "review_reason": "Normalization requires correction, material parameter provenance is unsupported, and assay/substrate compatibility remains unresolved."
+}

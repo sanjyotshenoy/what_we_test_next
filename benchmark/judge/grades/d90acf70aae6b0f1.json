@@ -1,0 +1,62 @@
+{
+  "item_id": "d90acf70aae6b0f1",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "The biochemical ADP-production endpoint directly addresses purified-target inhibition and appropriately limits cellular conclusions.",
+      "response_quotes": [
+        "Luminescence proportional to ADP produced, converted to percent inhibition of kinase activity",
+        "This design measures biochemical inhibition only"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection and analysis are coherently ordered with appropriate intended controls. Substrate identity, enzyme amount, reaction duration and detection settings remain unresolved. The interference control also lacks a specified ADP signal for evaluating signal suppression. This is an outline, not an executable supported procedure.",
+      "response_quotes": [
+        "Combine compound dilutions with kinase, peptide/DNA substrate and ATP; incubate under linear-range conditions.",
+        "unresolved; no packet support for substrate identity or concentration"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The proposed series is openly provisional, but its top and breadth lack specific contextual justification beyond spanning likely potency. The ATP precedent is accurately cited, without establishing transferability. The approximate five-log span overstates the actual 4.29 logs; this imprecision does not invalidate the workflow.",
+      "response_quotes": [
+        "assumption; covers ~5 log units",
+        "assumption; no packet evidence for this compound's potency range",
+        "supported precedent: CHEMBL1243970 measured DNA-PK inhibition at 10 uM ATP (document CHEMBL1240340)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of ADP-Glo with the enzyme preparation, substrate and retained radioactive or unspecified assay formats.",
+    "Optimal activation, buffer, substrate, temperature, vehicle tolerance, enzyme amount, reaction duration and detection settings; solubility at the proposed top concentration."
+  ],
+  "assumption_handling": "Most unsupported settings are clearly labeled assumptions, and essential missing settings are unresolved. No compound potency is invented. Calling the format matching retained assays overstates established comparability; the ATP condition is supported only as precedent.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": false,
+    "notes": "The minimum is 0.0050805263 uM (5.0805263 nM). Nine threefold intervals span 4.29409 log10 units, making ~5 log units imprecise. Three replicates explicitly mean wells per condition; independent replication is unspecified."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and essential operational conditions require domain review before execution."
+}

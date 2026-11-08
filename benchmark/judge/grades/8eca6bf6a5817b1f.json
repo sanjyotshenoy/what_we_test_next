@@ -1,0 +1,70 @@
+{
+  "item_id": "8eca6bf6a5817b1f",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 1,
+      "rationale": "The purified human HASPIN biochemical assay addresses the requested endpoint and limits cellular conclusions, but describes ADP production as inverse kinase activity, conflicting with its activity normalization. This leaves an important interpretation inconsistency.",
+      "response_quotes": [
+        "luminescence proportional to ADP production (inverse of kinase activity)",
+        "Normalize luminescence to vehicle (100 % activity) and reference inhibitor (0 % activity)."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, sequential ATP depletion/detection, and analysis are present with vehicle, reference and no-enzyme controls. Linearity and reference full inhibition are not validated, detection reagent volume is unresolved, and normalization assumes the reference establishes zero activity. The ordered outline is not supported as executable.",
+      "response_quotes": [
+        "Normalize luminescence to vehicle (100 % activity) and reference inhibitor (0 % activity).",
+        "30 min (ensures <20 % substrate conversion, linear phase)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Dilution arithmetic is approximately consistent, but material substrate and ATP settings claim literature Km support absent from supplied evidence. Reaction time guarantees conversion without supporting data. The later acknowledgment of assumed literature Km values does not supply the missing source.",
+      "response_quotes": [
+        "10 µM (≈K_m for H3‑T3 peptide, literature precedent)",
+        "30 min (ensures <20 % substrate conversion, linear phase)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported claimed literature evidence for a material substrate concentration.",
+      "response_quote": "10 µM (≈K_m for H3‑T3 peptide, literature precedent)",
+      "reason": "No supplied evidence contains a peptide Km or literature protocol supporting this binding; it is presented as literature precedent rather than a clearly provisional pilot choice."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained inhibitor assays to the proposed recombinant human HASPIN assay.",
+    "Actual peptide/ATP Km values, enzyme linearity, conversion, and optimal reaction conditions.",
+    "Reference inhibitor completeness, kit timing/volume compatibility, and compound solubility."
+  ],
+  "assumption_handling": "Solubility is explicitly assumed and interference acknowledged. Operational values nevertheless assert standard, kit, or literature support without provided sources; the Km limitation does not resolve those specific claims. Triplicates are framed as intra-assay variability.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": true,
+    "notes": "10/3^7 = 0.00457247 µM (4.57247 nM), consistent with rounded prose endpoint 0.005 µM. 10 µM / 34 nM = 294.12 supports the >100-fold comparison to that example only. Examples do not establish query potency or adequate curve coverage."
+  },
+  "needs_human_review": true,
+  "review_reason": "Resolve readout interpretation and validate unsupported operating parameters, reference normalization, and assay comparability before experimental use."
+}

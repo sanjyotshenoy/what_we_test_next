@@ -1,0 +1,197 @@
+{
+  "item_id": "eb4daaed9de67eb2",
+  "generator_input": {
+    "id": "case-12",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Interleukin-1 receptor-associated kinase 1 (P51617) by CHEMBL1738757. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1738757",
+        "name": "REBASTINIB",
+        "type": "Compound",
+        "smiles": "CNC(=O)c1cc(Oc2ccc(NC(=O)Nc3cc(C(C)(C)C)nn3-c3ccc4ncccc4c3)c(F)c2)ccn1"
+      },
+      {
+        "id": "P51617",
+        "name": "Interleukin-1 receptor-associated kinase 1",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL2035187",
+        "ic50_nM": 39.5,
+        "assay": "CHEMBL5224519",
+        "description": "Inhibition of IRAK-1 (unknown origin)",
+        "document": "CHEMBL5223103",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL210194",
+        "ic50_nM": 750.0,
+        "assay": "CHEMBL870866",
+        "description": "Inhibition of IRAK1",
+        "document": "CHEMBL1147720",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL255873",
+        "ic50_nM": 96000.0,
+        "assay": "CHEMBL921624",
+        "description": "Inhibition of IRAK1",
+        "document": "CHEMBL1145577",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL256570",
+        "ic50_nM": 1940.0,
+        "assay": "CHEMBL5738876",
+        "description": "HotSpot Assay: Table 3 and 4: The HotSpot kinase profiling and screening assays were carried out using the method of Anastassiadis et al., Nat. Biotechnol. (2011) Vol. 29, No. 11, pp. 1039-1045 (which is herein incorporated by reference in its entirety); 10 uM was the starting concentration with a 3-fold series dilution (10 doses) and the final ATP concentration was 10 uM.",
+        "document": "CHEMBL5729521",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL256961",
+        "ic50_nM": 1480.0,
+        "assay": "CHEMBL5738897",
+        "description": "IC50 Kinase Assays: Table 8-10: Compounds were tested in 10-dose IC50 mode with 3-fold serial dilution starting at 10 uM, and are relative to DMSO, the negative control. The positive control, Staurosporine, was tested in a 10-dose IC50 mode with 4-fold serial dilution starting at 20 uM. Reactions were carried out at 10 uM ATP. Curve fits were performed to determine IC50 where the enzyme activities at the highest concentration of compounds were less than 65%.",
+        "document": "CHEMBL5729521",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"biochemical kinase concentration-response (in vitro purified enzyme)\",\n  \"system\": \"Purified recombinant human IRAK1 (P51617) with a peptide/protein substrate in a biochemical kinase reaction; no cell system used, since the question asks for biochemical inhibition.\",\n  \"readout\": \"ADP-Glo luminescence proportional to ADP produced (kinase activity), converted to % inhibition vs. DMSO vehicle control.\",\n  \"steps\": [\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a 10-point, 3-fold serial dilution of CHEMBL1738757 starting at 10 uM in assay buffer, maintaining a constant final DMSO vehicle fraction across all points and controls. Include a DMSO-only vehicle control (0% inhibition) and a positive inhibition control (e.g., a reference IRAK1 inhibitor such as staurosporine run in a parallel 10-dose 4-fold series from 20 uM, per the retained HotSpot-style protocol).\",\n      \"parameters\": {\n        \"top_concentration_uM\": \"10 uM — supported by CHEMBL5738876 and CHEMBL5738897 descriptions (10 uM starting concentration, 3-fold, 10 doses)\",\n        \"dilution_factor\": \"3 — supported by CHEMBL5738876/CHEMBL5738897 (3-fold serial dilution, 10 doses)\",\n        \"n_points\": \"10 — supported by CHEMBL5738876/CHEMBL5738897 (10-dose IC50 mode)\",\n        \"replicates\": \"3 (assumption; no packet evidence specifies replicate count — labeled as assumption for statistical robustness)\",\n        \"vehicle_fraction\": \"unresolved — no packet evidence specifies DMSO percentage; recommend a fixed, low constant DMSO level (e.g., <=1%) validated not to affect enzyme activity, but this must be empirically confirmed\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Combine compound dilutions with IRAK1, substrate, and ATP; pre-incubate compound with enzyme before initiating with ATP/substrate; run the reaction within the linear range of product formation.\",\n      \"parameters\": {\n        \"enzyme_concentration\": \"unresolved — no packet evidence specifies IRAK1 enzyme concentration; must be titrated to give linear signal and <10-20% substrate conversion\",\n        \"substrate_concentration\": \"unresolved — no packet evidence specifies substrate identity or concentration; must be at saturating or justified Km-appropriate level\",\n        \"ATP_concentration\": \"10 uM — supported by CHEMBL5738876 and CHEMBL5738897 (reactions carried out at 10 uM ATP)\",\n        \"reaction_time\": \"unresolved — no packet evidence; must be determined by a time-course to ensure linear kinetics\",\n        \"temperature\": \"unresolved — no packet evidence; commonly 30-37 C but must be stated as an assumption and held constant\"\n      }\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Stop the reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent to convert ADP to luminescence; read luminescence on a plate reader.\",\n      \"parameters\": {\n        \"reagent_volumes\": \"unresolved — no packet evidence; follow ADP-Glo manufacturer-equivalent 1:1:1 volume ratio as an assumption\",\n        \"depletion_time\": \"unresolved — no packet evidence; use vendor-recommended depletion incubation as an assumption\",\n        \"detection_time\": \"unresolved — no packet evidence; use vendor-recommended detection incubation as an assumption\"\n      }\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Normalize luminescence to the DMSO vehicle control (100% activity) and a no-enzyme background control (0% activity); fit % inhibition vs. log10 concentration with a four-parameter logistic model; report IC50 with 95% confidence intervals. Accept the curve only if the top concentration achieves sufficient inhibition and the fit converges (e.g., activities at the highest concentration <65% of control, per CHEMBL5738897 description).\",\n      \"parameters\": {\n        \"fit_model\": \"four-parameter logistic (assumption; standard for 10-dose IC50 data, consistent with CHEMBL5738897 'curve fits were performed to determine IC50')\",\n        \"acceptance_criteria\": \"converged fit with defined top/bottom plateaus; highest-concentration activity <65% of vehicle (per CHEMBL5738897); positive control within its historical range; Z'-factor or similar quality metric acceptable (assumption, not packet-sourced)\"\n      }\n    }\n  ],\n  \"top_concentration_uM\": 10,\n  \"dilution_factor\": 3,\n  \"n_points\": 10,\n  \"replicates\": 3,\n  \"controls\": [\n    \"DMSO vehicle control (negative, defines 100% activity) — supported by CHEMBL5738897 ('relative to DMSO, the negative control')\",\n    \"Positive inhibition control, e.g., staurosporine 10-dose 4-fold series from 20 uM — supported by CHEMBL5738897\",\n    \"No-enzyme / no-substrate background controls for luminescence baseline (assumption; standard practice, not packet-sourced)\",\n    \"Compound fluorescence/luminescence interference control (compound + detection reagents without enzyme) — assumption, standard practice\"\n  ],\n  \"rationale\": \"The question asks for biochemical inhibition of IRAK1 (P51617) by CHEMBL1738757, so the cell-viability step cards (cell-prepare, cell-expose, cell-detect) are excluded: an ATP-based viability readout would confound compound effects on cellular ATP with target inhibition and cannot establish target-specific causality. The ADP-Glo biochemical luminescence format directly measures IRAK1 kinase activity via ADP production. The concentration series (10 uM top, 3-fold, 10 points) and 10 uM ATP are directly supported by the retained IRAK1 assay descriptions in CHEMBL5738876 and CHEMBL5738897, which used exactly these conditions for other compounds on the same target. The retained IC50 values (CHEMBL2035187, CHEMBL210194, CHEMBL255873, CHEMBL256570, CHEMBL256961) are contextual only and are not used to estimate potency for CHEMBL1738757; no IC50 is predicted here.\",\n  \"citations\": [\n    \"CHEMBL5738876\",\n    \"CHEMBL5738897\",\n    \"CHEMBL5729521\"\n  ],\n  \"limitations\": [\n    \"No IC50 for CHEMBL1738757 on IRAK1 is present in the packet; none is predicted or supplied.\",\n    \"Enzyme concentration, substrate identity/concentration, reaction time, temperature, DMSO vehicle fraction, and ADP-Glo reagent volumes/times are not specified in any retained evidence and are listed as unresolved or explicitly labeled assumptions.\",\n    \"The retained examples are not similarity-ranked and their potencies do not constrain the query compound's potency.\",\n    \"The retained assays include 'IRAK-1 (unknown origin)' (CHEMBL5224519) and unspecified formats (CHEMBL870866, CHEMBL921624); only the HotSpot-style descriptions (CHEMBL5738876/5738897) provide usable protocol parameters, and those used a radiometric HotSpot readout rather than ADP-Glo, so the detection step parameters are adapted and unsupported by packet evidence.\",\n    \"If ATP is not at the enzyme's Km, the measured IC50 is ATP-dependent and not directly comparable to other assays; this should be noted when interpreting results.\",\n    \"Biochemical inhibition alone does not demonstrate cellular target engagement or therapeutic mechanism; orthogonal confirmation (e.g., cellular target engagement assays) would be required and is outside this design.\"\n  ]\n}"
+}

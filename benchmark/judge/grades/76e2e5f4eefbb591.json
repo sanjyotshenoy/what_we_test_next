@@ -1,0 +1,73 @@
+{
+  "item_id": "76e2e5f4eefbb591",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Recombinant haspin biochemical kinase assay with ADP readout directly addresses the question and limits inference about cellular engagement.",
+      "response_quotes": [
+        "IC50 derived from enzymatic activity does not confirm cellular target engagement."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, ATP depletion/detection and analysis are ordered coherently, with vehicle, reference and no-enzyme controls. Linearity, Km, temperature optimality and detection settings lack supplied support or validation. Reaction volume and complete detection reagent bindings remain unresolved; treating reference inhibition as zero activity needs validation.",
+      "response_quotes": [
+        "5 nM (ensures signal within linear range of ADP‑Glo)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Eight threefold points from 10 µM end at 0.004572 µM, not approximately 0.015 µM. The top-dose justification presents 255 nM as the highest literature IC50 for similar chemotypes, although examples reach 770 nM and are explicitly not similarity-ranked. Km and linearity claims also lack supplied evidence.",
+      "response_quotes": [
+        "8 (covers 10 µM down to ~0.015 µM)",
+        "10 µM (justified: ~40× highest literature IC50 of 255 nM for similar chemotypes)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Explicit dilution-series endpoint contradiction",
+      "response_quote": "8 (covers 10 µM down to ~0.015 µM)",
+      "reason": "The endpoint does not match eight points: 10/3^7 = 0.004572 µM."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported evidence attribution for dose choice",
+      "response_quote": "10 µM (justified: ~40× highest literature IC50 of 255 nM for similar chemotypes)",
+      "reason": "No chemotype similarity evidence is supplied, and the highest supplied measurement is 770 nM, not 255 nM. This claimed evidence underpins the top concentration."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained assays to proposed recombinant human haspin ADP-Glo assay.",
+    "Optimal enzyme, substrate, ATP, temperature, reaction duration and detection conditions are not established by the packet.",
+    "Solubility, DMSO tolerance, detection interference and complete inhibition by the reference concentration."
+  ],
+  "assumption_handling": "Settings are stated as established facts rather than provisional assumptions or unresolved parameters. Limitations acknowledge cellular scope and possible DMSO effects but do not qualify unsupported Km, optimality, linearity or chemotype claims. Technical replicates are correctly identified as technical.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": false,
+    "notes": "Minimum is 0.0045724737 µM (4.5724737 nM); approximately 0.015 µM corresponds to seven points. 10 µM / 255 nM is about 39.2, so ~40× arithmetic is consistent but its claimed evidence basis is unsupported."
+  },
+  "needs_human_review": true,
+  "review_reason": "Material numerical contradiction and ungrounded parameter claims require review; assay comparability and operating conditions remain unresolved."
+}

@@ -1,0 +1,68 @@
+{
+  "item_id": "b1c1ec2a04bfaa47",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly measures purified haspin biochemical activity and appropriately limits cellular conclusions.",
+      "response_quotes": [
+        "Purified recombinant human haspin kinase (Q8TF76) with a peptide/protein substrate in a biochemical reaction"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection and analysis are coherently ordered with intended controls. Substrate identity, enzyme and ATP concentrations, timing and detection volumes remain unresolved. Interference is acknowledged without an operational counter-screen. This is an honest outline, not an executable procedure.",
+      "response_quotes": [
+        "Stop the reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent and read luminescence.",
+        "unresolved — substrate identity and concentration not specified in packet"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The explicit lower endpoint contradicts the specified series: 30/3^9 = 0.00152416 µM = 1.52416 nM, not approximately 5 nM. Most assumptions are disclosed, but solvent compatibility is asserted without supporting solubility or tolerance data.",
+      "response_quotes": [
+        "A 10-point 3-fold series from 30 µM spans ~5 nM–30 µM",
+        "which should bracket an IC50 in that contextual range while remaining solvent-compatible."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Incorrect explicit series endpoint.",
+      "response_quote": "A 10-point 3-fold series from 30 µM spans ~5 nM–30 µM",
+      "reason": "The claimed lower concentration is about 3.28 times the actual tenth concentration; prose and numerical settings do not describe the same series."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of retained assays with the proposed haspin preparation, substrate and ATP conditions.",
+    "Optimal enzyme, substrate, buffer, ATP, reaction time and detection settings are not supplied.",
+    "Compound solubility and enzyme/reagent tolerance at 1% DMSO and 30 µM compound."
+  ],
+  "assumption_handling": "Most numerical choices are labeled assumptions and retained potencies correctly treated as contextual. Essential parameters are honestly unresolved. Solvent compatibility is unsupported; the blanket claim that all numeric reaction conditions are unresolved also conflicts with the provisional 25 °C binding.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": false,
+    "notes": "Series spans 1.52416 nM–30 µM and 4.294 decimal orders, versus prose approximately 5 nM and 4.5 orders. Triplicates are explicitly technical."
+  },
+  "needs_human_review": true,
+  "review_reason": "Numerical endpoint error, unresolved assay comparability and operating conditions, and unsupported solvent compatibility require review."
+}

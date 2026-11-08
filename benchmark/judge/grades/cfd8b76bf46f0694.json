@@ -1,0 +1,71 @@
+{
+  "item_id": "cfd8b76bf46f0694",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 1,
+      "rationale": "Matches the requested cellular system and ATP viability endpoint and disclaims target specificity, but inconsistently assumes AXL-dependent proliferation without supplied evidence.",
+      "response_quotes": [
+        "to allow proliferation dependent on AXL signaling.",
+        "cannot distinguish whether inhibition is due to on‑target AXL blockade or off‑target cytotoxicity."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, detection and analysis are ordered coherently. Culture volume, ATP linearity, a defined reference and validated operating conditions remain unresolved. Density is justified for 24 hours despite the proposed 72-hour exposure.",
+      "response_quotes": [
+        "5 × 10^4 cells/well (typical for BaF3 24 h assay) – evidence: standard BaF3 protocol",
+        "optional reference inhibitor (if available) – unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Dilution arithmetic is consistent and top dose is labeled an assumption. However, important density and detection-volume choices claim evidence from a standard BaF3 protocol and manufacturer protocol absent from the packet; these are not labeled provisional settings.",
+      "response_quotes": [
+        "5 × 10^4 cells/well (typical for BaF3 24 h assay) – evidence: standard BaF3 protocol",
+        "100 µL/well (per manufacturer protocol)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported claimed source for a materially important quantitative operating condition.",
+      "response_quote": "5 × 10^4 cells/well (typical for BaF3 24 h assay) – evidence: standard BaF3 protocol",
+      "reason": "No standard BaF3 protocol supporting this density was provided. Claimed source support cannot justify the setting, especially for the proposed different exposure duration."
+    }
+  ],
+  "not_assessable_components": [
+    "Optimal density, medium, IL-3 conditions and exposure duration for this specific BaF3–AXL system.",
+    "Assay comparability: no comparator measurements supplied.",
+    "AXL dependence of the engineered cells and validity of ATP as a viable-cell-number proxy under proposed conditions.",
+    "Detection reagent compatibility with unspecified culture volume."
+  ],
+  "assumption_handling": "The top dose is explicitly provisional and reference availability unresolved. Other operating settings claim absent source support. Replicates are not identified as technical wells or independent experiments, so plate-to-plate variability control is unsupported.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": true,
+    "notes": "10/3^7 = 0.00457247 µM (4.57247 nM), consistent with the approximate 0.005 µM endpoint. Generic range justification lacks potency evidence."
+  },
+  "needs_human_review": true,
+  "review_reason": "Review unsupported source claims, culture and ATP-readout validation, and the unestablished assumption of AXL dependence."
+}

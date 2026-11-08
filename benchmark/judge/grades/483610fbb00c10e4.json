@@ -1,0 +1,69 @@
+{
+  "item_id": "483610fbb00c10e4",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Purified DYRK1A with an ADP-based kinase readout directly addresses biochemical inhibition without cellular causal claims. Compatibility remains unvalidated.",
+      "response_quotes": [
+        "purified DYRK1A enzyme",
+        "luminescence via ADP-Glo"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 0,
+      "rationale": "The workflow ends at luminescence measurement and entirely omits normalization, concentration-response fitting and uncertainty reporting, an essential analysis stage. Controls are listed, but operating conditions also lack validation.",
+      "response_quotes": [
+        "Stop reaction, deplete ATP, add ADP-Glo reagent, incubate, measure luminescence."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The explicitly unresolved top prevents a complete series. Threefold dilution, eight points and three replicates are plausible but unjustified. Fixed reaction and detection settings have no supplied support; no demonstrable arithmetic contradiction or fabricated specific source is present.",
+      "response_quotes": [
+        "Top concentration not justified by existing data; may need adjustment.",
+        "concentrations based on typical kinase assays."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "procedural_soundness",
+      "issue": "Concentration-response analysis is absent.",
+      "response_quote": "Stop reaction, deplete ATP, add ADP-Glo reagent, incubate, measure luminescence.",
+      "reason": "Luminescence measurement without normalization or curve analysis does not complete the requested concentration-response experiment."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of ADP-Glo with the proposed DYRK1A preparation, unspecified peptide and compound.",
+    "Comparability to retained radiometric and other assay examples.",
+    "Suitability of enzyme, substrate, ATP, solvent, reaction and detection conditions without validation."
+  ],
+  "assumption_handling": "The unresolved top concentration and native/recombinant comparability assumption are disclosed. Other numerical settings are asserted as typical kinase conditions without support or explicit unresolved labels. Replicate type is unspecified.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Top is an explicit abstention. Eight threefold points imply a minimum T/2187, but no numeric endpoint is available. Three replicates are not identified as technical or independent."
+  },
+  "needs_human_review": true,
+  "review_reason": "Essential analysis is missing, operating settings are unsupported and assay compatibility requires domain review."
+}

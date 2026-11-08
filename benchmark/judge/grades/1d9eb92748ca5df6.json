@@ -1,0 +1,61 @@
+{
+  "item_id": "1d9eb92748ca5df6",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes biochemical ADP formation to measure kinase inhibition, limits causal inference, and acknowledges unvalidated compatibility.",
+      "response_quotes": [
+        "Luminescence proportional to ADP formation after reaction termination, residual-ATP depletion, and ADP detection; interpreted as biochemical DNA-PK catalytic activity",
+        "Biochemical inhibition alone does not establish cellular target engagement or target-specific cellular causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Correct preparation, reaction, ATP depletion, detection and analysis ordering with intended controls. Essential activation, reaction and detection settings remain unresolved, making this an honest outline rather than an executable procedure. Detection interference control implementation also remains insufficiently established.",
+      "response_quotes": [
+        "Stop the reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence.",
+        "Enzyme construct and concentration, substrate identity and concentration, ATP concentration, activating cofactors, buffer, preincubation, reaction time, temperature, and detection timings and volumes remain unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is internally consistent and openly provisional. Broad exploration under unknown potency is plausible, but the particular top concentration and spacing receive little contextual justification from supplied measurements or assay constraints. No numerical contradiction or fabricated source support is present.",
+      "response_quotes": [
+        "The proposed 100 uM top concentration, threefold dilution, ten points, and triplicates are explicitly provisional assumptions for an initial wide-range curve, not retrieved facts."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of ADP-Glo with the proposed DNA-PK construct and activation system.",
+    "Comparability of retained radioactive and unspecified inhibition assays to the proposed assay.",
+    "Supported operating conditions, compound solubility and vehicle tolerance are unavailable."
+  ],
+  "assumption_handling": "Clearly separates provisional concentration and replication choices from sourced facts. Correctly declines to transfer the other-compound 10 uM ATP setting as validated support. Unresolved experimental parameters and compatibility are disclosed. Triplicate reactions are not claimed to be independent biological replicates.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten concentrations imply 100 through 0.005080526342529086 uM (5.080526342529086 nM). No explicit lower endpoint or list contradicts this calculation. Three reactions per concentration are provisional."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review is needed to establish assay compatibility and bind activation, reaction and detection settings; the provisional numerical range needs experimental justification."
+}

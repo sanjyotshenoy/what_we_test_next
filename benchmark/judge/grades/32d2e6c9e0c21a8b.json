@@ -1,0 +1,69 @@
+{
+  "item_id": "32d2e6c9e0c21a8b",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes cell-free human HASPIN inhibition and appropriately limits cellular and mechanistic conclusions.",
+      "response_quotes": [
+        "cell-free human HASPIN (Q8TF76) with CHEMBL5426285",
+        "This biochemical design does not establish cellular target engagement, cellular viability, or target-specific causality in cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, ATP depletion/ADP detection, and analysis are correctly ordered with relevant controls. Essential substrate, reaction, detection, and acceptance settings remain unresolved, so this is an outline awaiting validation.",
+      "response_quotes": [
+        "Stop the kinase reaction, deplete residual ATP, perform ADP detection, and measure luminescence.",
+        "enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved; reaction_time=unresolved; temperature=unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The preparation instruction specifies 11 compound points while its parameter binding and top-level field specify 10. At 100 \u00b5M and threefold dilution these imply different minimum concentrations. Other numeric choices are honestly provisional but lack contextual justification.",
+      "response_quotes": [
+        "Prepare an 11-point compound dilution series",
+        "n_points=10 (provisional assumption)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.output_contract",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Conflicting concentration-series point counts.",
+      "response_quote": "Prepare an 11-point compound dilution series",
+      "reason": "This conflicts with n_points=10 and leaves the intended number of concentrations and minimum concentration ambiguous."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained HASPIN measurements to the proposed human HASPIN ADP-Glo assay.",
+    "Validity of substrate, ATP, enzyme, reaction and detection settings, which are not supplied.",
+    "Compound solubility and assay solvent tolerance."
+  ],
+  "assumption_handling": "Unsupported numeric choices are explicitly labeled provisional; reaction and detection settings are left unresolved without invented source support. Replicate type is not specified. Disclosures do not resolve the explicit point-count conflict.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": false,
+    "notes": "Ten points give 0.005080526342529086 \u00b5M (5.080526342529086 nM); the prose requests eleven, which would give 0.0016935087808430287 \u00b5M (1.6935087808430287 nM). No explicit endpoint list is provided."
+  },
+  "needs_human_review": true,
+  "review_reason": "Resolve the conflicting point counts and establish assay compatibility and operational conditions before interpreting this provisional outline."
+}

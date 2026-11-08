@@ -1,0 +1,64 @@
+{
+  "item_id": "b102b7eb2aa1b3dd",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Proposes the requested recombinant Aurora A biochemical endpoint, with appropriate limits on cellular engagement and selectivity conclusions and no remembered potency.",
+      "response_quotes": [
+        "recombinant human Aurora kinase A (O14965)",
+        "The assay measures enzymatic inhibition but does not confirm cellular target engagement or selectivity."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, ADP detection and analysis are coherently ordered with vehicle, inhibitor and no-enzyme controls. Essential concentrations remain unresolved; operating conditions lack supplied validation and manufacturer volumes are unspecified. Treating the inhibitor as zero activity also requires validation of complete inhibition. This remains an outline.",
+      "response_quotes": [
+        "Stop kinase reaction, deplete residual ATP, add ADP-Glo detection reagent, incubate, then measure luminescence.",
+        "Normalize luminescence to vehicle (100% activity) and known inhibitor (0% activity)",
+        "manufacturer-recommended volumes"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Ten threefold points are mathematically compatible, but an unresolved top prevents a concrete series. Spacing, replication, vehicle fraction, temperature and detection timings lack contextual justification. The abstention is honest, while fixed settings are insufficiently supported.",
+      "response_quotes": [
+        "Prepare a 10-point, 3-fold serial dilution",
+        "Top concentration, enzyme, substrate, and ATP concentrations are not specified in the provided evidence and must be empirically determined; using assumed values may affect potency estimation."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of cited fluorescence, Z-prime-LYTE and unspecified assays to ADP-Glo is not established.",
+    "Optimal enzyme, substrate, ATP, buffer, reaction and detection conditions are not established.",
+    "Suitability and fully inhibitory concentration of the named reference inhibitor are not established."
+  ],
+  "assumption_handling": "Acknowledges missing top, enzyme, substrate and ATP concentrations. Does not similarly label or justify fixed DMSO, temperature, timings and acceptance thresholds. Replicates are not identified as technical wells or independent experiments. Step cards support the scaffold, not validated operating conditions.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "The minimum would be T/19683 µM. T is unresolved, so no absolute endpoint is checkable. No explicit arithmetic contradiction is present."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay comparability, operating settings, reference-control normalization and a concrete justified concentration range require domain review."
+}

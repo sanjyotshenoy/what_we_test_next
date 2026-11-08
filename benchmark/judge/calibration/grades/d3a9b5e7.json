@@ -1,0 +1,60 @@
+{
+  "item_id": "d3a9b5e7",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Purified haspin with an ADP activity readout directly addresses biochemical inhibition and limits cellular conclusions.",
+      "response_quotes": [
+        "A purified-kinase workflow addresses that endpoint; it does not demonstrate cellular effects."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, ATP depletion, ADP detection and analysis are coherently ordered with intended controls. Operating conditions, control implementation and fit acceptance remain unresolved; this is not executable.",
+      "response_quotes": [
+        "Stop reaction and deplete ATP, then detect ADP and read luminescence.",
+        "Concentrations, time and temperature unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honestly abstains from numerical series and replicate choices without inventing evidence. Null series fields cannot earn a fully justified numerical design score.",
+      "response_quotes": [
+        "Numerical design remains incomplete.",
+        "No justified numerical series is provided."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained haspin measurements with the proposed purified-kinase assay.",
+    "Validated reaction and detection settings and control performance are not supplied."
+  ],
+  "assumption_handling": "Consistently labels unsupported settings unresolved and makes no unsupported potency or source claim. Honest abstention leaves parameter design incomplete.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "All series settings and replicates are null; numerical abstention with no arithmetic to check."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and operational parameters require domain validation before execution."
+}

@@ -1,0 +1,62 @@
+{
+  "item_id": "d4400e2a06df78ad",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "The cell-free IRAK1 activity experiment addresses the biochemical endpoint without predicting potency. Cellular causality is excluded, although the separate viability-assay remark is imprecise about establishing cellular mechanism.",
+      "response_quotes": [
+        "Biochemical kinase inhibition assay (cell-free ADP-Glo luminescence)",
+        "Cell-viability cards are excluded because they would not establish direct IRAK1 inhibition."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, ADP detection and analysis are correctly ordered with intended vehicle, background and positive controls. Essential enzyme, substrate and detection settings remain unresolved; interference validation and normalization details are insufficient for an executable validated procedure.",
+      "response_quotes": [
+        "For ADP-Glo: stop the reaction, deplete residual ATP, perform ADP detection reaction, and measure luminescence.",
+        "reagent_volumes: unresolved; depletion_time: unresolved; detection_time: unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 2,
+      "rationale": "The 10 uM, threefold, ten-point series and 10 uM ATP have explicit retained assay precedents. Transfer is appropriately provisional rather than a potency prediction or optimized setting. Replicates and tentative DMSO tolerance are disclosed assumptions; no contradictory endpoint is stated.",
+      "response_quotes": [
+        "The 10-dose, 3-fold series starting at 10 uM and 10 uM ATP are provisional design precedents from retained assay descriptions, not potency estimates for CHEMBL1738757.",
+        "Replicate number and DMSO tolerance are provisional assumptions, not sourced facts."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained kinase assay conditions to the proposed IRAK1 ADP-Glo system.",
+    "Suitable construct, substrate, enzyme loading, reaction conditions, DMSO tolerance and detection settings.",
+    "Positive-control performance and compound interference."
+  ],
+  "assumption_handling": "Separates retained numerical precedents from provisional replicate, DMSO and fitting choices; essential operational settings are openly unresolved. Replicates are not distinguished as technical versus independent experiments. The viability-assay remark does not explain how cellular target-specific causality would be established.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points imply 10 to 0.0005080526342529086 uM (0.5080526342529086 nM). No prose endpoint or list contradicts the calculation. Precedent does not establish cross-assay validation."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay transfer, essential operating settings and interference controls need domain review; clarify the cellular viability remark if extending to mechanism claims."
+}

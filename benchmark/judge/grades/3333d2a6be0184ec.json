@@ -1,0 +1,60 @@
+{
+  "item_id": "3333d2a6be0184ec",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Uses human TMD8 cells and ATP-based viability with justified cellular step cards. Explicitly distinguishes this endpoint from biochemical BTK inhibition and target-specific causality.",
+      "response_quotes": [
+        "Viability effects in TMD8 cells cannot establish target-specific causality"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, exposure, detection and analysis with vehicle, background and reference controls. Culture conditions, reference identity and supported detection settings remain unresolved; this is an outline rather than a validated executable procedure. Replicate independence and interference validation are unspecified.",
+      "response_quotes": [
+        "The reference control identity is unresolved from the packet and must be selected from local SOPs."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is internally consistent and honestly provisional, but spanning likely effects lacks contextual evidence. Empty retrieved evidence leaves range and replicate justification insufficient for the top score. No arithmetic contradiction is demonstrated.",
+      "response_quotes": [
+        "The concentration series (30 \u00b5M top, 3-fold, 10 points, triplicates) is an assumption chosen to span likely effect ranges with adequate curve-fitting points"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Assay comparability cannot be assessed without retained measurements.",
+    "Optimal TMD8 density, medium, exposure and vehicle tolerance are unsupported.",
+    "The TMD8 wild-type BTK annotation and compatibility of suggested mechanistic follow-ups are not established by supplied evidence.",
+    "Solubility, detection interference and ATP-to-cell-number proportionality under proposed conditions remain unvalidated."
+  ],
+  "assumption_handling": "Numeric culture and detection settings are clearly labeled assumptions or unresolved; manufacturer-style procedure is explicitly unsourced. The wild-type BTK annotation is an unsupported factual addition. Disclosed uncertainty is appropriate but does not supply a contextual range justification.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": true,
+    "notes": "Ten concentrations span 30 to 0.0015241579 \u00b5M (1.5241579 nM). No lower endpoint or full list is asserted; repeated settings agree. Triplicates do not specify technical versus independent biological repeats."
+  },
+  "needs_human_review": true,
+  "review_reason": "Review culture and readout compatibility, unsupported cell-line annotation, reference selection and provisional operating settings before execution."
+}

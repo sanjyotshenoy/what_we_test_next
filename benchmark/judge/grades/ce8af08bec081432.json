@@ -1,0 +1,70 @@
+{
+  "item_id": "ce8af08bec081432",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Uses human TMD8 cellular viability and explicitly limits inference about BTK-specific inhibition. ATP signal as a viable-cell-number proxy requires validation.",
+      "response_quotes": [
+        "human TMD8 cells",
+        "Cell viability readout does not prove that CHEMBL5188786 inhibits BTK; off‑target cytotoxicity or unrelated pathways could affect viability."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, detection and analysis are coherent with vehicle, background and intended positive controls. Density and medium remain unresolved; detection conditions lack supplied validation and replicate independence is unspecified. This remains an outline.",
+      "response_quotes": [
+        "Add CellTiter-Glo reagent, mix, stabilize, measure luminescence.",
+        "positive control (known cytotoxic agent if available)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The series is internally consistent and labeled an assumption. However, the material reagent-volume setting explicitly claims manufacturer support not supplied in the packet; the detection card gives no volume. Other fixed timing and culture settings also lack support.",
+      "response_quotes": [
+        "equal volume to culture (per manufacturer)",
+        "Concentration series and replicate numbers are assumptions due to lack of source‑specific guidance."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported claimed manufacturer evidence for detection reagent volume.",
+      "response_quote": "equal volume to culture (per manufacturer)",
+      "reason": "No manufacturer procedure was supplied and the detection card leaves volume open, so the claimed source cannot substantiate this material numerical binding."
+    }
+  ],
+  "not_assessable_components": [
+    "Optimal TMD8 medium, density, exposure and culture conditions are not established.",
+    "Comparability of ATP signal to proliferation or viable cell count and potential compound interference are unvalidated.",
+    "Detection volume and timing lack a supplied reference protocol."
+  ],
+  "assumption_handling": "Series and replicate numbers are explicitly assumptions; density and medium are unresolved. These disclosures do not support DMSO labeled standard, exposure labeled typical, manufacturer-attributed volume or unqualified timing and acceptance criteria.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": true,
+    "notes": "Eight points span 10 to 0.0045724737 µM (4.5724737 nM); no conflicting endpoint stated. Three replicates are not identified as technical or biological. Range choice lacks contextual justification."
+  },
+  "needs_human_review": true,
+  "review_reason": "Review unsupported source attribution and validate cellular culture/detection conditions and ATP endpoint interpretation."
+}

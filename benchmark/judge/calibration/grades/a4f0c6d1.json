@@ -1,0 +1,66 @@
+{
+  "item_id": "a4f0c6d1",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 0,
+      "rationale": "Declared cell viability is the wrong endpoint, and the explicit target-specific causal claim is invalid despite biochemical steps elsewhere.",
+      "response_quotes": [
+        "Cell viability alone proves direct, target-specific inhibition of purified haspin."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "The biochemical steps form a coherent ordered outline including ATP depletion before ADP detection. Essential concentrations, timing, control implementations and acceptance criteria remain unresolved, so it is not executable. The conflicting cellular label and causal claim are evaluated under suitability.",
+      "response_quotes": [
+        "Stop reaction and deplete ATP, then detect ADP and read luminescence.",
+        "Concentrations, time and temperature unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Explicit numerical abstention supplies no justified series or replication design, but also no arithmetic contradiction or fabricated numerical evidence.",
+      "response_quotes": [
+        "No justified numerical series is provided."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "suitability",
+      "issue": "Invalid inference from cell viability to direct inhibition of purified haspin.",
+      "response_quote": "Cell viability alone proves direct, target-specific inhibition of purified haspin.",
+      "reason": "Cellular ATP viability cannot establish biochemical target-specific inhibition and this claim contradicts the supplied guideline."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained assays to the proposed experiment is unresolved.",
+    "Enzyme, substrate, ATP, reaction and detection settings and control performance are unsupported.",
+    "No cell system or supported culture conditions are supplied for the declared cellular endpoint."
+  ],
+  "assumption_handling": "Operational settings and numerical series are honestly unresolved, but that disclosure does not excuse the explicit invalid causal claim or conflicting assay identity.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Series and replication fields are null; no dilution arithmetic can be checked."
+  },
+  "needs_human_review": true,
+  "review_reason": "Material invalid causal claim and conflicting assay identity; unresolved assay comparability and essential operating settings."
+}

@@ -1,0 +1,60 @@
+{
+  "item_id": "6b4729a1f5563b5e",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Selects the requested human cellular viability endpoint and clearly limits ATP viability interpretation and Aurora A causality.",
+      "response_quotes": [
+        "ATP-based viability is not a direct proliferation assay and cannot distinguish cytostatic from cytotoxic effects without orthogonal measurements."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, detection and analysis are coherently ordered with relevant intended controls, but culture, detection, reference-control and analysis conditions remain unresolved; this is an outline, not an executable supported procedure.",
+      "response_quotes": [
+        "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved",
+        "reference inhibitor control; identity unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Explicitly abstains on top concentration and labels factor, point count and replicate count provisional. No complete series or contextual numerical justification is supplied, but no material arithmetic contradiction or fabricated numerical support is asserted.",
+      "response_quotes": [
+        "top_concentration_uM is unresolved because no packet value supports it; it must be set from solubility/toxicity pilot data rather than inferred.",
+        "dilution_factor=3, n_points=8, and replicates=3 are provisional design assumptions, not packet-sourced facts."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Assay comparability cannot be established from the supplied evidence.",
+    "Optimal RPMI-8226 culture, exposure, and ATP detection conditions are unsupported and unresolved."
+  ],
+  "assumption_handling": "Unsupported settings are consistently marked unresolved or provisional, including the conditional 37\u00b0C suggestion. Replicate type is not specified, and the provisional point count and dilution factor lack contextual justification.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Top concentration abstained; eight threefold concentrations would span T to T/2187. No absolute endpoint is available to check. Three replicates are not distinguished as technical or biological."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and pilot validation are needed to resolve assay compatibility, operational settings and the concentration series."
+}

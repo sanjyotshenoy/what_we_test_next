@@ -1,0 +1,411 @@
+{
+  "rubric_version": "v1",
+  "prompt_sha256": "ec4b8c8b102064327b6d965a63a8324db224af12acf9a8ef1d631cacb57bb202",
+  "requested_judge": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "job_count": 100,
+  "isolation": "Fresh fork_turns=none subagent per response; only prompt and assigned packet allowed.",
+  "grading_usage": "Codex collaboration model execution, not Nebius. Provider token/billing receipts unavailable through this interface; do not claim zero compute cost.",
+  "jobs": [
+    {
+      "item_id": "4decfbf66ae0fe09",
+      "packet_sha256": "23a7948dde232f581226ad3d4565c5ed9543a2af92e224ee1bc81330d18db486"
+    },
+    {
+      "item_id": "e4f8b6b20bb600ec",
+      "packet_sha256": "cd6d89cf138a2e2da1aa64a0f56d1588dd28ffbb6059a29fb4f479ecea51ad27"
+    },
+    {
+      "item_id": "3238c5b70a321be4",
+      "packet_sha256": "7dfc56e344ed179a9e5ba12f60349d6bf77719900e430975e3f16c8f27772552"
+    },
+    {
+      "item_id": "0f29f39b6a76405b",
+      "packet_sha256": "f472aa2b5d14a7c5571da46c0254a3ea814c0be398571a82418f99071a3f5bd3"
+    },
+    {
+      "item_id": "a69669dddd4a56ba",
+      "packet_sha256": "956e67bb0377d14906f84ce4277338357e6f453f00490fdfc2046e8fc02bbda5"
+    },
+    {
+      "item_id": "d8c3b18d1ef761cd",
+      "packet_sha256": "92460ad333f9de3b7c36f556e933b697c71884f06fee4a0118c60e00b100127f"
+    },
+    {
+      "item_id": "133c11182e54ffed",
+      "packet_sha256": "dc92d7b1414b69d8051c230331a67766574cd97d920ab45f8e6a9bf8c194a9c9"
+    },
+    {
+      "item_id": "791611345e5dc3e4",
+      "packet_sha256": "e8cebcdede0df390dd16d17ca14cab9bfc03c48c1e7d6f96f3544171b3400a2a"
+    },
+    {
+      "item_id": "b7b05e2b4368db21",
+      "packet_sha256": "81252d77cd07a21012f70e40e7c9b25cfb5bc16b460a08c553a55d1739ed5a66"
+    },
+    {
+      "item_id": "3333d2a6be0184ec",
+      "packet_sha256": "6a831644fc928e57c16a475a73f9cb2466d963616bac6da6c0c993984cc5ba93"
+    },
+    {
+      "item_id": "d90acf70aae6b0f1",
+      "packet_sha256": "e7f9414fdbb53ea8875e6b244e776289f0b84abc58416010db29641bf1f5b796"
+    },
+    {
+      "item_id": "d29170dad55c5026",
+      "packet_sha256": "0193031e207173706faa9f6c8aeb446ecc893198fc92c3e3acb305265cbe8ce6"
+    },
+    {
+      "item_id": "309e255d936bde74",
+      "packet_sha256": "0e22620ed84b52ce185f29f5e86382a628304d8c636d7db63a05151a6aaee68f"
+    },
+    {
+      "item_id": "ef5b547004e228b4",
+      "packet_sha256": "c50a8f64960b0812e2a6203921ebc6b88fda7fe859fdae0d6ac7f83e9a920971"
+    },
+    {
+      "item_id": "b1e1c9272ab41b54",
+      "packet_sha256": "9796269f27fcd0ebc0120e365a398991a205b90f1d8d1e4ec68b231d323b5c04"
+    },
+    {
+      "item_id": "0ac3101b0f02ecd5",
+      "packet_sha256": "c617dceeba9fb26d00b12f767d2e05c522b6939d1ae857cb61b13d26183730f5"
+    },
+    {
+      "item_id": "15646d04351cce25",
+      "packet_sha256": "b16cb4caa765b24cb76e6ba7b44f3d78b39c12e7010c8655eb9c4d573fb83fe4"
+    },
+    {
+      "item_id": "1ef5248a4ebac614",
+      "packet_sha256": "1d9afc53716ec9bd95357565bd365b07835947b4cc347d2cbc92b0cc80de38e1"
+    },
+    {
+      "item_id": "f27e285bb39fe778",
+      "packet_sha256": "2b883764523b753fbda3282466ea120de9de3c30824a686c3a42f42a2bf86150"
+    },
+    {
+      "item_id": "522e2657d01b73df",
+      "packet_sha256": "af147f0c178e5aa7d95545515ead372ddfaf9e0ad5a103763613b67b2113bb5b"
+    },
+    {
+      "item_id": "29e9029900a07ba3",
+      "packet_sha256": "b18df93f8ac9703b43dbf67331005407ce373c3a59ea3b9f1efb529855cb2028"
+    },
+    {
+      "item_id": "b67fad5bffd3da89",
+      "packet_sha256": "e760e35d3f0efc6b104ee781f2f5ad40e7331e6b458dd412f6727fa25a2d895e"
+    },
+    {
+      "item_id": "771b8d3d229e349b",
+      "packet_sha256": "5711abf80199d25c339c93eeb9d01a9cd92f4fb426dc62de496bde2f4c04733c"
+    },
+    {
+      "item_id": "cafaa83e177c1c35",
+      "packet_sha256": "f5333dd304aa43f5ac66f1fef12a34021edc8f75e78f47ababf5c0fa1ce905c5"
+    },
+    {
+      "item_id": "cf7f584d7ce28a65",
+      "packet_sha256": "dae4115786bfc9e1da3204025735409e85620101281f453c60a94a46a220c099"
+    },
+    {
+      "item_id": "2f4e004c19e70765",
+      "packet_sha256": "92a851390d30a5cd9d946f72116763072833d56d682994b0a54eb9bbb835c2ca"
+    },
+    {
+      "item_id": "8cbafb366ad956ec",
+      "packet_sha256": "f202ab456b6ea1715bc2b6ef4c2f5a18850bf0fdb24e59a5a1be7a0b891886a0"
+    },
+    {
+      "item_id": "1e4a8a020919e648",
+      "packet_sha256": "a99248ef147f7e73db4651435cf0b31fcf2632842db7e7875b7454b9429b00d6"
+    },
+    {
+      "item_id": "8ceb51e9110d94f9",
+      "packet_sha256": "f5a0f3c869a98bde2fa19fe6ed85dddb0d64fab491692f4a581b92f0e2406517"
+    },
+    {
+      "item_id": "2017adbfb16fde48",
+      "packet_sha256": "c2974f966af20a735d52849095b8f74bd0d7782deb971a4fca011688d1269651"
+    },
+    {
+      "item_id": "5e59ed8c3be53990",
+      "packet_sha256": "e28a89fc54a7e4f7c8c4d4ccc4f2dc099a7de33292b1014057f2edf34effa62c"
+    },
+    {
+      "item_id": "2fe24c7e1892d28e",
+      "packet_sha256": "32a593dc751e2df4c955ec219b7ea74cbf9e3a33e750f0617acd09319d2450a0"
+    },
+    {
+      "item_id": "aa720d9ca852d7a8",
+      "packet_sha256": "9ddf731209f75d3fdafc3b2b9e4b34186243f6211a3e55726e75b4e1021788ac"
+    },
+    {
+      "item_id": "b4adb803f7f71d07",
+      "packet_sha256": "753d8f30b3f195991bb063bf551bab4b29f6d394933358a88daf7c7caba104c2"
+    },
+    {
+      "item_id": "83c50a6498ecc0a0",
+      "packet_sha256": "40519f1a7522c21b88850e3ecba7be258a4f70e72ffea60dd0e969747b20527f"
+    },
+    {
+      "item_id": "0f7262e17622a393",
+      "packet_sha256": "a87a3295cb58e09bb24c51cef1513fce808df712e7f3389e2ca2c8e41d726afd"
+    },
+    {
+      "item_id": "e3d064f787861e3c",
+      "packet_sha256": "59db1e8b3c3a088ab74cb572db82bfb2c70819c446bd7dd124b046076b92b73c"
+    },
+    {
+      "item_id": "8e58f05178b574b2",
+      "packet_sha256": "d2f1cdc3226d9ace06add5482b9f6d26bb0cc33f8ae14fcd4ca53856027aacf3"
+    },
+    {
+      "item_id": "91b38f4b03625f67",
+      "packet_sha256": "488b30e312227cdb13f3bc8f794433cd4b322b9028e9e9415938157d7d2f8a2d"
+    },
+    {
+      "item_id": "833ade92c9d629b8",
+      "packet_sha256": "50ff7ccb7926ef4f88894d94453da6bf9947d245e61af3fa1f17c4e3d78b7835"
+    },
+    {
+      "item_id": "a3a14416c130224d",
+      "packet_sha256": "7a436f896f43534dce80f1eef675ecb87edbf8f848dfc39f294ef0404dfe2fcc"
+    },
+    {
+      "item_id": "6bce1a4dc2a91e0e",
+      "packet_sha256": "6162b2291be369fe9d71cef45fcc4ffac91d586cafafcd194e05045fbf883d3c"
+    },
+    {
+      "item_id": "76e2e5f4eefbb591",
+      "packet_sha256": "b869cfa9baba8294424f13718859ff6a35a357ed59a2296dc738651704bd97d7"
+    },
+    {
+      "item_id": "cfd8b76bf46f0694",
+      "packet_sha256": "99b5e97b2138dd4e04e3585dcb84ae7cbc1c15a766cd75bbb0d0d4b0d7f31a0a"
+    },
+    {
+      "item_id": "35e04cd0c9f40380",
+      "packet_sha256": "7aea5d28b96c1f4889789f1c0d6e747b02bed60ff70da6396a4a06e47ec6fb77"
+    },
+    {
+      "item_id": "8ae7add9ddb5a1bd",
+      "packet_sha256": "a2e457afbdc9139733a6eb96657cad5b94e4990459e3b6084522f09d06439ed3"
+    },
+    {
+      "item_id": "2817a87b44b68a55",
+      "packet_sha256": "daa0fe55e2ebf9465bac7ec4aa80ebbde0a0e01ce462e105165df0b59ac94490"
+    },
+    {
+      "item_id": "c6b8e056db2b5799",
+      "packet_sha256": "5f0fcf4c256adebfb8f90e2ee0d4179293ea88a069c15e65e6383ff14e0c1d4b"
+    },
+    {
+      "item_id": "d9dc22b3385d32d6",
+      "packet_sha256": "635eea2b03bba1213cd82146c92e860af8e11dab070165dbb7c7446b3208d546"
+    },
+    {
+      "item_id": "a007796bba3bdbde",
+      "packet_sha256": "9dfb1407d5e34004c38018b18605e627e05f6c2d47e21002190462312753815e"
+    },
+    {
+      "item_id": "6ba89e7f7e4e823b",
+      "packet_sha256": "ccd782ad02778b61236ac520c5d0bc128b7344c65c2d0bfd19bfdccd14968e91"
+    },
+    {
+      "item_id": "828894dfbd1ec09f",
+      "packet_sha256": "1fc2aa4705127f44cabfef964679c05f52aefe28469ea2a69f4036dc22de1b18"
+    },
+    {
+      "item_id": "95892b1809a249c6",
+      "packet_sha256": "ecc8e801975d66920e64cab0075e2b5bf232fef77c4cfd1ecb51cbba6adf4a18"
+    },
+    {
+      "item_id": "85b722c7c9914d83",
+      "packet_sha256": "aec60df6198d3ba124ab03e3f1cd36d9d81f008b006d2074630d1a345c99c0b8"
+    },
+    {
+      "item_id": "7aedc1475e4d6dd1",
+      "packet_sha256": "f2b02ba210249af841d16cce3f36d951788740b99b4dde0890402274eee0098d"
+    },
+    {
+      "item_id": "b102b7eb2aa1b3dd",
+      "packet_sha256": "ab9f0072e186fa8f6667a20090b8549cfab0616af91cfe3320c590dda5ea4dc2"
+    },
+    {
+      "item_id": "2af410eaaa5e6d45",
+      "packet_sha256": "19cc24b98dbc2ea9dc3d193dda62c46415a9df5313fd2369373dcf7e911b6790"
+    },
+    {
+      "item_id": "4f3bc1d12686746b",
+      "packet_sha256": "59a8e0eb85c25c0bd59dd5aa9b6e1cca6b545ea54c841bef4d71ed6cf8d6bc1a"
+    },
+    {
+      "item_id": "1d9eb92748ca5df6",
+      "packet_sha256": "d4110b285b5e791d859c997ae5bd39d692caeacf5912d4ddeac1dab67b2cdc24"
+    },
+    {
+      "item_id": "32d2e6c9e0c21a8b",
+      "packet_sha256": "94e1b0f42a95777e8abe3f79f58959ec4e248d7b172ab33098aa7aa99ee8e6f0"
+    },
+    {
+      "item_id": "2de92efed8557af1",
+      "packet_sha256": "cd90ed8f7d31157a3b7cd3b247e16b879935d1eb9f33ffa8d8673bfa1a6916c8"
+    },
+    {
+      "item_id": "cb70078844b2894c",
+      "packet_sha256": "931ff38cf85fa797115fd47537c52f131187315b535f1253043e825682eadb52"
+    },
+    {
+      "item_id": "eb4daaed9de67eb2",
+      "packet_sha256": "08a67d812d1a00956d53c6b05f4f7b7b431b3da0ee1631cc385a1a17ffbbbfec"
+    },
+    {
+      "item_id": "0fc9d7cf8210a474",
+      "packet_sha256": "1e43d4c5e2d64adb60279ab4d93473c80f6fddf17ee11417ef32d7a76b087ba5"
+    },
+    {
+      "item_id": "6c4ff34cf5f82cf9",
+      "packet_sha256": "3423af90ec49b69d3a7d7f8b7db04506005398d335d69b6e7e0c328cf1b2f9c6"
+    },
+    {
+      "item_id": "f35ec7bcee38ce33",
+      "packet_sha256": "713f31a2e70fbb771f3af8fef3d9de912299452526d895cf2f86d48844eb0c8e"
+    },
+    {
+      "item_id": "877abaeddde8845f",
+      "packet_sha256": "dbf6e008c62451b4bda04cd97248b50b3c1cae75586b7bcaf6a5782f0a5416d0"
+    },
+    {
+      "item_id": "cf131e309fbf9629",
+      "packet_sha256": "4db4f70faad25b33035e14cb7e9e5ee3f27f0c936c9aec22cfb1614282b9c2d9"
+    },
+    {
+      "item_id": "6b4729a1f5563b5e",
+      "packet_sha256": "7fc98e34761b20230723a119ebd00dff96caeedb4cb68e3137342e0a237d25c1"
+    },
+    {
+      "item_id": "f71795fbb03ea861",
+      "packet_sha256": "f6dd5e08c4e39d56fc109c02895520a6e68e7c77168f8d56521edea941baffa0"
+    },
+    {
+      "item_id": "ce8af08bec081432",
+      "packet_sha256": "467d523a3468b1cdde4340e10f5245aef202afec0807a4be5392d5dd867df6aa"
+    },
+    {
+      "item_id": "e84585c38e9dfeee",
+      "packet_sha256": "205a33d2e2cc98cf24fd3306cdb5be6357d107fdd52ffbe1ba6eeac8cbd471a4"
+    },
+    {
+      "item_id": "33e7c9cad94591a0",
+      "packet_sha256": "3df0a067c9242ed9dfdb0365d01b7064d2475e0b3c701c8fc2ddaabfb3b74517"
+    },
+    {
+      "item_id": "6c09caa8409241ff",
+      "packet_sha256": "af63467a2c8f739c1b6b687cba07c374922711240af0d68831bb8794565ef07b"
+    },
+    {
+      "item_id": "ab2a9c329770e98c",
+      "packet_sha256": "de215e23c182248a9f8fd59b3f67a575ae2fe8fe0dda70077bf611f7545d6b3d"
+    },
+    {
+      "item_id": "5f735043c60ffdce",
+      "packet_sha256": "05edac2f5d2bffa6ecc21d90f771ffaad1f9b6b7dcfa9ba83dec828c42cb152b"
+    },
+    {
+      "item_id": "fba110a2ac658eae",
+      "packet_sha256": "9701fff514ba9dda17b41f9c78d532430c1c3b4d9278b2517fabbb9622968b12"
+    },
+    {
+      "item_id": "022bf58c1491ac17",
+      "packet_sha256": "335e20006d08d2266ac6a2946f5d819f58ed5b3736f4386543c5a54cbaaf4c64"
+    },
+    {
+      "item_id": "cd19e38741bef4ff",
+      "packet_sha256": "2f20399b503d559e6e90a0c9d6762959bce5e9b42c19753d66e8282c096bdabc"
+    },
+    {
+      "item_id": "a41f668bfe2e9268",
+      "packet_sha256": "6c8ad01e6105cfbc7d81d9ef407ce097bc8a9936d1b5cee863cbbe329e9a9916"
+    },
+    {
+      "item_id": "5e70b5d0b7eb38bc",
+      "packet_sha256": "9261579ccae2f699ffa7e125d0265b0420851e3eddb5804f7a6e062a626cd059"
+    },
+    {
+      "item_id": "d050f7df0d3d471f",
+      "packet_sha256": "a5cfbb6d2a14d46844c4013f9983249511f844eeb8199b47ffd522275c842c19"
+    },
+    {
+      "item_id": "d16fe0715973d0ad",
+      "packet_sha256": "68ccdf95479901678abb54338631a449002317af86b6de09b4437688a8768e9c"
+    },
+    {
+      "item_id": "9e976939aea75013",
+      "packet_sha256": "8eb89ad0481525e8e82cdd7ea0e7b9ca145f47512086f04c4b85fa5722ec57e0"
+    },
+    {
+      "item_id": "018ee4628d5cdd83",
+      "packet_sha256": "d214bf18c524c9cfe641fa6abcf0f59bde82b7924e7754cbb0fe112be2b3dd5f"
+    },
+    {
+      "item_id": "f52366eba62c5589",
+      "packet_sha256": "ae9eb31e79953dd33757a63905848593bb572dc7820228a12b345fba3633d2b5"
+    },
+    {
+      "item_id": "b1c1ec2a04bfaa47",
+      "packet_sha256": "b3259d2a50d6daa94fa57cf51f98a01d7508a3f96ad4e5bf14dcae60cb91bbf2"
+    },
+    {
+      "item_id": "8eca6bf6a5817b1f",
+      "packet_sha256": "856ca52f922b2163106f10415f5ee4dd3598b10fb4265e41a6bbe1580b0b2a23"
+    },
+    {
+      "item_id": "fd606adfbe76d1e8",
+      "packet_sha256": "3cb6748c2fa7b7dbb6ca56e391061dc3bd20811a1fde3ef448622a6b7fc39716"
+    },
+    {
+      "item_id": "dd036b5fd1a30aad",
+      "packet_sha256": "5c4aeb8e7de238f380080da9422383d179439b56b8715e0ad386fe56d061dd41"
+    },
+    {
+      "item_id": "7a8dcb484a60748c",
+      "packet_sha256": "509dd55101370884a4d26b0a85d756bc7f4590601e902f198cb04b08e9706ef9"
+    },
+    {
+      "item_id": "d4400e2a06df78ad",
+      "packet_sha256": "891da25c92c4c8efe6105e38d72f86cf009913bc0556930faacadd96cd924389"
+    },
+    {
+      "item_id": "3dda258ece00a3d7",
+      "packet_sha256": "3e66d7e8a0b744df8f9332950832aa73ecce9b67fd331c1b57cfa286160105e7"
+    },
+    {
+      "item_id": "92eabb6eb9e5764c",
+      "packet_sha256": "1b10a78779f24f9d1715eaebb02be9610008cf0720649d9d9a0e88e4e012b093"
+    },
+    {
+      "item_id": "e785ef0cf1673f49",
+      "packet_sha256": "a44f6b176576cf1bbbb35bb44b7f97873a9ee2a4ecfc028a98df36a267e58324"
+    },
+    {
+      "item_id": "42e529dcd69dc3a0",
+      "packet_sha256": "073438f802f14d0c2bfc0d1aaedf08ca56ef19af7e93f970caa9f877c22db483"
+    },
+    {
+      "item_id": "483610fbb00c10e4",
+      "packet_sha256": "59c159f0abc25900e6535aeb94ffe20654c26698fda81203e772043b6ca3fd36"
+    },
+    {
+      "item_id": "2d4d1fb74b2e7aa4",
+      "packet_sha256": "f53ef9971d8f213162588d52d47d83a8a806976a156e4cd94986fde9c0cb24b1"
+    },
+    {
+      "item_id": "74eeba61bc958a18",
+      "packet_sha256": "5b234cdd4b399601d1befb522e2687efc1fb4c9bd5f201e4c675d0f626217be2"
+    },
+    {
+      "item_id": "5ec830e8b1754e7d",
+      "packet_sha256": "d42b2ec0b519baa23577a74091031277ebeac10e02d7b45f0c14dde510b4a3c8"
+    }
+  ]
+}

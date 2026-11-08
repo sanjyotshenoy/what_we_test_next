@@ -1,0 +1,60 @@
+{
+  "item_id": "cf131e309fbf9629",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses cell-free MAPK9 kinase inhibition with ADP detection and limits cellular causal conclusions.",
+      "response_quotes": [
+        "Recombinant human MAPK9 (P45984) in a cell-free reaction with ATP and an appropriate kinase substrate; no cells are used."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, reaction, ATP depletion/ADP detection and analysis sequence includes intended controls and linearity checks. Essential reaction/detection settings, substrate identity, reference control and acceptance criteria remain unresolved, making this an outline rather than executable protocol.",
+      "response_quotes": [
+        "Run the reaction under conditions that are first established as linear with respect to time and enzyme concentration.",
+        "reagent_volumes=unresolved; depletion_time=unresolved; detection_time=unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The 100 \u00b5M, threefold, ten-point series is internally consistent and explicitly provisional, but its range and replicate choice lack contextual justification. Other-compound examples are appropriately not treated as query potency estimates.",
+      "response_quotes": [
+        "top_concentration_uM=100 (provisional design assumption, not sourced); dilution_factor=3 (provisional design assumption, not sourced); n_points=10 (provisional design assumption, not sourced)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained displacement/radiometric assays with the proposed ADP-Glo format is not established.",
+    "Optimal enzyme, substrate, ATP, buffer, temperature, reaction time, detection settings and vehicle tolerance are not supplied.",
+    "Compound solubility and detection interference at proposed concentrations are unvalidated."
+  ],
+  "assumption_handling": "Labels series, replicates and fit model as provisional and operating settings as unresolved without invented support. Actual provisional series lacks contextual justification; replicates are not distinguished as technical versus independent.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points span 100 to 0.0050805263 \u00b5M (5.0805263 nM). No conflicting endpoint or concentration list is stated."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and essential experimental settings require domain review and local validation before execution."
+}

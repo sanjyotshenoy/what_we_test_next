@@ -1,0 +1,61 @@
+{
+  "item_id": "e3d064f787861e3c",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes purified-target catalytic inhibition with ADP detection and limits inference beyond biochemical activity.",
+      "response_quotes": [
+        "Luminescence proportional to ADP generated during the kinase reaction",
+        "does not by itself establish binding mode, selectivity, cellular efficacy, or target-specific causality in cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, ADP detection, and analysis are coherently ordered with relevant intended controls. Construct, substrate, reaction and detection settings, reference control and acceptance criteria remain unresolved; this is an outline rather than an executable procedure.",
+      "response_quotes": [
+        "Stop the reaction and deplete residual ATP with ADP-Glo reagent, then perform the ADP detection reaction and record luminescence.",
+        "Reference-inhibitor control, with inhibitor identity and concentration unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honestly abstains from numeric series and replicate settings. No arithmetic contradiction or fabricated support appears, but null series fields and a future pilot do not constitute a justified numerical design.",
+      "response_quotes": [
+        "No numeric concentration-series or replicate settings are supported by the packet; the corresponding contract fields are null rather than invented values."
+      ],
+      "input_evidence_paths": [
+        "generator_input.output_contract",
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained displacement/radiometric assays to proposed ADP-Glo is unestablished.",
+    "Target construct and activation state, substrate compatibility, operating conditions and detection-interference control performance are unvalidated."
+  ],
+  "assumption_handling": "Unsupported operating settings are consistently labeled unresolved; the four-parameter logistic model is explicitly labeled an assumption. Contextual other-compound measurements are not treated as query potency or source validation.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Numeric abstention: null series and replicate fields; no concentration endpoints or arithmetic to check."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review is required to establish assay compatibility and resolve essential reaction, detection, control and pilot-design settings."
+}

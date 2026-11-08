@@ -1,0 +1,61 @@
+{
+  "item_id": "0f29f39b6a76405b",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes a purified target kinase concentration-response endpoint and limits cellular and mechanistic conclusions; ADP-Glo compatibility is acknowledged as unvalidated.",
+      "response_quotes": [
+        "human recombinant Activin receptor type-1 (ACVR1/ALK2, Q04771) kinase domain in vitro",
+        "the format switch is an unvalidated adaptation."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, sequential ATP depletion/ADP detection, normalization and curve analysis are coherent. Essential reaction and detection conditions and reference identity remain unresolved. The Z-prime control pair is ambiguous because vehicle and an uninhibited control both represent maximal activity. A compound-only low-background well does not establish detection-quenching control adequacy.",
+      "response_quotes": [
+        "Z' >= 0.5 between vehicle and an uninhibited/positive control",
+        "the format switch is an unvalidated adaptation."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The 30 uM, threefold, ten-point series correctly ends near 1.5 nM and technical replication is explicit. Settings are candidly provisional, but the claimed likely active range has no contextual numerical justification from the supplied examples; no evidence establishes vehicle tolerance or acceptance thresholds.",
+      "response_quotes": [
+        "assumption; no packet evidence for this compound's potency range; chosen to span likely active range with DMSO kept low",
+        "assumption; 10-point 3-fold series spans 30 uM to ~1.5 nM"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility and quantitative comparability of ADP-Glo with the retained assays.",
+    "Validated enzyme construct, substrate, ATP concentration, temperature, timing, detection settings, solvent tolerance and compound solubility."
+  ],
+  "assumption_handling": "Most settings are explicitly labeled assumptions or unresolved, including the unvalidated format switch. The statement that all retained examples are radiometric filter-binding assays overstates the descriptions: CHEMBL2390524 supplies no readout, and filter binding is not established for all entries. The ATP-at-Km comparability claim is also stronger than supplied evidence supports.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": true,
+    "notes": "30/3^9 = 0.0015241579 uM = 1.5241579 nM, consistent with approximately 1.5 nM. Vehicle 0.01 v/v equals 1%; three replicates are expressly technical."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility, unresolved operating conditions, ambiguous Z-prime controls and overgeneralized reference-format claims need domain review before execution."
+}

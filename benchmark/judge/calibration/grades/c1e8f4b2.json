@@ -1,0 +1,65 @@
+{
+  "item_id": "c1e8f4b2",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Purified haspin with an ADP kinase-activity endpoint directly addresses biochemical inhibition without claiming cellular causality.",
+      "response_quotes": [
+        "purified haspin",
+        "ADP-dependent luminescence as a measure of kinase activity"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, ADP detection and analysis are coherently ordered, but operating conditions and control implementation remain unresolved.",
+      "response_quotes": [
+        "Stop reaction and deplete ATP, then detect ADP and read luminescence.",
+        "Concentrations, time and temperature unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The specified series gives 10, 1 and 0.1 micromolar, contradicting the explicit claim that the minimum is 1 micromolar. The series and replicate count lack contextual justification.",
+      "response_quotes": [
+        "The lowest concentration is 1 micromolar, so no sample is below 1 micromolar."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Explicit minimum-concentration contradiction.",
+      "response_quote": "The lowest concentration is 1 micromolar, so no sample is below 1 micromolar.",
+      "reason": "The supplied series contains 0.1 micromolar, tenfold below the claimed minimum, making the stated concentration boundary false."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of the retained measurements with the proposed purified-haspin ADP assay.",
+    "Validity of unresolved enzyme, substrate, ATP, reaction and detection conditions."
+  ],
+  "assumption_handling": "Operational conditions are honestly unresolved and validation is required. Acknowledging absent numerical justification does not resolve the arithmetic contradiction; replicate type is unspecified.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 10,
+    "points": 3,
+    "computed_min_uM": 0.1,
+    "prose_consistent": false,
+    "notes": "10/10^2 = 0.1 micromolar (100 nM). The listed concentrations agree; the subsequent minimum and lower-bound claims do not."
+  },
+  "needs_human_review": true,
+  "review_reason": "Numerical contradiction and unresolved assay compatibility and operating conditions require review."
+}

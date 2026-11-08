@@ -1,0 +1,69 @@
+{
+  "item_id": "d8c3b18d1ef761cd",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes recombinant LIMK1 biochemical inhibition measured by ADP generation and limits inference to biochemical inhibition. Assay comparability remains unestablished.",
+      "response_quotes": [
+        "Luminescence proportional to ADP generated from ATP turnover",
+        "the design focuses solely on biochemical inhibition."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "medium"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection and analysis are coherently ordered, with vehicle and no-enzyme controls. Linearity, peptide suitability, solvent tolerance, detection interference and kit operating conditions are unvalidated, so this is not an executable supported protocol.",
+      "response_quotes": [
+        "incubate under conditions proven for LIMK1 assays.",
+        "Terminate the kinase reaction, deplete remaining ATP with ADP‑Glo reagent, then add detection reagent and read luminescence."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Dilution arithmetic is consistent and most numbers are labeled assumptions. However, detection volumes and time explicitly claim manufacturer protocol or kit instruction support absent from the packet. The assumption label does not resolve these specific unsupported source claims for material settings.",
+      "response_quotes": [
+        "10 µL ADP‑Glo™ reagent + 10 µL detection reagent per 20 µL reaction (assumption, follows manufacturer protocol)",
+        "10 min (assumption, per ADP‑Glo kit instructions)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported manufacturer attribution for detection settings",
+      "response_quote": "10 min (assumption, per ADP‑Glo kit instructions)",
+      "reason": "No kit instructions were provided. This materially important operating parameter claims source support despite the absence of that source; actual incompatibility cannot be established here."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of ADP-Glo and retained Kinase-Glo assays.",
+    "Suitability of a cofilin-2 peptide versus unspecified cofilin-2 substrate in the examples.",
+    "Optimal enzyme, substrate, ATP, buffer, solvent, temperature and detection conditions for this recombinant preparation."
+  ],
+  "assumption_handling": "Many settings are labeled assumptions and unknown kinetic parameters are acknowledged. Assertions of proven conditions, linear product formation, peptide equivalence and manufacturer support nevertheless exceed the evidence. Technical versus independent replicates is unspecified.",
+  "numeric_check": {
+    "top_uM": 50,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.022862368541380886,
+    "prose_consistent": true,
+    "notes": "Eight points end at 0.0228623685 µM, consistent with approximately 0.02 µM. No arithmetic contradiction. Range justification is generic; unsupported manufacturer attribution is the material numerical failure."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay and substrate compatibility and operating conditions need domain review; detection settings claim unavailable manufacturer support."
+}

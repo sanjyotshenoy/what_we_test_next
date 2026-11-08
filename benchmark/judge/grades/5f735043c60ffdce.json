@@ -1,0 +1,62 @@
+{
+  "item_id": "5f735043c60ffdce",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes purified mTOR catalytic inhibition and appropriately limits conclusions to a biochemical endpoint.",
+      "response_quotes": [
+        "Biochemical kinase concentration-response inhibition assay",
+        "Do not infer cellular efficacy or target-specific cellular causality from this assay."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, ATP depletion, ADP detection and analysis are coherently ordered with relevant controls. Essential preparation, substrate, reaction and detection conditions remain unresolved, so this is an outline pending validation.",
+      "response_quotes": [
+        "Stop the reaction and deplete residual ATP with ADP-Glo reagent, then add the ADP detection reagent and measure luminescence.",
+        "Unresolved; substrate identity and concentration require validation"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is internally consistent and honestly provisional. Generic broad-range justification does not establish the particular endpoints against supplied context or assay limits. No fabricated numerical source is claimed.",
+      "response_quotes": [
+        "10 \u00b5M; provisional assumption, not source-supported",
+        "The broad logarithmic series and replication are provisional design choices intended to bracket a response without using a remembered IC50."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of the selected mTOR preparation and substrate with ADP-Glo is not established.",
+    "Optimal enzyme, substrate and ATP concentrations, buffer, temperature, incubation and detection conditions are unavailable.",
+    "Compound solubility, vehicle tolerance and useful concentration range are unestablished."
+  ],
+  "assumption_handling": "Clearly labels design and fitting choices provisional, distinguishes other-compound measurements from query potency, and identifies unsupported operating settings as unresolved. The numerical series remains generically justified.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Minimum is 0.0005080526 \u00b5M (0.5080526 nM). No stated lower endpoint contradicts this. Three independent replicates are requested but independence is undefined."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review must establish mTOR/ADP-Glo compatibility and resolve essential assay conditions before execution."
+}

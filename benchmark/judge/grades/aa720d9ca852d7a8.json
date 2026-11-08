@@ -1,0 +1,61 @@
+{
+  "item_id": "aa720d9ca852d7a8",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Selects biochemical mTOR activity and explicitly limits ADP detection and cellular causal interpretation. Format validation is unresolved.",
+      "response_quotes": [
+        "Biochemical kinase concentration-response inhibition assay using ADP-Glo luminescent ADP detection",
+        "ADP-Glo measures ADP production and may be confounded by contaminating ATPases; counter-screens would be needed for target-specific attribution."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion/ADP detection and analysis form a coherent outline with intended controls. Essential operating settings, substrate selection, reference control and acceptance criteria remain unresolved; this is not executable.",
+      "response_quotes": [
+        "Stop the kinase reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence.",
+        "The reference inhibitor identity and acceptance criteria are unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honestly abstains from a concentration series and replicate count. The provisional 30-minute duration occurs in supplied examples but is explicitly not validated for ADP-Glo. Null series fields preclude 2.",
+      "response_quotes": [
+        "Top concentration, dilution factor, number of points, replicates, and vehicle fraction cannot be justified from the packet and are left null.",
+        "30 min is a provisional assumption from CHEMBL4844752/CHEMBL5225443, not validated for ADP-Glo"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of the selected mTOR construct and substrate with ADP-Glo and comparability to retained assay formats.",
+    "Optimal enzyme, substrate, ATP, buffer, temperature, reaction and detection conditions are not established."
+  ],
+  "assumption_handling": "Clearly separates unresolved conditions from provisional reaction time and fitting. Avoids transferring other-compound potency, but leaves numerical design incomplete.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Series fields and replicates are null, so arithmetic is unavailable. Provisional 30 min and contextual 30\u2013120 min match supplied durations without claiming assay equivalence."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review must establish assay compatibility and resolve operating settings, numerical design and acceptance criteria."
+}

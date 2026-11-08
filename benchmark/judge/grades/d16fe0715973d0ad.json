@@ -1,0 +1,59 @@
+{
+  "item_id": "d16fe0715973d0ad",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses purified-target biochemical inhibition and appropriately limits cellular inference.",
+      "response_quotes": [
+        "purified recombinant human MAP3K7/TAK1 (O43318) kinase in vitro; no cell system used"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, reaction, ATP depletion, detection and analysis with intended controls, but substrate, concentrations, timing and detection settings remain unresolved. The compound-only blank lacks a defined positive ADP signal for assessing quenching. This remains an outline.",
+      "response_quotes": [
+        "Stop the reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent and read luminescence.",
+        "compound-only blank at top concentration to detect luminescence quenching/interference by CHEMBL1077979"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Internally consistent and explicitly provisional series, but broad-window language insufficiently justifies the specific endpoints contextually. Triplicates lack a precision justification and distinction between technical and independent repeats. No arithmetic contradiction or fabricated numerical source is evident.",
+      "response_quotes": [
+        "A 30 uM top concentration with 3-fold dilution over 10 points and triplicates is a design assumption intended to span a wide potency window"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained assays to proposed ADP-Glo conditions.",
+    "Compatibility of unspecified enzyme preparation, substrate and buffer with ADP-Glo.",
+    "Optimal temperature, preincubation time, vehicle tolerance and compound solubility."
+  ],
+  "assumption_handling": "Clearly separates proposed numerical settings from evidence and leaves essential conditions unresolved. The preincubation example supports an analogy, not transfer of duration or validation of ADP-Glo. Lab convention and an unavailable manufacturer protocol do not resolve the operating gaps.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": true,
+    "notes": "Nine dilution intervals give minimum 0.0015241579 uM (1.5241579 nM); no conflicting endpoint is stated. Vehicle fraction 0.01 equals 1%."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility, operating conditions, interference controls and range feasibility require domain review and pilot validation."
+}

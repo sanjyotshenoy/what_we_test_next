@@ -1,0 +1,67 @@
+{
+  "item_id": "e785ef0cf1673f49",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Measures requested BaF3-AXL cellular viability and appropriately distinguishes viability from target-specific causality.",
+      "response_quotes": [
+        "but it cannot by itself establish that the effect is caused by inhibition of AXL (P30530)."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, exposure, detection and analysis with intended controls. Culture/IL-3 conditions, validated density, reagent settings and acceptance thresholds remain unresolved, making this an outline.",
+      "response_quotes": [
+        "IL-3 status must be defined by the operator based on whether the BaF3-AXL line is factor-independent",
+        "unresolved thresholds — e.g., replicate CV and signal-to-background limits must be set by the operator; no packet evidence"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "10/3^9 = 0.00050805 µM, approximately tenfold above the claimed 0.00005 µM minimum. This explicit series-endpoint contradiction misrepresents the quantitative span. Other operational numbers are labeled assumptions.",
+      "response_quotes": [
+        "The 10-point, 3-fold dilution series spanning 10 µM to ~0.00005 µM"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Approximately tenfold incorrect series minimum.",
+      "response_quote": "The 10-point, 3-fold dilution series spanning 10 µM to ~0.00005 µM",
+      "reason": "The stated span cannot result from the supplied top, factor and point count."
+    }
+  ],
+  "not_assessable_components": [
+    "Assay comparability is not established by supplied evidence.",
+    "Optimal BaF3-AXL culture conditions, IL-3 dependence, seeding density and exposure duration are unsupported.",
+    "Reagent operating conditions and compound assay interference require validation."
+  ],
+  "assumption_handling": "Unsupported settings are generally labeled assumptions or unresolved. Manufacturer-procedure wording is explicitly qualified as unsourced and provides no validation. Triplicates are identified as within-plate replication; independent biological replication is unspecified.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": false,
+    "notes": "Correct minimum is 0.0005080526 µM (0.5080526 nM), not approximately 0.00005 µM. Vehicle fraction 0.001 equals 0.1%. Preparation prose offers 8 or 10 points, while structured settings specify 10."
+  },
+  "needs_human_review": true,
+  "review_reason": "Numerical endpoint contradiction and unresolved culture/readout validation require review; wet-lab performance and assay compatibility cannot be established."
+}

@@ -1,0 +1,62 @@
+{
+  "item_id": "e84585c38e9dfeee",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Recombinant Aurora A activity directly addresses biochemical inhibition. Conclusions are appropriately limited to assay conditions without cellular causality or a remembered potency.",
+      "response_quotes": [
+        "Recombinant human Aurora kinase A (O14965) with a suitable kinase substrate and ATP; exact enzyme construct and substrate are unresolved",
+        "it does not establish cellular viability effects, cellular target engagement, selectivity, or target-specific causality in cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, ADP detection and analysis are coherently ordered with relevant intended controls. Essential enzyme/substrate, ATP, reaction and detection conditions and acceptance thresholds remain unresolved; this is an honest validation outline rather than an executable supported procedure. Detection interference controls using ATP/ADP signals are optional and unspecified.",
+      "response_quotes": [
+        "Stop the kinase reaction and deplete residual ATP with ADP-Glo reagent, then perform the ADP detection reaction and record luminescence.",
+        "numerical thresholds must be established during assay validation"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Endpoints are arithmetically consistent and settings clearly provisional. Broad surveying is a reasonable motivation, but the specific 100 µM top and series lack substantive contextual justification against the heterogeneous evidence or compound-specific feasibility. No numerical contradiction or fabricated support is present.",
+      "response_quotes": [
+        "The 100 µM, 10-point, 3-fold series is an explicitly provisional broad survey spanning approximately 100 µM to 5 nM, not a prediction of CHEMBL1092509 potency.",
+        "All numerical dilution-series and replication settings are provisional design assumptions, not sourced measurements."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained heterogeneous assays with the proposed ADP-Glo Aurora A system.",
+    "Compound solubility, aggregation and detection interference at the proposed concentrations.",
+    "Suitable enzyme construct, substrate, ATP level and validated reaction/detection operating conditions."
+  ],
+  "assumption_handling": "Clearly labels dilution and replication settings as provisional and lists missing operating conditions. Does not transfer other-compound potency or fluorescence timing into a validated ADP-Glo protocol. Independent replicates are not operationally defined.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "100/3^9 = 0.005080526 µM = 5.080526 nM, consistent with approximately 5 nM. Three independent replicates are proposed, but their independence is not specified."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility, range feasibility and essential operating/control conditions remain unresolved and require domain review."
+}
