@@ -35,7 +35,8 @@ def plate_from(experiment: dict) -> dict:
 class Trace:
     def __init__(self, id: str, query: str, model: str, note: str = "", mock: bool = False):
         self.data = {"id": id, "query": query, "model": model, "mock": mock, "note": note,
-                     "lookup": None, "calls": [], "reasoning": [], "thinking": [], "proposal": None, "plate": None}
+                     "lookup": None, "calls": [], "reasoning": [], "thinking": [], "proposal": None,
+                     "anchor": None, "plate": None}
         self.listeners: list[Callable[[str, object], None]] = []
 
     def on(self, fn: Callable[[str, object], None]) -> None:
@@ -59,6 +60,23 @@ class Trace:
         self.data["reasoning"].append(text)
         self.data["thinking"].append(thinking)
         self.emit("reasoning", text)
+
+    def set_anchor(self, anchor: dict) -> None:
+        """The deterministic concentration anchor (`agent/anchor.py`): its value, the derivation, the analogs
+        it used and the confidence flag. An added trace field; call it again to replace it (the anchor is
+        recomputed once the protocol template's own series shape is known)."""
+        self.data["anchor"] = dict(anchor)
+        self.emit("anchor", self.data["anchor"])
+
+    def set_anchor_outcome(self, followed: bool | None, reason: str = "", stated_top_uM: float | None = None,
+                           stated_analogs: list[str] | None = None) -> None:
+        """Whether the model followed the anchor or departed from it, and the reason it gave. The anchor is a
+        default with justification allowed, so a departure is recorded, not corrected."""
+        anchor = dict(self.data.get("anchor") or {})
+        anchor.update({"followed": followed, "departure_reason": reason or "",
+                       "stated_top_uM": stated_top_uM, "stated_analogs": list(stated_analogs or [])})
+        self.data["anchor"] = {k: v for k, v in anchor.items() if v not in (None, [], "")}
+        self.emit("anchor", self.data["anchor"])
 
     def set_proposal(self, proposal: dict) -> None:
         self.data["proposal"] = proposal

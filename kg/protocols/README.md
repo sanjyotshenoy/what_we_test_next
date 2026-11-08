@@ -20,13 +20,15 @@ Two sources, as the team agreed (see DISCUSSIONS.md, "What each source is for"):
 | [`archetypes.yaml`](archetypes.yaml) | 8 archetypes: 5 kinase + **3 non-kinase negative controls** (GPCR cAMP, protease FRET, bacterial MIC). Per archetype: question type, applicable ChEMBL protein classes, BAO IDs, purpose, AGM chapters, PubChem search hints |
 | [`templates/`](templates/) | the curated templates: step tree (steps, and sub-steps where the evidence holds the detail), parameters with every observed value, controls, readout, exemplar AIDs. **Agent-curated, not yet human-checked** |
 | [`conditions.yaml`](conditions.yaml) | 15 routing conditions, each read off an archetype's own `purpose` text (quote per edge), 3 with a machine-checkable expression |
-| [`rules.yaml`](rules.yaml) | 18 AGM design rules, each with a verbatim quote, the chapter's NBK ID, and a machine-checkable expression where one exists (6 of 18) |
+| [`rules.yaml`](rules.yaml) | 19 AGM design rules, each with a verbatim quote, the chapter's NBK ID, and a machine-checkable expression where one exists (7 of 19) |
 | [`pubchem.py`](pubchem.py) | PUG-REST + Entrez client: candidate AIDs per archetype, one AID's protocol text and tested series; on-disk cache in `data/raw/pubchem/` (git-ignored), ≤ 5 req/s, retries |
 | [`extract.py`](extract.py) | LLM extraction of one AID's protocol text into the pydantic schema (closed verb set, units normalized in code, provenance per field), via `wwtn.llm.chat`. **Never run for real: no API key here**; unit-tested with a stubbed client |
 | [`defaults.py`](defaults.py) | how a parameter's **default** is chosen from its observations: one reference exemplar for the concentration series, nearest-to-centre for the rest, canonical snapping for fold-spacings, a derivation and a dispersion flag on every default (see below) |
 | [`build_db.py`](build_db.py) | assembles everything into `graph/nodes.csv` + `graph/edges.csv` in the [kg/README.md](../README.md) format |
 | [`graph/`](graph/) | the built graph, committed: 140 nodes / 353 edges |
 | [`tests/`](tests/) | 74 tests, no network: two trimmed real PubChem JSONs in `tests/fixtures/` |
+| [`graph/`](graph/) | the built graph, committed: 141 nodes / 367 edges |
+| [`tests/`](tests/) | 45 tests, no network: two trimmed real PubChem JSONs in `tests/fixtures/` |
 
 `seed.py` (three hand-written templates) is gone: `build_db.py` replaces it and writes the same `graph/` folder,
 with `APPLICABLE_TO`, `ANSWERS`, `HAS_PARAM`, `MEASURES`, `HAS_STEP`, `NEXT` and `USES` unchanged, so
@@ -143,6 +145,7 @@ python -m kg.query steps proto:cell_viability_atp                     # its step
 python -m kg.protocols.pubchem candidates proto:kinase_biochem_lum    # needs network; caches under data/raw/
 python -m kg.protocols.pubchem show 623998                            # one AID's protocol text and series
 python -m pytest -q kg                          # 113 tests, no network (1 GPU test skipped)
+python -m pytest -q kg                          # no network (1 GPU test skipped)
 ```
 
 Soundness checks from the rules:
@@ -157,6 +160,22 @@ context = {**design.model_dump(), "expected_ic50_uM": 0.05}   # the potency prio
 for rule in load_rules():
     verdict = check_rule(rule, context)      # True / False, or None = a judge item for the grader
 ```
+
+### The analog anchor rule
+
+`rule:agm/anchor_series_on_analogs` binds the template's generic series *shape* to the measured *scale* of the
+query compound's structural analogs: the top concentration should be the analogs' median IC50 times the series'
+own centring multiplier (`dilution_factor ** ((n_points - 1) / 2)`), within one dilution step, so half the
+points sit above the expected potency and half below. It is **machine-checkable**, over an `Experiment` plus one
+context value, `analog_median_ic50_uM` — which `agent/anchor.py` computes deterministically from
+`bio_kg_analogs` and supplies through `Anchor.rule_context()`, together with the analogs it used. With no
+analogs the context value is missing, so the check returns `None` (a judge item), which is the right answer:
+there is then nothing measured to centre the series on and the template default stands.
+
+The multiplier *follows from* the chapter's half-above/half-below sentence plus the template's shape; the AGM
+chapters cited here state **no numeric multiplier** of their own, and the familiar "100x the expected IC50"
+rule of thumb is a heuristic, not an AGM number (`TODO(final)` on it in the rule text and in `agent/anchor.py`).
+The rule is a default a proposal may depart from with a stated reason, not a hard constraint.
 
 ## Curated vs extracted
 
@@ -212,7 +231,7 @@ evidence, not invention. Which of them becomes the default is derived, with its 
 - **Two BAO IDs we did not find.** No OLS term for a kinase competition-binding *format* beyond
   `BAO:0003032` (method), and none for "cellular thermal shift"; the target-engagement archetype uses the
   NanoBRET kit term instead.
-- **Rules are design rules, not QC.** 12 of 18 are judge items (Z', MSR, Km, DMSO, enzyme concentration) because
+- **Rules are design rules, not QC.** 12 of 19 are judge items (Z', MSR, Km, DMSO, enzyme concentration) because
   `wwtn.schema.Experiment` has no field for them. If the grader wants them deterministic, `Experiment` needs
   fields (ATP vs Km, DMSO %, enzyme concentration) — a shared-schema change, so it needs the team's OK.
 - **`extract.py` has never seen a real model.** Prompt and retry are only exercised by the stub, and it has no

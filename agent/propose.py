@@ -11,6 +11,7 @@ proposal go into a Trace (agent/trace.py), which is what the demo page plays.
 """
 import argparse
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -18,6 +19,7 @@ from pathlib import Path
 from wwtn.llm import DEFAULT_MODEL, chat_raw, message_dict, reasoning_of
 from wwtn.schema import Experiment, ExperimentProposal, Question, read_jsonl, write_jsonl
 
+from .anchor import TOLERANCE_STEPS, Anchor, Shape, anchor_from_result
 from .tools import DEMO_QUESTION, TOOL_SPECS, KnowledgeBase
 from .trace import Trace, slug
 
@@ -43,7 +45,16 @@ result and what you do next; never restate a table. The concentration series mus
 with at least two points on each side and reach a top plateau; derive the top concentration, dilution factor \
 and number of points from the analog IC50s. Use the template's controls and replicates unless there is a reason \
 not to. Keep every field of the proposal a short label (under 10 words); IDs go in `citations`, the node IDs \
-you relied on (compound, target, analogs, protocol, format, endpoint), not in the field values."""
+you relied on (compound, target, analogs, protocol, format, endpoint), not in the field values.
+
+The analog results carry an "Analog anchor" line: a top concentration computed deterministically from the \
+analogs' median IC50 and the template's own spacing, so half the points sit above the expected potency and half \
+below. Treat it as the DEFAULT, not a constraint. In `propose_experiment` always state `anchor_top_uM` (the \
+anchor you were given) and `anchor_analogs` (the analog node IDs it came from, exactly as the tool returned \
+them - never an ID the tools did not return). If your `top_concentration_uM` departs from the anchor by more \
+than one dilution step, that is allowed: say why in `anchor_departure_reason` (e.g. solubility, assay ceiling, \
+a wide analog spread, the anchor was not applicable). If no anchor applied, use the template's default top \
+concentration and say so in `anchor_departure_reason`."""
 
 PROPOSE_SPEC = {"type": "function", "function": {
     "name": "propose_experiment",
@@ -58,9 +69,30 @@ PROPOSE_SPEC = {"type": "function", "function": {
         "replicates": {"type": "integer"},
         "controls": {"type": "array", "items": {"type": "string"}},
         "rationale": {"type": "string", "description": "at most two short sentences (40 words): why this series and format answer the question; do not repeat the field values"},
-        "citations": {"type": "array", "items": {"type": "string"}, "description": "KG node IDs relied on"}},
+        "citations": {"type": "array", "items": {"type": "string"}, "description": "KG node IDs relied on"},
+        "anchor_top_uM": {"type": "number", "description": "the analog anchor you were given, in µM (omit only if no anchor applied)"},
+        "anchor_analogs": {"type": "array", "items": {"type": "string"}, "description": "the analog node IDs the anchor came from, exactly as bio_kg_analogs returned them"},
+        "anchor_departure_reason": {"type": "string", "description": "why top_concentration_uM departs from the anchor, or why no anchor applied; empty if you followed it"}},
         "required": ["assay_type", "readout", "system", "top_concentration_uM", "dilution_factor", "n_points",
                      "replicates", "controls", "rationale", "citations"]}}}
+
+
+def shape_of(result: dict) -> Shape | None:
+    """The series shape of the first template in a `protocol_kg_templates` result that carries one."""
+    for template in result.get("templates") or []:
+        shape = Shape.from_template(template)
+        if shape:
+            return shape
+    return None
+
+
+def anchor_followed(anchor: Anchor, top_uM: float | None) -> bool | None:
+    """Did the proposal's top concentration follow the anchor (within one dilution step)? None when there is
+    no anchor to follow, or no usable top."""
+    if not anchor.applicable or not top_uM or not anchor.top_concentration_uM or not anchor.dilution_factor:
+        return None
+    steps = abs(math.log10(float(top_uM) / anchor.top_concentration_uM)) / math.log10(anchor.dilution_factor)
+    return steps <= TOLERANCE_STEPS
 
 
 def brief(thinking: str, sentences: int = 2, limit: int = 240) -> str:
@@ -125,6 +157,9 @@ def propose(question: Question, model: str | None = None, kb: KnowledgeBase | No
                 {"role": "user", "content": f"Question: {question.text}\nCompound: {compound}\nTarget: {target}\n"
                                             f"The knowledge base says: {lookup['result']}"}]
     proposal = None
+    # The deterministic concentration anchor: computed as soon as the analogs come back (with the AGM default
+    # shape), recomputed once the template's own curated shape is known. Recorded in the trace either way.
+    anchor, analogs_result, shape = None, None, None
     for _ in range(MAX_ROUNDS):
         m = chat_raw(messages, model=model, tools=TOOL_SPECS + [PROPOSE_SPEC], temperature=0.2, timeout=TIMEOUT)
         messages.append(message_dict(m))
@@ -153,6 +188,15 @@ def propose(question: Question, model: str | None = None, kb: KnowledgeBase | No
                                               rationale=args.get("rationale", ""), citations=[str(c) for c in args.get("citations", [])],
                                               model=model)
                 messages.append({"role": "tool", "tool_call_id": tc.id, "content": "Recorded."})
+                if anchor is not None:      # a default with justification allowed: record, never correct
+                    followed = anchor_followed(anchor, experiment.top_concentration_uM)
+                    stated = args.get("anchor_departure_reason") or ""
+                    trace.set_anchor_outcome(followed, stated,
+                                             stated_top_uM=args.get("anchor_top_uM"),
+                                             stated_analogs=[str(c) for c in args.get("anchor_analogs", [])])
+                    say("anchor", "followed" if followed else "departed",
+                        f"({experiment.top_concentration_uM} µM vs {anchor.top_concentration_uM} µM)",
+                        stated and f"· {stated}" or "")
                 if proposal.rationale:
                     trace.add_reasoning(proposal.rationale)
                 trace.set_proposal(proposal.model_dump())
@@ -162,7 +206,18 @@ def propose(question: Question, model: str | None = None, kb: KnowledgeBase | No
             trace.add_call({"tool": name.replace("_kg_", "_kg.", 1), "args": args, "summary": result.get("summary", ""),
                             "rows": result.get("rows", []), **({"columns": result["columns"]} if result.get("columns") else {})})
             say("call", name, json.dumps(args), "→", result.get("summary", ""))
-            messages.append({"role": "tool", "tool_call_id": tc.id, "content": kb.result_text(result)})
+            content = kb.result_text(result)
+            if name == "bio_kg_analogs":
+                analogs_result = result
+            elif name == "protocol_kg_templates":
+                shape = shape_of(result) or shape
+            if analogs_result is not None and (name == "bio_kg_analogs" or
+                                               (name == "protocol_kg_templates" and shape)):
+                anchor = anchor_from_result(analogs_result, shape)
+                trace.set_anchor(anchor.to_dict())
+                content += "\n" + anchor.sentence()
+                say("anchor", anchor.sentence())
+            messages.append({"role": "tool", "tool_call_id": tc.id, "content": content})
         if proposal:
             break
     if not proposal:
