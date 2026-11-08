@@ -1,0 +1,84 @@
+# Missing-link experiment design: three-case pilot (v0)
+
+Status: **draft for human audit**, not a validated benchmark or a reported model run.
+<!-- TODO(final): domain reviewer must approve the step abstractions, case labels, assay comparability and rubric; verify cross-database source independence before a scored run. -->
+
+## What is being tested
+
+Given a question, reusable parameterized step cards and retained measurements, propose a scientifically sound experiment: choose an endpoint/system, assemble ordered steps, bind numerical parameters, cite support and identify unresolved conditions.
+
+This extends the current agent contract: current `ExperimentProposal` has no structured steps. These pilot input packets specify an experimental output contract without modifying `wwtn/schema.py` or the agent. A current-agent baseline can be graded on assay and parameters; its referenced template can be checked separately, but must not be represented as agent-generated steps.
+
+## Three cases
+
+| Case | Query | Reviewer-only measurement | Reason |
+|---|---|---|---|
+| 1 | CHEMBL4278808 → haspin Q8TF76, biochemical inhibition | 14 nM, assay CHEMBL5357346, document CHEMBL5356937 | Low-concentration coverage; appropriate biochemical endpoint. |
+| 2 | CHEMBL5426285 → HASPIN Q8TF76, biochemical inhibition | 1,225 nM, assay CHEMBL5378515, document CHEMBL5375979 | Same target and step family, different reference potency; avoid unjustified default reuse. The same sensible series can pass both cases. |
+| 3 | CHEMBL3936761 → Rec-1 cell growth/viability (record associated with BTK Q06187) | 360 nM, assay CHEMBL5209939, document CHEMBL5209897 | Distinguish a cellular endpoint from purified-enzyme inhibition and target-specific causality. |
+
+Numbers are copied from committed ChEMBL graph rows, not inferred or newly measured. Case 3's `INHIBITS` graph label obscures assay semantics: its description explicitly says CellTiter-Glo / growth inhibitory activity in Rec-1 cells. The question intentionally supplies that system; this is not a test of inferring the system from a vague question. Case 2's assay description does not establish that the ADP-Glo template exactly matches the measured assay. No case provides a verified complete reference procedure.
+
+Cases 1 and 2 are related diagnostic examples, not independent samples for estimating generalization. Three manually selected examples are a rubric-development pilot, not enough for performance claims.
+
+## Reproducible construction and exclusions
+
+Run from repository root:
+
+```sh
+python3 -m slides.tools.prep_benchmark_cases
+```
+
+The generator reads `kg/biology/graph/{nodes,edges}.csv` and hashes those files plus the protocol graph CSVs. Each review record stores the hashes, IDs, counts and structural assertions. It does not modify either KB.
+
+For each case independently:
+
+1. Find **every** `INHIBITS` edge for the query compound/target pair, not only the selected measurement. Collect all their document IDs.
+2. Exclude those Document nodes and every Assay linked to those documents by `FROM_DOC` or activity properties.
+3. Exclude every edge touching those nodes, referencing those documents/assays in its properties, or measuring the query pair. This removes other compounds' results from the same documents too.
+4. From surviving edges, retrieve at most five measurements on the same target from distinct other compounds. Sort by compound ID then assay ID and take the first eligible record per compound. Biochemical cases require assay type B and single-protein BAO_0000357; the cellular case requires both `rec-1` and `viability` in the assay description (case-insensitive). Include the description so reviewers can assess actual comparability. **These examples are not structural analog rankings.** No aggregation, potency-based selection or query-value-based ranking is used.
+5. Create a strict input allowlist: question; query entity IDs/names/types/SMILES where available; seven step cards; selected retained measurement records; generic guidelines; output contract. Raw documents, assay nodes, protocol nodes, parameter nodes, source quotes, full graph data and reviewer records are not model input.
+
+For this snapshot, case 1 removes 24 edges, case 2 removes 44, and case 3 removes 144. Cases 1/2 have five retrieved measurement examples each; case 3 has none. Case 3 therefore tests suitability and honest handling of insufficient numerical evidence; do not demand an unsupported precise potency estimate. Rebuilt counts in review JSON are authoritative if the source changes.
+
+These are **within-snapshot leave-pair-and-supporting-documents-out** cases, not the project's existing post-2024 temporal split. Apply the filtering separately for each case; all variants/baselines for a case receive the same input.
+
+## Step abstractions and numbers
+
+The seven cards are reviewer-authored abstractions informed by `proto:kinase_biochem_lum` and `proto:cell_viability_atp`, plus a generic analysis card. They are not an automatic lossless transformation of the protocol graph. Both step families are offered in every case so the model must choose an appropriate route. Suggested prerequisites constrain ordering; alternatives require justification.
+
+Exact source-specific amounts, concentrations, times and temperatures are replaced by named slots in these cards. Original step text, quotes and parameter defaults are not copied into the input. Numeric measurement examples from independent retained records remain available deliberately: they are contextual evidence, not withheld answers. Card template IDs are provenance labels, **not permission to fetch the unfiltered templates**.
+
+The cards do not encode a complete executable SOP. A model must state unresolved slots rather than invent laboratory settings. A fully specified step score is only justified where independent evidence actually supports those settings. Existing templates are agent-curated and not human-validated. PubChem AID ↔ ChEMBL document/paper mappings have not been comprehensively checked: cross-database duplication remains an audit task. For this reason, full template text and example protocols are not supplied; adding them requires a source audit first.
+
+## Running a pilot
+
+Give a model **only** `cases/case-N.input.json`, with a fixed instruction to satisfy its output contract using only that packet. Disable web access, raw-KB access and lookup of the held-out sources. Log the model/version, prompt, packet SHA-256, settings and complete output. Use the same instruction and inference settings across cases. Repeat runs if estimating variability; three cases still cannot support general performance claims.
+
+The explorer is a human audit site. Both `cases.js` and the graph tab expose the answers in source/data even when toggles are closed. **The toggle is visual concealment, not access control.** Never point an evaluated agent at this page or give it reviewer files. Serving files separately does not secure them; isolation must be enforced by the evaluation harness. No such harness is added here. Memorization cannot be excluded by removing retrieval evidence.
+
+## Three-axis rubric
+
+Report separate scores, explanations, citations, missing evidence and critical failures; do not average a wrong endpoint into a passing result.
+
+| Axis | 0 | 1 | 2 |
+|---|---|---|---|
+| Suitability | Wrong endpoint/system or invalid causal claim | Plausible assay with incomplete question coverage | Directly answers the requested endpoint/system and states its limits |
+| Procedural soundness | Essential stages absent, incompatible steps or invalid order | Coherent outline but unresolved conditions/controls | Supported ordered procedure, appropriate controls and parameter bindings |
+| Numerical soundness | Invalid arithmetic, units or incompatible settings | Plausible design with incomplete support | Internally consistent, evidence-justified settings with uncertainty handled |
+
+Examples of critical failures: purified kinase assay as the sole answer to case 3; treating viability as proof of BTK-specific causality; unsupported claim of the withheld potency as a retrieved fact; invalid concentration-series arithmetic. Reviewer judgments on sufficiency and compatibility need domain calibration. Missing reference information is marked **not assessable**, not silently wrong. Unsupported model certainty can still be penalized.
+
+### Coverage diagnostic (separate from the rubric)
+
+For a proposal with top concentration `T` in µM, dilution factor `f > 1`, and integer `n >= 2`, compute `c_i = 1000*T / f**i` nM for `i = 0..n-1`. Report the minimum/maximum, number strictly below/above the reference IC50, and log10 span `log10(max/min)`. Verify positive finite T and positive integer replicates.
+
+Report whether the IC50 lies in the series and whether at least two points fall on each side; the latter is a **pilot design diagnostic**, not a universal biological requirement. Do not reward span alone or rank solely by narrowness. Review span, spacing, assay feasibility and uncertainty together. No numeric score weighting or optimal-width cutoff is validated yet.
+
+Coverage is interpretable only for sufficiently comparable systems/assays. If a proposal changes assay format, ATP conditions, exposure or cell system and comparability is unknown, report the numerical coverage as descriptive only and mark scientific comparison not assessable. The CSVs do not supply a full ground truth for incubation times, volumes, controls or optimal concentration limits. A held-out IC50 is not a unique correct design or proof that a proposed assay will work.
+
+## Baselines and audit checklist
+
+Compare fixed-context LLM assembly with a deterministic, predeclared template-selection/parameter rule using the **same input**. Never tune baseline rules to these three withheld numbers. Separately compare today's agent on its supported output fields; mark procedural generation N/A rather than fabricating it.
+
+Before a scored run, a reviewer must confirm source mappings, remove duplicate evidence, approve the abstractions and rubric, check retained example compatibility, and decide whether each numerical comparison is assessable. Validate the grader on human-scored proposals including wrong endpoints, reversed detection order, invalid dilution parameters and honest abstentions. No model outputs or benchmark scores are claimed by this change.
