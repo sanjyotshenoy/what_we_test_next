@@ -2,6 +2,8 @@
 
 Preview branch: `slides-preview`. Entry: `index.html`. Six slides; technical backup opens separately at `qa.html` so it cannot accidentally lengthen the pitch. The existing main and question-prototype decks are unchanged.
 
+Presenter script: [speaker-notes.html](speaker-notes.html). Maintain it alongside slide changes; it holds spoken explanations, examples and Q/A caveats.
+
 ## Running order
 
 | Time | Slide | Job |

@@ -1,7 +1,7 @@
 // Three slides: actual pilot results; a timed evidence walkthrough; concise close + Q/A exit.
 {
 Deck.slide('pitch-results', {steps:4,
- notes:'3:00–4:15. Four beats: test setup; three assessment criteria; a shortened version of the actual case-1 question; then the results figure. The original case-1 prompt additionally asks for an ordered procedure and justified parameters and forbids remembered potency. In a benchmark simulation, known query-pair evidence and its source documents are excluded from fixed input packets. Five models each produce one response on three manually selected, correlated kinase/cell cases. Generation uses those fixed packets, with no live graph retrieval. Grade experiment suitability, procedural soundness and numerical soundness, 0–2 each per case. Scores are provisional, unblinded, uncalibrated Codex judgments, not expert validation or pass rates. No statistical ranking, deterministic baseline, measured KG lift or MIC end-to-end result is established. Models: Kimi K3.1 Pro, GLM 5.3 (not Flash), DeepSeek V4.1 Flash 1017, Nemotron 3 Super, GPT-OSS-120B. Concrete finding: DeepSeek case 2 specified 11 points in prose and 10 in structured fields. Sources: biohack/data/pilot_results.json and committed benchmark/runs outputs. Keep detailed axis scores and limitations for Q/A.',
+ notes:'3:00–4:15. Four beats: test setup; three assessment criteria; a shortened version of the actual case-1 question; then the results figure. The original case-1 prompt additionally asks for an ordered procedure and justified parameters and forbids remembered potency. In a benchmark simulation, known query-pair evidence and its source documents are excluded from fixed input packets. Five models each produce one response on three manually selected, correlated kinase/cell cases. Generation uses those fixed packets, with no live graph retrieval. Grade experiment suitability, procedural soundness and numerical soundness, 0–2 each per case. Scores are provisional, unblinded, uncalibrated Codex judgments, not expert validation or pass rates. No statistical ranking, deterministic baseline, measured KG lift or MIC end-to-end result is established. Models: Kimi K3.1 Pro, GLM 5.3 (not Flash), DeepSeek V4.1 Flash 1017, Nemotron 3 Super, GPT-OSS-120B. Concrete finding, in plain language: one DeepSeek response told the researcher to prepare 11 different concentrations, but the same response listed 10 in its experiment settings. A person would need to resolve that disagreement before using the proposal. Protocol steps here are seven manually generalized benchmark cards with parameter slots and prerequisites, not raw graph nodes or automatically extracted paper protocols. Full presenter script: speaker-notes.html. Sources: biohack/data/pilot_results.json and committed benchmark/runs outputs. Keep detailed axis scores and limitations for Q/A.',
  mount(frame,{data,esc,css}) {
  const d=data.pilotResults;
  css(`
@@ -16,11 +16,10 @@ Deck.slide('pitch-results', {steps:4,
  .pf-example small{font-size:var(--t-caption);color:var(--muted);}
  .pf-example p{font-size:var(--t-body);line-height:1.35;margin:.4em 0;}
  .pf-method{position:absolute;left:7%;right:7%;top:28%;font-size:var(--t-small);color:var(--muted)}
- .pf-takeaway{position:absolute;left:7%;right:7%;top:79%;font-size:var(--t-small);line-height:1.3}
  `);
  frame.innerHTML=`<h2 class="deck-heading">Can the model design the missing experiment?</h2>
  <div class="pf-intro reveal-in" data-show="1 2 3">
- <p class="pf-test"><strong>Hide a known measurement and its source papers.</strong><br>Give each model the same remaining evidence and protocol step cards.<br>Ask it to design the experiment that would fill the gap.</p>
+ <p class="pf-test"><strong>Hide a known measurement and its source papers.</strong><br>Supply evidence and protocol steps with unfilled parameters.<br>Ask each model to design the missing experiment.</p>
  <div class="pf-axes reveal-in" data-from="2">
  <div class="pf-axis"><strong>Experiment choice</strong><span>Does the assay answer<br>the question?</span></div>
  <div class="pf-axis"><strong>Procedure</strong><span>Are the steps sound<br>and complete?</span></div>
@@ -28,10 +27,10 @@ Deck.slide('pitch-results', {steps:4,
  </div>
  <div class="pf-example reveal-in" data-from="3"><small>EXAMPLE · KINASE BENCHMARK</small><p>Design a concentration–response experiment to measure<br>haspin inhibition by CHEMBL4278808.</p></div>
  </div>`;
- const plot=Deck.groupedBars(frame,{max:18,ticks:3,format:v=>`${v}/18`,series:d.models.map(m=>({key:m.id,label:m.name})),groups:[{key:'total',label:['3 cases · 3 criteria · 0–2 points each · maximum 18'],values:Object.fromEntries(d.models.map(m=>[m.id,m.total]))}],footnote:['Provisional, uncalibrated Codex grades · 1 response per case · rubric points, not pass rates']});
+ const plot=Deck.groupedBars(frame,{max:18,ticks:3,format:v=>`${v}/18`,series:d.models.map(m=>({key:m.id,label:m.name})),groups:[{key:'total',label:['3 cases · 3 criteria · 0–2 points each · maximum 18'],values:Object.fromEntries(d.models.map(m=>[m.id,m.total]))}],footnote:[]});
  plot.root.classList.add('reveal-in');
  plot.root.dataset.from='4';
- frame.insertAdjacentHTML('beforeend','<div class="pf-method reveal-in" data-from="4">Same fixed inputs for every model · 3 kinase/cell cases · no live retrieval</div><div class="pf-takeaway reveal-in" data-from="4"><strong>Useful drafts still need checks.</strong> DeepSeek case 2: 11 dilution points in prose, but 10 in its fields.</div>');
+ frame.insertAdjacentHTML('beforeend','<div class="pf-method reveal-in" data-from="4">Same fixed inputs for every model · 3 kinase/cell cases · no live retrieval</div>');
  return{enter:(s,a)=>{Deck.show(frame,s,a);plot.show(s>=4?1:0,a);}};
  }});
 Deck.slide('pitch-demo', {interactive:true,
