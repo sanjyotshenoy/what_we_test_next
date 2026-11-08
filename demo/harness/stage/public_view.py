@@ -14,7 +14,7 @@ from demo.harness.stage import planning_view, recording
 
 STATIC = Path(__file__).parent / 'static'
 DEMO_STATIC = Path(__file__).resolve().parents[2]
-SEQUENTIAL_FILES = {'sequential-gap.json', 'sequential-models.json', 'demo.css', 'sequential.css', 'sequential.js',
+SEQUENTIAL_FILES = {'sequential-models.json', 'demo.css', 'sequential.css', 'sequential.js',
                     'fonts/Lato-Regular.woff2', 'fonts/Lato-Semibold.woff2', 'fonts/Lato-Bold.woff2'}
 STATIC_FILES = {'planner.css', 'planner.js'}
 DOWNLOAD_FILES = planning_view.BATCH_FILES | (planning_view.RUN_FILES - {'simulator.log'})

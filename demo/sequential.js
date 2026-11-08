@@ -7,7 +7,7 @@
   const detail = (title, value) => `<details><summary>${esc(title)}</summary><pre>${esc(typeof value === 'string' ? value : JSON.stringify(value, null, 2))}</pre></details>`;
   const card = content => `<div class="card record">${content}</div>`;
   const paragraph = text => `<p>${esc(text)}</p>`;
-  let gapExample = null, modelCatalog = {models: [], sessions: {}}, recordings = [], selected = null, stages = [], cursor = 0, timer = null, paused = false;
+  let modelCatalog = {models: [], sessions: {}}, recordings = [], selected = null, stages = [], cursor = 0, timer = null, paused = false;
   const api = async path => { const r = await fetch(path); if (!r.ok) throw new Error(`Could not load saved results (${r.status}).`); return r.json(); };
   function stopTimer() { clearTimeout(timer); timer = null; }
   function schedule() {
@@ -15,7 +15,7 @@
     if (!paused && cursor < stages.length) timer = setTimeout(advance, 3500);
   }
   function controls() {
-    $('message').textContent = cursor >= stages.length ? (selected === 'gap' ? 'Missing-link example ready to inspect.' : 'Experiment plan and simulation results ready.') : `${paused ? 'Paused · ' : ''}${stages[Math.max(0, cursor - 1)]?.title || 'Preparing example'}`;
+    $('message').textContent = cursor >= stages.length ? 'Experiment plan and simulation results ready.' : `${paused ? 'Paused · ' : ''}${stages[Math.max(0, cursor - 1)]?.title || 'Preparing example'}`;
   }
   function collapseLongText(container) {
     for (const el of container.querySelectorAll('p, pre')) {
@@ -97,6 +97,11 @@
       request:'Design a minimum inhibitory concentration (MIC) experiment comparing both compounds across both bacteria, then generate and simulate the OT-2 protocols.',
       note:'Synthetic example · two placeholder compounds × two placeholder species'
     };
+    if(compounds.length > 1) return {
+      question:`Which inhibits ${species.join(' and ')} at a lower concentration: ${compounds.map(c=>c.replace(/\s*\(CHEMBL\d+\)/g,'').toLowerCase()).join(' or ')}?`,
+      request:'Design matched MIC experiments for the two compounds, then generate and simulate their OT-2 protocols.',
+      note:'Comparative experiment design · results require growth measurements'
+    };
     const names=compounds.map(c=>c.replace(/\s*\(CHEMBL\d+\)/g,'').toLowerCase()).join(' and ');
     return {
       question:`What minimum concentration of ${names} inhibits growth of ${species.join(' and ')}?`,
@@ -157,20 +162,8 @@
     const well=e.target.closest('[data-well]');
     if(well) well.closest('.plate-visual').querySelector('.well-info').textContent=well.dataset.well;
   };
-  $('gap-example').onclick=()=>{
-    if(!gapExample)return;
-    stopTimer(); selected='gap'; cursor=0; paused=false; $('timeline').replaceChildren();
-    for(const b of $('queries').querySelectorAll('button'))b.setAttribute('aria-pressed','false');
-    $('provenance').textContent='Missing-link benchmark input · separate from the MIC model trajectories · draft case for review';
-    stages=[{title:'Scientist’s query',html:card(paragraph(gapExample.question))},
-      {title:'Find the missing link',html:card(graphVisual('CHEMBL4278808','Haspin · Q8TF76',gapExample.retained_measurement_examples.map(m=>({name:m.compound,label:`${m.ic50_nM} nM`})),true))},
-      {title:'Inspect neighboring evidence',html:card(paragraph(gapExample.retrieval_note)+detail('Retained measurements and sources',gapExample.retained_measurement_examples))},
-      {title:'Define the experiment needed',html:card(paragraph('Measure biochemical inhibition with a concentration-response experiment. The held-out query potency is not supplied; neighboring measurements are context, not an answer.')+detail('Experiment design input',gapExample.output_contract)+paragraph('This graph example has no attached model trajectory or OT-2 simulation.'))}];
-    advance();
-  };
   (async()=>{
     try {
-      gapExample=await api('/sequential-assets/sequential-gap.json');
       const sessions=await api('/api/planning/sessions');
       recordings=await Promise.all(sessions.map(s=>api(`/api/planning?session=${encodeURIComponent(s.session)}`)));
       recordings=recordings.filter(r=>r.batches?.length);

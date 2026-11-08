@@ -135,3 +135,11 @@ ciprofloxacin concentration inhibiting growth in the two named species, or compa
 two synthetic candidate compounds across two placeholder bacteria. Requests explicitly
 ask for experiment design and simulation, not an already measured biological answer.
 These are display summaries of existing inputs, not verbatim historical prompts.
+
+Removed standalone haspin example at user request. Precomputation uses independent
+OpenCode sessions, preserving the operator model/session, via
+`python -m demo.harness.precompute_examples`. Two prompts in examples/ use real
+entity identities and explicit supplied synthetic assay settings: ciprofloxacin
+across two species, and ciprofloxacin vs tetracycline hydrochloride in E. coli.
+Private receipts track model/query/session/status. Review before publishing; no
+failed model result may be relabelled as success or silently substituted.
