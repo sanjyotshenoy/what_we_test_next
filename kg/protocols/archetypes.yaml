@@ -1,0 +1,184 @@
+# Experiment archetypes: one generalizable experiment TYPE each (the "what", not robot steps).
+#
+# Fields
+#   id               proto:<name>; three keep the seed graph's IDs so existing references still resolve
+#   question_type    qtype:<name>, the question form it answers (potency, binding, cellular_potency, ...)
+#   applicable_to    TargetClass IDs: ChEMBL protein_classification IDs (chembl_class:<protein_class_id>), checked
+#                    against the ChEMBL REST API (2026-11-07). Organisms have no protein class: they use ChEMBL's
+#                    target_type ORGANISM (chembl_target_type:ORGANISM, also checked against the REST API).
+#   bao              BioAssay Ontology terms, every one looked up in OLS4 (https://www.ebi.ac.uk/ols4, ontology
+#                    "bao", 2026-11-07); the label is OLS's own, kept so a reader can check the ID at a glance
+#   purpose          when to use it: plain text written for routing; the AGM chapter it paraphrases is in `agm`
+#   agm              the NCATS Assay Guidance Manual chapter(s) behind the purpose (NBK IDs from Entrez esummary)
+#   pubchem          hints for kg/protocols/pubchem.py: Entrez search terms ([APRL] = protocol text,
+#                    [ACMD] = activity outcome method) and optional gene symbols
+#   kinase           true for the archetypes kinase questions may route to; false = negative control for routing
+#   negative_control true for the three non-kinase archetypes kept so routing can be tested against them
+#
+# Curated templates (kg/protocols/templates/<name>.json) exist for: kinase_biochem_lum, cell_viability_atp,
+# bacterial_mic_broth. The others are archetype-only (purpose, BAO tags, classes, AGM rules).
+
+- id: proto:kinase_biochem_lum
+  name: Biochemical kinase activity, luminescent ADP detection (ADP-Glo type)
+  question_type: qtype:potency
+  applicable_to: [chembl_class:1100]   # Protein Kinase
+  kinase: true
+  bao:
+    format: {id: "BAO:0000357", label: single protein format}
+    assay: {id: "BAO:0002005", label: kinase activity assay}
+    detection: {id: "BAO:0000045", label: luminescence method}
+    kit: {id: "BAO:0000690", label: ADP Glo Kinase Assay}
+    endpoint: {id: "BAO:0000190", label: IC50}
+  readout: luminescence (ADP formed, converted to ATP and read by luciferase)
+  purpose: >-
+    Measure how potently a compound inhibits a purified kinase's catalytic activity (IC50). The kinase
+    phosphorylates a peptide or protein substrate using ATP; the ADP formed is converted back to ATP and read as
+    light, so inhibitors lower the signal. The first assay for "does X inhibit kinase Y, how potently?" when
+    recombinant enzyme is available. Run under initial-velocity conditions with ATP around or below its Km so
+    ATP-competitive inhibitors are detected.
+  agm: [NBK91991, NBK92007]
+  pubchem:
+    search: ["ADP-Glo[APRL] AND kinase[PTN] AND confirmatory[ACMD]"]
+
+- id: proto:kinase_biochem_trfret
+  name: Biochemical kinase activity, TR-FRET / HTRF phospho-substrate detection
+  question_type: qtype:potency
+  applicable_to: [chembl_class:1100]
+  kinase: true
+  bao:
+    format: {id: "BAO:0000357", label: single protein format}
+    assay: {id: "BAO:0002005", label: kinase activity assay}
+    detection: {id: "BAO:0000004", label: time resolved fluorescence resonance energy transfer}
+    kit: {id: "BAO:0003090", label: HTRF KinEASE}
+    endpoint: {id: "BAO:0000190", label: IC50}
+  readout: TR-FRET ratio (phosphorylated substrate bound by a labelled anti-phospho antibody)
+  purpose: >-
+    Measure kinase inhibition potency (IC50) by detecting the phosphorylated product directly with a
+    time-resolved FRET pair. An alternative to luminescent ADP detection when a phospho-specific antibody exists,
+    or as an orthogonal readout that luciferase inhibitors cannot interfere with.
+  agm: [NBK91991]
+  pubchem:
+    search: ["(HTRF[APRL] OR TR-FRET[APRL] OR LanthaScreen[APRL]) AND kinase[PTN] AND confirmatory[ACMD]"]
+
+- id: proto:kinase_binding_competition
+  name: Kinase competition binding (labelled tracer displacement)
+  question_type: qtype:binding
+  applicable_to: [chembl_class:1100]
+  kinase: true
+  bao:
+    format: {id: "BAO:0000357", label: single protein format}
+    assay: {id: "BAO:0002989", label: binding assay}
+    method: {id: "BAO:0003032", label: kinase competitive binding method}
+    endpoint: {id: "BAO:0000034", label: Kd}
+  readout: binding signal of a labelled tracer displaced by the compound (FRET, FP or qPCR-tagged kinase)
+  purpose: >-
+    Measure how tightly a compound binds a kinase (Kd or Ki) by its displacement of a labelled ATP-site ligand,
+    without needing catalytic activity. Use for kinases without a convenient activity assay, for inactive
+    conformations, or when the question is affinity rather than inhibition. Tracer at or below its Kd.
+  agm: [NBK91992]
+  pubchem:
+    # TODO(final): search hints of archetype-only entries return hits but were not vetted AID by AID.
+    search: ["LanthaScreen[APRL] AND binding[APRL] AND confirmatory[ACMD]", "KINOMEscan[ADES] AND confirmatory[ACMD]"]
+
+- id: proto:cell_viability_atp
+  name: Cell viability / proliferation, luminescent cellular ATP (CellTiter-Glo type)
+  question_type: qtype:cellular_potency
+  applicable_to: [chembl_class:1100]
+  kinase: true
+  bao:
+    format: {id: "BAO:0000219", label: cell based format}
+    assay: {id: "BAO:0010001", label: cell viability ATP quantitation assay}
+    detection: {id: "BAO:0000045", label: luminescence method}
+    kit: {id: "BAO:0000682", label: CellTiter-Glo Luminescent Cell Viability Assay}
+    endpoint: {id: "BAO:0000190", label: IC50}
+  readout: luminescence proportional to cellular ATP (viable cells)
+  purpose: >-
+    Measure a compound's effect on the growth or survival of cultured cells (IC50/GI50), e.g. a cell line whose
+    growth depends on the target kinase, with the parental line as counterscreen. Answers "is it active in
+    cells?" but not target engagement on its own: pair with a biochemical or target-engagement assay.
+  agm: [NBK144065]
+  pubchem:
+    search: ["CellTiter-Glo[APRL] AND confirmatory[ACMD] AND kinase[ADES]"]
+
+- id: proto:kinase_cellular_target_engagement
+  name: Cellular kinase target engagement (NanoBRET tracer displacement)
+  question_type: qtype:target_engagement
+  applicable_to: [chembl_class:1100]
+  kinase: true
+  bao:
+    format: {id: "BAO:0000219", label: cell based format}
+    assay: {id: "BAO:0010259", label: target engagement assay}
+    detection: {id: "BAO:0000461", label: bioluminescence resonance energy transfer}
+    kit: {id: "BAO:0010069", label: Kinase NanoBRET Assay}
+    endpoint: {id: "BAO:0000190", label: IC50}
+  readout: BRET ratio between a luciferase-tagged kinase and a cell-permeable fluorescent tracer
+  purpose: >-
+    Measure whether, and how potently, a compound occupies the target kinase inside living cells, by displacing
+    a fluorescent tracer from a luciferase-tagged kinase. Bridges biochemical potency and cellular phenotype.
+    (The AGM's CETSA chapter covers the label-free alternative, thermal stabilisation.)
+  agm: [NBK374282]
+  pubchem:
+    search: ["NanoBRET AND kinase AND confirmatory[ACMD]"]   # mostly ChEMBL depositions with little protocol text
+
+# --- non-kinase negative controls: routing must never pick these for a kinase question -----------------------------
+
+- id: proto:gpcr_camp_functional
+  name: GPCR functional assay, cellular cAMP (HTRF)
+  question_type: qtype:functional_potency
+  applicable_to: [chembl_class:1020, chembl_class:1021, chembl_class:1022]   # Family A, B, C GPCR
+  kinase: false
+  negative_control: true
+  bao:
+    format: {id: "BAO:0000219", label: cell based format}
+    assay: {id: "BAO:0013033", label: cAMP accumulation assay}
+    detection: {id: "BAO:0000002", label: homogeneous time resolved fluorescence}
+    kit: {id: "BAO:0000937", label: HTRF cAMP Detection Kit}
+    endpoint: {id: "BAO:0000188", label: EC50}
+  readout: HTRF ratio, converted to cAMP with a standard curve
+  purpose: >-
+    Measure agonist (EC50) or antagonist (IC50) potency at a Gs- or Gi-coupled GPCR from the change in cellular
+    cAMP. Gi receptors need forskolin stimulation; antagonist mode uses agonist at EC50-EC80.
+  agm: [NBK464633]
+  pubchem:
+    search: ["cAMP[APRL] AND HTRF[APRL] AND confirmatory[ACMD]"]
+
+- id: proto:protease_fret_activity
+  name: Protease activity, fluorogenic / FRET peptide substrate
+  question_type: qtype:potency
+  applicable_to: [chembl_class:1028]   # Protease
+  kinase: false
+  negative_control: true
+  bao:
+    format: {id: "BAO:0000357", label: single protein format}
+    assay: {id: "BAO:0002764", label: protease activity assay}
+    detection: {id: "BAO:0000001", label: fluorescence resonance energy transfer}
+    endpoint: {id: "BAO:0000190", label: IC50}
+  readout: fluorescence increase as the protease cleaves a quenched peptide substrate
+  purpose: >-
+    Measure inhibition potency (IC50) on a purified protease from the cleavage rate of a quenched fluorogenic or
+    FRET peptide substrate. Watch for compounds that quench or fluoresce at the readout wavelengths.
+  agm: [NBK92006, NBK92007]
+  pubchem:
+    search: ["FRET[APRL] AND protease[ANAM] AND confirmatory[ACMD]"]
+
+- id: proto:bacterial_mic_broth
+  name: Bacterial growth inhibition, broth microdilution MIC
+  question_type: qtype:growth_inhibition
+  # TODO(final): organisms have no ChEMBL protein class; chembl_target_type:ORGANISM is a ChEMBL target_type, not a
+  # TargetClass the biology graph defines yet. Agree the bridge ID with the kg/biology owner.
+  applicable_to: [chembl_target_type:ORGANISM]
+  kinase: false
+  negative_control: true
+  bao:
+    format: {id: "BAO:0000218", label: organism-based format}
+    detection: {id: "BAO:0000070", label: absorbance}
+    endpoint: {id: "BAO:0002146", label: MIC}
+  readout: bacterial growth by turbidity (OD590-OD600) or by eye; MIC = lowest concentration with no growth
+  purpose: >-
+    Find the lowest concentration of a compound that stops visible growth of a bacterial strain (MIC), by 2-fold
+    serial dilution in broth with a standard inoculum (CLSI broth microdilution). For antibacterial activity, not
+    for a protein target's potency. The team's Opentrons/ protocol (main branch) is a robot exemplar.
+  agm: []   # the AGM has no MIC chapter; the exemplar AIDs cite CLSI M07
+  pubchem:
+    search: ["CLSI[APRL] AND MIC[APRL]", "\"Mueller Hinton\"[APRL] AND confirmatory[ACMD]"]
+  robot_exemplar: Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py

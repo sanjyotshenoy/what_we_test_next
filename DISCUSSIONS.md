@@ -287,3 +287,72 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   (`WWTN_OFFLINE`). `python -m pytest -q kg agent` → 97 passed, 1 skipped. `kg/query.py` was **not** changed.
 - Open: rerecord a demo trace for the new pair when a key is available; whether same-target RDKit analogs belong in
   `kg/query.py` rather than the agent; gene symbols for the 19 seed kinases belong on the Target nodes (UniProt).
+**Experiment/protocol template DB v0** (branch `protocol-db`).
+- Built in [kg/protocols/](kg/protocols/): `archetypes.yaml` (8 experiment types: 5 kinase + 3 non-kinase
+  negative controls, each with ChEMBL protein-class IDs, BAO IDs, an AGM-grounded purpose and PubChem search
+  hints), 3 curated `templates/*.json` (kinase ADP-Glo; cell viability CellTiter-Glo; bacterial MIC broth
+  microdilution, linked to Emmy's `Opentrons/` protocol), `rules.yaml` (18 AGM rules, 6 machine-checkable over
+  `wwtn.schema.Experiment`), `pubchem.py` (PUG-REST + Entrez `db=pcassay`, cached under `data/raw/pubchem/`),
+  `extract.py` (LLM extraction, stub-tested only — no API key here) and `build_db.py`, which replaces `seed.py`
+  and keeps `kg.query.templates()` working. 74 kg tests pass, no network (1 GPU test skipped).
+- Decided (as agreed earlier): AGM = purposes + design rules, PubChem confirmatory AIDs = the written protocols.
+  Rules carry a verbatim AGM quote and either a checkable expression or `null` (a judge item for the grader).
+  Every template parameter stores *all* values observed across its exemplar AIDs, each with its AID and quoted
+  span, so a grading tree can take the skeleton from the template while the values stay traceable.
+- New in the graph format: `Rule` nodes with `HAS_RULE` / `APPLIES_TO` (documented in [kg/README.md](kg/README.md)).
+- Caveats to check: the 3 templates are agent-curated, not human-reviewed; each draws on only one or two
+  depositors (Broad MLPCN, NCGC, Scripps), so the parameter ranges are narrow; the MIC archetype has no ChEMBL
+  protein class (`chembl_target_type:ORGANISM` is a placeholder for the biology owner to confirm); 12 of 18 rules
+  are judge items because `Experiment` has no DMSO / ATP-vs-Km / enzyme-concentration fields (changing it needs
+  the team's OK). AGM chapters had to be read from NCBI's open-access archive: the Bookshelf web pages answer
+  scripts with a reCAPTCHA.
+- Open: like the seed templates, these hang off `chembl_class:1100`, so the agent still has to walk `SUBCLASS_OF`
+  to find them (the routing gap found when testing `main`); and whether to add the 5 archetype-only templates by
+  hand or wait for a key and run `extract.py`.
+
+**Protocol DB as a shallow decision tree** (branch `protocol-db`, 2026-11-07).
+- Decided (as agreed): the template DB stops being archetype → steps → parameters and becomes a shallow decision
+  tree, in the same node/edge CSV format. Two additions: `Condition` nodes with `Protocol -REQUIRES->` /
+  `-PREFERRED_WHEN->` (the routing that was implicit in the agent's prompt: what the lab must have, what the
+  question asks, what state the target is in), and `Step -HAS_SUBSTEP-> Step` so grading can separate "right
+  stage" from "right detail". `HAS_STEP` / `NEXT` still describe the top level only.
+- Built: [`kg/protocols/conditions.yaml`](kg/protocols/conditions.yaml) — 15 conditions, each read off an
+  archetype's own `purpose` with that span quoted on the edge (11 `REQUIRES`, 6 `PREFERRED_WHEN`); 3 carry a
+  `check` expression over a design, the other 12 are `null` because a lab capability is an input to routing, not
+  something an `Experiment` can answer. 5 steps of the 3 curated templates split into 10 sub-steps — only the
+  ones whose own evidence already held the detail, each keeping a parent quote or a span inside it. Graph is now
+  140 nodes / 353 edges; `kg.query` gains `conditions()` / `steps()` and a `conditions` key on `templates()`,
+  everything else unchanged (`agent-on-kg` depends on it). 84 kg tests pass, no network.
+- Open: `REQUIRES` vs `PREFERRED_WHEN` is this branch's reading of the archetype text, not reviewed; a condition
+  exists only where an archetype says it, so `kinase_biochem_trfret` has no purified-enzyme edge until its
+  `purpose` says so; `extract.py` has no `substeps` field, so extracted templates will arrive flat.
+
+**How a template parameter's default is chosen** (branch `protocol-db`, 2026-11-07).
+- Problem: `build_db._first` took `observed[0]` — "the exemplars are listed most-canonical first", which nothing
+  enforced or recorded, so the default was "whichever assay is listed first". Hence `dilution_factor` 2.97-fold
+  over an equally valid 3-fold, and `top_concentration` 12 µM out of 10 / 12 / 46 / 46 µM.
+- Decided (as agreed): defaults are *derived* in a new [`kg/protocols/defaults.py`](kg/protocols/defaults.py),
+  and every `Parameter` node carries its derivation. (1) **Reference run**: `top_concentration`,
+  `dilution_factor`, `n_points` (and any parameter marked `"series": true`) all come from *one* exemplar — the
+  one reporting the whole series whose series sits nearest the centre of all exemplars, distances on a log scale
+  for concentrations and fold-spacings, linear for counts, normalized per parameter by its own median absolute
+  deviation and summed — because per-parameter aggregation can assemble a series nobody ran. (2) **Nearest to
+  centre** for the rest (centre = geometric median on log scale, median on linear), always a real observation,
+  never a computed average. (3) **Canonical snapping** of fold-spacings to {2, 2.5, 3, 3.162, 4, 5, 10} within
+  5 %, recorded; outside it the value is kept and flagged rather than forced. (4) A **modal value** rule for
+  parameters some exemplar states in words ("room temperature", "overnight"). (5) `exemplars_disagree` when the
+  exemplars genuinely disagree (≥ a decade of spread on a log parameter, a spread wider than the centre on a
+  linear one, a chosen value far from the centre, or numbers mixed with words). `_first` is gone and an
+  underivable default now raises `DefaultError` instead of silently resolving to element zero.
+- Effect on the curated templates: the kinase series is now AID 588811 as a whole — 12 µM, **3-fold (snapped
+  from 2.97)**, 9 points; 588811 beats 602295 on normalized distance 2.00 vs 2.27, and the 46 µM of
+  623998/623999 cannot be a reference run because that top is the top of two *interleaved* series and neither
+  AID reports a spacing or a point count. Also `kinase_reaction_time` 2 h → 60 min, `kinase_reaction_temperature`
+  28 °C → "room temperature", `detection_reagent_time` 40 → 30 min, `atp_stock_concentration` 20 → 50 µM, and
+  the MIC template's `plate_wells` 384 → 96. 10 of 39 parameters carry `exemplars_disagree`. Node/edge shape and
+  `kg.query.templates()` keys unchanged (140 nodes / 353 edges); 113 kg tests pass, no network.
+- Open: the thresholds are this branch's choice (5 % snapping tolerance, one decade for the dispersion flag, the
+  half-decade "far from centre"); a reference run needs an exemplar that reports *every* series parameter, and
+  when none does, each series parameter falls back to nearest-to-centre and is flagged `no_reference_run` rather
+  than failing the build — say if that should be a hard error instead. The 10 flagged parameters want a human to
+  pick, not a rule.
