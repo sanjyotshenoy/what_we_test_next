@@ -38,6 +38,18 @@ Deck.slide('pitch-results', {steps:4,
  plot.root.dataset.from='4';
  return{enter:(s,a)=>{Deck.show(frame,s,a);plot.show(s>=4?1:0,a);}};
  }});
+// Mean scores by criterion, using the same recorded results as the preceding total.
+Deck.slide('pitch-score-breakdown', {
+ notes:'Each bar is the mean of 20 case scores on one criterion, from 0 to 2. These three means sum to the preceding total out of 6. Zero means materially wrong; one is plausible but incomplete; two is supported for that criterion. Scores are provisional Astra-medium judgments, not pass rates or wet-lab validation. Astra generated its own candidate responses at medium reasoning using a different serving interface and was judged by fresh Astra contexts; same-model preference is possible. Source: biohack/data/pilot_results.json and the linked benchmark reports. A procedure score of 1 can reflect an honest outline with unresolved lab settings.',
+ mount(frame,{data,esc,css}) {
+ const d=data.pilotResults;
+ css(`.pb-plot .deck-plot-key{top:17%;flex-wrap:wrap;column-gap:1.6em;row-gap:.55em;font-size:var(--t-small)}.pb-plot .deck-plot-key > span{white-space:nowrap;flex-shrink:0}.pb-plot .deck-plot-chart{top:38%;height:33%}.pb-plot .deck-plot-val{font-size:var(--t-caption)}.pb-plot .deck-plot-label{font-size:var(--t-small)}`);
+ frame.innerHTML='<h2 class="deck-heading">How the scores break down</h2>';
+ const groups=[{key:'suitability',label:['Experiment choice','Does it answer the question?']},{key:'steps',label:['Procedure','Are the steps sound?']},{key:'numerical_soundness',label:['Numbers','Are values justified?']}].map(g=>({...g,values:Object.fromEntries(d.models.map(m=>[m.id,m.axes[g.key]]))}));
+ const plot=Deck.groupedBars(frame,{max:2,ticks:4,format:v=>String(v),series:d.models.map(m=>({key:m.id,label:m.name.replace(/\*$/,'')})),groups,footnote:['Mean score per criterion across 20 cases · each criterion is scored 0–2','0 = materially wrong · 1 = plausible but incomplete · 2 = supported']});
+ plot.root.classList.add('pb-plot');plot.root.style.setProperty('--plot-6','var(--fg)');
+ return{enter:(step,animate)=>plot.show(step,animate)};
+ }});
 Deck.slide('pitch-demo', {interactive:true,steps:2,
  notes:'5:15–8:15, strict three-minute evidence walkthrough. 0:00–0:30 establish the question and show the supplied case input. 0:30–1:30 inspect retained evidence and step cards in the benchmark-case tab; the withheld answer is reviewer-only. 1:30–2:15 reveal the held-out record and discuss experiment/steps/numbers; open the recorded model output via the link if useful. 2:15–3:00 advance to the second reveal and play the 27-second OT-2 hardware demonstration. The clip shows the team’s colored-liquid run; it is not established as the execution of the model proposal or the separate generated MIC protocol. The MIC run sheet remains linked for inspection. This last artifact begins from a hand-written four-species proposal; it is NOT the execution of the model output just shown. Say so explicitly. This is a recorded-artifact walkthrough, not a live agent run. If the UI is slow, use the pre-opened pages; do not run paid model calls during the pitch. No wet-lab outcomes claimed.',
  mount(frame,{css}) {
