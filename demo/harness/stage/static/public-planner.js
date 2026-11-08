@@ -34,5 +34,16 @@ el('stop').onclick=async()=>{el('stop').disabled=true;try{clearTimeout(timer);sh
 (async()=>{try {
   const catalog=await request('/api/precomputed');
   for(const m of catalog.models) {const option=document.createElement('option');option.value=m.id;option.textContent=m.label;el('live-model').append(option);}
-  session=new URLSearchParams(location.search).get('run');if(session) await poll();
+  const queries=catalog.queries||[];
+  for(const query of queries) {const option=document.createElement('option');option.value=query.id;option.textContent=query.label;el('live-example').append(option);}
+  el('live-example').disabled=!queries.length;
+  const selectQuery=()=>{const query=queries.find(q=>q.id===el('live-example').value);if(query) el('live-question').value=query.prompt;};
+  el('live-example').onchange=selectQuery;
+  session=new URLSearchParams(location.search).get('run');
+  if(session) {
+    const job=await request(`/api/runs/${encodeURIComponent(session)}`);
+    el('live-question').value=job.question;el('live-model').value=job.model;
+    el('live-example').value=queries.find(q=>q.prompt.trim()===job.question.trim())?.id||'';
+    if(show(job)) timer=setTimeout(poll,3000);
+  } else selectQuery();
 }catch(e){el('live-status').textContent=e.message;el('start').disabled=true;}})();

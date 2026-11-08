@@ -55,7 +55,11 @@ class PublicDashboardBrowserTests(unittest.TestCase):
                     page.goto(url+'/planner')
                     page.wait_for_selector('#live-model option',state='attached')
                     self.assertEqual(page.locator('#live-key').input_value(),'')
-                    page.fill('#live-question','A test scientific question with supplied experimental inputs.')
+                    self.assertEqual(page.locator('#live-example option').count(),2)
+                    for query in ('ciprofloxacin-panel','antibiotic-comparison'):
+                        page.select_option('#live-example',query)
+                        self.assertEqual(page.locator('#live-question').input_value(),(DEMO/'examples'/f'{query}.txt').read_text())
+                    self.assertEqual(page.locator('#live-key').input_value(),'')
                     page.fill('#live-key','test-key-never-real')
                     sent=[]
                     def fake_start(route):
@@ -66,6 +70,7 @@ class PublicDashboardBrowserTests(unittest.TestCase):
                     page.route('**/api/runs/public_test',lambda r:r.fulfill(status=200,content_type='application/json',body=json.dumps(dict(
                             session='public_test',state='finished',message='Browser test only',model='test',question='test'))))
                     page.click('#start');page.wait_for_selector('#live-results:visible')
+                    self.assertEqual(sent[0]['question'],(DEMO/'examples/antibiotic-comparison.txt').read_text())
                     self.assertEqual(sent[0]['key'],'test-key-never-real')
                     self.assertEqual(page.locator('#live-key').input_value(),'')
                     storage=page.evaluate('JSON.stringify({local:localStorage,session:sessionStorage})')

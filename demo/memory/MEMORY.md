@@ -217,3 +217,14 @@ remain open. No production-certification claim.
 User chose **Ouroboros** (corrected spelling) for the top-left dashboard banner.
 The saved operator dashboard and public visitor-key planner now use that name.
 The sequential walkthrough and original demo entry point are unchanged.
+
+## Live query presets — 2026-11-08
+
+Public live planning now offers the same two questions as the precomputed runs:
+ciprofloxacin against E. coli/P. aeruginosa, and ciprofloxacin versus tetracycline
+hydrochloride against E. coli. Selection fills the editable prompt with the exact
+canonical text from demo/examples, including supplied synthetic assay settings,
+identities, provenance requirements and limitations. No duplicated prompt copy or
+automatic inference is introduced. A resumed run restores its own question/model.
+The browser regression verifies both full prompts and selected-prompt submission;
+public boundary and worker tests remain in place.

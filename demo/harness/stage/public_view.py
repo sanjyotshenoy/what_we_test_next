@@ -141,7 +141,12 @@ def make_app(published, *, request_limit=600):
                 compounds = list(dict.fromkeys(r['compound'] for r in runs))
                 species = list(dict.fromkeys(r['species']['name'] for r in runs))
                 examples.append(dict(session=session, model=model, question=' / '.join(compounds) + ' · ' + ' / '.join(species)))
-        return web.json_response(dict(models=catalog['models'], examples=examples))
+        queries = []
+        for name in ('ciprofloxacin-panel', 'antibiotic-comparison'):
+            prompt = (DEMO_STATIC / 'examples' / f'{name}.txt').read_text()
+            label = prompt.splitlines()[0].removeprefix('Scientist question: ').split('?')[0] + '?'
+            queries.append(dict(id=name, label=label, prompt=prompt))
+        return web.json_response(dict(models=catalog['models'], examples=examples, queries=queries))
 
     async def graph(request):
         from demo.harness.dashboard_graph import overview
