@@ -141,3 +141,5 @@ header .controls > #trace-switch {width:clamp(150px,17vw,210px);flex:0 1 210px}
 #header-menu a {padding:4px 0}
 #header-menu button,#header-menu select {width:100%;max-width:100%;text-align:left}
 @media(max-width:480px){header .brand {font-size:1rem}header .controls > #source-tag {display:none}header .controls {gap:6px}}
+
+header a.brand {color:var(--text);text-decoration:none} header a.brand:hover {color:var(--accent)} header a.brand:focus-visible {outline:2px solid var(--accent);outline-offset:4px;border-radius:3px}

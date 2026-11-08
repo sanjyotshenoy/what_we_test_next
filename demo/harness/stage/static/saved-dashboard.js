@@ -178,6 +178,7 @@ function updateLiveState(job) {
   $('run-tag').textContent=job.state;
   $('live-connection').textContent=active?`Live · turn ${job.turn||0} · connected`:`Run ${job.state}`;
   $('source-tag').textContent=active?'Live run':`Live run · ${job.state}`;
+  document.querySelector('a.brand').title=active?'Interrupt run and return to precomputed traces':'Home — precomputed traces';
   $('live-stop').disabled=!active;
   $('live-stop').textContent=active?'Interrupt run':`Run ${job.state}`;
 }
@@ -216,6 +217,14 @@ async function loadTraceSwitcher() {
   } catch(e) {menu.options[0].textContent='Precomputed traces unavailable';}
 }
 function setupLive() {
+  document.querySelector('a.brand').onclick=async event=>{
+    if(event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey) return;
+    event.preventDefault();
+    try {
+      if(['starting','running'].includes(liveJobState)) await interruptLive();
+      location.assign('/');
+    } catch(e) {interruptFailed(e);}
+  };
   $('live-toolbar').hidden=false;$('live-preview').hidden=false;$('live-stop').hidden=false;
   for(const [id,output] of [['live-workflow-tab',false],['live-output-tab',true]]) $(id).onclick=()=>{
     $('log').hidden=output;$('live-output').hidden=!output;$('live-preview').hidden=output;

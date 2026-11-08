@@ -3,7 +3,7 @@ const el = id => document.getElementById(id);
 let session=null, timer=null, lastMessage='';
 async function request(url, body) {
   const response=await fetch(url, body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json','X-Demo-Run':'1'},body:JSON.stringify(body)});
-  if(!response.ok) throw new Error((await response.text()).slice(0,220));
+  if(!response.ok) throw Object.assign(new Error((await response.text()).slice(0,220)),{status:response.status});
   return response.json();
 }
 function show(job) {
@@ -48,3 +48,17 @@ el('stop').onclick=async()=>{el('stop').disabled=true;try{clearTimeout(timer);sh
     if(show(job)) timer=setTimeout(poll,3000);
   } else selectQuery();
 }catch(e){el('live-status').textContent=e.message;el('start').disabled=true;}})();
+
+document.querySelector('a.brand').onclick=async event=>{
+  if(!session||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey) return;
+  event.preventDefault();
+  try {
+    clearTimeout(timer);
+    await request(`/api/runs/${encodeURIComponent(session)}/stop`,{});
+    location.assign('/');
+  } catch(e) {
+    if(e.status===404) {location.assign('/');return;}
+    el('live-status').textContent=`Could not interrupt the run: ${e.message}`;
+    timer=setTimeout(poll,1000);
+  }
+};

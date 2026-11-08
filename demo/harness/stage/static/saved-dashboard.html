@@ -8,7 +8,7 @@
 <script src="/static/vendor/smiles-drawer-2.0.0.min.js"></script>
 </head>
 <body>
-<header><div class="brand"><span class="logo">⟲</span> Ouroboros</div>
+<header><a class="brand" href="/" aria-label="Ouroboros home — precomputed traces"><span class="logo">⟲</span> Ouroboros</a>
 <div class="controls"><span class="tag" id="source-tag">Precomputed</span><select id="model" aria-label="Model" disabled></select><select id="trace-switch" aria-label="Switch to precomputed trace" hidden disabled><option value="">Switch to precomputed…</option></select><button id="live-stop" class="small" hidden>Interrupt run</button><button id="theme-toggle" class="small" type="button" aria-pressed="false">Light mode</button><details id="header-more"><summary>More</summary><div id="header-menu"><button id="fullscreen-toggle" class="small" type="button" aria-keyshortcuts="F" aria-pressed="false" title="Toggle fullscreen (F)">Fullscreen (F)</button><span id="fullscreen-notice" role="status" hidden></span><button id="reset-layout" class="small">Reset layout</button><a href="/planner">Live planning</a></div></details></div></header>
 <main>
 <section id="agent" class="panel"><h2>Agent workflow <span id="run-tag" class="tag">saved</span></h2>
