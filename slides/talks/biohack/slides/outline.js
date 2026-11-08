@@ -18,7 +18,7 @@ const OUTLINE = [
   ['6', 'Closing the loop with the lab'],
 ];
 
-const FOOTER = { 1: 'Problem', 2: 'Approach', 3: 'Evaluation', 4: 'Results', 5: 'Live demo', 6: 'Next steps' };
+const FOOTER = { 1: 'Problem', 2: 'Approach', 3: 'Evaluation', 4: 'Verification', 5: 'Inspect evidence', 6: 'Next steps' };
 Deck.sections(OUTLINE.map(([num, heading]) => [num, FOOTER[num] || heading]));
 
 Deck.slide('outline', {

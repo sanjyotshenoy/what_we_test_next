@@ -48,7 +48,7 @@ Deck.slide('loop', {
       <div class="deck-stage"></div>
       <h2 class="deck-heading reveal-in" data-from="1">What should we test next?</h2>
       ${label(USER[0] - 2.1, USER[1] + 0.05, 'A scientist', 'asks in plain language', 1)}
-      <div class="lp-bubble reveal-in" data-from="1" style="${at(USER[0] + 0.85, USER[1] + 0.2)} --i:1">“Does imatinib inhibit KIT?”</div>
+      <div class="lp-bubble reveal-in" data-from="1" style="${at(USER[0] + 0.85, USER[1] + 0.2)} --i:1">“Will it spare gut microbes?”</div>
       ${edge(-0.55, -0.95, 'question', 1, 'lp-l')}
       ${label(LIT[0], LIT[1] - 1.55, 'Scientific literature', 'more papers than anyone can read', 2)}
       ${edge(-2.6, LIT[1] + 0.65, 'prior knowledge, but no answer', 2)}
