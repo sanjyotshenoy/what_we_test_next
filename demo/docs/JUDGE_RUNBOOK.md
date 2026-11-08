@@ -47,3 +47,10 @@ The molecule panel shows cached ChEMBL 2D structures and molfile downloads.
 a 2D deck schematic. Play, step or scrub to highlight slots and plate wells. The
 playback timing is illustrative; it is not physical execution. **Robot recording**
 is the separate fixed video.
+
+Drag the dividers between dashboard panes to resize them. **Focus** expands any
+pane; **Restore** or Escape returns to the dashboard. Sizes are remembered in that
+browser; **Reset layout** restores the default proportions. Divider arrow keys work
+for keyboard resizing. Click a compound node to show its structure and exact graph
+SMILES in the molecule pane; **Run compounds** returns to the saved-run molecules.
+The drawing is generated locally and does not change the selected experiment.

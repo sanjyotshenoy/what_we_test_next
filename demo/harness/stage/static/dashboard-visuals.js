@@ -63,23 +63,56 @@ async function drawGraph(mode='all') {
     style:[
       {selector:'node',style:{width:mode==='all'?9:30,height:mode==='all'?9:30,'background-color':'data(color)',label:mode==='all'?'':'data(label)',color:'#e6edf3','font-size':12,'text-wrap':'wrap','text-max-width':140,'text-valign':'bottom','text-margin-y':5}},
       {selector:'edge',style:{width:mode==='all'?2.5:2,opacity:mode==='all'?.28:1,label:mode==='all'?'':'data(label)','curve-style':mode==='all'?'straight':'bezier','target-arrow-shape':mode==='all'?'none':'triangle',color:'#b7c4d6','font-size':10,'line-color':'#53657e','target-arrow-color':'#53657e'}},
-      {selector:'node.relevant',style:{'border-width':3,'border-color':'#fff',width:30,height:30,label:'data(label)','font-size':mode==='all'?42:12}},
+      {selector:'node.relevant',style:{'z-index':20,'border-width':3,'border-color':'#fff',width:30,height:30,label:'data(label)','font-size':mode==='all'?42:12}},
+      {selector:'node.selected-compound',style:{'z-index':30,'border-width':3,'border-color':'#f0c674',width:30,height:30,label:'data(label)','font-size':mode==='all'?42:12}},
       {selector:'edge.relevant',style:{opacity:1,'line-color':'#58a6ff',width:mode==='all'?6:2}}
     ],layout:{name:mode==='all'?'preset':'circle',padding:45}});
   graph.on('mouseover','node, edge',e=>showGraphTooltip(e));
   graph.on('mouseout','node, edge',()=>{if(!tooltipPinned) $('graph-tooltip').hidden=true;});
-  graph.on('tap','node, edge',e=>showGraphTooltip(e,true));
+  graph.on('tap','node, edge',e=>{
+    showGraphTooltip(e,true);
+    if(e.target.isNode() && e.target.data('record')?.type==='Compound') selectGraphMolecule(e.target.data('record'));
+  });
   graph.on('tap',e=>{if(e.target===graph) hideGraphTooltip();});
   graph.on('pan zoom',hideGraphTooltip);
-  $('graph-detail').textContent=mode==='all'?`${source.nodes.length} compounds/organisms · ${source.counts.measurements.toLocaleString()} measurements grouped into ${source.edges.length.toLocaleString()} links. ${source.counts.types.Assay.toLocaleString()} assays and ${source.counts.types.Document.toLocaleString()} documents summarized on links. Highlighted: this run. Hover or tap for details; Focus run to zoom into saved evidence.`:'Saved retrieved measurements only. Hover a node or edge for details; tap to pin. Known MICs are background evidence, not new biological results.';
+  $('graph-detail').textContent=mode==='all'?`${source.nodes.length} compounds/organisms · ${source.counts.measurements.toLocaleString()} measurements grouped into ${source.edges.length.toLocaleString()} links. ${source.counts.types.Assay.toLocaleString()} assays and ${source.counts.types.Document.toLocaleString()} documents summarized on links. Highlighted: this run. Hover for details; tap a compound to draw its structure; Focus run to zoom into saved evidence.`:'Saved retrieved measurements only. Hover a node or edge for details; tap to pin. Known MICs are background evidence, not new biological results.';
 }
 function drawMolecules() {
+  if(graph&&!graph.destroyed()) graph.nodes().removeClass('selected-compound');
+  $('structure').classList.remove('selected-molecule');
+  $('molecule-origin').textContent='saved identity';
+  $('molecule-selection').textContent='Run compounds';
+  $('molecule-reset').hidden=true;
   const molecules=retrievedGraph().nodes.filter(n=>n.type==='Compound');
   $('molecules').innerHTML=molecules.map(n=>{
     const cached=['CHEMBL8','CHEMBL454950'].includes(n.id);
     return `<article><h3>${esc(n.name)}</h3>${cached?`<img class="molecule-image" src="/static/data/molecules/${n.id}.svg" alt="2D chemical structure of ${esc(n.name)}"><p class="muted">ChEMBL 2D structure · <a href="/static/data/molecules/${n.id}.mol" download>Download molfile</a></p>`:'<p>No cached structure depiction available.</p>'}<p>${esc(n.id)} · ${esc(n.source)} · <a href="/static/data/molecules/provenance.json">Structure sources</a></p>${details('Structure notation and provenance',{saved_smiles:n.props?.smiles,depiction:'ChEMBL 2D; not a measured 3D conformation'})}</article>`;
   }).join('');
   for(const img of $('molecules').querySelectorAll('img')) img.onerror=()=>{img.replaceWith(document.createTextNode('Structure image unavailable; saved notation remains below.'));};
+}
+function selectGraphMolecule(node) {
+  if(graph&&!graph.destroyed()) {graph.nodes().removeClass('selected-compound');graph.getElementById(node.id).addClass('selected-compound');}
+  const smiles=node.props?.smiles;
+  $('structure').classList.add('selected-molecule');
+  $('molecule-origin').textContent='graph selection';
+  $('molecule-selection').textContent=`Selected ${node.id}`;
+  $('molecule-reset').hidden=false;
+  $('molecules').innerHTML=`<article data-compound="${esc(node.id)}"><h3>${esc(node.name)}</h3><p>${esc(node.id)} · ${esc(node.source)}</p><div id="selected-structure"></div><p id="structure-render-status" role="status"></p><h4>SMILES</h4><pre id="molecule-smiles">${esc(smiles||'No SMILES recorded for this compound.')}</pre><p class="muted">Selected from the graph; this does not change the experiment or add retrieved evidence to the saved run.</p></article>`;
+  $('molecules').scrollTop=0;
+  const status=$('structure-render-status');
+  if(!smiles) {status.textContent='No structure notation is available to draw.';return;}
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.classList.add('molecule-drawing');svg.setAttribute('role','img');svg.setAttribute('aria-label',`2D structure of ${node.name}`);
+  $('selected-structure').append(svg);
+  const failure=()=>{svg.remove();status.textContent='This SMILES could not be drawn. The original notation is shown below.';};
+  try {
+    SmilesDrawer.parse(smiles,tree=>{
+      try {
+        new SmilesDrawer.SvgDrawer({width:600,height:350}).draw(tree,svg,'light',false);
+        status.textContent='2D depiction rendered locally from this node’s SMILES.';
+      } catch {failure();}
+    },failure);
+  } catch {failure();}
 }
 let simulationSteps=[],simulationIndex=0,simulationTimer=null,simulationSlots=new Map(),simulationTab='simulation';
 function stopSimulation() {clearInterval(simulationTimer);simulationTimer=null;document.getElementById('sim-play').textContent='Play';}
@@ -126,6 +159,7 @@ function showSimulationTab(tab) {
   if(sim) $('vid').pause();else stopSimulation();
 }
 function initializeVisuals() {
+$('molecule-reset').onclick=drawMolecules;
 $('sim-play').onclick=()=>{
   if(simulationTimer) return stopSimulation();
   if(simulationIndex>=simulationSteps.length-1) simulationIndex=0;

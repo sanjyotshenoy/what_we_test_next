@@ -6,6 +6,7 @@ const api = async path => {const r=await fetch(path); if(!r.ok) throw new Error(
 const details = (title, value) => `<details><summary>${esc(title)}</summary>${prettyValue(value)}</details>`;
 let catalog, data, runs=[], generation=0, graph;
 initializeVisuals();
+initializeDashboardLayout();
 function clearResult() {
   stopSimulation(); hideGraphTooltip();
   data=null; runs=[];

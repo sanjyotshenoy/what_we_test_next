@@ -61,3 +61,33 @@ button[aria-pressed="true"] {border-color:var(--accent); color:var(--accent)}
 .deck-slot text {font-size:11px}
 #simulation-stage .caption {margin:3px 0; font-size:.7rem}
 #simulation-action {margin:4px 0; font-size:.75rem}
+main {position:relative}
+.panel h2 {flex-wrap:wrap; flex-shrink:0}
+.panel-focus {margin-left:auto; text-transform:none; letter-spacing:normal}
+.panel[hidden] {display:none!important}
+.pane-divider {position:absolute; z-index:5; touch-action:none; border-radius:4px; background:transparent}
+.pane-divider.columns {width:10px; cursor:col-resize}
+.pane-divider.rows {height:10px; cursor:row-resize}
+.pane-divider:hover,.pane-divider:focus-visible {background:var(--accent); opacity:.7; outline:0}
+.resizing-panes {user-select:none}
+main.panel-focused {display:flex!important; height:calc(100dvh - 70px); min-height:340px}
+main.panel-focused > .panel:not([hidden]) {width:100%; height:100%; min-height:0!important; max-height:none!important}
+main.panel-focused .pane-divider {display:none}
+main.panel-focused #cy {min-height:160px}
+main.panel-focused .molecule-image {height:min(55vh,550px)}
+main.panel-focused #plate-svg {grid-auto-rows:minmax(20px,1fr); align-content:stretch}
+main.panel-focused .well {height:min(5vh,45px); width:min(5vh,45px); align-self:center}
+.molecule-toolbar {padding:6px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:.75rem; color:var(--muted)}
+#molecule-smiles {white-space:pre-wrap; overflow-wrap:anywhere; user-select:text}
+#structure.selected-molecule {border-color:var(--accent)}
+@media(min-width:1101px){main {grid-template-columns:var(--dashboard-columns,27fr 41fr 32fr); grid-template-rows:var(--dashboard-rows,34fr 33fr 33fr)}}
+@media(max-width:1100px){.pane-divider {display:none} main.panel-focused {height:calc(100dvh - 145px)} main:not(.panel-focused) > .panel {resize:vertical; overflow:auto}}
+
+main.panel-focused {height:calc(100dvh - var(--dashboard-header-height,70px))}
+@media(max-width:1100px){main:not(.panel-focused) {grid-auto-rows:auto} main:not(.panel-focused) > .panel {height:70vh; min-height:340px; max-height:none!important}}
+
+.molecule-drawing {display:block; width:100%; height:220px; background:#fff; border-radius:6px}
+main.panel-focused .molecule-drawing {height:min(55vh,550px)}
+.pane-divider::after {content:""; position:absolute; border-radius:2px; background:var(--muted); opacity:.6; pointer-events:none}
+.pane-divider.columns::after {width:2px; height:28px; left:4px; top:calc(50% - 14px)}
+.pane-divider.rows::after {height:2px; width:28px; top:4px; left:calc(50% - 14px)}

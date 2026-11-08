@@ -55,6 +55,29 @@ checks for all eight trajectories, hover/pinning, overview/focus, both loaded
 chemical images, command scrubbing, eight-well highlighting, playback cancellation,
 recording switch and mobile width.
 
+## Resizable panes and graph-selected molecules — 2026-11-08
+
+Desktop dashboard dividers resize the three columns and row boundaries. Drag them,
+or focus a divider and use arrow keys (Shift for larger steps). Sizes persist in
+browser localStorage; **Reset layout** or double-clicking a divider restores defaults.
+Each pane has **Focus / Restore**; Escape restores the dashboard. Focus preserves
+loaded artifacts, graph selection and playback state. Mobile keeps stacked panels
+with vertical resizing and supports the same focus/restore controls.
+
+Clicking a Compound node in either graph view selects that exact identity in the
+molecule pane, shows its graph SMILES and renders a 2D SVG locally using vendored
+SmilesDrawer 2.0.0 (MIT; license/checksums alongside the script). No external image
+request or inference is made. Organism nodes only show their information. **Run
+compounds** restores the saved-run molecule gallery. Missing/invalid notation leaves
+an explicit message and the original SMILES. Graph selections do not change the
+experimental run or become new retrieved evidence. Two of 593 graph compounds
+lack SMILES and explicitly show unavailable notation.
+
+Verification: 17 regression tests passed, including the persisted browser test
+`demo.harness.test_dashboard_layout` (skips without local saved trajectories).
+Deployed static UI also passed resize/focus/molecule checks. No service restart,
+write/inference request or external molecule request was needed.
+
 ## Views and access
 
 | View | URL | Behavior |
