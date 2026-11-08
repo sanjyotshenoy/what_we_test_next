@@ -25,14 +25,21 @@ class DashboardLayoutTests(unittest.TestCase):
           page.on('request',lambda r:writes.append(r.url) if r.method!='GET' else None)
           page.on('request',lambda r:external.append(r.url) if not r.url.startswith(url) else None)
           page.goto(url);page.wait_for_function('graph && graph.nodes().length===605')
+          boxes={name:page.locator('#'+name).bounding_box() for name in ['kg','structure','plate','video','robot']}
+          assert abs(boxes['kg']['x']-boxes['structure']['x'])<1
+          assert boxes['structure']['y']>boxes['kg']['y']+boxes['kg']['height']
+          assert boxes['plate']['x']>boxes['kg']['x']+boxes['kg']['width']
+          assert abs(boxes['plate']['x']-boxes['video']['x'])<1
+          assert abs(boxes['plate']['x']-boxes['robot']['x'])<1
+          assert boxes['plate']['y']<boxes['video']['y']<boxes['robot']['y']
           def width():return page.locator('#agent').bounding_box()['width']
           before=width();h=page.locator('.pane-divider.columns').first.bounding_box();x=h['x']+5;y=h['y']+50
           page.mouse.move(x,y);page.mouse.down();page.mouse.move(x+90,y,steps=10);page.mouse.up();page.wait_for_timeout(150)
           assert width()>before+50,(width(),before)
           changed=width();page.reload();page.wait_for_function('graph && graph.nodes().length===605');assert abs(width()-changed)<2
-          row=page.locator('.pane-divider.rows').first;box=row.bounding_box();before_height=page.locator('#structure').bounding_box()['height']
+          row=page.locator('.pane-divider.rows').first;box=row.bounding_box();before_height=page.locator('#plate').bounding_box()['height']
           page.mouse.move(box['x']+50,box['y']+5);page.mouse.down();page.mouse.move(box['x']+50,box['y']+55,steps=10);page.mouse.up();page.wait_for_timeout(150)
-          assert page.locator('#structure').bounding_box()['height']>before_height+30
+          assert page.locator('#plate').bounding_box()['height']>before_height+30
           page.locator('.pane-divider.columns').first.focus();w=width();page.keyboard.press('ArrowRight');page.wait_for_timeout(100);assert width()>w
           # Focus/restore each panel, preserving sizes and loaded content.
           before=width()

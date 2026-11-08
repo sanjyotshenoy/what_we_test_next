@@ -80,7 +80,7 @@ main.panel-focused .well {height:min(5vh,45px); width:min(5vh,45px); align-self:
 .molecule-toolbar {padding:6px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:.75rem; color:var(--muted)}
 #molecule-smiles {white-space:pre-wrap; overflow-wrap:anywhere; user-select:text}
 #structure.selected-molecule {border-color:var(--accent)}
-@media(min-width:1101px){main {grid-template-columns:var(--dashboard-columns,27fr 41fr 32fr); grid-template-rows:var(--dashboard-rows,34fr 33fr 33fr)}}
+@media(min-width:1101px){main {grid-template-areas:"agent kg plate" "agent kg video" "agent structure robot"; grid-template-columns:var(--dashboard-columns,27fr 41fr 32fr); grid-template-rows:var(--dashboard-rows,34fr 33fr 33fr)}}
 @media(max-width:1100px){.pane-divider {display:none} main.panel-focused {height:calc(100dvh - 145px)} main:not(.panel-focused) > .panel {resize:vertical; overflow:auto}}
 
 main.panel-focused {height:calc(100dvh - var(--dashboard-header-height,70px))}
@@ -91,3 +91,5 @@ main.panel-focused .molecule-drawing {height:min(55vh,550px)}
 .pane-divider::after {content:""; position:absolute; border-radius:2px; background:var(--muted); opacity:.6; pointer-events:none}
 .pane-divider.columns::after {width:2px; height:28px; left:4px; top:calc(50% - 14px)}
 .pane-divider.rows::after {height:2px; width:28px; top:4px; left:calc(50% - 14px)}
+
+@media(max-width:1100px){main {grid-template-areas:"agent" "kg" "structure" "plate" "video" "robot"}}

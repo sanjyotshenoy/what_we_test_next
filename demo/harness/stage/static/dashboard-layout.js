@@ -16,11 +16,11 @@ function initializeDashboardLayout() {
       main.style.setProperty('--dashboard-header-height',`${document.querySelector('header').getBoundingClientRect().height}px`);
       if(graph&&!graph.destroyed()&&!$('kg').hidden) graph.resize();
       if(focused||matchMedia('(max-width:1100px)').matches) return;
-      const bounds=main.getBoundingClientRect(),agent=$('agent').getBoundingClientRect(),kg=$('kg').getBoundingClientRect(),video=$('video').getBoundingClientRect(),plate=$('plate').getBoundingClientRect();
+      const bounds=main.getBoundingClientRect(),agent=$('agent').getBoundingClientRect(),kg=$('kg').getBoundingClientRect(),video=$('video').getBoundingClientRect(),structure=$('structure').getBoundingClientRect();
       const positions=[{left:agent.right-bounds.left-1,top:8,height:bounds.height-16},
         {left:kg.right-bounds.left-1,top:8,height:bounds.height-16},
         {left:video.left-bounds.left,top:video.top-bounds.top-9,width:video.width},
-        {left:kg.left-bounds.left,top:plate.top-bounds.top-9,width:bounds.right-kg.left-8}];
+        {left:kg.left-bounds.left,top:structure.top-bounds.top-9,width:bounds.right-kg.left-8}];
       handles.forEach((h,i)=>{for(const [k,v] of Object.entries(positions[i])) h.style[k]=`${v}px`;});
     });
   }
@@ -50,7 +50,7 @@ function initializeDashboardLayout() {
     const button=document.createElement('button');button.type='button';button.className='small panel-focus';button.textContent='Focus';button.setAttribute('aria-label',`Focus ${names[panel.id]}`);button.setAttribute('aria-pressed','false');
     button.onclick=()=>focusPanel(panel);panel.querySelector('h2').append(button);
   }
-  for(const [axis,index,label] of [['columns',0,'Agent column width'],['columns',1,'Graph column width'],['rows',0,'Molecule panel height'],['rows',1,'Bottom panels height']]) {
+  for(const [axis,index,label] of [['columns',0,'Agent column width'],['columns',1,'Graph column width'],['rows',0,'Plate panel height'],['rows',1,'Bottom panels height']]) {
     const handle=document.createElement('div');handle.className=`pane-divider ${axis}`;handle.dataset.axis=axis;handle.dataset.index=index;handle.tabIndex=0;handle.setAttribute('role','separator');handle.setAttribute('aria-orientation',axis==='columns'?'vertical':'horizontal');handle.setAttribute('aria-label',label);handle.setAttribute('aria-valuemin','10');handle.setAttribute('aria-valuemax','80');handle.title='Drag to resize; arrow keys adjust; double-click resets layout';
     function adjust(delta,start=sizes[axis]) {
       const total=start[index]+start[index+1],rect=main.getBoundingClientRect();

@@ -57,6 +57,10 @@ recording switch and mobile width.
 
 ## Resizable panes and graph-selected molecules — 2026-11-08
 
+Desktop layout: agent on the left; KG above the molecule pane in the middle;
+plate, generated protocol/video and simulator stacked in the right column. Mobile
+places the molecule pane immediately after the KG.
+
 Desktop dashboard dividers resize the three columns and row boundaries. Drag them,
 or focus a divider and use arrow keys (Shift for larger steps). Sizes persist in
 browser localStorage; **Reset layout** or double-clicking a divider restores defaults.
