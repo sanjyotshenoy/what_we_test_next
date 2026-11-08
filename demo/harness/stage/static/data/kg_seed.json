@@ -1,0 +1,168 @@
+{
+ "_note": "SEED graph for the stage UI until the team's biology/protocol KG (kg/biology, kg/protocols) is on main. IDs are real (ChEMBL, UniProt, BAO); no activity values are included. TODO(final): load the team KG (kg/*/graph/nodes.csv, edges.csv) instead. The held-out answer edge is in kg_heldout.json, read only by the page (reveal step), never by agent tools.",
+ "seed": true,
+ "nodes": [
+  {
+   "id": "CHEMBL941",
+   "type": "Compound",
+   "name": "imatinib"
+  },
+  {
+   "id": "CHEMBL255863",
+   "type": "Compound",
+   "name": "nilotinib"
+  },
+  {
+   "id": "CHEMBL1421",
+   "type": "Compound",
+   "name": "dasatinib"
+  },
+  {
+   "id": "CHEMBL535",
+   "type": "Compound",
+   "name": "sunitinib"
+  },
+  {
+   "id": "P10721",
+   "type": "Target",
+   "name": "KIT"
+  },
+  {
+   "id": "P00519",
+   "type": "Target",
+   "name": "ABL1"
+  },
+  {
+   "id": "P16234",
+   "type": "Target",
+   "name": "PDGFRA"
+  },
+  {
+   "id": "class:tyrosine_kinase",
+   "type": "TargetClass",
+   "name": "tyrosine kinase"
+  },
+  {
+   "id": "proto:kinase_glo",
+   "type": "Protocol",
+   "name": "biochemical kinase inhibition (luminescence)"
+  },
+  {
+   "id": "proto:cell_viability",
+   "type": "Protocol",
+   "name": "cell viability dose-response"
+  },
+  {
+   "id": "BAO:0000357",
+   "type": "Format",
+   "name": "single protein format"
+  },
+  {
+   "id": "BAO:0000219",
+   "type": "Format",
+   "name": "cell-based format"
+  },
+  {
+   "id": "BAO:0000190",
+   "type": "Endpoint",
+   "name": "IC50"
+  },
+  {
+   "id": "PDB:1T46",
+   "type": "Structure",
+   "name": "KIT kinase + imatinib (1T46)"
+  }
+ ],
+ "edges": [
+  {
+   "src": "P10721",
+   "rel": "MEMBER_OF",
+   "dst": "class:tyrosine_kinase"
+  },
+  {
+   "src": "P00519",
+   "rel": "MEMBER_OF",
+   "dst": "class:tyrosine_kinase"
+  },
+  {
+   "src": "P16234",
+   "rel": "MEMBER_OF",
+   "dst": "class:tyrosine_kinase"
+  },
+  {
+   "src": "CHEMBL941",
+   "rel": "HAS_ACTIVITY",
+   "dst": "P00519"
+  },
+  {
+   "src": "CHEMBL941",
+   "rel": "HAS_ACTIVITY",
+   "dst": "P16234"
+  },
+  {
+   "src": "CHEMBL255863",
+   "rel": "HAS_ACTIVITY",
+   "dst": "P10721"
+  },
+  {
+   "src": "CHEMBL1421",
+   "rel": "HAS_ACTIVITY",
+   "dst": "P10721"
+  },
+  {
+   "src": "CHEMBL535",
+   "rel": "HAS_ACTIVITY",
+   "dst": "P10721"
+  },
+  {
+   "src": "CHEMBL941",
+   "rel": "SIMILAR_TO",
+   "dst": "CHEMBL255863"
+  },
+  {
+   "src": "CHEMBL941",
+   "rel": "SIMILAR_TO",
+   "dst": "CHEMBL1421"
+  },
+  {
+   "src": "CHEMBL941",
+   "rel": "SIMILAR_TO",
+   "dst": "CHEMBL535"
+  },
+  {
+   "src": "proto:kinase_glo",
+   "rel": "APPLICABLE_TO",
+   "dst": "class:tyrosine_kinase"
+  },
+  {
+   "src": "proto:cell_viability",
+   "rel": "APPLICABLE_TO",
+   "dst": "class:tyrosine_kinase"
+  },
+  {
+   "src": "proto:kinase_glo",
+   "rel": "HAS_FORMAT",
+   "dst": "BAO:0000357"
+  },
+  {
+   "src": "proto:cell_viability",
+   "rel": "HAS_FORMAT",
+   "dst": "BAO:0000219"
+  },
+  {
+   "src": "proto:kinase_glo",
+   "rel": "MEASURES",
+   "dst": "BAO:0000190"
+  },
+  {
+   "src": "proto:cell_viability",
+   "rel": "MEASURES",
+   "dst": "BAO:0000190"
+  },
+  {
+   "src": "P10721",
+   "rel": "HAS_STRUCTURE",
+   "dst": "PDB:1T46"
+  }
+ ]
+}

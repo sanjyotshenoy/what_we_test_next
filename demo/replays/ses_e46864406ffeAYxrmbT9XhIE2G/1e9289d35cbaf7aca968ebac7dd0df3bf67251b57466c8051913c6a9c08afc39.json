@@ -1,0 +1,964 @@
+{
+  "tool": "planning_context",
+  "args": {},
+  "result": {
+    "template": {
+      "id": "proto:bacterial_mic_broth",
+      "curation": "agent-curated from PubChem AIDs 449774, 1503, 463100, 624097 and the team's Opentrons MIC protocol (read by hand, 2026-11-07); re-run extract.py when a key is available",
+      "todo": "TODO(final): agent-curated, not yet checked by a person; every value is quoted from the AID or file named next to it",
+      "purpose": "Find the minimum inhibitory concentration (MIC) of a compound against a bacterial strain: 2-fold serial dilution in cation-adjusted Mueller-Hinton broth, a standard inoculum added 1:1, overnight growth, turbidity read. A non-kinase negative control for routing.",
+      "notes": [
+        "463100 and 624097 are checkerboard synergy assays (compound x imipenem); only their shared broth-microdilution conditions (medium, inoculum, volume, incubation, readout) are used here.",
+        "Three of the four AIDs are from one Scripps project (metallo-beta-lactamase inhibitors). PubChem 'Activity outcome method' is 'Other' for 449774, 463100, 624097 and 'Confirmatory' for 1503.",
+        "The Opentrons exemplar is on the main branch, not this one: Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py. Its write-up (.docx) names both CAMHB and 'regular M9 broth' for the broth; the script's liquid label says CAMHB.",
+        "Inoculum: each source adds about 1e6 CFU/mL in an equal volume, so wells start near 5e5 CFU/mL (derived)."
+      ],
+      "exemplars": [
+        {
+          "aid": 449774,
+          "source": "The Scripps Research Institute Molecular Screening Center",
+          "deposited": "2010-07-26",
+          "target": "Escherichia coli BL21 (wild type)",
+          "name": "Late stage counterscreen results from the probe development efforts to identify common IMP-1 and VIM-2 inhibitors: wildtype E. coli growth inhibition dose response assay (MIC: minimum inhibitory concentration)"
+        },
+        {
+          "aid": 1503,
+          "source": "Burnham Center for Chemical Genomics",
+          "deposited": "2009-01-12",
+          "target": "Escherichia coli (DnaK)",
+          "name": "Minimal Inhibitory Concentration assay in E. Coli for small molecule DnaK Modulators targeting the b-domain."
+        },
+        {
+          "aid": 463100,
+          "source": "The Scripps Research Institute Molecular Screening Center",
+          "deposited": "2010-08-18",
+          "target": "E. coli BL21 expressing VIM-2 (synergy with imipenem)",
+          "name": "Late stage assay provider counterscreen results from the probe development efforts to identify common IMP-1 and VIM-2 inhibitors: VIM-2-transformed E. coli growth inhibition dose response assay in the presence of imipenem"
+        },
+        {
+          "aid": 624097,
+          "source": "The Scripps Research Institute Molecular Screening Center",
+          "deposited": "2012-04-12",
+          "target": "E. coli BL21 expressing IMP-1 (synergy with imipenem)",
+          "name": "Late stage assay provider results from the probe development efforts to identify inhibitors of VIM-2 metallo-beta-lactamase (nonselective):IMP-1-transformed E. coli growth inhibition in the presence of imipenem (synergy)"
+        },
+        {
+          "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+          "ref": "main",
+          "source": "Emmy Nguyen (team), simplified from the Bridges lab (CMU) protocol",
+          "name": "MIC 2-fold broth microdilution, CLSI 100 + 100 uL format (OT-2)"
+        }
+      ],
+      "parameters": {
+        "top_concentration": {
+          "observed": [
+            {
+              "value": 50,
+              "unit": "uM",
+              "aid": 449774,
+              "quote": "10-point two-fold serial dilutions starting at a nominal test concentration of 50 uM"
+            },
+            {
+              "value": 100,
+              "unit": "uM",
+              "aid": 624097,
+              "quote": "highest concentration tested (i.e. 100 uM)"
+            }
+          ]
+        },
+        "dilution_factor": {
+          "observed": [
+            {
+              "value": 2,
+              "unit": "fold",
+              "aid": 449774,
+              "quote": "10-point two-fold serial dilutions"
+            },
+            {
+              "value": 2,
+              "unit": "fold",
+              "aid": 463100,
+              "quote": "10 point two-fold serial dilutions across the plate"
+            },
+            {
+              "value": 2,
+              "unit": "fold",
+              "aid": 624097,
+              "quote": "two-fold serial broth dilution method"
+            },
+            {
+              "value": 2,
+              "unit": "fold",
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "Col 1-10 : 2-fold antibiotic series + bacteria"
+            }
+          ]
+        },
+        "n_points": {
+          "observed": [
+            {
+              "value": 10,
+              "unit": "concentrations",
+              "aid": 449774,
+              "quote": "10-point two-fold serial dilutions"
+            },
+            {
+              "value": 10,
+              "unit": "concentrations",
+              "aid": 463100,
+              "quote": "10 point two-fold serial dilutions across the plate"
+            },
+            {
+              "value": 10,
+              "unit": "concentrations",
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "Col 1-10 : 2-fold antibiotic series + bacteria"
+            }
+          ]
+        },
+        "replicates": {
+          "observed": [
+            {
+              "value": 3,
+              "unit": "wells per concentration",
+              "aid": 449774,
+              "quote": "Compounds and Imipenem were tested in triplicate"
+            },
+            {
+              "value": 8,
+              "unit": "wells per concentration",
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "Final plate (all 8 rows A-H are replicates):"
+            }
+          ]
+        },
+        "inoculum_added": {
+          "observed": [
+            {
+              "value": 1000000,
+              "unit": "CFU/mL",
+              "aid": 449774,
+              "quote": "bacterial inoculums of 1 x 106 CFU/mL",
+              "derived": "'1 x 106' read as 1 x 10^6 (superscript lost)"
+            },
+            {
+              "value": 1000000,
+              "unit": "CFU/mL",
+              "aid": 624097,
+              "quote": "1 x 10^6 CFU/mL"
+            },
+            {
+              "value": 1000000,
+              "unit": "CFU/mL",
+              "aid": 463100,
+              "quote": "bacterial inoculums of 1E6 CFU/mL"
+            },
+            {
+              "value": 1000000,
+              "unit": "CFU/mL",
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "Bacteria, ~1e6 CFU/mL"
+            }
+          ]
+        },
+        "final_volume": {
+          "observed": [
+            {
+              "value": 0.06,
+              "unit": "mL",
+              "aid": 449774,
+              "quote": "All testing was performed in 384 well plates in 0.06 mL final volume."
+            },
+            {
+              "value": 0.06,
+              "unit": "mL",
+              "aid": 463100,
+              "quote": "performed in 384 well plates in 0.06 mL final volume"
+            },
+            {
+              "value": 0.06,
+              "unit": "mL",
+              "aid": 624097,
+              "quote": "All testing was performed in 384 well plates in 0.06 mL final volume."
+            },
+            {
+              "value": 100,
+              "unit": "uL",
+              "aid": 1503,
+              "quote": "mixing 90 uL of an OD600 = 0.001 with 10 uL of various concentrations of compound",
+              "derived": "90 uL + 10 uL"
+            },
+            {
+              "value": 200,
+              "unit": "uL",
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "200 uL final per well"
+            }
+          ]
+        },
+        "incubation_time": {
+          "observed": [
+            {
+              "value": 18,
+              "unit": "h",
+              "aid": 449774,
+              "quote": "incubated for 18 hours at 37 C in a humidified environment"
+            },
+            {
+              "value": 18,
+              "unit": "h",
+              "aid": 463100,
+              "quote": "incubated for 18 hours at 37 C in a humidified environment"
+            },
+            {
+              "value": 18,
+              "unit": "h",
+              "aid": 624097,
+              "quote": "incubated for 18 hours at 37 C in a humidified environment"
+            },
+            {
+              "value": "overnight",
+              "unit": null,
+              "aid": 1503,
+              "quote": "grown overnight in a 96-well plate"
+            }
+          ]
+        },
+        "incubation_temperature": {
+          "observed": [
+            {
+              "value": 37,
+              "unit": "C",
+              "aid": 449774,
+              "quote": "incubated for 18 hours at 37 C"
+            },
+            {
+              "value": 37,
+              "unit": "C",
+              "aid": 463100,
+              "quote": "incubated for 18 hours at 37 C"
+            },
+            {
+              "value": 37,
+              "unit": "C",
+              "aid": 624097,
+              "quote": "incubated for 18 hours at 37 C"
+            }
+          ]
+        },
+        "read_wavelength": {
+          "observed": [
+            {
+              "value": 590,
+              "unit": "nm",
+              "aid": 449774,
+              "quote": "Absorbance (OD590) was read"
+            },
+            {
+              "value": 590,
+              "unit": "nm",
+              "aid": 463100,
+              "quote": "Absorbance (OD590) was read"
+            },
+            {
+              "value": 590,
+              "unit": "nm",
+              "aid": 624097,
+              "quote": "Absorbance (OD590) was read"
+            },
+            {
+              "value": 530,
+              "unit": "nm",
+              "aid": 1503,
+              "quote": "Optical density at 530 nm was measured"
+            }
+          ]
+        },
+        "plate_wells": {
+          "observed": [
+            {
+              "value": 384,
+              "unit": "wells",
+              "aid": 449774,
+              "quote": "384 well plates"
+            },
+            {
+              "value": 96,
+              "unit": "wells",
+              "aid": 1503,
+              "quote": "grown overnight in a 96-well plate"
+            },
+            {
+              "value": 96,
+              "unit": "wells",
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "corning_96_wellplate_360ul_flat"
+            }
+          ]
+        }
+      },
+      "steps": [
+        {
+          "verb": "prepare",
+          "text": "Prepare cation-adjusted Mueller-Hinton broth (CAMHB) and the compound at 2x the top concentration.",
+          "params": [
+            "top_concentration"
+          ],
+          "evidence": [
+            {
+              "aid": 449774,
+              "quote": "Imipenem or test compound was titrated in Cation Adjusted Mueller-Hinton Broth (CAMHB) immediately prior to testing."
+            },
+            {
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "A2 = antibiotic (2x top concentration)"
+            }
+          ]
+        },
+        {
+          "verb": "serial_dilute",
+          "text": "Make a 2-fold, 10-point dilution series in broth across the plate.",
+          "params": [
+            "dilution_factor",
+            "n_points",
+            "replicates",
+            "plate_wells"
+          ],
+          "evidence": [
+            {
+              "aid": 449774,
+              "quote": "10-point two-fold serial dilutions"
+            },
+            {
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "Step 4: serial dilution, column 1 -> 10, then discard 100 uL from column 10"
+            }
+          ],
+          "substeps": [
+            {
+              "verb": "serial_dilute",
+              "text": "Carry half the volume from each column into the next, mixing, from column 1 to column 10.",
+              "params": [
+                "dilution_factor",
+                "n_points"
+              ],
+              "evidence": [
+                {
+                  "aid": 449774,
+                  "quote": "10-point two-fold serial dilutions"
+                },
+                {
+                  "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+                  "quote": "Step 4: serial dilution, column 1 -> 10"
+                }
+              ]
+            },
+            {
+              "verb": "dispense",
+              "text": "Discard the carried-over volume from the last diluted column, so every well holds the same volume.",
+              "params": [],
+              "evidence": [
+                {
+                  "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+                  "quote": "then discard 100 uL from column 10"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "verb": "prepare",
+          "text": "Grow the strain to log phase and dilute it in broth to the inoculum density (2x final).",
+          "params": [
+            "inoculum_added"
+          ],
+          "evidence": [
+            {
+              "aid": 449774,
+              "quote": "E. coli previously grown in CAMHB to log phase OD600 of 0.5 - 0.7"
+            }
+          ]
+        },
+        {
+          "verb": "add",
+          "text": "Add an equal volume of inoculum to every well except the sterility control.",
+          "params": [
+            "final_volume"
+          ],
+          "evidence": [
+            {
+              "aid": 449774,
+              "quote": "Next, 30 uL of CAMHB inoculated with BL21 wild type E.coli 1 x 106 CFU/mL was added to wells."
+            },
+            {
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "Step 5: 100 uL bacteria into columns 1-11, fresh tip each column"
+            }
+          ],
+          "substeps": [
+            {
+              "verb": "add",
+              "text": "Add an equal volume of inoculum to the compound columns and the growth control.",
+              "params": [
+                "final_volume"
+              ],
+              "evidence": [
+                {
+                  "aid": 449774,
+                  "quote": "30 uL of CAMHB inoculated with BL21 wild type E.coli 1 x 106 CFU/mL was added to wells."
+                },
+                {
+                  "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+                  "quote": "Step 5: 100 uL bacteria into columns 1-11"
+                }
+              ]
+            },
+            {
+              "verb": "add",
+              "text": "Change the tip between columns, so compound is not carried back into the inoculum.",
+              "params": [],
+              "evidence": [
+                {
+                  "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+                  "quote": "fresh tip each column"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "verb": "mix",
+          "text": "Mix each well after adding the inoculum.",
+          "params": [],
+          "evidence": [
+            {
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "MIX_REPS = 3"
+            }
+          ]
+        },
+        {
+          "verb": "incubate",
+          "text": "Incubate about 18 h at 37 C.",
+          "params": [
+            "incubation_time",
+            "incubation_temperature"
+          ],
+          "evidence": [
+            {
+              "aid": 449774,
+              "quote": "incubated for 18 hours at 37 C in a humidified environment"
+            }
+          ]
+        },
+        {
+          "verb": "read",
+          "text": "Read turbidity (OD590 / OD530) or score visible growth; MIC = lowest concentration with no growth.",
+          "params": [
+            "read_wavelength"
+          ],
+          "evidence": [
+            {
+              "aid": 449774,
+              "quote": "Absorbance (OD590) was read on a Tecan Spectraflour Plus plate reader"
+            },
+            {
+              "aid": 1503,
+              "quote": "Optical density at 530 nm was measured"
+            }
+          ]
+        }
+      ],
+      "controls": [
+        {
+          "name": "growth control: bacteria in broth, no compound",
+          "role": "negative",
+          "reagent": "reagent:growth_control",
+          "evidence": [
+            {
+              "aid": 449774,
+              "quote": "High_Control is defined as wells containing BL21 E.coli."
+            },
+            {
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "Col 11 : growth control, broth + bacteria"
+            }
+          ]
+        },
+        {
+          "name": "sterility control: broth only, no bacteria",
+          "role": "positive",
+          "reagent": "reagent:sterility_control",
+          "evidence": [
+            {
+              "aid": 624097,
+              "quote": "High_Control is defined as wells containing media only (no bacteria)."
+            },
+            {
+              "file": "Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL_modified.py",
+              "quote": "Col 12 : sterility control, broth only"
+            }
+          ]
+        },
+        {
+          "name": "reference antibiotic at an inhibitory concentration (imipenem 50 uM)",
+          "role": "positive",
+          "reagent": "reagent:reference_antibiotic",
+          "evidence": [
+            {
+              "aid": 449774,
+              "quote": "Low_Control is defined as wells containing Imipenem (50 uM)."
+            }
+          ]
+        }
+      ],
+      "readout": {
+        "name": "absorbance (bacterial turbidity)",
+        "bao": "BAO:0000070",
+        "evidence": [
+          {
+            "aid": 449774,
+            "quote": "Absorbance (OD590) was read"
+          }
+        ]
+      },
+      "analysis": [
+        {
+          "text": "MIC = the lowest concentration whose signal falls below the no-growth cutoff (mean + 3 SD of the inhibited controls), or by CLSI visual reading.",
+          "evidence": [
+            {
+              "aid": 449774,
+              "quote": "The reported MIC values were generated by identifying the lowest concentration of inhibitor that yields a value that is less than the cutoff value."
+            },
+            {
+              "aid": 1503,
+              "quote": "The MIC was read as the concentration producing a greater than 2-fold reduction in growth"
+            }
+          ]
+        }
+      ]
+    },
+    "lab_yaml": "# What this lab can actually do: the instruments, the labware on hand, and the conditions available.\n#\n# This is a capability model, not an equipment list. `execution/feasibility.py` reads it to answer \"can we run\n# this experiment, and if not, why not\" as arithmetic rather than judgement, and the agent can read it so that it\n# proposes experiments this lab can run instead of ones it cannot.\n#\n# Most of it is taken from the team's real OT-2 protocol (Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL\n# _modified.py and its write-up), which is the only verified record of the deck we have. Anything not visible in\n# that protocol is marked TODO(final) and should be confirmed by whoever is standing next to the robot.\n\ninstruments:\n  - id: ot2\n    kind: liquid_handler\n    model: Opentrons OT-2\n    api_level: \"2.28\"              # the level Emmy's protocol targets; the robot software must be at least this\n    deck_slots: 11                 # 1-11 usable, 12 is the fixed trash\n    pipettes:\n      # from the protocol: load_instrument(\"p300_multi\", \"left\")\n      - mount: left\n        model: p300_multi\n        channels: 8                # one command moves a whole column\n        min_uL: 20\n        max_uL: 300\n      # the write-up says the P20 \"is not used and can stay mounted on the right\"\n      # TODO(final): confirm it is mounted, and whether it is a gen2 and single or multi\n      - mount: right\n        model: p20_single_gen2\n        channels: 1\n        min_uL: 1\n        max_uL: 20\n        mounted: unconfirmed\n\n  - id: cytation\n    kind: plate_reader\n    # TODO(final): the team has a Cytation1 and/or Cytation5 - confirm which, and which modules are fitted\n    model: BioTek Cytation (1 or 5)\n    modes: [absorbance, fluorescence, luminescence, imaging]\n    absorbance_nm: [200, 999]      # OD600 for turbidity, OD530/590 for the MIC read, all within range\n    plate_formats: [6, 12, 24, 48, 96, 384]\n    reads_lidded: false            # the lid comes off to read\n\nlabware:\n  # every count is TODO(final): the protocol shows what one run uses, not what is in the cupboard\n  - load_name: corning_96_wellplate_360ul_flat\n    kind: wellplate\n    rows: 8\n    cols: 12\n    max_uL: 360                    # physical capacity\n    working_uL: 200                # what the protocol actually fills; leaves headroom for mixing\n    count: 10\n\n  - load_name: opentrons_96_tiprack_300ul\n    kind: tiprack\n    tips: 96                       # 12 columns for an 8-channel pipette\n    uL: 300\n    count: 4\n\n  - load_name: usascientific_12_reservoir_22ml\n    kind: reservoir\n    channels: 12\n    max_mL: 22\n    dead_mL: 2                     # tips aspirate 1 mm off the bottom and cannot reach the last few mL\n    count: 2\n\ncapabilities:\n  # Atmosphere belongs to a step, not to the lab (Emmy, 2026-11-08): the robot sets the plate up on the bench in\n  # a few minutes, then a person carries it to an incubator overnight. Oxygen matters for the second of those.\n  liquid_handling_atmosphere: [aerobic]     # the OT-2 is on the bench; no chamber, and none needed\n  incubation_atmosphere: [aerobic, anaerobic]\n  assumed:\n    incubation_atmosphere: \"anaerobic incubation (jars, sachets or an anaerobic incubator) assumed because the\n      project is phenotyping anaerobic microbiome bacteria; confirm the lab has one before reporting a result\"\n  # How much air a species tolerates during the few minutes of setup. Aerotolerant anaerobes (B. fragilis) and\n  # spore-formers are fine on the bench; the most oxygen-sensitive gut commensals (F. prausnitzii) are not, and\n  # need either a chamber or pre-reduced media and speed. A panel entry may set `oxygen_tolerance` to say which.\n  setup_air_exposure_minutes: 15            # TODO(final): time the real run\n  incubation_C: [30, 37]\n  shaking: unconfirmed             # TODO(final)\n  solvent_limits:\n    dmso_percent: 1.0              # the assay's ceiling, not the instrument's\n\nreagents:\n  # what is routinely on hand; a proposal naming something else needs a human\n  - {id: camhb, name: \"cation-adjusted Mueller-Hinton broth\", kind: medium}\n  - {id: dmso, name: \"DMSO\", kind: solvent}\n  - {id: water, name: \"sterile water\", kind: diluent}\n  - {id: food_colouring, name: \"food colouring\", kind: dye}   # the dry-run stand-in for the demo\n",
+    "submission_schema": {
+      "$defs": {
+        "CompoundProposal": {
+          "additionalProperties": false,
+          "properties": {
+            "compound": {
+              "maxLength": 150,
+              "minLength": 1,
+              "title": "Compound",
+              "type": "string"
+            },
+            "proposal": {
+              "$ref": "#/$defs/StrictProposal"
+            },
+            "evidence_links": {
+              "description": "Must cover each experiment field: assay_type, atmosphere, concentration_unit, controls, dilution_factor, incubation_C, incubation_h, layout, medium, n_points, panel, readout, replicates, top_concentration, well_volume_uL",
+              "items": {
+                "$ref": "#/$defs/EvidenceLink"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "title": "Evidence Links",
+              "type": "array"
+            }
+          },
+          "required": [
+            "compound",
+            "proposal",
+            "evidence_links"
+          ],
+          "title": "CompoundProposal",
+          "type": "object"
+        },
+        "EvidenceLink": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "title": "Field",
+              "type": "string"
+            },
+            "kind": {
+              "enum": [
+                "observed",
+                "derived",
+                "default",
+                "input"
+              ],
+              "title": "Kind",
+              "type": "string"
+            },
+            "citations": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 20,
+              "title": "Citations",
+              "type": "array"
+            },
+            "explanation": {
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Explanation",
+              "type": "string"
+            }
+          },
+          "required": [
+            "field",
+            "kind",
+            "explanation"
+          ],
+          "title": "EvidenceLink",
+          "type": "object"
+        },
+        "StrictExperiment": {
+          "additionalProperties": false,
+          "properties": {
+            "assay_type": {
+              "title": "Assay Type",
+              "type": "string"
+            },
+            "readout": {
+              "title": "Readout",
+              "type": "string"
+            },
+            "system": {
+              "title": "System",
+              "type": "string"
+            },
+            "panel": {
+              "items": {
+                "$ref": "#/$defs/StrictPanel"
+              },
+              "maxItems": 8,
+              "minItems": 1,
+              "title": "Panel",
+              "type": "array"
+            },
+            "top_concentration": {
+              "exclusiveMinimum": 0,
+              "title": "Top Concentration",
+              "type": "number"
+            },
+            "concentration_unit": {
+              "enum": [
+                "uM",
+                "nM",
+                "ug/mL",
+                "mg/L"
+              ],
+              "title": "Concentration Unit",
+              "type": "string"
+            },
+            "top_concentration_uM": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Top Concentration Um"
+            },
+            "dilution_factor": {
+              "title": "Dilution Factor",
+              "type": "number"
+            },
+            "n_points": {
+              "title": "N Points",
+              "type": "integer"
+            },
+            "replicates": {
+              "default": 3,
+              "title": "Replicates",
+              "type": "integer"
+            },
+            "controls": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Controls",
+              "type": "array"
+            },
+            "medium": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Medium"
+            },
+            "incubation_C": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Incubation C"
+            },
+            "incubation_h": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Incubation H"
+            },
+            "atmosphere": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "aerobic",
+                    "anaerobic",
+                    "microaerophilic"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Atmosphere"
+            },
+            "well_volume_uL": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Well Volume Ul"
+            },
+            "layout": {
+              "$ref": "#/$defs/StrictLayout"
+            }
+          },
+          "required": [
+            "assay_type",
+            "readout",
+            "system",
+            "panel",
+            "top_concentration",
+            "concentration_unit",
+            "dilution_factor",
+            "n_points",
+            "layout"
+          ],
+          "title": "StrictExperiment",
+          "type": "object"
+        },
+        "StrictLayout": {
+          "additionalProperties": false,
+          "properties": {
+            "plate_format": {
+              "default": 96,
+              "title": "Plate Format",
+              "type": "integer"
+            },
+            "series_axis": {
+              "default": "columns",
+              "enum": [
+                "columns",
+                "rows"
+              ],
+              "title": "Series Axis",
+              "type": "string"
+            },
+            "replicates_axis": {
+              "default": "rows",
+              "enum": [
+                "rows",
+                "plates"
+              ],
+              "title": "Replicates Axis",
+              "type": "string"
+            },
+            "control_columns": {
+              "description": "Ordered control LABELS, not column numbers: [\"growth control\", \"sterility control\"]. The compiler places them in columns 11 and 12.",
+              "items": {
+                "type": "string"
+              },
+              "title": "Control Columns",
+              "type": "array"
+            }
+          },
+          "required": [
+            "control_columns"
+          ],
+          "title": "StrictLayout",
+          "type": "object"
+        },
+        "StrictPanel": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string"
+            },
+            "id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Id"
+            },
+            "role": {
+              "default": "unknown",
+              "enum": [
+                "pathogen",
+                "commensal",
+                "pathobiont",
+                "unknown"
+              ],
+              "title": "Role",
+              "type": "string"
+            },
+            "oxygen_tolerance": {
+              "default": "unknown",
+              "enum": [
+                "aerobe",
+                "facultative",
+                "aerotolerant anaerobe",
+                "strict anaerobe",
+                "unknown"
+              ],
+              "title": "Oxygen Tolerance",
+              "type": "string"
+            },
+            "reason": {
+              "default": "",
+              "title": "Reason",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "title": "StrictPanel",
+          "type": "object"
+        },
+        "StrictProposal": {
+          "additionalProperties": false,
+          "properties": {
+            "question_id": {
+              "title": "Question Id",
+              "type": "string"
+            },
+            "answerable_from_kb": {
+              "const": false,
+              "title": "Answerable From Kb",
+              "type": "boolean"
+            },
+            "answer": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Answer"
+            },
+            "experiment": {
+              "$ref": "#/$defs/StrictExperiment"
+            },
+            "rationale": {
+              "default": "",
+              "title": "Rationale",
+              "type": "string"
+            },
+            "citations": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Citations",
+              "type": "array"
+            },
+            "model": {
+              "default": "",
+              "title": "Model",
+              "type": "string"
+            }
+          },
+          "required": [
+            "question_id",
+            "answerable_from_kb",
+            "experiment"
+          ],
+          "title": "StrictProposal",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "template_id": {
+          "const": "proto:bacterial_mic_broth",
+          "title": "Template Id",
+          "type": "string"
+        },
+        "compounds": {
+          "items": {
+            "$ref": "#/$defs/CompoundProposal"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Compounds",
+          "type": "array"
+        },
+        "open_questions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Open Questions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "template_id",
+        "compounds"
+      ],
+      "title": "Batch",
+      "type": "object"
+    },
+    "evidence_id": "proto:bacterial_mic_broth",
+    "source_hashes": {
+      "what_we_test_next/kg/protocols/templates/bacterial_mic_broth.json": "ff26184b61d072c131c68945409ab6f0e0082b7617e7c050ab77e0a962ea4cb8",
+      "what_we_test_next/execution/lab.yaml": "31bc27d7bd58df5530a60277527ec3ddbb32d473b73432500af288974e35c4a6"
+    },
+    "limits": [
+      "Template is agent-curated; retain its TODOs and source applicability caveats.",
+      "Compilation uses separate sequential runs per compound-species pair with explicit sources.",
+      "Eight rows are physically filled per pair; requested replicate rows and surplus technical rows are recorded separately.",
+      "Only growth and sterility controls are implemented; do not silently remove requested extra controls.",
+      "This context is not feasibility approval or a simulation result."
+    ]
+  },
+  "mode": "demo",
+  "retrieved_at": "2026-11-08T04:45:27.361084+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "tool": "literature_search",
+  "args": {
+    "query": "broth microdilution minimum inhibitory concentration method",
+    "limit": 1
+  },
+  "result": {
+    "papers": [
+      {
+        "document_id": "PMC10347090",
+        "title": "Pimpinella anisum L. Essential Oil a Valuable Antibacterial and Antifungal Alternative",
+        "doi": "10.3390/plants12132428",
+        "pub_date": "2023-06-23",
+        "pub_year": 2023,
+        "source": "pmc",
+        "article_type": "Article",
+        "chunk_lines": [
+          93,
+          96
+        ],
+        "chunk_section": "Broth Micro Dilution Method"
+      }
+    ],
+    "result_id": "s_225a0179",
+    "note": "Discovery only. Read passages before citing claims. A miss is not proof of absence."
+  },
+  "mode": "demo",
+  "retrieved_at": "2026-11-08T04:45:28.747471+00:00"
+}

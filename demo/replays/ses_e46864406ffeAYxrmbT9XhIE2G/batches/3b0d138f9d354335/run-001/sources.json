@@ -1,0 +1,14 @@
+{
+  "A1": {
+    "liquid": "medium",
+    "identity": "cation-adjusted Mueller-Hinton broth"
+  },
+  "A2": {
+    "liquid": "compound",
+    "identity": "fixture-compound-A"
+  },
+  "A3": {
+    "liquid": "inoculum",
+    "identity": "fixture-species-A"
+  }
+}
