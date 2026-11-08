@@ -42,46 +42,52 @@ Deck.slide('pitch-demo', {interactive:true,
  }});
 // TODO(final): hypothesis refinement and ingestion of experimental results are proposed integrations; this diagram is not an end-to-end run.
 Deck.slide('pitch-close',{steps:4,
- notes:'7:15–8:15. Show the broader workflow: check a researcher-supplied question against the KB; return an existing answer with sources. If the measurement is missing, propose an experiment grounded in evidence, then the researcher reviews it and decides whether to run it. Reveal the proposed feedback connection: measured results, including negative results and their assay conditions and provenance, can be added to the KB so later queries can use them. Finally reveal hypothesis refinement as a potential upstream integration, helping sharpen an existing idea into a testable question. Dashed connections identify proposed integrations, not implemented automation. The bacterial retrieval, proposal and execution components are not a demonstrated connected run. Existing evidence does not prevent a researcher from choosing a confirmatory experiment. Full script: speaker-notes.html.',
+ notes:'7:15–8:15. The accented region identifies our system: evidence lookup and grounded proposal design. The researcher supplies the question and reviews a proposed experiment before the lab runs it. Reveal the existing-answer route, the missing-measurement route, the result feedback loop, then upstream hypothesis refinement. Muted dashed arrows outside the system identify proposed workflow connections, not implemented automation. The feedback loop adds measured results, assay conditions and provenance, including negative results, to the KB. Hypothesis refinement sharpens an existing idea into a testable question. The current connected agent is IC50-based; this conceptual diagram does not establish an end-to-end bacterial run. Existing evidence does not prevent confirmatory experiments. Full script: speaker-notes.html.',
  mount(frame,{css}) {
  css(`
  .cl-description{position:absolute;left:4.2%;right:4.2%;top:16%;font-size:var(--t-body);line-height:1.4;color:var(--muted);}
- .cl-map{position:absolute;left:5%;right:5%;top:33%;height:49%;}
+ .cl-map{position:absolute;left:5%;right:5%;top:30%;height:55%;}
  .cl-map svg{position:absolute;width:100%;height:100%;overflow:visible;}
  .cl-line{fill:none;stroke:var(--accent);stroke-width:2;}
+ .cl-external{stroke:var(--muted);}
  .cl-future{stroke:var(--muted);stroke-dasharray:7 6;}
- .cl-node{position:absolute;font-size:var(--t-body);line-height:1.25;background:var(--bg);padding:.25em 0;}
+ .cl-zone{fill:var(--accent);fill-opacity:.035;stroke:var(--accent);stroke-opacity:.35;stroke-width:1.5;}
+ .cl-system{position:absolute;left:26%;top:4%;font-size:var(--t-small);color:var(--accent);}
+ .cl-node{position:absolute;font-size:var(--t-body);line-height:1.25;}
  .cl-node strong{font-weight:600;}
- .cl-node small{display:block;font-size:var(--t-caption);color:var(--muted);margin-top:.5em;line-height:1.35;}
- .cl-branch{position:absolute;font-size:var(--t-caption);color:var(--accent);background:var(--bg);padding:.2em;}
- .cl-integration{position:absolute;left:40%;top:91%;font-size:var(--t-small);color:var(--muted);background:var(--bg);padding:0 .5em;line-height:1.4;text-align:center;}
- .cl-integration small{display:block;font-size:var(--t-caption);}
- .cl-upstream{font-size:var(--t-small);}
- .cl-upstream small{font-size:var(--t-micro);}
+ .cl-node small{display:block;font-size:var(--t-caption);color:var(--muted);margin-top:.5em;line-height:1.3;}
+ .cl-branch{position:absolute;font-size:var(--t-caption);color:var(--accent);line-height:1.25;}
+ .cl-loop-label{position:absolute;left:42%;top:80%;width:41%;font-size:var(--t-small);color:var(--muted);text-align:center;}
+ .cl-upstream{font-size:var(--t-small);color:var(--muted);}
+ /* Opacity only: transforms on a reveal wrapper change the containing block of absolute labels. */
+ .cl-map [data-from]{opacity:0;transition:opacity .32s ease;}
+ .cl-map [data-from].in{opacity:1;}
+ .instant .cl-map [data-from]{transition:none;}
  .cl-link{color:var(--muted);}
  `);
  frame.innerHTML=`<h2 class="deck-heading">Propose an experiment—and show why</h2>
  <div class="cl-description">An assay, concentration range, controls and procedure,<br>with supporting evidence for the researcher to review.</div>
  <div class="cl-map">
- <svg viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
- <defs><marker id="cl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10" fill="var(--accent)"/></marker><marker id="cl-future-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10" fill="var(--muted)"/></marker></defs>
- <path class="cl-line" marker-end="url(#cl-arrow)" d="M165 190 H250"/>
- <path class="cl-line" marker-end="url(#cl-arrow)" d="M445 190 H460 V55 H590"/>
- <g class="reveal-in" data-from="2"><path class="cl-line" marker-end="url(#cl-arrow)" d="M460 190 V245 H590"/><path class="cl-line" marker-end="url(#cl-arrow)" d="M760 245 H830"/></g>
- <g class="reveal-in" data-from="3"><path class="cl-line cl-future" marker-end="url(#cl-future-arrow)" d="M915 285 V395 H335 V255"/></g>
- <g class="reveal-in" data-from="4"><path class="cl-line cl-future" marker-end="url(#cl-future-arrow)" d="M65 125 V150"/></g>
+ <svg viewBox="0 0 1000 450" preserveAspectRatio="none" aria-hidden="true">
+ <defs><marker id="cl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10" fill="var(--accent)"/></marker><marker id="cl-outer-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10" fill="var(--muted)"/></marker></defs>
+ <rect class="cl-zone" x="235" y="0" width="520" height="350" rx="10"/>
+ <path class="cl-line cl-external" marker-end="url(#cl-outer-arrow)" d="M160 190 H260"/>
+ <path class="cl-line" marker-end="url(#cl-arrow)" d="M435 190 H475 V110 H530"/>
+ <path data-from="2" class="cl-line" marker-end="url(#cl-arrow)" d="M475 190 V270 H530"/>
+ <path data-from="2" class="cl-line cl-external" marker-end="url(#cl-outer-arrow)" d="M710 270 H825"/>
+ <path data-from="3" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M910 355 V430 H340 V255"/>
+ <path data-from="4" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M70 80 V150"/>
  </svg>
- <div class="cl-node" style="left:0;top:38%;width:17%"><strong>Researcher’s<br>question</strong></div>
- <div class="cl-node" style="left:26%;top:38%;width:19%"><strong>Check the<br>knowledge base</strong></div>
- <div class="cl-branch" style="left:47%;top:3%">Answer exists</div>
- <div class="cl-node" style="left:60%;top:3%;width:36%"><strong>Return the result</strong><small>Include its sources</small></div>
- <div class="reveal-in" data-from="2">
- <div class="cl-branch" style="left:44%;top:66%">Measurement<br>missing</div>
- <div class="cl-node" style="left:60%;top:53%;width:17%"><strong>Propose an<br>experiment</strong></div>
- <div class="cl-node" style="left:84%;top:53%;width:17%"><strong>Run the<br>experiment</strong><small>After researcher review</small></div>
- </div>
- <div class="cl-integration reveal-in" data-from="3">Add measured results + sources to the KB<small>Potential integration</small></div>
- <div class="cl-node cl-upstream reveal-in" data-from="4" style="left:0;top:0;width:25%"><strong>Hypothesis refinement</strong><small>Potential integration</small></div>
+ <div class="cl-system">Our system</div>
+ <div class="cl-node" style="left:0;top:35%;width:17%"><strong>Researcher’s<br>question</strong></div>
+ <div class="cl-node" style="left:27%;top:35%;width:19%"><strong>Check the<br>knowledge base</strong></div>
+ <div class="cl-branch" style="left:54%;top:12%">Answer exists</div>
+ <div class="cl-node" style="left:54%;top:22%;width:20%"><strong>Return result<br>and sources</strong></div>
+ <div class="cl-branch" data-from="2" style="left:54%;top:46%">Measurement missing</div>
+ <div class="cl-node" data-from="2" style="left:54%;top:57%;width:20%"><strong>Propose an<br>experiment</strong></div>
+ <div class="cl-node" data-from="2" style="left:84%;top:49%;width:17%"><small>Researcher / lab</small><strong>Review<br>and run</strong></div>
+ <div class="cl-loop-label" data-from="3">Add measured results<br>and sources to the KB</div>
+ <div class="cl-node cl-upstream" data-from="4" style="left:0;top:0;width:22%"><strong>Hypothesis<br>refinement</strong></div>
  </div>
  <p class="deck-caption"><a class="cl-link" href="qa.html" target="_blank" rel="noopener">Q/A backup ↗</a></p>`;
  return{enter(s,a){Deck.show(frame,s,a);}};
