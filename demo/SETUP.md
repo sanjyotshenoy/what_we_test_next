@@ -148,3 +148,17 @@ and planning artifacts without calling live agent endpoints.
   is not biological validation or physical execution.
 
 See [current memory](memory/MEMORY.md) and [remaining work](docs/PIPELINE_TODO.md).
+
+## Public visitor-key planning
+
+The public root is the operator-layout dashboard; `/sequential` is preserved and
+`/results` retains the old read-only view. Public `/planner` takes a Nebius key for
+one bounded run. Do not configure a public service key: inherited provider keys,
+dotenv and private OpenCode profiles are excluded from this path. Keys are sent
+through a worker stdin pipe and retained only in memory. The existing configured
+Paperclip account supplies literature retrieval. See deploy/README.md for bounds,
+ownership/expiry and restart effects. The private operator's older credential
+configuration above applies only to that authenticated service.
+
+TODO(final): Verify a full public run with a visitor-supplied key; automated checks
+use a fake provider and real local browser/worker processes without paid inference.

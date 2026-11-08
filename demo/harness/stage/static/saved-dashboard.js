@@ -4,7 +4,8 @@ const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const api = async path => {const r=await fetch(path); if(!r.ok) throw new Error(`Saved results unavailable (${r.status}).`); return r.json();};
 const details = (title, value) => `<details><summary>${esc(title)}</summary>${prettyValue(value)}</details>`;
-let catalog, data, runs=[], generation=0, graph;
+let catalog, data, runs=[], generation=0, graph, liveQuestion='';
+const liveSession=new URLSearchParams(location.search).get('run');
 initializeVisuals();
 initializeDashboardLayout();
 initializeWorkflow();
@@ -54,9 +55,9 @@ async function selectSession() {
   try {
     const result=await api(`/api/planning?session=${encodeURIComponent(session)}`);
     if(token!==generation) return;
-    if(!result.batches?.length) throw new Error('Saved artifacts are missing for this example.');
-    data=result;$('question').textContent=question(data);
-    $('status').textContent=`Precomputed · ${data.session}`;
+    if(!result.batches?.length && !liveSession) throw new Error('Saved artifacts are missing for this example.');
+    data=result;$('question').textContent=liveSession?liveQuestion:question(data);
+    $('status').textContent=`${liveSession?'Your run':'Precomputed'} · ${data.session}${!data.batches.length?' · No compiled protocol yet; return to live planning for progress.':''}`;
     renderWorkflow(data);
     for(const batch of data.batches) {
       for(const run of batch.manifest.runs||[]) runs.push({batch,run,snapshot:batch.runs.find(r=>r.run_id===run.run_id)});
@@ -75,6 +76,16 @@ $('kg-fit').onclick=()=>graph?.fit(undefined,50);
 $('kg-all').onclick=()=>drawGraph('all');
 $('kg-focus').onclick=()=>drawGraph('focus');
 (async()=>{try {
+  if(liveSession) {
+    const job=await api(`/api/runs/${encodeURIComponent(liveSession)}`);
+    liveQuestion=job.question;
+    $('source-tag').textContent='Your run';$('run-tag').textContent=job.state;
+    $('source-note').textContent='New run with your supplied key. Proposed and simulated results are not biological measurements. Reload to see newly generated artifacts.';
+    $('model').innerHTML=`<option>${esc(job.model)}</option>`;
+    $('query').innerHTML=`<option value="${esc(liveSession)}">${esc(job.question)}</option>`;
+    document.querySelector('a[href="/planner"]').href=`/planner?run=${encodeURIComponent(liveSession)}`;
+    await selectSession();return;
+  }
   catalog=await api('/api/precomputed');
   $('model').innerHTML=catalog.models.map(m=>`<option value="${esc(m.id)}">${esc(m.label)}</option>`).join('');
   $('model').disabled=false;selectModel();

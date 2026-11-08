@@ -112,12 +112,36 @@ This addresses stale browser assets; the user's exact cached state was not obser
 The public judge viewer remains a separate application. Nine cache/API/workflow
 tests passed before reloading the idle operator. No agent session was interrupted.
 
+## Public dashboard and visitor keys — 2026-11-08
+
+The public demo root now serves the six-panel operator dashboard. `/sequential`
+remains unchanged; `/results` preserves the previous read-only results view.
+`/planner` is a dedicated visitor-key form. New results open in the same dashboard
+via `/?run=...`, accessible only with the originating browser's HttpOnly cookie.
+
+No saved Nebius credential is available to the public runner. Each run requires a
+newly entered key, passed only over HTTPS and a stdin pipe to an isolated process.
+The public service never connects to private OpenCode or its key profiles. Existing
+private operator credentials remain private and are not changed by this deployment.
+Worker environment excludes inherited provider keys and disables dotenv. The key
+lives only in that worker's client; tool subprocesses do not inherit it. Public
+runs use `wwtn.llm.chat` plus the existing six bounded demo tools, with JSON actions
+and the existing planner prompt. This is a new transport, not a replay of OpenCode.
+
+At most two concurrent public runs / one per browser, sixteen turns, fifteen
+minutes. No automatic model retries. Stop kills the process group. Private run
+artifacts expire after one hour; graceful shutdown removes them. Browser ownership
+is in memory, so restart revokes access. Paperclip still uses the demo account.
+Tests cover access boundaries, stdin key transport, cancellation, browser CSP,
+workflow/molecule display, and key clearing/storage absence. No paid call was made.
+TODO(final): Rehearse the public runner with a visitor-supplied Nebius key.
+
 ## Views and access
 
 | View | URL | Behavior |
 | --- | --- | --- |
 | Sequential | https://demo-o10eetwuq.gobrev.dev/sequential | Public, precomputed model/query walkthrough |
-| Judge/results | https://demo-o10eetwuq.gobrev.dev/ | Public, approved artifacts and separate robot video |
+| Public dashboard | https://demo-o10eetwuq.gobrev.dev/ | Approved artifacts; visitor-key live runs at `/planner` |
 | Operator | https://operator-o10eetwuq.gobrev.dev/ | Brev login; current two org-member email allowlist; shared live session |
 
 The operator allowlist is a membership snapshot, not automatic future-member access.

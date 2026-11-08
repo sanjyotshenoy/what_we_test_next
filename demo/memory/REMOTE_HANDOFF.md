@@ -50,9 +50,10 @@ state before restarting anything. Remote sessions may be doing active work.
 Forward services use systemd-socket-proxyd. Brev HTTPS destination ports are 7201
 and 7101, not the loopback app ports. Brev handles public TLS and operator login;
 Caddy is not installed or active. Never expose 4096. Do not start legacy tmux
-launchers alongside systemd services. No new inference starts from the viewer.
+launchers alongside systemd services. Public `/planner` now starts bounded visitor-key runs; no saved Nebius key is available to them.
 
-- Public viewer: https://demo-o10eetwuq.gobrev.dev ; walkthrough: /sequential.
+- Public dashboard: https://demo-o10eetwuq.gobrev.dev ; walkthrough: /sequential;
+  visitor-key planning: /planner; old read-only results: /results.
   Brev port ID `nport-3LpUrWC1nR7XkrW1qZjTltSuEce`, anonymous enabled.
 - Operator: https://operator-o10eetwuq.gobrev.dev ; Brev port ID
   `nport-3LpWC4Pv7dAgipVm7b6lXSq48kZ`, anonymous disabled, two current org members.
@@ -95,3 +96,8 @@ Ignored planning artifacts, private receipts, media and auth must be backed up
 through approved private storage; Git bundles transfer code only. The original
 four-antibiotic reference and old failures are preserved in history. Current
 validation and scientific limitations are in MEMORY.md and PRECOMPUTED_EXAMPLES.md.
+
+Public BYOK ownership is in memory. Restarting wwtn-viewer cancels active public
+runs and expires their private results; coordinate before future restarts. Public
+workers never use private OpenCode credentials. See MEMORY.md for bounds and the
+uncompleted paid rehearsal. No credential file is required for public Nebius use.

@@ -10,10 +10,8 @@ API keys are never sent to the browser; the page only ever sees profile names.
 """
 import asyncio
 import base64
-import hashlib
 import json
 import os
-import re
 import subprocess
 import time
 from pathlib import Path
@@ -21,6 +19,7 @@ from pathlib import Path
 import aiohttp
 from aiohttp import web
 from demo.harness.stage import planning_view, recording
+from demo.harness.stage.assets import versioned_html as asset_html
 
 HERE = Path(__file__).resolve().parent
 from demo.harness.paths import ROOT, DEMO
@@ -356,16 +355,7 @@ async def api_artifact(request):
 
 
 def versioned_html(name):
-    """Make every HTML load reference the current script and stylesheet bytes."""
-    def asset(match):
-        url = match.group('url')
-        path = (STATIC / url.removeprefix('/static/')).resolve()
-        if not path.is_relative_to(STATIC.resolve()) or not path.is_file():
-            return match.group(0)
-        version = hashlib.sha256(path.read_bytes()).hexdigest()[:16]
-        return f'{match.group("attribute")}{url}?v={version}'
-    return re.sub(r'(?P<attribute>(?:src|href)=[\"\x27])(?P<url>/static/[^\"\x27?]+\.(?:js|css))(?:\?[^\"\x27]*)?',
-                  asset, (STATIC / name).read_text())
+    return asset_html(name, STATIC)
 
 
 async def index(request):

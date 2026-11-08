@@ -38,7 +38,7 @@ class BrowserTests(unittest.TestCase):
                         errors, failures = [], []
                         page.on('pageerror', lambda e: errors.append(str(e)))
                         page.on('response', lambda r: failures.append(r.status) if r.status >= 400 else None)
-                        page.goto(url)
+                        page.goto(url+'/results')
                         page.wait_for_selector('.well')
                         self.assertEqual(page.locator('.well').count(), 96)
                         self.assertFalse(page.locator('.composer').is_visible())
