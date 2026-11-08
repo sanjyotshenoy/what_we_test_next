@@ -18,7 +18,13 @@
     }
   ],
   "sessions": {
-    "ses_e45830dcdffec6BtfRHpmnGmZo": "zai-org/GLM-5.3",
-    "ses_e45849c51ffeAj4a8dVLJkTK2M": "zai-org/GLM-5.3"
+    "ses_e43f7ded3ffewajMKYz0MUSIt5": "zai-org/GLM-5.3",
+    "ses_e43f75d69ffePdaoKyXbTyZC4F": "zai-org/GLM-5.3",
+    "ses_e43f6d036ffeZVXxIevqaUrbl1": "moonshotai/Kimi-K3",
+    "ses_e43f64303ffeOSAdgdaPb0GFz2": "moonshotai/Kimi-K3",
+    "ses_e43f5aa0dffeuGn5BvGa2cM41q": "Qwen/Qwen3.8-27B",
+    "ses_e43f3f5ceffebBcW3z7SuQTIrX": "Qwen/Qwen3.8-27B",
+    "ses_e43f4d628ffeqEvaH0TZLYqBim": "deepseek-ai/DeepSeek-V4-Pro-0813",
+    "ses_e43f419feffel5HS59ibX1b034": "deepseek-ai/DeepSeek-V4-Pro-0813"
   }
 }

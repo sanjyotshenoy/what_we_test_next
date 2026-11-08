@@ -149,3 +149,9 @@ as a string on all attempts; strict validation rejected it and no simulation ran
 Failure receipt preserved. Added an explicit object-serialization instruction to
 the comparison prompt before a single new-session retry; no artifact repair or
 validator relaxation. Other models' prior successful prompts remain in session logs.
+
+Precomputation completed: eight accepted sessions, two per model; sixteen protocol-
+hash-verified simulator passes. `docs/PRECOMPUTED_EXAMPLES.md` records identities,
+elapsed times and Qwen's failed first comparison attempt / successful explicit-object
+retry. Sequential selector now maps only these eight real-entity design trajectories.
+Original judge sessions remain published for existing links; operator unchanged.
