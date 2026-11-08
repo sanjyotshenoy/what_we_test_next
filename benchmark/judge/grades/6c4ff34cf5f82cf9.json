@@ -1,0 +1,63 @@
+{
+  "item_id": "6c4ff34cf5f82cf9",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes ATP viability in human TMD8 cells, explains metabolic and proliferation limitations, and separates cellular effects from BTK causality.",
+      "response_quotes": [
+        "Human TMD8 cells treated with CHEMBL5188786",
+        "A viability response alone cannot establish BTK inhibition or causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, detection and analysis are coherent with relevant intended controls. Culture, detection parameters, reference control and acceptance thresholds remain unresolved; this is an outline rather than a supported executable procedure. An untreated reference cannot substitute for time-zero measurement when separating growth arrest from cell loss.",
+      "response_quotes": [
+        "Reference cytotoxic or viability control; identity and concentration unresolved",
+        "include a time-zero or untreated reference if growth inhibition is to be distinguished from loss of pre-existing viable cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is internally consistent and explicitly provisional, but broad coverage alone insufficiently justifies its upper limit and range in this system. Exposure and replication settings lack supplied support. There is no explicit arithmetic contradiction or fabricated numerical source.",
+      "response_quotes": [
+        "10 uM; provisional assumption, not a potency estimate",
+        "3; provisional assumption for broad coverage",
+        "3 independent biological experiments; provisional assumption, with technical well replication unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Assay comparability is not established by supplied evidence.",
+    "Optimal TMD8 medium, density, exposure and culture conditions are unsupported.",
+    "Solubility, stability, vehicle tolerance and luminescence interference remain unvalidated."
+  ],
+  "assumption_handling": "Numerical settings are explicitly provisional, biological experiments are distinguished from technical replication, and missing operational details are disclosed. References to a supported detection procedure do not supply that procedure or establish source support.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points give 10/3^9 = 0.0005080526343 uM (0.5080526343 nM). No minimum or full list is claimed; stated top, factor and count agree."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review must resolve culture and detection parameters, compound compatibility and interference controls, and the provisional concentration range."
+}

@@ -1,0 +1,61 @@
+{
+  "item_id": "fba110a2ac658eae",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "The cell-free Q04771 kinase endpoint directly addresses biochemical inhibition, with explicit limits on cellular and target-specific causal interpretation. No remembered potency is supplied.",
+      "response_quotes": [
+        "biochemical cell-free kinase inhibition assay with ADP-Glo luminescent detection",
+        "Biochemical inhibition does not establish cellular target engagement, cellular viability effects, or target-specific causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion/ADP detection, and analysis are coherently ordered with relevant intended controls. Construct, substrate, reaction conditions, detection settings, reference inhibitor, and acceptance criteria remain unresolved, so this is an outline rather than an executable procedure.",
+      "response_quotes": [
+        "For ADP-Glo, stop the reaction, deplete residual ATP, add ADP detection reagent, and measure luminescence.",
+        "Reference inhibitor identity and acceptance criteria are unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The response honestly abstains from choosing a concentration series and replicate count. This avoids fabricated support or arithmetic contradictions but leaves the requested quantitative design incomplete; null series fields cannot earn 2.",
+      "response_quotes": [
+        "top_concentration_uM, dilution_factor, n_points, and replicates are null because the packet provides no support for specific values; they must be set after solubility, ATP-Km, linearity, and assay-window pilots."
+      ],
+      "input_evidence_paths": [
+        "generator_input.output_contract",
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of the proposed ADP-Glo assay to the supplied radiometric measurements is not established.",
+    "Compatibility and optimal operating conditions for the unspecified recombinant construct, substrate, and detection system are not established."
+  ],
+  "assumption_handling": "Unsupported operational settings are explicitly unresolved, and contextual potencies are not transferred to the query compound. Numeric abstention is transparent but omits a justified provisional series.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "All series fields and replicates are null; no numerical series or endpoint is available for arithmetic checking."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and pilot validation are required to establish assay compatibility and resolve operational settings and the concentration series."
+}

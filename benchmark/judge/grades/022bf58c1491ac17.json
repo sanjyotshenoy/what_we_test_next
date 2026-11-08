@@ -1,0 +1,61 @@
+{
+  "item_id": "022bf58c1491ac17",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes biochemical LIMK1 inhibition with ADP detection and limits cellular interpretation. The different detection format is explicitly provisional rather than claimed equivalent.",
+      "response_quotes": [
+        "biochemical kinase inhibition concentration-response assay with luminescent ADP detection",
+        "Biochemical inhibition does not establish cellular viability or target-specific causality in cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Ordered preparation, kinase reaction, ATP depletion, ADP detection and analysis are coherent, with relevant controls intended. Essential reaction and detection settings, reference identity and acceptance criteria remain unresolved, so this is an outline rather than a supported executable procedure.",
+      "response_quotes": [
+        "Stop the reaction, deplete residual ATP, perform ADP detection, and measure luminescence according to the ADP-Glo workflow.",
+        "reagent_volumes unresolved; depletion_time unresolved; detection_time unresolved; exact ADP-Glo volumes/times are not supplied in the packet"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is internally consistent and honestly provisional, but broad coverage alone does not justify selecting 100 uM, threefold spacing and ten points in this context. Available other-compound measurements do not inform the stated numerical justification, and solubility remains unresolved. The 60-minute duration is disclosed as contextual evidence from another detection format.",
+      "response_quotes": [
+        "The 100 uM top concentration, 3-fold dilution, 10 points, and 3 replicates are design assumptions intended to span a broad range; they are not sourced potency or solubility facts."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained Kinase-Glo assays with the proposed ADP-Glo adaptation.",
+    "Suitable enzyme construct, substrate and ATP concentrations, buffer, temperature, vehicle tolerance and compound solubility.",
+    "Detection operating conditions and experimentally validated assay performance."
+  ],
+  "assumption_handling": "Numerical choices and the contextual 60-minute reaction are labeled provisional. Missing operating settings are explicitly unresolved. Calling examples compatible in one parameter field is imprecise, but the rationale and limitations explicitly state that direct format compatibility is not established.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points imply 100 to 0.005080526342529086 uM (5.080526342529086 nM). No explicit minimum or concentration list contradicts this. Three replicate wells are technical replication; independent biological replication is not claimed."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and assay optimization are needed to establish detection-format compatibility and resolve essential operating conditions."
+}

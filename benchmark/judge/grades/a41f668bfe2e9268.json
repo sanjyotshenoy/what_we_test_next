@@ -1,0 +1,62 @@
+{
+  "item_id": "a41f668bfe2e9268",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "The cell-free CK1 alpha activity assay directly addresses biochemical inhibition and limits cellular and target-causality conclusions. Detection interference is acknowledged.",
+      "response_quotes": [
+        "Cell-free CK1 alpha (P48729) kinase reaction; exact enzyme construct/source unresolved",
+        "it does not measure cellular viability or establish target-specific causality in cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion/detection and analysis are coherently ordered with activity and background controls. Essential reaction and detection settings, substrate identity, reference inhibitor and acceptance criteria remain unresolved. The counterscreen is identified but not specified. This is an honest outline rather than an executable procedure.",
+      "response_quotes": [
+        "Stop the reaction, deplete residual ATP, add ADP detection reagent, and measure luminescence using a validated ADP-Glo procedure.",
+        "enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved; reaction_time=unresolved; temperature=unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is internally consistent and explicitly provisional. No contextual rationale explains choosing this top concentration or span; three replicates are neither justified nor distinguished as technical or independent. Acknowledging unknown potency does not itself justify these specific settings.",
+      "response_quotes": [
+        "100 uM top concentration, 3-fold dilution, 10 points, and 3 replicates are provisional design assumptions, not sourced facts.",
+        "Retained CK1 examples are contextual only and are not direct estimates for CHEMBL1234833."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained CK1 inhibition and binding measurements with the proposed CK1 alpha ADP-Glo assay is not established.",
+    "Enzyme construct, substrate compatibility, optimal reaction settings, compound solubility and detection compatibility cannot be validated from supplied evidence."
+  ],
+  "assumption_handling": "Numeric choices and fit model are clearly labeled provisional, and operational gaps are expressly unresolved. The reference to a validated procedure requests future validation rather than establishing supplied source support. The concentration span and replication design remain insufficiently justified.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points span 100 to 0.005080526342529086 uM (5.080526342529086 nM). No endpoint list or minimum in the prose contradicts this arithmetic. Replicate type is unspecified."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review is needed for unresolved assay compatibility, operational settings, concentration selection and interference-control design."
+}

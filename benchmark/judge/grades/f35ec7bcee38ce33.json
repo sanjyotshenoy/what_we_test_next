@@ -1,0 +1,68 @@
+{
+  "item_id": "f35ec7bcee38ce33",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses biochemical haspin inhibition using an ADP readout and limits cellular and off-target conclusions; detection interference is acknowledged.",
+      "response_quotes": [
+        "The assay measures only catalytic inhibition; it does not address cellular permeability or off‑target effects."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, ATP depletion, detection and analysis are coherent and ordered, with vehicle, reference and blank controls. Operating settings remain unsupported; detection reagent volume and the reference concentration are unspecified and full inhibition is unvalidated. The claimed pilot is not supplied, so this is not a supported executable procedure.",
+      "response_quotes": [
+        "Add ADP‑Glo™ reagent to stop the reaction, deplete remaining ATP (5 min), then add detection reagent and incubate 30 min before reading luminescence on a plate reader."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Dilution arithmetic is consistent after rounding, but the material reaction time is falsely asserted to have pilot validation. No pilot data or manufacturer protocol was supplied to support the claimed conversion verification and reagent ratio. Acknowledging assumed Km values does not cure those specific evidence claims.",
+      "response_quotes": [
+        "30 min (ensures <20 % substrate conversion, verified in pilot)",
+        "10 µL stop/reagent per 20 µL reaction (per manufacturer protocol)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Invented completed pilot validation of a material reaction setting.",
+      "response_quote": "30 min (ensures <20 % substrate conversion, verified in pilot)",
+      "reason": "No pilot or conversion measurements are supplied; an unvalidated time is presented as empirically established."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of retained assays with the proposed recombinant construct, substrate and ADP-Glo readout.",
+    "Actual Km values, linearity, conversion, enzyme stability and compound solubility under the proposed settings.",
+    "Manufacturer support for detection volumes and timings; reference inhibitor saturation."
+  ],
+  "assumption_handling": "Acknowledges assumed Km values and interference, but presents other unsupported settings as typical, standard or validated. Examples are contextual, not similarity-ranked evidence that this range ensures query coverage. Replicate type is unspecified.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "100/3^9 = 0.005080526 µM (5.080526 nM), consistent with rounded 0.005 µM. Nine threefold intervals span 4.294 log10 units, consistent with >3 log units. Retained potencies lie within the range but do not establish query potency or assay compatibility."
+  },
+  "needs_human_review": true,
+  "review_reason": "Unsupported claimed validation and unresolved compatibility and operational settings require domain review."
+}

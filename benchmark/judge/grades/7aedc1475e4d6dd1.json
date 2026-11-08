@@ -1,0 +1,59 @@
+{
+  "item_id": "7aedc1475e4d6dd1",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses viability in MER-expressing mouse BaF3 cells using the supplied two-day ATP readout precedent. Explicitly distinguishes ATP/viability effects from proliferation, cell death, direct inhibition and target-specific causality.",
+      "response_quotes": [
+        "this is not a direct measurement of MER kinase activity."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Ordered preparation, exposure, detection and analysis include relevant intended controls. Essential culture, detection, reference-control and acceptance settings remain explicitly unresolved, making this a coherent outline rather than an executable supported procedure.",
+      "response_quotes": [
+        "unresolved; follow the validated procedure and well volume"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 2,
+      "rationale": "The exploratory 10-point threefold series is internally consistent and justified as a broad search rather than a potency prediction. Other-compound evidence is contextual; the two-day endpoint is sourced, and concentration, replicate and fitting choices are explicitly provisional.",
+      "response_quotes": [
+        "The broad 10-point series and three independent experiments are explicitly provisional design choices intended to locate a response without predicting a withheld IC50."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of the exact MER construct and culture system with the retained assay.",
+    "Optimal density, medium, growth factors, culture temperature and vehicle tolerance.",
+    "Validated detection settings, reference-control performance and assay linearity."
+  ],
+  "assumption_handling": "Clearly separates the supported two-day CellTiter-Glo precedent from provisional series, independent experiment count and fit model. Operational conditions are openly unresolved; a validated procedure is requested but not supplied as evidence.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "10/3^9 = 0.0005080526 uM, consistent with approximately 0.00051\u201310 uM. Two days equals 48 hours. Three replicates are explicitly independent experiments; technical wells remain unresolved."
+  },
+  "needs_human_review": true,
+  "review_reason": "Exact assay compatibility and operational validation remain unresolved, including suitability of identical culture conditions for parental and MER-expressing cells."
+}

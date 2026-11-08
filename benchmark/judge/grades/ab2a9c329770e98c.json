@@ -1,0 +1,73 @@
+{
+  "item_id": "ab2a9c329770e98c",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 1,
+      "rationale": "The requested biochemical system and endpoint are addressed and cellular conclusions are appropriately limited, but the inverse signal/activity description makes interpretation inconsistent.",
+      "response_quotes": [
+        "ADP-Glo luminescence proportional to ADP produced (inversely proportional to kinase activity)",
+        "This biochemical assay measures enzymatic inhibition only; it does not establish cellular activity or target-specific causality in cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 0,
+      "rationale": "Preparation, reaction, depletion, detection and analysis are ordered. However, the stated inverse signal/activity relationship contradicts the subsequent no-compound maximum and no-enzyme minimum normalization, preventing a consistent interpretation of inhibition. Essential operating conditions also remain unresolved.",
+      "response_quotes": [
+        "ADP-Glo luminescence proportional to ADP produced (inversely proportional to kinase activity)",
+        "Normalize luminescence to no-compound (100% activity) and no-enzyme (0% activity) controls;"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The explicit ten-point threefold series from 30 \u00b5M ends at 0.00152416 \u00b5M, not approximately 0.0005 \u00b5M. The latter requires approximately eleven points. Contextual potencies do not establish full-response coverage for this compound.",
+      "response_quotes": [
+        "3 (assumption; gives ~10 points spanning 30 \u00b5M\u2013~0.0005 \u00b5M)",
+        "so 30 \u00b5M should bracket full response; not a potency estimate for CHEMBL1077347"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "procedural_soundness",
+      "issue": "Contradictory signal direction.",
+      "response_quote": "ADP-Glo luminescence proportional to ADP produced (inversely proportional to kinase activity)",
+      "reason": "The inverse relationship conflicts with the activity controls and leaves inhibition interpretation inconsistent."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Concentration-series endpoint mismatch.",
+      "response_quote": "3 (assumption; gives ~10 points spanning 30 \u00b5M\u2013~0.0005 \u00b5M)",
+      "reason": "Ten points require nine dilution steps; 30/3^9 is approximately three times the stated minimum."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of the retained radiometric and LDH assays with the proposed ADP-Glo system is not established.",
+    "Optimal enzyme, substrate, ATP, vehicle, temperature, reaction and detection conditions are unavailable.",
+    "Compound solubility, detection interference and achievable response coverage are unknown."
+  ],
+  "assumption_handling": "Most operating conditions are explicitly unresolved and the series and replicate count are labeled assumptions. Format compatibility is nevertheless asserted more strongly than supplied evidence warrants. Replicate independence is unspecified and pilot thresholds are unsupported numerical suggestions.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": false,
+    "notes": "Computed minimum is 0.00152416 \u00b5M = 1.52416 nM. Approximately 0.0005 \u00b5M requires eleven points. Contextual endpoints of 6.8 and 2100 nM correctly correspond to approximately 0.007\u20132.1 \u00b5M."
+  },
+  "needs_human_review": true,
+  "review_reason": "Resolve the signal-direction contradiction and concentration endpoint; validate assay compatibility and operating conditions."
+}

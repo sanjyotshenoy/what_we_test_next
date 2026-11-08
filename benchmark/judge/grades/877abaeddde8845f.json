@@ -1,0 +1,72 @@
+{
+  "item_id": "877abaeddde8845f",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 1,
+      "rationale": "TMD8 ATP viability directly addresses the endpoint, and limitations reject target-specific causality. However, inferred target engagement and a reference purportedly confirming BTK-mediated effects leave an inconsistent mechanistic interpretation.",
+      "response_quotes": [
+        "therefore target engagement is inferred, not demonstrated."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Ordered preparation, exposure, detection and analysis include vehicle, reference and background controls. Culture and detection settings lack supplied support; culture volume, reference dose and implementation of independent biological replication remain unresolved. This is an outline rather than a supported executable procedure.",
+      "response_quotes": [
+        "100 µL (evidence: CellTiter‑Glo protocol)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "10/3^9 yields 0.00050805 µM rather than the stated 0.01 µM minimum. Numerical seeding and detection settings also claim protocol evidence absent from the supplied cards and empty retained examples.",
+      "response_quotes": [
+        "The chosen concentration range (0.01‑10 µM)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Stated range contradicts dilution parameters.",
+      "response_quote": "The chosen concentration range (0.01‑10 µM)",
+      "reason": "Ten threefold points from 10 µM end at 0.00050805 µM, about 19.7 times below the claimed minimum."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Material detection parameters claim missing source support.",
+      "response_quote": "100 µL (evidence: CellTiter‑Glo protocol)",
+      "reason": "The supplied detection card gives no reagent volumes or times, and no CellTiter-Glo protocol was provided."
+    }
+  ],
+  "not_assessable_components": [
+    "Optimal TMD8 culture density, medium and exposure conditions lack supplied evidence.",
+    "Assay comparability and potency-range adequacy cannot be determined from empty retained examples.",
+    "Detection settings and reagent-to-culture-volume compatibility lack a supplied protocol."
+  ],
+  "assumption_handling": "Series, vehicle, exposure and fit thresholds are labeled assumptions. These labels do not excuse the range contradiction or specific unsupported evidence claims for seeding, temperature and detection.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": false,
+    "notes": "Minimum is 0.00050805 µM (0.50805 nM), versus stated 0.01 µM. Three replicates are called biological without specifying independent experiments."
+  },
+  "needs_human_review": true,
+  "review_reason": "Review unsupported assay bindings, unresolved compatibility, numerical contradiction and inconsistent target-engagement interpretation."
+}

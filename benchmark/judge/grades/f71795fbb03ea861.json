@@ -1,0 +1,72 @@
+{
+  "item_id": "f71795fbb03ea861",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "The recombinant Aurora A biochemical ADP endpoint addresses the question and appropriately limits conclusions to enzymatic activity. Specific assay compatibility remains unverified.",
+      "response_quotes": [
+        "the assay measures direct enzymatic inhibition only and does not address cellular permeability or off‑target effects."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection and analysis form an ordered outline with vehicle, reference and no-enzyme controls. Operating settings and the claimed manufacturer schedule are unsupported. Normalization uses a 0% DMSO no-compound control despite 0.5% DMSO treatment wells and assumes complete reference inhibition without validation. Reagent identities and reaction linearity need resolution.",
+      "response_quotes": [
+        "Normalize luminescence to 0 % inhibition (no‑compound) and 100 % inhibition (reference inhibitor)."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The ten-point threefold series ends at 0.0050805 µM, not approximately 0.02 µM. The cited examples contain no enzyme or substrate concentrations and cannot support the asserted concentration ranges. ATP is inconsistently called Km-approximate and approximately fivefold Km, despite acknowledging unknown Km.",
+      "response_quotes": [
+        "A 3‑fold dilution series spanning 100 µM to ~0.02 µM",
+        "The chosen enzyme and substrate concentrations are within the range reported for Aurora A assays (see retained examples CHEMBL1512579, CHEMBL1533728)."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported claimed source for enzyme and substrate concentrations.",
+      "response_quote": "The chosen enzyme and substrate concentrations are within the range reported for Aurora A assays (see retained examples CHEMBL1512579, CHEMBL1533728).",
+      "reason": "The cited examples describe a biotinylated peptide fluorescence assay and timing but supply no concentrations supporting the 5 nM enzyme and 10 µM substrate choices."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Explicit dilution endpoint mismatch.",
+      "response_quote": "A 3‑fold dilution series spanning 100 µM to ~0.02 µM",
+      "reason": "100/3^9 is 0.0050805 µM, about fourfold below the stated endpoint."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained fluorescence and Z’-LYTE assays to ADP-Glo.",
+    "Compatibility of the recombinant preparation and Kemptide-derived substrate, and optimal biochemical operating conditions.",
+    "Manufacturer support for reagent identities, volumes and timing; compound solubility and detection interference."
+  ],
+  "assumption_handling": "ATP Km and solubility above 10 µM are explicitly uncertain. Other parameters are asserted without support, including a false attribution of concentration evidence to retained examples. The claim that the range avoids solubility issues conflicts with the solubility limitation. Replicates are not identified as technical wells or independent runs.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": false,
+    "notes": "Computed lower endpoint is 0.005080526 µM (5.080526 nM); prose states approximately 0.02 µM. No hidden potency or coverage was used."
+  },
+  "needs_human_review": true,
+  "review_reason": "Unsupported numerical source claims and unresolved assay compatibility, reagent protocol and normalization require domain review."
+}

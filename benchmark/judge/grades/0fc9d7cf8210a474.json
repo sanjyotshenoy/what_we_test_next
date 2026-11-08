@@ -1,0 +1,70 @@
+{
+  "item_id": "0fc9d7cf8210a474",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Uses the requested cellular system and ATP viability proxy, explicitly limiting direct kinase and cytostatic/cytotoxic interpretations.",
+      "response_quotes": [
+        "mouse BaF3 cells expressing recombinant human AXL",
+        "Viability readout does not prove that CHEMBL4845957 inhibits AXL kinase activity directly; off-target cytotoxicity or cytokine withdrawal effects could contribute."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, detection and analysis are coherent with vehicle/background/reference controls. Density, exposure, series and replication remain unresolved, and fixed culture/detection settings lack supplied support. This is an incomplete outline.",
+      "response_quotes": [
+        "Add CellTiter-Glo reagent, mix, stabilize, measure luminescence.",
+        "Concentration series parameters (top concentration, dilution factor, number of points, replicates) and exposure time lack specific evidence in the packet and are therefore unresolved; values should be determined empirically."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The series is honestly unresolved. However, the material reagent-to-culture volume ratio is specifically attributed to a manufacturer procedure absent from supplied evidence. The zero concerns this missing claimed source, not an arithmetic error. Other fixed numerical settings also lack support or provisional labels.",
+      "response_quotes": [
+        "equal volume to culture (per manufacturer)",
+        "0.5% DMSO (v/v)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples",
+        "generator_input.guidelines"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported claimed manufacturer support for detection reagent volume.",
+      "response_quote": "equal volume to culture (per manufacturer)",
+      "reason": "No manufacturer procedure was supplied; the card leaves reagent volume to a supported procedure. A material detection setting is falsely presented as sourced."
+    }
+  ],
+  "not_assessable_components": [
+    "Assay comparability is unknown; no retained examples are provided.",
+    "Optimal medium, IL-3 context, seeding density, exposure duration and vehicle tolerance cannot be established from the packet.",
+    "Compatibility of reagent ratio and detection timing with the actual formulation and plate setup is unverified."
+  ],
+  "assumption_handling": "Explicitly abstains on series, replication, density and exposure duration, but calls medium standard and the detection ratio manufacturer-supported without supplied sources. Fixed solvent, incubation, detection timing and acceptance thresholds are not labeled provisional.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Series fields are null; no dilution arithmetic or endpoints can be checked. No explicit arithmetic contradiction is present."
+  },
+  "needs_human_review": true,
+  "review_reason": "Review missing manufacturer support and unresolved culture/readout compatibility and operating conditions."
+}

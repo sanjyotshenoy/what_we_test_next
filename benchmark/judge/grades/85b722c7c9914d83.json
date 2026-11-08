@@ -1,0 +1,62 @@
+{
+  "item_id": "85b722c7c9914d83",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses purified mTOR biochemical inhibition and limits cellular causal interpretation. Adapted detection compatibility is unvalidated rather than demonstrably wrong.",
+      "response_quotes": [
+        "Purified human Serine/threonine-protein kinase mTOR (P42345) with 4E-BP1-based substrate",
+        "Biochemical inhibition does not demonstrate cellular target engagement or viability effects"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent ordered preparation, reaction, detection and analysis with relevant intended controls, but essential concentrations, detection settings and acceptance criteria remain unresolved. The no-kinase interference control lacks a specified positive ADP signal for testing quenching. Alternative-format examples do not validate this adaptation or incubation-time transfer.",
+      "response_quotes": [
+        "Stop reaction with ADP-Glo reagent to deplete residual ATP, add kinase detection reagent, and read luminescence.",
+        "they require pilot titration (e.g., enzyme linearity, ATP Km) before the definitive run."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is internally consistent and explicitly provisional, but its contextual justification is only a generic likely-range claim. Replicates are not justified or distinguished as technical wells versus independent runs. Thirty minutes is present in the cited evidence, but suitability for the adapted assay is unsupported. No arithmetic contradiction or fabricated numerical source is demonstrated.",
+      "response_quotes": [
+        "The concentration series (10 µM top, 3-fold, 10 points, triplicates) is a design assumption to span likely inhibition ranges",
+        "30 min supported by CHEMBL4844752 (30 min mTOR assay); 120 min alternative per CHEMBL4731424"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility and performance of purified mTOR/4E-BP1 with ADP-Glo and comparability to retained assay formats.",
+    "Optimal enzyme, substrate, ATP, temperature, vehicle and detection conditions.",
+    "ATP-competitive mechanism of the query compound; scaffold-class attribution is not established by supplied evidence."
+  ],
+  "assumption_handling": "Most settings are explicitly assumptions or unresolved and no query potency is supplied. The standard compatible adaptation claim and transfer of the 30-minute incubation overstate supplied support. ATP competition is labeled an assumption but then used as a mechanistic premise.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Series extends from 10 µM to 0.0005080526 µM (0.5080526 nM); no explicit lower endpoint contradicts this. Three replicates lack a definition of independence."
+  },
+  "needs_human_review": true,
+  "review_reason": "Review detection compatibility, reaction-time transfer, interference-control design and unsupported mechanistic assumptions before operationalization."
+}

@@ -1,0 +1,61 @@
+{
+  "item_id": "4f3bc1d12686746b",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes isolated P30530 biochemical activity measurement and appropriately limits cellular and selectivity interpretations. No remembered potency is supplied.",
+      "response_quotes": [
+        "ADP-Glo luminescence proportional to ADP formation, used to quantify remaining kinase activity",
+        "A biochemical IC50 demonstrates inhibition in this isolated assay but does not establish cellular efficacy, selectivity, or target-specific causality in cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, reaction, ATP depletion, ADP detection and analysis sequence includes background, reference and detection-interference controls. Essential construct, reaction and detection conditions remain unresolved, making this an outline rather than a supported executable procedure.",
+      "response_quotes": [
+        "Stop the kinase reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence according to the validated ADP-Glo procedure.",
+        "Enzyme construct and origin, substrate identity, buffer, enzyme/substrate/ATP concentrations, reaction time, temperature, preincubation, vehicle tolerance, and detection timings are unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is internally consistent and explicitly provisional, with no fabricated potency or source support. Initial curve coverage is only a generic justification; the selected top dose and spacing lack contextual support or a concrete adaptive range strategy. Replication is described as independent but not operationally defined.",
+      "response_quotes": [
+        "Prepare a 10-point, threefold CHEMBL118266 dilution series from 10 uM, with three independent replicates.",
+        "These are provisional design assumptions for initial curve coverage, not sourced compound-specific settings."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained assays with the proposed ADP-Glo assay is not established.",
+    "Suitability of the eventual enzyme construct, substrate, buffer, ATP settings, detection conditions and compound solubility cannot be established from the supplied evidence."
+  ],
+  "assumption_handling": "Clearly labels concentration grid, replicates and fit as provisional, and separates unresolved operational conditions from evidence. The reference to a validated ADP-Glo procedure does not supply a protocol, but explicit unresolved detection settings avoid claiming the outline is already executable.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten threefold concentrations run from 10 uM to 0.0005080526342529086 uM (0.5080526342529086 nM). No contradictory endpoint or list is supplied. Three independent replicates are proposed; independence is not defined further."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and essential operational validation remain unresolved; domain review is needed before execution."
+}

@@ -1,0 +1,60 @@
+{
+  "item_id": "d050f7df0d3d471f",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Direct recombinant NUAK1 biochemical activity endpoint with appropriate limits on cellular engagement and specificity.",
+      "response_quotes": [
+        "ADP-Glo luminescence measuring ADP formation as a readout of NUAK1 kinase activity"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, reaction, depletion, detection and analysis with relevant intended controls. Essential construct, substrate, reaction and detection conditions remain unresolved; this is an honest outline rather than an executable supported protocol.",
+      "response_quotes": [
+        "substrate identity and concentration require validation for the selected NUAK1 construct"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Internally consistent, explicitly provisional design. Broad coverage and reproducibility are generic rationales, but the exact range and vehicle fraction lack assay-specific quantitative support or substantive contextual justification. No fabricated numerical source or arithmetic contradiction is evident.",
+      "response_quotes": [
+        "Use a provisional 10-point, 3-fold series from 10 \u00b5M, with three independent replicate experiments.",
+        "none is supported as a validated NUAK1 condition by the packet."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained ARK5 assays with proposed NUAK1 ADP-Glo conditions is not established.",
+    "Optimal construct, substrate, buffer/cofactors, ATP, temperature and reaction/detection conditions are unsupported.",
+    "Compound solubility, vehicle tolerance and detection interference are unknown."
+  ],
+  "assumption_handling": "Concentration, replication, vehicle, fitting and CV settings are explicitly provisional. Missing conditions are unresolved and other-compound potencies are not transferred. The future manufacturer-procedure reference is not presented as supplied validation.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points span 10 to approximately 0.000508053 \u00b5M (0.508053 nM). No lower endpoint or concentration list is claimed. Three independent experiments are specified; technical wells are unspecified."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and operating conditions require domain review; provisional range lacks assay-specific justification."
+}

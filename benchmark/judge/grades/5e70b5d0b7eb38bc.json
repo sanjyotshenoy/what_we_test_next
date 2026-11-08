@@ -1,0 +1,70 @@
+{
+  "item_id": "5e70b5d0b7eb38bc",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes recombinant target biochemical kinase inhibition and limits conclusions appropriately. Particular assay compatibility remains unestablished.",
+      "response_quotes": [
+        "recombinant human Activin receptor type-1 (ACVR1/Q04771)",
+        "The assay measures biochemical inhibition only; cellular permeability or off‑target effects are not addressed."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, ATP depletion/detection and normalized curve analysis are ordered coherently with vehicle and no-enzyme controls. Essential enzyme, substrate and ATP conditions remain unresolved. Substrate suitability, linearity and detection interference validation are unestablished; detection settings lack supplied support. This is an incomplete outline.",
+      "response_quotes": [
+        "Stop reaction, deplete residual ATP, add ADP-Glo detection reagent, incubate, and measure luminescence.",
+        "Enzyme, substrate, and ATP concentrations are not specified in the packet and must be empirically optimized; using incorrect ATP may affect apparent potency."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Preparation specifies 1% DMSO but the vehicle control specifies 0.1%, a tenfold incompatible setting affecting normalization. The calculated minimum is 0.000508 micromolar versus the approximate 0.001 stated. Retrieved examples provide broad range context, but temperature and detection timings are asserted without evidence or provisional labeling.",
+      "response_quotes": [
+        "0.01 (1% DMSO)",
+        "vehicle (0.1 % DMSO)",
+        "The concentration series spans ~0.001–10 µM"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Tenfold mismatch between preparation solvent and vehicle control.",
+      "response_quote": "vehicle (0.1 % DMSO)",
+      "reason": "Preparation specifies 0.01 (1% DMSO); the stated 0.1% vehicle control is unmatched and compromises normalization if followed."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retrieved radiometric ALK2 assays and proposed recombinant ACVR1 ADP-Glo assay.",
+    "Suitability of MBP or peptide substrate and unspecified enzyme construct.",
+    "Optimal enzyme, substrate, ATP, temperature and incubation settings; no manufacturer protocol is supplied for detection settings."
+  ],
+  "assumption_handling": "Enzyme, substrate and ATP concentrations are explicitly unresolved and biochemical inference is appropriately limited. Temperature, solvent settings, detection durations and claimed manufacturer volumes lack support or explicit provisional labeling. Three replicates are not distinguished as technical versus independent.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": false,
+    "notes": "10/3^9 = 0.0005080526 µM = 0.5080526 nM, about half the stated approximate minimum. Preparation and control DMSO differ tenfold."
+  },
+  "needs_human_review": true,
+  "review_reason": "Resolve solvent contradiction and validate assay compatibility, operating conditions and unsupported manufacturer attribution before execution."
+}
