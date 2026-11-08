@@ -84,6 +84,8 @@ model is `NEBIUS_MODEL` in `.env`.
 
 ## Slides
 
+![Slide 1: What Should We Test Next? with the BioHack team](slides/talks/biohack/screenshots/01_title_light.png)
+
 **Live deck:** https://zhang-etal-biohack.pages.dev/
 
 - [Standalone Q/A](https://zhang-etal-biohack.pages.dev/talks/pitch-preview/qa.html)
