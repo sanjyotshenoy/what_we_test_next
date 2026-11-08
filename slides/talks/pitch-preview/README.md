@@ -44,8 +44,14 @@ The animated PowerPoint export follows the current order, with the overall workf
 
 ## Jimmy’s OT-2 results
 
-`ot2-results.js` adds a two-step before/after score chart after the
-proposal benchmark and axis breakdown, before the demo (slide 8, `#/7`; repaired results at
-`#/7/0/0`). It reads `../biohack/data/ot2_results.js`, generated from Jimmy’s
-supplied leaderboard. This separate one-sample-per-model simulation benchmark
-is not an end-to-end robot execution of the kinase/cell proposals.
+`ot2-results.js` compares no plan (step 3 only) with an experiment plan (step 2 + 3).
+The supplied screenshot is retained at `data/jimmy-plan-comparison.png`; regenerate
+its transcribed JSON/JS using `python3 -m slides.tools.prep_ot2_plan_results`.
+Five samples per model and condition; the two lowest are discarded and the other
+three averaged. This replaces the earlier single-sample before/after repair chart.
+
+<!-- TODO(final): Obtain underlying runs and reconcile the reported aggregate.
+The supplied with-plan aggregate is 46.7, while displayed model scores average 46.06. -->
+The chart preserves the supplied aggregate and flags it visibly. No wet-lab result
+or statistical significance is established. Existing PowerPoint exports predate
+this HTML update and have not been regenerated.
