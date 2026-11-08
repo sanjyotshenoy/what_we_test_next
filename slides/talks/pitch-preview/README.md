@@ -44,8 +44,8 @@ The animated PowerPoint export follows the current order, with the overall workf
 
 ## Jimmy’s OT-2 results
 
-`ot2-results.js` adds a two-step before/after score chart immediately after the
-proposal benchmark and before the demo (slide 7, `#/6`; repaired results at
-`#/6/0/0`). It reads `../biohack/data/ot2_results.js`, generated from Jimmy’s
+`ot2-results.js` adds a two-step before/after score chart after the
+proposal benchmark and axis breakdown, before the demo (slide 8, `#/7`; repaired results at
+`#/7/0/0`). It reads `../biohack/data/ot2_results.js`, generated from Jimmy’s
 supplied leaderboard. This separate one-sample-per-model simulation benchmark
 is not an end-to-end robot execution of the kinase/cell proposals.
