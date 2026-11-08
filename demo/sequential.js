@@ -24,15 +24,25 @@
     if (cursor >= stages.length) return;
     const stage = stages[cursor++];
     const li = document.createElement('li'); li.className = 'stage';
-    li.innerHTML = `<h3>${esc(stage.title)} <span class="pill">Saved</span></h3>${stage.html}`;
+    li.innerHTML = `<h3>${esc(stage.title)} <span class="pill unknown">Saved</span></h3>${stage.html}`;
     $('timeline').append(li); controls(); schedule();
+  }
+  function evidenceSummary(e) {
+    const r = e.result || {};
+    if (e.tool === 'planning_context') return paragraph(r.template?.purpose || 'Saved protocol context and compiler capabilities loaded.');
+    if (e.tool === 'literature_search') return (r.papers || []).map(p=>paragraph(`${p.document_id}: ${p.title}`)).join('') + paragraph(r.note || '');
+    if (e.tool === 'literature_read') return paragraph(r.passage || r.note || '');
+    if (e.tool === 'biology_lookup') return paragraph([...(r.compound_matches || []), ...(r.species_matches || [])].map(x=>`${x.name} (${x.id})`).join(' → ')) +
+      (r.measurements || []).map(m=>paragraph(`MIC ${m.props?.relation || ''} ${m.props?.mic} ${m.props?.unit} · assay ${m.props?.assay} · document ${m.props?.document}`)).join('') +
+      paragraph(`Showing ${r.measurements?.length || 0} saved measurements; ${r.total_measurements ?? 'unknown'} total matches. Original units preserved; these values are background evidence, not chosen assay settings.`);
+    return '';
   }
   function build(data) {
     const out = [{title:'Start with the recorded experiment request', html:card(paragraph('This is a software rehearsal. Assay settings were supplied as synthetic test inputs; simulation does not establish biological applicability.') + paragraph('The following milestones reconstruct the flow from saved artifacts. Delays are presentation pacing, not original tool durations.'))}];
     for (const e of data.evidence || []) {
       const r = e.result || {};
       const titles = {planning_context:'Load protocol context', biology_lookup:'Look up biological evidence', literature_search:'Search the literature', literature_read:'Read a retrieved passage'};
-      out.push({title:titles[e.tool] || e.tool, html:card(`<div class="call">${esc(e.tool)}</div>` + paragraph(e.retrieved_at || '') + detail('Recorded tool inputs', e.args) + (e.tool === 'literature_read' ? paragraph(r.passage || r.note || '') : '') + detail('Recorded tool result', r))});
+      out.push({title:titles[e.tool] || e.tool, html:card(`<div class="call">${esc(e.tool)}</div>` + paragraph(e.retrieved_at || '') + detail('Recorded tool inputs', e.args) + evidenceSummary(e) + detail('Recorded tool result', r))});
     }
     for (const b of data.batches || []) {
       const m = b.manifest;
