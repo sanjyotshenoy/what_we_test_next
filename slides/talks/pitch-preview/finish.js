@@ -33,7 +33,7 @@ Deck.slide('pitch-results', {steps:4,
  </div>
  <div class="pf-example reveal-in" data-from="3"><small>EXAMPLE · KINASE BENCHMARK</small><p>Design a concentration–response experiment to measure<br>haspin inhibition by CHEMBL4278808.</p></div>
  </div>`;
- const plot=Deck.groupedBars(frame,{max:d.models[0].maximum,ticks:3,format:v=>`${v}/${d.models[0].maximum}`,series:d.models.map(m=>({key:m.id,label:m.name})),groups:[{key:'total',label:[`Mean score across ${d.cases_per_model} cases · 3 criteria, 0–2 each · provisional AI grading`],values:Object.fromEntries(d.models.map(m=>[m.id,m.total]))}],footnote:[]});
+ const plot=Deck.groupedBars(frame,{max:d.models[0].maximum,ticks:3,format:v=>`${v}/${d.models[0].maximum}`,series:d.models.map(m=>({key:m.id,label:m.name})),groups:[{key:'total',label:[`Mean score across ${d.cases_per_model} cases · 3 criteria, 0–2 each`],values:Object.fromEntries(d.models.map(m=>[m.id,m.total]))}],footnote:[]});
  plot.root.classList.add('reveal-in','pf-results-plot');
  plot.root.style.setProperty('--plot-6','var(--fg)');
  plot.root.dataset.from='4';
