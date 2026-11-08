@@ -41,3 +41,11 @@ The offline recorded output at `data/deepseek-case-2.output.json` is copied unch
 ## PowerPoint export
 
 The animated PowerPoint export follows the current order, with the overall workflow before the benchmark. Present in Slide Show mode: click to reveal the captured HTML states. The images preserve the design; smooth HTML motion is represented by discrete reveals. Click the demo image to open the live explorer.
+
+## Jimmy’s OT-2 results
+
+`ot2-results.js` adds a two-step before/after score chart after the
+proposal benchmark and axis breakdown, before the demo (slide 8, `#/7`; repaired results at
+`#/7/0/0`). It reads `../biohack/data/ot2_results.js`, generated from Jimmy’s
+supplied leaderboard. This separate one-sample-per-model simulation benchmark
+is not an end-to-end robot execution of the kinase/cell proposals.
