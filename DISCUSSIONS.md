@@ -461,3 +461,24 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   level off the robot.
 - The tip count is the demo-worthy part: 14 columns at 10 concentrations, which `feasibility.py` predicts from
   `lab.yaml` *before any code exists* and the simulator independently runs out at. 271 tests.
+- **The concentration ladder** (Emmy, 01:54). Her point: if commensal MICs are mostly ">128", start higher -
+  and more generally, the agent's job is to surface the question and the caveats a scientist should know, not to
+  nail every technical detail. Agreed on both. Two corrections: **256, not 200**, because MICs are reported on
+  the doubling ladder and 200/100/50 lines up with no published value or breakpoint; and one ladder has to cover
+  both arms, because the 8-channel pipette carries a whole column so every row of a plate shares the same
+  series. 256 over 10 two-fold steps reaches 0.5 - above the commensals' censored ">128", below a typical
+  pathogen MIC - so it brackets both. It breaks if a pathogen MIC is under 0.5: 12 points leaves no room for the
+  two control columns, and it becomes a two-plate experiment.
+- The caveat worth having the agent raise, from the same exchange: **above ~128 ug/mL precipitation reads as
+  growth**. An OD590 read cannot tell compound turbidity from bacterial turbidity, so the top rungs of exactly
+  the range we are extending into are the ones most likely to lie, and they lie in the direction that matters -
+  a compound looks like it failed to spare a commensal when it merely fell out of solution. Proposed fix (not
+  built, offered): a compound-only column with no inoculum as a precipitation control, plus a CLSI visual read.
+  Also unstated until now: the 1% DMSO ceiling means a 256 ug/mL well needs a 512 ug/mL prep, which pins the
+  required stock at roughly 50 mg/mL - worth the agent saying out loud, since if the compound will not make that
+  stock the whole range is hypothetical.
+- **`execution/generate.py`** closes the chain: proposals in, protocols out, implementing the `ExecutionResult`
+  contract `wwtn/schema.py` had described and nobody had written. `execution/examples/mic_selectivity.jsonl` is
+  a hand-written proposal for the four-species panel at n=2 (exactly 8 rows) topped at 256 ug/mL, which exists
+  because `agent/` needs `NEBIUS_API_KEY` and no machine here has one. With it, **everything downstream of the
+  agent runs end to end tonight** and the generated protocol simulates clean. 279 tests.
