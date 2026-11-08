@@ -1,4 +1,4 @@
-# Publish the slides on every push to main that touches them, to the same unlisted Cloudflare Pages link as a
+# Publish main to production and slides-preview to its separate preview URL, using the same unlisted path as a
 # deploy by hand (slides/tools/deploy_unlisted.sh, prefix in slides/.pages-prefix). Also runnable from the
 # Actions tab. Needs one repository secret, CLOUDFLARE_API_TOKEN (Cloudflare Pages: Edit); without it the run
 # only warns.
@@ -6,12 +6,12 @@ name: Deploy slides
 
 on:
   push:
-    branches: [main]
+    branches: [main, slides-preview]
     paths: ['slides/**', '.github/workflows/deploy-slides.yml']
   workflow_dispatch:
 
 concurrency:
-  group: deploy-slides
+  group: deploy-slides-${{ github.ref_name }}
   cancel-in-progress: true
 
 permissions:
@@ -39,4 +39,4 @@ jobs:
           # a missing prefix would publish under a new link and take the shared one down
           test -s slides/.pages-prefix
           npm install -g wrangler@4.124.0
-          slides/tools/deploy_unlisted.sh zhang-etal-biohack
+          slides/tools/deploy_unlisted.sh zhang-etal-biohack "$GITHUB_REF_NAME"
