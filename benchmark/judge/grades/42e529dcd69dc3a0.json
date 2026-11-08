@@ -1,0 +1,68 @@
+{
+  "item_id": "42e529dcd69dc3a0",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Recombinant P48729 with biochemical ADP-Glo directly addresses the requested endpoint without making cellular causal claims. Actual compatibility remains unestablished.",
+      "response_quotes": [
+        "recombinant human Casein kinase I isoform alpha (P48729)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 0,
+      "rationale": "Preparation, reaction and detection are ordered coherently, with vehicle and no-enzyme controls. However, normalization, curve fitting and uncertainty analysis are absent from the entire response, omitting an essential stage of the requested concentration-response experiment. Operating concentrations also remain unresolved.",
+      "response_quotes": [
+        "Stop reaction, deplete residual ATP, add ADP‑Glo detection reagent, incubate, then measure luminescence."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The unresolved top concentration leaves the series incomplete. Threefold dilution, ten points and three replicates are plausible but unjustified; replicate type is unspecified. Fixed DMSO, temperature and incubation settings lack evidence or explicit provisional labeling. No arithmetic contradiction is demonstrable.",
+      "response_quotes": [
+        "Prepare a 10-point, 3-fold serial dilution of CHEMBL1234833 starting from a top concentration, plus vehicle (DMSO) and reference inhibitor controls.",
+        "Top concentration, enzyme, substrate, and ATP concentrations are not supported by the supplied packet and must be determined empirically."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "procedural_soundness",
+      "issue": "The entire response omits normalization and concentration-response analysis.",
+      "response_quote": "Stop reaction, deplete residual ATP, add ADP‑Glo detection reagent, incubate, then measure luminescence.",
+      "reason": "The workflow stops at luminescence without deriving inhibition versus concentration or estimating uncertainty, leaving an essential stage absent."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained CK1 assays to recombinant P48729 ADP-Glo is unestablished.",
+    "Substrate compatibility, operating concentrations, reaction linearity and vehicle tolerance are unsupported.",
+    "Manufacturer instructions supporting reagent ratios and detection conditions were not supplied."
+  ],
+  "assumption_handling": "Acknowledges unresolved top and reaction concentrations, uncertain positive-control efficacy and assumed protein activity. Fixed 0.5% DMSO, 30 °C/60-minute reaction and 40/30-minute detection settings are not similarly identified as unsupported assumptions.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Top is unresolved. Lowest concentration would be T/3^9 = T/19683 µM. Ten-point threefold wording is internally consistent; no absolute endpoint is calculable."
+  },
+  "needs_human_review": true,
+  "review_reason": "Essential analysis is missing; assay compatibility and unsupported fixed operating conditions require domain review."
+}

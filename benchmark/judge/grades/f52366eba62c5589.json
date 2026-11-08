@@ -1,0 +1,65 @@
+{
+  "item_id": "f52366eba62c5589",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Direct recombinant biochemical kinase activity endpoint, without substituting cellular viability or claiming cellular causality.",
+      "response_quotes": [
+        "ADP‑Glo luminescence (measure ADP produced by kinase activity)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ordered depletion/detection and fitting form a coherent outline. Substrate compatibility, reaction linearity and detection settings remain unvalidated. Normalization uses a vehicle-unmatched baseline and an unvalidated reference as complete inhibition; enzyme-free background and detection-interference controls are absent.",
+      "response_quotes": [
+        "Normalize luminescence to 0 % inhibition (no‑compound) and 100 % inhibition (reference inhibitor)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Series arithmetic is consistent, but material enzyme/substrate settings are falsely attributed to supplied examples that contain no supporting concentrations. Near-Km ATP, saturating substrate, initial-velocity time and manufacturer reagent-volume claims also lack provided evidence. These are claimed support, not disclosed provisional assumptions.",
+      "response_quotes": [
+        "5 nM (typical for linear range of ADP‑Glo with MAP3K7, see TAK1 assay examples)",
+        "CHEMBL3823303 (AlphaScreen TAK1 assay – supports enzyme and substrate concentrations)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Fabricated support for material enzyme and substrate settings.",
+      "response_quote": "CHEMBL3823303 (AlphaScreen TAK1 assay – supports enzyme and substrate concentrations)",
+      "reason": "The supplied example names construct, substrate and assay duration but provides no enzyme or substrate concentrations supporting the claimed numerical bindings."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of proposed MBP-derived peptide, recombinant enzyme and ADP-Glo detection.",
+    "Actual ATP Km, substrate saturation, reaction linearity, vehicle tolerance, compound solubility and reference inhibitor completeness.",
+    "Comparability of retained spectrophotometric, radiometric and AlphaScreen assays to proposed luminescence assay."
+  ],
+  "assumption_handling": "Some solubility and construct limitations are labeled unresolved, but core settings are asserted as established. The unsupported assertion of solubility at 30 µM is not resolved by disclaiming solubility above 30 µM. Spectrophotometric evidence is mislabeled ADP-Glo-type and unspecified TAK1 evidence is mislabeled luminescence.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": true,
+    "notes": "Ten threefold points span 30 to 0.0015241579 µM (1.5241579 nM); no explicit lower endpoint/list contradicts this. Claimed expected sub-nanomolar coverage is unsupported. Replicates are not distinguished as technical or independent. The >100-fold top margin is not general across retained values: 30/0.650 is about 46.2."
+  },
+  "needs_human_review": true,
+  "review_reason": "Material ungrounded source attributions and unresolved assay/control compatibility require domain review; this is not wet-lab validation."
+}

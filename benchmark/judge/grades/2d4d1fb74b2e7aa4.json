@@ -1,0 +1,80 @@
+{
+  "item_id": "2d4d1fb74b2e7aa4",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 1,
+      "rationale": "Biochemical mTOR turnover addresses the requested endpoint and cellular conclusions are limited, but the ADP readout is inconsistently described as inverse to activity.",
+      "response_quotes": [
+        "luminescence proportional to ADP produced (inverse of kinase activity)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 0,
+      "rationale": "Reaction and sequential ATP depletion/ADP detection are present, but normalization assigns vehicle zero activity and reference complete inhibition, collapsing opposite intended anchors. Combined with the reversed signal interpretation this invalidates the specified analysis. Operating conditions also lack supplied validation.",
+      "response_quotes": [
+        "Normalize luminescence to 0 % activity (vehicle only) and 100 % inhibition (rapamycin reference)."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Thirty micromolar with ten threefold points ends at 0.001524 µM, not approximately 0.02 µM. Supplied evidence also contains no claimed solubility data, ADP-Glo protocol, substrate concentration or ATP Km supporting the numerical bindings.",
+      "response_quotes": [
+        "A 3‑fold dilution series spanning 30 µM to ~0.02 µM",
+        "100 µM (≥10× Km for mTOR, ensures competition‑type inhibition can be measured)",
+        "supporting the chosen substrate concentration and reaction time"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "procedural_soundness",
+      "issue": "Contradictory normalization anchors",
+      "response_quote": "Normalize luminescence to 0 % activity (vehicle only) and 100 % inhibition (rapamycin reference).",
+      "reason": "Vehicle and inhibitor are assigned equivalent inactive endpoints rather than opposing activity anchors, preventing the described normalization."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Explicit dilution endpoint mismatch",
+      "response_quote": "A 3‑fold dilution series spanning 30 µM to ~0.02 µM",
+      "reason": "30/3^9 = 0.0015241579 µM, about thirteenfold below the stated endpoint."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported claimed quantitative source support",
+      "response_quote": "supporting the chosen substrate concentration and reaction time",
+      "reason": "Retained examples identify substrate and duration but provide no substrate concentration. Claimed protocol and Km sources are also absent."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained assays to the proposed recombinant mTOR ADP-Glo system.",
+    "Suitability of enzyme construct, expression system, reference inhibitor and reference concentration.",
+    "Validated enzyme, substrate, ATP, temperature, vehicle and reagent conditions, reaction linearity and detector interference."
+  ],
+  "assumption_handling": "Top concentration and saturating ATP are labeled assumptions in limitations, but specific unsupported claims of ≥10× Km, substrate-concentration support, published protocols and solubility data persist. Three replicates are not distinguished as technical or independent runs.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": false,
+    "notes": "Minimum is 0.0015241579 µM = 1.5241579 nM; prose claims ~0.02 µM."
+  },
+  "needs_human_review": true,
+  "review_reason": "Critical analysis and numerical contradictions, unsupported source claims and unresolved assay compatibility require domain review."
+}

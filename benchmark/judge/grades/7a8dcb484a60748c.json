@@ -1,0 +1,68 @@
+{
+  "item_id": "7a8dcb484a60748c",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Recombinant NUAK1 kinase reaction and ADP readout directly address biochemical inhibition without asserting cellular or target-selective causality.",
+      "response_quotes": [
+        "biochemical kinase inhibition (luminescence)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, ADP detection and analysis are present with vehicle, reference and no-enzyme controls. Substrate compatibility, linear reaction conditions, detection volumes and reference saturation remain unvalidated. Combining enzyme, substrate and ATP before compound also leaves reaction-start timing uncontrolled. This is not a supported executable protocol.",
+      "response_quotes": [
+        "Initiate the reaction by adding the compound dilution series",
+        "Normalize luminescence to 0 % inhibition (vehicle) and 100 % inhibition (reference)."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Dilution arithmetic is consistent, but the important 5 nM enzyme setting explicitly claims evidence from standard ADP-Glo protocols that were not supplied. Kit-specific reagent volumes likewise lack their claimed source. The kinetic-assumption disclaimer does not substantiate these specific source claims or establish that 10 µM ATP is below NUAK1 Km.",
+      "response_quotes": [
+        "5 nM (typical for linear range of ADP‑Glo, evidence from standard ADP‑Glo protocols)",
+        "as per kit (e.g., 5 µL ADP‑Glo™ reagent + 5 µL detection reagent per 20 µL reaction)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Missing claimed source for material enzyme and detection parameters.",
+      "response_quote": "5 nM (typical for linear range of ADP‑Glo, evidence from standard ADP‑Glo protocols)",
+      "reason": "No standard ADP-Glo protocol or kit instructions were supplied. These claimed sources cannot justify operating parameters; this is an evidence failure, not proof that the values are experimentally impossible."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained ARK5 assays to the proposed recombinant NUAK1 ADP-Glo assay.",
+    "NUAK1 construct activity, SAMS compatibility, ATP and substrate Km, and linear enzyme/time conditions.",
+    "Compound solubility at 100 µM, DMSO tolerance, reference saturation, and detection volumes and timings."
+  ],
+  "assumption_handling": "Kinetic values are labeled assumptions and unsupported expression-system selection and potential detection interference are acknowledged. Specific standard-protocol and kit-source claims remain unsupported. Sub-Km ATP, adequate range resolution and reference performance are asserted without validation. Replicates are not distinguished as technical wells or independent experiments.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "100/3^9 = 0.0050805263 µM = 5.0805263 nM. No explicit conflicting endpoint is provided. The 0.5 vehicle_fraction field is ambiguous but prose specifies 0.5% DMSO; not treated as a proven arithmetic contradiction. Range justification lacks qualification."
+  },
+  "needs_human_review": true,
+  "review_reason": "Missing claimed parameter sources, unresolved biochemical and detection compatibility, reaction-start timing and reference calibration require review."
+}

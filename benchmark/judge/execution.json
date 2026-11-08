@@ -1739,6 +1739,316 @@
       "fork_turns": "none",
       "status": "started",
       "timestamp_utc": "2026-11-08T15:16:00.298460+00:00"
+    },
+    {
+      "packet_id": "9e976939aea75013",
+      "phase": "production",
+      "agent_id": "/root/j_9e976939aea75013",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:16:23.895438+00:00"
+    },
+    {
+      "packet_id": "018ee4628d5cdd83",
+      "phase": "production",
+      "agent_id": "/root/j_018ee4628d5cdd83",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:16:23.895580+00:00"
+    },
+    {
+      "packet_id": "b1c1ec2a04bfaa47",
+      "phase": "production",
+      "agent_id": "/root/j_b1c1ec2a04bfaa47",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:16:43.263326+00:00"
+    },
+    {
+      "packet_id": "8eca6bf6a5817b1f",
+      "phase": "production",
+      "agent_id": "/root/j_8eca6bf6a5817b1f",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:16:43.317199+00:00"
+    },
+    {
+      "packet_id": "f52366eba62c5589",
+      "phase": "production",
+      "agent_id": "/root/j_f52366eba62c5589",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:16:54.987056+00:00"
+    },
+    {
+      "packet_id": "fd606adfbe76d1e8",
+      "phase": "production",
+      "agent_id": "/root/j_fd606adfbe76d1e8",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:17:02.302765+00:00"
+    },
+    {
+      "packet_id": "b1c1ec2a04bfaa47",
+      "phase": "production",
+      "agent_id": "/root/j_b1c1ec2a04bfaa47",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:17:24.927553+00:00"
+    },
+    {
+      "packet_id": "8eca6bf6a5817b1f",
+      "phase": "production",
+      "agent_id": "/root/j_8eca6bf6a5817b1f",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:17:32.586412+00:00"
+    },
+    {
+      "packet_id": "dd036b5fd1a30aad",
+      "phase": "production",
+      "agent_id": "/root/j_dd036b5fd1a30aad",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:17:32.586446+00:00"
+    },
+    {
+      "packet_id": "fd606adfbe76d1e8",
+      "phase": "production",
+      "agent_id": "/root/j_fd606adfbe76d1e8",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:17:42.974754+00:00"
+    },
+    {
+      "packet_id": "7a8dcb484a60748c",
+      "phase": "production",
+      "agent_id": "/root/j_7a8dcb484a60748c",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:17:42.974784+00:00"
+    },
+    {
+      "packet_id": "d4400e2a06df78ad",
+      "phase": "production",
+      "agent_id": "/root/j_d4400e2a06df78ad",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:17:58.771539+00:00"
+    },
+    {
+      "packet_id": "dd036b5fd1a30aad",
+      "phase": "production",
+      "agent_id": "/root/j_dd036b5fd1a30aad",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:18:23.388660+00:00"
+    },
+    {
+      "packet_id": "7a8dcb484a60748c",
+      "phase": "production",
+      "agent_id": "/root/j_7a8dcb484a60748c",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:18:31.111911+00:00"
+    },
+    {
+      "packet_id": "3dda258ece00a3d7",
+      "phase": "production",
+      "agent_id": "/root/j_3dda258ece00a3d7",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:18:31.111942+00:00"
+    },
+    {
+      "packet_id": "d4400e2a06df78ad",
+      "phase": "production",
+      "agent_id": "/root/j_d4400e2a06df78ad",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:18:35.396308+00:00"
+    },
+    {
+      "packet_id": "92eabb6eb9e5764c",
+      "phase": "production",
+      "agent_id": "/root/j_92eabb6eb9e5764c",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:18:42.946632+00:00"
+    },
+    {
+      "packet_id": "e785ef0cf1673f49",
+      "phase": "production",
+      "agent_id": "/root/j_e785ef0cf1673f49",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:18:51.277797+00:00"
+    },
+    {
+      "packet_id": "3dda258ece00a3d7",
+      "phase": "production",
+      "agent_id": "/root/j_3dda258ece00a3d7",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:19:10.415064+00:00"
+    },
+    {
+      "packet_id": "42e529dcd69dc3a0",
+      "phase": "production",
+      "agent_id": "/root/j_42e529dcd69dc3a0",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:19:18.455960+00:00"
+    },
+    {
+      "packet_id": "92eabb6eb9e5764c",
+      "phase": "production",
+      "agent_id": "/root/j_92eabb6eb9e5764c",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:19:37.636447+00:00"
+    },
+    {
+      "packet_id": "e785ef0cf1673f49",
+      "phase": "production",
+      "agent_id": "/root/j_e785ef0cf1673f49",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:19:37.636585+00:00"
+    },
+    {
+      "packet_id": "483610fbb00c10e4",
+      "phase": "production",
+      "agent_id": "/root/j_483610fbb00c10e4",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:19:50.650542+00:00"
+    },
+    {
+      "packet_id": "2d4d1fb74b2e7aa4",
+      "phase": "production",
+      "agent_id": "/root/j_2d4d1fb74b2e7aa4",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:19:50.719351+00:00"
+    },
+    {
+      "packet_id": "42e529dcd69dc3a0",
+      "phase": "production",
+      "agent_id": "/root/j_42e529dcd69dc3a0",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:20:07.019995+00:00"
+    },
+    {
+      "packet_id": "74eeba61bc958a18",
+      "phase": "production",
+      "agent_id": "/root/j_74eeba61bc958a18",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:20:14.868584+00:00"
+    },
+    {
+      "packet_id": "483610fbb00c10e4",
+      "phase": "production",
+      "agent_id": "/root/j_483610fbb00c10e4",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:20:26.257965+00:00"
+    },
+    {
+      "packet_id": "5ec830e8b1754e7d",
+      "phase": "production",
+      "agent_id": "/root/j_5ec830e8b1754e7d",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "started",
+      "timestamp_utc": "2026-11-08T15:20:37.995326+00:00"
+    },
+    {
+      "packet_id": "2d4d1fb74b2e7aa4",
+      "phase": "production",
+      "agent_id": "/root/j_2d4d1fb74b2e7aa4",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:21:28.468639+00:00"
+    },
+    {
+      "packet_id": "74eeba61bc958a18",
+      "phase": "production",
+      "agent_id": "/root/j_74eeba61bc958a18",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:21:28.468776+00:00"
+    },
+    {
+      "packet_id": "5ec830e8b1754e7d",
+      "phase": "production",
+      "agent_id": "/root/j_5ec830e8b1754e7d",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "fork_turns": "none",
+      "status": "completed",
+      "timestamp_utc": "2026-11-08T15:21:28.468882+00:00"
     }
   ]
 }

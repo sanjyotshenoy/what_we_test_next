@@ -44,3 +44,7 @@ an existing run and checks current model availability/prices against a $1 budget
 [Results and limitations](runs/twenty-case-pilot/RESULTS.md) cover the same five models on all 20 cases: 85 successful new completions plus 15 reused outputs with matching input bytes/settings. Three additional Kimi attempts returned no usage receipt (two timeouts, one local interruption); explicit retries completed the matrix. `manifest.json` and `USAGE.md` distinguish confirmed token receipts from conservative allowances for unknown billing.
 
 Run `python -m benchmark.summarize_twenty_case_pilot` for offline provenance, usage and diagnostic checks. These diagnostics are not new three-axis scientific grades. Existing pilot percentages still apply only to cases 1–3. The paid runner is `benchmark.run_twenty_case_pilot`; do not invoke `--execute` to inspect results.
+
+## Astra-medium review of all 100 responses
+
+[Three-axis scores and per-case evidence](judge/RESULTS.md) cover all five models × 20 cases, freshly scored by isolated, blinded Astra-medium agents under a [frozen prompt](judge/PROMPT.md). These are provisional AI judgments, not expert-validated scores. [Method and execution](judge/README.md) document calibration, blinding, validation and unavailable judge billing receipts. The historical three-case grades remain unchanged.

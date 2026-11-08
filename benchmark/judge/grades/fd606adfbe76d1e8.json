@@ -1,0 +1,62 @@
+{
+  "item_id": "fd606adfbe76d1e8",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes cellular ATP-based viability assessment in RPMI-8226 and appropriately limits proliferation and Aurora A causal interpretations.",
+      "response_quotes": [
+        "ATP signal is a viability/metabolic proxy, not a direct proliferation or Aurora kinase A activity measurement."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, exposure, detection and analysis with relevant controls. Essential operating settings and validation remain unresolved, so this is an outline rather than an executable protocol.",
+      "response_quotes": [
+        "Cell density, medium formulation, culture format, vehicle fraction, reference control, reagent volumes and timing, and quantitative acceptance thresholds require optimization or a validated external procedure."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 2,
+      "rationale": "Internally consistent exploratory series justified as broad coverage without retained potency evidence. Choices are explicitly provisional and separated from unresolved solubility, vehicle tolerance and operating settings. Biological and technical replication are distinguished.",
+      "response_quotes": [
+        "A broad dilution series can reveal whether a response occurs without presuming its potency.",
+        "10 µM; provisional design assumption, not a sourced compound-specific condition.",
+        "Use three independent biological experiments; technical well replication within each experiment is unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of ATP luminescence with other viability or proliferation measurements is not established.",
+    "Optimal RPMI-8226 culture, density, exposure and detection conditions lack supplied validation data.",
+    "Compound solubility, vehicle tolerance and concentration range performance remain unvalidated."
+  ],
+  "assumption_handling": "Concentration, exposure, temperature and replication choices are labeled provisional rather than falsely sourced. Missing operating conditions and acceptance thresholds are openly unresolved; references to supplier or validated procedures identify work still needed rather than supplied evidence.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points span 10 to 0.0005080526 µM (0.5080526 nM), nine dilution intervals. No contrary endpoint or explicit list is supplied. Three replicates means independent biological experiments; technical wells remain unresolved."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and assay validation are needed for culture/detection settings, interference controls and endpoint comparability before implementation."
+}

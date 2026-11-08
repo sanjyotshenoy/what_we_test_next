@@ -1,0 +1,76 @@
+{
+  "item_id": "74eeba61bc958a18",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "The ATP viability assay addresses the requested human cell endpoint and explicitly limits target-specific causal interpretation.",
+      "response_quotes": [
+        "ATP content as proxy for viable cell number",
+        "causality between target inhibition and phenotype remains unproven."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, detection and analysis are ordered coherently with vehicle and background controls. Density, culture settings and detection volumes lack supplied support or validation. Assay volume and independent replicate implementation remain unspecified; an untreated control does not replace an active reference response.",
+      "response_quotes": [
+        "100 µL per well (per manufacturer protocol)",
+        "3 (biological replicates per concentration)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The specified series ends at 0.004572 µM and spans 3.340 log10 units, contradicting the stated ~0.015 µM endpoint and ~2.5-log span. Density and reagent-volume choices also claim protocol support absent from supplied evidence.",
+      "response_quotes": [
+        "8 (covers ~2.5 log range)",
+        "10 µM → ~0.015 µM",
+        "evidence from standard RPMI‑8226 protocols"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Concentration endpoint contradicts series parameters.",
+      "response_quote": "10 µM → ~0.015 µM",
+      "reason": "10/3^7 = 0.004572 µM; ~0.015 µM approximates the seventh concentration, not the eighth."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Claimed evidence for a numerical operating choice was not supplied.",
+      "response_quote": "100 µL per well (per manufacturer protocol)",
+      "reason": "No manufacturer protocol or supported assay-volume binding is supplied to substantiate this setting."
+    }
+  ],
+  "not_assessable_components": [
+    "Optimal RPMI-8226 density, medium, exposure and culture conditions are not established by supplied evidence.",
+    "Assay comparability and compound-specific ATP-readout performance cannot be established.",
+    "Reference-inhibitor suitability and expected potency coverage in this cellular system are unsupported."
+  ],
+  "assumption_handling": "Top concentration and exposure are labeled assumptions, and pilot validation is proposed. Density is attributed to standard protocols yet later called assumed; detection settings claim manufacturer support without supplied evidence. Typical inhibitor potency coverage is unsupported.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": false,
+    "notes": "Eight points have seven dilution intervals: minimum 0.00457247 µM (4.57247 nM); span 7 log10(3) = 3.33985, not ~2.5. Three biological replicates are asserted without describing independent experiments."
+  },
+  "needs_human_review": true,
+  "review_reason": "Numerical contradictions, missing claimed protocol support, and unresolved assay and culture validation require review."
+}

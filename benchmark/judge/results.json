@@ -1,0 +1,1971 @@
+{
+  "judge": "gpt-6-astra",
+  "reasoning_effort": "medium",
+  "rubric_version": "v1",
+  "prompt_sha256": "ec4b8c8b102064327b6d965a63a8324db224af12acf9a8ef1d631cacb57bb202",
+  "status": "Provisional AI judgments; not expert validated",
+  "summary": [
+    {
+      "model": "kimi-k3.1-pro",
+      "n": 20,
+      "axis_means": {
+        "suitability": 2.0,
+        "procedural_soundness": 1.0,
+        "numerical_soundness": 1.4
+      },
+      "total_points_out_of_120": 88,
+      "mean_total_out_of_6": 4.4,
+      "cases_with_critical_failure": 0,
+      "cases_needing_human_review": 20,
+      "cases_with_low_confidence_axis": 0,
+      "subgroups": {
+        "biochemical": {
+          "n": 15,
+          "axis_means": {
+            "suitability": 2.0,
+            "procedural_soundness": 1.0,
+            "numerical_soundness": 1.3333333333333333
+          }
+        },
+        "cellular": {
+          "n": 5,
+          "axis_means": {
+            "suitability": 2.0,
+            "procedural_soundness": 1.0,
+            "numerical_soundness": 1.6
+          }
+        }
+      }
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "n": 20,
+      "axis_means": {
+        "suitability": 2.0,
+        "procedural_soundness": 1.0,
+        "numerical_soundness": 1.0
+      },
+      "total_points_out_of_120": 80,
+      "mean_total_out_of_6": 4.0,
+      "cases_with_critical_failure": 1,
+      "cases_needing_human_review": 20,
+      "cases_with_low_confidence_axis": 0,
+      "subgroups": {
+        "biochemical": {
+          "n": 15,
+          "axis_means": {
+            "suitability": 2.0,
+            "procedural_soundness": 1.0,
+            "numerical_soundness": 1.0
+          }
+        },
+        "cellular": {
+          "n": 5,
+          "axis_means": {
+            "suitability": 2.0,
+            "procedural_soundness": 1.0,
+            "numerical_soundness": 1.0
+          }
+        }
+      }
+    },
+    {
+      "model": "glm-5.3",
+      "n": 20,
+      "axis_means": {
+        "suitability": 1.8,
+        "procedural_soundness": 0.9,
+        "numerical_soundness": 0.75
+      },
+      "total_points_out_of_120": 69,
+      "mean_total_out_of_6": 3.45,
+      "cases_with_critical_failure": 8,
+      "cases_needing_human_review": 20,
+      "cases_with_low_confidence_axis": 0,
+      "subgroups": {
+        "biochemical": {
+          "n": 15,
+          "axis_means": {
+            "suitability": 1.7333333333333334,
+            "procedural_soundness": 0.8666666666666667,
+            "numerical_soundness": 0.7333333333333333
+          }
+        },
+        "cellular": {
+          "n": 5,
+          "axis_means": {
+            "suitability": 2.0,
+            "procedural_soundness": 1.0,
+            "numerical_soundness": 0.8
+          }
+        }
+      }
+    },
+    {
+      "model": "nemotron-3-super",
+      "n": 20,
+      "axis_means": {
+        "suitability": 1.9,
+        "procedural_soundness": 0.45,
+        "numerical_soundness": 0.5
+      },
+      "total_points_out_of_120": 57,
+      "mean_total_out_of_6": 2.85,
+      "cases_with_critical_failure": 17,
+      "cases_needing_human_review": 20,
+      "cases_with_low_confidence_axis": 0,
+      "subgroups": {
+        "biochemical": {
+          "n": 15,
+          "axis_means": {
+            "suitability": 1.8666666666666667,
+            "procedural_soundness": 0.4,
+            "numerical_soundness": 0.5333333333333333
+          }
+        },
+        "cellular": {
+          "n": 5,
+          "axis_means": {
+            "suitability": 2.0,
+            "procedural_soundness": 0.6,
+            "numerical_soundness": 0.4
+          }
+        }
+      }
+    },
+    {
+      "model": "gpt-oss-120b",
+      "n": 20,
+      "axis_means": {
+        "suitability": 1.45,
+        "procedural_soundness": 0.85,
+        "numerical_soundness": 0.05
+      },
+      "total_points_out_of_120": 47,
+      "mean_total_out_of_6": 2.35,
+      "cases_with_critical_failure": 19,
+      "cases_needing_human_review": 20,
+      "cases_with_low_confidence_axis": 0,
+      "subgroups": {
+        "biochemical": {
+          "n": 15,
+          "axis_means": {
+            "suitability": 1.6,
+            "procedural_soundness": 0.8,
+            "numerical_soundness": 0.06666666666666667
+          }
+        },
+        "cellular": {
+          "n": 5,
+          "axis_means": {
+            "suitability": 1.0,
+            "procedural_soundness": 1.0,
+            "numerical_soundness": 0.0
+          }
+        }
+      }
+    }
+  ],
+  "grades": [
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-1",
+      "output_sha256": "c731234bb0c561fcf1c9704ec18ffa6e79f3e8404f934acc63c895b0c4dac1ac",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "item_id": "8ae7add9ddb5a1bd",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/8ae7add9ddb5a1bd.json",
+      "grade_sha256": "a1adfda6b7610dd4c5193715b51b099ff089b37bc0c14217989d8ad5c6fd9ad1"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-2",
+      "output_sha256": "ddb375b85a1dbfbb623af60c2bb9fa389578f594a28dfbe1793e9f2c0e55669a",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "item_id": "32d2e6c9e0c21a8b",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/32d2e6c9e0c21a8b.json",
+      "grade_sha256": "e2673bbac7719612fa639033c7b2bbb4f5694ab351204b5fd2db07125db8c12d"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-3",
+      "output_sha256": "e0b297d25f90a023776762cc271436541e8094ecc3cc2430f72616183457fe25",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "item_id": "95892b1809a249c6",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/95892b1809a249c6.json",
+      "grade_sha256": "6c8ae89b7a303407b6560934e10a40d464b24dea135061aed35636667dda79de"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-4",
+      "output_sha256": "c2218eb1bec958331ed51f3d43f3df15784160c5bfe8c276932429adcd1d26d4",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "item_id": "a3a14416c130224d",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/a3a14416c130224d.json",
+      "grade_sha256": "82e4a6828ef2c7062aed0590c67e85db6e3bb3b217e57698097ec27835a9889a"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-5",
+      "output_sha256": "f44a2868b102ef9abba1bbccf44b5bc210a27cfa3dedd4d7a61086d58d4de7a2",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "item_id": "cb70078844b2894c",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/cb70078844b2894c.json",
+      "grade_sha256": "0e7d1961d599aa204f15ca4ac9cc32a104dc9787731daf0dec2581f5bec886d1"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-6",
+      "output_sha256": "ffae45ce2986bfae3efd96c78ac00be853db7006f0736e5619d0e913adb5fe96",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "item_id": "2017adbfb16fde48",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/2017adbfb16fde48.json",
+      "grade_sha256": "86f85d7734c0f2a5e5ea3fe52201161e20210b453c5bcc312784367d1e261e92"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-7",
+      "output_sha256": "4934192a7cfb965cb08ceae6f915dfa956bac171e4e80581547f2d87571b2248",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "item_id": "8cbafb366ad956ec",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/8cbafb366ad956ec.json",
+      "grade_sha256": "aa3aab3071d84c427c9c44dc1a53bdad1633a3d09c3d8825f3dd7b9e2ded634f"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-8",
+      "output_sha256": "ac6733639e1a8f7dde98ecdbbe7c5146ffe67dfbe8c12542d8052666bd163402",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "item_id": "aa720d9ca852d7a8",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/aa720d9ca852d7a8.json",
+      "grade_sha256": "97a605d73d16d222d9de985d5d9613cb5ce51dd272c490caa809a602215d3286"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-9",
+      "output_sha256": "14379d90c0d49ee19058bd773ac47e7c4ca5f245724b9f6c52f13d0035de4ebc",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "item_id": "fba110a2ac658eae",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/fba110a2ac658eae.json",
+      "grade_sha256": "7ed53629989dc88f9ff3352b82ff229079b7d5d3c4e19f0ef28d63de81c8c030"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-10",
+      "output_sha256": "b09126645188500c521507c448bf54c3e1e5a6d41477b3840b96a2f68cbffc40",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "item_id": "cf7f584d7ce28a65",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/cf7f584d7ce28a65.json",
+      "grade_sha256": "3a191c084ff7570df8475674097d3d694d0426bfd7b86debbf9581004a0282e9"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-11",
+      "output_sha256": "22386ba3f9d89d1e39ff42ae89fe255a6b83b704e5733ff4c0d0898657c2497a",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "item_id": "cf131e309fbf9629",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/cf131e309fbf9629.json",
+      "grade_sha256": "d5ec84a08038b212162b8996d4a040247e1a7a6b6e380349d02497f04b4d993a"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-12",
+      "output_sha256": "b85259cb8089b34b2ca133f141ca87d41578b038d75a37bbf5942e4ab6c6049a",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "item_id": "d4400e2a06df78ad",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 5,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/d4400e2a06df78ad.json",
+      "grade_sha256": "84bd7ac3a25b50e1c63491e87dc8709c3fc7b41f4d7f29da71b9cc27fbdcafed"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-13",
+      "output_sha256": "118530934e38f246bff52a4574b7a07558821ebabfa85524da001c89f11e0739",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "item_id": "022bf58c1491ac17",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/022bf58c1491ac17.json",
+      "grade_sha256": "b6764719de4dde299202b037ddc2095ea0a7bbf36405a9110969d9acd4b99f9c"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-14",
+      "output_sha256": "68ac76d9135a30f9fafa8d5fc0cf4b5cd639ebbfb162332467819edcf5c0791a",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "item_id": "cd19e38741bef4ff",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/cd19e38741bef4ff.json",
+      "grade_sha256": "88b9f532715bbe7e425980e0f07cc4503f137d93e0e29bd38c25def5ea2613b5"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-15",
+      "output_sha256": "07ec4f203ff62693fffa3c3c59fe20479a41bdbb4959bfb8c2a71df35e316eb3",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "item_id": "a41f668bfe2e9268",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/a41f668bfe2e9268.json",
+      "grade_sha256": "edb8104549166814c959df00d9d740e2513e115bf4264605abbf8fa4220cf5f2"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-16",
+      "output_sha256": "6506f6979ef37031414d0aa8ff004d71138ce445f06dab2aa77b2acd65344f08",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "item_id": "6ba89e7f7e4e823b",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/6ba89e7f7e4e823b.json",
+      "grade_sha256": "d115f3a2362211d508af9efb82122ce1bc2ecf7f12d803e388ee2e77835787e1"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-17",
+      "output_sha256": "29820ec12c5c50eaf85ebdeb83d858b9c7f4fceed92ba1cfd0d6d22c5cbdce8e",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "item_id": "6b4729a1f5563b5e",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/6b4729a1f5563b5e.json",
+      "grade_sha256": "326368304e3ccd687227d4e210c7b05a557d77d44a747c73f42669bef1f17952"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-18",
+      "output_sha256": "6f3091437725b052ee88512763bd3135765149458d27c0d43ca95d1084eb00af",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "item_id": "3dda258ece00a3d7",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/3dda258ece00a3d7.json",
+      "grade_sha256": "c856590b5ef990e7e4b1992dc197009421a5785a2da7a3981b0bbef6d58696ef"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-19",
+      "output_sha256": "c85333df1d008110310f894d3d509dbc37c55659ceda5ebd58d504c059fec0c4",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "item_id": "c6b8e056db2b5799",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/c6b8e056db2b5799.json",
+      "grade_sha256": "40d30f26ecb802426f523cb1d8b219c08f4d9451ba4ea2799e8d8ddbe447b70b"
+    },
+    {
+      "model": "deepseek-v4.1-flash-1017",
+      "case_id": "case-20",
+      "output_sha256": "0ee77b647486657f976998ac7a37db4b9bc6fc9727b3263534aa110e18f0f68f",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "item_id": "018ee4628d5cdd83",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/018ee4628d5cdd83.json",
+      "grade_sha256": "6e6dd171df3ab085158232b85fbab46440e16c86b11579a7cc38bbe9e0191e8d"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-1",
+      "output_sha256": "20ea03716a93145baa73ecb69469e3662dcbf2e76a3d30691de087e7dfb25c7e",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "item_id": "b1c1ec2a04bfaa47",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/b1c1ec2a04bfaa47.json",
+      "grade_sha256": "68727c8fa887f65c3a2edbab92dfc697db44a4cfb3beb01c70bd673700ac2002"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-2",
+      "output_sha256": "a675f1def5c6f1a5077fe24be027a388ea4507263d0349044d4bb3888b5aa599",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "item_id": "92eabb6eb9e5764c",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/92eabb6eb9e5764c.json",
+      "grade_sha256": "bd703ddb19a4eaad57af870e3f9ad112fb75f61401957c44ac42a633a65e01f1"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-3",
+      "output_sha256": "23f0302764bfdabe45023a8feff05a52b0e04de2d6bfacceb1e52e35c6892a70",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "item_id": "b4adb803f7f71d07",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/b4adb803f7f71d07.json",
+      "grade_sha256": "0e04eff8d4f0e7c05a6848f19e14ec7c120135b9c2f4fa9f587eb1418dfba555"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-4",
+      "output_sha256": "7150de42cd3f5e100401e57c2757c3dc089490c19566ee35bb7fe65a5e31eff4",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "item_id": "2f4e004c19e70765",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/2f4e004c19e70765.json",
+      "grade_sha256": "d0d314c1eb82a25078e7e927d40aecbd96ca4c697aa46c97710213ee65333b7f"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-5",
+      "output_sha256": "383854dd009bc60ac327f5ea89af3b6eb63f0ea6de3c2f83fc343d2c4da27f15",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "item_id": "2817a87b44b68a55",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 0,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/2817a87b44b68a55.json",
+      "grade_sha256": "04fac54943ef37d15fb50bdad62df9c4302b41be56b844dedb0fd7b421f7c593"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-6",
+      "output_sha256": "e8dd1629a5d11afad29ca03f1c19c18a58846f8060ae591fa08fb698751f2bdd",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "item_id": "1e4a8a020919e648",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/1e4a8a020919e648.json",
+      "grade_sha256": "764208d4ce2183dfd777a6c1c5dac02f718ff8c33a2e51bc4de51945380aad1b"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-7",
+      "output_sha256": "388e0002523656a07e89c300ad7268098faeb27da583a112c085fc3324d79958",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "item_id": "d90acf70aae6b0f1",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/d90acf70aae6b0f1.json",
+      "grade_sha256": "7fa2680f0cc58b1000292afa3f40d224ad9b127ec466509af9a5da01d970ecab"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-8",
+      "output_sha256": "2c0ccd7068d388c8543d5b7921f303c011d8ffa71233c636e2317f0cc3884ace",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "item_id": "85b722c7c9914d83",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/85b722c7c9914d83.json",
+      "grade_sha256": "3e6a51ba156ef4ed428b0412be633e9f35cbf7e337c95f2c7e232ad9e5a42f1f"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-9",
+      "output_sha256": "309820a38e78506941d35970c88a0ffde2f8eac7e926516d6a0a9bbacd7863d9",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "item_id": "0f29f39b6a76405b",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/0f29f39b6a76405b.json",
+      "grade_sha256": "c443533a9c51e18f8ee87dac19036456733c5b63a5a09bc8412cde20486c6a59"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-10",
+      "output_sha256": "e2368116a7ca8c67c5eb5cff7d401897a1aae1e8ac38d92f8f9ba771067407c9",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "item_id": "ab2a9c329770e98c",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 0,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 1,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/ab2a9c329770e98c.json",
+      "grade_sha256": "d484aa9382652bb61eb3f9b2d4ca1084173fe093890731e81ebfd4a4a1b2af10"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-11",
+      "output_sha256": "36efd70a7c1b978ff071764c3a64e8ab8ee8fb8ecf8a558f25d2bb1a1b9929ff",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "item_id": "4decfbf66ae0fe09",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/4decfbf66ae0fe09.json",
+      "grade_sha256": "5432c57b27eeb42823b205712200613cfbec2ef7e0e3d656b2fa2203f3c61aa5"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-12",
+      "output_sha256": "4e245828b9a04fbbc223366f15e16fa9434baeef5f3d6b774a2a5e062a0e266f",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "item_id": "eb4daaed9de67eb2",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/eb4daaed9de67eb2.json",
+      "grade_sha256": "981efbfaee7663d9f6a7b51010dc76d9fe614df258a636d4c1739c017082c124"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-13",
+      "output_sha256": "59515f246b102277a3492733c2b89cadb5b1462b805710db2461eeccd4f0c18d",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "item_id": "33e7c9cad94591a0",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 5,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/33e7c9cad94591a0.json",
+      "grade_sha256": "cf9e8ca73260755e1d90aaa103ca394bac23d727737e5b8a62976c4eed86f992"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-14",
+      "output_sha256": "eac043e28e599bcb64a07fae6cc8f36ce747147483101924847ae69b54fc187d",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "item_id": "d16fe0715973d0ad",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/d16fe0715973d0ad.json",
+      "grade_sha256": "a7105155cc3f917467ce51ce576532628a974964d1e479dae1fb83735153c69c"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-15",
+      "output_sha256": "7a7707b6f14ce8e82582c86004c4afd8105b7d239773d54dd13d8ef891c0ec05",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "item_id": "5e59ed8c3be53990",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/5e59ed8c3be53990.json",
+      "grade_sha256": "70d7942332088b591a971cceedd5b93680e2e1d0d991d3399f7a0de76e4e13f2"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-16",
+      "output_sha256": "eff24dca737fc7ae482faff4820fccb3a41d4c9ca714d96f4d3edd79196f7ad9",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "item_id": "a69669dddd4a56ba",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/a69669dddd4a56ba.json",
+      "grade_sha256": "a21087573c84cb6e0ee2c4906aa15ea821f2152d81ef59a722885efaec0d36e9"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-17",
+      "output_sha256": "5c1bad217616c5cda27418c8d6e2673bbabba1b3722a75b127ab71473ee3bfca",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "item_id": "2fe24c7e1892d28e",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/2fe24c7e1892d28e.json",
+      "grade_sha256": "352e6a11e11bb3eaa4275dc2b2960bf6175b25869a5f9eec9c27f279cecf04bb"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-18",
+      "output_sha256": "8c8648989adf21f435807c951e066dd3783eb56a35bc9b123126335f338adfe9",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "item_id": "e785ef0cf1673f49",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/e785ef0cf1673f49.json",
+      "grade_sha256": "6c9820809cecc5cffe50b8b01634476b67843c3fb4a657fd5aec56e803089786"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-19",
+      "output_sha256": "26e6dbf39c303fba16ae205d3fe4b149b63e5b347974832a8a358b76ce966b6a",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "item_id": "3333d2a6be0184ec",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/3333d2a6be0184ec.json",
+      "grade_sha256": "47d9c24896ddb0cb0d3c7a611f2f3bccd78fcaed3b5e06fd48f825942327d142"
+    },
+    {
+      "model": "glm-5.3",
+      "case_id": "case-20",
+      "output_sha256": "b41e35aba68dedde72f85bc6146ee9105acff2170c10dda7bd41c5539836b303",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "item_id": "91b38f4b03625f67",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/91b38f4b03625f67.json",
+      "grade_sha256": "ccf1bea18b72df87768465f7e985cfa14772915eb95d91a42a16f5c78d3dc50a"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-1",
+      "output_sha256": "4f5df473b72078c2f81bfa0ab2c615e14e5b00ccf7bbec5a0df2c82b9eae0c4d",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "item_id": "f35ec7bcee38ce33",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/f35ec7bcee38ce33.json",
+      "grade_sha256": "0df6ad4f9fbebf5ee08bc657114cff7fc867dc029647a3bdb5962649f8f54d11"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-2",
+      "output_sha256": "b82ad468c547fa7cc34f93f1bbe644e8364e886c76edd858749003849b40225e",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "item_id": "8eca6bf6a5817b1f",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/8eca6bf6a5817b1f.json",
+      "grade_sha256": "26d84977fcb1b51f8d26410536c4a6ef2863ae374fe9dd2349c6f045c85ba391"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-3",
+      "output_sha256": "ab10116fc030aca769be94a34681dbcfebad0eaf93ae47c1a27a23858b7b45fd",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "item_id": "b67fad5bffd3da89",
+      "scores": {
+        "suitability": 0,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 1,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/b67fad5bffd3da89.json",
+      "grade_sha256": "44ca5c25860c848b701b86fa5647ebeb13584c9972448e68dc8ceaebe95e1e76"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-4",
+      "output_sha256": "760854517dd7e4f82705b922213b7b141d9004ee340163d2e85dacc6190469ee",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "item_id": "35e04cd0c9f40380",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/35e04cd0c9f40380.json",
+      "grade_sha256": "4492bd09f7539a0530d13874510d55dacb8304ec656d1025ba79b2906ebbade0"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-5",
+      "output_sha256": "ce0c4476dcf64323570e0a14340f058bf7c0bfd7fbb3c3785950d5def5eddb9b",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "item_id": "b7b05e2b4368db21",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 0,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/b7b05e2b4368db21.json",
+      "grade_sha256": "8a59395db41a903bd373b9670e80eb84202a61d5b9a3626eac0a36889e0c12d0"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-6",
+      "output_sha256": "43008e41ab827bb25573b993f6c6b8cfcf2bdaad511e9a3a04540e353ef36619",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "item_id": "f71795fbb03ea861",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/f71795fbb03ea861.json",
+      "grade_sha256": "777da91408a06e502a9679f54c1e34ff6ca1169ec833fad25674f7616f7a0efd"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-7",
+      "output_sha256": "ecf9ee13c210b05d9108c10a0ad3c95bcc2143a620d3b77cc887e955a38a108b",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "item_id": "6c09caa8409241ff",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/6c09caa8409241ff.json",
+      "grade_sha256": "b8bc739fb0a4ffcf37f8d115f87e1dbff1f75540762bd4a13ff4332f0c492a74"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-8",
+      "output_sha256": "a38c6586a629c4054482248e5007538bb574a9c3ae1ca5c99efee02eb1a2ab06",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "item_id": "2d4d1fb74b2e7aa4",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 0,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 1,
+      "critical_failure_count": 3,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/2d4d1fb74b2e7aa4.json",
+      "grade_sha256": "8506878c7cf8c7973c8cfd481a2b70c261f090bf632978594e6eb009167d6088"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-9",
+      "output_sha256": "d06fc051f25e41533c14e704d13cac024b76dc7411d122d567a66717cef6aa28",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "item_id": "2de92efed8557af1",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 0,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 1,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/2de92efed8557af1.json",
+      "grade_sha256": "599acb970e828a11bbf8c558438890dd32cd58e1067ca6dc0b6ee8955419feb5"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-10",
+      "output_sha256": "05c70f2a834f8f302ec909fae48a1efb2d9d000cad7166284ddc950350c7accf",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "item_id": "309e255d936bde74",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/309e255d936bde74.json",
+      "grade_sha256": "2f6d84dc1f206b2710cf259e4bccc397928ca5c66626f528d8f2f4d8edc65e41"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-11",
+      "output_sha256": "2806815265d818c20a6a499fa06046bcaaa2a976651915b5a2ea725ca735671d",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "item_id": "771b8d3d229e349b",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/771b8d3d229e349b.json",
+      "grade_sha256": "9fc072440d135237dab27dfb07604921a4b0d6a2d30bc470de890b2190234f87"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-12",
+      "output_sha256": "a34044fc300b97fb2a3832cae8dd7a867b084a61a063b4e8b4126e05da276461",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "item_id": "a007796bba3bdbde",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/a007796bba3bdbde.json",
+      "grade_sha256": "1907881febe5c4d060dc16ae563d5fbc85ba4d291b1bc182c859c394ee2d571f"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-13",
+      "output_sha256": "0c81256587f7a9b0fd4939e6bdc9e9f5f744059016e1d2740da5935f20007010",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "item_id": "d8c3b18d1ef761cd",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/d8c3b18d1ef761cd.json",
+      "grade_sha256": "02d3f3adb43f5d78e322ca4cf7f86206ae320bca6368c68101290d87c1b95ad5"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-14",
+      "output_sha256": "253cc3836f7dd6301772c80b81ffb23c5879ad6b9cc9cfe6b7c11a820c834328",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "item_id": "f52366eba62c5589",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/f52366eba62c5589.json",
+      "grade_sha256": "d531ad03385761072453a4318e48b06efe26df360faa043ead02bc4958799915"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-15",
+      "output_sha256": "8fa2227537767a9a8277fc5ad982dffeeda0b4fabd7b6b97c09f376d3983a9cc",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "item_id": "9e976939aea75013",
+      "scores": {
+        "suitability": 0,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 1,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/9e976939aea75013.json",
+      "grade_sha256": "161db9be4de8285d7362f6e4293999803ede0609f7c70f590c2b63fac0a12722"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-16",
+      "output_sha256": "bea85c514754292542be26e34f33a17e63dcbe547ca52d0540b8249b474f32a1",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "item_id": "7a8dcb484a60748c",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/7a8dcb484a60748c.json",
+      "grade_sha256": "bdf25838004ddfc0729d528a5c06b94161afe1b4a5f1c7c214ab867beeaccf9e"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-17",
+      "output_sha256": "9e2bd6fdc0dd08003b670c408abae2b9fde9d7c6dc4c8f6bd9ea7fc788e74531",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "item_id": "74eeba61bc958a18",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/74eeba61bc958a18.json",
+      "grade_sha256": "7a7c27b2289dd3f9a87dfc00c48408f8b5a4a51868c719812877de845f1d4292"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-18",
+      "output_sha256": "fcbb9f459e7bb7b332f1ec1b200eefe5058d3553c6d1d24ec00445457c93003e",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "item_id": "cfd8b76bf46f0694",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/cfd8b76bf46f0694.json",
+      "grade_sha256": "fca56418a786c0a57f0188464ef77b3fde3e59560749166b5276e209c4002a18"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-19",
+      "output_sha256": "c64255f44fc42e6718f3c23ea5e6ccec3731b7918004e203de65fa2866eded36",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "item_id": "877abaeddde8845f",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/877abaeddde8845f.json",
+      "grade_sha256": "4f08c38bd517cac55449997fd387e3d35fa5d60e8c4af3143a27a6ad9065619e"
+    },
+    {
+      "model": "gpt-oss-120b",
+      "case_id": "case-20",
+      "output_sha256": "9af5abd50faa102f8ff33c0aa5c3ef331b94a8ee3ae48bee0e0ce38f1f7139e9",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "item_id": "1ef5248a4ebac614",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/1ef5248a4ebac614.json",
+      "grade_sha256": "9521dc0126aa520dac5a96d85e58cb58cf2aec2a4dbcbdb85624a519098e95a5"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-1",
+      "output_sha256": "526b5ceac8f2a09b848a31de37c82775cbbdaf5478e991f7b0f7278c5e4c8ad0",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "item_id": "8e58f05178b574b2",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 5,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/8e58f05178b574b2.json",
+      "grade_sha256": "e9ef5b6d4ff61f31fd48aaed2f2d437b13dc6a61742e3ab78c9df8a96528b928"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-2",
+      "output_sha256": "185b72ee4c743562ce8f37594497b126b01eeb8f63bf9dca0d81bfb625341794",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "item_id": "0ac3101b0f02ecd5",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 5,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/0ac3101b0f02ecd5.json",
+      "grade_sha256": "76dedace7d887a4563379dd60648e57add8117fbac9482826cd3c6b2f582639a"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-3",
+      "output_sha256": "18b83d437364c72a18a0df885a6936bd1b9f427d593fb62eb1744c683310814f",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "item_id": "b1e1c9272ab41b54",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/b1e1c9272ab41b54.json",
+      "grade_sha256": "9ea766890f7bda76fdf69d4c985d20937e1acf6b5061ca69eaec8985d33a0097"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-4",
+      "output_sha256": "2d8c99cac284cf2a666b8f4b73063037d02f9e38bf323d15899eb69adce3bf3d",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "item_id": "ef5b547004e228b4",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/ef5b547004e228b4.json",
+      "grade_sha256": "20428852c87369d83727245c3614f502f79ef4881cb4a5ec8cc17732f273185a"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-5",
+      "output_sha256": "7ca424596242978276562e303137c07dc57bbdee207807f51715049dac6cefe9",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "item_id": "4f3bc1d12686746b",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/4f3bc1d12686746b.json",
+      "grade_sha256": "983dd10e3c3d3667d37997feb23a792bf429510863351074d49be1ed5d9fe592"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-6",
+      "output_sha256": "343343e98fda234431bca07581ec6d24a90768af8b329de68aece90a0f74c8ce",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "item_id": "e84585c38e9dfeee",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/e84585c38e9dfeee.json",
+      "grade_sha256": "83c58057e012896fe989734f3dd8f9ea19af40ee753d86376915bf6e36ce299e"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-7",
+      "output_sha256": "d08071432e6fbb635d5389b92487f1ebccfa5196cfd8a91be87baa77bcc92f58",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "item_id": "1d9eb92748ca5df6",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/1d9eb92748ca5df6.json",
+      "grade_sha256": "dec49bc1be1e3d13107548b685347fabf2892dda3195cddc34efd48ad14b5553"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-8",
+      "output_sha256": "f2d0cc9037828962b0a39b6b1bcffbc1a254e3a6df98ee0ec7d5427d60da58cf",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "item_id": "5f735043c60ffdce",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/5f735043c60ffdce.json",
+      "grade_sha256": "2becdcd37aa0b090f7168a14a52e58bd5648b219b73051e74221039a66d119f7"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-9",
+      "output_sha256": "96337b492696877694ccf3cd41e11185f38362f37c47b272427fea1e920344b3",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "item_id": "d29170dad55c5026",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/d29170dad55c5026.json",
+      "grade_sha256": "0dcb26f20ff9059fc7d477d2c6c840d00fef9d138ffa48279bdc9123a6a40f0c"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-10",
+      "output_sha256": "5dd9bde5eb94b0d13f120850cc1ce7905b8305baca2f6fff7c8240e3d1c70cfa",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "item_id": "6bce1a4dc2a91e0e",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/6bce1a4dc2a91e0e.json",
+      "grade_sha256": "bc5664b24404f514e3c5e01819ce26c0d50a9756880adef97dbedef42b849258"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-11",
+      "output_sha256": "8d57ec5665165ed76714abee970d386eb80cb71f564659dc0c15c28bb65b36ac",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "item_id": "e3d064f787861e3c",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/e3d064f787861e3c.json",
+      "grade_sha256": "9c590279c8ab5b84b7696d21d8139389f532e44ef35ab72c76ee28d6bb5291ee"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-12",
+      "output_sha256": "b84dda0affce57ad7e8634f91b4f95cddd30716f5da44bd8cd8a4f26874d395c",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "item_id": "833ade92c9d629b8",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 5,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/833ade92c9d629b8.json",
+      "grade_sha256": "a3b0b40c1c10d041f1c8ddf07cb7faa5084cc9e71c47868939ec414042da5e9a"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-13",
+      "output_sha256": "952468d666f4cec765bc8fdb4cdcbd2d747bebcf54f6f1ae69d52d2ef2b467e7",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "item_id": "8ceb51e9110d94f9",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 5,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/8ceb51e9110d94f9.json",
+      "grade_sha256": "18befaac6d9e910d47a2ee4099d1d7a5fbf91ab65c29920b707b73bef2235216"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-14",
+      "output_sha256": "e87bd56ff977d7abe29591e0e35652cf3caecfe78de2593ec6883980b890be67",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "item_id": "0f7262e17622a393",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/0f7262e17622a393.json",
+      "grade_sha256": "aa2c37ef1b675750de014fa51ac9a3a66f4a9865ab8421dbe2074ce0f2c67b30"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-15",
+      "output_sha256": "d84f4f529b96203eb02f214c6bf224789f8e1ea6c308671d847cf09261052d37",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "item_id": "83c50a6498ecc0a0",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 5,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/83c50a6498ecc0a0.json",
+      "grade_sha256": "9b4c3c869285f9a29ecf3592b9fae0f6f0052f78f8494e9ee47130774086abce"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-16",
+      "output_sha256": "7c191a4a994c2d62db14ce4fb515e3f7b95dde11128427479e1a9557c68eacef",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "item_id": "d050f7df0d3d471f",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/d050f7df0d3d471f.json",
+      "grade_sha256": "d3b0ce31c691f64292a156ac75373a35d73106ba23c7137e22603ea2cad1f638"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-17",
+      "output_sha256": "0a01b130155d1e28d9a06e2ab2b24477631a286af7ed6b1b9166ba0eba4d0bed",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "item_id": "fd606adfbe76d1e8",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 5,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/fd606adfbe76d1e8.json",
+      "grade_sha256": "0091c9422a0c3f63dc356ec926b10c7899fceec450e5e8e336cbe624a4d7d98a"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-18",
+      "output_sha256": "8d178d82373605999e22c3af0c3abf0b0c3eca483cdd4188c0d2f53a80caa72b",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "item_id": "cafaa83e177c1c35",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 5,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/cafaa83e177c1c35.json",
+      "grade_sha256": "0f8217337706d4f40724231d05693a311bd45ee6265736be36f57a0150c3c827"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-19",
+      "output_sha256": "4fe1e5f8eb8e90f7279e47575706d1518a02338ed0de12d7e1b5e1804c3f0756",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "item_id": "6c4ff34cf5f82cf9",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/6c4ff34cf5f82cf9.json",
+      "grade_sha256": "5c025bff34d6862954c8153a7828385211b65f2c14f81b191c132618bc07512c"
+    },
+    {
+      "model": "kimi-k3.1-pro",
+      "case_id": "case-20",
+      "output_sha256": "47c39872d6be233b04f5588aa5666b5ab2c20b91dd803fbecde96289653d54fd",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "item_id": "7aedc1475e4d6dd1",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 2
+      },
+      "total_out_of_6": 5,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/7aedc1475e4d6dd1.json",
+      "grade_sha256": "958d54d0e30072f1fc0f36a6f4af6fdc2831c14e2897625abbca942aed4b189c"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-1",
+      "output_sha256": "9a076a15df0993896925f026d5c5876cd3c8773faba286a651fc6f8d4af04370",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "item_id": "76e2e5f4eefbb591",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/76e2e5f4eefbb591.json",
+      "grade_sha256": "4a9ffcc15a8ea7517c530585b664afa825af293d908744945b717e1477c5fee9"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-2",
+      "output_sha256": "683c85345b7eeb7ec9472218c8a7491a72e88e01989ab3b3c6044239711b748b",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "item_id": "dd036b5fd1a30aad",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/dd036b5fd1a30aad.json",
+      "grade_sha256": "77ea10432c285b55edae7434e94dd7ee1a23a98f53de9308b322c12f783e7c00"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-3",
+      "output_sha256": "e4a3711b7326bfab604fc824d83e9a708b0905632beab9554df0f9d5be9545f8",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "item_id": "29e9029900a07ba3",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 0,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/29e9029900a07ba3.json",
+      "grade_sha256": "d5fffcab8d7b02875cd470feeb8b0253d07ac6000f8b790cf646f2c93b7e1e40"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-4",
+      "output_sha256": "2257929f1cef6966db5a183454e0c96efc0819b956d139fb6b72318a9d434c7c",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "item_id": "3238c5b70a321be4",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 0,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/3238c5b70a321be4.json",
+      "grade_sha256": "a3f17eba809396af2511c9c63d02bbe69cdb9e6c30eb5b5c8cd162bd24968fe0"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-5",
+      "output_sha256": "db2436cb64046db684deef2662bde417b568df76df9ff84f1f8bdbc8a050d299",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "item_id": "f27e285bb39fe778",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 0,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/f27e285bb39fe778.json",
+      "grade_sha256": "70d3ef0ca91b53480a6d3a4efe209e4030e19b086d150a2beae112948f566361"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-6",
+      "output_sha256": "9afe96bd97f5a9ac75b7aa4f1c3c3ce8b93a446f3c4639e84b4a05fe54280863",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "item_id": "b102b7eb2aa1b3dd",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/b102b7eb2aa1b3dd.json",
+      "grade_sha256": "17005c3e6331e29a8583fe68212c4bc02fe76b27a445e577d915a933f1a262c3"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-7",
+      "output_sha256": "c5ba0ce1be1f22daa96c29662675d8a6ec812d8d570b4ea943e924d8e54ba156",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "item_id": "791611345e5dc3e4",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 0,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/791611345e5dc3e4.json",
+      "grade_sha256": "dbf412c8a6b5303392c3e462a0d3242d9a98cc3386f99adb073f713bb0c3f205"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-8",
+      "output_sha256": "c7d95223523815b7d1f5e6290765b4cdc0bfbfb2c96540860f591183a8a6ecb7",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "item_id": "522e2657d01b73df",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/522e2657d01b73df.json",
+      "grade_sha256": "35dc32c1d585d4cf861dd42eb54a0237d32e69317c3df2d20b78f87c8ad1631b"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-9",
+      "output_sha256": "dd941820a235c54dc967e6abe31be7e261ddcfbd7421d843d9cdbe866b67caaf",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "item_id": "5e70b5d0b7eb38bc",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/5e70b5d0b7eb38bc.json",
+      "grade_sha256": "93aa25d99eda55a5141a8c918b99c07a514e0f28dc8a6f0f05fd2afd1c7f0153"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-10",
+      "output_sha256": "ec975df1ff87ced5f9acc08b8592228f18f6f6708d8ddfe280cdfaa85a10b682",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "item_id": "483610fbb00c10e4",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 0,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/483610fbb00c10e4.json",
+      "grade_sha256": "1a6185e3d0551c7581484d6fc82d8c62b0f79ad4ba07dd6890d96a4685aa10c5"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-11",
+      "output_sha256": "6c1e544d1b6bc03832e056e38a512a3669df9e2dfbf9fb927b1343ab42f04ec6",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "item_id": "e4f8b6b20bb600ec",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 0,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/e4f8b6b20bb600ec.json",
+      "grade_sha256": "59544e075d7b4488659cd89d2ed0ff91f21341fc59207023efb983c10b00a0eb"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-12",
+      "output_sha256": "fade5afff652851b0a252f4dc447b742904dd523e4a14e749ff31235b505e15d",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "item_id": "5ec830e8b1754e7d",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 0,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/5ec830e8b1754e7d.json",
+      "grade_sha256": "c6e4ba56f357d50e815bc8d58b9350eb125105741a58b95b92b2185301254cdf"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-13",
+      "output_sha256": "bc4b9328c96faadff289cce23f381eee58091c38f357e193dc96f28d74809f7a",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "item_id": "d9dc22b3385d32d6",
+      "scores": {
+        "suitability": 1,
+        "procedural_soundness": 0,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/d9dc22b3385d32d6.json",
+      "grade_sha256": "50580eb48d09f5d21cf1e6d7af62ae0dd868a5f798b5fcaf954925a185d97863"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-14",
+      "output_sha256": "ddcf3a41f5a3e32fd80c3e4fa78696125838128e23bb4ffd8a1d97cb3bd24505",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "item_id": "133c11182e54ffed",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 0,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/133c11182e54ffed.json",
+      "grade_sha256": "0704a8bbc26a3ce9853a2b3179387cee086afc5ed11176c077b9a262498a2a30"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-15",
+      "output_sha256": "0deffc7705ad3fe88884bff7f7dffe81e54e3c7805a3da240163dee8c27275ca",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "item_id": "42e529dcd69dc3a0",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 0,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/42e529dcd69dc3a0.json",
+      "grade_sha256": "fbb467cf50f6466f746550c009e486feacd304b4d36b9c07da8907f54a64e71c"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-16",
+      "output_sha256": "3ec527be37fd308ef6b3ae29f0ce56000c5b7d2b478c1410c73e4c6d9d7aeec8",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "item_id": "15646d04351cce25",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/15646d04351cce25.json",
+      "grade_sha256": "b4d90dab7d847ef369218d733fa2b877019af48aff771e2c584aa807df23628f"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-17",
+      "output_sha256": "bba569e31fe377d70beb6ec1d1e6d85c40c301a34a7143665cb3c86f334ccfe8",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "item_id": "2af410eaaa5e6d45",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 0,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 2,
+      "critical_failure_count": 2,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/2af410eaaa5e6d45.json",
+      "grade_sha256": "7c976bc919c2b7173d1aa44a6d1584cafdc297a41839b538a08d28c4ec9e85af"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-18",
+      "output_sha256": "02e2a62e60b05bb5ffadaeb2aee4562b53cc0a0f6e005178c6dcc59d8fc18eba",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "item_id": "0fc9d7cf8210a474",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/0fc9d7cf8210a474.json",
+      "grade_sha256": "c36304c398050666322c1f9ff1dfc97602316f2fbc0cf944d350f9561be8224a"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-19",
+      "output_sha256": "cfb15289f6d7eb9b5267e273fa068ebfeeacb3d2aa3cf2600fb72e39d8d1ade4",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "item_id": "ce8af08bec081432",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 0
+      },
+      "total_out_of_6": 3,
+      "critical_failure_count": 1,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/ce8af08bec081432.json",
+      "grade_sha256": "485afef193bc36b5db26416aa0412f36846585f4ec1e00cf71e084ecce3479fc"
+    },
+    {
+      "model": "nemotron-3-super",
+      "case_id": "case-20",
+      "output_sha256": "4497515a524d3da58e8f479085a7714aa0908e4b218841a2e18335eef3ffa2ef",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "item_id": "828894dfbd1ec09f",
+      "scores": {
+        "suitability": 2,
+        "procedural_soundness": 1,
+        "numerical_soundness": 1
+      },
+      "total_out_of_6": 4,
+      "critical_failure_count": 0,
+      "needs_human_review": true,
+      "low_confidence_axes": [],
+      "grade_file": "grades/828894dfbd1ec09f.json",
+      "grade_sha256": "f1a26f5c8f92001b4e1b58d830f8cd26db732495ce3aa9acd2f51512543cd3b0"
+    }
+  ]
+}

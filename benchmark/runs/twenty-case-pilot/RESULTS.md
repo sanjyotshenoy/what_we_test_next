@@ -26,6 +26,8 @@ Abstentions include both null values and explicit “unresolved” strings. Nemo
 
 ## Three-axis rubric status and qualitative findings
 
+Subsequent evaluation: [Astra-medium scores for all 100 responses](../../judge/RESULTS.md), with a frozen rubric and per-case evidence. Those scores are provisional AI judgments, not expert validation. This generation report retains its original automated diagnostics.
+
 The agreed axes remain experiment suitability, procedural soundness and numerical soundness (0–2 each). No new scientific 0–2 grades or overall percentages are assigned by this automated report. The original three-case provisional grades remain historical and must not be presented as scores over 20 cases. Scientific grading needs review of evidence support, readout compatibility, units, controls and uncertainty, not just field presence or range coverage.
 
 The following are direct spot checks, not an exhaustive manual review:
