@@ -29,7 +29,7 @@ function add(name, section, heading, body, caption, notes) {
 add('evidence-graph',2,'A measured-data graph, with provenance', (d)=>`
   <div class="ev-split"><div><div class="ev-big">${d.graph.edges.toLocaleString()}</div><p class="ev-lead">MIC measurements</p><p>${d.graph.types.Compound} compounds · ${d.graph.types.Organism} species</p><small>Built from the local ChEMBL 37 database.</small></div>
   <div><p>Every measurement retains its assay, document, unit and relation.</p><p><strong>${d.graph.censored.toLocaleString()} censored results preserved.</strong><br><code>&gt;128</code> means the threshold was not reached; it is not an exact MIC.</p><p class="ev-note">Commensal-first retrieval creates paired evidence. Species-level records can still hide resistant strains.</p></div></div>
-  <p class="ev-links ev-callout"><a href="evidence/mic_examples.json" target="_blank" rel="noopener">Inspect MIC source records ↗</a></p>`,
+  <p class="ev-links ev-callout"><a href="../biohack/evidence/mic_examples.json" target="_blank" rel="noopener">Inspect MIC source records ↗</a></p>`,
   '25,632 nodes · 21,640 assays · 3,387 documents · counts recomputed from committed CSVs',
   'Sources: kg/biology/build_bacteria.py, chembl_bacteria_db.py, graph_bacteria/{nodes,edges}.csv. No benchmark hold-out applied to this MIC graph. Traits are hand-curated. A high MIC in one resistant isolate does not prove commensal sparing. The separate explorer contains kinase/protocol data, not the bacterial MIC graph.');
 add('evidence-rules',2,'Protocol choices have inspectable sources',d=>`
@@ -50,14 +50,14 @@ add('evidence-verification',4,'A protocol that passes the simulator',d=>`
  <tr><td>Four-species example → OT-2 protocol</td><td><strong>${d.simulation.simulated_ok?'Simulation passed':'Not verified'}</strong> · Opentrons 8.8.2 · API ${d.simulation.api_level}</td></tr>
  <tr><td>Independent transfer replay</td><td>${d.audit_errors.length} plate-audit disagreements for this example</td></tr>
  </tbody></table><p>Two outputs: <strong>robot code + human run sheet</strong>.<br><small>Incubation, readout and MIC calling remain off-robot steps.</small></p>
- <p class="ev-links"><a href="evidence/protocol.py" download>Generated protocol ↓</a><a href="evidence/run_sheet.md" target="_blank">Run sheet ↗</a><a href="evidence/result.json" target="_blank">Result + warnings ↗</a></p>`,
+ <p class="ev-links"><a href="../biohack/evidence/protocol.py" download>Generated protocol ↓</a><a href="../biohack/evidence/run_sheet.md" target="_blank">Run sheet ↗</a><a href="../biohack/evidence/result.json" target="_blank">Result + warnings ↗</a></p>`,
  'Software verification, not wet-lab validation · pipette installation and anaerobic incubation remain unconfirmed',
  'Reproduced 2026-11-08. pytest: 340 passed, 3 skipped, with no LLM calls. Separate execution.generate --simulate run used the committed hand-written example, opentrons==8.8.2 and numpy<2. Simulation validates executable robot operations, not biological efficacy. Exact input and warnings are downloadable under evidence/.');
 add('evidence-pilot',3,'Three auditable evaluation cases',()=>`
  <table class="ev-table"><thead><tr><th>Existing case packet</th><th>What it probes</th></tr></thead><tbody>
  <tr><td>Haspin biochemical inhibition · case 1</td><td>Low-concentration coverage</td></tr><tr><td>Haspin biochemical inhibition · case 2</td><td>Parameter choice for a different reference potency</td></tr><tr><td>Rec-1 cell viability · case 3</td><td>Cellular effect ≠ target-specific inhibition</td></tr></tbody></table>
  <p>Input evidence and reviewer-only answers are separate. The packet builder excludes the query pair and its documents.</p><p class="ev-note">These are kinase/cell cases. The following slides show provisional model scores; a validated MIC benchmark remains open.</p>
- <p class="ev-links"><a href="graph/index.html" target="_blank" rel="noopener">Inspect the cases and answer toggles ↗</a></p>`,
+ <p class="ev-links"><a href="../biohack/graph/index.html" target="_blank" rel="noopener">Inspect the cases and answer toggles ↗</a></p>`,
  'Three manually selected diagnostic cases · reviewer calibration and source-leakage review still required',
  'slides/talks/biohack/graph/BENCHMARK.md and slides/tools/prep_benchmark_cases.py. Cases are not independent samples for a generalization claim. Runtime graph masking is not wired into the agent. Structured step output extends the current agent contract. Completed fixed-packet pilot: DeepSeek V4.1 Flash 1017, Kimi K3.1 Pro, GLM 5.3 (not Flash), Nemotron 3 Super, and GPT-OSS-120B. The following slides show provisional Codex grades; this is not an agent retrieval comparison.');
 add('evidence-boundary',4,'What is built, and what still needs connecting',()=>`

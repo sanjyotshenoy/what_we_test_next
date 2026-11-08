@@ -1,8 +1,31 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Question to experiment · pitch draft</title><link rel="stylesheet" href="../../vendor/reveal/reveal.css"><link rel="stylesheet" href="../../web/deck.css"></head><body><div class="reveal"><div class="slides"></div></div>
-<script src="../../vendor/reveal/reveal.js"></script><script src="../../vendor/reveal/notes.js"></script><script src="../../web/deck.js"></script><script src="../../web/plots.js"></script>
-<script src="hook.js"></script>
+<script src="../../vendor/reveal/reveal.js"></script><script src="../../vendor/reveal/notes.js"></script><script src="../../vendor/manim-web/manim-web.iife.js"></script><script src="../../web/deck.js"></script><script src="../../web/manim.js"></script><script src="../../web/plots.js"></script>
+<script src="../pitch-preview/hook.js"></script>
 <script src="../question-prototype/story.js"></script>
-<script src="proposal.js"></script>
+<script src="../pitch-preview/proposal.js"></script>
 <script src="../biohack/data/pilot_results.js"></script>
-<script src="finish.js"></script>
-<script>Deck.start({title:'Question to experiment · pitch draft'});</script></body></html>
+<script src="../pitch-preview/finish.js"></script>
+<script>
+Deck.slide('backup-divider',{notes:'The timed pitch ends on the previous slide. The original twenty-slide deck follows for questions and reference.',mount(frame){frame.innerHTML='<h2 class="deck-title">Backup slides</h2><p class="deck-subtitle">Original deck · supporting detail and Q/A</p>';return {enter(){}};}});
+</script>
+<script>Deck.section(null)</script>
+<script src="../biohack/slides/title.js"></script>
+<script>Deck.section(1)</script>
+<script src="../biohack/slides/why.js"></script>
+<script src="../biohack/slides/story.js"></script>
+<script>Deck.section(null)</script>
+<script src="../biohack/slides/outline.js"></script>
+<script>Deck.hide('outline')</script>
+<script src="../biohack/evidence/data.js"></script>
+<script src="../process-prototype/data.js"></script>
+<script src="../biohack/slides/evidence.js"></script>
+<script src="../biohack/data/pilot_results.js"></script>
+<script src="../biohack/slides/pilot_results.js"></script>
+<script src="../biohack/data/kb_story.js"></script>
+<script src="../biohack/slides/kb_story.js"></script>
+<script src="../biohack/slides/source_examples.js"></script>
+<script src="../biohack/slides/benchmark_method.js"></script>
+<script src="../biohack/slides/explorer.js"></script>
+<script>Deck.section(null)</script>
+
+<script>Deck.start({title:'Question to experiment · pitch + backup'});</script></body></html>

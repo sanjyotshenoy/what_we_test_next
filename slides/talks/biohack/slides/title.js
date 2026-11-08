@@ -65,7 +65,7 @@ Deck.slide('title', {
       const words = n.split(' ');
       const last = words.pop(), first = words.join(' ');   // "Seh Na" / "Mellick"
       const pic = PHOTOS.has(n)
-        ? `<img src="data/team/${n.toLowerCase().replace(/ /g, '-')}.jpg" alt="">`
+        ? `<img src="../biohack/data/team/${n.toLowerCase().replace(/ /g, '-')}.jpg" alt="">`
         : `<span class="ti-initials">${esc(first[0] + last[0])}</span>`;
       return `<figure class="ti-face">${pic}<figcaption>${esc(first)}<br>${esc(last)}</figcaption></figure>`;
     };

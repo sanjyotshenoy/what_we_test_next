@@ -1,6 +1,6 @@
 # Ten-minute pitch: story draft
 
-Preview branch: `slides-preview`. Entry: `index.html`. Six slides; technical backup opens separately at `qa.html` so it cannot accidentally lengthen the pitch. The existing main and question-prototype decks are unchanged.
+Preview branch: `slides-preview`. Entry: `index.html`. Six pitch slides, then a backup divider and the original twenty-slide deck. Stop at the pitch close during the timed presentation; the standalone technical backup remains at `qa.html`. The existing main and question-prototype decks are unchanged.
 
 Presenter script: [speaker-notes.html](speaker-notes.html). Maintain it alongside slide changes; it holds spoken explanations, examples and Q/A caveats.
 
