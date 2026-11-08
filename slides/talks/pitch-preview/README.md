@@ -13,7 +13,7 @@ Presenter script: [speaker-notes.html](speaker-notes.html). Maintain it alongsid
 | 2:00–3:00 | Evidence to proposal | Related compounds and measured activity; supporting papers; separate protocol templates; structured proposal. |
 | 3:00–4:15 | Hold-out pilot | Five models, three kinase/cell cases, provisional grades and one concrete inconsistency. |
 | 4:15–7:15 | Evidence walkthrough | Inspect case input, retained evidence, withheld record and recorded output. Show the separate MIC execution artifact only with its provenance stated. |
-| 7:15–8:15 | Close | Demonstrated components, remaining integration, next validation. |
+| 7:15–8:15 | Close | Existing answer vs missing measurement; proposed result-ingestion loop and upstream hypothesis refinement. |
 
 Target 8:15 of rehearsed content, allow 45 seconds for transitions, retain one minute of recovery time. Speaker notes contain the three-minute demo sequence. No live API call is required.
 

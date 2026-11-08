@@ -40,35 +40,50 @@ Deck.slide('pitch-demo', {interactive:true,
  frame.innerHTML=`<h2 class="deck-heading">Inspect the evidence, design and checks</h2><iframe class="pd-frame" src="../biohack/graph/index.html" title="Committed graph and benchmark case viewer"></iframe><div class="pd-links"><a href="../biohack/graph/index.html" target="_blank" rel="noopener">Case viewer ↗</a><a href="data/deepseek-case-2.output.json" target="_blank" rel="noopener">Recorded output ↗</a><a href="../biohack/evidence/run_sheet.md" target="_blank" rel="noopener">Separate MIC run sheet ↗</a></div><p class="deck-caption">Recorded case review · MIC execution example starts from a separate hand-written proposal · 3-minute demo</p>`;
  return{enter(){}};
  }});
-Deck.slide('pitch-close',{steps:3,
- notes:'7:15–8:15. Return to the opening question. Beat 1: three demonstrated components—source-linked evidence, generated and reviewed proposals, and a separately simulated bacterial protocol. These are not one completed end-to-end bacterial run. Beat 2: the next proof is to connect and validate one bacterial question through proposal generation and checked execution. Enforce compatibility and audit gates; evaluate scientific design quality and researcher review effort. Beat 3: the intended researcher benefit is a proposed experiment whose evidence and design choices can be inspected; the researcher decides what to run. This benefit is the product aim, not a measured time saving. Full script: speaker-notes.html. Keep Q/A detail for questions.',
+// TODO(final): hypothesis refinement and ingestion of experimental results are proposed integrations; this diagram is not an end-to-end run.
+Deck.slide('pitch-close',{steps:4,
+ notes:'7:15–8:15. Show the broader workflow: check a researcher-supplied question against the KB; return an existing answer with sources. If the measurement is missing, propose an experiment grounded in evidence, then the researcher reviews it and decides whether to run it. Reveal the proposed feedback connection: measured results, including negative results and their assay conditions and provenance, can be added to the KB so later queries can use them. Finally reveal hypothesis refinement as a potential upstream integration, helping sharpen an existing idea into a testable question. Dashed connections identify proposed integrations, not implemented automation. The bacterial retrieval, proposal and execution components are not a demonstrated connected run. Existing evidence does not prevent a researcher from choosing a confirmatory experiment. Full script: speaker-notes.html.',
  mount(frame,{css}) {
  css(`
- .pc-content{position:absolute;left:7%;right:7%;top:19%;bottom:13%;}
- .pc-eyebrow{font-size:var(--t-small);color:var(--muted);margin:0 0 1em;}
- .pc-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:4%;}
- .pc-proof div{border-top:2px solid var(--accent);padding-top:.65em;}
- .pc-proof h3{font-size:var(--t-body);color:var(--fg);margin:0 0 .45em;}
- .pc-proof p{font-size:var(--t-small);color:var(--muted);line-height:1.4;margin:0;}
- .pc-next{position:absolute;top:48%;left:0;right:0;}
- .pc-next strong{display:block;font-size:var(--t-small);color:var(--accent);margin-bottom:.4em;}
- .pc-next p{font-size:var(--t-body);line-height:1.4;margin:0;}
- .pc-benefit{position:absolute;top:76%;left:0;right:0;font-size:var(--t-lead);line-height:1.3;color:var(--accent);}
- .pc-benefit small{display:block;font-size:var(--t-small);color:var(--fg);margin-top:.5em;}
- .pc-link{color:var(--muted);}
+ .cl-description{position:absolute;left:4.2%;right:4.2%;top:16%;font-size:var(--t-body);line-height:1.4;color:var(--muted);}
+ .cl-map{position:absolute;left:5%;right:5%;top:33%;height:49%;}
+ .cl-map svg{position:absolute;width:100%;height:100%;overflow:visible;}
+ .cl-line{fill:none;stroke:var(--accent);stroke-width:2;}
+ .cl-future{stroke:var(--muted);stroke-dasharray:7 6;}
+ .cl-node{position:absolute;font-size:var(--t-body);line-height:1.25;background:var(--bg);padding:.25em 0;}
+ .cl-node strong{font-weight:600;}
+ .cl-node small{display:block;font-size:var(--t-caption);color:var(--muted);margin-top:.5em;line-height:1.35;}
+ .cl-branch{position:absolute;font-size:var(--t-caption);color:var(--accent);background:var(--bg);padding:.2em;}
+ .cl-integration{position:absolute;left:40%;top:91%;font-size:var(--t-small);color:var(--muted);background:var(--bg);padding:0 .5em;line-height:1.4;text-align:center;}
+ .cl-integration small{display:block;font-size:var(--t-caption);}
+ .cl-upstream{font-size:var(--t-small);}
+ .cl-upstream small{font-size:var(--t-micro);}
+ .cl-link{color:var(--muted);}
  `);
- frame.innerHTML=`<h2 class="deck-heading">What should we test next?</h2>
- <div class="pc-content">
- <p class="pc-eyebrow">What we have demonstrated</p>
- <div class="pc-proof">
- <div><h3>Evidence with sources</h3><p>Biological measurements.<br>Protocol knowledge.</p></div>
- <div><h3>Proposals reviewed</h3><p>Assay choice, steps<br>and parameters.</p></div>
- <div><h3>Protocols simulated</h3><p>Separate bacterial example:<br>proposal → robot instructions.</p></div>
+ frame.innerHTML=`<h2 class="deck-heading">Propose an experiment—and show why</h2>
+ <div class="cl-description">An assay, concentration range, controls and procedure,<br>with supporting evidence for the researcher to review.</div>
+ <div class="cl-map">
+ <svg viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
+ <defs><marker id="cl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10" fill="var(--accent)"/></marker><marker id="cl-future-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10" fill="var(--muted)"/></marker></defs>
+ <path class="cl-line" marker-end="url(#cl-arrow)" d="M165 190 H250"/>
+ <path class="cl-line" marker-end="url(#cl-arrow)" d="M445 190 H460 V55 H590"/>
+ <g class="reveal-in" data-from="2"><path class="cl-line" marker-end="url(#cl-arrow)" d="M460 190 V245 H590"/><path class="cl-line" marker-end="url(#cl-arrow)" d="M760 245 H830"/></g>
+ <g class="reveal-in" data-from="3"><path class="cl-line cl-future" marker-end="url(#cl-future-arrow)" d="M915 285 V395 H335 V255"/></g>
+ <g class="reveal-in" data-from="4"><path class="cl-line cl-future" marker-end="url(#cl-future-arrow)" d="M65 125 V150"/></g>
+ </svg>
+ <div class="cl-node" style="left:0;top:38%;width:17%"><strong>Researcher’s<br>question</strong></div>
+ <div class="cl-node" style="left:26%;top:38%;width:19%"><strong>Check the<br>knowledge base</strong></div>
+ <div class="cl-branch" style="left:47%;top:3%">Answer exists</div>
+ <div class="cl-node" style="left:60%;top:3%;width:36%"><strong>Return the result</strong><small>Include its sources</small></div>
+ <div class="reveal-in" data-from="2">
+ <div class="cl-branch" style="left:44%;top:66%">Measurement<br>missing</div>
+ <div class="cl-node" style="left:60%;top:53%;width:17%"><strong>Propose an<br>experiment</strong></div>
+ <div class="cl-node" style="left:84%;top:53%;width:17%"><strong>Run the<br>experiment</strong><small>After researcher review</small></div>
  </div>
- <div class="pc-next reveal-in" data-from="2"><strong>The next proof</strong><p>Connect and validate one bacterial question<br>through experiment design and checked execution.</p></div>
- <div class="pc-benefit reveal-in" data-from="3">A proposed experiment you can understand and question.<small>The evidence and design choices are visible. The researcher decides what to run.</small></div>
+ <div class="cl-integration reveal-in" data-from="3">Add measured results + sources to the KB<small>Potential integration</small></div>
+ <div class="cl-node cl-upstream reveal-in" data-from="4" style="left:0;top:0;width:25%"><strong>Hypothesis refinement</strong><small>Potential integration</small></div>
  </div>
- <p class="deck-caption"><a class="pc-link" href="qa.html" target="_blank" rel="noopener">Q/A backup ↗</a></p>`;
+ <p class="deck-caption"><a class="cl-link" href="qa.html" target="_blank" rel="noopener">Q/A backup ↗</a></p>`;
  return{enter(s,a){Deck.show(frame,s,a);}};
  }});
 }
