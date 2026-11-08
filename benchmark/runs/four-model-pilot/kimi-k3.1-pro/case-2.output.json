@@ -1,0 +1,76 @@
+{
+  "assay_type": "Biochemical kinase concentration-response inhibition assay",
+  "system": "Purified human HASPIN (Q8TF76) with CHEMBL5426285; exact enzyme construct and kinase substrate are unresolved.",
+  "readout": "ADP-Glo luminescence reporting ADP formation, normalized to vehicle and no-enzyme controls to estimate percentage HASPIN inhibition.",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold CHEMBL5426285 dilution series from 10 \u00b5M, keeping vehicle constant across all wells. Include full-reaction vehicle controls, no-enzyme backgrounds, and a reference-inhibitor control if a validated HASPIN reference becomes available. Run three replicates.",
+      "parameters": {
+        "top_concentration_uM": "10 \u00b5M; provisional assay-design assumption, informed only by the 34\u2013770 nM range for other compounds in the retained examples, not by a query potency estimate.",
+        "dilution_factor": "3-fold; provisional assumption providing approximately 0.00051\u201310 \u00b5M coverage.",
+        "n_points": "10; provisional assumption to cover the range while supporting curve fitting.",
+        "replicates": "3; provisional assumption for assessing experimental variability.",
+        "vehicle_fraction": "Unresolved; determine vehicle identity and a constant, enzyme-compatible fraction in a pilot."
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound or control, human HASPIN, substrate, and ATP, then run the kinase reaction. Before the full experiment, pilot enzyme, substrate, ATP, and time conditions to establish an initial-rate reaction and a luminescence signal within the detection linear range.",
+      "parameters": {
+        "enzyme_concentration": "Unresolved; no supported concentration is supplied.",
+        "substrate_concentration": "Unresolved; substrate identity and concentration require a validated HASPIN assay or pilot optimization.",
+        "ATP_concentration": "Unresolved; select and report experimentally, including its relationship to the ATP Km if determined.",
+        "reaction_time": "Unresolved; choose from the initial-rate pilot.",
+        "temperature": "Unresolved; no supported reaction temperature is supplied."
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction and deplete residual ATP with ADP-Glo reagent, then perform the ADP detection reaction and record luminescence. Use matched reagent-only backgrounds and process all concentrations identically.",
+      "parameters": {
+        "reagent_volumes": "Unresolved; use a validated plate-format procedure rather than inventing volumes.",
+        "depletion_time": "Unresolved; establish complete ATP depletion using the supported reagent procedure.",
+        "detection_time": "Unresolved; establish a stable detection signal before measurement."
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract appropriate background, define vehicle full-reaction signal as 0% inhibition and no-enzyme signal as 100% inhibition, and fit normalized response versus log10 compound concentration. Report the fitted IC50 with confidence intervals, individual replicate data, curve diagnostics, and any concentrations excluded for interference or poor fit.",
+      "parameters": {
+        "fit_model": "Four-parameter logistic curve as a provisional analysis assumption; do not force an IC50 when inhibition does not span a usable response range.",
+        "acceptance_criteria": "Require adequate separation of vehicle and no-enzyme controls, acceptable replicate agreement, and a supported curve fit; numeric thresholds remain unresolved pending pilot performance."
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Full-reaction vehicle control at every matched vehicle condition",
+    "No-enzyme background control",
+    "No-compound untreated/reference reaction control",
+    "Detection-reagent background control",
+    "Validated HASPIN reference inhibitor, if available; identity and concentration unresolved",
+    "Optional vehicle-only and compound-only luminescence-interference controls"
+  ],
+  "rationale": "The selected cards measure direct biochemical ADP production by human HASPIN rather than cellular viability. The provisional 10 \u00b5M maximum and broad 3-fold series cover and extend beyond the 34\u2013770 nM contextual range observed for five other compounds, without treating those measurements as evidence of CHEMBL5426285 potency. Ten points support concentration-response fitting, and three replicates permit variability assessment. Reaction and detection conditions must be optimized before interpreting a curve.",
+  "citations": [
+    "CHEMBL5426285",
+    "Q8TF76",
+    "CHEMBL14285",
+    "CHEMBL1952329",
+    "CHEMBL269538",
+    "CHEMBL3774448",
+    "CHEMBL3775393"
+  ],
+  "limitations": [
+    "All numeric concentration-series and replication settings are provisional design assumptions, not sourced assay conditions.",
+    "The retained IC50 values concern other compounds and, in several cases, HASPIN of unknown origin; they do not predict CHEMBL5426285 potency.",
+    "Enzyme construct, substrate, ATP and enzyme concentrations, reaction time and temperature, vehicle fraction, reagent volumes, and detection timings are unresolved.",
+    "A biochemical IC50 can depend on ATP concentration and other assay conditions and is not a cellular potency measurement.",
+    "No cell-viability steps are included; viability alone would not establish HASPIN-specific causality.",
+    "Luminescence interference, compound precipitation, aggregation, and incomplete curve coverage must be assessed before assigning inhibition."
+  ]
+}

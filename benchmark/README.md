@@ -31,3 +31,10 @@ an existing run. Its model/rates/settings are pinned to this historical pilot;
 recheck live rates and set a new run directory before deliberately running again.
 It uses `wwtn.llm.chat`, captures response usage without changing shared code, and
 makes at most three requests with SDK retries disabled.
+
+The follow-up [four-model pilot](runs/four-model-pilot/RESULTS.md) compares GLM 5.3,
+DeepSeek V4.1 Flash 1017, Kimi K3.1 Pro and Nemotron 3 Super on identical packets.
+It records 12 generation requests, token/cost ledgers, complete outputs, draft
+grades and explicit abstentions. Offline checks:
+`python -m benchmark.check_four_model_pilot`. The paid runner refuses to overwrite
+an existing run and checks current model availability/prices against a $1 budget.
