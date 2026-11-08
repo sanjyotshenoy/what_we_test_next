@@ -1,0 +1,1 @@
+I want to do an MIC test on the Opentrons OT-2 for a bacterial strains with 4 antibiotics, 2 replicates each on 96 well plate. This assay will be a 2 fold dilution assay.  Labware requirements: 8 channel pipette, 96 well plate, reservoir (holding media, antibiotic 1, antibiotic 2, antibiotic 3, antibiotic 4, bacteria),  300up tip box

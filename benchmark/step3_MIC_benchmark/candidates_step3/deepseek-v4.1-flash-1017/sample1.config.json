@@ -1,0 +1,50 @@
+{
+ "liquids": {
+  "4:A1": [
+   "Media",
+   22000
+  ],
+  "4:A2": [
+   "Bacteria",
+   22000
+  ],
+  "3:A1": [
+   "Abx1",
+   2000
+  ],
+  "3:B1": [
+   "Abx1",
+   2000
+  ],
+  "3:C1": [
+   "Abx2",
+   2000
+  ],
+  "3:D1": [
+   "Abx2",
+   2000
+  ],
+  "3:E1": [
+   "Abx3",
+   2000
+  ],
+  "3:F1": [
+   "Abx3",
+   2000
+  ],
+  "3:G1": [
+   "Abx4",
+   2000
+  ],
+  "3:H1": [
+   "Abx4",
+   2000
+  ]
+ },
+ "manual": {
+  "operator_instructions": {
+   "score": 0.5,
+   "why": "The .py names media A1 / bacteria A2 / waste A12 but not which antibiotic goes in which source-plate row or any volume; that is only in the answer text."
+  }
+ }
+}

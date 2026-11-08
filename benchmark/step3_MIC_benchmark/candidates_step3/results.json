@@ -1,0 +1,360 @@
+[
+ {
+  "protocol": "protocols/step3_standard_answer.py",
+  "api_note": "apiLevel 2.28 lowered to 2.27 for simulation",
+  "gate": 1,
+  "pipettes": [
+   "p300_multi"
+  ],
+  "scores": {
+   "plate_layout": 1.0,
+   "dilution_series": 1.0,
+   "controls": 1.0,
+   "final_volume_ratio": 1.0,
+   "eight_channel": 1.0,
+   "contamination": 1.0,
+   "max_300": 1.0,
+   "plate_slot": 1.0,
+   "tip_balance": 1.0,
+   "labware_close": 1.0,
+   "mixing": 1.0,
+   "reservoir_volumes": 1.0,
+   "tip_choice": 1.0,
+   "tip_count": 1.0,
+   "operator_instructions": 1.0,
+   "run_time": 1.0
+  },
+  "reward": 1.0,
+  "reward_of_20.5": 20.5,
+  "pending": [],
+  "evidence": {
+   "rows_per_antibiotic": {
+    "Abx1": 2,
+    "Abx2": 2,
+    "Abx3": 2,
+    "Abx4": 2
+   },
+   "wells_with_2_antibiotics": [],
+   "series": {
+    "Abx1": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx2": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx3": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx4": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    }
+   },
+   "controls": {
+    "assay_rows": 8,
+    "rows_with_growth": 8,
+    "rows_with_sterility": 8
+   },
+   "inoculated_wells": {
+    "n": 88,
+    "volume_range": [
+     200.0,
+     200.0
+    ],
+    "bacteria_fraction_range": [
+     0.5,
+     0.5
+    ]
+   },
+   "nozzles_outside_labware": [],
+   "contamination": {
+    "events": 0,
+    "into_reservoir": 0,
+    "examples": []
+   },
+   "peak_well_ul": 200.0,
+   "plate_slots": [
+    "5"
+   ],
+   "partial_pickups": {
+    "n": 4,
+    "unbalanced": []
+   },
+   "not_next_to_plate": [],
+   "mixing": {
+    "combining_dispenses": 47,
+    "fewest_mix_cycles_after": 3,
+    "mixes_over_75pct": 0
+   },
+   "reservoir_draw_ml": {
+    "3:A1": 9.6,
+    "3:A2": 0.4,
+    "3:A6": 8.8,
+    "3:A5": 0.4,
+    "3:A3": 0.4,
+    "3:A4": 0.4
+   },
+   "reservoir_short": [],
+   "below_min_volume": [],
+   "tips": {
+    "tips_used": 104,
+    "racks_loaded": 2,
+    "racks_used": 2,
+    "fits_on_deck": true,
+    "reused_positions": [],
+    "stated": {
+     "score": 1,
+     "why": "Comments give tips per step (8 broth, 2 per antibiotic, 88 bacteria = 104) and they match the run."
+    }
+   },
+   "operator_instructions": {
+    "score": 1,
+    "why": "load_liquid declares all 6 reservoir wells with volumes; tip map in comments (lines 29-32)."
+   },
+   "run_time": {
+    "seconds": 803.5,
+    "minutes": 13.4,
+    "counts": {
+     "pickups": 16,
+     "liquid_s": 301.5,
+     "asp_disp": 132,
+     "drops": 16,
+     "mix_cmds": 62,
+     "mix_cycles": 156
+    },
+    "vs_standard": 1.0,
+    "raw_score": 1.0,
+    "counted": true
+   }
+  },
+  "notes": []
+ },
+ {
+  "protocol": "candidates_step3/deepseek-v4.1-flash-1017/sample1.py",
+  "api_note": null,
+  "gate": 0,
+  "reward": 0.0,
+  "errors": [
+   "LocationTypeError [line 37]: location should be a Well, Location, TrashBin or WasteChute, but it is [A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, B2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, C2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, D2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, E2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 2, F2 of Corning 96 Well Plate 360 \u00b5L Flat on s"
+  ]
+ },
+ {
+  "protocol": "candidates_step3/glm-5.3/sample1.py",
+  "api_note": null,
+  "gate": 0,
+  "reward": 0.0,
+  "errors": [
+   "UnexpectedTipAttachError [line 38]: Error 3012 UNEXPECTED_TIP_ATTACH (UnexpectedTipAttachError): Cannot perform pick up tip with a tip already attached."
+  ]
+ },
+ {
+  "protocol": "candidates_step3/gpt-oss-120b/sample1.py",
+  "api_note": null,
+  "gate": 0,
+  "reward": 0.0,
+  "errors": [
+   "AttributeError [line 128]: 'ProtocolContext' object has no attribute 'trash_container'"
+  ]
+ },
+ {
+  "protocol": "candidates_step3/kimi-k3.1-pro/sample1.py",
+  "api_note": null,
+  "gate": 1,
+  "pipettes": [
+   "p300_multi_gen2"
+  ],
+  "scores": {
+   "plate_layout": 1.0,
+   "dilution_series": 1.0,
+   "controls": 1.0,
+   "final_volume_ratio": 1.0,
+   "eight_channel": 1.0,
+   "contamination": 0.0,
+   "max_300": 1.0,
+   "plate_slot": 0.0,
+   "tip_balance": 1.0,
+   "labware_close": 0.5,
+   "mixing": 0.0,
+   "reservoir_volumes": 1.0,
+   "tip_choice": 1.0,
+   "tip_count": 1.0,
+   "operator_instructions": 0.5,
+   "run_time": 0.0
+  },
+  "reward": 0.6829,
+  "reward_of_20.5": 14.0,
+  "pending": [],
+  "evidence": {
+   "rows_per_antibiotic": {
+    "Abx1": 2,
+    "Abx2": 2,
+    "Abx3": 2,
+    "Abx4": 2
+   },
+   "wells_with_2_antibiotics": [],
+   "series": {
+    "Abx1": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx2": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx3": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    },
+    "Abx4": {
+     "levels": 10,
+     "top_fraction_of_stock": 0.5,
+     "ratios_off": 0,
+     "replicates_identical": true,
+     "top_ok": true
+    }
+   },
+   "controls": {
+    "assay_rows": 8,
+    "rows_with_growth": 8,
+    "rows_with_sterility": 8
+   },
+   "inoculated_wells": {
+    "n": 88,
+    "volume_range": [
+     100.0,
+     100.0
+    ],
+    "bacteria_fraction_range": [
+     0.5,
+     0.5
+    ]
+   },
+   "nozzles_outside_labware": [],
+   "contamination": {
+    "events": 72,
+    "into_reservoir": 64,
+    "examples": [
+     {
+      "cmd": 148,
+      "well": "2:A6",
+      "foreign": [
+       "Abx1"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     },
+     {
+      "cmd": 148,
+      "well": "2:A6",
+      "foreign": [
+       "Abx1"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     },
+     {
+      "cmd": 148,
+      "well": "2:A6",
+      "foreign": [
+       "Abx2"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     },
+     {
+      "cmd": 148,
+      "well": "2:A6",
+      "foreign": [
+       "Abx2"
+      ],
+      "where": "aspirate",
+      "reservoir": true
+     }
+    ]
+   },
+   "peak_well_ul": 100.0,
+   "plate_slots": [
+    "1"
+   ],
+   "partial_pickups": {
+    "n": 0,
+    "unbalanced": []
+   },
+   "not_next_to_plate": [
+    "opentrons_96_tiprack_300ul@3"
+   ],
+   "mixing": {
+    "combining_dispenses": 20,
+    "fewest_mix_cycles_after": 0,
+    "mixes_over_75pct": 0
+   },
+   "reservoir_draw_ml": {
+    "2:A1": 4.8,
+    "2:A6": 4.4
+   },
+   "reservoir_short": [],
+   "below_min_volume": [],
+   "tips": {
+    "tips_used": 48,
+    "racks_loaded": 1,
+    "racks_used": 1,
+    "fits_on_deck": true,
+    "reused_positions": [],
+    "stated": null
+   },
+   "operator_instructions": {
+    "score": 0.5,
+    "why": "Pause message says exactly which antibiotic goes in A1-H1 and how much; media/bacteria wells only in code comments, with no volumes. Racks are full."
+   },
+   "run_time": {
+    "seconds": 408.0,
+    "minutes": 6.8,
+    "counts": {
+     "pickups": 6,
+     "liquid_s": 201.0,
+     "asp_disp": 66,
+     "drops": 6,
+     "mix_cmds": 9,
+     "mix_cycles": 45
+    },
+    "vs_standard": 0.51,
+    "raw_score": 1.0,
+    "counted": false
+   }
+  },
+  "notes": []
+ },
+ {
+  "protocol": "candidates_step3/nemotron-3-super/sample1.py",
+  "api_note": null,
+  "gate": 0,
+  "reward": 0.0,
+  "errors": [
+   "RuntimeError [line 83]: Invalid target for multichannel transfer: [B1 of Corning 96 Well Plate 360 \u00b5L Flat on 3]"
+  ]
+ }
+]

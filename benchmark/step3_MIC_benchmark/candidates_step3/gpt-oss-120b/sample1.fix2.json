@@ -1,0 +1,18 @@
+{
+ "round": 2,
+ "error_fed_back": "ProtocolCommandFailedError [line 87]: Error 4000 GENERAL_ERROR (ProtocolCommandFailedError): TipNotAttachedError: Pipette should have a tip attached, but does not.",
+ "seconds": 16.6,
+ "usage": {
+  "prompt_tokens": 8057,
+  "total_tokens": 14009,
+  "completion_tokens": 5952,
+  "prompt_tokens_details": {
+   "cached_tokens": 5520
+  }
+ },
+ "finish_reason": "stop",
+ "cost_usd": 0.00478,
+ "code_extracted": true,
+ "passes_after": false,
+ "error_after": "OutOfTipsError [line 174]: "
+}

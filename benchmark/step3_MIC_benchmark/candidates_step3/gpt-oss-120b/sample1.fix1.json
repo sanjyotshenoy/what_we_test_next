@@ -1,0 +1,18 @@
+{
+ "round": 1,
+ "error_fed_back": "AttributeError [line 128]: 'ProtocolContext' object has no attribute 'trash_container'",
+ "seconds": 24.3,
+ "usage": {
+  "prompt_tokens": 5534,
+  "total_tokens": 13413,
+  "completion_tokens": 7879,
+  "prompt_tokens_details": {
+   "cached_tokens": 48
+  }
+ },
+ "finish_reason": "stop",
+ "cost_usd": 0.005557,
+ "code_extracted": true,
+ "passes_after": false,
+ "error_after": "ProtocolCommandFailedError [line 87]: Error 4000 GENERAL_ERROR (ProtocolCommandFailedError): TipNotAttachedError: Pipette should have a tip attached, but does not."
+}

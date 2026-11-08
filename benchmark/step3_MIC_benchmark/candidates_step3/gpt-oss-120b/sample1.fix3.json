@@ -1,0 +1,18 @@
+{
+ "round": 3,
+ "error_fed_back": "OutOfTipsError [line 174]: ",
+ "seconds": 18.1,
+ "usage": {
+  "prompt_tokens": 10384,
+  "total_tokens": 16609,
+  "completion_tokens": 6225,
+  "prompt_tokens_details": {
+   "cached_tokens": 8048
+  }
+ },
+ "finish_reason": "stop",
+ "cost_usd": 0.005293,
+ "code_extracted": true,
+ "passes_after": true,
+ "error_after": null
+}

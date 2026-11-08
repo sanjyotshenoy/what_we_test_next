@@ -1,0 +1,50 @@
+{
+ "liquids": {
+  "4:A1": [
+   "Media",
+   22000
+  ],
+  "4:A2": [
+   "Bacteria",
+   22000
+  ],
+  "3:A1": [
+   "Abx1",
+   100
+  ],
+  "3:B1": [
+   "Abx1",
+   100
+  ],
+  "3:C1": [
+   "Abx2",
+   100
+  ],
+  "3:D1": [
+   "Abx2",
+   100
+  ],
+  "3:E1": [
+   "Abx3",
+   100
+  ],
+  "3:F1": [
+   "Abx3",
+   100
+  ],
+  "3:G1": [
+   "Abx4",
+   100
+  ],
+  "3:H1": [
+   "Abx4",
+   100
+  ]
+ },
+ "manual": {
+  "operator_instructions": {
+   "score": 0.5,
+   "why": "Comments map every stock-plate well (each 'already contains 100 uL' of 2x stock, used as stated) and the two reservoir wells, but give no media/bacteria volumes. Racks are full."
+  }
+ }
+}
