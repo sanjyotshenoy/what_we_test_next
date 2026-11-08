@@ -1,0 +1,197 @@
+{
+  "item_id": "67866884469337a5",
+  "generator_input": {
+    "id": "case-7",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of DNA-dependent protein kinase catalytic subunit (P78527) by CHEMBL104468. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL104468",
+        "name": "CHEMBL104468",
+        "type": "Compound",
+        "smiles": "O=c1cc(N2CCOCC2)oc2c1ccc1ccccc12"
+      },
+      {
+        "id": "P78527",
+        "name": "DNA-dependent protein kinase catalytic subunit",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL1081312",
+        "ic50_nM": 60.0,
+        "assay": "CHEMBL1243970",
+        "description": "Inhibition of DNA-PK by radioactive phosphotransfer assay in presence of 10 uM ATP",
+        "document": "CHEMBL1240340",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1082366",
+        "ic50_nM": 1600.0,
+        "assay": "CHEMBL1118579",
+        "description": "Inhibition of DNA-dependent protein kinase",
+        "document": "CHEMBL1155542",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1082377",
+        "ic50_nM": 340.0,
+        "assay": "CHEMBL1118579",
+        "description": "Inhibition of DNA-dependent protein kinase",
+        "document": "CHEMBL1155542",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1082378",
+        "ic50_nM": 330.0,
+        "assay": "CHEMBL1118579",
+        "description": "Inhibition of DNA-dependent protein kinase",
+        "document": "CHEMBL1155542",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1083005",
+        "ic50_nM": 1700.0,
+        "assay": "CHEMBL1118579",
+        "description": "Inhibition of DNA-dependent protein kinase",
+        "document": "CHEMBL1155542",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"Biochemical kinase concentration-response assay; proposed ADP-Glo adaptation requiring validation\",\n  \"system\": \"Cell-free DNA-dependent protein kinase catalytic subunit (P78527) activity challenged with CHEMBL104468; enzyme preparation, substrate and activation conditions unresolved\",\n  \"readout\": \"Luminescence reporting ADP formation after ATP depletion and ADP detection; normalize as kinase activity and inhibition only after detection-interference controls pass\",\n  \"steps\": [\n    {\n      \"card_id\": \"new: qualify biochemical system and readout\",\n      \"instruction\": \"Proposed prerequisite: establish measurable P78527-dependent activity and a linear reaction window before testing potency. Resolve enzyme composition and any DNA or accessory-component requirements, substrate identity, buffer and cofactors. Validate that ADP-Glo responds to reaction product and that CHEMBL104468 does not independently perturb detection. This added step is needed because the retained explicit assay uses radioactive phosphotransfer, not ADP-Glo.\",\n      \"parameters\": \"All qualification settings unresolved. ATP starting candidate: 10 uM, supported only as a condition in CHEMBL1243970; transferring it to this luminescent assay is an assumption requiring validation. ADP/ATP calibration and compound-spiked detection controls are proposed design assumptions.\"\n    },\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare a concentration series only after establishing soluble, vehicle-compatible exposure limits. Use a preliminary range-finding experiment to select a series spanning baseline through substantial inhibition where achievable. Keep final vehicle concentration equal across compound and vehicle wells, and include reference and background controls. Determine replicate allocation before definitive measurement.\",\n      \"parameters\": \"top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved. Proposed design assumption: use within-run replicate wells and independent runs to distinguish well variability from reproducibility; counts require an assay-precision pilot. Reference identity and concentration unresolved.\"\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Combine compound, qualified P78527 enzyme system, substrate and ATP. Run all concentrations and controls under the same qualified conditions, retaining a reaction window suitable for measuring changes in kinase activity.\",\n      \"parameters\": \"enzyme_concentration: unresolved; substrate_identity and substrate_concentration: unresolved; ATP_concentration: proposed 10 uM starting condition from CHEMBL1243970, not validated for this format; reaction_time: unresolved; temperature: unresolved; buffer, cofactors, activation components, order of addition, reaction volume and compound preincubation: unresolved.\"\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Stop the kinase reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence. Process calibration, background and compound-interference controls alongside the concentration series.\",\n      \"parameters\": \"reagent_volumes: unresolved; depletion_time: unresolved; detection_time: unresolved; instrument settings: unresolved. Sequence is supported by kinase-detect, but the packet supplies no validated operational settings.\"\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"After control acceptance, subtract matched background and normalize compound activity to vehicle activity. Calculate percent inhibition as 100 times one minus the normalized activity. Proposed analysis assumption: fit a four-parameter concentration-response model if the data support it, reporting replicate variability and an uncertainty interval for any measured IC50. If the response fails to bracket half inhibition or detection interference is unresolved, report the limitation rather than an extrapolated potency.\",\n      \"parameters\": \"fit_model: four-parameter logistic, explicitly a provisional analysis assumption; acceptance_criteria: require qualified activity, acceptable background, precision, compound solubility and absence of material detection interference; numerical thresholds unresolved and must be prespecified from qualification. Do not force response plateaus to manufacture an IC50.\"\n    }\n  ],\n  \"top_concentration_uM\": null,\n  \"dilution_factor\": null,\n  \"n_points\": null,\n  \"replicates\": null,\n  \"controls\": [\n    \"Proposed: vehicle-only complete enzyme reaction defining uninhibited activity, with constant vehicle fraction across wells.\",\n    \"Proposed: matched no-enzyme or otherwise qualified inactive-reaction background defining non-enzymatic signal.\",\n    \"Proposed: independently qualified reference inhibitor; identity, dose and expected acceptance window unresolved.\",\n    \"Proposed: ADP/ATP calibration controls in the assay matrix, with and without compound across the tested range, to reveal luminescence or coupling interference.\",\n    \"Proposed: substrate/component-omission controls during qualification to establish dependence on the intended biochemical system.\"\n  ],\n  \"rationale\": \"The question concerns biochemical inhibition, so the kinase cards are selected in their prerequisite order, followed by analysis. Cell viability cards would not measure the requested enzyme inhibition. CHEMBL1243970 establishes target-related radioactive phosphotransfer assay precedent at 10 uM ATP, but it does not validate ADP-Glo or any other proposed operational settings. ADP-Glo is a provisional adaptation offered by the cards for measuring kinase-generated ADP and requires compatibility testing. CHEMBL1118579 provides additional inhibition context without sufficient procedural detail. Other-compound potencies are neither a concentration-range prescription nor a prediction for CHEMBL104468.\",\n  \"citations\": [\"P78527\", \"CHEMBL104468\", \"CHEMBL1243970\", \"CHEMBL1240340\", \"CHEMBL1118579\", \"CHEMBL1155542\", \"kinase-prepare\", \"kinase-react\", \"kinase-detect\", \"analyse\"],\n  \"limitations\": [\n    \"The numeric series fields are null because no query-compound solubility, usable concentration range, assay precision or supported replication scheme is supplied; inventing these would give unsupported operational specificity.\",\n    \"This is a conditional experimental design, not an executable validated protocol. Enzyme composition and activation requirements, substrate, buffer, cofactors, concentrations, timing, temperature, vehicle tolerance and detection settings remain unresolved.\",\n    \"The 10 uM ATP condition comes from a different compound in a radioactive assay. Its transfer is provisional; measured inhibition would be specific to the validated ATP and reaction conditions.\",\n    \"The retrieved examples are not similarity-ranked and cannot establish the query compound's potency. No IC50 is predicted.\",\n    \"Reduced ADP-associated signal requires interference exclusion before interpretation as biochemical inhibition. Even a validated biochemical result alone establishes neither cellular viability effects nor target-specific causality in cells or selectivity against other kinases.\"\n  ]\n}\n"
+}

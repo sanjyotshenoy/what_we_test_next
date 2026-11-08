@@ -1,0 +1,58 @@
+{
+  "item_id": "f2c2344036f8f2cb",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Proposes a same-target-precedented biochemical phosphorylation readout and explicitly limits conclusions to purified Mer inhibition; does not infer cellular mechanism or potency.",
+      "response_quotes": [
+        "This experiment measures inhibition of purified Mer-catalyzed phosphorylation."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent qualification, preparation, reaction, MCE detection and analysis sequence with relevant background, vehicle, reference and interference controls. Essential enzyme, substrate identity, timing, ATP and instrument settings remain unresolved, making this an honest outline rather than an executable procedure.",
+      "response_quotes": [
+        "Enzyme concentration, reaction time and temperature: unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Ten threefold points and technical triplicates are explicitly provisional, but the top concentration is null, so the series is incomplete. Reported MCE quantities match supplied evidence, with transfer uncertainty acknowledged.",
+      "response_quotes": [
+        "The definitive concentration series cannot be finalized yet."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of the retained MCE assay with the selected Mer construct, peptide and CHEMBL1231206.",
+    "Optimal enzyme loading, ATP concentration, reaction duration, temperature, vehicle tolerance, soluble concentration ceiling and instrument settings are not established by supplied evidence."
+  ],
+  "assumption_handling": "Clearly separates sourced MCE quantities from provisional transfer assumptions and unresolved operational settings. Dilution spacing, replicate count and fit model are labeled proposals; correctly avoids treating other-compound potencies as estimates and flags ambiguous 180-minute timing.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": null,
+    "prose_consistent": true,
+    "notes": "Top concentration abstained. Ten points imply nine intervals and minimum T/3^9 = T/19683, but no numeric endpoint can be calculated. Technical triplicates are distinguished from independent repeats."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and assay qualification are required to establish MCE compatibility and resolve essential operational settings and concentration range."
+}

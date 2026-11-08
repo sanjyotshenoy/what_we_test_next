@@ -1,0 +1,59 @@
+{
+  "item_id": "7e8a245aa0565508",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Direct biochemical Aurora A turnover assay with explicit limits on mechanism, selectivity and cellular conclusions. ADP-Glo is appropriately provisional.",
+      "response_quotes": [
+        "Luminescence reporting reaction-generated ADP after residual ATP depletion"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, qualification, reaction, ATP depletion, ADP detection and analysis with relevant background, reference and interference controls. Essential operating parameters and qualification thresholds remain unresolved, so this is an honest outline rather than an executable protocol.",
+      "response_quotes": [
+        "This is a conditional design, not an executable validated protocol"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Threefold dilution, 12 concentrations and technical triplicates are disclosed assumptions. The top concentration is explicitly null, preventing a defined numerical series; this is honest numeric abstention, with no demonstrated arithmetic contradiction.",
+      "response_quotes": [
+        "top_concentration_uM: unresolved; dilution_factor: 3 (design assumption); n_points: 12 (design assumption)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.output_contract",
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of ADP-Glo with this compound and Aurora A preparation is not established by the supplied evidence.",
+    "Optimal enzyme, substrate, ATP, buffer, temperature, vehicle and detection operating conditions are unsupported."
+  ],
+  "assumption_handling": "Clearly separates provisional dilution, replicate and fitting choices from evidence; appropriately avoids transferring fluorescence timing or other compounds\u2019 potencies. Null top concentration leaves the requested quantitative design incomplete.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 12,
+    "computed_min_uM": null,
+    "prose_consistent": true,
+    "notes": "For a subsequently chosen top T, the minimum would be T/3^11 = T/177147 \u00b5M. With null T no numerical endpoint can be checked. Three replicates are explicitly technical; independent repeats are unresolved."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and assay qualification are needed for unresolved format compatibility and operating conditions before execution."
+}

@@ -1,0 +1,60 @@
+{
+  "item_id": "7b8352c6aee9fafe",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses isolated IRAK1 catalytic inhibition with interference controls and explicitly limits causal claims.",
+      "response_quotes": [
+        "Luminescence from ADP detection as a measure of kinase activity; decreased corrected signal indicates inhibition only after detection-interference controls pass"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent qualification, preparation, reaction, ATP depletion, ADP detection and analysis sequence with relevant controls. Essential operating conditions and acceptance thresholds remain unresolved; this is an honest conditional outline.",
+      "response_quotes": [
+        "Reagent volumes, depletion time, detection time, detection temperature and reader settings: unresolved; require a qualified procedure before execution."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 2,
+      "rationale": "Initial 10 uM, threefold, 10-point series and provisional 10 uM ATP accurately use supplied same-target examples. Transfer uncertainty and assumed technical replication and fit choices are explicit. No potency or guaranteed coverage is claimed.",
+      "response_quotes": [
+        "Other compounds' retained potencies neither predict the queried potency nor guarantee range coverage.",
+        "Replicates: 3 technical wells, assumption without source support."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained HotSpot/unspecified kinase assays with proposed ADP-Glo adaptation.",
+    "Optimal IRAK1 construct, substrate, buffer, temperature, timing and detection conditions are not established.",
+    "Compound solubility, interference, reference response and concentration-range adequacy remain unvalidated."
+  ],
+  "assumption_handling": "Separates sourced starting series/ATP from provisional transfer, replication, fitting and control assumptions. Unsupported operating settings remain explicitly unresolved with qualification required.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "10/3^9 = 0.0005080526343 uM (0.5080526343 nM). No conflicting lower endpoint is stated. Reference series of 20 uM, fourfold, 10 doses matches supplied evidence and implies 0.0000762939453125 uM minimum. Three wells are explicitly technical replicates."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and qualification are required for unresolved assay compatibility and operating/control settings; these grades do not validate wet-lab performance."
+}

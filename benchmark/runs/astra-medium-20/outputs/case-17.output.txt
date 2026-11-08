@@ -1,0 +1,48 @@
+{
+  "assay_type": "Cellular concentration-response viability assay; provisional ATP-luminescence design",
+  "system": "Human RPMI-8226 cells exposed to CHEMBL191003 (JNJ-7706621)",
+  "readout": "Background-corrected CellTiter-Glo ATP luminescence relative to matched vehicle at the exposure endpoint, interpreted as a proxy for viable cell biomass rather than a direct proliferation rate or kinase activity measurement.",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Prepare RPMI-8226 cells and a CHEMBL191003 concentration series with matched vehicle, reference and background controls. Provisional design assumption: first qualify cell density, signal linearity and compound solubility, then choose a range spanning minimally affected through strongly affected cells without vehicle toxicity or precipitation. Include technical and independent biological replication, with counts set before the definitive experiment.",
+      "parameters": "Cell density, medium, top concentration, dilution factor, point count, replicate count and vehicle fraction: unresolved; no supporting conditions are supplied. Constant vehicle across treatment wells is a proposed design choice. Reference identity and dose require validation in this system."
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose cells to the concentration series under qualified RPMI-8226 culture conditions. Provisional design assumption: select a duration that permits measurable vehicle growth while retaining assay linearity. Use identically handled parallel wells for a pretreatment baseline and endpoint cell-count assessment if conclusions about growth or proliferation are desired.",
+      "parameters": "Exposure time and temperature: unresolved. Other culture conditions and baseline sampling procedure: unresolved; validate before execution."
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Apply CellTiter-Glo, mix, allow signal stabilization and read luminescence using a validated cell-compatible procedure. Preserve the cellular ATP readout; do not substitute the ADP-Glo kinase reaction workflow. Provisional adaptation: assess compound-dependent detection interference using cell-free fixed-ATP controls across the tested concentrations.",
+      "parameters": "Reagent volume, mix time, stabilization time, plate format and reader settings: unresolved; the supplied card specifies the sequence but no executable numeric procedure."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract appropriate background and normalize endpoint signal to vehicle. Provisional analysis assumption: fit a four-parameter logistic concentration-response model with concentration on a log scale, inspecting controls, residuals and response coverage. Report replicate variability and confidence intervals. Estimate an endpoint cellular half-effect concentration only if the observed data support and bracket the defined half-effect; distinguish half of the fitted response range from 50% of vehicle. Otherwise report the supported response range or bound without forcing a potency estimate. Compare parallel baseline and endpoint counts to distinguish reduced net accumulation from net cell loss; neither alone proves a specific death mechanism.",
+      "parameters": "Fit model: proposed four-parameter logistic, not empirically supported by this packet. Acceptance criteria: require adequate vehicle growth, acceptable background and reproducibility, signal linearity, absence of meaningful detection interference and solubility problems, and sufficient response coverage for the reported parameter. Numeric thresholds and independent replicate aggregation: unresolved and must be prespecified after qualification."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Matched vehicle-treated RPMI-8226 cells as the endpoint normalization reference; vehicle fraction unresolved.",
+    "Untreated cells to assess vehicle effects.",
+    "No-cell medium plus reagent backgrounds, including matched compound concentrations where appropriate.",
+    "A validated cellular viability-reducing reference control; identity and concentration unresolved.",
+    "Proposed cell-free fixed-ATP controls with and without compound to identify luminescence chemistry interference; conditions unresolved.",
+    "Proposed parallel pretreatment and endpoint cell-count wells to assess net growth or loss independently of ATP."
+  ],
+  "rationale": "The question concerns intact human RPMI-8226 cells, so cell-prepare, cell-expose and cell-detect are selected in their prerequisite order, followed by analyse. ATP luminescence is a compatible offered viability proxy, but its proportionality to viable cell number must be qualified. Baseline and parallel counting are explicitly proposed adaptations to support growth interpretation and detect metabolic effects that alter ATP without equivalent cell-number changes. Kinase-react and kinase-detect are excluded because a purified enzyme ADP-production assay would measure biochemical kinase inhibition rather than the requested cellular endpoint. No retained measurements support specific concentrations or culture conditions.",
+  "citations": ["CHEMBL191003", "O14965", "cell-prepare", "cell-expose", "cell-detect", "analyse"],
+  "limitations": [
+    "All four numeric design fields are null because no retrieved examples or numeric assay conditions justify them; this proposal requires assay qualification before execution.",
+    "ATP signal can change through altered metabolism, cell number or cell survival. Endpoint ATP alone cannot separate proliferation arrest from cell death; parallel counts improve interpretation but direct proliferation or death assays would be needed for stronger claims.",
+    "A cellular concentration-response establishes an association between compound exposure and the measured phenotype under the selected conditions. It does not establish biochemical inhibition, cellular engagement or target-specific causality for Aurora kinase A (O14965).",
+    "A separate validated biochemical Aurora kinase A assay could assess enzyme inhibition, but would still not establish the cause of a cellular phenotype. Cellular engagement measurements and orthogonal target perturbation or rescue, with alternative mechanisms evaluated, would be needed for a target-specific causal argument; none are supplied here.",
+    "No withheld IC50 is predicted. Any measured cellular half-effect value will be endpoint-, duration- and condition-dependent."
+  ]
+}

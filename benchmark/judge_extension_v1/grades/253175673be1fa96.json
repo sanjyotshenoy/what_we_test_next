@@ -1,0 +1,59 @@
+{
+  "item_id": "253175673be1fa96",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes RPMI-8226 cellular viability measurement, qualifies ATP as a proxy, and separates phenotype from Aurora kinase A inhibition or causality. Parallel counts appropriately support optional growth interpretation.",
+      "response_quotes": [
+        "It does not establish biochemical inhibition, cellular engagement or target-specific causality for Aurora kinase A (O14965)."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Ordered preparation, exposure, ATP detection and analysis include vehicle, background, reference, interference and baseline controls. Essential culture, dosing and detection settings and control validation remain explicitly unresolved, so this is a coherent outline rather than an executable protocol.",
+      "response_quotes": [
+        "Reagent volume, mix time, stabilization time, plate format and reader settings: unresolved; the supplied card specifies the sequence but no executable numeric procedure."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honest numeric abstention with all series and replication fields null. No arithmetic contradiction or invented numerical evidence is present, but no concentration series is provided to justify a top score.",
+      "response_quotes": [
+        "All four numeric design fields are null because no retrieved examples or numeric assay conditions justify them; this proposal requires assay qualification before execution."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Assay comparability cannot be established without retained measurement examples or a supplied validated reference procedure.",
+    "Optimal RPMI-8226 culture conditions, exposure duration, cell density, ATP proportionality and interference-control performance are unsupported."
+  ],
+  "assumption_handling": "Proposed ATP interference controls, parallel counts and logistic fitting are explicitly labeled provisional; missing settings are consistently unresolved rather than asserted as sourced facts. Numeric abstention leaves the requested numerical design incomplete.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Series fields and replicate count are null; no numeric series or endpoints exist for arithmetic verification. Technical versus biological replication is distinguished but counts are unresolved."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and assay qualification are required to resolve culture and detection settings, readout compatibility, control validation and the concentration series before execution."
+}

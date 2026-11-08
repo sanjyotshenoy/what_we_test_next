@@ -1,0 +1,60 @@
+{
+  "item_id": "64a8c2a259e63e6d",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes purified active target catalytic inhibition, labels the ADP-Glo adaptation provisional, and limits cellular and selectivity claims.",
+      "response_quotes": [
+        "ADP-Glo is therefore an explicitly provisional adaptation from the supplied kinase cards."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent qualification, preparation, reaction, ATP depletion/detection and analysis sequence with background, vehicle, reference and interference controls. Essential reaction and detection settings and acceptance thresholds remain unresolved, so this is an honest outline rather than an executable protocol.",
+      "response_quotes": [
+        "Stop the kinase reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "Reaction composition, concentrations, times, temperature, vehicle, volumes and detection settings remain unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Explicit numerical abstention supplies no series or replicate count to verify. It appropriately avoids transferring other compounds\u2019 potencies or inventing conditions, but null series fields cannot earn full credit.",
+      "response_quotes": [
+        "Top concentration, dilution factor, point count and replicate count are null because no numerical design is justified by supplied evidence; qualification and prospective design decisions are required before execution."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of the proposed ADP-Glo format with the selected active kinase construct and reaction matrix is not established.",
+    "Optimal enzyme/substrate/ATP concentrations, buffer, temperature, timing and detection settings are absent from supplied evidence."
+  ],
+  "assumption_handling": "Adaptation, controls and analysis choices are explicitly labeled provisional or assumptions; operating conditions and numeric series are transparently unresolved. No remembered potency or unsupported source attribution is supplied.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Series and replication fields are null; no numerical endpoints or dilution arithmetic are asserted."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and qualification are required to establish assay compatibility and select all operational settings and concentration series."
+}

@@ -1,0 +1,62 @@
+{
+  "item_id": "f1c31e8204e65933",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Addresses viability in the requested recombinant BaF3 system, adds counts for net growth, and explicitly limits cellular phenotypes as evidence of AXL causality.",
+      "response_quotes": [
+        "This measures cellular ATP as a viability proxy; parallel viable-cell counts at treatment start and endpoint distinguish reduced net growth from net cell loss.",
+        "A concentration-dependent phenotype in these cells does not establish direct biochemical inhibition, binding or target-specific causality for P30530."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, exposure, detection and analysis outline includes vehicle, background, reference, interference controls and parallel counts. Essential culture, exposure, detection and enumeration settings remain unresolved; this is not executable.",
+      "response_quotes": [
+        "Reagent volume, mixing time and stabilization time: unresolved; the packet supplies the detection sequence but no operating settings.",
+        "Counting method, viability discriminator and sample allocation: unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honest numeric abstention: concentration-series fields and replication are null. Logarithmic spacing and pilot qualification are plausible but provide no numerical design eligible for score 2. No arithmetic contradiction or fabricated numerical evidence is present.",
+      "response_quotes": [
+        "No specific numeric settings are supported by the packet.",
+        "The four numeric design fields are null because the packet cannot justify their values; this is a qualification-dependent proposal, not an execution-ready protocol."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Assay comparability and performance for this compound and cell system without retained measurement examples.",
+    "Optimal culture conditions, AXL-dependent growth, construct details and growth-factor requirements.",
+    "Solubility, vehicle tolerance and validated detection/counting operating conditions."
+  ],
+  "assumption_handling": "Labels analysis, logarithmic spacing and parallel enumeration as assumptions or adaptations and leaves unsupported operating settings unresolved. Numerical output requirements are only partially fulfilled.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Series fields are null; series arithmetic is unavailable. No numerical endpoints or explicit quantitative contradictions are asserted."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and assay qualification must resolve compatibility, culture dependencies and operating settings before execution."
+}

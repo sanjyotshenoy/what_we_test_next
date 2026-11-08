@@ -1,0 +1,63 @@
+{
+  "item_id": "85ea639f4b6f0a5b",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes purified human HASPIN biochemical inhibition with ADP detection and appropriately limits cellular and causal interpretation.",
+      "response_quotes": [
+        "Purified active human HASPIN (Q8TF76) with a validated substrate and ATP; enzyme construct and substrate identity unresolved",
+        "A biochemical result under defined conditions does not establish cellular viability effects, cellular target engagement, kinase selectivity or target-specific cellular causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, ADP detection and analysis are coherent and ordered, with background, reference and interference controls. Essential operating conditions remain unresolved; this is a qualification outline rather than a supported executable procedure.",
+      "response_quotes": [
+        "Stop the kinase reaction and deplete residual ATP using the ADP-Glo workflow; then perform ADP detection and measure luminescence.",
+        "Enzyme construct, substrate, buffer, ATP, reaction volume, timing, temperature, vehicle tolerance and detection settings remain unresolved; this proposal requires qualification before execution."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The ten-point threefold geometry correctly spans approximately 4.3 log units and technical replication is distinguished from independent experiments. The intentionally null top concentration leaves the absolute series unresolved, precluding a score of 2.",
+      "response_quotes": [
+        "Assumption: ten concentrations span approximately 4.3 log units; adjust after range finding to bracket the response.",
+        "No supported top concentration is available; null is intentional. Dilution factor, point count and replicates are proposed assumptions, not sourced conditions."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained comparator assays to purified human HASPIN and ADP-Glo is not established by supplied descriptions.",
+    "Optimal enzyme construct, substrate, buffer, ATP concentration, reaction conditions, vehicle tolerance and detection settings lack supplied validation.",
+    "Compound solubility and interference limits and reference-inhibitor performance remain unverified."
+  ],
+  "assumption_handling": "Spacing, point count, technical replication and fit model are labeled provisional assumptions. Missing operating settings and top concentration are explicitly unresolved. Comparator evidence is appropriately limited and no query potency is inferred.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": null,
+    "prose_consistent": true,
+    "notes": "Nine dilution intervals give 3^9 = 19683 and log10(19683) = 4.2941 log units. Minimum would be T/19683; null T prevents absolute endpoint calculation. Three wells are technical replicates."
+  },
+  "needs_human_review": true,
+  "review_reason": "Unresolved assay compatibility, substrate choice, operating conditions and absolute concentration range require domain review and experimental qualification."
+}

@@ -1,0 +1,197 @@
+{
+  "item_id": "66d8be9031aeb33e",
+  "generator_input": {
+    "id": "case-8",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Serine/threonine-protein kinase mTOR (P42345) by CHEMBL1078983. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1078983",
+        "name": "Ku-0063794",
+        "type": "Compound",
+        "smiles": "COc1ccc(-c2ccc3c(N4CCOCC4)nc(N4C[C@@H](C)O[C@@H](C)C4)nc3n2)cc1CO"
+      },
+      {
+        "id": "P42345",
+        "name": "Serine/threonine-protein kinase mTOR",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL1081312",
+        "ic50_nM": 10.0,
+        "assay": "CHEMBL4844752",
+        "description": "Inhibition of mTOR (unknown origin) using U-Light-4E-BP1 peptide as a substrate in the presence of ATP incubated for 30 mins by Lance ultra assay",
+        "document": "CHEMBL4842376",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1190965",
+        "ic50_nM": 1800.0,
+        "assay": "CHEMBL4731424",
+        "description": "Inhibition of human mTOR using 4EBP1 as substrate after 120 mins by [gamma-33P]-ATP assay",
+        "document": "CHEMBL4725466",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1201182",
+        "ic50_nM": 2290.0,
+        "assay": "CHEMBL4821861",
+        "description": "Inhibition of mTOR (unknown origin)",
+        "document": "CHEMBL4819087",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1234354",
+        "ic50_nM": 16.0,
+        "assay": "CHEMBL5225443",
+        "description": "Inhibition of human mTOR incubated for 30 mins by ATP competition based fluorescence polarization assay",
+        "document": "CHEMBL5223150",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1234429",
+        "ic50_nM": 1760.0,
+        "assay": "CHEMBL5347353",
+        "description": "Inhibition of mTOR (unknown origin)",
+        "document": "CHEMBL5346869",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"Biochemical kinase concentration-response assay; ADP-Glo format proposed as an assumption requiring qualification\",\n  \"system\": \"Cell-free human mTOR (P42345) with 4EBP1 substrate; enzyme construct, complex composition, source and substrate form unresolved\",\n  \"readout\": \"Luminescence reporting ADP generated during the kinase reaction; reduced background-corrected ADP signal indicates reduced biochemical activity only after detection interference is excluded\",\n  \"steps\": [\n    {\n      \"card_id\": \"new: qualify biochemical and detection conditions\",\n      \"instruction\": \"Before testing the full series, qualify mTOR turnover with 4EBP1 and establish a reaction interval with measurable, linear product formation and limited substrate depletion. Check ADP detection in the intended buffer and compound-containing matrix. This added prerequisite is necessary because no retained example validates ADP-Glo for this system.\",\n      \"parameters\": \"Assumption: human mTOR and 4EBP1 are the starting system, supported as a biochemical pairing by CHEMBL4731424. Enzyme identity/construct/complex, enzyme and substrate concentrations, ATP concentration, buffer, cofactors, volume, plate, temperature and working interval: unresolved. ATP/ADP calibration mixtures and detector-interference qualification: proposed design assumptions.\"\n    },\n    {\n      \"card_id\": \"kinase-prepare\",\n      \"instruction\": \"Prepare CHEMBL1078983 dilutions with matched vehicle and controls. First establish a soluble, vehicle-tolerated screening range, then select a series broad enough to bracket the observed response and refine it if necessary. Use repeated wells to estimate technical variability and independent runs to assess reproducibility; their counts must be specified before execution.\",\n      \"parameters\": \"Top concentration, dilution factor, number of concentrations, replicate count, solvent identity and final vehicle fraction: unresolved. No query-compound potency or solubility evidence supports numeric settings. Range finding and constant vehicle are proposed design assumptions.\"\n    },\n    {\n      \"card_id\": \"kinase-react\",\n      \"instruction\": \"Combine compound, qualified mTOR preparation, 4EBP1 and ATP using a consistent addition sequence; run only under the conditions established in qualification. Record ATP concentration and timing because the fitted response is conditional on these settings.\",\n      \"parameters\": \"Enzyme concentration, substrate concentration, ATP concentration, reaction time and temperature: unresolved. Addition order and any preincubation: unresolved. CHEMBL4731424 reports 120 minutes for a radiometric 4EBP1 assay; CHEMBL4844752 reports 30 minutes for a U-Light-4E-BP1 Lance ultra assay. Neither time is validated for this proposed ADP-Glo assay.\"\n    },\n    {\n      \"card_id\": \"kinase-detect\",\n      \"instruction\": \"Follow the kinase-detect card sequence: stop kinase activity and deplete residual ATP, then perform ADP detection and read luminescence. Process matched backgrounds and compound-containing detector controls identically.\",\n      \"parameters\": \"Reagent volumes, ATP-depletion time, ADP-detection time and instrument settings: unresolved; obtain a compatible supported procedure and verify matrix performance before execution. Sequence is supplied by kinase-detect; no retained assay supplies these numeric settings.\"\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Subtract matched backgrounds and normalize activity to vehicle-treated enzyme. Calculate percent inhibition as 100 times one minus normalized activity. Assumption: fit a four-parameter logistic concentration-response model if the data support both plateaus and a transition. Report the measured IC50 with uncertainty, replicate structure, ATP concentration and assay conditions. If the response is not bracketed or interference occurs, report the limitation and refine the assay rather than force a potency estimate.\",\n      \"parameters\": \"Fit model: four-parameter logistic, provisional assumption. Acceptance checks: distinguishable vehicle and background signals, reproducible controls, linear kinase turnover and absence of material detector interference; numeric acceptance thresholds unresolved and must be prespecified from qualification.\"\n    }\n  ],\n  \"top_concentration_uM\": null,\n  \"dilution_factor\": null,\n  \"n_points\": null,\n  \"replicates\": null,\n  \"controls\": [\n    \"Vehicle-treated active mTOR plus substrate and ATP: uninhibited activity baseline; vehicle fraction unresolved.\",\n    \"No-enzyme wells with substrate and ATP: background; include compound-matched versions to assess concentration-dependent background effects.\",\n    \"Qualified reference mTOR inhibitor: assay responsiveness control; identity and concentration unresolved. Other-compound retained IC50 values do not validate a reference in this format.\",\n    \"Known ATP/ADP mixtures without kinase, with and without the compound series: proposed controls for ATP depletion and ADP/luminescence detection interference. Mixture concentrations unresolved.\"\n  ],\n  \"rationale\": \"The requested endpoint is inhibition of mTOR enzyme activity, so the kinase cards match the biological question and the cell-viability cards do not. CHEMBL4731424 supports human mTOR with 4EBP1 in a biochemical radiometric assay; CHEMBL4844752 supports a related peptide in a different detection format. ADP-Glo is selected provisionally because the supplied kinase cards specify its ordered product-detection workflow, not because any retained example validates it. A validated ADP signal can measure kinase inhibition, but its compatibility with this enzyme/substrate preparation must first be demonstrated. Retained potencies belong to other compounds in heterogeneous assays and are neither estimates for CHEMBL1078983 nor sufficient grounds for fixing its concentration range.\",\n  \"citations\": [\"P42345\", \"CHEMBL1078983\", \"CHEMBL4731424\", \"CHEMBL4844752\", \"kinase-prepare\", \"kinase-react\", \"kinase-detect\", \"analyse\"],\n  \"limitations\": [\n    \"Numeric concentration-series and replicate fields are null because the packet provides no query-specific range, solubility or variance evidence and no justified numeric design is being asserted. This is a qualification-dependent proposal, not an executable final protocol.\",\n    \"Enzyme preparation, buffer, cofactors, ATP and substrate concentrations, timing, temperature, volumes, vehicle tolerance and detection parameters remain unsupported. Differences in these settings can change the apparent biochemical IC50.\",\n    \"The 30-minute and 120-minute examples use distinct formats and cannot be transplanted into ADP-Glo without validation.\",\n    \"Detector interference or compound precipitation can mimic inhibition. An apparent effect should be confirmed using an independently qualified orthogonal biochemical readout before interpreting it as enzyme inhibition.\",\n    \"This experiment does not measure cellular viability, intracellular target engagement, kinase selectivity or target-specific causality for a cellular phenotype. No withheld IC50 is predicted.\"\n  ]\n}\n"
+}

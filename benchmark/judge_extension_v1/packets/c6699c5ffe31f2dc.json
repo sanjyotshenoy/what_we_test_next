@@ -1,0 +1,157 @@
+{
+  "item_id": "c6699c5ffe31f2dc",
+  "generator_input": {
+    "id": "case-19",
+    "question": "Design a concentration-response experiment to measure the effect of CHEMBL5188786 on growth/proliferation or viability of human TMD8 cells. Explain the endpoint, justify the readout and any adaptations to the step cards, and state what this can and cannot establish about Tyrosine-protein kinase BTK.",
+    "entities": [
+      {
+        "id": "CHEMBL5188786",
+        "name": "CHEMBL5188786",
+        "type": "Compound",
+        "smiles": "C=CC(=O)N(C)CCOc1c(N)ncnc1-c1ccc(CN2CCN(CC(C)C)CC2=O)c(C)c1"
+      },
+      {
+        "id": "Q06187",
+        "name": "Tyrosine-protein kinase BTK",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "reviewer_only_context": {
+    "expected_endpoint": "Growth/proliferation or viability in human TMD8 cells; purified-enzyme inhibition alone does not answer this question. A cellular response alone does not establish target-specific causality. Justify assay adaptation; do not equate all viability readouts.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds.",
+      "Sparse reference description does not establish a complete detection method or culture procedure."
+    ],
+    "note": "Incomplete reference; not a unique correct protocol. Hidden potency and coverage are deliberately omitted."
+  },
+  "response_text": "{\n  \"assay_type\": \"Cellular concentration-response assay for ATP-based viability\",\n  \"system\": \"Human TMD8 cells exposed to CHEMBL5188786\",\n  \"readout\": \"CellTiter-Glo luminescence as a proxy for ATP-associated viable cell abundance at a defined exposure endpoint, normalized to vehicle-treated cells; not a direct proliferation or BTK activity measurement.\",\n  \"steps\": [\n    {\n      \"card_id\": \"cell-prepare\",\n      \"instruction\": \"Prepare human TMD8 cells, a concentration series of CHEMBL5188786, and matched controls. First qualify cell density and readout range using the intended exposure interval. Choose the top dose using experimentally verified solubility and vehicle tolerability; match vehicle across doses. Assumption: use a geometric series and independently repeated experiments, with replicate wells, to estimate concentration response and reproducibility. Final series spacing and replication remain unresolved pending range-finding and variability assessment.\",\n      \"parameters\": \"cell_density: unresolved; medium: unresolved; top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved. Evidence: cell-prepare supports the workflow but supplies no numerical conditions.\"\n    },\n    {\n      \"card_id\": \"cell-expose\",\n      \"instruction\": \"Expose cells to compound and controls for a prespecified interval that allows measurable vehicle-control expansion without exceeding the qualified density range. Assumption: include matched baseline wells measured at treatment initiation to distinguish reduced accumulation from loss relative to baseline. Baseline ATP comparisons remain conditional on stable ATP per viable cell.\",\n      \"parameters\": \"exposure_time: unresolved; temperature: unresolved; other culture conditions: unresolved. Establish and document conditions compatible with TMD8 before the definitive experiment; no conditions are supplied by cell-expose.\"\n    },\n    {\n      \"card_id\": \"cell-detect\",\n      \"instruction\": \"Apply CellTiter-Glo, mix, stabilize, and measure luminescence after selecting and documenting a validated procedure compatible with the chosen plate and culture volume. Process endpoint and matched baseline wells consistently. Assumption: evaluate compound-dependent readout interference using cell-free compound/reagent controls with a matched ATP signal control; add direct viable-cell counts in parallel to assess whether ATP changes track cell abundance.\",\n      \"parameters\": \"reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved; plate format and instrument settings: unresolved. Evidence: cell-detect supports the ATP-based detection sequence, not its numerical settings.\"\n    },\n    {\n      \"card_id\": \"analyse\",\n      \"instruction\": \"Subtract the appropriate cell-free background and normalize treated luminescence to matched vehicle controls. Plot all doses and replicate measurements. Assumption: fit a four-parameter logistic curve when data support a monotonic concentration response with identifiable plateaus, retaining individual experiment results and reporting uncertainty. Estimate a cellular midpoint only when bracketed and identifiable; otherwise report that it is not estimable within the tested range. Specify whether the reported midpoint refers to the fitted response span or 50% of vehicle signal. Compare baseline and endpoint direct counts to assess net growth or loss; do not label the ATP endpoint a direct proliferation rate.\",\n      \"parameters\": \"fit_model: provisional four-parameter logistic model, an assumption; acceptance_criteria: require usable vehicle/background separation, readout linearity over observed cell abundance, reproducible controls, and no unresolved material signal interference; numerical thresholds unresolved and must be prespecified from qualification data.\"\n    }\n  ],\n  \"top_concentration_uM\": null,\n  \"dilution_factor\": null,\n  \"n_points\": null,\n  \"replicates\": null,\n  \"controls\": [\n    \"Matched vehicle-treated TMD8 cells at the endpoint and treatment-start baseline.\",\n    \"Cell-free medium plus detection reagent for background subtraction.\",\n    \"Assumption: include untreated TMD8 cells during qualification to evaluate vehicle effects.\",\n    \"Reference viability-response control; identity, dose, and expected response unresolved and require qualification in TMD8.\",\n    \"Assumption: cell-free compound/reagent controls and a matched ATP signal control across the dose range to evaluate detection interference.\",\n    \"Assumption: parallel direct viable-cell counts at baseline and endpoint to assess growth suppression versus net cell loss.\"\n  ],\n  \"rationale\": \"The question concerns a cellular phenotype in human TMD8 cells, so cell-prepare, cell-expose, cell-detect, and analyse match the requested system. CellTiter-Glo provides a quantitative ATP-associated viability proxy suitable for a concentration-response design. Baseline measurements and parallel counts are explicitly proposed adaptations needed to interpret reduced endpoint signal as altered accumulation or loss. The kinase cards measure a different endpoint and are not substitutes for this cellular assay. No retained measurements support numerical dosing or culture settings for CHEMBL5188786.\",\n  \"citations\": [\"CHEMBL5188786\", \"Q06187\", \"cell-prepare\", \"cell-expose\", \"cell-detect\", \"analyse\"],\n  \"limitations\": [\n    \"The packet contains no retained measurement examples or numerical protocol conditions. Concentration, spacing, point count, and replication fields are null because numerical choices cannot be justified; qualification and range-finding are required before execution.\",\n    \"ATP signal can change with cellular metabolism as well as viable cell number. Endpoint ATP alone cannot distinguish slowed proliferation, cytostasis, cell death, or detection interference.\",\n    \"A measured cellular concentration response establishes an effect under the tested conditions, not biochemical inhibition of Tyrosine-protein kinase BTK (Q06187), intracellular BTK engagement, or BTK-specific causality.\",\n    \"A separate justified biochemical BTK assay would test inhibition in vitro; cellular engagement or pathway measurements and an appropriate genetic perturbation/rescue strategy would be needed to investigate BTK-dependent causality. Conditions for these follow-ups are not provided.\",\n    \"All proposed additions and fitting choices are assumptions for qualification, not sourced compound-specific facts. No withheld IC50 is predicted.\"\n  ]\n}\n"
+}

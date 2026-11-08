@@ -1,0 +1,62 @@
+{
+  "item_id": "66d8be9031aeb33e",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes cell-free mTOR activity measurement, conditions interpretation on excluding detection interference, and explicitly limits cellular and selectivity claims.",
+      "response_quotes": [
+        "Cell-free human mTOR (P42345) with 4EBP1 substrate",
+        "reduced background-corrected ADP signal indicates reduced biochemical activity only after detection interference is excluded"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent qualification, preparation, reaction, ATP depletion, ADP detection and analysis sequence with relevant background and interference controls. Essential operating conditions and reference-control details remain unresolved, so this is an honest outline rather than an executable protocol.",
+      "response_quotes": [
+        "stop kinase activity and deplete residual ATP, then perform ADP detection and read luminescence.",
+        "This is a qualification-dependent proposal, not an executable final protocol."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Explicitly abstains from a numeric series and replicate counts; no arithmetic contradiction or fabricated quantitative source is present. Correctly identifies the supplied 30- and 120-minute examples as different formats rather than transferring their timing. Null series fields preclude a score of 2.",
+      "response_quotes": [
+        "Top concentration, dilution factor, number of concentrations, replicate count, solvent identity and final vehicle fraction: unresolved.",
+        "Neither time is validated for this proposed ADP-Glo assay."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of ADP-Glo with the proposed mTOR preparation, 4EBP1 substrate and reaction matrix is not established by the packet.",
+    "Optimal enzyme, substrate, ATP, buffer, temperature, timing and detection conditions are unsupported.",
+    "Compound solubility, tolerated vehicle fraction and suitable concentration range are unknown."
+  ],
+  "assumption_handling": "Clearly labels ADP-Glo, qualification controls and fitting as provisional; distinguishes supported human mTOR/4EBP1 pairing from unsupported implementation parameters and refuses to infer query potency from other compounds. Numerical abstention is transparent but leaves the requested quantitative design incomplete.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "All series fields and replicate count are null; no dilution arithmetic is possible. Cited 30- and 120-minute durations match supplied descriptions and are explicitly not adopted."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and qualification are needed to establish assay compatibility and resolve essential experimental and numeric settings."
+}

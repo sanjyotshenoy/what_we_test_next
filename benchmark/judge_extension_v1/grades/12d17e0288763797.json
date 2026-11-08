@@ -1,0 +1,58 @@
+{
+  "item_id": "12d17e0288763797",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses purified P48729 catalytic inhibition and appropriately limits biochemical and cellular interpretation.",
+      "response_quotes": [
+        "ADP-dependent luminescence as a measure of kinase turnover; reduced background-corrected signal indicates apparent biochemical inhibition"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent ordered qualification, preparation, reaction, detection and analysis with background and interference controls. Essential operating conditions and acceptance thresholds remain unresolved, preventing executable status.",
+      "response_quotes": [
+        "This is a staged experimental proposal, not a fully executable protocol."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honest numerical abstention leaves series and replication unspecified. ATP and timing precedents are correctly distinguished from applicable settings, but null series fields cannot earn full credit.",
+      "response_quotes": [
+        "top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained CK1 assays with purified P48729 in ADP-Glo is not established.",
+    "Optimal enzyme, substrate, buffer, ATP, timing, detection conditions, vehicle tolerance and solubility lack supporting evidence."
+  ],
+  "assumption_handling": "Clearly separates proposed ADP-Glo and logistic-fit assumptions from evidence. Unsupported operating conditions and series fields are explicitly unresolved; query potency is not inferred.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "No series supplied, so endpoints cannot be calculated. Consistent numerical abstention; normalization formula has no evident arithmetic contradiction."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and qualification must resolve assay compatibility and essential operational and series settings."
+}

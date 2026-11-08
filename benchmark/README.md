@@ -48,3 +48,7 @@ Run `python -m benchmark.summarize_twenty_case_pilot` for offline provenance, us
 ## Astra-medium review of all 100 responses
 
 [Three-axis scores and per-case evidence](judge/RESULTS.md) cover all five models × 20 cases, freshly scored by isolated, blinded Astra-medium agents under a [frozen prompt](judge/PROMPT.md). These are provisional AI judgments, not expert-validated scores. [Method and execution](judge/README.md) document calibration, blinding, validation and unavailable judge billing receipts. The historical three-case grades remain unchanged.
+
+## Astra-medium candidate extension
+
+[20-case Astra-medium run](runs/astra-medium-20/RESULTS.md) uses the same generation instruction and input bytes, with fresh generator and judge contexts. Astra also serves as the judge, and the collaboration interface differs from the earlier Nebius runs; same-model bias and unmatched serving/reasoning settings limit direct ranking. Raw outputs, execution provenance and unavailable token/billing receipts are documented with the results. Offline validation and aggregation: `python -m benchmark.astra_medium --summarize`.

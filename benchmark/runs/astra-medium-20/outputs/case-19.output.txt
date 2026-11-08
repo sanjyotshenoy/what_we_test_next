@@ -1,0 +1,48 @@
+{
+  "assay_type": "Cellular concentration-response assay for ATP-based viability",
+  "system": "Human TMD8 cells exposed to CHEMBL5188786",
+  "readout": "CellTiter-Glo luminescence as a proxy for ATP-associated viable cell abundance at a defined exposure endpoint, normalized to vehicle-treated cells; not a direct proliferation or BTK activity measurement.",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Prepare human TMD8 cells, a concentration series of CHEMBL5188786, and matched controls. First qualify cell density and readout range using the intended exposure interval. Choose the top dose using experimentally verified solubility and vehicle tolerability; match vehicle across doses. Assumption: use a geometric series and independently repeated experiments, with replicate wells, to estimate concentration response and reproducibility. Final series spacing and replication remain unresolved pending range-finding and variability assessment.",
+      "parameters": "cell_density: unresolved; medium: unresolved; top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved. Evidence: cell-prepare supports the workflow but supplies no numerical conditions."
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose cells to compound and controls for a prespecified interval that allows measurable vehicle-control expansion without exceeding the qualified density range. Assumption: include matched baseline wells measured at treatment initiation to distinguish reduced accumulation from loss relative to baseline. Baseline ATP comparisons remain conditional on stable ATP per viable cell.",
+      "parameters": "exposure_time: unresolved; temperature: unresolved; other culture conditions: unresolved. Establish and document conditions compatible with TMD8 before the definitive experiment; no conditions are supplied by cell-expose."
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Apply CellTiter-Glo, mix, stabilize, and measure luminescence after selecting and documenting a validated procedure compatible with the chosen plate and culture volume. Process endpoint and matched baseline wells consistently. Assumption: evaluate compound-dependent readout interference using cell-free compound/reagent controls with a matched ATP signal control; add direct viable-cell counts in parallel to assess whether ATP changes track cell abundance.",
+      "parameters": "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved; plate format and instrument settings: unresolved. Evidence: cell-detect supports the ATP-based detection sequence, not its numerical settings."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract the appropriate cell-free background and normalize treated luminescence to matched vehicle controls. Plot all doses and replicate measurements. Assumption: fit a four-parameter logistic curve when data support a monotonic concentration response with identifiable plateaus, retaining individual experiment results and reporting uncertainty. Estimate a cellular midpoint only when bracketed and identifiable; otherwise report that it is not estimable within the tested range. Specify whether the reported midpoint refers to the fitted response span or 50% of vehicle signal. Compare baseline and endpoint direct counts to assess net growth or loss; do not label the ATP endpoint a direct proliferation rate.",
+      "parameters": "fit_model: provisional four-parameter logistic model, an assumption; acceptance_criteria: require usable vehicle/background separation, readout linearity over observed cell abundance, reproducible controls, and no unresolved material signal interference; numerical thresholds unresolved and must be prespecified from qualification data."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Matched vehicle-treated TMD8 cells at the endpoint and treatment-start baseline.",
+    "Cell-free medium plus detection reagent for background subtraction.",
+    "Assumption: include untreated TMD8 cells during qualification to evaluate vehicle effects.",
+    "Reference viability-response control; identity, dose, and expected response unresolved and require qualification in TMD8.",
+    "Assumption: cell-free compound/reagent controls and a matched ATP signal control across the dose range to evaluate detection interference.",
+    "Assumption: parallel direct viable-cell counts at baseline and endpoint to assess growth suppression versus net cell loss."
+  ],
+  "rationale": "The question concerns a cellular phenotype in human TMD8 cells, so cell-prepare, cell-expose, cell-detect, and analyse match the requested system. CellTiter-Glo provides a quantitative ATP-associated viability proxy suitable for a concentration-response design. Baseline measurements and parallel counts are explicitly proposed adaptations needed to interpret reduced endpoint signal as altered accumulation or loss. The kinase cards measure a different endpoint and are not substitutes for this cellular assay. No retained measurements support numerical dosing or culture settings for CHEMBL5188786.",
+  "citations": ["CHEMBL5188786", "Q06187", "cell-prepare", "cell-expose", "cell-detect", "analyse"],
+  "limitations": [
+    "The packet contains no retained measurement examples or numerical protocol conditions. Concentration, spacing, point count, and replication fields are null because numerical choices cannot be justified; qualification and range-finding are required before execution.",
+    "ATP signal can change with cellular metabolism as well as viable cell number. Endpoint ATP alone cannot distinguish slowed proliferation, cytostasis, cell death, or detection interference.",
+    "A measured cellular concentration response establishes an effect under the tested conditions, not biochemical inhibition of Tyrosine-protein kinase BTK (Q06187), intracellular BTK engagement, or BTK-specific causality.",
+    "A separate justified biochemical BTK assay would test inhibition in vitro; cellular engagement or pathway measurements and an appropriate genetic perturbation/rescue strategy would be needed to investigate BTK-dependent causality. Conditions for these follow-ups are not provided.",
+    "All proposed additions and fitting choices are assumptions for qualification, not sourced compound-specific facts. No withheld IC50 is predicted."
+  ]
+}

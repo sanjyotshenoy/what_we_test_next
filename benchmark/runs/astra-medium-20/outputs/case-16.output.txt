@@ -1,0 +1,63 @@
+{
+  "assay_type": "Biochemical kinase concentration-response assay; provisional ADP-Glo format",
+  "system": "Purified recombinant human NUAK1 (O60285), with active construct, substrate and reaction conditions unresolved",
+  "readout": "ADP-dependent luminescence as a proxy for kinase turnover; reduced background-corrected signal indicates apparent biochemical inhibition after detection-interference controls pass.",
+  "steps": [
+    {
+      "card_id": "new: assay qualification",
+      "instruction": "Before the concentration-response run, qualify an active recombinant NUAK1 preparation and suitable substrate. Establish measurable substrate-dependent turnover, an appropriate ATP working concentration, and an enzyme/time window with approximately linear product formation and limited substrate depletion. Confirm compound solubility, vehicle tolerance and compatibility with ADP-Glo. This added step is necessary because the packet supplies no executable reaction conditions.",
+      "parameters": "All qualification settings unresolved: enzyme construct/activity, substrate identity, buffer composition and pH, cofactors, enzyme and substrate concentrations, ATP concentration, reaction volume, time, temperature and plate format. ADP-Glo selection is a provisional design assumption, not an attributed format from the retained assays."
+    },
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare CHEMBL1615278 as a serial dilution with matched final vehicle in every well. Use a soluble, vehicle-tolerated upper concentration and a pilot range to locate the response transition; extend the range only within validated assay limits. Allocate independent replicate reaction wells per concentration and controls. Finalize the range and replication before the definitive run.",
+      "parameters": "top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved. A geometric series and replicate wells are provisional design choices. Numeric values require solubility and pilot variability results; retained compounds do not determine the query compound's range."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine the dilution series with qualified NUAK1, substrate and ATP under the validated conditions. Keep ATP, enzyme, substrate, vehicle and reaction timing constant across concentrations. Apply any preincubation consistently and report it if used.",
+      "parameters": "enzyme_concentration, substrate_concentration, ATP_concentration, reaction_time and temperature: unresolved pending qualification. Order of addition and any preincubation duration are also unresolved. Record ATP concentration because the measured inhibition may depend on it."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence. Process assay and interference controls using the same detection sequence. Use a validated reagent procedure once available; the packet specifies the sequence but supplies no volumes or incubation durations.",
+      "parameters": "reagent_volumes, depletion_time, detection_time and reader settings: unresolved."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize signal to matched vehicle and no-enzyme background controls. If concentration-matched interference controls are clean, calculate percent inhibition as 100 × [1 − (sample signal − background)/(vehicle signal − background)]. As a provisional analysis choice, fit a four-parameter concentration-response model with unconstrained plateaus where supported, inspect residuals and replicate variability, and report uncertainty and actual assay conditions. Report an IC50 only when the data support an identifiable midpoint; otherwise report that it is unresolved or outside the tested range without extrapolating a potency.",
+      "parameters": "fit_model: provisional four-parameter logistic model; numeric acceptance_criteria: unresolved and to be prespecified after qualification. Require reproducible control separation, adequate assay precision, acceptable detection-interference results and a response range sufficient to constrain the fit."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Vehicle-only enzyme/substrate/ATP reactions to define uninhibited activity, with the same final vehicle fraction as compound wells.",
+    "No-enzyme reactions containing substrate, ATP and matched vehicle to define background; compound-matched backgrounds where needed.",
+    "No-substrate reactions to assess substrate-independent ADP production.",
+    "Reference inhibitor concentration-response control, with identity and concentrations unresolved; retained examples are candidate context only, not validated controls for this format.",
+    "Detection-interference controls containing fixed ADP/ATP mixtures and the compound series without kinase turnover, plus corresponding vehicle mixtures, to detect effects on depletion, detection chemistry or luminescence. Mixture composition is unresolved."
+  ],
+  "rationale": "A purified-enzyme turnover experiment directly addresses biochemical inhibition of O60285 by CHEMBL1615278. The kinase cards provide an ADP-Glo workflow, making it a reasonable provisional format once qualified. CHEMBL962086 documents human recombinant ARK5 inhibition for another compound, supporting biochemical-system relevance; CHEMBL2067586 and CHEMBL2439293 specify human ARK5 but not the detection chemistry. CHEMBL2344169 and CHEMBL3108328 have unknown target origin and offer weaker procedural compatibility. These examples are neither similarity-ranked nor sufficient to transfer potency or assay settings. Cell viability cards are excluded because they measure a different endpoint.",
+  "citations": [
+    "O60285",
+    "CHEMBL1615278",
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse",
+    "CHEMBL962086",
+    "CHEMBL2067586",
+    "CHEMBL2439293",
+    "CHEMBL2344169",
+    "CHEMBL3108328"
+  ],
+  "limitations": [
+    "Numeric series and replicate fields are null because the packet cannot justify a particular top concentration, spacing, point count or replicate count; qualification and pilot data are needed to make this proposal executable.",
+    "The packet lacks enzyme construct, substrate, buffer, cofactors, ATP dependence, kinetic window, solubility, vehicle tolerance and ADP-Glo reagent conditions. No retained assay is identified as ADP-Glo, and no omitted conditions are claimed as sourced facts.",
+    "The readout can be perturbed by compound interference or nonspecific biochemical effects. A clean concentration response supports assay-dependent inhibition; orthogonal confirmation would strengthen attribution to NUAK1 inhibition.",
+    "This experiment does not establish kinase selectivity, cellular target engagement, cell viability effects or target-specific cellular causality. No potency for CHEMBL1615278 is predicted."
+  ]
+}

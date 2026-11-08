@@ -1,0 +1,60 @@
+{
+  "item_id": "6f42f71aefee60ae",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses purified NUAK1 biochemical inhibition and appropriately limits cellular and selectivity conclusions.",
+      "response_quotes": [
+        "A purified-enzyme turnover experiment directly addresses biochemical inhibition of O60285 by CHEMBL1615278."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent qualification, preparation, reaction, depletion, detection and analysis with appropriate intended controls. Essential operating and control conditions remain unresolved, so the outline is not executable.",
+      "response_quotes": [
+        "Stop the kinase reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "reagent_volumes, depletion_time, detection_time and reader settings: unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honest numerical abstention leaves concentration series and replication unspecified. No explicit arithmetic contradiction is present, but null series cannot earn full credit.",
+      "response_quotes": [
+        "Numeric series and replicate fields are null because the packet cannot justify a particular top concentration, spacing, point count or replicate count; qualification and pilot data are needed to make this proposal executable."
+      ],
+      "input_evidence_paths": [
+        "generator_input.output_contract",
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained assays with provisional ADP-Glo conditions is not established.",
+    "NUAK1 construct, substrate, reaction conditions, compound solubility, vehicle tolerance and detection operating conditions lack supplied validation."
+  ],
+  "assumption_handling": "ADP-Glo and four-parameter fitting are explicitly provisional. Operating settings, range and replication are withheld rather than misrepresented as sourced; this is transparent but leaves the numerical design incomplete.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Null series fields are abstention; endpoints cannot be computed. Inhibition normalization gives 0% at vehicle signal and 100% at background."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and operational qualification remain unresolved and require domain review before execution."
+}
