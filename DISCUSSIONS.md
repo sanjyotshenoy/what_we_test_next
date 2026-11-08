@@ -226,3 +226,33 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
 - Open: `REQUIRES` vs `PREFERRED_WHEN` is this branch's reading of the archetype text, not reviewed; a condition
   exists only where an archetype says it, so `kinase_biochem_trfret` has no purified-enzyme edge until its
   `purpose` says so; `extract.py` has no `substeps` field, so extracted templates will arrive flat.
+
+**How a template parameter's default is chosen** (branch `protocol-db`, 2026-11-07).
+- Problem: `build_db._first` took `observed[0]` — "the exemplars are listed most-canonical first", which nothing
+  enforced or recorded, so the default was "whichever assay is listed first". Hence `dilution_factor` 2.97-fold
+  over an equally valid 3-fold, and `top_concentration` 12 µM out of 10 / 12 / 46 / 46 µM.
+- Decided (as agreed): defaults are *derived* in a new [`kg/protocols/defaults.py`](kg/protocols/defaults.py),
+  and every `Parameter` node carries its derivation. (1) **Reference run**: `top_concentration`,
+  `dilution_factor`, `n_points` (and any parameter marked `"series": true`) all come from *one* exemplar — the
+  one reporting the whole series whose series sits nearest the centre of all exemplars, distances on a log scale
+  for concentrations and fold-spacings, linear for counts, normalized per parameter by its own median absolute
+  deviation and summed — because per-parameter aggregation can assemble a series nobody ran. (2) **Nearest to
+  centre** for the rest (centre = geometric median on log scale, median on linear), always a real observation,
+  never a computed average. (3) **Canonical snapping** of fold-spacings to {2, 2.5, 3, 3.162, 4, 5, 10} within
+  5 %, recorded; outside it the value is kept and flagged rather than forced. (4) A **modal value** rule for
+  parameters some exemplar states in words ("room temperature", "overnight"). (5) `exemplars_disagree` when the
+  exemplars genuinely disagree (≥ a decade of spread on a log parameter, a spread wider than the centre on a
+  linear one, a chosen value far from the centre, or numbers mixed with words). `_first` is gone and an
+  underivable default now raises `DefaultError` instead of silently resolving to element zero.
+- Effect on the curated templates: the kinase series is now AID 588811 as a whole — 12 µM, **3-fold (snapped
+  from 2.97)**, 9 points; 588811 beats 602295 on normalized distance 2.00 vs 2.27, and the 46 µM of
+  623998/623999 cannot be a reference run because that top is the top of two *interleaved* series and neither
+  AID reports a spacing or a point count. Also `kinase_reaction_time` 2 h → 60 min, `kinase_reaction_temperature`
+  28 °C → "room temperature", `detection_reagent_time` 40 → 30 min, `atp_stock_concentration` 20 → 50 µM, and
+  the MIC template's `plate_wells` 384 → 96. 10 of 39 parameters carry `exemplars_disagree`. Node/edge shape and
+  `kg.query.templates()` keys unchanged (140 nodes / 353 edges); 113 kg tests pass, no network.
+- Open: the thresholds are this branch's choice (5 % snapping tolerance, one decade for the dispersion flag, the
+  half-decade "far from centre"); a reference run needs an exemplar that reports *every* series parameter, and
+  when none does, each series parameter falls back to nearest-to-centre and is flagged `no_reference_run` rather
+  than failing the build — say if that should be a hard error instead. The 10 flagged parameters want a human to
+  pick, not a rule.

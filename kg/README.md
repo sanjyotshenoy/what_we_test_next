@@ -36,7 +36,9 @@ The seed graphs use ChEMBL's protein classification: `chembl_class:<protein_clas
 (e.g. `chembl_class:1100` = Protein Kinase, under `chembl_class:6` = Kinase).
 
 Rules: keep every node's and edge's `source` (provenance is what makes the proposals verifiable); normalize units in
-code (µM, µL, min, °C); tag assay types and readouts with BioAssay Ontology (BAO) IDs where one exists.
+code (µM, µL, min, °C); tag assay types and readouts with BioAssay Ontology (BAO) IDs where one exists. Where a
+node's value is one of several observations (a protocol `Parameter`), its props also say how that one was chosen:
+see [`protocols/README.md`](protocols/README.md), "How a default is chosen".
 
 ### Design rules as nodes
 

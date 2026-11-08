@@ -299,7 +299,7 @@ def _categorical(observations: _Observations) -> dict:
     props = _base(observations, chosen)
     n = len(observations.rows)
     flags = ["mixed_value_kinds"] if observations.mixed else []
-    disagree = support * 2 < n
+    disagree = len(counts) > 1 and support * 2 <= n      # no value is stated by MORE than half the exemplars
     if disagree:
         flags.append("no_majority")
     others = sorted({_with_unit(r["observation"].get("value"), r["observation"].get("unit"))
@@ -310,9 +310,17 @@ def _categorical(observations: _Observations) -> dict:
     if others:
         derivation += f". Other exemplars say: {', '.join(others)}"
     if disagree:
-        derivation += ". No value is stated by half the exemplars, so this default is weak"
+        derivation += (". No value is stated by more than half the observations, so this default is a "
+                       "coin-flip among them")
+    if props["series_parameter"]:
+        # a series parameter nobody states as a number cannot take part in a reference run
+        flags.append("no_reference_run")
+        derivation += (". Stated in words, so it is left out of the series' reference run: mutual consistency "
+                       "with the other series parameters is NOT guaranteed")
     props.update({"default_rule": "modal value", "derivation": derivation, "scale": "categorical",
-                  "centre": None, "centre_rule": None, "snapped": False,
+                  "centre": None, "centre_unit": None, "centre_rule": None,
+                  "normalized_value": None, "normalized_unit": None,
+                  "snapped": False, "snapped_from": None, "snapped_to": None, "canonical_ladder": None,
                   "spread": {"values": sorted(counts), "n_values": len(counts)},
                   "exemplars_disagree": bool(set(flags) & DISAGREEMENT_FLAGS), "flags": flags})
     return props
