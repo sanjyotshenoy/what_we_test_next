@@ -1,0 +1,18 @@
+{
+  "CHEMBL8": {
+    "image_url": "https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL8.svg",
+    "molecule_url": "https://www.ebi.ac.uk/chembl/api/data/molecule/CHEMBL8.json",
+    "retrieved_at": "2026-11-08T17:29:50.172025+00:00",
+    "image_sha256": "542327ae1469d049815f0864b84c8c43bbc578aac284bace2149bf9d61f39013",
+    "canonical_smiles": "O=C(O)c1cn(C2CC2)c2cc(N3CCNCC3)c(F)cc2c1=O",
+    "note": "ChEMBL 2D depiction, not a measured 3D conformation."
+  },
+  "CHEMBL454950": {
+    "image_url": "https://www.ebi.ac.uk/chembl/api/data/image/CHEMBL454950.svg",
+    "molecule_url": "https://www.ebi.ac.uk/chembl/api/data/molecule/CHEMBL454950.json",
+    "retrieved_at": "2026-11-08T17:29:51.080817+00:00",
+    "image_sha256": "44f34d6a18626f27c340f2f0ca62beeba7509d216cdbffd64cf16d43d1eb0f17",
+    "canonical_smiles": "CN(C)[C@@H]1C(O)=C(C(N)=O)C(=O)[C@@]2(O)C(O)=C3C(=O)c4c(O)cccc4[C@@](C)(O)[C@H]3C[C@@H]12.Cl",
+    "note": "ChEMBL 2D depiction, not a measured 3D conformation."
+  }
+}

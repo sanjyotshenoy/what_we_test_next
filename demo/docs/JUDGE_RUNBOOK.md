@@ -38,3 +38,12 @@ For recovery, ports, access, Codex Remote and ignored state, read
 [REMOTE_HANDOFF.md](../memory/REMOTE_HANDOFF.md). For evidence and failed-attempt
 history, read [PRECOMPUTED_EXAMPLES.md](PRECOMPUTED_EXAMPLES.md). No paid inference
 is needed just to present or test the sequential view.
+
+In the operator dashboard, **Entire KG** shows the complete bacterial compound–
+organism network with measurement links grouped for readability; **Focus run**
+shows the saved retrieved subgraph. Hover or tap nodes/edges for formatted details.
+The molecule panel shows cached ChEMBL 2D structures and molfile downloads.
+**Generated protocol** shows the selected protocol's saved simulator commands on
+a 2D deck schematic. Play, step or scrub to highlight slots and plate wells. The
+playback timing is illustrative; it is not physical execution. **Robot recording**
+is the separate fixed video.

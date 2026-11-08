@@ -375,6 +375,12 @@ async def api_precomputed(request):
                              headers={'Cache-Control': 'no-store'})
 
 
+async def api_graph_overview(request):
+    from demo.harness.dashboard_graph import overview
+    return web.json_response(await asyncio.to_thread(overview),
+                             headers={'Cache-Control': 'no-cache'})
+
+
 async def on_cleanup(app):
     if "oc_task" in app:
         app["oc_task"].cancel()
@@ -436,6 +442,7 @@ def make_app():
         web.get("/legacy", index),
         web.get("/planner", index),
         web.get("/api/precomputed", api_precomputed),
+        web.get("/api/graph/overview", api_graph_overview),
         web.get("/api/planning", api_planning),
         web.get("/api/planning/sessions", api_planning_sessions),
         web.get("/api/artifacts/{session}/{batch}/{filename:.*}", api_artifact),

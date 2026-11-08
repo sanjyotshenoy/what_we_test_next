@@ -3,13 +3,16 @@
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const api = async path => {const r=await fetch(path); if(!r.ok) throw new Error(`Saved results unavailable (${r.status}).`); return r.json();};
-const details = (title, value) => `<details><summary>${esc(title)}</summary><pre>${esc(typeof value==='string'?value:JSON.stringify(value,null,2))}</pre></details>`;
+const details = (title, value) => `<details><summary>${esc(title)}</summary>${prettyValue(value)}</details>`;
 let catalog, data, runs=[], generation=0, graph;
+initializeVisuals();
 function clearResult() {
+  stopSimulation(); hideGraphTooltip();
   data=null; runs=[];
   for(const id of ['log','question','molecules','plate-svg','well-detail','downloads','robot-summary','feed','run-select']) $(id).replaceChildren();
   if(graph) {graph.destroy(); graph=null;}
-  $('graph-detail').textContent='Select an edge to inspect its saved measurement.';
+  $('graph-detail').textContent='';
+  setSimulation(null);
   $('robot-state').textContent='no run selected';
 }
 function question(snapshot) {
@@ -17,22 +20,6 @@ function question(snapshot) {
   const compounds=[...new Set(rr.map(r=>r.compound.replace(/\s*\(CHEMBL\d+\)/g,'')))];
   const species=[...new Set(rr.map(r=>r.species?.name).filter(Boolean))];
   return compounds.length>1 ? `Which inhibits ${species.join(' and ')} at a lower concentration: ${compounds.join(' or ')}?` : `What minimum concentration of ${compounds.join(' and ')} inhibits growth of ${species.join(' and ')}?`;
-}
-function drawGraph() {
-  const nodes=new Map(), edges=[];
-  for(const e of data.evidence||[]) if(e.tool==='biology_lookup') {
-    const r=e.result||{};
-    for(const n of [...r.compound_matches||[],...r.species_matches||[]]) nodes.set(n.id,{data:{id:n.id,label:n.name,color:n.type==='Compound'?'#58a6ff':'#3fb950',record:n}});
-    for(const m of r.measurements||[]) edges.push({data:{id:`measurement-${edges.length}`,source:m.src,target:m.dst,label:`MIC ${m.props?.relation||''} ${m.props?.mic} ${m.props?.unit}`,record:m}});
-  }
-  graph=cytoscape({container:$('cy'),elements:[...nodes.values(),...edges.filter(e=>nodes.has(e.data.source)&&nodes.has(e.data.target))],style:[
-    {selector:'node',style:{'background-color':'data(color)',label:'data(label)',color:'#e6edf3','font-size':12,'text-wrap':'wrap','text-max-width':140}},
-    {selector:'edge',style:{label:'data(label)','curve-style':'bezier','target-arrow-shape':'triangle',color:'#8b96a5','font-size':9,'line-color':'#53657e','target-arrow-color':'#53657e'}}
-  ],layout:{name:'circle',padding:60}});
-  graph.on('tap','node, edge',e=>{$('graph-detail').textContent=JSON.stringify(e.target.data('record'),null,2);});
-  const molecules=[...nodes.values()].map(n=>n.data.record).filter(n=>n.type==='Compound');
-  $('molecules').innerHTML=molecules.map(n=>`<h3>${esc(n.name)}</h3><p>${esc(n.id)} · ${esc(n.source)}</p><p class="muted">Saved molecular structure (SMILES)</p><pre>${esc(n.props?.smiles||'No molecular structure in this saved evidence.')}</pre>`).join('')+'<p class="muted">No 3D coordinates were saved for these experiments.</p>';
-  if(!nodes.size) $('graph-detail').textContent='No biological graph evidence is available in this saved run.';
 }
 function drawRun() {
   const item=runs[Number($('run-select').value)]; if(!item) return;
@@ -47,7 +34,7 @@ function drawRun() {
       const surplus=(run.allocation?.surplus_rows||'').includes(row);
       const label=`${row}${col} · ${role} · ${w?.final_concentration??w?.final_uM??'—'} ${unit} · ${w?.volume_uL??'—'} µL${surplus?' · surplus technical well':''}`;
       const b=document.createElement('button'); b.className=`well ${kind}${surplus?' surplus':''}`;b.title=label;b.setAttribute('aria-label',label);b.textContent=kind==='growth'?'G':kind==='sterility'?'S':'';
-      b.onclick=()=>{$('well-detail').textContent=label;};$('plate-svg').append(b);
+      b.dataset.row=row; b.dataset.column=col; b.onclick=()=>{$('well-detail').textContent=label;};$('plate-svg').append(b);
     }
   }
   $('well-detail').textContent='Select a well · G: growth · S: sterility · dashed: surplus technical wells';
@@ -56,7 +43,7 @@ function drawRun() {
   const passed=run.simulation?.status==='passed'&&snapshot?.simulation?.status==='passed';
   $('robot-state').textContent=passed?'saved pass · hash verified':run.simulation?.status||'not run';
   $('robot-summary').textContent='Simulation only. No physical execution or measured MIC. The separate video does not execute this protocol.';
-  $('feed').innerHTML=(snapshot?.simulation?.runlog||[]).map(s=>`<li>${esc(s.payload?.text||'')}</li>`).join('');
+  setSimulation(passed ? snapshot.simulation : null);
 }
 async function selectSession() {
   const token=++generation, session=$('query').value; clearResult();
@@ -75,7 +62,7 @@ async function selectSession() {
       for(const run of batch.manifest.runs||[]) runs.push({batch,run,snapshot:batch.runs.find(r=>r.run_id===run.run_id)});
     }
     $('run-select').innerHTML=runs.map(({run},i)=>`<option value="${i}">${esc(run.compound)} / ${esc(run.species?.name)} · ${esc(run.run_id)}</option>`).join('');
-    drawGraph();drawRun();
+    drawGraph();drawMolecules();drawRun();
   } catch(e) {if(token===generation) {clearResult();$('status').textContent=e.message+' No live run was started.';}}
 }
 function selectModel() {
@@ -85,6 +72,8 @@ function selectModel() {
 }
 $('model').onchange=selectModel;$('query').onchange=selectSession;$('run-select').onchange=drawRun;
 $('kg-fit').onclick=()=>graph?.fit(undefined,50);
+$('kg-all').onclick=()=>drawGraph('all');
+$('kg-focus').onclick=()=>drawGraph('focus');
 (async()=>{try {
   catalog=await api('/api/precomputed');
   $('model').innerHTML=catalog.models.map(m=>`<option value="${esc(m.id)}">${esc(m.label)}</option>`).join('');
@@ -92,6 +81,6 @@ $('kg-fit').onclick=()=>graph?.fit(undefined,50);
 } catch(e){$('status').textContent=e.message;}})();
 (async()=>{try {
   const r=await api('/api/recording');
-  if(r.available) {$('vid').src=r.url;$('vid').poster=r.poster;$('vid').hidden=false;}
+  if(r.available) {$('vid').src=r.url;$('vid').poster=r.poster;showSimulationTab(simulationTab);}
   $('video-note').textContent=r.available?'Separate 30-second physical recording; not execution of the selected protocol.':'The separate robot recording is unavailable.';
 } catch(e){$('video-note').textContent='The separate robot recording is unavailable.';}})();

@@ -29,13 +29,31 @@ with the eight precomputed sequential trajectories. Model/query selection is
 browser-local and read-only; it does not change or start the shared agent session.
 The live planner remains at `/planner`. Graph measurements, SMILES identities,
 proposal/evidence details, pair-specific plates, protocol downloads and hash-checked
-simulator logs come from saved artifacts. No 3D molecular coordinates are available;
-the molecule panel displays saved SMILES. The physical video remains separate.
+simulator logs come from saved artifacts. The molecule panel now shows cached
+ChEMBL 2D SVG structures and downloadable molfiles, with saved SMILES and source
+provenance available in details. The physical video remains separate.
+
+The graph opens on the entire bacterial compound–organism network (605 nodes,
+2,675 grouped links representing all 42,240 measurements); assay/document records
+are summarized on links. **Focus run** shows only the saved retrieved subgraph.
+Hover reveals formatted node/edge details; tap pins the card, Escape dismisses it.
+The overview is current KG context, distinct from evidence retrieved in a saved run.
+
+**Generated protocol** now displays a 2D OT-2 deck schematic driven by each
+hash-verified simulator command log. Play/pause, Step, Reset and the command slider
+highlight referenced slots and plate wells (eight-channel commands highlight a
+column). Timing is illustrative; this is command playback, not a physics simulation
+or new simulator execution. Switching protocols/sessions stops playback.
+**Robot recording** switches to the separate physical video.
 
 Verification: 15 HTTP/browser regression tests passed; a separate Chromium check
 covered all eight trajectories / sixteen protocol pairs, wells, downloads and
 desktop/mobile layout with no JavaScript errors or write requests. The initial
 plate overlap was corrected before the successful check. No paid inference ran.
+Later graph/molecule/playback update: 16 regression tests passed, plus Chromium
+checks for all eight trajectories, hover/pinning, overview/focus, both loaded
+chemical images, command scrubbing, eight-well highlighting, playback cancellation,
+recording switch and mobile width.
 
 ## Views and access
 
