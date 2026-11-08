@@ -99,7 +99,7 @@ Deck.slide('pitch-close',{before:'pitch-results',steps:3,
  <path class="cl-line" marker-end="url(#cl-arrow)" d="M435 190 H475 V110 H530"/>
  <path class="cl-line" marker-end="url(#cl-arrow)" d="M475 190 V270 H530"/>
  <path class="cl-line cl-external" marker-end="url(#cl-outer-arrow)" d="M710 270 H825"/>
- <path data-from="2" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M910 355 V430 H340 V255"/>
+ <path data-from="2" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M910 355 V450 H340 V255"/>
  <path data-from="3" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M70 80 V150"/>
  </svg>
  <div class="cl-system">Our system · implemented</div>
