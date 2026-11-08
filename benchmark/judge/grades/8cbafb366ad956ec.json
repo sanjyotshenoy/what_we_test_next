@@ -1,0 +1,58 @@
+{
+  "item_id": "8cbafb366ad956ec",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses cell-free biochemical kinase inhibition and appropriately limits cellular causal interpretation.",
+      "response_quotes": [
+        "Cell-free recombinant DNA-dependent protein kinase catalytic subunit (P78527); DNA/Ku activation requirements are unresolved in the packet."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, ATP depletion/ADP detection and analysis are coherently ordered with intended controls. Essential reaction, activation, substrate and detection conditions remain unresolved, so this is not executable. Replicate type and interference-control details are unspecified.",
+      "response_quotes": [
+        "For ADP-Glo, stop the kinase reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence. Kit-specific volumes and times are unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honest abstention from top concentration leaves the series incomplete. Factor, points and replicates are provisional; 10 uM ATP is accurately attributed to a different radioactive assay and explicitly contextual.",
+      "response_quotes": [
+        "top_concentration_uM: unresolved/null (no packet support); dilution_factor: 3 (provisional assumption); n_points: 10 (provisional assumption); replicates: 3 (provisional assumption)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of supplied radioactive DNA-PK assay with proposed ADP-Glo format.",
+    "Optimal enzyme/substrate amounts, DNA/Ku activation, buffer, vehicle tolerance, reaction timing and detection settings are not supplied."
+  ],
+  "assumption_handling": "Clearly separates unresolved operating conditions and provisional choices from contextual ATP evidence. Does not invent potency or claim readiness for execution.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Top concentration is null. Ten threefold points would end at T/19683; no absolute endpoint is available to check. Replicates are 3 without specifying technical versus independent runs."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and essential operating conditions require domain validation before execution."
+}

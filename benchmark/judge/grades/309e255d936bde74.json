@@ -1,0 +1,69 @@
+{
+  "item_id": "309e255d936bde74",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "The recombinant DYRK1A ADP-production assay directly addresses biochemical inhibition and explicitly limits conclusions to enzymatic rather than cellular effects.",
+      "response_quotes": [
+        "biochemical kinase luminescence (ADP‑Glo)",
+        "does not address cellular permeability, metabolism, or off‑target effects."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection and analysis are coherently ordered, with vehicle, reference and enzyme-free controls. Reaction linearity, reagent ratios and detection conditions lack supplied validation; reference saturation is assumed and interference testing is only recommended. This is not a supported executable protocol.",
+      "response_quotes": [
+        "allow ATP depletion, then add detection reagent and read luminescence.",
+        "30 min (sufficient for measurable ADP formation while remaining within linear kinetics)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Series arithmetic is consistent, but important numerical settings claim evidence absent from the packet. Retained examples do not support 10 µM ATP or its relation to Km, and no manufacturer protocol supports the claimed 20 µL reagent volume. The later kinetic disclaimer does not resolve these specific source claims.",
+      "response_quotes": [
+        "10 µM (≤ Km for ATP to increase sensitivity to ATP‑competitive inhibitors; supported by retained examples that used ATP‑competitive formats)",
+        "20 µL stop‑and‑detect reagent per well (per manufacturer protocol)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported source attribution for a material ATP setting.",
+      "response_quote": "10 µM (≤ Km for ATP to increase sensitivity to ATP‑competitive inhibitors; supported by retained examples that used ATP‑competitive formats)",
+      "reason": "The examples describe assay types but supply neither ATP concentration nor Km; thus the asserted evidence for this numerical binding is fabricated."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained radiometric/LDH assays with ADP-Glo.",
+    "Suitability of the enzyme preparation and DYRKtide; actual kinetic constants, reaction linearity and solvent tolerance.",
+    "Reference inhibitor saturation, compound solubility and detection interference; manufacturer-specific reagent ratios and timings."
+  ],
+  "assumption_handling": "Kinetic constants are eventually called assumed and interference is acknowledged, but specific settings are presented as standard, compatible or source-supported without supplied evidence. Provisional choices are not clearly separated from sourced facts. Retained examples also do not establish the claimed luminescence precedent.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points span 100 to 0.0050805263 µM (5.0805263 nM), or about 4.294 log10 units, consistent with >3 log units. This cannot ensure potency coverage. Three replicates are specified without distinguishing technical wells from independent experiments."
+  },
+  "needs_human_review": true,
+  "review_reason": "Unsupported numerical source claims and unresolved assay compatibility, kinetic validation and detection settings require domain review."
+}

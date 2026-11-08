@@ -1,0 +1,61 @@
+{
+  "item_id": "0f7262e17622a393",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes recombinant MAP3K7 biochemical inhibition with an ADP readout and interference controls, while limiting cellular and causal conclusions.",
+      "response_quotes": [
+        "Do not infer cellular target engagement from this assay."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent preparation, reaction, ATP depletion, ADP detection and analysis outline with appropriate intended controls. Essential operational parameters and validation thresholds remain unresolved; this is not yet an executable supported procedure.",
+      "response_quotes": [
+        "Stop the kinase reaction and deplete residual ATP, perform the ADP detection reaction, and measure luminescence.",
+        "Enzyme construct, activation requirements, substrate, ATP and enzyme concentrations, reaction time, temperature, vehicle fraction, and detection timings remain unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Internally consistent and explicitly provisional dilution design. Broad coverage alone gives limited contextual justification for choosing a 100 uM top and ten points; supplied measurements are not used to justify these particular settings. No arithmetic contradiction or fabricated support is evident.",
+      "response_quotes": [
+        "Prepare CHEMBL1077979 over a provisional 10-point, 3-fold dilution series from 100 uM, with three independent replicates.",
+        "The numeric concentration-series and replication settings are provisional assumptions, not sourced measurements."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of ADP-Glo with the unresolved MAP3K7 construct, activation requirements and substrate.",
+    "Comparability of the retained assay formats with the proposed assay.",
+    "Compound solubility, vehicle tolerance and validated operating conditions are not supplied."
+  ],
+  "assumption_handling": "Clearly labels numerical choices provisional and operational conditions unresolved. Correctly avoids transferring other compounds potency values or assay-specific preincubation and does not claim the supplied examples validate ADP-Glo.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points span 100 to 0.005080526342529086 uM (5.080526342529086 nM). No explicit minimum or list contradicts this. Three replicates are called independent, though their experimental organization remains unspecified."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and essential operating parameters require domain validation; the provisional concentration range has limited contextual justification."
+}

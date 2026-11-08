@@ -1,0 +1,70 @@
+{
+  "item_id": "522e2657d01b73df",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Recombinant human mTOR biochemical kinase inhibition with ADP production matches the requested system and endpoint and is distinguished from cellular viability. Compatibility remains unestablished.",
+      "response_quotes": [
+        "recombinant human mTOR kinase",
+        "It directly measures biochemical inhibition, satisfying the requirement to distinguish from cellular viability."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "medium"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection and analysis are coherently ordered. Essential enzyme, substrate and ATP conditions remain unresolved. Detection settings lack supplied support. The proposed zero-activity positive control is neither validated as complete inhibition nor independent of the query compound. Background and detection-interference controls are absent. This is an incomplete outline.",
+      "response_quotes": [
+        "Stop reaction, deplete residual ATP, add ADP-Glo detection reagent, incubate, then measure luminescence.",
+        "positive control inhibitor (e.g., Ku-0063794)",
+        "manufacturer recommended ratio"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.entities",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Preparation specifies 1% DMSO whereas the vehicle control specifies 0.1%, a tenfold mismatch undermining normalization. The top concentration is honestly unresolved, leaving series endpoints incalculable. Other fixed operating settings lack supplied support.",
+      "response_quotes": [
+        "0.01 (1% DMSO)",
+        "vehicle (0.1% DMSO)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Tenfold discrepancy between preparation vehicle fraction and vehicle control.",
+      "response_quote": "vehicle (0.1% DMSO)",
+      "reason": "Preparation specifies 0.01 (1% DMSO); normalization against 0.1% vehicle would confound compound and vehicle effects unless corrected."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of recombinant mTOR, unspecified peptide and ADP-Glo with the heterogeneous retained assays.",
+    "Optimal enzyme, substrate, ATP, temperature, reaction and detection conditions, vehicle tolerance and compound solubility."
+  ],
+  "assumption_handling": "Top concentration and enzyme/substrate/ATP concentrations are explicitly unresolved; enzyme comparability and 1% vehicle tolerance are labeled assumptions. However, retained examples are falsely presented as evidence of ADP-Glo usage: described examples use LANCE, radiometric or fluorescence-polarization formats, and others omit format. Manufacturer ratio, 30°C and detection timings lack supplied support; an optimization caveat does not validate them.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "With unresolved T, the ten-point threefold series ends at T/19683; endpoints cannot be calculated. 0.01 equals 1%, but vehicle control is 0.1%. Three replicates are not distinguished as technical or independent."
+  },
+  "needs_human_review": true,
+  "review_reason": "Resolve vehicle contradiction, unsupported ADP-Glo source claim, assay compatibility, operating conditions and control normalization before execution."
+}

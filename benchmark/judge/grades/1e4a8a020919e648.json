@@ -1,0 +1,66 @@
+{
+  "item_id": "1e4a8a020919e648",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses purified Aurora A biochemical activity, distinguishes cellular effects, and supplies no remembered query potency.",
+      "response_quotes": [
+        "Purified recombinant human Aurora kinase A (O14965) with peptide substrate in vitro"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent ordered preparation, reaction, ATP depletion/detection and normalized curve fitting with vehicle, background and reference controls. Essential concentrations and detection conditions remain unresolved. Transferring retained fluorescence-assay timing to ADP-Glo is not validated, and compound detection-interference controls are unspecified.",
+      "response_quotes": [
+        "Stop reaction with ADP-Glo reagent to deplete residual ATP, then add detection reagent and read luminescence."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Ten threefold points span nine intervals, or 4.294 logs, contradicting the claimed approximately 3.3 logs by roughly an order of magnitude. The 50 \u00b5M top and triplicates are disclosed assumptions but have limited contextual justification.",
+      "response_quotes": [
+        "3 (assumption; gives ~3.3 log range over 10 points)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Explicit dilution-span arithmetic error.",
+      "response_quote": "3 (assumption; gives ~3.3 log range over 10 points)",
+      "reason": "Ten threefold concentrations span 4.294 logs, materially misstating the quantitative range justification. This does not invalidate the biochemical endpoint."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained fluorescence, Z-prime-LYTE or unspecified assays with ADP-Glo.",
+    "Suitable Aurora A preparation, substrate, enzyme and ATP concentrations, temperature, and detection conditions.",
+    "Compound solubility at 50 \u00b5M, DMSO tolerance and interference with luminescent detection."
+  ],
+  "assumption_handling": "Most unsupported settings are labeled assumptions or unresolved. Claims of compatibility and directly supported transferred timing overstate the retained evidence. The asserted manufacturer ratio lacks a supplied manufacturer protocol despite its unresolved label. Triplicates are not distinguished from independent experiments.",
+  "numeric_check": {
+    "top_uM": 50,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.002540263171264543,
+    "prose_consistent": false,
+    "notes": "Minimum = 0.00254026317 \u00b5M = 2.54026317 nM; span = 4.29409129 logs rather than stated ~3.3 logs. No query potency supplied."
+  },
+  "needs_human_review": true,
+  "review_reason": "Unresolved assay compatibility and operating conditions, unsupported manufacturer-ratio attribution, and the explicit numerical-span contradiction require review."
+}

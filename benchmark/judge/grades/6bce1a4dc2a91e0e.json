@@ -1,0 +1,62 @@
+{
+  "item_id": "6bce1a4dc2a91e0e",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Direct biochemical DYRK1A activity assay addresses the requested endpoint and appropriately limits cellular, selectivity and causal conclusions.",
+      "response_quotes": [
+        "ADP-Glo luminescence reporting ADP formation and thus residual kinase activity after CHEMBL1077347 treatment.",
+        "does not by itself establish cellular efficacy, selectivity, or target-specific causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion/ADP detection and analysis are coherently ordered with relevant intended controls. Essential reaction and detection settings, reference inhibitor and interference-control implementation remain unresolved; this is an outline rather than an executable validated procedure.",
+      "response_quotes": [
+        "Stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence according to the validated ADP-Glo procedure.",
+        "Enzyme construct and concentration, substrate identity and concentration, ATP concentration, buffer, preincubation, reaction time, temperature, vehicle tolerance, plate format, and detection timings remain unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is arithmetically coherent and honestly provisional. Range finding supplies a purpose but insufficient justification for the particular 100 uM top, ten points and three independent replicates using supplied context. No false potency or numeric source is asserted.",
+      "response_quotes": [
+        "The 100 uM top concentration, threefold dilution, 10 points, and three replicates are assumptions rather than sourced parameters.",
+        "The proposed concentration range and replication are explicitly provisional range-finding choices."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of ADP-Glo with this compound and the selected DYRK1A construct is unestablished.",
+    "Comparability with retained heterogeneous biochemical assays is unknown.",
+    "Optimal enzyme, substrate, ATP, buffer, temperature, timing, vehicle and detection conditions are not supplied."
+  ],
+  "assumption_handling": "Clearly separates provisional numerical choices from unresolved operating conditions and contextual measurements of other compounds. The reference to a validated ADP-Glo procedure is not supplied evidence of actual validation; detection settings are explicitly unresolved.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten threefold points from 100 uM end at 0.005080526342529086 uM (5.080526342529086 nM). No contrary endpoint or full series is asserted. Three independent replicates are named, but their implementation is unspecified."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and pilot validation are required for assay compatibility and unresolved operating and interference-control conditions."
+}

@@ -1,0 +1,60 @@
+{
+  "item_id": "c6b8e056db2b5799",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Selects human TMD8 cellular ATP viability and appropriately limits endpoint interpretation and BTK causality.",
+      "response_quotes": [
+        "ATP-based luminescence (CellTiter-Glo) as a surrogate for viable/metabolically active cell number",
+        "A TMD8 viability concentration-response for CHEMBL5188786 cannot by itself establish BTK (Q06187) inhibition, direct binding, selectivity, or target-specific causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Includes ordered preparation, exposure, detection and analysis with appropriate intended controls. Essential culture, exposure, detection and acceptance conditions remain unresolved; this is an outline rather than an executable protocol.",
+      "response_quotes": [
+        "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved",
+        "reference inhibitor control (identity and concentration unresolved)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honestly abstains from series and replicate settings without retained evidence. No explicit arithmetic contradiction is present, but a null series cannot earn full credit.",
+      "response_quotes": [
+        "top_concentration_uM: null/unresolved; dilution_factor: null/unresolved; n_points: null/unresolved; replicates: null/unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Assay comparability and compound-specific ATP-readout interference are not established by supplied evidence.",
+    "Optimal TMD8 culture density, medium, exposure duration and detection settings are unsupported."
+  ],
+  "assumption_handling": "Clearly separates provisional 37°C/5% CO2 culture and conditional 4PL assumptions from packet evidence; unsupported operational and numerical settings are unresolved without claimed source validation.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Explicit numerical abstention; no concentration series is available for arithmetic checking."
+  },
+  "needs_human_review": true,
+  "review_reason": "Supporting protocol evidence and domain review are needed to resolve culture and detection conditions, assay compatibility, concentration series and acceptance criteria."
+}

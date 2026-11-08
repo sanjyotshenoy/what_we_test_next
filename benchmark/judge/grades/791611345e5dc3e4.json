@@ -1,0 +1,69 @@
+{
+  "item_id": "791611345e5dc3e4",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Recombinant biochemical kinase inhibition with an ADP readout directly addresses the requested system and endpoint. The response appropriately limits interpretation of bulk ADP production. Historical assay comparability remains unestablished.",
+      "response_quotes": [
+        "biochemical luminescence (ADP-Glo)",
+        "Luminescence readout reports bulk ADP production"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 0,
+      "rationale": "Preparation, reaction, ATP depletion and detection are ordered coherently and controls are named. However, the entire response lacks normalization, a fitting procedure, uncertainty reporting and acceptance criteria. The essential analysis stage for measuring concentration-dependent inhibition is absent; merely mentioning IC50 estimation does not provide it.",
+      "response_quotes": [
+        "Stop reaction, deplete residual ATP, add ADP-Glo detection reagent, incubate, measure luminescence.",
+        "Serial dilution enables IC50 estimation without assuming potency."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Explicitly unresolved top concentration prevents a complete series. Threefold spacing, ten points and three replicates are plausible but unjustified. The 10 µM ATP value is present in retained radioactive-assay evidence, but matching it does not ensure comparable conditions. Specified temperature and reaction/detection times lack supplied support or explicit provisional labeling.",
+      "response_quotes": [
+        "ensuring comparable conditions",
+        "Top concentration, enzyme and substrate concentrations are not supported by the input packet and must be empirically determined"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "procedural_soundness",
+      "issue": "Essential analysis stage absent.",
+      "response_quote": "Stop reaction, deplete residual ATP, add ADP-Glo detection reagent, incubate, measure luminescence.",
+      "reason": "Luminescence collection does not specify normalization against controls or estimation of a concentration-response curve and uncertainty; no analysis stage appears elsewhere."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of recombinant ADP-Glo with the retained radioactive assay and incompletely described other assays.",
+    "Supported substrate, enzyme preparation/activation requirements, enzyme/substrate amounts and validated reaction/detection conditions are unavailable.",
+    "Reference inhibitor suitability and compound solubility/vehicle tolerance are not established by supplied evidence."
+  ],
+  "assumption_handling": "Explicitly marks top concentration and enzyme/substrate amounts unresolved and DMSO fraction assumed. Other specified operating conditions are not similarly qualified. Shared ATP concentration is incorrectly presented as ensuring comparability. Replicate type is unspecified.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Top concentration is unresolved. For a chosen top T, minimum is T/19683 µM. No explicit endpoint arithmetic contradiction occurs."
+  },
+  "needs_human_review": true,
+  "review_reason": "Missing analysis stage, unsupported operating settings and unresolved assay compatibility need domain review."
+}

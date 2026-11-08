@@ -1,0 +1,62 @@
+{
+  "item_id": "2017adbfb16fde48",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Addresses biochemical Aurora A inhibition with an ADP-based kinase readout and explicitly limits cellular and causal interpretation.",
+      "response_quotes": [
+        "biochemical kinase inhibition concentration-response assay (ADP-Glo luminescent)",
+        "Biochemical inhibition does not establish cellular Aurora A engagement, cellular viability effects or target-specific causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Correctly orders preparation, kinase reaction, ATP depletion, ADP detection and analysis with relevant intended controls. Essential reaction and detection settings, reference control identity and acceptance thresholds remain unresolved, and interference validation is not operationalized; this is an honest outline rather than an executable protocol.",
+      "response_quotes": [
+        "Stop the reaction, deplete residual ATP, perform ADP detection, and measure luminescence using a verified ADP-Glo-compatible procedure.",
+        "enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved; reaction_time=unresolved; temperature=unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The proposed series is arithmetically coherent and explicitly provisional, without invented potency or source support. A broad range alone provides limited justification for the particular 100 uM top, spacing and count; replicate type and rationale are also unspecified. Solubility and vehicle tolerance remain unresolved.",
+      "response_quotes": [
+        "top_concentration_uM=100 (provisional assumption, not sourced); dilution_factor=3 (provisional assumption); n_points=10 (provisional assumption); replicates=3 (provisional assumption)",
+        "Use a provisional broad series because no query-specific potency is supplied."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note",
+        "generator_input.guidelines"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability between retained fluorescence or unspecified assays and the proposed ADP-Glo assay is not established.",
+    "Optimal enzyme, substrate, ATP, reaction and detection conditions, compound solubility, DMSO tolerance and detection interference cannot be established from the supplied evidence."
+  ],
+  "assumption_handling": "Clearly separates proposed concentration, dilution, replicate, vehicle and fit choices from sourced facts. Acknowledges unresolved operating conditions and correctly treats other-compound measurements as contextual rather than estimates of query potency. Replicate independence is not specified.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten threefold points yield 100 to 0.0050805263 uM (5.0805263 nM). No explicit lower endpoint or list contradicts this. Three replicates are not identified as technical versus independent."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay compatibility and operational settings require domain validation; numerical choices are honest but weakly justified."
+}

@@ -1,0 +1,62 @@
+{
+  "item_id": "4decfbf66ae0fe09",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses purified MAPK9 catalytic inhibition and limits conclusions to biochemical activity. The EFC example is loosely characterized as inhibition although it measures displacement, but the radiometric example supports the biochemical system.",
+      "response_quotes": [
+        "Purified recombinant human MAPK9/JNK2 (P45984) with a kinase substrate and ATP in vitro",
+        "This design measures biochemical inhibition only; it does not address cellular viability or target-specific causality in cells"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection, normalization and fitting are ordered coherently with vehicle, background and reference controls. Substrate identity, enzyme/ATP settings, detection conditions and acceptance criteria remain unresolved; compound interference controls and replicate independence are unspecified. This is an outline pending validation.",
+      "response_quotes": [
+        "Stop the reaction and deplete residual ATP with ADP-Glo reagent, then add detection reagent and read luminescence.",
+        "verify linearity with a time-course pilot"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The 30 \u00b5M, threefold, ten-point series is consistent with an approximately four-log span. Values are explicitly assumptions, but the claimed likely range lacks a contextual justification for CHEMBL10; retrieved examples are explicitly not used to support it. Replicate count and solvent ceiling also remain assumptions.",
+      "response_quotes": [
+        "chosen to span likely sub-\u00b5M\u2013tens-\u00b5M range",
+        "10 (assumption; gives ~4-log span)",
+        "All numeric series parameters are therefore explicitly labeled assumptions"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained inactive-JNK2 displacement and radiometric assays with the proposed ADP-Glo assay.",
+    "Suitable MAPK9 construct, substrate, reaction conditions, DMSO tolerance and detection performance are not supplied."
+  ],
+  "assumption_handling": "Separates provisional numbers from unresolved operating settings without supplying a remembered potency. Calling the concentration range likely is insufficiently grounded. The question does not specifically request luminescence, despite the response claiming a requested readout. Manufacturer references are deferred validation sources, not supplied evidence.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": true,
+    "notes": "Minimum 0.0015241579 \u00b5M (1.5241579 nM); span 19683-fold, or 4.294 log10 units, consistent with ~4-log span. Three replicates are not distinguished as technical wells or independent runs."
+  },
+  "needs_human_review": true,
+  "review_reason": "Assay comparability and operational settings need domain review and pilot validation before execution."
+}

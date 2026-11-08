@@ -1,0 +1,77 @@
+{
+  "item_id": "a007796bba3bdbde",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Purified IRAK1 catalytic inhibition with an ADP-based endpoint directly addresses the biochemical question without claiming cellular or target-selective causality.",
+      "response_quotes": [
+        "recombinant human IRAK1 (P51617) purified protein",
+        "ADP‑Glo luminescence (measure ADP produced)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection and fitting are coherently ordered. Essential operating conditions lack supplied validation, reference inhibitor range is unspecified, and 0% DMSO controls conflict with the 0.1% vehicle instruction. This is not a supported executable procedure.",
+      "response_quotes": [
+        "Terminate the kinase reaction, deplete remaining ATP with the ADP‑Glo reagent, then add the detection reagent and read luminescence.",
+        "0.1 % DMSO (v/v) – same in all wells",
+        "0 % DMSO vehicle (max activity)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Ten points starting at 10 µM with factor 3 end at 0.000508 µM, not approximately 0.02 µM. Enzyme concentration and detection volumes/timing claim manufacturer support absent from the supplied evidence, and substrate saturation is unsupported. Retained examples support the series precedent and 10 µM ATP, but not these additional settings.",
+      "response_quotes": [
+        "10 µM → ~0.02 µM",
+        "5 ng/µL (typical for ADP‑Glo, see manufacturer guidance)",
+        "20 µL detection reagent per 20 µL reaction (per kit protocol)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Explicit dilution endpoint arithmetic error",
+      "response_quote": "10 µM → ~0.02 µM",
+      "reason": "The stated series ends at 10/3^9 = 0.0005080526 µM (0.508 nM), about 39.4-fold below the claimed endpoint."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Material operational numbers claim absent source support",
+      "response_quote": "20 µL detection reagent per 20 µL reaction (per kit protocol)",
+      "reason": "No kit protocol was supplied. Step cards give sequence and unresolved slots, not reagent ratios or timing, so this numerical choice lacks its claimed evidence."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained IRAK1 assays with the proposed recombinant human IRAK1 ADP-Glo system.",
+    "Compatibility and optimal concentrations of IRAK1 construct, substrate, ATP, buffer and solvent; enzyme linearity and substrate saturation.",
+    "Actual manufacturer reagent ratios and incubation requirements; compound solubility and detection interference."
+  ],
+  "assumption_handling": "Solubility and interference limitations are acknowledged, but numerous conditions are presented as typical, standard, saturating or manufacturer-supported rather than explicitly unresolved. Generic kinase Km reasoning does not establish IRAK1 ATP kinetics. Absence of a supplied potency does not establish that the resulting measurement will be novel.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": false,
+    "notes": "Minimum is 0.0005080526 µM = 0.5080526 nM versus prose ~0.02 µM. Three replicates are not distinguished as technical or independent. Vehicle controls disagree (0% versus 0.1% DMSO)."
+  },
+  "needs_human_review": true,
+  "review_reason": "Arithmetic error, absent claimed protocol support, conflicting vehicle controls and unresolved assay compatibility require review."
+}

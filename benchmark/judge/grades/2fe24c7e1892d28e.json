@@ -1,0 +1,64 @@
+{
+  "item_id": "2fe24c7e1892d28e",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Uses the requested cellular viability system and appropriately limits ATP-based interpretation and target causality.",
+      "response_quotes": [
+        "CellTiter-Glo measures ATP content, a composite of cell number and metabolic state",
+        "cannot by itself attribute the phenotype to Aurora kinase A."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent ordered preparation, exposure, detection and analysis with relevant controls. Operating settings require validation and the reference control is unidentified. Replicate independence is ambiguously labeled, although the rationale clarifies within-plate variability and recommends an independent repeat. This remains an outline.",
+      "response_quotes": [
+        "3 biological/technical replicate wells per condition",
+        "compound identity unresolved in packet",
+        "2 min orbital shaking (assumption)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Numeric choices are explicitly provisional with no retained measurement anchor. The claim to bracket any plausible cellular potency is unsupported. Solubility and vehicle tolerance remain unresolved. The stated lower endpoint is a slightly inaccurate approximation, not a material unit contradiction.",
+      "response_quotes": [
+        "The 10-point, 3-fold series spanning 30 \u00b5M to ~1.4 nM is chosen to bracket any plausible cellular potency",
+        "all numeric parameters (top concentration, dilution scheme, seeding density, exposure time, reagent volumes) are assumptions, not sourced facts"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Assay comparability is not established by the supplied packet.",
+    "Optimal RPMI-8226 culture, seeding density, exposure window and ATP detection settings are not supported.",
+    "Compound solubility/stability, vehicle tolerance and reference-control performance are unresolved.",
+    "Target specificity of the suggested orthogonal biomarkers and the multi-kinase scaffold characterization cannot be verified from supplied evidence."
+  ],
+  "assumption_handling": "Most numeric choices are clearly labeled assumptions. Standard or manufacturer-standard descriptions provide no actual source support; the broad potency-bracketing claim exceeds available evidence.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": false,
+    "notes": "30/3^9 = 0.0015241579 \u00b5M = 1.5241579 nM, versus approximately 1.4 nM in prose. This small approximation error does not materially invalidate the design. Triplicate wells are not established independent biological replicates."
+  },
+  "needs_human_review": true,
+  "review_reason": "Culture/detection conditions, assay comparability, concentration suitability and mechanistic follow-up specificity require domain review and empirical validation."
+}

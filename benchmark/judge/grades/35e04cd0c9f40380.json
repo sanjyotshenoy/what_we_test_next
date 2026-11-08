@@ -1,0 +1,66 @@
+{
+  "item_id": "35e04cd0c9f40380",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 1,
+      "rationale": "The requested recombinant Mer biochemical endpoint is proposed, but ADP-production luminescence is incorrectly described as inverse kinase activity, leaving interpretation inconsistent.",
+      "response_quotes": [
+        "luminescence proportional to ADP produced (inverse of kinase activity)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "The preparation, reaction, ATP depletion, ADP detection and analysis stages are ordered coherently with vehicle/reference/background controls. Detection conditions lack validation, enzyme loading and linearity are unsupported, and reference inhibition is assumed complete. Detection-interference controls are absent. The inverse-activity wording requires correction, though no explicitly inverted normalization formula is given.",
+      "response_quotes": [
+        "stop 5 µL, detection 10 µL per 25 µL reaction"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "100 µM diluted threefold for ten points ends at 0.0050805 µM (5.0805 nM), not approximately 0.02 µM, and does not sample sub-nanomolar concentrations.",
+      "response_quotes": [
+        "A 1:3 dilution series spanning 100 µM to ~0.02 µM provides sufficient coverage to capture sub‑nanomolar to high‑micromolar potency"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Incorrect series endpoint and claimed sub-nanomolar coverage.",
+      "response_quote": "A 1:3 dilution series spanning 100 µM to ~0.02 µM provides sufficient coverage to capture sub‑nanomolar to high‑micromolar potency",
+      "reason": "The ten-point series minimum is 5.0805 nM; the stated endpoint and sub-nanomolar coverage do not follow from the specified settings."
+    }
+  ],
+  "not_assessable_components": [
+    "ADP-Glo compatibility with the supplied peptide-separation assay conditions is not established.",
+    "Optimal construct, enzyme loading, ATP Km, reaction duration and temperature are not supplied.",
+    "Detection reagent ratios/timings, solubility at the top concentration and reference inhibitor completeness are unvalidated."
+  ],
+  "assumption_handling": "ATP Km, reference identity and top concentration are labeled assumptions, but other operating settings are presented as typical without support. The retained peptide-separation examples do not demonstrate the claimed homogeneous luminescence compatibility. The solubility disclaimer addresses concentrations above 100 µM without validating 100 µM itself.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": false,
+    "notes": "Minimum is 0.0050805263 µM = 5.0805263 nM. Three replicates are specified without distinguishing technical from independent experiments. Numeric strings are not penalized."
+  },
+  "needs_human_review": true,
+  "review_reason": "Numerical inconsistency, reversed readout description and unresolved assay compatibility require review before execution."
+}

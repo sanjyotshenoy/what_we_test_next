@@ -1,0 +1,60 @@
+{
+  "item_id": "b1e1c9272ab41b54",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses Rec-1 cellular viability and distinguishes ATP signal changes from BTK inhibition, engagement and target-specific causality.",
+      "response_quotes": [
+        "Rec-1 cells treated with CHEMBL3936761 (zanubrutinib)",
+        "It cannot, by itself, demonstrate BTK inhibition, BTK target engagement, or that BTK inhibition causes the viability effect."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, ATP detection and analysis are ordered coherently with relevant intended controls. Essential culture and reagent settings, reference control identity and validation thresholds remain unresolved; this is an outline rather than an executable supported procedure.",
+      "response_quotes": [
+        "Apply the ATP-based viability reagent, mix and stabilize according to a supported CellTiter-Glo procedure, and measure luminescence.",
+        "Cell density, medium, exposure time, vehicle tolerance, reagent processing conditions, and acceptance thresholds remain unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Honestly abstains from numerical series and replicate choices without supplied contextual measurements. No arithmetic contradiction exists, but null series fields preclude a complete justified numerical design.",
+      "response_quotes": [
+        "No retained measurement examples are available; therefore numeric concentration-series and replicate fields are null rather than invented, and no IC50 is predicted."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Optimal Rec-1 density, medium, temperature, exposure duration and vehicle tolerance lack supplied support.",
+    "CellTiter-Glo operating conditions, assay performance and comparability with any reference assay cannot be established from the supplied scaffolding."
+  ],
+  "assumption_handling": "Unsupported settings are explicitly unresolved, with fitting and acceptance criteria labeled as assumptions. No numerical source support is invented, but the requested numeric design is incomplete.",
+  "numeric_check": {
+    "top_uM": null,
+    "factor": null,
+    "points": null,
+    "computed_min_uM": null,
+    "prose_consistent": null,
+    "notes": "Series fields and replicate count are null; no numerical series or endpoints exist to check."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and supporting protocols are required to resolve operating conditions, control selection, assay compatibility and a quantitative pilot design."
+}

@@ -1,0 +1,73 @@
+{
+  "item_id": "b67fad5bffd3da89",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 0,
+      "rationale": "The Rec-1 ATP viability endpoint matches the question and limitations acknowledge nonspecific effects. However, the explicit claim that a reference BTK inhibitor validates BTK-mediated growth inhibition is a material causal overclaim that those limitations do not remove.",
+      "response_quotes": [
+        "Including a known BTK inhibitor validates that the assay can report BTK‑mediated growth inhibition."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, detection and analysis are ordered coherently with vehicle, reference and background controls. Culture and detection settings lack supplied validation; explicit culture volume, replicate independence, reference performance range and readout interference validation remain unresolved. This is an outline rather than a supported executable protocol.",
+      "response_quotes": [
+        "Add CellTiter‑Glo reagent (100 µL per well), mix for 2 min, incubate 10 min to stabilize luminescence, then read on a plate luminometer."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The dilution arithmetic matches the rounded endpoint and the top concentration is labeled an assumption. However, the important 100 µL/well detection reagent volume is claimed to follow a manufacturer protocol that was not provided. Other culture and acceptance settings are unsupported rather than designated unresolved.",
+      "response_quotes": [
+        "100 µL/well (as per manufacturer protocol)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "suitability",
+      "issue": "Reference viability response asserted to validate BTK-mediated growth inhibition.",
+      "response_quote": "Including a known BTK inhibitor validates that the assay can report BTK‑mediated growth inhibition.",
+      "reason": "A reference viability curve cannot establish BTK-specific causality."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported claimed manufacturer provenance for reagent volume.",
+      "response_quote": "100 µL/well (as per manufacturer protocol)",
+      "reason": "No manufacturer procedure is supplied; the claimed evidentiary support for this important quantitative detection setting is fabricated."
+    }
+  ],
+  "not_assessable_components": [
+    "Optimal Rec-1 medium, density, exposure duration and culture conditions are not supported by supplied evidence.",
+    "Reference inhibitor assay comparability and expected viability EC50 cannot be established from the packet.",
+    "Detection reagent volume and timing compatibility cannot be validated without a supported procedure and explicit culture volume."
+  ],
+  "assumption_handling": "The top concentration is clearly labeled an assumption and its uncertain effective window acknowledged. This disclosure does not support the asserted standard cell density, typical exposure, manufacturer-derived reagent volume or literature-based reference acceptance criterion.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": true,
+    "notes": "10/3^7 = 0.0045724737 µM (4.5724737 nM), consistent with ~0.005 µM. Density and cells/well imply 100 µL culture volume, which is not explicit. Three replicates are not distinguished as technical or biological."
+  },
+  "needs_human_review": true,
+  "review_reason": "Causal overclaim, absent manufacturer source and unvalidated culture, reference and detection settings require review; wet-lab compatibility remains unresolved."
+}

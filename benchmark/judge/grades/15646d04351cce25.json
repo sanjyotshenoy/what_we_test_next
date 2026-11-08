@@ -1,0 +1,69 @@
+{
+  "item_id": "15646d04351cce25",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Recombinant human NUAK1 and an ADP-production biochemical endpoint directly address the requested kinase inhibition experiment without cellular or selectivity claims.",
+      "response_quotes": [
+        "recombinant human NUAK1 (O60285) kinase",
+        "luminescence proportional to ADP produced"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection and analysis are coherently ordered with vehicle and no-enzyme controls. Buffer, substrate identity, reaction volume and validation of linear turnover remain unresolved. Fixed operating conditions lack supplied support, making this an outline rather than a supported executable procedure.",
+      "response_quotes": [
+        "deplete residual ATP for 40 min, then add detection reagent and incubate 30 min",
+        "buffer composition is not detailed in the packet."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The series has no arithmetic contradiction, but the claimed ATP Km of approximately 50 µM is a materially important numerical target property absent from supplied evidence. The retained examples provide IC50 values, not ATP Km. The global assumptions disclaimer does not resolve that specific claim. The explicitly provisional series itself is not fabricated evidence.",
+      "response_quotes": [
+        "ATP at its Km (~50 µM)",
+        "concentrations and enzyme/substrate levels follow typical kinase assay practice to stay within linear range and near Km for ATP."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Unsupported numerical ATP Km presented as a target property.",
+      "response_quote": "ATP at its Km (~50 µM)",
+      "reason": "Neither the cards nor retained measurements provide ATP Km; the asserted property is used to justify a materially important reaction concentration."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained ARK5 assays with the proposed recombinant NUAK1 ADP-Glo assay.",
+    "Suitability of unspecified substrate and buffer and linearity at the selected operating conditions.",
+    "Compound solubility, vehicle tolerance and detection interference."
+  ],
+  "assumption_handling": "Labels series choices as conventional and overall conditions as assumptions and acknowledges missing buffer information. Nevertheless, a specific ATP Km and linear-range rationale are asserted without supplied support; individual operating settings are not clearly marked unresolved.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten threefold points from 100 µM end at 0.005080526342529086 µM (5.080526342529086 nM). No conflicting endpoint is stated. Duplicate wells are technical replicates; independent experiments are unspecified."
+  },
+  "needs_human_review": true,
+  "review_reason": "Unsupported ATP Km and unresolved assay compatibility and operating-condition validation require domain review."
+}

@@ -1,0 +1,62 @@
+{
+  "item_id": "833ade92c9d629b8",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Addresses cell-free IRAK1 concentration-response inhibition and appropriately limits conclusions to biochemical activity.",
+      "response_quotes": [
+        "Cell-free biochemical IRAK1 kinase concentration-response assay using ADP-Glo",
+        "It does not measure cellular viability or establish target-specific cellular causality"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, depletion, detection and analysis are coherently ordered with appropriate intended vehicle, reference, background and interference controls. Essential enzyme/substrate, detection, replication and acceptance settings remain unresolved; this is an outline requiring validation.",
+      "response_quotes": [
+        "Stop the reaction and deplete residual ATP with ADP-Glo reagent, then perform the ADP detection reaction and record luminescence.",
+        "Replicate number is unresolved, so the required numeric replicates field is null rather than invented."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 2,
+      "rationale": "The 10 uM top, threefold dilution, ten doses and 10 uM ATP match the retained same-target descriptions. The response treats the series as a design choice, disclaims potency prediction, and explicitly requires validation of transfer to ADP-Glo. Arithmetic is consistent and unresolved operational settings are disclosed.",
+      "response_quotes": [
+        "Prepare a 10-point, 3-fold serial dilution of CHEMBL1738757 starting at 10 uM",
+        "transferring their concentration series and ATP concentration to ADP-Glo is a justified adaptation but requires format-specific validation."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of the retained HotSpot/other kinase assays to ADP-Glo.",
+    "Suitability of unresolved enzyme construct, substrate, enzyme loading, reaction conditions and detection settings.",
+    "Compound solubility, detection interference and actual assay performance."
+  ],
+  "assumption_handling": "Separates sourced series and ATP settings from unresolved laboratory parameters; labels model and added controls as provisional. Acknowledges cross-format validation and unknown ATP Km. Honest numeric abstention on replication leaves procedural completeness unresolved.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Minimum is 10/3^9 = 0.000508052634 uM, or 0.508052634 nM. No contrary endpoint or concentration list is supplied. Replicate number is explicitly null."
+  },
+  "needs_human_review": true,
+  "review_reason": "Requires domain review of assay compatibility and validation of unresolved enzyme, substrate, reaction, detection and replication settings."
+}

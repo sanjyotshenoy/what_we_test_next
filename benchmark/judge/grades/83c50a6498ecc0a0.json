@@ -1,0 +1,62 @@
+{
+  "item_id": "83c50a6498ecc0a0",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly measures purified/recombinant P48729 biochemical activity with ADP detection and limits conclusions to the assay conditions, without inferring cellular mechanism or query potency.",
+      "response_quotes": [
+        "Purified or recombinant Casein kinase I isoform alpha (P48729) with CHEMBL1234833",
+        "A biochemical IC50 demonstrates inhibition under the selected assay conditions only"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, kinase reaction, ATP depletion/ADP detection and normalized fitting form a coherent outline with background, reference and interference controls. Essential operating conditions and validation thresholds remain unresolved, so this is not an executable validated procedure.",
+      "response_quotes": [
+        "Stop the kinase reaction, add ADP-Glo reagent to deplete residual ATP, then add the ADP detection reagent",
+        "Enzyme construct and concentration, substrate identity and concentration, ATP concentration, buffer, reaction time and temperature, vehicle fraction, plate format, reagent volumes, and detection incubation times remain unresolved."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 2,
+      "rationale": "The internally consistent exploratory series is explicitly provisional and contextually justified by absent query potency and nontransferable reference conditions, with solubility/interference qualifications. Independent experiments are distinguished from unresolved technical replication. The supplied 10 uM ATP example is correctly restricted to its different assay.",
+      "response_quotes": [
+        "100 uM; provisional assumption for an initial wide-range screen, subject to solubility and assay interference",
+        "3 independent experiments; provisional assumption, with technical within-run replication unresolved",
+        "The wide dilution series is a provisional exploration strategy because the packet supplies no potency estimate for CHEMBL1234833."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Compatibility of retained generic CK1/radioactive measurements with the proposed specific P48729 ADP-Glo assay is unestablished.",
+    "Optimal enzyme construct, substrate, buffer, ATP, reaction and detection conditions, vehicle tolerance and compound solubility/interference are not supplied."
+  ],
+  "assumption_handling": "Clearly separates provisional series, replication and fitting choices from unresolved operating conditions and sourced assay descriptions; does not claim remembered query potency or experimental validation.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points span 100 to 0.005080526342529086 uM (5.080526342529086 nM). No explicit lower endpoint or list contradicts this. Replicates denote independent experiments; technical wells remain unresolved."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review and preliminary validation are needed for assay compatibility and unresolved operating conditions; wet-lab validity and performance are not established."
+}

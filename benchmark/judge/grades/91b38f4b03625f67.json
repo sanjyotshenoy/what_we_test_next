@@ -1,0 +1,62 @@
+{
+  "item_id": "91b38f4b03625f67",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly measures ATP-based viability in the requested engineered BaF3 system with a supported 48-hour exposure, and explicitly limits target-specific inference.",
+      "response_quotes": [
+        "ATP-content luminescence as proxy for viable cell number after 2-day compound exposure",
+        "it cannot by itself establish target-specific causality"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, detection and analysis are coherent, with vehicle/background and proposed reference controls. Essential culture, detection and acceptance settings remain unresolved; manufacturer instructions were not supplied. High-dose query wells are not an independently validated positive control. This remains an outline.",
+      "response_quotes": [
+        "reagent_volume: equal to culture volume per manufacturer protocol (assumption; unresolved)",
+        "acceptance_criteria: unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The provisional series is internally consistent and brackets contextual example potencies. However, the solubility/cytotoxic ceiling assurance is unsupported, as is calling the examples analogues. These claims prevent fully evidence-justified settings. Replicates are not distinguished as technical or biological.",
+      "response_quotes": [
+        "while remaining below typical solubility/cytotoxic ceilings",
+        "The retained examples are not similarity-ranked to CHEMBL169390, so their potency range only weakly justifies the chosen concentration window."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of proposed culture and construct with CHEMBL4822428 is not established.",
+    "Optimal cell density, medium and IL-3 dependence, temperature, vehicle tolerance and detection settings are not supplied.",
+    "CHEMBL169390 solubility, cytotoxic ceiling, potency and similarity to retained compounds are unknown."
+  ],
+  "assumption_handling": "Most unsupported operating settings and the concentration series are labeled assumptions or unresolved. The specific solubility/cytotoxic ceiling assurance and analogue designation exceed the evidence despite those disclaimers.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Minimum is 0.0005080526 \u00b5M (0.5080526 nM); maximum is 10000 nM. The series spans 19683-fold, exceeding two orders of magnitude and enclosing the contextual 8.1\u201386 nM range. Arithmetic does not establish suitable query-compound coverage."
+  },
+  "needs_human_review": true,
+  "review_reason": "Unresolved assay/culture compatibility and unsupported solubility/cytotoxic ceiling claims require domain review before execution."
+}

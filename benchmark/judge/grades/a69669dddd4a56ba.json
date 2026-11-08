@@ -1,0 +1,67 @@
+{
+  "item_id": "a69669dddd4a56ba",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 1,
+      "rationale": "Purified NUAK1 biochemical inhibition matches the requested endpoint and cellular claims are limited, but the inverse signal/activity label conflicts with the activity normalization.",
+      "response_quotes": [
+        "ADP-Glo luminescence proportional to ADP produced (inversely reporting kinase activity)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection and analysis are ordered coherently. Essential reaction and detection settings remain unresolved. Intended interference controls lack a specified signal-generating ADP condition. The inverse-readout label conflicts with otherwise coherent normalization rather than demonstrating an absent essential stage.",
+      "response_quotes": [
+        "run under linear-range conditions established by a pilot time-course.",
+        "Normalize each well to no-inhibitor (100% activity) and no-enzyme (0% activity) controls;"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The explicit justification that the series spans 0.026–43 µM contradicts its 30 µM maximum. This is an observable endpoint contradiction, not a judgment about unknown query potency or required range coverage. The series arithmetic and contextual unit conversions otherwise hold.",
+      "response_quotes": [
+        "chosen to span the 0.026–43 µM contextual range"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Claimed contextual range span exceeds the proposed maximum.",
+      "response_quote": "chosen to span the 0.026–43 µM contextual range",
+      "reason": "30 µM is below 43 µM, invalidating the stated range justification; this does not establish whether the series measures the unknown query potency."
+    }
+  ],
+  "not_assessable_components": [
+    "ADP-Glo comparability to retained assays is not established by their descriptions.",
+    "Appropriate enzyme construct, substrate, buffer, ATP, reaction and detection conditions and solvent tolerance require unavailable validation evidence.",
+    "Query-compound solubility and potency are unknown."
+  ],
+  "assumption_handling": "Most unsupported operating settings are explicitly unresolved and provisional numerical settings labeled assumptions. The initial compatibility claim exceeds the evidence, although the limitations later call compatibility an assumption. Triplicate wells are technical replication, with independent runs unspecified. Global caveats do not resolve the numerical span contradiction.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": false,
+    "notes": "Ten threefold points run from 30 to 0.0015241579027587258 µM (1.5241579027587258 nM), spanning about 4.294 logs. Example conversions to 0.026–43 µM are correct, but 43 µM exceeds the proposed maximum."
+  },
+  "needs_human_review": true,
+  "review_reason": "Review inverse readout interpretation, unresolved assay compatibility and operating conditions, and the contradictory numerical justification."
+}

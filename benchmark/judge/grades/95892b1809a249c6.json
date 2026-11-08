@@ -1,0 +1,61 @@
+{
+  "item_id": "95892b1809a249c6",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly proposes Rec-1 ATP-based viability concentration response and distinguishes this cellular proxy from biochemical BTK inhibition and target-specific causality.",
+      "response_quotes": [
+        "ATP-dependent luminescence as a proxy for viable cell number/metabolic activity",
+        "it cannot establish target-specific causality, because viability is downstream"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, detection and analysis are ordered coherently with vehicle and background controls. Essential culture and reagent parameters and acceptance thresholds remain unresolved; reference control is optional and replicate independence is unspecified. This is an honest outline, not an executable validated procedure.",
+      "response_quotes": [
+        "cell_density: unresolved; medium: unresolved",
+        "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The 10 \u00b5M, eight-point threefold series is internally coherent and openly provisional, but the response supplies no contextual rationale for its range or spacing or for three replicates. No retained measurements support these settings.",
+      "response_quotes": [
+        "top_concentration_uM: 10 (provisional assumption, not sourced)",
+        "The numeric concentration series, replicate count, and exposure time are provisional design assumptions, not sourced facts."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Optimal Rec-1 density, medium, exposure duration, temperature and vehicle tolerance are not supported by supplied evidence.",
+    "ATP reagent compatibility, compound interference and comparability to any reference assay cannot be established from this packet."
+  ],
+  "assumption_handling": "Numeric choices are explicitly labeled provisional rather than attributed to absent sources. Missing operating conditions are acknowledged. Labels alone do not justify the selected series, and three replicates are not identified as technical or independent biological repeats.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": true,
+    "notes": "Eight concentrations are 10/3^i \u00b5M for i=0..7, ending at 0.00457247 \u00b5M (4.57247 nM). Prose specifies eight points and threefold dilution consistently; no explicit lower endpoint is claimed."
+  },
+  "needs_human_review": true,
+  "review_reason": "Culture settings, assay compatibility, concentration range and control validation require domain review before execution."
+}

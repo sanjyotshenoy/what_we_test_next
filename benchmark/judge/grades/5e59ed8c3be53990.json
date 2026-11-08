@@ -1,0 +1,69 @@
+{
+  "item_id": "5e59ed8c3be53990",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 1,
+      "rationale": "The purified kinase assay addresses the biochemical endpoint and limits cellular claims, but the stated inverse relationship between ADP signal and kinase activity contradicts its later vehicle/high-activity normalization.",
+      "response_quotes": [
+        "ADP-Glo luminescence proportional to ADP produced (inversely proportional to kinase activity)",
+        "Normalize luminescence to vehicle (100% activity) and no-enzyme (0% activity) controls"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion, detection and analysis form a coherent outline with vehicle/background/reference controls. Essential enzyme, substrate, buffer and detection settings remain unresolved. Compound-only interference controls lack a defined ADP signal for assessing detection inhibition. Correct later normalization leaves the workflow interpretable despite the conflicting readout description.",
+      "response_quotes": [
+        "Stop the kinase reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent and read luminescence.",
+        "No packet evidence specifies CSNK1A1 enzyme concentration, substrate identity/concentration, assay buffer, temperature, or ADP-Glo reagent volumes/times; these are unresolved and require local optimization and linearity verification."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "The explicit lower endpoint is inconsistent: 100 / 3^9 = 0.005080526 µM, not approximately 0.002 µM, a factor of 2.54 discrepancy. Other numerical choices are labeled assumptions or supported precedents with transferability explicitly unproven.",
+      "response_quotes": [
+        "10 (assumption: covers 100 µM to ~0.002 µM)",
+        "The concentration series (100 µM top, 3-fold, 10 points, triplicate)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.output_contract"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Incorrect lower endpoint for the specified series.",
+      "response_quote": "10 (assumption: covers 100 µM to ~0.002 µM)",
+      "reason": "Ten concentrations starting at 100 µM with threefold dilution end at 0.005080526 µM (5.080526 nM); the stated 2 nM endpoint is incompatible with these settings."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained CK1 radioactive/scintillation and binding-associated examples with purified P48729 ADP-Glo inhibition is unestablished.",
+    "Transferability of 10 µM ATP and 30 min, substrate suitability, enzyme/buffer conditions and detection settings require validation.",
+    "Solubility at 100 µM and tolerance of 0.5% DMSO are unconfirmed."
+  ],
+  "assumption_handling": "Unsupported settings are mostly clearly identified as assumptions or unresolved. ATP and timing precedents are supplied, with transferability explicitly unproven. The exploratory range has contextual justification without predicting query potency, but its provisional label does not resolve the arithmetic contradiction. Triplicates are not distinguished as technical or independent repeats.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": false,
+    "notes": "Computed endpoint 0.005080526342529086 µM = 5.080526342529086 nM differs from claimed ~0.002 µM. Span is 4.294 log10 units, consistent with ~4 logs. DMSO fraction 0.005 equals 0.5%."
+  },
+  "needs_human_review": true,
+  "review_reason": "Resolve the readout-direction contradiction and numerical endpoint; assess assay compatibility and unsupported operating settings before experimental use."
+}

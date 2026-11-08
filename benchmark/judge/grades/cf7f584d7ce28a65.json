@@ -1,0 +1,63 @@
+{
+  "item_id": "cf7f584d7ce28a65",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Directly addresses biochemical DYRK1A inhibition with a cell-free kinase readout and appropriately limits cellular causal claims.",
+      "response_quotes": [
+        "Biochemical cell-free kinase inhibition concentration-response",
+        "it does not establish cellular viability or target-specific causality in cells."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherently orders preparation, reaction, ATP depletion/ADP detection and analysis with intended controls. Essential reaction and detection parameters, substrate identity and acceptance criteria remain unresolved; this is an outline rather than an executable procedure.",
+      "response_quotes": [
+        "Stop the reaction, deplete residual ATP, perform ADP detection, and measure luminescence using the ADP-Glo workflow.",
+        "enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The series is internally consistent and explicitly provisional, but its range and replicate count lack contextual justification. Other-compound measurements are appropriately not treated as potency predictions. Replicate type is unspecified.",
+      "response_quotes": [
+        "top_concentration_uM=100 (provisional assumption, not sourced); dilution_factor=3 (assumption); n_points=10 (assumption); replicates=3 (assumption)",
+        "must be adjusted for solubility and assay tolerance."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of retained measurements with the proposed ADP-Glo assay.",
+    "Compatibility and validated operating conditions for DYRK1A construct, substrate, ATP and ADP-Glo detection.",
+    "Compound solubility, vehicle tolerance and interference at proposed concentrations."
+  ],
+  "assumption_handling": "Numerical choices are clearly labeled unsourced assumptions and operational gaps explicitly unresolved. No potency or protocol support is fabricated, but labeling assumptions does not justify the range or replicate count.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": true,
+    "notes": "Ten points yield a minimum of 0.005080526342529086 uM (5.080526342529086 nM). No endpoint list or conflicting minimum is supplied; prose and structured settings agree."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review is needed to resolve assay compatibility, operating parameters, controls and concentration-range justification before execution."
+}

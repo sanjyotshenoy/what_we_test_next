@@ -1,0 +1,77 @@
+{
+  "item_id": "b7b05e2b4368db21",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "The recombinant kinase ADP-production assay addresses biochemical inhibition and limits inference to isolated enzymatic activity. The analysis contradiction is assessed under procedure.",
+      "response_quotes": [
+        "biochemical kinase inhibition (luminescence, ADP‑Glo)",
+        "The assay measures enzymatic activity in isolation and does not capture cellular context or off‑target effects."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 0,
+      "rationale": "Stages are ordered, but analysis assigns vehicle to zero activity and inhibitor to full activity, reversing the stated ADP activity readout and contradicting its own inhibition controls. Operational and interference-control validation also remain unsupported.",
+      "response_quotes": [
+        "Normalize luminescence to 0 % activity (vehicle control) and 100 % activity (reference inhibitor).",
+        "luminescence proportional to ADP production (ADP‑Glo™)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "100/3^9 is 0.00508 µM, not approximately 0.02 µM. Materially, the response claims literature support for 5 nM enzyme and approximately 10% conversion without supplied evidence. Generic caveats do not resolve these specific claims.",
+      "response_quotes": [
+        "A 10‑point, 3‑fold dilution spanning 100 µM to ~0.02 µM",
+        "5 nM (purified UFO catalytic domain, literature‑reported active concentration)",
+        "The chosen enzyme concentration yields ~10 % substrate conversion under linear conditions"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "procedural_soundness",
+      "issue": "Reversed activity normalization.",
+      "response_quote": "Normalize luminescence to 0 % activity (vehicle control) and 100 % activity (reference inhibitor).",
+      "reason": "Reverses interpretation of the stated ADP activity signal and conflicts with its vehicle zero-inhibition and reference full-inhibition controls."
+    },
+    {
+      "axis": "numerical_soundness",
+      "issue": "Invented support for a material enzyme setting.",
+      "response_quote": "5 nM (purified UFO catalytic domain, literature‑reported active concentration)",
+      "reason": "No supplied source establishes this enzyme concentration or conversion at that concentration, despite the explicit literature claim."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability of retained AXL measurements to ADP-Glo; the only detailed retained method uses radiolabeled ATP and scintillation counting.",
+    "Enzyme construct and Ephrin-A1-derived substrate suitability, ATP Km, linear reaction conditions, and detection reagent settings.",
+    "Solubility at 100 µM, vehicle tolerance, and reference effectiveness at 1 µM."
+  ],
+  "assumption_handling": "Generic parameters and inferred ATP Km are disclosed, but enzyme activity, substrate compatibility, conversion and assay comparability are asserted without supplied support. Replicates are not distinguished as technical or independent. Supplied evidence cannot establish the absence of any published query IC50.",
+  "numeric_check": {
+    "top_uM": 100,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.005080526342529086,
+    "prose_consistent": false,
+    "notes": "Minimum is 0.005080526 µM (5.080526 nM), not approximately 0.02 µM. Prose specifies 0.5% DMSO despite unitless vehicle_fraction."
+  },
+  "needs_human_review": true,
+  "review_reason": "Normalization and unsupported quantitative claims require correction; assay compatibility remains unresolved."
+}

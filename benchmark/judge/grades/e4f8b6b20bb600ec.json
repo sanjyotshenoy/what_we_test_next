@@ -1,0 +1,65 @@
+{
+  "item_id": "e4f8b6b20bb600ec",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Purified MAPK9 and ADP production directly address biochemical kinase inhibition without a cellular causal overclaim. Compatibility remains unvalidated.",
+      "response_quotes": [
+        "purified MAPK9 (JNK2)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 0,
+      "rationale": "Preparation, reaction and detection follow the supplied order with vehicle, activity and background controls. However, normalization, concentration-response fitting and uncertainty reporting are absent throughout, leaving an essential analysis stage missing. Operating conditions also remain unresolved.",
+      "response_quotes": [
+        "Stop reaction, deplete ATP, add ADP detection reagent, measure luminescence."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The threefold eight-point series is internally consistent but expected-range coverage based on similar compounds is unsupported: retrieval was not similarity-ranked and includes distinct assay formats. Replicate count and 1% vehicle lack justification. No explicit arithmetic contradiction is present.",
+      "response_quotes": [
+        "serial dilution covers expected range based on similar compounds."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "procedural_soundness",
+      "issue": "Entire response omits normalization, curve fitting and uncertainty analysis.",
+      "response_quote": "Stop reaction, deplete ATP, add ADP detection reagent, measure luminescence.",
+      "reason": "Workflow ends at raw luminescence without specifying how to derive the requested inhibition concentration-response result."
+    }
+  ],
+  "not_assessable_components": [
+    "Compatibility of proposed MAPK9 ADP-Glo assay with retained binding and radiometric assays.",
+    "Appropriate enzyme construct, peptide substrate, reaction concentrations, timing, temperature and detection conditions.",
+    "Solubility, vehicle tolerance and detection interference at proposed concentrations."
+  ],
+  "assumption_handling": "Reaction and detection settings are explicitly unresolved and acknowledged as unsupported. Expected range based on similar compounds is asserted despite retrieval not being similarity-ranked. Vehicle and replicate settings are not labeled assumptions or validated.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": true,
+    "notes": "Series spans 10 to 0.0045724737 \u00b5M (4.5724737 nM). No conflicting prose endpoints are supplied. Scientific expected-range coverage is unsupported. Numeric strings agree with top-level fields; replicate independence unspecified."
+  },
+  "needs_human_review": true,
+  "review_reason": "Missing analysis stage, unresolved assay compatibility and unvalidated operational settings require review."
+}

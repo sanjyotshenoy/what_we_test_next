@@ -1,0 +1,70 @@
+{
+  "item_id": "1ef5248a4ebac614",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 1,
+      "rationale": "The requested cellular ATP endpoint is addressed and target-specific causality is explicitly limited. However, MER-dependent growth and direct potency comparability are asserted without validation, leaving inconsistent interpretation.",
+      "response_quotes": [
+        "Using the same system and readout as the retained examples (CHEMBL4845957‑CHEMBL4849679) ensures methodological compatibility and allows direct comparison of potency.",
+        "Cell viability reduction does not prove that CHEMBL169390 acts through MER inhibition; off‑target cytotoxicity could produce the same phenotype."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, exposure, detection and analysis are coherent and include vehicle, background and reference controls. Essential cell-growth validation, reagent handling support and control qualification remain unresolved; supplied descriptions do not establish the claimed manufacturer procedure.",
+      "response_quotes": [
+        "Add CellTiter‑Glo reagent, mix for 10 min, allow 30 min stabilization, read luminescence.",
+        "RPMI‑1640 + 10 % FBS + IL‑3 (withdrawn for MER‑dependent growth) (assumption)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 0,
+      "rationale": "Dilution arithmetic is consistent and the top concentration is labeled an assumption. However, the materially important density and volume are attributed to CHEMBL4822428, which provides no such settings. Detection volume is also attributed to an unavailable manufacturer protocol.",
+      "response_quotes": [
+        "5 × 10^3 cells/well in 30 µL medium (evidence: standard BaF3 assay conditions in CHEMBL4822428)",
+        "30 µL per well (manufacturer protocol)"
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.step_cards"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [
+    {
+      "axis": "numerical_soundness",
+      "issue": "Fabricated source support for cell density and assay volume.",
+      "response_quote": "5 × 10^3 cells/well in 30 µL medium (evidence: standard BaF3 assay conditions in CHEMBL4822428)",
+      "reason": "The supplied description supports the cell system, two-day exposure and readout only, with no density or volume. These important settings cannot be presented as evidence-bound."
+    }
+  ],
+  "not_assessable_components": [
+    "Comparability with retained measurements and validity of direct potency comparisons.",
+    "Optimal density, medium, IL-3 withdrawal, temperature and CO2 conditions for this BaF3-MER system.",
+    "MER dependence, reference inhibitor suitability and reagent mixing/stabilization conditions."
+  ],
+  "assumption_handling": "Medium and the 10 µM top are labeled assumptions, and target-specific limitations are explicit. These disclaimers do not resolve unsupported evidence claims for density, volume and detection conditions. Triplicate wells are not distinguished from biological replicates; statistical power is asserted without support.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 8,
+    "computed_min_uM": 0.004572473708276178,
+    "prose_consistent": true,
+    "notes": "Eight threefold points span 10 µM to 0.00457247 µM (4.57247 nM); no conflicting endpoint is stated. vehicle_fraction 0.1 has unspecified units alongside 0.1% DMSO, so no definite arithmetic contradiction is assigned. Retained potencies do not establish query potency or range sufficiency."
+  },
+  "needs_human_review": true,
+  "review_reason": "Review unsupported operational evidence, cell-growth dependence and assay comparability before treating this outline as executable."
+}

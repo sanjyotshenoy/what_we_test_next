@@ -1,0 +1,61 @@
+{
+  "item_id": "2f4e004c19e70765",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Uses purified Mer and a biochemical activity endpoint, explicitly limiting conclusions to biochemical inhibition.",
+      "response_quotes": [
+        "Purified human Tyrosine-protein kinase Mer (Q12866) in vitro",
+        "This experiment establishes biochemical inhibition only; it does not by itself demonstrate cellular target engagement or viability effects."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Preparation, reaction, ATP depletion/detection and analysis are coherently ordered with relevant controls. Enzyme loading, substrate identity and detection settings remain unresolved; compatibility of transferred reaction and stop conditions is unvalidated. Compound interference with the coupled readout is not explicitly controlled.",
+      "response_quotes": [
+        "Stop the reaction, deplete residual ATP, run the ADP detection reaction, and read luminescence per the ADP-Glo manufacturer protocol.",
+        "The EDTA stop is cited from a different readout format; compatibility with ADP-Glo chemistry should be verified."
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.retained_measurement_examples"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "The provisional series is consistent and contextually justified without estimating query potency. However, the response binds reaction settings to the new ADP-Glo assay while claiming retained-assay support; the source describes mobility-shift detection and does not establish applicability to ADP-Glo. The explicit compatibility caveat avoids treating this as fabricated evidence, but overall parameter support remains incomplete.",
+      "response_quotes": [
+        "30 (assumption; no packet evidence for this compound's potency range — contextual MER IC50s span ~2.9–1370 nM, so a 30 µM top with 3-fold dilution covers nM–µM)",
+        "Reaction buffer, volume, substrate concentration, ATP-at-Km strategy, 180 min incubation, and EDTA stop are supported by the retained Mer activity assay CHEMBL5731805 (document CHEMBL5725982)."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "medium"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Comparability of the retained assays with the proposed ADP-Glo assay.",
+    "Compatibility of transferred buffer, substrate, reaction duration and EDTA stop with ADP-Glo and the selected Mer preparation.",
+    "Optimal enzyme loading, ATP Km, substrate identity, temperature and vehicle tolerance."
+  ],
+  "assumption_handling": "Series, replicate count, temperature and acceptance criteria are labeled assumptions; most absent operating settings are explicitly unresolved. Compatibility is acknowledged, but claimed support for transferred reaction parameters is stronger than established for ADP-Glo. Triplicates are not distinguished as technical or independent experiments.",
+  "numeric_check": {
+    "top_uM": 30,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0015241579027587258,
+    "prose_consistent": true,
+    "notes": "Ten threefold points span 30 to 0.0015241579 µM, or 1.5241579 nM, consistent with nM–µM prose. Contextual 1370 nM equals 1.37 µM. These calculations do not establish assay comparability."
+  },
+  "needs_human_review": true,
+  "review_reason": "Domain review is needed for cross-format compatibility and reaction parameters before execution."
+}

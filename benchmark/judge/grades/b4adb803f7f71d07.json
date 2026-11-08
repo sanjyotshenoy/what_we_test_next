@@ -1,0 +1,61 @@
+{
+  "item_id": "b4adb803f7f71d07",
+  "rubric_version": "v1",
+  "axes": {
+    "suitability": {
+      "score": 2,
+      "rationale": "Uses the requested Rec-1 ATP viability endpoint and distinguishes cellular effects from BTK inhibition and causality. Recognizes per-cell ATP as a confound.",
+      "response_quotes": [
+        "It cannot by itself establish BTK inhibition or target-specific causality."
+      ],
+      "input_evidence_paths": [
+        "generator_input.question",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "procedural_soundness": {
+      "score": 1,
+      "rationale": "Coherent ordered preparation, exposure, detection and normalized fitting with intended vehicle, background and positive controls. Density, medium, exposure, reagent handling, positive control identity and acceptance criteria remain unresolved. Manufacturer instructions are not supplied evidence.",
+      "response_quotes": [
+        "unresolved \u2014 define before the run",
+        "unresolved \u2014 per manufacturer protocol"
+      ],
+      "input_evidence_paths": [
+        "generator_input.step_cards",
+        "generator_input.guidelines"
+      ],
+      "confidence": "high"
+    },
+    "numerical_soundness": {
+      "score": 1,
+      "rationale": "Internally consistent provisional series, but spanning likely cellular potency has no supplied contextual support. Triplicates have no independence definition or specific justification. Explicit numerical assumptions are not fabricated evidence.",
+      "response_quotes": [
+        "is a design assumption chosen to span likely cellular potency with adequate curve-fitting resolution",
+        "so no numeric parameter is evidence-supported."
+      ],
+      "input_evidence_paths": [
+        "generator_input.retained_measurement_examples",
+        "generator_input.retrieval_note"
+      ],
+      "confidence": "high"
+    }
+  },
+  "critical_failures": [],
+  "not_assessable_components": [
+    "Optimal Rec-1 density, medium, exposure duration and culture conditions are unsupported.",
+    "Compatibility and performance of the ATP assay and proposed orthogonal BTK assays are not established.",
+    "Compound-specific covalent mechanism and ITK/EGFR-family off-target profile lack supplied evidence."
+  ],
+  "assumption_handling": "Numeric settings are mostly explicitly provisional or unresolved. Covalent engagement as justification for 72 hours introduces an unsupplied biological assertion; the specific off-target profile is expressly acknowledged as outside packet evidence.",
+  "numeric_check": {
+    "top_uM": 10,
+    "factor": 3,
+    "points": 10,
+    "computed_min_uM": 0.0005080526342529086,
+    "prose_consistent": true,
+    "notes": "Minimum is 0.0005080526 \u00b5M (0.5080526 nM); no conflicting endpoint or list is stated. Three replicates are unspecified as technical versus independent."
+  },
+  "needs_human_review": true,
+  "review_reason": "Unresolved assay compatibility, culture validation and concentration suitability, plus unsupported compound-specific mechanistic assertions require domain review."
+}
