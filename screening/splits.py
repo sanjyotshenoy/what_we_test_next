@@ -26,6 +26,7 @@ Two split kinds, because the screening stage has two different generalisation qu
   interpolates within a species will score well on cold_compound and be useless for what we actually want.
 """
 import argparse
+import gzip
 import hashlib
 import json
 import random
@@ -36,8 +37,22 @@ from pathlib import Path
 
 import pandas as pd
 
-DATA = Path(__file__).resolve().parent / "data" / "mic_matrix.csv"
+FOLDER = Path(__file__).resolve().parent / "data"
 SPLITS = Path(__file__).resolve().parent / "splits"
+
+
+def data_path(folder: Path = FOLDER) -> Path:
+    """The MIC matrix: the plain CSV a fetch leaves behind, else the committed `.csv.gz`.
+
+    The raw CSV is ~96 MB, which is past what this repo commits (CONTRIBUTING.md), so what is committed is the
+    gzip - a quarter of the size and the identical table. pandas reads either, and `sha256()` hashes the
+    *decompressed* bytes so a split cut from one form validates against the other.
+    """
+    plain = folder / "mic_matrix.csv"
+    return plain if plain.exists() else folder / "mic_matrix.csv.gz"
+
+
+DATA = data_path()
 
 SEED = 20261108                 # the date this was first generated; any fixed number would do, this one is a note
 FRACTIONS = {"train": 0.7, "val": 0.1, "test": 0.2}
@@ -87,8 +102,11 @@ def load_matrix(path: Path | str = DATA, scope: bool = True) -> pd.DataFrame:
 
 
 def sha256(path: Path) -> str:
+    """Hash of the table's *content*, so mic_matrix.csv and mic_matrix.csv.gz give the same digest."""
+    path = Path(path)
     digest = hashlib.sha256()
-    with open(path, "rb") as handle:
+    opener = gzip.open if path.suffix == ".gz" else open
+    with opener(path, "rb") as handle:
         for block in iter(lambda: handle.read(1 << 20), b""):
             digest.update(block)
     return digest.hexdigest()

@@ -162,7 +162,23 @@ def test_evaluate_split_scores_both_baselines_on_the_same_rows(prepared, tmp_pat
     assert 0.0 <= result["knn_coverage"] <= 1.0
 
 
+def test_evaluate_split_handles_a_species_with_no_training_data(prepared, tmp_path):
+    """The cold_species path end to end. Every held-out species has *zero* train rows by construction, so the
+    stratification has to have a band for that - this is what caught `_tier_of` falling off the end of TIERS."""
+    from screening.features import bitvects
+    frame, _ = prepared
+    S.generate(MATRIX, tmp_path, seed=S.SEED)
+    split = S.Split.load("cold_species", tmp_path)
+    result = B.evaluate_split(frame, split, bitvects(SMILES), fold="test", k=2)
+    assert result["knn_neighbourhood"] == "all train species"    # same-species neighbours cannot exist here
+    assert list(result["by_train_volume"]) == ["0"]
+    assert result["aggregate"]["marginal"]["n_rows"] == result["aggregate"]["knn"]["n_rows"]
+
+
 def test_tier_boundaries():
+    # 0 has to be its own band: every cold_species holdout has no training data, and _tier_of must not fall
+    # off the end of the list when it sees one.
+    assert B._tier_of(0) == "0"
     assert B._tier_of(1) == "1-9" and B._tier_of(9) == "1-9"
     assert B._tier_of(10) == "10-99" and B._tier_of(99) == "10-99"
     assert B._tier_of(100) == "100-999" and B._tier_of(1000) == "1000+"

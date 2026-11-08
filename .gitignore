@@ -4,3 +4,9 @@ __pycache__/
 .venv/
 data/raw/
 out/
+
+# screening/: regenerable or too big to commit. The gzipped matrix, the SMILES cache and the
+# species table ARE committed; these are the files you can rebuild from them (see screening/README.md).
+screening/data/mic_matrix.csv
+screening/data/mic_matrix.part*
+screening/data/ecfp4.npz

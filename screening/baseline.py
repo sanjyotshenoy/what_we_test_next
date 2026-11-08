@@ -54,7 +54,9 @@ MOLAR_TO_UGML_PER_MWT = {"M": 1e3, "mM": 1.0, "uM": 1e-3, "nM": 1e-6, "pM": 1e-9
 # How much data a species has, which is the axis every number here is stratified along. The bands are
 # order-of-magnitude, which is the resolution the asymmetry actually has (245,556 pathogen pairs against 1,812
 # commensal ones, DISCUSSIONS.md).
-TIERS = [("1-9", 1, 10), ("10-99", 10, 100), ("100-999", 100, 1000), ("1000+", 1000, math.inf)]
+# The "0" band is not a rounding artefact: it is every species cold_species holds out, which has no training data
+# by construction, and it is the band the commensal question actually lives in.
+TIERS = [("0", 0, 1), ("1-9", 1, 10), ("10-99", 10, 100), ("100-999", 100, 1000), ("1000+", 1000, math.inf)]
 
 # Relations that mean "we never saw inhibition up to this concentration".
 NOT_INHIBITED = {">", ">="}
@@ -169,7 +171,12 @@ def knn_predict(evaluate: pd.DataFrame, train: pd.DataFrame, fingerprints: dict,
         pool = pool[pool["molecule_chembl_id"].isin(fingerprints)]
         return ([fingerprints[m] for m in pool["molecule_chembl_id"]], pool["log_mic"].to_numpy(dtype=float))
 
-    pooled = None if same_species else neighbourhood(folded)
+    # The pooled neighbourhood is one row per *compound* (its median log10 MIC over every train species), not one
+    # per compound x species. Both because it is the sensible reading of "this compound's typical MIC" and because
+    # the per-pair version would put a compound measured on 40 species into the neighbourhood 40 times - and make
+    # the pass 2.5x longer for the same answer.
+    pooled = None if same_species else neighbourhood(
+        train.groupby("molecule_chembl_id")["log_mic"].median().reset_index())
     for species, group in evaluate.groupby("species", sort=False):
         vectors, values = pooled if pooled is not None else neighbourhood(folded[folded["species"] == species])
         if not vectors:
@@ -193,10 +200,13 @@ def _cap(frame: pd.DataFrame, limit: int, seed: int) -> pd.DataFrame:
 
     A runtime cap, not a statistical choice: S. aureus alone has 160k MIC rows and the kNN is O(eval x train).
     Recorded in the results file so the number is reproducible and the cap is visible."""
-    if limit <= 0:
+    if limit <= 0 or frame.empty:
         return frame
     sizes = frame.groupby("species")["log_mic"].transform("size")
-    sampled = frame[sizes > limit].groupby("species", group_keys=False).sample(n=limit, random_state=seed)
+    over = frame[sizes > limit]
+    if over.empty:
+        return frame
+    sampled = over.groupby("species", group_keys=False).sample(n=limit, random_state=seed)
     return pd.concat([frame[sizes <= limit], sampled]).sort_index()
 
 
