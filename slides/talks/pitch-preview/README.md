@@ -1,6 +1,6 @@
 # Ten-minute pitch: story draft
 
-Preview branch: `pitch-story-preview`. Entry: `index.html`. Six slides; technical backup opens separately at `qa.html` so it cannot accidentally lengthen the pitch. The existing main and question-prototype decks are unchanged.
+Preview branch: `slides-preview`. Entry: `index.html`. Six slides; technical backup opens separately at `qa.html` so it cannot accidentally lengthen the pitch. The existing main and question-prototype decks are unchanged.
 
 ## Running order
 
@@ -8,7 +8,7 @@ Preview branch: `pitch-story-preview`. Entry: `index.html`. Six slides; technica
 | --- | --- | --- |
 | 0:00–0:50 | Relatable question + gap | Four beats: centered neutral plate; colors/labels and shift left; question with a hypothesized inhibitory connection and grey pathogen; “What experiment would answer this?” The grey state is hypothetical, not a measured outcome. |
 | 0:50–2:00 | Missing link | Reuse the accepted five-state bipartite animation; compound and strains are supplied. |
-| 2:00–3:00 | Grounded design | Select assay, adapt templates/examples, enforce compatibility. |
+| 2:00–3:00 | Evidence to proposal | Related compounds and measured activity; supporting papers; separate protocol templates; structured proposal. |
 | 3:00–4:15 | Hold-out pilot | Five models, three kinase/cell cases, provisional grades and one concrete inconsistency. |
 | 4:15–7:15 | Evidence walkthrough | Inspect case input, retained evidence, withheld record and recorded output. Show the separate MIC execution artifact only with its provenance stated. |
 | 7:15–8:15 | Close | Demonstrated components, remaining integration, next validation. |
@@ -29,7 +29,7 @@ Graph construction and schema; protocol extraction and provenance; detailed thre
 
 ## Review and editing
 
-`hook.js` and `finish.js` hold pitch-specific content. The two conceptual slides reuse `../question-prototype/story.js`; the scores reuse `../biohack/data/pilot_results.js`. `qa.html` loads the current main deck's modules with an explicit base URL and hides the opening/closing narrative slides. Recheck the wrapper when the main deck's module list changes.
+`hook.js`, `proposal.js` and `finish.js` hold pitch-specific content. The missing-link slide reuses `../question-prototype/story.js`; its original grounded-design slide is hidden in this pitch; the scores reuse `../biohack/data/pilot_results.js`. `qa.html` loads the current main deck's modules with an explicit base URL and hides the opening/closing narrative slides. Recheck the wrapper when the main deck's module list changes.
 
 Run `python slides/tools/check_deck.py slides/talks/pitch-preview --back` from the repo root. Publish only on request; pushing this preview branch does not deploy the production deck.
 
