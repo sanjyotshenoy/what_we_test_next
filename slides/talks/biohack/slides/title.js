@@ -50,8 +50,8 @@ Deck.slide('title', {
   notes: 'Title slide.',
   mount(frame, { css, esc }) {
     const TITLE = {
-      title: 'Closing the Loop Between Knowledge and Discovery',
-      subtitle: 'Nucleate Pittsburgh BioHack 2026',
+      title: 'What Should We Test Next?',
+      subtitle: 'Antimicrobial discovery · BioHack 2026',
       team: 'Team Zhang et al.',
       track: '(Biotech Track: Problem #2)',
       names: ['Aidan Zhang', 'Emmy Nguyen', 'Jimmy Hsu', 'Ramith Hettiarachchi', 'Sanjyot Shenoy',   // by first name
