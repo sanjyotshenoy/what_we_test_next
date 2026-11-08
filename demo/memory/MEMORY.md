@@ -16,7 +16,9 @@ Companion implementation clone `/home/ruh/wwtn-sequential-demo` uses branch
 `demo/sequential-replay`. Commits were transferred by Git bundle and cherry-picked
 onto Brev; commit IDs therefore differ. `/home/ruh/what_we_test_next_demo` is the
 older public-readiness clone. Original `/home/ruh/what_we_test_next` and others'
-worktrees were not changed. No sequential changes were pushed or merged into main.
+worktrees were not changed. At the user’s request, the full demo/judge-rehearsal branch was pushed to GitHub
+after this reconciliation. No merge into main was performed. The repository now
+lives at sanjyotshenoy/what_we_test_next; the old Git URL redirects.
 GitHub main previously received consolidate-demo at `f329771`; do not assume it
 contains this deployment. Brev's repo deploy key is read-only.
 

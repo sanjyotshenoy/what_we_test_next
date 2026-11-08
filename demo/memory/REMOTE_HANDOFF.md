@@ -11,7 +11,9 @@ Host `brev-o10eetwuq`, Brev instance `biohackdemo`, directory
 in Codex Remote. Always check `git status --short --branch` before editing. Preserve
 uncommitted work; never reset or switch the shared VM checkout to an older clone.
 Current sequential/runtime checkpoint is `55d8759`, plus later documentation commits.
-No push/main merge was performed for this work; a read-only Git deploy key is used.
+The user subsequently authorized pushing demo/judge-rehearsal; it is now on
+GitHub at sanjyotshenoy/what_we_test_next. No main merge was performed. The push
+used the companion host because Brev uses a read-only Git deploy key.
 
 Codex executable: `/home/ubuntu/.local/bin/codex` (not always on noninteractive PATH).
 At verification, `app-server daemon version` reported running, CLI/server 0.167.0,
