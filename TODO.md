@@ -24,6 +24,10 @@ it, delete the comment. The checklist below is a snapshot for orientation; the g
 - [ ] Pick the range-accuracy metric before writing the grader: `benchmark/README.md`
 - [ ] Owners in each folder README: `agent/`, `execution/`, `benchmark/`, `kg/biology/`, `kg/protocols/`
 - [ ] `agent/`: baselines (bare LLM, LLM + literature search) for a fair comparison; delete `agent/data/sample_kg`
+- [ ] `agent/anchor.py` / `kg/protocols/rules.yaml`: the concentration anchor's multiplier is derived from the
+  AGM's half-above/half-below sentence plus the template's shape, but the **100x fallback** used when no template
+  shape is in hand is a heuristic with no AGM number behind it; the one-dilution-step tolerance in
+  `check_series_consistent_with_analogs` is unreviewed
 
 ## Pipeline gaps (2026-11-07 19:20; not yet built or decided)
 
@@ -34,7 +38,12 @@ it, delete the comment. The checklist below is a snapshot for orientation; the g
 - [ ] Step 1, "can the KB answer this?": the abstain/answer decision (what it queries, criteria, prompt)
 - [ ] Literature-search tool for the "+lit" arm (Europe PMC? Paperclip?), **date-filtered to the cutoff** so it
   cannot find the held-out paper
-- [ ] Similarity tool: RDKit analogs on the same target (not in `kg/query.py` yet)
+- [ ] Similarity tool: RDKit analogs on the same target live in `agent/kg_backend.py` (Morgan r2, 2048 bits,
+      Tanimoto, same-target IC50s); move them into `kg/query.py` if other folders need them
+- [ ] Agent demo question: `CHEMBL5593141` x BTK (`agent/tools.py`, `DEMO_COMPOUND`/`DEMO_TARGET`) is a
+      stand-in chosen by analog support; confirm with Seh Na's candidate list
+- [ ] Gene symbols for the 19 seed kinases are hard-coded in `agent/kg_backend.py` (`GENES`); they belong on the
+      Target nodes, from UniProt, in `kg/biology/build_seed.py`
 - [ ] Decide: range from priors + AGM rules deterministically, or by the LLM
 - [ ] Structured output: `ExperimentProposal` via pydantic, retry on invalid JSON, citation validator (IDs must
   appear in tool results)

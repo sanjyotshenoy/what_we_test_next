@@ -3,12 +3,15 @@
     python -m kg.query resolve KIT
     python -m kg.query activities P10721
     python -m kg.query templates P10721
+    python -m kg.query conditions proto:kinase_biochem_lum    # when this template is the right one
+    python -m kg.query steps proto:kinase_biochem_lum         # its steps, with their sub-steps
 
 From Python:
 
     from kg.query import KG
     kg = KG.load()
     kg.resolve("imatinib"); kg.classes("P10721"); kg.potency_summary("P10721"); kg.templates("P10721")
+    kg.conditions("proto:kinase_biochem_lum"); kg.steps("proto:kinase_biochem_lum")
 
 Every result carries node IDs, so whatever an agent builds on it can cite them. These are the lookups the agent's
 tools wrap (HANDOFF.md §3.3); analogs by chemical similarity are not here yet (every Compound node has `smiles`).
@@ -136,7 +139,39 @@ class KG:
         return {"n": int(values.size), "min_nM": float(values.min()), "median_nM": float(values.median()),
                 "max_nM": float(values.max())}
 
+    def conditions(self, protocol_id: str) -> list[dict]:
+        """A protocol's routing conditions, REQUIRES first: what has to be true (or what makes it the better
+        choice) before the template applies, with the archetype span each was read from and `check`, an
+        expression kg.protocols.build_db.check_condition can evaluate against a design (None = not checkable)."""
+        found = []
+        for relation in ("REQUIRES", "PREFERRED_WHEN"):
+            for neighbor in self.neighbors(protocol_id, rel=relation):
+                node = neighbor["node"]
+                props = node.get("props") or {}
+                found.append({"id": node["id"], "relation": relation, "text": node.get("name", ""),
+                              "check": props.get("check"), "quote": neighbor["props"].get("quote"),
+                              "from": neighbor["props"].get("archetype_field")})
+        return found
+
+    def steps(self, protocol_id: str) -> list[dict]:
+        """A protocol's step tree in order: each top-level step (HAS_STEP, ordered by NEXT) with the sub-steps
+        hanging off it (HAS_SUBSTEP), so a grader can score the stage and its detail separately."""
+        def detail(node: dict) -> dict:
+            props = node.get("props") or {}
+            return {"id": node["id"], "order": props.get("order"), "verb": props.get("verb"),
+                    "text": node.get("name", ""), "optional": props.get("optional"),
+                    "params": props.get("params", []), "evidence": props.get("evidence", [])}
+
+        def ordered(id: str, relation: str) -> list[dict]:
+            found = [n["node"] for n in self.neighbors(id, rel=relation)]
+            return sorted(found, key=lambda n: int((n.get("props") or {}).get("order") or 0))
+
+        return [{**detail(step), "substeps": [detail(s) for s in ordered(step["id"], "HAS_SUBSTEP")]}
+                for step in ordered(protocol_id, "HAS_STEP")]
+
     def templates(self, target_id: str) -> list[dict]:
+        """The templates that apply to a target, via its class chain. `conditions` was added with the routing
+        conditions; every other key means what it did before. The step tree is `steps(protocol_id)`."""
         class_ids = {c["id"] for c in self.classes(target_id)}
         applicable = self.edges_df[(self.edges_df["rel"] == "APPLICABLE_TO") & self.edges_df["dst"].isin(class_ids)]
         found = []
@@ -151,6 +186,7 @@ class KG:
                 "params": {p["name"]: p["props"] for p in targets("HAS_PARAM")},
                 "readout": [r["name"] for r in targets("MEASURES")],
                 "answers": [a["id"] for a in targets("ANSWERS")],
+                "conditions": self.conditions(e["src"]),
             })
         return found
 
@@ -165,7 +201,8 @@ def _table(rows: list[dict], columns: list[str]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Query the seed knowledge graphs.")
-    parser.add_argument("command", choices=["resolve", "neighbors", "classes", "activities", "summary", "templates"])
+    parser.add_argument("command", choices=["resolve", "neighbors", "classes", "activities", "summary", "templates",
+                                            "conditions", "steps"])
     parser.add_argument("arg", help="a name or text for resolve; a node ID otherwise")
     parser.add_argument("--limit", type=int, default=20)
     args = parser.parse_args()
@@ -182,6 +219,14 @@ def main() -> None:
         print(_table(kg.activities(args.arg, args.limit), ["compound", "name", "ic50_nM", "assay", "document", "year"]))
     elif args.command == "summary":
         print(kg.potency_summary(args.arg))
+    elif args.command == "conditions":
+        print(_table([{**c, "check": c["check"] or "-"} for c in kg.conditions(args.arg)],
+                     ["relation", "id", "text", "check"]))
+    elif args.command == "steps":
+        for step in kg.steps(args.arg):
+            print(f"{step['order']}. [{step['verb']}] {step['text']}")
+            for substep in step["substeps"]:
+                print(f"   {step['order']}.{substep['order']} [{substep['verb']}] {substep['text']}")
     else:
         for t in kg.templates(args.arg):
             params = ", ".join(f"{k}={v['value']} {v['unit']}" for k, v in t["params"].items())

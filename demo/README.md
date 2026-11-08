@@ -58,10 +58,11 @@ is no backend, so the page plays the recorded traces.
 | --- | --- |
 | `id`, `query`, `model`, `mock` | the question; `mock: true` shows the "illustrative" badge |
 | `note` | shown as a badge: e.g. which graphs the run used |
-| `lookup` | `{tool, args, result, verdict, note, rows?}`: what the KB says on its own |
+| `lookup` | `{tool, args, result, verdict, note, rows?}`: what the KB says on its own. `kind` splits the `I don't know` verdict for the benchmark's abstain metric: `no_measurement` (both sides resolved, the pair is genuinely unmeasured) or `unresolved` (the KB does not know the compound or the target); `answered` otherwise. Added field, nothing renamed |
 | `calls` | the graph tool calls, each `{tool, args, summary, rows, columns?}` |
 | `reasoning` | list of strings, the model's visible reasoning between tool calls; `thinking` holds the raw reasoning tokens when the model exposes them (not shown) |
 | `proposal` | the `ExperimentProposal` of `wwtn/schema.py` (`experiment`, `citations`, ...) |
+| `anchor` | the deterministic concentration anchor (`agent/anchor.py`): `top_concentration_uM`, `series_uM`, `median_ic50_nM`, `multiplier` + `multiplier_basis`, the `analogs` it used (node ID, IC50, similarity), `skipped`, `confidence` + `flags`, `template_default_uM`, and whether the model `followed` it with any `departure_reason`. Absent when no anchor was computed (no experiment, or no usable analog). Added field, nothing renamed |
 | `procedure`, `protocol`, `simulation` | the steps, the OT-2 script, `{ok, detail}` from `opentrons_simulate` |
 | `plate` | `{rows, top_uM, factor, points, controls}` for the plate map (derived from the proposal by `agent/trace.py`) |
 | `validation` | `{held_out, truth, checks: [[text, passed], ...]}` against the held-out record |

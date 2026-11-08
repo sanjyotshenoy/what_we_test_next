@@ -1,0 +1,149 @@
+{
+  "id": "proto:kinase_biochem_lum",
+  "curation": "agent-curated from PubChem AIDs 588811, 602295, 623998, 623999, 686948 (read by hand, 2026-11-07); re-run extract.py when a key is available",
+  "todo": "TODO(final): agent-curated, not yet checked by a person; every value is quoted from the AID named next to it",
+  "purpose": "Measure how potently a compound inhibits a purified protein kinase (IC50): kinase + peptide substrate + ATP, then ADP-Glo converts the ADP formed into light, so inhibitors lower the luminescence.",
+  "notes": [
+    "Four of the five exemplars are Broad Institute MLPCN assays (one assay family); 686948 is an NCGC qHTS assay. Source diversity is low.",
+    "ATP and enzyme are chosen per kinase (ATP near its Km, see rule:agm/substrate_at_km), so their observed values are not defaults to copy.",
+    "AID 588811 states 'final reactant concentrations were 10 uM ADP'; from the 1:1 mix of a 20 uM ATP solution this is presumably ATP (a typo in the AID).",
+    "Top concentration: 623998/623999 interleave two dilution series in one test; their top (46 uM) is the highest tested. 686948 (qHTS) is left out of the series parameters because its concentration columns pool many plate series."
+  ],
+  "exemplars": [
+    {"aid": 588811, "source": "Broad Institute", "deposited": "2011-11-18", "target": "CLK1 (human)", "name": "MLPCN Dyrk1A - CLK1 Selectivity Assay Measured in Biochemical System Using Plate Reader"},
+    {"aid": 602295, "source": "Broad Institute", "deposited": "2012-03-05", "target": "MAPK3 / ERK1 (human)", "name": "MLPCN Dyrk1A - ERK1 Selectivity Assay Measured in Biochemical System Using Plate Reader"},
+    {"aid": 623998, "source": "Broad Institute", "deposited": "2012-04-04", "target": "GSK3B (human)", "name": "GSK3beta Measured in Biochemical System Using Plate Reader"},
+    {"aid": 623999, "source": "Broad Institute", "deposited": "2012-04-04", "target": "CDK5/p35 (human)", "name": "CDK5 Measured in Biochemical System Using Plate Reader"},
+    {"aid": 686948, "source": "NCGC", "deposited": "2013-04-18", "target": "YES1 (human)", "name": "qHTS for small molecule inhibitors of Yes1 kinase: Confirmatory screen on the cherrypicks"}
+  ],
+  "parameters": {
+    "top_concentration": {"observed": [
+      {"value": 12, "unit": "uM", "aid": 588811, "field": "results", "quote": "Activity_at_12uM_(%)_TEST1", "derived": "highest tested-concentration column"},
+      {"value": 10, "unit": "uM", "aid": 602295, "field": "results", "quote": "Activity_at_10uM_(%)_TEST1", "derived": "highest tested-concentration column"},
+      {"value": 46, "unit": "uM", "aid": 623998, "field": "results", "quote": "Activity_at_46uM_(%)_TEST1", "derived": "highest tested-concentration column"},
+      {"value": 46, "unit": "uM", "aid": 623999, "field": "results", "quote": "Activity_at_46uM_(%)_TEST1", "derived": "highest tested-concentration column"}
+    ]},
+    "dilution_factor": {"unit": "fold", "observed": [
+      {"value": 2.97, "unit": "fold", "aid": 588811, "field": "results", "quote": "Activity_at_0.00195uM_(%)_TEST1", "derived": "median fold-step of the TEST1 concentration columns (0.00195 to 12 uM)"},
+      {"value": 3.0, "unit": "fold", "aid": 602295, "field": "results", "quote": "Activity_at_0.0015uM_(%)_TEST1", "derived": "median fold-step of the TEST1 concentration columns (0.0015 to 10 uM)"}
+    ]},
+    "n_points": {"observed": [
+      {"value": 9, "unit": "concentrations", "aid": 588811, "field": "results", "quote": "Activity_at_4.2uM_(%)_TEST1", "derived": "number of TEST1 concentration columns"},
+      {"value": 9, "unit": "concentrations", "aid": 602295, "field": "results", "quote": "Activity_at_3.5uM_(%)_TEST1", "derived": "number of TEST1 concentration columns"}
+    ]},
+    "independent_runs": {"observed": [
+      {"value": 2, "unit": "runs", "aid": 588811, "field": "results", "quote": "Activity_at_12uM_(%)_TEST2", "derived": "TEST1 and TEST2 columns"},
+      {"value": 2, "unit": "runs", "aid": 602295, "field": "results", "quote": "Activity_at_10uM_(%)_TEST2", "derived": "TEST1 and TEST2 columns"},
+      {"value": 3, "unit": "runs", "aid": 623998, "field": "results", "quote": "Activity_at_46uM_(%)_TEST3", "derived": "TEST1 to TEST3 columns"}
+    ]},
+    "dmso_percent": {"observed": [
+      {"value": 0.125, "unit": "%", "aid": 588811, "quote": "0.125% DMSO in the reaction"}
+    ]},
+    "compound_preincubation_time": {"observed": [
+      {"value": 20, "unit": "min", "aid": 686948, "quote": "Following addition of compound and a 20 minute incubation"}
+    ]},
+    "kinase_reaction_time": {"observed": [
+      {"value": 2, "unit": "h", "aid": 588811, "quote": "allowed to incubate at 28 degrees C for 2 hrs"},
+      {"value": 120, "unit": "min", "aid": 602295, "quote": "Incubate at room temperature for 120 minutes."},
+      {"value": 60, "unit": "min", "aid": 623998, "quote": "Incubate at room temperature for 60 minutes."},
+      {"value": 60, "unit": "min", "aid": 623999, "quote": "Incubate at room temperature for 60 minutes."},
+      {"value": 60, "unit": "min", "aid": 686948, "quote": "the biochemical reaction is allowed to progress for 60 minutes at room temperature"}
+    ]},
+    "kinase_reaction_temperature": {"observed": [
+      {"value": 28, "unit": "C", "aid": 588811, "quote": "allowed to incubate at 28 degrees C for 2 hrs"},
+      {"value": "room temperature", "unit": null, "aid": 602295, "quote": "Incubate at room temperature for 120 minutes."},
+      {"value": "room temperature", "unit": null, "aid": 686948, "quote": "the biochemical reaction is allowed to progress for 60 minutes at room temperature"}
+    ]},
+    "atp_final_concentration": {"observed": [
+      {"value": 10, "unit": "uM", "aid": 588811, "quote": "The final reactant concentrations were 10 uM ADP", "derived": "the AID says ADP; read as ATP (see notes)"},
+      {"value": 0.1, "unit": "mM", "aid": 686948, "quote": "0.1 mM ATP"}
+    ]},
+    "atp_stock_concentration": {"observed": [
+      {"value": 20, "unit": "uM", "aid": 588811, "quote": "The substrate solution contained 20 uM ATP"},
+      {"value": 50, "unit": "uM", "aid": 602295, "quote": "50uMATP"},
+      {"value": 140, "unit": "uM", "aid": 623998, "quote": "ATP: 140 uM ATP in KBA"},
+      {"value": 903, "unit": "uM", "aid": 623999, "quote": "903uMATP"}
+    ]},
+    "enzyme_final_concentration": {"observed": [
+      {"value": 5, "unit": "nM", "aid": 588811, "quote": "125 uM RS domain peptide and 5 nM CLK1"},
+      {"value": 4, "unit": "nM", "aid": 686948, "quote": "4 nM Yes1"}
+    ]},
+    "mgcl2_concentration": {"observed": [
+      {"value": 10, "unit": "mM", "aid": 588811, "quote": "20 mM HEPES, 10 mM MgCl2"},
+      {"value": 10, "unit": "mM", "aid": 602295, "quote": "50mMHEPES (pH7.5)10mMMgCl2"},
+      {"value": 10, "unit": "mM", "aid": 623999, "quote": "50mMHEPES (pH7.5)10mMMgCl2"},
+      {"value": 10, "unit": "mM", "aid": 686948, "quote": "10 mM MgCl2"}
+    ]},
+    "adp_glo_reagent_time": {"observed": [
+      {"value": 40, "unit": "min", "aid": 588811, "quote": "The stopped reaction is allowed to incubate for 40 mins."},
+      {"value": 40, "unit": "min", "aid": 602295, "quote": "Add 2.5 uL/well of ADP-glo (Promega, V9103) with BioRAPTR, incubate at room temperature for 40 minutes"},
+      {"value": 40, "unit": "min", "aid": 623998, "quote": "Add 20uL/well of ADP-glo (Promega, V9103) with Combi, incubate at room temperature for 40 minutes"},
+      {"value": 40, "unit": "min", "aid": 623999, "quote": "Add 20uL/well of ADP-glo (Promega, V9103) with Combi, incubate at room temperature for 40 minutes"},
+      {"value": 45, "unit": "min", "aid": 686948, "quote": "2 uL of the first kit reagent is added, and the reaction is incubated for 45 minutes"}
+    ]},
+    "detection_reagent_time": {"observed": [
+      {"value": 40, "unit": "min", "aid": 602295, "quote": "Add 5 uL/well of ADP-glo (Promega, V9103) with Combi nL (Thermo), incubate at room temperature for 40 minutes"},
+      {"value": 30, "unit": "min", "aid": 623998, "quote": "Add 40 uL/well of ADP-glo (Promega, V9103) with Combi, incubate at room temperature for 30 minutes"},
+      {"value": 30, "unit": "min", "aid": 623999, "quote": "Add 40 uL/well of ADP-glo (Promega, V9103) with Combi, incubate at room temperature for 30 minutes"},
+      {"value": 30, "unit": "min", "aid": 686948, "quote": "the reaction is incubated for 30 minutes at which time the luminescence is read"}
+    ]},
+    "plate_wells": {"observed": [
+      {"value": 1536, "unit": "wells", "aid": 588811, "quote": "1536-well assay ready white plates"},
+      {"value": 1536, "unit": "wells", "aid": 602295, "quote": "1536-well assay ready plates"},
+      {"value": 384, "unit": "wells", "aid": 623998, "quote": "384-well plate(s)"},
+      {"value": 384, "unit": "wells", "aid": 623999, "quote": "384-well plate(s)"},
+      {"value": 1536, "unit": "wells", "aid": 686948, "quote": "white solid-bottom 1536-well assay plates"}
+    ]}
+  },
+  "steps": [
+    {"verb": "serial_dilute", "text": "Make the compound concentration series in DMSO (about 3-fold steps, 9 points, top 10-46 uM).", "params": ["top_concentration", "dilution_factor", "n_points"],
+     "evidence": [{"aid": 588811, "field": "results", "quote": "Activity_at_0.00195uM_(%)_TEST1"}]},
+    {"verb": "dispense", "text": "Dispense nanolitre volumes of each compound concentration into the assay plate (pin tool or acoustic transfer).", "params": ["dmso_percent", "plate_wells"],
+     "evidence": [{"aid": 623998, "quote": "Pin 100 nL/well of compounds"}, {"aid": 602295, "quote": "generated by acoustic transfer using Labcyte Echo"}]},
+    {"verb": "add", "text": "Add kinase and peptide substrate in kinase buffer (HEPES or Tris pH 7.5, 10 mM MgCl2, EGTA, detergent).", "params": ["enzyme_final_concentration", "mgcl2_concentration"],
+     "evidence": [{"aid": 623998, "quote": "Dispense 20 uL/well of KBAPE onto 384-well plate(s) with Combi"}, {"aid": 686948, "quote": "Two microliter of Yes1 enzyme"}]},
+    {"verb": "incubate", "optional": true, "text": "Pre-incubate compound with kinase.", "params": ["compound_preincubation_time"],
+     "evidence": [{"aid": 686948, "quote": "Following addition of compound and a 20 minute incubation"}]},
+    {"verb": "add", "text": "Start the reaction with ATP (at a concentration chosen for the kinase).", "params": ["atp_final_concentration", "atp_stock_concentration"],
+     "evidence": [{"aid": 623998, "quote": "Dispense 1 uL/well of ATP Combi NL"}, {"aid": 686948, "quote": "1 uL of substrate (ATP and poly-E4Y from Sigma-Aldrich, St. Louis, MO) is added"}],
+     "substeps": [
+       {"verb": "add", "text": "Dispense the ATP solution into every well.", "params": ["atp_final_concentration", "atp_stock_concentration"],
+        "evidence": [{"aid": 623998, "quote": "Dispense 1 uL/well of ATP Combi NL"}]},
+       {"verb": "add", "text": "Where the peptide substrate is not already in the enzyme mix, add it together with the ATP.", "params": [],
+        "evidence": [{"aid": 686948, "quote": "1 uL of substrate (ATP and poly-E4Y from Sigma-Aldrich, St. Louis, MO) is added"}]}
+     ]},
+    {"verb": "incubate", "text": "Run the kinase reaction.", "params": ["kinase_reaction_time", "kinase_reaction_temperature"],
+     "evidence": [{"aid": 623998, "quote": "Incubate at room temperature for 60 minutes."}]},
+    {"verb": "add", "text": "Add ADP-Glo reagent to stop the reaction and deplete the remaining ATP.", "params": [],
+     "evidence": [{"aid": 588811, "quote": "the reaction was terminated by the addition of 2 uL ADP-Glo Reagent"}]},
+    {"verb": "incubate", "text": "Incubate for ATP depletion.", "params": ["adp_glo_reagent_time"],
+     "evidence": [{"aid": 588811, "quote": "The stopped reaction is allowed to incubate for 40 mins."}]},
+    {"verb": "detect", "text": "Add Kinase Detection Reagent, which converts ADP to ATP and reads it with luciferase.", "params": [],
+     "evidence": [{"aid": 588811, "quote": "Kinase Detection Reagent ( Promega, #V9102) is added to simultaneously convert ADP to ATP"}],
+     "substeps": [
+       {"verb": "add", "text": "Add Kinase Detection Reagent (Promega V9102).", "params": [],
+        "evidence": [{"aid": 588811, "quote": "Kinase Detection Reagent ( Promega, #V9102) is added"}]},
+       {"verb": "detect", "text": "The reagent converts the ADP formed to ATP, which the luciferase reaction turns into light.", "params": [],
+        "evidence": [{"aid": 588811, "quote": "to simultaneously convert ADP to ATP"}]}
+     ]},
+    {"verb": "incubate", "text": "Incubate for the luminescent signal to develop.", "params": ["detection_reagent_time"],
+     "evidence": [{"aid": 623998, "quote": "incubate at room temperature for 30 minutes"}]},
+    {"verb": "read", "text": "Read luminescence on a plate reader.", "params": [],
+     "evidence": [{"aid": 623998, "quote": "Read on Envision for luminescence"}, {"aid": 602295, "quote": "Read on Viewlux (PerkinElmer) for luminescence"}]}
+  ],
+  "controls": [
+    {"name": "DMSO vehicle with enzyme (neutral control, 0% inhibition)", "role": "negative", "reagent": "reagent:dmso_vehicle",
+     "evidence": [{"aid": 588811, "quote": "Control wells contained no compound reactions with 0.125% DMSO"}, {"aid": 686948, "quote": "DMSO in columns 1, 3 and 4"}]},
+    {"name": "no-enzyme wells (100% inhibition)", "role": "positive", "reagent": "reagent:no_enzyme",
+     "evidence": [{"aid": 602295, "quote": "Positive control wells contain no enzyme."}, {"aid": 686948, "quote": "columns 3 and 4 receive buffer without Yes1 as a control for maximum inhibition"}]},
+    {"name": "reference inhibitor titration (dasatinib for YES1)", "role": "positive", "reagent": "reagent:reference_inhibitor",
+     "evidence": [{"aid": 686948, "quote": "10 mM 1:3 fold serial of dasatinib in column 2"}]}
+  ],
+  "readout": {"name": "luminescence (ADP-Glo)", "bao": "BAO:0000045",
+    "evidence": [{"aid": 588811, "quote": "allow newly synthesized ATP to be measured using a luciferase/luciferin reaction"}]},
+  "analysis": [
+    {"text": "Normalise each plate to the neutral (0%) and positive (-100%) control medians; fit concentration-response curves for AC50.",
+     "evidence": [{"aid": 588811, "quote": "The median raw signal of the intraplate neutral control wells was set to a normalized activity value of 0."},
+                  {"aid": 686948, "quote": "Data are normalized to DMSO-treated control columns with (maximum signal) and without (minimum signal) enzyme."}]}
+  ]
+}

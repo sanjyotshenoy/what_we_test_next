@@ -260,3 +260,167 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   pinned "one potency template" loosened, since the protocol DB now has luminescence *and* TR-FRET). 191 tests pass.
 - Open: the one-dilution-step tolerance in the grader check is unreviewed; `integration` and `anchor-rule` still
   need merging into main.
+**Agent on the real graphs** (`agent-on-kg`, 2026-11-07).
+- Decided: the agent's tools run on `kg/query.py`. `agent/kg_backend.py` holds one `kg.query.KG` for both graphs
+  (loaded once) and everything graph-shaped; `agent/tools.py` only shapes results, so `agent/data/sample_kg` and
+  `kg/*/graph` go through the same code path. Tool names and the result shape (`summary`, `columns`, `rows`, detail
+  keys) are unchanged, so the trace format in [demo/README.md](demo/README.md) and the ouroboros repo still hold.
+- The four problems from "Merging kg-scaffolding": (1) `protocol_kg_templates` walks the target's class chain, so
+  templates on `chembl_class:1100` are found for a target that is `MEMBER_OF chembl_class:143`, and takes `target`
+  as well as `target_class`; `bio_kg_resolve` returns the whole chain and which classes carry templates. (2) Routing
+  is by `ANSWERS` edges (the sample KG's `question_type` prop reads the same way), normalised through aliases
+  (`cellular_activity` → `cellular_potency`); a type nothing answers returns **no** templates and says which types
+  do apply. (3) `bio_kg_analogs` computes RDKit Morgan r2 / 2048-bit Tanimoto between the query compound and the
+  compounds measured **on that target**, top-k with similarities plus `potency_summary` as the spread, fingerprints
+  cached per load; no usable structure falls back to the most potent compounds and says so. (4) The demo question is
+  now **CHEMBL5593141 × BTK** (`TODO(final)`: confirm with Seh Na's candidate list) — a structure-only candidate with
+  no IC50 edge, whose nearest BTK-measured analogs are BTK inhibitors at Tanimoto 0.53–0.60 (ibrutinib among them,
+  IC50 0.72–55 nM) against a target-wide n=1936, median 20 nM. The recorded traces in `demo/runs/` are untouched
+  (imatinib × KIT; they cannot be re-recorded without a key), so the page still has its fallback.
+- Also: `agent/compounds.py` resolves a compound the graph lacks (graph → local ChEMBL dump → ChEMBL REST API cached
+  in `data/raw/`), **structure fields only** — pulling activities from the live release would leak the benchmark's
+  held-out measurements — and the similarity then runs off that SMILES, so an unknown compound still gets ranked
+  analogs. `kb.lookup()` splits "I don't know" into `kind: no_measurement` vs `unresolved` for the benchmark's
+  abstain metric (an added field; `verdict` unchanged).
+- Tests: `agent/tests/` with a tiny fixture KG in the `kg/README.md` format, plus a stubbed-LLM run of the propose
+  loop and a smoke test against `kg/*/graph` that skips when absent; the suite makes no network calls
+  (`WWTN_OFFLINE`). `python -m pytest -q kg agent` → 97 passed, 1 skipped. `kg/query.py` was **not** changed.
+- Open: rerecord a demo trace for the new pair when a key is available; whether same-target RDKit analogs belong in
+  `kg/query.py` rather than the agent; gene symbols for the 19 seed kinases belong on the Target nodes (UniProt).
+**Experiment/protocol template DB v0** (branch `protocol-db`).
+- Built in [kg/protocols/](kg/protocols/): `archetypes.yaml` (8 experiment types: 5 kinase + 3 non-kinase
+  negative controls, each with ChEMBL protein-class IDs, BAO IDs, an AGM-grounded purpose and PubChem search
+  hints), 3 curated `templates/*.json` (kinase ADP-Glo; cell viability CellTiter-Glo; bacterial MIC broth
+  microdilution, linked to Emmy's `Opentrons/` protocol), `rules.yaml` (18 AGM rules, 6 machine-checkable over
+  `wwtn.schema.Experiment`), `pubchem.py` (PUG-REST + Entrez `db=pcassay`, cached under `data/raw/pubchem/`),
+  `extract.py` (LLM extraction, stub-tested only — no API key here) and `build_db.py`, which replaces `seed.py`
+  and keeps `kg.query.templates()` working. 74 kg tests pass, no network (1 GPU test skipped).
+- Decided (as agreed earlier): AGM = purposes + design rules, PubChem confirmatory AIDs = the written protocols.
+  Rules carry a verbatim AGM quote and either a checkable expression or `null` (a judge item for the grader).
+  Every template parameter stores *all* values observed across its exemplar AIDs, each with its AID and quoted
+  span, so a grading tree can take the skeleton from the template while the values stay traceable.
+- New in the graph format: `Rule` nodes with `HAS_RULE` / `APPLIES_TO` (documented in [kg/README.md](kg/README.md)).
+- Caveats to check: the 3 templates are agent-curated, not human-reviewed; each draws on only one or two
+  depositors (Broad MLPCN, NCGC, Scripps), so the parameter ranges are narrow; the MIC archetype has no ChEMBL
+  protein class (`chembl_target_type:ORGANISM` is a placeholder for the biology owner to confirm); 12 of 18 rules
+  are judge items because `Experiment` has no DMSO / ATP-vs-Km / enzyme-concentration fields (changing it needs
+  the team's OK). AGM chapters had to be read from NCBI's open-access archive: the Bookshelf web pages answer
+  scripts with a reCAPTCHA.
+- Open: like the seed templates, these hang off `chembl_class:1100`, so the agent still has to walk `SUBCLASS_OF`
+  to find them (the routing gap found when testing `main`); and whether to add the 5 archetype-only templates by
+  hand or wait for a key and run `extract.py`.
+
+**Protocol DB as a shallow decision tree** (branch `protocol-db`, 2026-11-07).
+- Decided (as agreed): the template DB stops being archetype → steps → parameters and becomes a shallow decision
+  tree, in the same node/edge CSV format. Two additions: `Condition` nodes with `Protocol -REQUIRES->` /
+  `-PREFERRED_WHEN->` (the routing that was implicit in the agent's prompt: what the lab must have, what the
+  question asks, what state the target is in), and `Step -HAS_SUBSTEP-> Step` so grading can separate "right
+  stage" from "right detail". `HAS_STEP` / `NEXT` still describe the top level only.
+- Built: [`kg/protocols/conditions.yaml`](kg/protocols/conditions.yaml) — 15 conditions, each read off an
+  archetype's own `purpose` with that span quoted on the edge (11 `REQUIRES`, 6 `PREFERRED_WHEN`); 3 carry a
+  `check` expression over a design, the other 12 are `null` because a lab capability is an input to routing, not
+  something an `Experiment` can answer. 5 steps of the 3 curated templates split into 10 sub-steps — only the
+  ones whose own evidence already held the detail, each keeping a parent quote or a span inside it. Graph is now
+  140 nodes / 353 edges; `kg.query` gains `conditions()` / `steps()` and a `conditions` key on `templates()`,
+  everything else unchanged (`agent-on-kg` depends on it). 84 kg tests pass, no network.
+- Open: `REQUIRES` vs `PREFERRED_WHEN` is this branch's reading of the archetype text, not reviewed; a condition
+  exists only where an archetype says it, so `kinase_biochem_trfret` has no purified-enzyme edge until its
+  `purpose` says so; `extract.py` has no `substeps` field, so extracted templates will arrive flat.
+
+**How a template parameter's default is chosen** (branch `protocol-db`, 2026-11-07).
+- Problem: `build_db._first` took `observed[0]` — "the exemplars are listed most-canonical first", which nothing
+  enforced or recorded, so the default was "whichever assay is listed first". Hence `dilution_factor` 2.97-fold
+  over an equally valid 3-fold, and `top_concentration` 12 µM out of 10 / 12 / 46 / 46 µM.
+- Decided (as agreed): defaults are *derived* in a new [`kg/protocols/defaults.py`](kg/protocols/defaults.py),
+  and every `Parameter` node carries its derivation. (1) **Reference run**: `top_concentration`,
+  `dilution_factor`, `n_points` (and any parameter marked `"series": true`) all come from *one* exemplar — the
+  one reporting the whole series whose series sits nearest the centre of all exemplars, distances on a log scale
+  for concentrations and fold-spacings, linear for counts, normalized per parameter by its own median absolute
+  deviation and summed — because per-parameter aggregation can assemble a series nobody ran. (2) **Nearest to
+  centre** for the rest (centre = geometric median on log scale, median on linear), always a real observation,
+  never a computed average. (3) **Canonical snapping** of fold-spacings to {2, 2.5, 3, 3.162, 4, 5, 10} within
+  5 %, recorded; outside it the value is kept and flagged rather than forced. (4) A **modal value** rule for
+  parameters some exemplar states in words ("room temperature", "overnight"). (5) `exemplars_disagree` when the
+  exemplars genuinely disagree (≥ a decade of spread on a log parameter, a spread wider than the centre on a
+  linear one, a chosen value far from the centre, or numbers mixed with words). `_first` is gone and an
+  underivable default now raises `DefaultError` instead of silently resolving to element zero.
+- Effect on the curated templates: the kinase series is now AID 588811 as a whole — 12 µM, **3-fold (snapped
+  from 2.97)**, 9 points; 588811 beats 602295 on normalized distance 2.00 vs 2.27, and the 46 µM of
+  623998/623999 cannot be a reference run because that top is the top of two *interleaved* series and neither
+  AID reports a spacing or a point count. Also `kinase_reaction_time` 2 h → 60 min, `kinase_reaction_temperature`
+  28 °C → "room temperature", `detection_reagent_time` 40 → 30 min, `atp_stock_concentration` 20 → 50 µM, and
+  the MIC template's `plate_wells` 384 → 96. 10 of 39 parameters carry `exemplars_disagree`. Node/edge shape and
+  `kg.query.templates()` keys unchanged (140 nodes / 353 edges); 113 kg tests pass, no network.
+- Open: the thresholds are this branch's choice (5 % snapping tolerance, one decade for the dispersion flag, the
+  half-decade "far from centre"); a reference run needs an exemplar that reports *every* series parameter, and
+  when none does, each series parameter falls back to nearest-to-centre and is flagged `no_reference_run` rather
+  than failing the build — say if that should be a hard error instead. The 10 flagged parameters want a human to
+  pick, not a rule.
+**The concentration anchor: binding the template's shape to the analogs' scale** (branch `anchor-rule`, 2026-11-07).
+- Problem: a dose-response design needs the template's *shape* (spacing, points, controls — generic, every value
+  citing a PubChem AID) and the biology graph's *scale* for this compound (its analogs' measured IC50s). The join
+  — where to centre the series — was done implicitly by the LLM in prose, so the number that most decides whether
+  the experiment works was the only one with no provenance and no check. On the seed graph the kinase template's
+  default (top 12 µM, 2.97-fold, 9 points) bottoms out at ~2 nM while CHEMBL5593141's nearest BTK analogs sit at
+  0.72–19 nM: the generic series misses the best analog's potency entirely.
+- Decided: `agent/anchor.py` computes it deterministically — `top = median analog IC50 × f ** ((n-1)/2)` with the
+  template's own `f` and `n`, i.e. the series is *centred* on the analogs' median potency. For the demo compound
+  that is **0.638 µM** against the template's 12 µM (median 8.2 nM × 78), a 1.27-decade shift down. The
+  multiplier is **derived** from the AGM sentence `rule:agm/bracket_expected_ic50` already quotes (NBK92007, half
+  above / half below) plus the shape, not asserted.
+- Checked, not assumed: the AGM chapters cited in `rules.yaml` (NBK92007, NBK83783, NBK91991, NBK91994, NBK91992,
+  NBK464633, NBK374281) were searched and give **no numeric top-concentration multiplier** — only the centring and
+  the plateaus, qualitatively. So the no-shape fallback (100×, the usual rule of thumb) is a flagged heuristic with
+  a `TODO(final)` and **no AGM citation**. Don't let a later edit attach one.
+- Unweighted median, on purpose: analogs arrive k=3 within a narrow Tanimoto band (0.578–0.597 here), a weighted
+  median over 2–3 points is a step function of the weights, and similarity→potency is calibrated nowhere here. The
+  similarities are recorded in the derivation, so weighting can be tried and compared later.
+- Edge cases each have an outcome, not a silent guess: no usable analog → *not applicable*, the agent falls back to
+  the template default and must say so; one analog or >3 orders of spread → fires, `confidence: low` with a flag;
+  censored (`>128`) or valueless analogs skipped and counted; the no-structure fallback (most potent instead of
+  structural analogs) flagged `not_ranked_by_similarity`.
+- `rule:agm/anchor_series_on_analogs` in `rules.yaml` is **machine-checkable** over an `Experiment` plus one context
+  value, `analog_median_ic50_uM` (supplied by `Anchor.rule_context()`); missing → `None`, a judge item, which is
+  right when nothing was measured. Graph rebuilt: 141 nodes / 367 edges, 7 of 19 rules checkable. One binding, two
+  implementations, so a test asserts the rule and the function cannot drift.
+- A **default, not a constraint**: the `SYSTEM` prompt requires the model to state `anchor_top_uM` and
+  `anchor_analogs` and allows a departure with `anchor_departure_reason`; `agent/trace.py` records the anchor, the
+  derivation and whether it was followed. A wrong anchor must not be systematised, so a departure is recorded, never
+  corrected. Trace and tool-result changes are **additive** (`anchor`, and `analogs` on `bio_kg_analogs`); nothing
+  renamed, so the contract in `demo/README.md` (and ouroboros) holds — new row documented there.
+- For the grader that does not exist yet: `check_series_consistent_with_analogs(experiment, analogs, ...)` returns
+  pass/fail + reason and catches both directions — a series that ignores the retrieved analogs (>1 dilution step off
+  the anchor, or not spanning their median) and a proposal citing analog node IDs `bio_kg_analogs` never returned.
+- 191 tests pass, 1 skipped (GPU). Open: nobody has reviewed whether one dilution step is the right tolerance; the
+  template's 9-point series is below `rule:agm/min_points_enzyme_ic50`'s 10, which the anchor deliberately does not
+  fix (it takes the shape as given); `expected_ic50_uM` and `analog_median_ic50_uM` are the same number today, kept
+  apart so a future prior (class-wide spread, a literature value) can differ from the analogs' median.
+**`execution/` scaffolding: what the lab can do** (Seh Na, 00:24, branch `execution-lab` off `integration`).
+- Decided scope: assume the species panel is given, MIC units (ug/mL or mg/mL), OT-2 + Cytation on hand; focus on
+  describing the lab's capabilities and translating an experiment into something runnable on it.
+- Built: `lab.yaml` (a capability model, not an equipment list: instruments, labware with physical limits,
+  conditions; most values read off Emmy's real protocol, the rest `TODO(final)`), `lab.py` (typed reader; a
+  pipette marked `mounted: unconfirmed` is excluded from planning), `feasibility.py` (`check_feasible` -> a
+  verdict with violations, suggestions, plate/tip/volume arithmetic; `feasible_panel_size` for the
+  breadth-vs-replication trade-off). 9 tests; 151 pass overall.
+- `capabilities.atmosphere` is assumed **aerobic-only** on purpose: the safe default, and it turns the anaerobe
+  problem (most gut commensals need CLSI M11 agar dilution, not the M07 broth microdilution we generate) into a
+  check that fails loudly instead of a thing someone has to remember.
+- Open: confirm the real hardware (which pipettes are mounted, labware counts, any anaerobic capability, which
+  Cytation); the panel is passed in because `Experiment` has no panel field yet.
+- Update (00:31): at Seh Na's request `lab.yaml` now claims **both atmospheres**, on the assumption the OT-2 sits
+  in an anaerobic chamber. Recorded under `capabilities.assumed` and surfaced as a warning on *every* verdict, so
+  nothing can quietly rest on it (drop it before reporting a real result). The atmosphere check now runs **both
+  ways** - an obligate aerobe fails in an anaerobic-only setup as surely as an anaerobe fails in air - and a
+  species marked `facultative` passes either way.
+- Next (00:37, Seh Na): `plate.py` — experiment + lab + panel -> the well map (one row per species per replicate,
+  series along the columns, controls last, spilling onto further plates), plus `audit()` which **replays the
+  transfer plan independently** to check it. Every well carries both `prepared_uM` (2x, during the dilution) and
+  `final_uM` (what the cells see after the inoculum halves it); conflating them would double every reported MIC,
+  so the audit tests break the map on purpose and require it to object. 24 execution tests, 166 overall.
+- Correction (01:20, Emmy): atmosphere belongs to a **step**, not the lab. The OT-2 builds the plate on the bench
+  in minutes; the overnight incubation is where oxygen decides whether an anaerobe grows. So `lab.yaml` now has
+  `liquid_handling_atmosphere` (aerobic, no chamber needed) and `incubation_atmosphere` (aerobic + anaerobic,
+  **assumed** - jars or an anaerobic incubator - because the project phenotypes anaerobic microbiome bacteria).
+  A panel entry may declare `oxygen_tolerance`: aerotolerant anaerobes survive the bench, strictly sensitive ones
+  (F. prausnitzii) are refused with the reason. The agreed four-species panel passes as 1 plate at n=2.
