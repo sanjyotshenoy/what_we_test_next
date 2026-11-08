@@ -211,3 +211,9 @@ forward socket is active but disabled at boot; viewer forward socket is enabled.
 Reboot recovery was not tested. Scientific/domain/hardware review, strain selection,
 independent-user live sessions, broad reliability/load testing and main integration
 remain open. No production-certification claim.
+
+## Banner name — 2026-11-08
+
+User chose **Ouroboros** (corrected spelling) for the top-left dashboard banner.
+The saved operator dashboard and public visitor-key planner now use that name.
+The sequential walkthrough and original demo entry point are unchanged.
