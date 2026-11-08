@@ -4,3 +4,13 @@ __pycache__/
 .venv/
 data/raw/
 out/
+
+# screening/: NO data is committed, on purpose - screening/ ships as the plumbing and the plan, and the
+# matrix is built on the machine that has the ChEMBL dump (see screening/README.md). The generated
+# splits and results are not committed either, because they are cut from that matrix.
+screening/data/*
+!screening/data/.gitkeep
+screening/splits/*
+!screening/splits/.gitkeep
+screening/results/*
+!screening/results/.gitkeep

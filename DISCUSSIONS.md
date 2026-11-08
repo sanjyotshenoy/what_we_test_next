@@ -230,8 +230,12 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   experiment, since Emmy's OT-2 protocol *is* an MIC broth microdilution.
 - Checked against the live ChEMBL API (all 798,852 MIC activities paginated): pathogen side is rich (115,942
   compounds, 8,916 papers, 1,281 organism targets, 78,809 activities from 2023+ so a time split works). Commensal
-  side is not: 3,338 activities (0.42%), 1,812 compound x species pairs vs 245,556 on the pathogen side (~74x
-  asymmetry); F. prausnitzii, A. muciniphila, C. scindens and Roseburia have **zero** MIC records; only 110 of
+  side is not: 3,338 activities (0.42%), 1,812 compound x species pairs vs 245,556 on the pathogen side.
+  **Corrected 2026-11-08: that ratio is 135x (245,556 / 1,812), not the 74x originally written here.** 74 is
+  the percentage of rows with relation '=' - two different numbers from the same data check, conflated, and
+  then repeated in Discord, in screening/README.md and in a slide suggestion before anyone divided them. At
+  the activity level rather than the pair level the ratio is 239x (798,852 / 3,338), so always say which
+  pair of numbers a ratio comes from; F. prausnitzii, A. muciniphila, C. scindens and Roseburia have **zero** MIC records; only 110 of
   8,916 papers report both arms (16 of them 2023+), and novel compounds' commensal values are usually censored
   at ">128 ug/mL".
 - Suggested: benchmark the **pathogen** side (hold out 2023+ papers; grade panel recall + whether the series
@@ -483,3 +487,28 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   a hand-written proposal for the four-species panel at n=2 (exactly 8 rows) topped at 256 ug/mL, which exists
   because `agent/` needs `NEBIUS_API_KEY` and no machine here has one. With it, **everything downstream of the
   agent runs end to end tonight** and the generated protocol simulates clean. 279 tests.
+**`screening/`: virtual pre-screening, upstream of the MIC plate** (professorduckydoo, 01:55, branch
+`screening` off `main`). Scope changed mid-build and the final ask is the narrower one: ship the **plan and the
+plumbing, with no data**, so it can be run on a DGX Spark rather than here.
+- The architecture question first: his reference image was G-Retriever (2402.07630), a dual-encoder GraphRAG.
+  Recommended **imputation / link prediction** over that design instead - the task is a sparse compound x
+  species matrix with a cold-start problem, which is matrix completion, not retrieval.
+- `fetch_mic.py` takes the matrix from a **local ChEMBL 37 SQLite dump** (primary) or the REST API (fallback).
+  The dump is one query, brings SMILES and molecular weights with it - so it also replaces the ~116k molecule
+  lookups `features.py` would otherwise make - and takes seconds against ~45 min for a 6-way sharded REST pull.
+  Same path and `CHEMBL_SQLITE` variable `kg/biology/chembl_db.py` already uses; pinned to **37**, because a
+  different release shifts the counts and a split cut from a different matrix compares to nothing.
+- The splits are the real artifact: committed explicit ID lists, fixed seed, with the matrix sha256 recorded.
+  **Nothing downstream may re-randomise** - that is what makes a number from the Spark comparable to a number
+  from here. They are absent today because the matrix they are cut from is.
+- Two baselines on purpose: chemical-similarity kNN, and a **species-marginal baseline that ignores chemistry
+  entirely**. The marginal one is the point - it says whether chemistry is adding anything at all.
+- Found during a development pull that was then discarded: run `choose_holdouts` without a kingdom filter and
+  the mid-sized species band fills with **fungi** (Penicillium chrysogenum, Lichtheimia corymbifera,
+  Trichoderma viride), because ChEMBL's MIC rows include antifungal assays. Holding those out would measure
+  generalisation across kingdoms. `splits.bacteria(...)` is the filter.
+- Stated plainly in the README rather than glossed: **no result numbers exist**, `splits.py`/`features.py`/
+  `baseline.py` have only run against fixtures, and `features.py` has no tests. 40 offline tests pass.
+- Needs a person: **Maier et al. 2021**'s 815 commensal MICs (10.1038/s41586-021-03986-2) are in a supplementary
+  spreadsheet that cannot be fetched programmatically, and they are the only sizeable set of gut commensal MICs
+  anywhere. Without them a `cold_species` score on ChEMBL's 1,812 commensal pairs is measured on almost nothing.

@@ -14,6 +14,7 @@ and [kg/README.md](kg/README.md) (graph CSVs). Read [CONTRIBUTING.md](CONTRIBUTI
 is in [DISCUSSIONS.md](DISCUSSIONS.md).
 
 ```
+screening/        upstream: which species does a candidate compound inhibit? (plan + plumbing, no data yet)
 benchmark/        questions the KB can't answer (held-out facts), ground truth, grading
 kg/biology/       biology KG: compounds, targets, target classes, known activities
 kg/protocols/     protocol KG: dose-response templates (steps, parameters, labware), BAO-tagged
@@ -25,6 +26,8 @@ slides/           the presentation (live deck)
 ```
 
 ```
+screening/  (upstream: ranks candidate compounds; see screening/README.md)
+                                |
 benchmark/questions.jsonl --> agent/ <-- kg/biology/graph, kg/protocols/graph
                                 |
                      agent/out/<run>.jsonl --> execution/ --> OT-2 protocol + simulation

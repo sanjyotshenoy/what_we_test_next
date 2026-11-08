@@ -1,5 +1,6 @@
 fastapi>=0.110
 networkx>=3.4
+numpy>=1.26
 openai>=1.40
 pandas>=2.2
 pydantic>=2.0
