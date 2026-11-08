@@ -39,8 +39,9 @@ schema, and build against those. Knowledge graphs use the node/edge CSV format i
 
 ## Record decisions
 
-When a discussion settles something (or leaves it open), add a short dated entry to
-[DISCUSSIONS.md](DISCUSSIONS.md): decided / suggested / open, and the file it changed.
+Record public implementation decisions in the relevant tracked documentation. Keep private brainstorming
+in local-only `DISCUSSIONS.md` and `HANDOFF.md` (both git-ignored); do not force-add them.
+If keeping a local discussion log, use dated entries marked decided / suggested / open.
 
 ## Things to finish before presenting
 

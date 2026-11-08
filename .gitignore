@@ -14,3 +14,7 @@ screening/splits/*
 !screening/splits/.gitkeep
 screening/results/*
 !screening/results/.gitkeep
+
+# Private local brainstorming notes (back up before pulling their removal).
+/HANDOFF.md
+/DISCUSSIONS.md

@@ -10,8 +10,11 @@ domain: does compound X inhibit target Y, answered by an IC50 dose-response (a s
 ## Layout
 
 Each workstream owns a folder; folders exchange files whose formats are fixed in `wwtn/schema.py` (JSON Lines)
-and [kg/README.md](kg/README.md) (graph CSVs). Read [CONTRIBUTING.md](CONTRIBUTING.md) before your first push. New here (or briefing a coding agent)? Start with [HANDOFF.md](HANDOFF.md): the whole project so far in one file; what we have discussed and decided since
-is in [DISCUSSIONS.md](DISCUSSIONS.md).
+and [kg/README.md](kg/README.md) (graph CSVs). Read [CONTRIBUTING.md](CONTRIBUTING.md) before your first push.
+
+Private brainstorming notes (`HANDOFF.md` and `DISCUSSIONS.md`) are local-only and ignored by Git.
+Back up existing copies outside the repository before pulling the commit that removes them from tracking.
+Earlier versions remain in Git history; this cleanup does not erase them.
 
 ```
 screening/        upstream: which species does a candidate compound inhibit? (plan + plumbing, no data yet)
