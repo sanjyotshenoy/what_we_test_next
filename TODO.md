@@ -24,6 +24,10 @@ it, delete the comment. The checklist below is a snapshot for orientation; the g
 - [ ] Pick the range-accuracy metric before writing the grader: `benchmark/README.md`
 - [ ] Owners in each folder README: `agent/`, `execution/`, `benchmark/`, `kg/biology/`, `kg/protocols/`
 - [ ] `agent/`: baselines (bare LLM, LLM + literature search) for a fair comparison; delete `agent/data/sample_kg`
+- [ ] `agent/anchor.py` / `kg/protocols/rules.yaml`: the concentration anchor's multiplier is derived from the
+  AGM's half-above/half-below sentence plus the template's shape, but the **100x fallback** used when no template
+  shape is in hand is a heuristic with no AGM number behind it; the one-dilution-step tolerance in
+  `check_series_consistent_with_analogs` is unreviewed
 
 ## Pipeline gaps (2026-11-07 19:20; not yet built or decided)
 

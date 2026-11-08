@@ -241,3 +241,43 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   free text), and most gut commensals are **anaerobes** needing CLSI M11 agar dilution, not the M07 broth
   microdilution we generate — a scientific-credibility issue, cheap to fix in the prompt and the protocol KG.
 - Open: whether to pivot at all given the clock; nothing has been rebuilt.
+
+**The concentration anchor: binding the template's shape to the analogs' scale** (branch `anchor-rule`, 2026-11-07).
+- Problem: a dose-response design needs the template's *shape* (spacing, points, controls — generic, every value
+  citing a PubChem AID) and the biology graph's *scale* for this compound (its analogs' measured IC50s). The join
+  — where to centre the series — was done implicitly by the LLM in prose, so the number that most decides whether
+  the experiment works was the only one with no provenance and no check. On the seed graph the kinase template's
+  default (top 12 µM, 2.97-fold, 9 points) bottoms out at ~2 nM while CHEMBL5593141's nearest BTK analogs sit at
+  0.72–19 nM: the generic series misses the best analog's potency entirely.
+- Decided: `agent/anchor.py` computes it deterministically — `top = median analog IC50 × f ** ((n-1)/2)` with the
+  template's own `f` and `n`, i.e. the series is *centred* on the analogs' median potency. For the demo compound
+  that is **0.638 µM** against the template's 12 µM (median 8.2 nM × 78), a 1.27-decade shift down. The
+  multiplier is **derived** from the AGM sentence `rule:agm/bracket_expected_ic50` already quotes (NBK92007, half
+  above / half below) plus the shape, not asserted.
+- Checked, not assumed: the AGM chapters cited in `rules.yaml` (NBK92007, NBK83783, NBK91991, NBK91994, NBK91992,
+  NBK464633, NBK374281) were searched and give **no numeric top-concentration multiplier** — only the centring and
+  the plateaus, qualitatively. So the no-shape fallback (100×, the usual rule of thumb) is a flagged heuristic with
+  a `TODO(final)` and **no AGM citation**. Don't let a later edit attach one.
+- Unweighted median, on purpose: analogs arrive k=3 within a narrow Tanimoto band (0.578–0.597 here), a weighted
+  median over 2–3 points is a step function of the weights, and similarity→potency is calibrated nowhere here. The
+  similarities are recorded in the derivation, so weighting can be tried and compared later.
+- Edge cases each have an outcome, not a silent guess: no usable analog → *not applicable*, the agent falls back to
+  the template default and must say so; one analog or >3 orders of spread → fires, `confidence: low` with a flag;
+  censored (`>128`) or valueless analogs skipped and counted; the no-structure fallback (most potent instead of
+  structural analogs) flagged `not_ranked_by_similarity`.
+- `rule:agm/anchor_series_on_analogs` in `rules.yaml` is **machine-checkable** over an `Experiment` plus one context
+  value, `analog_median_ic50_uM` (supplied by `Anchor.rule_context()`); missing → `None`, a judge item, which is
+  right when nothing was measured. Graph rebuilt: 141 nodes / 367 edges, 7 of 19 rules checkable. One binding, two
+  implementations, so a test asserts the rule and the function cannot drift.
+- A **default, not a constraint**: the `SYSTEM` prompt requires the model to state `anchor_top_uM` and
+  `anchor_analogs` and allows a departure with `anchor_departure_reason`; `agent/trace.py` records the anchor, the
+  derivation and whether it was followed. A wrong anchor must not be systematised, so a departure is recorded, never
+  corrected. Trace and tool-result changes are **additive** (`anchor`, and `analogs` on `bio_kg_analogs`); nothing
+  renamed, so the contract in `demo/README.md` (and ouroboros) holds — new row documented there.
+- For the grader that does not exist yet: `check_series_consistent_with_analogs(experiment, analogs, ...)` returns
+  pass/fail + reason and catches both directions — a series that ignores the retrieved analogs (>1 dilution step off
+  the anchor, or not spanning their median) and a proposal citing analog node IDs `bio_kg_analogs` never returned.
+- 191 tests pass, 1 skipped (GPU). Open: nobody has reviewed whether one dilution step is the right tolerance; the
+  template's 9-point series is below `rule:agm/min_points_enzyme_ic50`'s 10, which the anchor deliberately does not
+  fix (it takes the shape as given); `expected_ic50_uM` and `analog_median_ic50_uM` are the same number today, kept
+  apart so a future prior (class-wide spread, a literature value) can differ from the analogs' median.
