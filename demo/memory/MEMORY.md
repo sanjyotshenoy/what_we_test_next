@@ -106,3 +106,8 @@ Presentation language now describes example queries and the active workflow step
 not recordings or milestone counts. A compact precomputed-example provenance line
 and expandable About note retain the distinction from fresh inference/physical
 execution. No model selector is shown without corresponding model trajectories.
+
+Removed per-step Example output badges. Added the four team evaluation models to
+an LLM dropdown, backed by `sequential-models.json`. Only verified session/model
+pairs are shown; currently GLM-5.3 has the two approved trajectories. Others show
+not-ready. Changing selection cancels progression and clears the prior output.

@@ -7,7 +7,7 @@
   const detail = (title, value) => `<details><summary>${esc(title)}</summary><pre>${esc(typeof value === 'string' ? value : JSON.stringify(value, null, 2))}</pre></details>`;
   const card = content => `<div class="card record">${content}</div>`;
   const paragraph = text => `<p>${esc(text)}</p>`;
-  let recordings = [], selected = null, stages = [], cursor = 0, timer = null, paused = false;
+  let modelCatalog = {models: [], sessions: {}}, recordings = [], selected = null, stages = [], cursor = 0, timer = null, paused = false;
   const api = async path => { const r = await fetch(path); if (!r.ok) throw new Error(`Could not load saved results (${r.status}).`); return r.json(); };
   function stopTimer() { clearTimeout(timer); timer = null; }
   function schedule() {
@@ -46,7 +46,7 @@
     if (cursor >= stages.length) return;
     const stage = stages[cursor++];
     const li = document.createElement('li'); li.className = 'stage';
-    li.innerHTML = `<h3>${esc(stage.title)} <span class="pill unknown">Example output</span></h3>${stage.html}`;
+    li.innerHTML = `<h3>${esc(stage.title)}</h3>${stage.html}`;
     collapseLongText(li);
     $('timeline').append(li); controls(); schedule();
     li.style.scrollMarginTop = `${$('toolbar').getBoundingClientRect().height + 16}px`;
@@ -101,18 +101,28 @@
   $('speed').onchange=schedule;
   $('theme').onclick=()=>{const root=document.documentElement;root.dataset.theme=(root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';};
   $('queries').onclick=e=>{const b=e.target.closest('button');if(b)start(Number(b.dataset.index));};
+  function renderQueries() {
+    stopTimer(); selected=null; stages=[]; cursor=0; paused=true;
+    $('timeline').replaceChildren(); $('toolbar').hidden=true; $('provenance').textContent='';
+    const visible=recordings.map((r,i)=>({r,i})).filter(({r})=>modelCatalog.sessions[r.session]===$('llm').value);
+    $('queries').innerHTML=visible.map(({r,i})=>{
+      const runs=r.batches.flatMap(b=>b.manifest.runs || []);
+      const compounds=[...new Set(runs.map(x=>x.compound))].join(' + ');
+      const species=[...new Set(runs.map(x=>x.species?.name).filter(Boolean))].join(' + ');
+      return `<button data-index="${i}" aria-pressed="false"><strong>Plan MIC experiments: ${esc(compounds)}</strong>${esc(species)}<small>Example query · ${runs.length} generated protocols</small></button>`;
+    }).join('');
+    $('message').textContent=visible.length?'Choose an example query to see the workflow.':'Trajectories for this model have not been precomputed and published yet.';
+  }
+  $('llm').onchange=renderQueries;
   (async()=>{
     try {
       const sessions=await api('/api/planning/sessions');
       recordings=await Promise.all(sessions.map(s=>api(`/api/planning?session=${encodeURIComponent(s.session)}`)));
       recordings=recordings.filter(r=>r.batches?.length);
-      $('queries').innerHTML=recordings.map((r,i)=>{
-        const runs=r.batches.flatMap(b=>b.manifest.runs || []);
-        const compounds=[...new Set(runs.map(x=>x.compound))].join(' + ');
-        const species=[...new Set(runs.map(x=>x.species?.name).filter(Boolean))].join(' + ');
-        return `<button data-index="${i}" aria-pressed="false"><strong>Plan MIC experiments: ${esc(compounds)}</strong>${esc(species)}<small>Example query · ${runs.length} generated protocols</small></button>`;
-      }).join('');
-      $('message').textContent=recordings.length?'Choose an example query to see the workflow.':'No published examples are available.';
+      modelCatalog=await api('/sequential-assets/sequential-models.json');
+      $('llm').innerHTML=modelCatalog.models.map(m=>`<option value="${esc(m.id)}">${esc(m.label)}</option>`).join('');
+      $('llm').disabled=false;
+      renderQueries();
     } catch(e) { $('message').textContent=e.message+' Reload to retry. No live fallback was started.'; }
   })();
 })();

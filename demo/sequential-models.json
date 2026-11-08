@@ -1,0 +1,24 @@
+{
+  "models": [
+    {
+      "id": "zai-org/GLM-5.3",
+      "label": "GLM-5.3"
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V4-Pro-0813",
+      "label": "DeepSeek-V4-Pro-0813"
+    },
+    {
+      "id": "moonshotai/Kimi-K3",
+      "label": "Kimi-K3"
+    },
+    {
+      "id": "Qwen/Qwen3.8-27B",
+      "label": "Qwen3.8-27B"
+    }
+  ],
+  "sessions": {
+    "ses_e45830dcdffec6BtfRHpmnGmZo": "zai-org/GLM-5.3",
+    "ses_e45849c51ffeAj4a8dVLJkTK2M": "zai-org/GLM-5.3"
+  }
+}

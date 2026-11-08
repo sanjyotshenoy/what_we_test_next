@@ -5,6 +5,7 @@
 <script src="/sequential-assets/sequential.js" defer></script></head><body>
 <header class="top"><div class="brand"><span class="dot"></span>What we test next</div><button id="theme" class="theme">Switch theme</button></header>
 <main><h1>From a question to a simulated experiment</h1><p class="muted">Choose an example query and follow the evidence, experiment design and simulation step by step.</p>
+<label class="model-picker">LLM <select id="llm" disabled aria-label="LLM"><option>Loading models…</option></select></label>
 <div id="queries" class="suggest" aria-label="Example queries"></div>
 <p id="message" role="status">Loading example queries…</p>
 <div class="playback" hidden id="toolbar"><button id="pause">Pause</button><button id="next">Next step</button><button id="all" class="quiet">Show all</button><button id="restart" class="quiet">Replay</button><label>Speed <select id="speed"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option></select></label><a href="/">Explore full results</a></div>

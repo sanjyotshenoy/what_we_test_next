@@ -130,3 +130,12 @@ No new model call, private transcript, or physical execution is triggered. Timin
 is illustrative and milestones are reconstructed from saved artifacts, not an
 exact agent transcript. Synthetic assay inputs and scientific limitations remain
 visible. The original `index.html` and slide entry point are preserved.
+
+The sequential LLM dropdown uses `sequential-models.json`: four team evaluation
+model IDs, plus a verified session-to-model mapping. It filters already published
+sessions; missing models show a not-ready state, never another model's output.
+To add a precomputed trajectory, run the chosen model privately through the operator,
+verify the result and model identity, publish the reviewed session through the existing
+viewer allowlist, and add its exact session/model pair to this manifest. Restart
+only the viewer when its session allowlist changes. The dropdown itself never runs
+inference or changes the operator's model. Current mapped examples are GLM-5.3.

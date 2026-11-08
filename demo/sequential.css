@@ -14,3 +14,6 @@ details { margin-top: 12px; } summary { cursor:pointer; color:var(--accent); }
 @media (prefers-reduced-motion: reduce) { *, *::before { animation:none!important; scroll-behavior:auto!important; } }
 
 .expand-text { display: block; font-size: .85rem; padding: 6px 10px; margin: 8px 0 12px; }
+
+.model-picker { display:flex; align-items:center; gap:12px; margin:20px 0; }
+.model-picker select { max-width:100%; min-width:0; border-radius:8px; }
