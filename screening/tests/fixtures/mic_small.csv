@@ -1,0 +1,19 @@
+molecule_chembl_id,target_chembl_id,target_organism,target_tax_id,standard_value,standard_units,standard_relation,standard_type,document_chembl_id,year,assay_chembl_id,censored
+CHEMBL_A,CHEMBL352,Staphylococcus aureus,1280,2.0,ug.mL-1,=,MIC,DOC1,2019,AS1,False
+CHEMBL_A,CHEMBL352,Staphylococcus aureus subsp. aureus,1280,4.0,ug.mL-1,=,MIC,DOC1,2019,AS1,False
+CHEMBL_A,CHEMBL354,Escherichia coli,562,32.0,ug.mL-1,=,MIC,DOC1,2019,AS2,False
+CHEMBL_A,CHEMBL613911,Bifidobacterium longum,216816,128.0,ug.mL-1,>,MIC,DOC1,2019,AS3,True
+CHEMBL_B,CHEMBL352,Staphylococcus aureus H37Rv,1280,8.0,ug.mL-1,=,MIC,DOC2,2020,AS4,False
+CHEMBL_B,CHEMBL354,Escherichia coli,562,64.0,ug.mL-1,=,MIC,DOC2,2020,AS5,False
+CHEMBL_B,CHEMBL613911,Bifidobacterium longum,216816,16.0,ug.mL-1,=,MIC,DOC2,2020,AS6,False
+CHEMBL_C,CHEMBL352,Staphylococcus aureus,1280,1.0,ug.mL-1,=,MIC,DOC3,2021,AS7,False
+CHEMBL_C,CHEMBL354,Escherichia coli,562,0.002,mg.mL-1,=,MIC,DOC3,2021,AS8,False
+CHEMBL_C,CHEMBL614411,Bacteroides fragilis,817,256.0,ug.mL-1,>=,MIC,DOC3,2021,AS9,True
+CHEMBL_D,CHEMBL352,Staphylococcus aureus,1280,10000.0,nM,=,MIC,DOC4,2022,AS10,False
+CHEMBL_D,CHEMBL354,Escherichia coli,562,16.0,ug.mL-1,=,MIC,DOC4,2022,AS11,False
+CHEMBL_E,CHEMBL352,Staphylococcus aureus,1280,0.5,ug.mL-1,=,MIC,DOC5,2023,AS12,False
+CHEMBL_E,CHEMBL614965,Clostridioides difficile,1496,2.0,ug.mL-1,=,MIC,DOC5,2023,AS13,False
+CHEMBL_F,CHEMBL352,Staphylococcus aureus,1280,64.0,ug.mL-1,<,MIC,DOC6,2023,AS14,True
+CHEMBL_F,CHEMBL354,Escherichia coli,562,,ug.mL-1,=,MIC,DOC6,2023,AS15,False
+CHEMBL_G,,,,8.0,ug.mL-1,=,MIC,DOC7,2024,AS16,False
+CHEMBL_H,CHEMBL352,Staphylococcus aureus,1280,4.0,pH units,=,MIC,DOC8,2024,AS17,False

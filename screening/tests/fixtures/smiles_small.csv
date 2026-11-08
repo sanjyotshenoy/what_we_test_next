@@ -1,0 +1,8 @@
+molecule_chembl_id,canonical_smiles,full_mwt
+CHEMBL_A,CCOc1ccccc1C(=O)N,165.19
+CHEMBL_B,CCOc1ccccc1C(=O)O,166.17
+CHEMBL_C,CCCCCCCCCCCCN,185.35
+CHEMBL_D,c1ccc2[nH]ccc2c1,117.15
+CHEMBL_E,CCOc1ccccc1C(=O)NC,179.22
+CHEMBL_F,CC(=O)Nc1ccc(O)cc1,151.16
+CHEMBL_H,not a smiles at all,200.0
