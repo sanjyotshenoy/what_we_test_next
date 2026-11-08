@@ -88,15 +88,26 @@
       paragraph(`Showing ${r.measurements?.length || 0} saved measurements; ${r.total_measurements ?? 'unknown'} total matches. Original units preserved; these values are background evidence, not chosen assay settings.`);
     return '';
   }
+  function scientificQuestion(data) {
+    const runs=(data.batches || []).flatMap(b=>b.manifest.runs || []);
+    const compounds=[...new Set(runs.map(r=>r.compound))];
+    const species=[...new Set(runs.map(r=>r.species?.name).filter(Boolean))];
+    if(compounds.some(c=>c.startsWith('fixture-'))) return {
+      question:'Which of two candidate compounds inhibits each bacterium at a lower concentration?',
+      request:'Design a minimum inhibitory concentration (MIC) experiment comparing both compounds across both bacteria, then generate and simulate the OT-2 protocols.',
+      note:'Synthetic example · two placeholder compounds × two placeholder species'
+    };
+    const names=compounds.map(c=>c.replace(/\s*\(CHEMBL\d+\)/g,'').toLowerCase()).join(' and ');
+    return {
+      question:`What minimum concentration of ${names} inhibits growth of ${species.join(' and ')}?`,
+      request:'Design a broth-microdilution experiment to measure MIC for each bacterium, then generate and simulate the OT-2 protocols.',
+      note:'Experiment design · results require growth measurements'
+    };
+  }
   function build(data) {
-    const compounds = (data.batches || []).flatMap(b => b.batch?.compounds || []);
-    const requests = compounds.map(c => {
-      const e = c.proposal?.experiment || {};
-      const panel = (e.panel || []).map(s => s.name).join(' and ');
-      return card(paragraph(`Plan a ${e.assay_type || 'MIC'} experiment for ${c.compound}${panel ? ` against ${panel}` : ''}. Generate the OT-2 protocols and check them in the simulator.`) +
-        detail('Supplied experiment inputs', e));
-    }).join('');
-    const out = [{title: "Scientist’s query", html: requests || card(paragraph('Inspect the experiment request and its supporting evidence.'))}];
+    const question=scientificQuestion(data);
+    const inputs=(data.batches || []).flatMap(b=>(b.batch?.compounds || []).map(c=>({compound:c.compound,experiment:c.proposal?.experiment})));
+    const out = [{title: "Scientist’s query", html:card(`<h4>${esc(question.question)}</h4>`+paragraph(question.request)+paragraph(question.note)+detail('Supplied experiment inputs',inputs))}];
 
     for (const e of data.evidence || []) {
       const r = e.result || {};
@@ -136,9 +147,8 @@
     const visible=recordings.map((r,i)=>({r,i})).filter(({r})=>modelCatalog.sessions[r.session]===$('llm').value);
     $('queries').innerHTML=visible.map(({r,i})=>{
       const runs=r.batches.flatMap(b=>b.manifest.runs || []);
-      const compounds=[...new Set(runs.map(x=>x.compound))].join(' + ');
-      const species=[...new Set(runs.map(x=>x.species?.name).filter(Boolean))].join(' + ');
-      return `<button data-index="${i}" aria-pressed="false"><strong>Plan MIC experiments: ${esc(compounds)}</strong>${esc(species)}<small>Example query · ${runs.length} generated protocols</small></button>`;
+      const q=scientificQuestion(r);
+      return `<button data-index="${i}" aria-pressed="false"><strong>${esc(q.question)}</strong><small>${esc(q.note)} · ${runs.length} generated protocols</small></button>`;
     }).join('');
     $('message').textContent=visible.length?'Choose an example query to see the workflow.':'Trajectories for this model have not been precomputed and published yet.';
   }

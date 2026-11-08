@@ -129,3 +129,9 @@ haspin missing-link example copies only the existing benchmark input packet (cas
 labels its edge as deliberately masked, and does not imply a MIC trajectory or a
 new model/simulator result. No held-out answer is imported. Source remains in slides;
 all new code/data stays in demo/.
+
+Query cards and first milestone now lead with scientific questions: minimum
+ciprofloxacin concentration inhibiting growth in the two named species, or comparing
+two synthetic candidate compounds across two placeholder bacteria. Requests explicitly
+ask for experiment design and simulation, not an already measured biological answer.
+These are display summaries of existing inputs, not verbatim historical prompts.
