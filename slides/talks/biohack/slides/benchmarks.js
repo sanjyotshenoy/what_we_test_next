@@ -6,17 +6,25 @@
 //   bench-propose-fields  benchmark 1 field by field, in the + both KGs setting (one step)
 //   bench-code            benchmark 2: does the OT-2 protocol run (one step)
 //
-// MODELS is the shortlist on Nebius Token Factory; keep it in step with EVAL_MODELS in wwtn/llm.py. Every value is
+// MODELS is the requested benchmark shortlist. Every value is
 // a percentage of questions: fill one in as RESULTS[chart][model id][group key], e.g.
-//   RESULTS.propose['moonshotai/Kimi-K3'] = { bare: 40, lit: 55, kg: 80 };
+//   RESULTS.propose['moonshotai/Kimi-K3.1-Pro'] = { bare: 40, lit: 55, kg: 80 };
 {
-// TODO(final): confirm these four are live on our Nebius key (python -m wwtn.llm --models).
+// TODO(final): confirm provider IDs and availability on our Nebius key (python -m wwtn.llm --models),
+// then have the shared-code owner synchronize EVAL_MODELS in wwtn/llm.py before running benchmarks.
 const MODELS = [
-  { id: 'deepseek-ai/DeepSeek-V4-Pro-0813', name: 'DeepSeek V4 Pro' },
-  { id: 'moonshotai/Kimi-K3', name: 'Kimi K3' },
-  { id: 'Qwen/Qwen3.8-27B', name: 'Qwen3.8 27B' },
-  { id: 'zai-org/GLM-5.3', name: 'GLM-5.3' },
+  { id: 'deepseek-ai/DeepSeek-V4.1-Flash-1017', name: 'DeepSeek V4.1 Flash 1017' },
+  { id: 'moonshotai/Kimi-K3.1-Pro', name: 'Kimi K3.1 Pro' },
+  { id: 'zai-org/GLM-5.3-Flash', name: 'GLM-5.3 Flash' },
+  { id: 'nvidia/NVIDIA-Nemotron-3-Super-120B-A12B', name: 'Nemotron 3 Super' },
 ];
+
+const MODEL_NOTES = 'Model shortlist: DeepSeek V4.1 Flash 1017, Kimi K3.1 Pro, GLM-5.3 Flash, '
+  + 'and NVIDIA Nemotron 3 Super (120B total / 12B active). Super is our suggested efficiency-oriented '
+  + 'comparison; Ultra is the higher-capability option. This is a selection rationale, not a measured '
+  + 'ranking on our tasks. Provider availability and exact serving IDs remain unconfirmed. Sources: '
+  + 'https://api-docs.deepseek.com/news/news261017/ ; https://www.kimi.ai/blog/kimi-k3-1-pro ; '
+  + 'https://z.ai/blog/glm-5.3-flash ; https://research.nvidia.com/labs/nemotron/Nemotron-3-Super/ .';
 
 // TODO(final): fill in from the benchmark runs; until then every bar is empty and labelled "—".
 const RESULTS = { propose: {}, fields: {}, code: {} };
@@ -77,7 +85,7 @@ const CHARTS = [
 CHARTS.forEach((c) => Deck.slide(c.name, {
   steps: Math.max(...c.groups.map((g) => g.step || 1)),
   before: 'blank-6',
-  notes: c.notes,
+  notes: `${c.notes} ${MODEL_NOTES}`,
   mount(frame, { esc }) {
     frame.innerHTML = `<h2 class="deck-heading reveal-in in">${esc(c.heading)}</h2>`;
     // plain numbers on a 0..100 axis; a missing result is an empty bar labelled "—"
