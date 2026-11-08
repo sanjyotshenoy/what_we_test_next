@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<base href="../biohack/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Should We Test Next? · BioHack 2026</title>
+<!--
+  Closing the Loop Between Knowledge and Discovery: team Zhang et al., Nucleate Pittsburgh BioHack 2026. A live deck: every slide is drawn in the
+  browser by its module in slides/. Arrow keys or clicks step, S speaker notes, O overview, F fullscreen,
+  T dark/light theme, L laser pointer. Works offline, also opened straight from disk.
+-->
+<link rel="stylesheet" href="../../vendor/reveal/reveal.css">
+<link rel="stylesheet" href="../../web/deck.css">
+</head>
+<body>
+<div class="reveal"><div class="slides"></div></div>
+
+<!-- the runtime -->
+<script src="../../vendor/reveal/reveal.js"></script>
+<script src="../../vendor/reveal/notes.js"></script>
+<script src="../../vendor/manim-web/manim-web.iife.js"></script>
+<script src="../../web/deck.js"></script>
+<script src="../../web/manim.js"></script>
+<script src="../../web/plots.js"></script>
+
+<!-- the slides, in order. Deck.section(n) puts the slides after it in section n of the footer; null = none -->
+<script>Deck.section(null)</script>
+<script src="slides/title.js"></script>
+<script>Deck.section(1)</script>
+<script src="slides/why.js"></script>
+<script src="slides/story.js"></script>
+<script>Deck.section(null)</script>
+<script src="slides/outline.js"></script>
+<script>Deck.hide('outline')</script>
+<script src="evidence/data.js"></script>
+<script src="slides/evidence.js"></script>
+<script src="data/pilot_results.js"></script>
+<script src="slides/pilot_results.js"></script>
+<script src="data/kb_story.js"></script>
+<script src="slides/kb_story.js"></script>
+<script src="slides/benchmark_method.js"></script>
+<script src="slides/explorer.js"></script>
+<script>Deck.section(null)</script>
+
+<script>['title','why','story','evidence-next'].forEach(n=>Deck.hide(n)); Deck.start({ title: 'What Should We Test Next? · BioHack 2026' });</script>
+</body>
+</html>
