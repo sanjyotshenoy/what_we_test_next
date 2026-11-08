@@ -1,0 +1,68 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence)",
+  "system": "recombinant human haspin (Q8TF76) expressed in baculovirus/insect cells",
+  "readout": "ADP‑Glo luminescence proportional to ADP produced",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10‑point, 3‑fold serial dilution of CHEMBL4278808 in DMSO; include 0.1 % DMSO vehicle control and a known haspin inhibitor (e.g., CHR‑6494) as reference.",
+      "parameters": {
+        "top_concentration_uM": "100 µM (chosen to span >3 log units and ensure coverage of expected IC50 range based on similar haspin inhibitors)",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.1 % (v/v) DMSO in assay buffer"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In 384‑well plates combine recombinant haspin (final 5 nM), peptide substrate (H3‑Thr3 peptide, 10 µM), ATP (100 µM, near Km), and each compound dilution; incubate 30 min at 30 °C.",
+      "parameters": {
+        "enzyme_concentration": "5 nM (typical for linear reaction range)",
+        "substrate_concentration": "10 µM (≈ Km for haspin)",
+        "ATP_concentration": "100 µM (≈ Km, to allow competitive inhibition detection)",
+        "reaction_time": "30 min (ensures <20 % substrate conversion, verified in pilot)",
+        "temperature": "30 °C (standard for kinase assays, maintains enzyme stability)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Add ADP‑Glo™ reagent to stop the reaction, deplete remaining ATP (5 min), then add detection reagent and incubate 30 min before reading luminescence on a plate reader.",
+      "parameters": {
+        "reagent_volumes": "10 µL stop/reagent per 20 µL reaction (per manufacturer protocol)",
+        "depletion_time": "5 min",
+        "detection_time": "30 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0 % inhibition (vehicle) and 100 % inhibition (reference inhibitor); fit a four‑parameter logistic curve; report IC50 with 95 % confidence interval; flag any curve‑fit failures.",
+      "parameters": {
+        "fit_model": "four‑parameter logistic (Hill slope variable)",
+        "acceptance_criteria": "R² > 0.90, Hill slope between 0.5 and 2, confidence interval ≤ 0.5 log units"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "0.1 % DMSO vehicle",
+    "reference inhibitor (CHR‑6494) at known saturating concentration",
+    "no‑enzyme blank (to assess background luminescence)"
+  ],
+  "rationale": "A luminescence‑based ADP‑Glo assay directly measures kinase catalytic activity, matching the question’s focus on biochemical inhibition of haspin. The concentration range (100 µM → 0.005 µM) covers typical potencies of reported haspin inhibitors (see retained examples CHEMBL14285, CHEMBL1952329, etc.) without assuming the potency of CHEMBL4278808. A 3‑fold dilution provides sufficient data points for reliable curve fitting while conserving compound. Enzyme, substrate, and ATP concentrations are set near their Km values to allow detection of both competitive and non‑competitive inhibition. Replicates (n = 3) give statistical power to estimate variability. Controls enable calculation of percent inhibition and detection of assay artefacts.",
+  "citations": [
+    "CHEMBL14285",
+    "CHEMBL1952329",
+    "CHEMBL269538",
+    "CHEMBL3774448",
+    "CHEMBL3775393"
+  ],
+  "limitations": [
+    "The assay measures only catalytic inhibition; it does not address cellular permeability or off‑target effects.",
+    "If CHEMBL4278808 interferes with the luminescence chemistry (e.g., quenching), apparent inhibition may be artifactual; a counter‑screen with ADP‑Glo in the absence of enzyme is recommended.",
+    "Exact Km values for ATP and substrate with the recombinant construct are assumed from literature; a pilot kinetic determination would refine assay conditions."
+  ]
+}

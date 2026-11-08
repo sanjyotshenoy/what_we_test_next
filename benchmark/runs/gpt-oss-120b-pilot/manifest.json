@@ -1,0 +1,95 @@
+{
+  "model": "openai/gpt-oss-120b",
+  "system_prompt": "You are participating in an experiment-design pilot. Use only the supplied input packet as evidence. Do not access tools, web, raw graphs, or remembered compound-specific measurements. Select and order step cards, bind supported parameters, and state unresolved settings explicitly. Follow the output_contract. If its numeric fields cannot be justified, use null and explain in limitations rather than inventing evidence. Any provisional design choice must be explicitly labeled as an assumption, not a sourced fact. Distinguish biochemical inhibition, cellular viability, and target-specific causality. Return one valid JSON object only; keep it concise (under 1800 words). Cite only IDs present in the packet. Do not predict a withheld IC50.",
+  "settings": {
+    "temperature": 0,
+    "max_tokens": 8192,
+    "reasoning_effort": "low",
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "rates": {
+    "input_per_million_usd": 0.15,
+    "output_per_million_usd": 0.6,
+    "source": "https://tokenfactory.nebius.com/api/public/models_info",
+    "checked_utc": "2026-11-08",
+    "cached_discount_applied": false
+  },
+  "estimated_conservative_reservation_usd": 0.01927935,
+  "reservation_method": "UTF-8 bytes as conservative input-token allowance plus 4096 framing tokens per request; full output cap at uncached list prices",
+  "max_requests": 3,
+  "sdk_retries": 0,
+  "started_utc": "2026-11-08T05:32:07.046399+00:00",
+  "requests": [
+    {
+      "case_id": "case-1",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "started_utc": "2026-11-08T05:32:07.056871+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-b275ee5e-c264-4244-8c20-590edf0549a8",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1133,
+        "prompt_tokens": 1698,
+        "total_tokens": 2831,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0009345,
+      "finished_utc": "2026-11-08T05:32:10.634717+00:00"
+    },
+    {
+      "case_id": "case-2",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "started_utc": "2026-11-08T05:32:10.634920+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-3c02c4f8-b8a8-4418-8b5b-09b93de19343",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1451,
+        "prompt_tokens": 1768,
+        "total_tokens": 3219,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0011358,
+      "finished_utc": "2026-11-08T05:32:14.790514+00:00"
+    },
+    {
+      "case_id": "case-3",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "started_utc": "2026-11-08T05:32:14.790822+00:00",
+      "status": "completed",
+      "valid_json": true,
+      "response_id": "chatcmpl-02a9f69b-de17-47cc-84ff-9584e4af751a",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1079,
+        "prompt_tokens": 1326,
+        "total_tokens": 2405,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 208
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0008462999999999999,
+      "finished_utc": "2026-11-08T05:32:17.991415+00:00"
+    }
+  ],
+  "total_prompt_tokens": 4792,
+  "total_completion_tokens": 3663,
+  "estimated_total_usd": 0.0029166
+}

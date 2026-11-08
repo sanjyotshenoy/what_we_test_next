@@ -16,3 +16,18 @@
   - are the citations real node IDs in the graphs?
   - an LLM judge only for the free-text rationale
 - **Aim 2** results come from `execution/` (does the protocol simulate, and do per-well concentrations match).
+
+## Three-case pilot (2026-11-08)
+
+A single-model, fixed-context run with usage accounting is recorded in
+[`runs/gpt-oss-120b-pilot/RESULTS.md`](runs/gpt-oss-120b-pilot/RESULTS.md).
+It includes complete final outputs, input snapshots, provider token receipts,
+provisional Codex grades, and offline coverage diagnostics. It is not a validated
+benchmark result. Run the non-billing checks with
+`python -m benchmark.check_three_case_pilot`.
+
+`python -m benchmark.run_three_case_pilot` is the paid runner; it refuses to repeat
+an existing run. Its model/rates/settings are pinned to this historical pilot;
+recheck live rates and set a new run directory before deliberately running again.
+It uses `wwtn.llm.chat`, captures response usage without changing shared code, and
+makes at most three requests with SDK retries disabled.
