@@ -9,9 +9,9 @@ The verdict is deliberately not a boolean: a panel that needs three plates is fi
 anaerobe in an aerobic-only lab is not, and "drop to duplicate and it fits" is more useful than "no". Every
 violation names what is wrong and by how much, so the agent can repair the proposal instead of guessing.
 
-The panel is passed in rather than read off the Experiment because the shared schema does not carry one yet
-(TODO(final): take it from Experiment.panel once that lands). Each entry is {id, name?, atmosphere?} - the
-growth requirements come from whoever assembled the panel, not from here.
+The panel defaults to the experiment's own `Experiment.panel` and can still be passed in to override it. An
+entry is a `PanelMember` or a plain dict; its growth requirements come from whoever assembled the panel, not
+from here. `atmosphere` may be given directly, or derived from `oxygen_tolerance` when it is not.
 """
 import math
 from dataclasses import dataclass, field
@@ -61,11 +61,30 @@ def _series_volumes(experiment: Any) -> tuple[float, float]:
     return working, working / 2
 
 
-def check_feasible(experiment: Any, lab: Lab | None = None, panel: Sequence[dict] | None = None,
+def _atmospheres_for(species: Any) -> list[str]:
+    """What this species will tolerate during incubation: `atmosphere` if given, else from `oxygen_tolerance`.
+
+    `oxygen_tolerance` says how much air the species survives on the bench during setup; what it will *grow*
+    in follows from it, so one field answers both questions rather than a panel having to repeat itself.
+    """
+    wanted = _value(species, "atmosphere", None)
+    if wanted:
+        return [wanted] if isinstance(wanted, str) else list(wanted)
+    tolerance = str(_value(species, "oxygen_tolerance", "") or "").lower()
+    if "facult" in tolerance:
+        return ["facultative"]
+    if "anaerob" in tolerance:
+        return ["anaerobic"]
+    if "aerob" in tolerance:
+        return ["aerobic"]
+    return ["aerobic"]          # unknown: assume the common case, and the warning below says we assumed
+
+
+def check_feasible(experiment: Any, lab: Lab | None = None, panel: Sequence[Any] | None = None,
                    control_columns: int = DEFAULT_CONTROL_COLUMNS) -> Verdict:
     """Whether `lab` can run `experiment` against `panel`, with every limit checked explicitly."""
     lab = lab or Lab.load()
-    panel = list(panel or [])
+    panel = list(panel if panel is not None else _value(experiment, "panel", None) or [])
     v = Verdict(feasible=True)
     v.warnings.extend(lab.unconfirmed())
 
@@ -80,19 +99,18 @@ def check_feasible(experiment: Any, lab: Lab | None = None, panel: Sequence[dict
     # the ones it will tolerate is available. Checked in both directions: an obligate aerobe such as
     # P. aeruginosa is as unrunnable in an anaerobic-only setup as B. fragilis is in air.
     for species in panel:
-        wanted = species.get("atmosphere", "aerobic")
-        wanted = [wanted] if isinstance(wanted, str) else list(wanted)
+        wanted = _atmospheres_for(species)
         if any(str(w).startswith("facult") for w in wanted):
             continue
         tolerates = {str(w) for w in wanted}
-        name = species.get("name") or species.get("id", "?")
+        name = _value(species, "name") or _value(species, "id") or "?"
         if not (tolerates & have):
             v.violations.append(f"{name} needs {'/'.join(sorted(tolerates))} incubation; this lab has "
                                 f"{'/'.join(sorted(have)) or 'nothing specified'}")
         # the plate is built on the bench before it reaches the incubator: a strictly oxygen-sensitive species
         # may not survive even that. Aerotolerant anaerobes and spore-formers are fine.
         if "anaerobic" in tolerates and "anaerobic" not in bench:
-            tolerance = str(species.get("oxygen_tolerance", "aerotolerant")).lower()
+            tolerance = str(_value(species, "oxygen_tolerance", "aerotolerant") or "aerotolerant").lower()
             if tolerance.startswith("strict") or tolerance.startswith("sensitive"):
                 minutes = lab.capabilities.get("setup_air_exposure_minutes", "the setup")
                 v.violations.append(f"{name} is strictly oxygen-sensitive and the plate is built in air "
@@ -106,6 +124,35 @@ def check_feasible(experiment: Any, lab: Lab | None = None, panel: Sequence[dict
     if temperature is not None and not lab.can_incubate_at(temperature):
         v.violations.append(f"incubation at {temperature} C is not available "
                             f"(have: {lab.capabilities.get('incubation_C')})")
+    wanted_atmosphere = _value(experiment, "atmosphere")
+    if wanted_atmosphere and wanted_atmosphere not in have:
+        v.violations.append(f"the experiment asks for {wanted_atmosphere} incubation; this lab has "
+                            f"{'/'.join(sorted(have)) or 'nothing specified'}")
+
+    # --- does the layout suit the pipettes? ----------------------------------------------------------------
+    # An 8-channel pipette addresses a whole column at once, which is the only reason a 10-point series is one
+    # command per step rather than eighty. A series laid along the rows cannot use it, so it is a different
+    # experiment in wall-clock terms and needs a single-channel pipette this lab has not confirmed.
+    layout = _value(experiment, "layout")
+    axis = str(_value(layout, "series_axis", "columns") or "columns") if layout is not None else "columns"
+    if axis == "rows":
+        single = [p for p in lab.pipettes() if int(p.get("channels", 1)) == 1]
+        if not single:
+            v.violations.append("the series runs along the rows, which an 8-channel pipette cannot address; "
+                                "no single-channel pipette is confirmed mounted")
+            v.suggestions.append("lay the series along the columns, or confirm the P20 single-channel is "
+                                 "mounted and accept the extra run time")
+        else:
+            v.warnings.append(f"a row-wise series runs well by well on the "
+                              f"{single[0]['model']}: much slower than column-wise")
+    requested_format = int(_value(layout, "plate_format", 0) or 0) if layout is not None else 0
+    if requested_format:
+        on_hand = {int(w.get("rows", 0)) * int(w.get("cols", 0)) for w in lab.labware("wellplate")}
+        if requested_format not in on_hand:
+            v.violations.append(f"the layout asks for a {requested_format}-well plate; this lab has "
+                                f"{sorted(on_hand) or 'none'}")
+            v.suggestions.append(f"rescale the layout to {max(on_hand)}-well" if on_hand else
+                                 "no well plate on hand to rescale to")
 
     # --- does it fit on the plates we have? --------------------------------------------------------------
     plate = lab.plate()
@@ -181,5 +228,5 @@ def feasible_panel_size(lab: Lab | None = None, replicates: int = 3, plates: int
     return (int(plate["rows"]) * plates) // max(1, replicates) if plate else 0
 
 
-def describe(panel: Iterable[dict]) -> str:
-    return ", ".join(s.get("name") or s.get("id", "?") for s in panel)
+def describe(panel: Iterable[Any]) -> str:
+    return ", ".join(str(_value(s, "name") or _value(s, "id") or "?") for s in panel)

@@ -97,21 +97,32 @@ class PlateDesign:
         return "\n".join(lines)
 
 
-def plate_design(experiment: Any, lab: Lab | None = None, panel: Sequence[dict] | None = None,
+def plate_design(experiment: Any, lab: Lab | None = None, panel: Sequence[Any] | None = None,
                  control_columns: tuple[str, str] = (GROWTH, STERILITY)) -> PlateDesign:
     """The well map for this experiment on this lab's plates. One row per species per replicate; the series
-    runs along the columns, with the control columns last."""
+    runs along the columns, with the control columns last.
+
+    `panel` defaults to the experiment's own `panel`, and falls back to `system` as a panel of one, so a
+    single-system experiment written against the old schema still lays out.
+    """
     lab = lab or Lab.load()
-    panel = list(panel or [])
+    panel = list(panel if panel is not None else _value(experiment, "panel", None) or [])
+    if not panel:
+        system = _value(experiment, "system", None)
+        panel = [{"name": system}] if system else []
     plate_spec = lab.plate() or {"rows": 8, "cols": 12, "working_uL": 200}
     rows, columns = int(plate_spec["rows"]), int(plate_spec["cols"])
-    working = float(plate_spec.get("working_uL") or plate_spec.get("max_uL") or 200)
+    working = float(_value(experiment, "well_volume_uL", 0) or
+                    plate_spec.get("working_uL") or plate_spec.get("max_uL") or 200)
 
     fold = float(_value(experiment, "dilution_factor", 2) or 2)
     n_points = int(_value(experiment, "n_points", 10) or 10)
     replicates = int(_value(experiment, "replicates", 1) or 1)
-    top_final = float(_value(experiment, "top_concentration_uM", 0) or 0)
-    unit = str(_value(experiment, "concentration_unit", "uM") or "uM")   # schema may gain this; default µM
+    # `top_concentration` is canonical; `top_concentration_uM` is the old µM-only field, kept for proposals and
+    # recorded traces written before the unit existed
+    top_final = float(_value(experiment, "top_concentration", 0) or
+                      _value(experiment, "top_concentration_uM", 0) or 0)
+    unit = str(_value(experiment, "concentration_unit", "uM") or "uM")
 
     design = PlateDesign(plates=1, rows=rows, columns=columns, series_columns=n_points,
                          working_uL=working, fold=fold, top_final_uM=top_final, unit=unit)
@@ -130,7 +141,7 @@ def plate_design(experiment: Any, lab: Lab | None = None, panel: Sequence[dict] 
 
     # rows: each species repeated `replicates` times, spilling onto further plates when they run out
     letters = [chr(ord("A") + i) for i in range(rows)]
-    assignments: list[tuple[int, str, dict]] = []
+    assignments: list[tuple[int, str, Any]] = []
     index = 0
     for species in panel:
         for _ in range(replicates):
@@ -143,7 +154,7 @@ def plate_design(experiment: Any, lab: Lab | None = None, panel: Sequence[dict] 
     sterility_column = n_points + 2
 
     for plate_no, row, species in assignments:
-        name = species.get("name") or species.get("id", "?")
+        name = _value(species, "name") or _value(species, "id") or "?"   # a PanelMember or a plain dict
         for column in range(1, n_points + 1):
             final = top_final / (fold ** (column - 1)) if top_final else None
             design.wells.append(Well(plate_no, row, column, name, SAMPLE,
