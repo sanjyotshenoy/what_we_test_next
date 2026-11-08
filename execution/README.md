@@ -90,5 +90,56 @@ final) and require the audit to object.
 `feasible_panel_size(lab, replicates, plates)` is the trade-off in one call: 1 species at n=8 (the current MIC
 protocol's layout), or 8 species at n=1, on one plate.
 
-The panel is passed in rather than read off `Experiment`, because the shared schema has no panel field yet
-(`TODO(final)`); each entry is `{id, name?, atmosphere?}`.
+The panel comes from `Experiment.panel` and can still be passed in to override it. An entry is a `PanelMember`
+or a plain dict; `atmosphere` may be given directly, or derived from `oxygen_tolerance`.
+
+## The protocol, and the run sheet beside it
+
+`protocol.py` is the last link: the plate map becomes a file the OT-2 accepts.
+
+```python
+from execution.protocol import to_ot2, run_sheet, write_protocol, simulate
+protocol = to_ot2(design, experiment, Lab.load())
+print(protocol.api_level, protocol.tip_columns, protocol.deck, protocol.warnings)
+write_protocol(design, "execution/out/q001", experiment, Lab.load(), template)
+ok, output = simulate("execution/out/q001/protocol.py")
+```
+
+**Two files, not one.** Nothing in the Opentrons API incubates for 18 h at 37 °C in an anaerobic jar, reads
+OD590 on the Cytation, or calls the MIC. The robot sets the plate up on the bench in a few minutes and stops.
+So `write_protocol` emits `protocol.py` *and* `protocol_run_sheet.md` — the reservoir volumes to pour, the
+off-robot steps quoted from the template, the MIC rule, and every assumption `lab.yaml` admits to. A generator
+that emitted only the `.py` would be shipping an experiment with no measurement in it.
+
+Everything the generator decides is reported on the result rather than buried in the source: the API level, the
+tip columns, the deck assignment, the reservoir volumes, and the warnings. Three checks run on the way:
+
+- `_check_against_transfers` compares the (liquid, volume) movements against the plan `plate.py` made.
+- `audit(design)` runs first, so a map that fails its own arithmetic never becomes a protocol.
+- `unimplemented_steps(template, ops)` names any **on-robot** verb the template asks for that the command
+  sequence does not perform. For `bacterial_mic_broth` this is empty. `TODO(final)`: the command order still
+  comes from `plate.py`'s hard-coded MIC sequence, so this reports the gap for other archetypes rather than
+  closing it — closing it means driving the order off the template's `steps` tree.
+
+`fit_deck` is the slot arithmetic: plates and tip racks compete for the same 11 slots and grow together, since
+each extra plate costs its own tips (14 tip columns at 10 concentrations, so about two racks). Four plates is
+the most that fits, and the reservoir is reserved first because it is never the thing to drop.
+
+### Running the simulator
+
+`opentrons` is **not** in `requirements.txt` on purpose — it would break everyone's numpy. It needs its own
+environment, and two separate ceilings get confused here:
+
+```sh
+python -m venv .venv-sim
+.venv-sim/bin/pip install -r execution/requirements-sim.txt
+.venv-sim/bin/opentrons_simulate execution/out/q001/protocol.py
+```
+
+- `opentrons` imports fail against **numpy ≥ 2** (`cannot import name 'trapz'`), so numpy is pinned below 2.
+- `opentrons` **10.x has dropped the OT-2 entirely** — it reports apiLevel 2.31 and then refuses to simulate an
+  OT-2 protocol at all. 8.8.2 is the newest release that still runs one, and its ceiling is **2.27**.
+
+`lab.yaml` records `api_level: "2.28"`, which is what the team's own protocol declares, and which no
+OT-2-capable simulator understands. `max_api_level()` returns the level we can both generate and check, the
+generator drops to it, and says so in a warning. `TODO(final)`: confirm the level from the robot itself.

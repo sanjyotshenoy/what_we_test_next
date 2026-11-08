@@ -1,0 +1,14 @@
+# The Opentrons simulator, in its own environment. Deliberately NOT in the top-level requirements.txt.
+#
+#   python -m venv .venv-sim
+#   .venv-sim/bin/pip install -r execution/requirements-sim.txt
+#   .venv-sim/bin/opentrons_simulate execution/out/<run>/protocol.py
+#
+# Both pins matter, for different reasons:
+#   * opentrons fails to import against numpy >= 2 ("cannot import name 'trapz' from 'numpy'")
+#   * opentrons 9.x and 10.x have dropped the OT-2: 10.1.0 reports apiLevel 2.31 and then refuses to simulate
+#     an OT-2 protocol at all. 8.8.2 is the newest release that still runs one, with a ceiling of 2.27.
+#
+# Verified working on 2026-11-08: a generated protocol simulates clean, 266-step run log.
+opentrons==8.8.2
+numpy<2
