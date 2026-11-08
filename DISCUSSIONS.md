@@ -522,3 +522,11 @@ plumbing, with no data**, so it can be run on a DGX Spark rather than here.
   fresh autonomous live verification still needs demo-local Nebius/Paperclip auth.
 - Continued bounded MIC graph lookup and orchestration/API reliability work. See
   `demo/SETUP.md`, `demo/memory/MEMORY.md`, and `demo/docs/11-08-2026.md`. No push/main merge.
+
+**Four-antibiotic OT-2 reference import** (2026-11-08).
+- User requested committing the three shared reference attachments. Preserved the
+  Python protocol, HTML layout and step-3 rubric unchanged under `Opentrons/`, with
+  links and scope in its README. Existing protocols and demo compiler are unchanged.
+- Python syntax and rubric CSV structure checked (17 criteria; numeric weights total
+  20.5). API 2.28 simulation, sparse-tip hardware review and automated grading remain
+  pending; the README records the validation TODO.
