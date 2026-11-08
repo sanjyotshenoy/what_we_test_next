@@ -42,7 +42,7 @@ Deck.slide('pitch-demo', {interactive:true,
  }});
 // TODO(final): hypothesis refinement and ingestion of experimental results are proposed integrations; this diagram is not an end-to-end run.
 Deck.slide('pitch-close',{steps:4,
- notes:'7:15–8:15. The accented region identifies our system: evidence lookup and grounded proposal design. The researcher supplies the question and reviews a proposed experiment before the lab runs it. Reveal the existing-answer route, the missing-measurement route, the result feedback loop, then upstream hypothesis refinement. Muted dashed arrows outside the system identify proposed workflow connections, not implemented automation. The feedback loop adds measured results, assay conditions and provenance, including negative results, to the KB. Hypothesis refinement sharpens an existing idea into a testable question. The current connected agent is IC50-based; this conceptual diagram does not establish an end-to-end bacterial run. Existing evidence does not prevent confirmatory experiments. Full script: speaker-notes.html.',
+ notes:'7:15–8:15. The accented region identifies implemented system behavior: both returning an existing answer and proposing an experiment when a measurement is missing. Solid internal connections represent these implemented paths; the distinction is implementation status, not benchmark coverage. The researcher supplies the question and reviews a proposed experiment before the lab runs it. Reveal the existing-answer route, the missing-measurement route, the result feedback loop, then upstream hypothesis refinement. Muted dotted arrows identify proposed connections: hypothesis refinement and measured-result ingestion. Researcher/lab review and execution remain outside the system box; the solid handoff does not claim autonomous experimental execution. The feedback loop adds measured results, assay conditions and provenance, including negative results, to the KB. Hypothesis refinement sharpens an existing idea into a testable question. The current connected agent is IC50-based; this conceptual diagram does not establish an end-to-end bacterial run. Existing evidence does not prevent confirmatory experiments. Full script: speaker-notes.html.',
  mount(frame,{css}) {
  css(`
  .cl-description{position:absolute;left:4.2%;right:4.2%;top:16%;font-size:var(--t-body);line-height:1.4;color:var(--muted);}
@@ -50,7 +50,7 @@ Deck.slide('pitch-close',{steps:4,
  .cl-map svg{position:absolute;width:100%;height:100%;overflow:visible;}
  .cl-line{fill:none;stroke:var(--accent);stroke-width:2;}
  .cl-external{stroke:var(--muted);}
- .cl-future{stroke:var(--muted);stroke-dasharray:7 6;}
+ .cl-future{stroke:var(--muted);stroke-dasharray:1 6;stroke-linecap:round;}
  .cl-zone{fill:var(--accent);fill-opacity:.035;stroke:var(--accent);stroke-opacity:.35;stroke-width:1.5;}
  .cl-system{position:absolute;left:26%;top:4%;font-size:var(--t-small);color:var(--accent);}
  .cl-node{position:absolute;font-size:var(--t-body);line-height:1.25;}
@@ -63,6 +63,8 @@ Deck.slide('pitch-close',{steps:4,
  .cl-map [data-from]{opacity:0;transition:opacity .32s ease;}
  .cl-map [data-from].in{opacity:1;}
  .instant .cl-map [data-from]{transition:none;}
+ .cl-legend{position:absolute;left:80%;top:5%;width:20%;font-size:var(--t-caption);line-height:1.3;color:var(--muted);}
+ .cl-legend i{display:block;width:3em;border-top:3px dotted var(--muted);margin-bottom:.5em;}
  .cl-link{color:var(--muted);}
  `);
  frame.innerHTML=`<h2 class="deck-heading">Propose an experiment—and show why</h2>
@@ -78,7 +80,8 @@ Deck.slide('pitch-close',{steps:4,
  <path data-from="3" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M910 355 V430 H340 V255"/>
  <path data-from="4" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M70 80 V150"/>
  </svg>
- <div class="cl-system">Our system</div>
+ <div class="cl-system">Our system · implemented</div>
+ <div class="cl-legend" data-from="3"><i></i>Proposed connections</div>
  <div class="cl-node" style="left:0;top:35%;width:17%"><strong>Researcher’s<br>question</strong></div>
  <div class="cl-node" style="left:27%;top:35%;width:19%"><strong>Check the<br>knowledge base</strong></div>
  <div class="cl-branch" style="left:54%;top:12%">Answer exists</div>
