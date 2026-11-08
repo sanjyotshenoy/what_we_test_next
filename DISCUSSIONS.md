@@ -429,6 +429,64 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   A panel entry may declare `oxygen_tolerance`: aerotolerant anaerobes survive the bench, strictly sensitive ones
   (F. prausnitzii) are refused with the reason. The agreed four-species panel passes as 1 plate at n=2.
 
+**`all-merged` landed as PR #4** (Seh Na, 01:32). `main` is `7e5fdb8`: four parallel branches (`protocol-db`,
+`agent-on-kg`, `anchor-rule`, `execution-lab`) merged one at a time, 56 files, +8,177/-483, 246 tests.
+- Worth repeating the near-miss: three `git merge --no-commit` in a row silently dropped the 2nd and 3rd (git
+  refuses on a dirty index), so the first integration branch *looked* complete and had no `execution-lab` in it.
+  Caught with `git merge-base --is-ancestor` per branch. Run that check on any integration branch before pushing.
+- Two conflicts, both from the merge rather than from anyone's mistake: a test asserting exactly one biochemical
+  potency archetype (`protocol-db` added TR-FRET alongside luminescence - stale, not wrong), and
+  `kg/protocols/README.md` counts written per-branch.
+
+**The schema can describe a panel, and a plate map becomes a protocol** (Seh Na, 01:41, branch
+`execution-protocol` off `main`).
+- `wwtn/schema.py`: `PanelMember` (name, KG id, role, `oxygen_tolerance`, and **why it is on the plate** - for a
+  selectivity question the panel is the answer, so the benchmark grades the choice and an unreasoned choice
+  cannot be checked); `top_concentration` + `concentration_unit` canonical, with `top_concentration_uM` kept as a
+  derived convenience that is **None** for ug/mL rather than wrong by a molecular weight; growth conditions
+  (medium, incubation_C/h, atmosphere, well_volume_uL); `PlateLayout`.
+- `series_axis` turned out to be a real constraint, not a preference: an 8-channel pipette addresses a column at
+  a time, so a row-wise series cannot use it. `feasibility.py` refuses it with the reason.
+- Back-compat held: `top_concentration_uM` alone still loads, `system` alone reads as a panel of one, and all 246
+  prior tests passed untouched.
+- `execution/protocol.py`: `to_ot2` -> a file the OT-2 accepts (**verified**: simulates clean in opentrons 8.8.2,
+  266-step run log), `run_sheet` -> the off-robot half. Two outputs on purpose - nothing in the API incubates 18 h
+  anaerobically or reads OD590, so a `.py` alone is an experiment with no measurement in it.
+- Three guards: `audit(design)` first (every disagreement **reported as a warning** - not a hard gate; see
+  the correction below), the
+  (liquid, volume) movements compared against `plate.py`'s plan, and `unimplemented_steps()` naming any on-robot
+  verb the template asks for that the generator does not perform. Empty for `bacterial_mic_broth`. `TODO(final)`:
+  the order is still `plate.py`'s hard-coded MIC sequence, so the guard reports the gap rather than closing it.
+- Two simulator traps, pinned in `execution/requirements-sim.txt` and deliberately **out** of the top-level
+  requirements: `opentrons` will not import against numpy >= 2 (`cannot import name 'trapz'`), and `opentrons`
+  10.x has dropped the OT-2 entirely (reports apiLevel 2.31, then refuses to simulate one). 8.8.2 is the newest
+  that runs an OT-2, ceiling **2.27**.
+- Which surfaces a discrepancy to settle with a person: `lab.yaml` and Emmy's protocol declare apiLevel **2.28**,
+  which no OT-2-capable simulator understands. The generator drops to 2.27 and warns. `TODO(final)`: read the
+  level off the robot.
+- The tip count is the demo-worthy part: 14 columns at 10 concentrations, which `feasibility.py` predicts from
+  `lab.yaml` *before any code exists* and the simulator independently runs out at. 271 tests.
+- **The concentration ladder** (Emmy, 01:54). Her point: if commensal MICs are mostly ">128", start higher -
+  and more generally, the agent's job is to surface the question and the caveats a scientist should know, not to
+  nail every technical detail. Agreed on both. Two corrections: **256, not 200**, because MICs are reported on
+  the doubling ladder and 200/100/50 lines up with no published value or breakpoint; and one ladder has to cover
+  both arms, because the 8-channel pipette carries a whole column so every row of a plate shares the same
+  series. 256 over 10 two-fold steps reaches 0.5 - above the commensals' censored ">128", below a typical
+  pathogen MIC - so it brackets both. It breaks if a pathogen MIC is under 0.5: 12 points leaves no room for the
+  two control columns, and it becomes a two-plate experiment.
+- The caveat worth having the agent raise, from the same exchange: **above ~128 ug/mL precipitation reads as
+  growth**. An OD590 read cannot tell compound turbidity from bacterial turbidity, so the top rungs of exactly
+  the range we are extending into are the ones most likely to lie, and they lie in the direction that matters -
+  a compound looks like it failed to spare a commensal when it merely fell out of solution. Proposed fix (not
+  built, offered): a compound-only column with no inoculum as a precipitation control, plus a CLSI visual read.
+  Also unstated until now: the 1% DMSO ceiling means a 256 ug/mL well needs a 512 ug/mL prep, which pins the
+  required stock at roughly 50 mg/mL - worth the agent saying out loud, since if the compound will not make that
+  stock the whole range is hypothetical.
+- **`execution/generate.py`** closes the chain: proposals in, protocols out, implementing the `ExecutionResult`
+  contract `wwtn/schema.py` had described and nobody had written. `execution/examples/mic_selectivity.jsonl` is
+  a hand-written proposal for the four-species panel at n=2 (exactly 8 rows) topped at 256 ug/mL, which exists
+  because `agent/` needs `NEBIUS_API_KEY` and no machine here has one. With it, **everything downstream of the
+  agent runs end to end tonight** and the generated protocol simulates clean. 279 tests.
 **`screening/`: virtual pre-screening, upstream of the MIC plate** (professorduckydoo, 01:55, branch
 `screening` off `main`). Scope changed mid-build and the final ask is the narrower one: ship the **plan and the
 plumbing, with no data**, so it can be run on a DGX Spark rather than here.
