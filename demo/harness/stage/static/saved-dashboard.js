@@ -6,6 +6,7 @@ const api = async path => {const r=await fetch(path); if(!r.ok) throw Object.ass
 const details = (title, value) => `<details><summary>${esc(title)}</summary>${prettyValue(value)}</details>`;
 let catalog, data, runs=[], generation=0, graph, liveQuestion='';
 const liveSession=new URLSearchParams(location.search).get('run');
+initializeDashboardHeader();
 initializeDashboardTheme();
 initializeVisuals();
 initializeDashboardLayout();

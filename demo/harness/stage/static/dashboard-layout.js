@@ -81,3 +81,22 @@ function initializeDashboardLayout() {
   new ResizeObserver(updateGeometry).observe($('cy'));
   apply();
 }
+
+
+function initializeDashboardHeader() {
+  const more=document.getElementById('header-more'),menu=document.getElementById('header-menu');
+  const compact=matchMedia('(max-width:1100px)');
+  const controls=['model','trace-switch','theme-toggle'].map(id=>{
+    const element=document.getElementById(id),anchor=document.createComment(`header ${id}`);
+    element.before(anchor);return {element,anchor};
+  });
+  function arrange() {
+    for(const {element,anchor} of controls) {
+      if(compact.matches) menu.append(element);else anchor.after(element);
+    }
+    more.open=false;
+  }
+  arrange();compact.addEventListener('change',arrange);
+  document.addEventListener('click',event=>{if(!more.contains(event.target)) more.open=false;});
+  more.addEventListener('keydown',event=>{if(event.key==='Escape') {more.open=false;more.querySelector('summary').focus();event.stopPropagation();}});
+}

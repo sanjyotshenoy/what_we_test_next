@@ -124,3 +124,20 @@
 #live-preview[hidden],#trace-switch[hidden],#live-stop[hidden] {display:none!important}
 
 header .controls {flex-wrap:wrap}
+
+/* Keep the banner on one row; secondary controls remain in an accessible menu. */
+header {flex-wrap:nowrap;position:relative;z-index:10;padding:8px 12px}
+header .brand {flex:none;white-space:nowrap}
+header .controls {flex:1;min-width:0;width:auto;flex-wrap:nowrap;justify-content:flex-end;gap:8px}
+header .controls > button,header .controls > .tag {flex:none;white-space:nowrap}
+header .controls > #model {width:clamp(120px,14vw,190px);flex:0 1 190px;font-size:.78rem}
+header .controls > #trace-switch {width:clamp(150px,17vw,210px);flex:0 1 210px}
+#header-more {position:relative;flex:none;font-size:.78rem}
+#header-more > summary {padding:5px 9px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);white-space:nowrap;list-style:none}
+#header-more > summary::-webkit-details-marker {display:none}
+#header-more > summary::after {content:' ▾'}
+#header-more > summary:focus-visible {outline:2px solid var(--accent);outline-offset:2px}
+#header-menu {position:absolute;z-index:30;right:0;top:calc(100% + 10px);width:min(300px,calc(100vw - 24px));padding:12px;display:flex;flex-direction:column;gap:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);box-shadow:0 8px 30px #0003}
+#header-menu a {padding:4px 0}
+#header-menu button,#header-menu select {width:100%;max-width:100%;text-align:left}
+@media(max-width:480px){header .brand {font-size:1rem}header .controls > #source-tag {display:none}header .controls {gap:6px}}
