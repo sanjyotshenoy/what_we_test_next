@@ -1,0 +1,79 @@
+{
+  "assay_type": "Biochemical kinase concentration-response inhibition assay",
+  "system": "Recombinant human NUAK family SNF1-like kinase 1 (O60285); enzyme construct, expression system, purity, and activation state are unresolved.",
+  "readout": "ADP-Glo luminescence measuring ADP formation as a readout of NUAK1 kinase activity",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare CHEMBL1615278 dilutions immediately before use, maintaining identical vehicle across all compound and control wells. Use a provisional 10-point, 3-fold series from 10 \u00b5M, with three independent replicate experiments. Include vehicle-only full-activity controls and background controls.",
+      "parameters": {
+        "top_concentration_uM": "10 \u00b5M; provisional assay-design assumption, not source-supported",
+        "dilution_factor": "3-fold; provisional assumption chosen for broad coverage",
+        "n_points": "10; provisional assumption",
+        "replicates": "3 independent experiments; provisional assumption",
+        "vehicle_fraction": "0.1% v/v final; provisional assumption, with vehicle identity and kinase tolerance unresolved"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Pre-incubation is unresolved and should not be assumed. Combine compound or control, NUAK1, substrate, and ATP, then run the reaction within the empirically established initial-rate linear range. Keep final vehicle constant. Determine enzyme and substrate concentrations and reaction time by preliminary linearity testing; determine ATP concentration from an ATP Km,app characterization rather than transferring conditions from another kinase.",
+      "parameters": {
+        "enzyme_concentration": "Unresolved; titrate to obtain adequate signal while remaining in the linear range",
+        "substrate_concentration": "Unresolved; substrate identity and concentration require validation for the selected NUAK1 construct",
+        "ATP_concentration": "Unresolved; provisionally use a concentration near the measured ATP Km,app for inhibition profiling, but this is an assumption requiring experimental justification",
+        "reaction_time": "Unresolved; establish initial-rate linearity before testing compound",
+        "temperature": "Unresolved; do not infer a supported temperature from the packet"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction and deplete residual ATP with ADP-Glo reagent, then add the ADP detection reagent to convert ADP-derived signal to luminescence. Follow the validated reagent manufacturer's plate-format procedure once selected, and read luminescence after the specified incubations. Include a compound-plus-detection-reagent interference control without a productive kinase reaction.",
+      "parameters": {
+        "reagent_volumes": "Unresolved; dependent on plate format and validated ADP-Glo procedure",
+        "depletion_time": "Unresolved; use the selected validated procedure and confirm complete ATP depletion",
+        "detection_time": "Unresolved; use the selected validated procedure and confirm signal stability"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract appropriate background, normalize vehicle full-activity wells to 100% activity and no-enzyme or equivalent background wells to 0%, and fit normalized activity versus log10 compound concentration. Report the fitted IC50 with confidence interval, Hill slope, replicate-level data, and any concentrations excluded for interference or failed controls. Do not report an IC50 if the response does not span a sufficiently defined inhibition range.",
+      "parameters": {
+        "fit_model": "Provisional four-parameter logistic model; use a constrained or simpler model only if justified by the observed response",
+        "acceptance_criteria": "Provisional assumptions: clear separation of activity and background controls, consistent vehicle controls, and replicate control CV no greater than 20%; investigate luminescence interference, incomplete curves, or non-monotonic responses rather than forcing a fit"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only full kinase activity control at the same final vehicle fraction",
+    "No-enzyme background control",
+    "No-substrate or otherwise validated reaction-background control, if compatible with the assay",
+    "Reference inhibitor control, but its identity and expected response are unresolved",
+    "Compound-only luminescence/ADP-Glo interference control without a productive kinase reaction",
+    "Untreated or zero-compound control where needed to verify that vehicle itself has no effect"
+  ],
+  "rationale": "The question requires direct biochemical inhibition of O60285, so the kinase cards are used and the cellular viability cards are omitted. ADP-Glo measures ADP generated by the kinase reaction and therefore provides a biochemical activity readout rather than an indirect cellular ATP/viability measurement. The proposed 10 \u00b5M top concentration, 3-fold dilution, 10 concentrations, three replicates, and 0.1% vehicle are explicitly provisional design choices intended to give broad initial coverage and reproducibility; none is supported as a validated NUAK1 condition by the packet. The retained ARK5 measurements concern other compounds and provide contextual evidence that biochemical inhibition assays exist for this target, but they do not establish CHEMBL1615278 potency or validate these assay parameters.",
+  "citations": [
+    "O60285",
+    "CHEMBL1615278",
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse",
+    "CHEMBL962086",
+    "CHEMBL2067586",
+    "CHEMBL2344169",
+    "CHEMBL2439293",
+    "CHEMBL3108328"
+  ],
+  "limitations": [
+    "No potency for CHEMBL1615278 is supplied or predicted; the retained IC50 values are for other compounds and must not be transferred to it.",
+    "NUAK1 construct, substrate identity, enzyme/substrate/ATP concentrations, ATP Km,app, reaction time, temperature, pre-incubation, buffer, cofactors, plate format, and detection timings remain unresolved.",
+    "The concentration-series and replicate settings are assumptions, not sourced assay conditions, and may require revision after solubility, vehicle-tolerance, signal-window, and linearity testing.",
+    "Luminescence can be affected by compound-specific optical or enzymatic interference; an interference control and, if needed, an orthogonal kinase-activity readout are required.",
+    "Biochemical inhibition supports direct inhibition of the assayed NUAK1 preparation but does not by itself establish cellular target engagement, selectivity, or target-specific causality. No cell-viability assay is included, and viability alone would not establish NUAK1-specific mechanism."
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence)",
+  "system": "recombinant human NUAK1 (O60285) expressed in baculovirus/insect cells",
+  "readout": "ADP‑Glo luminescence (measure ADP produced by kinase activity)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10‑point, 3‑fold serial dilution of CHEMBL1615278 in assay buffer containing 0.5 % DMSO (vehicle fraction). Include a DMSO‑only vehicle control and a reference inhibitor control (e.g., staurosporine at 1 µM).",
+      "parameters": {
+        "top_concentration_uM": 100,
+        "dilution_factor": 3,
+        "n_points": 10,
+        "replicates": 3,
+        "vehicle_fraction": 0.5
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In 384‑well plates add recombinant NUAK1 (final enzyme concentration 5 nM), peptide substrate (e.g., SAMS peptide, 50 µM), and ATP (final 10 µM) to each well. Initiate the reaction by adding the compound dilution series and incubate for 30 min at 30 °C.",
+      "parameters": {
+        "enzyme_concentration": "5 nM (typical for linear range of ADP‑Glo, evidence from standard ADP‑Glo protocols)",
+        "substrate_concentration": "50 µM (KM‑like concentration for many serine/threonine kinases)",
+        "ATP_concentration": "10 µM (below Km to increase sensitivity to competitive inhibitors)",
+        "reaction_time": "30 min",
+        "temperature": "30 °C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction by adding ADP‑Glo™ reagent, incubate 40 min to deplete remaining ATP, then add the detection reagent and measure luminescence after 10 min.",
+      "parameters": {
+        "reagent_volumes": "as per kit (e.g., 5 µL ADP‑Glo™ reagent + 5 µL detection reagent per 20 µL reaction)",
+        "depletion_time": "40 min",
+        "detection_time": "10 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0 % inhibition (vehicle) and 100 % inhibition (reference). Fit a four‑parameter logistic curve (Hill slope, top, bottom, IC50) and report the IC50 with 95 % confidence intervals. Verify assay quality by Z′‑factor (≥0.5) and signal‑to‑background (>5).",
+      "parameters": {
+        "fit_model": "four‑parameter logistic (4PL)",
+        "acceptance_criteria": "Z′‑factor ≥0.5, R² ≥0.9, consistent replicates (CV ≤15 %)"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.5 % DMSO)",
+    "reference inhibitor (staurosporine 1 µM)",
+    "no‑enzyme blank (to assess background luminescence)"
+  ],
+  "rationale": "ADP‑Glo is a widely used, homogeneous luminescence assay for serine/threonine kinases and matches the required biochemical readout. Using a sub‑Km ATP concentration enhances detection of competitive inhibition, which is the most common mode for small‑molecule kinase inhibitors. A 10‑point, 3‑fold dilution provides sufficient resolution around the expected potency range (nanomolar‑micromolar) without excessive reagent consumption. Replicates (n=3) and Z′‑factor monitoring ensure data reliability. The reference inhibitor validates assay performance, while the no‑enzyme control defines the assay floor.",
+  "citations": [
+    "CHEMBL201511",
+    "CHEMBL2064666",
+    "CHEMBL2333163",
+    "CHEMBL2436172",
+    "CHEMBL3104851"
+  ],
+  "limitations": [
+    "The exact kinetic parameters (KM for ATP, substrate) of recombinant NUAK1 are not provided in the packet; values used are typical for serine/threonine kinases and constitute an assumption.",
+    "No direct biochemical IC50 for CHEMBL1615278 on NUAK1 is available; the experiment is designed to generate that data.",
+    "Potential compound interference with luminescence (e.g., quenching or auto‑luminescence) is not pre‑characterized; a counter‑screen with the detection reagents alone is recommended.",
+    "Recombinant protein expression system (baculovirus vs. bacterial) may affect activity; the chosen system follows common practice but is not explicitly supported by the supplied evidence."
+  ]
+}

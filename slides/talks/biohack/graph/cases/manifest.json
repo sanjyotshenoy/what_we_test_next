@@ -1,7 +1,7 @@
 {
   "version": "v1-20-diagnostic",
   "case_count": 20,
-  "status": "Draft / human domain review required; additions not model-evaluated",
+  "status": "Draft / human domain review required; evaluation results are recorded separately",
   "counts_by_mode": {
     "biochemical": 15,
     "cellular": 5

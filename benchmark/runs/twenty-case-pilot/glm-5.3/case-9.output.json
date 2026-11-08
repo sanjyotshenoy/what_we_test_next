@@ -1,0 +1,131 @@
+{
+  "assay_type": "biochemical kinase inhibition (concentration-response)",
+  "system": "human recombinant Activin receptor type-1 (ACVR1/ALK2, Q04771) kinase domain in vitro",
+  "readout": "ADP-Glo luminescence proportional to ADP produced (ATP consumption), reported as % inhibition vs vehicle",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a serial dilution of CHEMBL1078178 in DMSO, plus vehicle-only, no-enzyme, no-compound, and positive-inhibitor control wells.",
+      "parameters": {
+        "top_concentration_uM": {
+          "value": 30,
+          "unit": "uM",
+          "evidence": "assumption; no packet evidence for this compound's potency range; chosen to span likely active range with DMSO kept low"
+        },
+        "dilution_factor": {
+          "value": 3,
+          "unit": "fold",
+          "evidence": "assumption; 10-point 3-fold series spans 30 uM to ~1.5 nM"
+        },
+        "n_points": {
+          "value": 10,
+          "unit": "points",
+          "evidence": "assumption; standard for full curve fitting"
+        },
+        "replicates": {
+          "value": 3,
+          "unit": "technical replicates",
+          "evidence": "assumption; enables mean/SD reporting"
+        },
+        "vehicle_fraction": {
+          "value": 0.01,
+          "unit": "v/v DMSO",
+          "evidence": "assumption; constant across all wells including vehicle control"
+        }
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound dilutions, recombinant ALK2 kinase, kinase substrate and ATP; incubate under linear-range conditions.",
+      "parameters": {
+        "enzyme_concentration": {
+          "value": null,
+          "unit": "nM",
+          "evidence": "unresolved; no packet evidence; must be titrated to keep <10% ATP conversion"
+        },
+        "substrate_concentration": {
+          "value": null,
+          "unit": "uM",
+          "evidence": "unresolved; substrate identity and concentration not specified in packet (retained examples used casein, CHEMBL4815728)"
+        },
+        "ATP_concentration": {
+          "value": null,
+          "unit": "uM",
+          "evidence": "unresolved; should be set near the reported ATP Km for ACVR1, which is not in the packet"
+        },
+        "reaction_time": {
+          "value": null,
+          "unit": "min",
+          "evidence": "unresolved; retained examples used 30-45 min (CHEMBL4815728, CHEMBL3365510) but for other compounds; verify linearity empirically"
+        },
+        "temperature": {
+          "value": null,
+          "unit": "C",
+          "evidence": "unresolved; commonly 25-37 C but not supported by packet"
+        }
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent and read luminescence.",
+      "parameters": {
+        "reagent_volumes": {
+          "value": null,
+          "unit": "uL",
+          "evidence": "unresolved; follow vendor protocol, not in packet"
+        },
+        "depletion_time": {
+          "value": null,
+          "unit": "min",
+          "evidence": "unresolved; vendor protocol"
+        },
+        "detection_time": {
+          "value": null,
+          "unit": "min",
+          "evidence": "unresolved; vendor protocol"
+        }
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to no-enzyme background and vehicle (100% activity) controls; fit % inhibition vs log10 concentration with a four-parameter logistic model; report IC50 with 95% CI and Hill slope.",
+      "parameters": {
+        "fit_model": {
+          "value": "4-parameter logistic",
+          "evidence": "assumption; standard for concentration-response"
+        },
+        "acceptance_criteria": {
+          "value": "Z' >= 0.5 between vehicle and an uninhibited/positive control; DMSO-only wells show no interference; top and bottom plateaus within 15% of 0 and 100%",
+          "evidence": "assumption; no packet criteria"
+        }
+      }
+    }
+  ],
+  "top_concentration_uM": 30,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only (DMSO matched to compound wells) defining 100% kinase activity",
+    "No-enzyme background control for ADP-Glo luminescence baseline",
+    "No-compound (maximal activity) control",
+    "Positive reference inhibitor of ALK2 (identity unresolved; retained examples CHEMBL1230714/CHEMBL136106 are other compounds, not designated references) to confirm assay competence",
+    "Compound-only (no kinase) wells at top concentration to check luminescence quenching/interference by CHEMBL1078178"
+  ],
+  "rationale": "The question asks for biochemical inhibition of Q04771 (ACVR1/ALK2), so a purified-kinase assay is the correct system; cell viability cards (cell-prepare/cell-expose/cell-detect) are excluded because they measure cellular ATP/viability, not target-specific inhibition. Retained ChEMBL examples (CHEMBL3365510, CHEMBL4815728, CHEMBL3789973, CHEMBL2390524) confirm that ACVR1/ALK2 inhibition is routinely measured biochemically with kinase plus substrate plus ATP, with 30-45 min incubations; however, all retained examples are radiometric filter-binding assays, not ADP-Glo, so the ADP-Glo readout is an adaptation chosen for safety and throughput, and its compatibility with ACVR1 is an assumption. The concentration series, replicates, and DMSO fraction are design assumptions, not sourced facts, since the packet contains no measurement for CHEMBL1078178 and no retrieved example is similarity-ranked to it.",
+  "citations": [
+    "CHEMBL3365510",
+    "CHEMBL4815728",
+    "CHEMBL3789973",
+    "CHEMBL2390524"
+  ],
+  "limitations": [
+    "No IC50 or potency estimate for CHEMBL1078178 is provided or inferred; the retained IC50s belong to other compounds and are contextual only.",
+    "Enzyme, substrate, ATP concentrations, reaction time, and temperature are unresolved: the packet gives no ACVR1 Km values or validated ADP-Glo protocol; these must be established by pilot linearity titrations.",
+    "Retained ACVR1 assays are radiometric (33P/32P), not luminescent ADP-Glo; the format switch is an unvalidated adaptation.",
+    "Substrate identity (e.g., casein per CHEMBL4815728 vs. a peptide substrate) is unresolved and can shift apparent IC50.",
+    "If ATP is not at Km, reported IC50 will not be comparable to ATP-competitive literature values; mechanism (competitive vs allosteric) is not determinable from a single ATP concentration.",
+    "Biochemical inhibition does not establish cellular target engagement or viability effects; a follow-up cellular assay would be required for target-specific causality and is out of scope here.",
+    "Solubility of CHEMBL1078178 at 30 uM is unverified; top concentration may need adjustment after solubility/interference checks."
+  ]
+}

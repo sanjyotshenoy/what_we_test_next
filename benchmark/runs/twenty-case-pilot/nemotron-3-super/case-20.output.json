@@ -1,0 +1,63 @@
+{
+  "assay_type": "cell viability",
+  "system": "mouse BaF3 cells expressing MER",
+  "readout": "luminescence (CellTiter-Glo ATP-based viability)",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Seed BaF3-MER cells at 5\u00d710^4 cells/mL in RPMI\u20111640 + 10% FBS, prepare compound dilution series and vehicle controls.",
+      "parameters": {
+        "cell_density": "5e4 cells/mL",
+        "medium": "RPMI\u20111640 + 10% FBS",
+        "top_concentration_uM": "10",
+        "dilution_factor": "3",
+        "n_points": "8",
+        "replicates": "3",
+        "vehicle_fraction": "0.5% DMSO"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Add compound dilutions to seeded cells and incubate for 48\u202fh at 37\u202f\u00b0C, 5% CO\u2082.",
+      "parameters": {
+        "exposure_time": "48 h",
+        "temperature": "37 \u00b0C"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter-Glo reagent, mix 2\u202fmin, stabilize 10\u202fmin, measure luminescence.",
+      "parameters": {
+        "reagent_volume": "equal volume to culture",
+        "mix_time": "2 min",
+        "stabilization_time": "10 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100\u202f%) and background (no cells), fit a four\u2011parameter logistic curve, report IC\u2085\u2080 with 95\u202f% CI and assay Z\u2032\u2011factor.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic",
+        "acceptance_criteria": "Z\u2032\u202f\u2265\u202f0.5, R\u00b2\u202f\u2265\u202f0.9"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.5% DMSO)",
+    "background (no cells)",
+    "positive control (known Mer inhibitor e.g., CHEMBL4845957)"
+  ],
+  "rationale": "The retained examples show Mer inhibition in BaF3\u2011MER cells yields IC\u2085\u2080 values between 8\u201386\u202fnM (CHEMBL4819114). Testing up to 10\u202f\u00b5M ensures coverage of potential activity while keeping DMSO \u22640.5\u202f%. CellTiter\u2011Glo measures ATP as a proxy for viability, matching the assay format used in the retrieved data.",
+  "citations": [
+    "CHEMBL4819114"
+  ],
+  "limitations": [
+    "Viability readout cannot distinguish cytostatic vs cytotoxic effects.",
+    "Cell\u2011based assay does not prove direct target engagement; off\u2011target pathways may influence proliferation.",
+    "IC\u2085\u2080 derived from curve fitting assumes homogeneous cell response and may be affected by compound solubility or cytotoxicity at high concentrations."
+  ]
+}

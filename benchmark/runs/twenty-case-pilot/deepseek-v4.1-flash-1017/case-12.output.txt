@@ -1,0 +1,53 @@
+{
+  "assay_type": "Biochemical kinase inhibition assay (cell-free ADP-Glo luminescence)",
+  "system": "IRAK1 (P51617) biochemical assay; recombinant enzyme construct/origin unresolved",
+  "readout": "Luminescence from ADP detection, reflecting IRAK1 kinase activity/ATP consumption",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a compound dilution series and vehicle/reference controls for CHEMBL1738757.",
+      "parameters": "top_concentration_uM: 10 uM (provisional design precedent from CHEMBL256570/CHEMBL256961; not a potency estimate); dilution_factor: 3-fold (provisional precedent); n_points: 10 (provisional precedent); replicates: 3 (assumption; not specified in packet); vehicle_fraction: unresolved; keep DMSO constant across wells and match vehicle control (assumption: <=1% v/v if tolerated, not sourced)"
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, IRAK1, substrate and ATP; run the reaction under justified conditions. If a preincubation is used, state it explicitly as an unresolved adaptation.",
+      "parameters": "enzyme_concentration: unresolved; substrate_concentration: unresolved; ATP_concentration: 10 uM (supported by CHEMBL256570 and CHEMBL256961 descriptions; not optimized for IRAK1); reaction_time: unresolved; temperature: unresolved"
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "For ADP-Glo: stop the reaction, deplete residual ATP, perform ADP detection reaction, and measure luminescence.",
+      "parameters": "reagent_volumes: unresolved; depletion_time: unresolved; detection_time: unresolved"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+      "parameters": "fit_model: 4-parameter logistic (4PL) concentration-response (provisional assumption); acceptance_criteria: unresolved thresholds; require replicate agreement, evaluable top/bottom plateaus, and report IC50 with confidence interval only if fit is acceptable; do not predict IC50"
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only (DMSO) matched to compound wells",
+    "No-enzyme background control",
+    "Positive control: staurosporine as contextual precedent from CHEMBL256961; suitability for IRAK1 is unresolved",
+    "No-ATP or stop-before-ATP background control if compatible with the chosen ADP-Glo format (unresolved)"
+  ],
+  "rationale": "A cell-free ADP-Glo kinase assay directly measures biochemical inhibition of IRAK1 kinase activity and avoids confounding by cellular viability. The ordered cards are kinase-prepare, kinase-react, kinase-detect, then analyse. The 10-dose, 3-fold series starting at 10 uM and 10 uM ATP are provisional design precedents from retained assay descriptions, not potency estimates for CHEMBL1738757. Cell-viability cards are excluded because they would not establish direct IRAK1 inhibition. No IC50 is predicted.",
+  "citations": [
+    "CHEMBL256570",
+    "CHEMBL256961",
+    "CHEMBL5224519"
+  ],
+  "limitations": [
+    "No retained measurement for CHEMBL1738757 on IRAK1 is provided; potency must not be inferred from other compounds.",
+    "Retained examples are contextual assay precedents only and are not direct estimates for the query compound.",
+    "IRAK1 construct/origin, enzyme concentration, substrate identity/concentration, reaction time, temperature, and ADP-Glo reagent volumes/times are unresolved.",
+    "ATP at 10 uM is supported by example descriptions but is not established as Km-appropriate for IRAK1 in this design.",
+    "Replicate number and DMSO tolerance are provisional assumptions, not sourced facts.",
+    "Biochemical inhibition does not establish cellular viability or target-specific causality in cells; a separate cell-viability assay would be required for those claims.",
+    "The staurosporine positive-control precedent comes from another assay context and is not validated here for IRAK1.",
+    "No counter-screens for assay interference, aggregation, or kinase selectivity are specified in the packet."
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "assay_type": "biochemical kinase inhibition (concentration-response)",
+  "system": "Purified recombinant Casein kinase I isoform alpha (P48729, CSNK1A1) with a kinase substrate in vitro; no cell system used",
+  "readout": "ADP-Glo luminescence proportional to ADP produced (inversely proportional to kinase activity); percent inhibition derived from vehicle and no-enzyme controls",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point 3-fold serial dilution of CHEMBL1234833 in DMSO, then dilute into assay buffer so final vehicle is constant at 0.5% DMSO across all points. Include vehicle-only, no-enzyme, no-compound (max-activity), and a positive-control inhibitor wells.",
+      "parameters": {
+        "top_concentration_uM": "100 \u00b5M (assumption: broad range to capture unknown potency; no packet evidence for this compound's potency)",
+        "dilution_factor": "3 (assumption: standard for unknown potency spanning ~4 logs)",
+        "n_points": "10 (assumption: covers 100 \u00b5M to ~0.002 \u00b5M)",
+        "replicates": "3 (assumption: standard precision for curve fitting)",
+        "vehicle_fraction": "0.005 DMSO (assumption: typical tolerated solvent level; not packet-sourced)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound dilutions, recombinant CSNK1A1, a casein-derived or commercial kinase substrate, and ATP; incubate under linear-range conditions.",
+      "parameters": {
+        "enzyme_concentration": "unresolved \u2014 no packet evidence; must be empirically titrated to keep <10% ATP conversion in the linear range",
+        "substrate_concentration": "unresolved \u2014 no packet evidence; use saturating or near-Km concentration after titration",
+        "ATP_concentration": "10 \u00b5M (supported precedent: CHEMBL1244314 measured CK1 inhibition at 10 \u00b5M ATP; note this assay was radioactive phosphotransfer, not ADP-Glo)",
+        "reaction_time": "30 min (supported precedent: CHEMBL2089673 used 30 min for CK1 inhibition; verify linearity in-house)",
+        "temperature": "unresolved \u2014 no packet evidence; 37\u00b0C or room temperature must be fixed and validated locally (assumption: 25\u201330\u00b0C typical for ADP-Glo)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent and read luminescence.",
+      "parameters": {
+        "reagent_volumes": "unresolved \u2014 follow ADP-Glo manufacturer protocol; no packet evidence for specific volumes",
+        "depletion_time": "unresolved \u2014 manufacturer-recommended depletion incubation; not packet-sourced",
+        "detection_time": "unresolved \u2014 manufacturer-recommended detection incubation; not packet-sourced"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100% activity) and no-enzyme (0% activity) controls; fit percent inhibition vs log10 concentration with a four-parameter logistic model; report IC50 with 95% CI and Hill slope. Flag any curve failing acceptance criteria.",
+      "parameters": {
+        "fit_model": "4-parameter logistic (assumption: standard for concentration-response)",
+        "acceptance_criteria": "assumption: Z' \u2265 0.5 between positive and negative controls; DMSO-only wells within historical range; \u22652 active concentration points above 50% inhibition for a reliable fit \u2014 none of these thresholds are packet-sourced"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle control (0.5% DMSO, no compound) defining 100% kinase activity",
+    "No-enzyme control defining 0% activity / background luminescence",
+    "Positive-control CK1 inhibitor on every plate to confirm assay performance",
+    "No-substrate control to check ADP-Glo background from enzyme/reagent alone",
+    "Compound-only (no enzyme, no substrate) wells at top concentration to detect compound interference with the luminescence readout"
+  ],
+  "rationale": "The question asks for biochemical inhibition of purified CSNK1A1 (P48729) by CHEMBL1234833, so the kinase ADP-Glo luminescence workflow (kinase-prepare \u2192 kinase-react \u2192 kinase-detect \u2192 analyse) is the matched format; the cell-viability cards are excluded because they measure cellular ATP/ viability, not target-specific kinase inhibition, and cannot establish a CSNK1A1-specific mechanism. ADP-Glo is chosen as a homogeneous, non-radioactive alternative to the radioactive phosphotransfer and scintillation-counting assays retained in the packet (CHEMBL1244314, CHEMBL2089673), while measuring the same biochemical event (ATP-to-ADP phosphotransfer). The 10 \u00b5M ATP condition follows the precedent of CHEMBL1244314; the 30 min reaction time follows CHEMBL2089673. Because no retrieved example used ADP-Glo on CK1 or tested CHEMBL1234833, enzyme/substrate concentrations, temperature, and detection parameters are unresolved and must be established by pilot linearity experiments. The concentration series (100 \u00b5M top, 3-fold, 10 points, triplicate) is an explicitly labeled assumption designed to span the wide potency range observed for other CK1 inhibitors in the packet (14 nM to 12.9 \u00b5M, e.g., CHEMBL1080583, CHEMBL1336, CHEMBL14762), which are contextual only and not estimates for this compound.",
+  "citations": [
+    "CHEMBL1244314",
+    "CHEMBL2089673",
+    "CHEMBL1080583",
+    "CHEMBL1336",
+    "CHEMBL1400095",
+    "CHEMBL14762",
+    "CHEMBL1476741"
+  ],
+  "limitations": [
+    "No retrieved assay tested CHEMBL1234833; no potency value is predicted or implied for it, and the retained IC50s are contextual range indicators only.",
+    "No packet evidence specifies CSNK1A1 enzyme concentration, substrate identity/concentration, assay buffer, temperature, or ADP-Glo reagent volumes/times; these are unresolved and require local optimization and linearity verification.",
+    "The 10 \u00b5M ATP and 30 min reaction precedents come from radioactive/scintillation assays (CHEMBL1244314, CHEMBL2089673), not ADP-Glo; transferability is assumed, not proven.",
+    "The compound contains a glycosamine-like polar moiety; potential interference with luminescence or solubility limits at 100 \u00b5M are untested \u2014 compound-only interference controls and visual solubility checks are included but may reveal the top concentration is unachievable.",
+    "This design measures biochemical inhibition only; it does not address cellular viability or target-specific causality in cells, which would require orthogonal cellular and target-engagement experiments.",
+    "If ATP is not at the compound's relevant mechanism (e.g., ATP-competitive behavior), IC50 will be ATP-concentration dependent; Km-based ATP determination would be needed for mechanistic interpretation and is not supported by packet evidence."
+  ]
+}

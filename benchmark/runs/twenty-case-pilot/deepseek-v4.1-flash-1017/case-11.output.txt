@@ -1,0 +1,55 @@
+{
+  "assay_type": "Cell-free biochemical kinase inhibition concentration-response assay with luminescent ADP detection (ADP-Glo format)",
+  "system": "Recombinant human MAPK9 (P45984) in a cell-free reaction with ATP and an appropriate kinase substrate; no cells are used.",
+  "readout": "Luminescence from ADP-Glo ADP detection, converted to percent inhibition relative to controls and fitted to a concentration-response curve; no IC50 value is predicted here.",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a compound dilution series for CHEMBL10 plus vehicle, no-compound, no-enzyme/background, and reference-inhibitor controls. Keep vehicle fraction constant across compound wells.",
+      "parameters": "top_concentration_uM=100 (provisional design assumption, not sourced); dilution_factor=3 (provisional design assumption, not sourced); n_points=10 (provisional design assumption, not sourced); replicates=3 (provisional design assumption, not sourced); vehicle_fraction=unresolved (must be matched and empirically confirmed compatible with enzyme activity; not specified in packet)"
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine CHEMBL10 dilution series, MAPK9 (P45984), substrate, and ATP. Include no-enzyme and no-compound controls. Run the reaction under conditions that are first established as linear with respect to time and enzyme concentration.",
+      "parameters": "enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved; reaction_time=unresolved; temperature=unresolved (all require local optimization; no source-supported values are provided in the packet)"
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction, deplete residual ATP, add ADP detection reagent, and measure luminescence according to the ADP-Glo workflow. Include detection background controls.",
+      "parameters": "reagent_volumes=unresolved; depletion_time=unresolved; detection_time=unresolved (must follow validated ADP-Glo conditions; not specified in packet)"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to no-compound and background controls, fit a concentration-response model, and report curve parameters with uncertainty. Do not report a remembered or predicted CHEMBL10 IC50.",
+      "parameters": "fit_model=four-parameter logistic with Hill slope (provisional assumption, not sourced); acceptance_criteria=unresolved (predefine control performance, curve fit quality, and absence of edge effects; not specified in packet)"
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only control at matched vehicle fraction (fraction unresolved)",
+    "No-compound control for 100% kinase activity",
+    "No-enzyme/background control",
+    "Reference inhibitor control (identity and concentration unresolved; not sourced in packet)",
+    "Detection/ATP-only background control"
+  ],
+  "rationale": "The question asks for biochemical inhibition of MAPK9 (P45984) by CHEMBL10, so the cell-free kinase-prepare, kinase-react, kinase-detect, and analyse cards are selected in order. Cell-viability cards are excluded because ATP-based cellular viability would not measure biochemical kinase inhibition and would not by itself establish target-specific causality. The ADP-Glo luminescent format is chosen because the packet provides a kinase biochemical luminescence template and an ADP detection step. The concentration series, dilution factor, point count, and replicate number are provisional design assumptions, not sourced facts; all reaction and detection parameters remain unresolved pending local optimization. This design measures biochemical inhibition only; it does not measure cellular viability or prove target-specific causality in cells.",
+  "citations": [
+    "CHEMBL10",
+    "P45984",
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "No source-supported enzyme concentration, substrate concentration, ATP concentration, reaction time, temperature, reagent volumes, depletion time, or detection time is provided; these are unresolved and must be optimized locally.",
+    "Top concentration, dilution factor, number of points, and replicates are provisional design assumptions, not sourced facts.",
+    "The packet contains no direct CHEMBL10 potency measurement for P45984; no IC50 is predicted or reported.",
+    "Retained measurement examples are for other compounds and/or assay contexts and are not direct estimates for CHEMBL10.",
+    "Biochemical inhibition does not establish cellular activity, cellular viability effects, or target-specific causality in a cell system.",
+    "Vehicle tolerance and reference-inhibitor identity/concentration are unresolved."
+  ]
+}

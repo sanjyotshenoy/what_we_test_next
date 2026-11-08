@@ -1,0 +1,73 @@
+{
+  "assay_type": "Cellular concentration-response ATP viability assay",
+  "system": "Human TMD8 cells treated with CHEMBL5188786",
+  "readout": "CellTiter-Glo luminescence after compound exposure; background-corrected ATP signal is normalized to vehicle-treated cells as a proxy for viable cell number/metabolic activity, not a direct count of cell divisions.",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Plate TMD8 cells and prepare a 10-point, threefold CHEMBL5188786 dilution series from 10 uM, with matched vehicle across treatments. Include untreated, vehicle, background, and reference-control wells. These concentrations and replicate numbers are provisional design assumptions because no retained measurements or TMD8 culture conditions were supplied.",
+      "parameters": {
+        "cell_density": "unresolved; optimize for TMD8 growth and a linear, non-saturated ATP signal over the exposure period",
+        "medium": "unresolved; use a supported TMD8 culture formulation and keep serum and other additives constant",
+        "top_concentration_uM": "10 uM; provisional assumption, not a potency estimate",
+        "dilution_factor": "3; provisional assumption for broad coverage",
+        "n_points": "10; provisional assumption",
+        "replicates": "3 independent biological experiments; provisional assumption, with technical well replication unresolved",
+        "vehicle_fraction": "unresolved; determine a non-perturbing, constant final fraction and match it in every well"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose the suspension cells to compound or controls without adhesion-specific adaptations. Maintain identical culture conditions and include a time-zero or untreated reference if growth inhibition is to be distinguished from loss of pre-existing viable cells.",
+      "parameters": {
+        "exposure_time": "72 h; provisional assumption requiring confirmation that control cells remain in a suitable growth/signal range",
+        "temperature": "37 C; provisional standard culture assumption",
+        "other_conditions": "CO2, humidity, plate format, and edge-well handling unresolved"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Equilibrate plates and reagent as required by the supported CellTiter-Glo procedure, add reagent, mix sufficiently for suspension-cell lysis, stabilize the luminescent signal, and measure luminescence. Include medium-plus-reagent wells without cells for background.",
+      "parameters": {
+        "reagent_volume": "unresolved; follow the supported reagent-to-culture-volume procedure",
+        "mix_time": "unresolved; use the supported procedure and validate complete, reproducible lysis",
+        "stabilization_time": "unresolved; use the supported procedure and keep timing consistent across plates"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract no-cell background, normalize each treated signal to matched vehicle controls, and fit concentration-response data only when the response range and curve quality support it. Report individual experiments, fitted uncertainty, and any incomplete curves; do not infer a BTK biochemical IC50 from cellular viability.",
+      "parameters": {
+        "fit_model": "four-parameter logistic model as a provisional assumption, with top/bottom constraints or no-fit reporting if supported by the data",
+        "acceptance_criteria": "prespecify acceptable vehicle/untreated behavior, background, control performance, replicate agreement, and curve-fit quality; numeric thresholds unresolved"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Matched vehicle at every concentration-response comparison",
+    "Untreated TMD8 cells",
+    "Medium and detection reagent without cells for luminescence background",
+    "Reference cytotoxic or viability control; identity and concentration unresolved",
+    "Optional time-zero baseline to help distinguish reduced accumulation from loss of initial viable cells"
+  ],
+  "rationale": "The cellular cards match the requested TMD8 growth/proliferation-or-viability question, whereas the kinase cards would measure a separate biochemical endpoint and are therefore omitted. ATP luminescence is sensitive and practical for suspension cells, but reflects viable-cell ATP content and can be affected by metabolic changes. The broad series and three independent experiments are explicitly provisional assumptions, not evidence-based estimates of CHEMBL5188786 potency. A viability response alone cannot establish BTK inhibition or causality. Target-specific causality would require additional evidence, such as cellular BTK-pathway engagement/phosphorylation measurements, comparison with appropriately controlled genetic BTK perturbation, and ideally a biochemical BTK assay; rescue or selectivity experiments would further strengthen interpretation.",
+  "citations": [
+    "CHEMBL5188786",
+    "Q06187",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "No retained measurement examples were supplied, so there is no evidence-based concentration range, exposure time, culture density, medium, vehicle tolerance, or expected potency; all numeric design settings are provisional assumptions.",
+    "This design does not predict a withheld IC50, and an incomplete or flat curve should not be forced into a precise potency estimate.",
+    "ATP viability does not by itself distinguish cytostasis from cytotoxicity or directly measure proliferation; orthogonal cell counting and death/apoptosis readouts would be needed.",
+    "Cellular activity does not demonstrate biochemical inhibition of Q06187 or establish that BTK mediates the viability effect; off-target toxicity and pathway-independent effects remain possible.",
+    "Compound solubility, precipitation, stability, and interference with luminescence are unresolved and should be assessed with appropriate controls."
+  ]
+}

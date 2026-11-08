@@ -1,0 +1,66 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence, ADP\u2011Glo)",
+  "system": "recombinant human mTOR kinase domain (full\u2011length or catalytic fragment) expressed in baculovirus/insect cells",
+  "readout": "luminescence proportional to ADP produced (inverse of kinase activity)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10\u2011point, 3\u2011fold serial dilution of Ku\u20110063794 (CHEMBL1078983) starting at 30\u202f\u00b5M; include DMSO vehicle control (0.1\u202f% v/v) and a known mTOR inhibitor (e.g., rapamycin) as a reference.",
+      "parameters": {
+        "top_concentration_uM": 30,
+        "dilution_factor": 3,
+        "n_points": 10,
+        "replicates": 3,
+        "vehicle_fraction": "0.1\u202f% v/v DMSO (consistent with solubility data for similar heterocyclic kinase inhibitors)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In 384\u2011well plates combine: recombinant mTOR (final 5\u202fnM), peptide substrate 4E\u2011BP1 (final 1\u202f\u00b5M), ATP (final 100\u202f\u00b5M, saturating relative to Km), and each compound dilution. Incubate 30\u202fmin at 30\u202f\u00b0C.",
+      "parameters": {
+        "enzyme_concentration": "5\u202fnM (typical for ADP\u2011Glo mTOR assays, see published mTOR ADP\u2011Glo protocols)",
+        "substrate_concentration": "1\u202f\u00b5M 4E\u2011BP1 peptide (compatible with the U\u2011Light\u20114E\u2011BP1 assay example in the retained data)",
+        "ATP_concentration": "100\u202f\u00b5M (\u226510\u00d7 Km for mTOR, ensures competition\u2011type inhibition can be measured)",
+        "reaction_time": "30\u202fmin (matches the 30\u2011min incubation used for CHEMBL1081312 in the retained example)",
+        "temperature": "30\u202f\u00b0C (standard for ADP\u2011Glo kinase assays)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Add ADP\u2011Glo\u2122 reagent to stop the reaction and deplete remaining ATP, incubate 40\u202fmin, then add detection reagent and incubate 30\u202fmin before reading luminescence on a plate reader.",
+      "parameters": {
+        "reagent_volumes": "10\u202f\u00b5L ADP\u2011Glo\u2122 reagent per 20\u202f\u00b5L reaction, followed by 10\u202f\u00b5L detection reagent",
+        "depletion_time": "40\u202fmin (per ADP\u2011Glo\u2122 kit protocol)",
+        "detection_time": "30\u202fmin (per ADP\u2011Glo\u2122 kit protocol)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0\u202f% activity (vehicle only) and 100\u202f% inhibition (rapamycin reference). Fit a four\u2011parameter logistic curve (Hill slope unconstrained). Report IC\u2085\u2080 with 95\u202f% confidence interval and note assay window (signal\u2011to\u2011background) and Z\u2032\u2011factor.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic (variable slope)",
+        "acceptance_criteria": "Z\u2032\u202f>\u202f0.5, %CV\u202f<\u202f15\u202f% across replicates, R\u00b2\u202f>\u202f0.9 for curve fit"
+      }
+    }
+  ],
+  "top_concentration_uM": 30,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "0.1\u202f% DMSO vehicle",
+    "rapamycin reference inhibitor (e.g., 10\u202fnM)",
+    "no\u2011enzyme blank (to assess background luminescence)"
+  ],
+  "rationale": "ADP\u2011Glo\u2122 provides a homogeneous, luminescence\u2011based readout that directly measures kinase turnover of ATP to ADP, suitable for mTOR which is an ATP\u2011competitive target. The retained examples show that mTOR inhibition can be measured with peptide substrates (4E\u2011BP1) and 30\u2011min incubations, supporting the chosen substrate concentration and reaction time. A 3\u2011fold dilution series spanning 30\u202f\u00b5M to ~0.02\u202f\u00b5M captures the expected potency range for a selective ATP\u2011competitive inhibitor while keeping DMSO below 0.1\u202f% to avoid enzyme artefacts. Replicates (n\u202f=\u202f3) and the inclusion of a known inhibitor enable assessment of assay robustness and allow normalization of data.",
+  "citations": [
+    "CHEMBL1081312 (U\u2011Light\u20114E\u2011BP1 peptide substrate, 30\u202fmin incubation)",
+    "CHEMBL1234354 (ATP\u2011competition fluorescence assay, 30\u202fmin)",
+    "step_cards (kinase-prepare, kinase-react, kinase-detect, analyse)"
+  ],
+  "limitations": [
+    "The exact Km of ATP for the recombinant mTOR preparation is not provided; ATP concentration is assumed to be saturating based on typical literature values.",
+    "Solubility of Ku\u20110063794 above 30\u202f\u00b5M in assay buffer is not experimentally confirmed; the top concentration is an assumption to ensure coverage of potential low\u2011nanomolar potency.",
+    "No cell\u2011based data are included; therefore the assay measures only biochemical inhibition and does not address cellular permeability or off\u2011target cytotoxicity."
+  ]
+}

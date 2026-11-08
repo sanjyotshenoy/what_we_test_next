@@ -1,0 +1,53 @@
+{
+  "assay_type": "cell viability",
+  "system": "human RPMI-8226 cells",
+  "readout": "luminescence from CellTiter-Glo ATP assay",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Seed RPMI-8226 cells at defined density in growth medium.",
+      "parameters": {
+        "cell_density": "unresolved",
+        "medium": "RPMI-1640 + 10% FBS",
+        "top_concentration_uM": "10",
+        "dilution_factor": "3",
+        "n_points": "8",
+        "replicates": "3",
+        "vehicle_fraction": "0.5% DMSO"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Add compound dilution series to seeded cells and incubate.",
+      "parameters": {
+        "exposure_time": "72 h",
+        "temperature": "37\u00b0C, 5% CO2"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter-Glo reagent, mix, stabilize, measure luminescence.",
+      "parameters": {
+        "reagent_volume": "equal volume to culture",
+        "mix_time": "2 min",
+        "stabilization_time": "10 min"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.5% DMSO)",
+    "positive control (known cytotoxic agent e.g., staurosporine)",
+    "background (no cells)"
+  ],
+  "rationale": "ATP-based luminescence correlates with viable cell number; 72\u202fh exposure allows proliferation effect; concentration range up to 10\u202f\u00b5M covers expected cellular activity based on biochemical potency of JNJ-7706621.",
+  "citations": [],
+  "limitations": [
+    "Cell viability does not prove Aurora kinase A is the responsible target; off\u2011target cytotoxicity could contribute.",
+    "No direct measurement of Aurora kinase A inhibition in cells; biochemical IC50 not provided.",
+    "Assumes compound is stable and soluble in DMSO at tested concentrations."
+  ]
+}

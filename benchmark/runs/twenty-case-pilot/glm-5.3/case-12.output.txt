@@ -1,0 +1,70 @@
+{
+  "assay_type": "biochemical kinase concentration-response (in vitro purified enzyme)",
+  "system": "Purified recombinant human IRAK1 (P51617) with a peptide/protein substrate in a biochemical kinase reaction; no cell system used, since the question asks for biochemical inhibition.",
+  "readout": "ADP-Glo luminescence proportional to ADP produced (kinase activity), converted to % inhibition vs. DMSO vehicle control.",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold serial dilution of CHEMBL1738757 starting at 10 uM in assay buffer, maintaining a constant final DMSO vehicle fraction across all points and controls. Include a DMSO-only vehicle control (0% inhibition) and a positive inhibition control (e.g., a reference IRAK1 inhibitor such as staurosporine run in a parallel 10-dose 4-fold series from 20 uM, per the retained HotSpot-style protocol).",
+      "parameters": {
+        "top_concentration_uM": "10 uM — supported by CHEMBL5738876 and CHEMBL5738897 descriptions (10 uM starting concentration, 3-fold, 10 doses)",
+        "dilution_factor": "3 — supported by CHEMBL5738876/CHEMBL5738897 (3-fold serial dilution, 10 doses)",
+        "n_points": "10 — supported by CHEMBL5738876/CHEMBL5738897 (10-dose IC50 mode)",
+        "replicates": "3 (assumption; no packet evidence specifies replicate count — labeled as assumption for statistical robustness)",
+        "vehicle_fraction": "unresolved — no packet evidence specifies DMSO percentage; recommend a fixed, low constant DMSO level (e.g., <=1%) validated not to affect enzyme activity, but this must be empirically confirmed"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound dilutions with IRAK1, substrate, and ATP; pre-incubate compound with enzyme before initiating with ATP/substrate; run the reaction within the linear range of product formation.",
+      "parameters": {
+        "enzyme_concentration": "unresolved — no packet evidence specifies IRAK1 enzyme concentration; must be titrated to give linear signal and <10-20% substrate conversion",
+        "substrate_concentration": "unresolved — no packet evidence specifies substrate identity or concentration; must be at saturating or justified Km-appropriate level",
+        "ATP_concentration": "10 uM — supported by CHEMBL5738876 and CHEMBL5738897 (reactions carried out at 10 uM ATP)",
+        "reaction_time": "unresolved — no packet evidence; must be determined by a time-course to ensure linear kinetics",
+        "temperature": "unresolved — no packet evidence; commonly 30-37 C but must be stated as an assumption and held constant"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent to convert ADP to luminescence; read luminescence on a plate reader.",
+      "parameters": {
+        "reagent_volumes": "unresolved — no packet evidence; follow ADP-Glo manufacturer-equivalent 1:1:1 volume ratio as an assumption",
+        "depletion_time": "unresolved — no packet evidence; use vendor-recommended depletion incubation as an assumption",
+        "detection_time": "unresolved — no packet evidence; use vendor-recommended detection incubation as an assumption"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to the DMSO vehicle control (100% activity) and a no-enzyme background control (0% activity); fit % inhibition vs. log10 concentration with a four-parameter logistic model; report IC50 with 95% confidence intervals. Accept the curve only if the top concentration achieves sufficient inhibition and the fit converges (e.g., activities at the highest concentration <65% of control, per CHEMBL5738897 description).",
+      "parameters": {
+        "fit_model": "four-parameter logistic (assumption; standard for 10-dose IC50 data, consistent with CHEMBL5738897 'curve fits were performed to determine IC50')",
+        "acceptance_criteria": "converged fit with defined top/bottom plateaus; highest-concentration activity <65% of vehicle (per CHEMBL5738897); positive control within its historical range; Z'-factor or similar quality metric acceptable (assumption, not packet-sourced)"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "DMSO vehicle control (negative, defines 100% activity) — supported by CHEMBL5738897 ('relative to DMSO, the negative control')",
+    "Positive inhibition control, e.g., staurosporine 10-dose 4-fold series from 20 uM — supported by CHEMBL5738897",
+    "No-enzyme / no-substrate background controls for luminescence baseline (assumption; standard practice, not packet-sourced)",
+    "Compound fluorescence/luminescence interference control (compound + detection reagents without enzyme) — assumption, standard practice"
+  ],
+  "rationale": "The question asks for biochemical inhibition of IRAK1 (P51617) by CHEMBL1738757, so the cell-viability step cards (cell-prepare, cell-expose, cell-detect) are excluded: an ATP-based viability readout would confound compound effects on cellular ATP with target inhibition and cannot establish target-specific causality. The ADP-Glo biochemical luminescence format directly measures IRAK1 kinase activity via ADP production. The concentration series (10 uM top, 3-fold, 10 points) and 10 uM ATP are directly supported by the retained IRAK1 assay descriptions in CHEMBL5738876 and CHEMBL5738897, which used exactly these conditions for other compounds on the same target. The retained IC50 values (CHEMBL2035187, CHEMBL210194, CHEMBL255873, CHEMBL256570, CHEMBL256961) are contextual only and are not used to estimate potency for CHEMBL1738757; no IC50 is predicted here.",
+  "citations": [
+    "CHEMBL5738876",
+    "CHEMBL5738897",
+    "CHEMBL5729521"
+  ],
+  "limitations": [
+    "No IC50 for CHEMBL1738757 on IRAK1 is present in the packet; none is predicted or supplied.",
+    "Enzyme concentration, substrate identity/concentration, reaction time, temperature, DMSO vehicle fraction, and ADP-Glo reagent volumes/times are not specified in any retained evidence and are listed as unresolved or explicitly labeled assumptions.",
+    "The retained examples are not similarity-ranked and their potencies do not constrain the query compound's potency.",
+    "The retained assays include 'IRAK-1 (unknown origin)' (CHEMBL5224519) and unspecified formats (CHEMBL870866, CHEMBL921624); only the HotSpot-style descriptions (CHEMBL5738876/5738897) provide usable protocol parameters, and those used a radiometric HotSpot readout rather than ADP-Glo, so the detection step parameters are adapted and unsupported by packet evidence.",
+    "If ATP is not at the enzyme's Km, the measured IC50 is ATP-dependent and not directly comparable to other assays; this should be noted when interpreting results.",
+    "Biochemical inhibition alone does not demonstrate cellular target engagement or therapeutic mechanism; orthogonal confirmation (e.g., cellular target engagement assays) would be required and is outside this design."
+  ]
+}

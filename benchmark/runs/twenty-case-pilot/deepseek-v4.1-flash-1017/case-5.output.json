@@ -1,0 +1,54 @@
+{
+  "assay_type": "biochemical kinase inhibition assay using ADP-Glo luminescence",
+  "system": "Cell-free Tyrosine-protein kinase receptor UFO (AXL; P30530) kinase reaction; exact enzyme construct/source is unresolved.",
+  "readout": "Luminescence from ADP-Glo ADP detection, proportional to kinase activity; inhibition is inferred from reduced signal versus vehicle controls.",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a compound dilution series in vehicle, with matched vehicle/no-compound controls and a reference-inhibitor control.",
+      "parameters": "top_concentration_uM=100 (provisional assumption, not sourced); dilution_factor=3 (provisional assumption); n_points=10 (provisional assumption); replicates=3 (provisional assumption); vehicle_fraction=unresolved, must be constant across wells and tolerated by the kinase assay."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound with AXL kinase and substrate, then initiate the reaction with ATP under prevalidated conditions; include no-enzyme and no-ATP/substrate background controls.",
+      "parameters": "enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved (ideally set relative to experimentally determined Km, but no packet support); reaction_time=unresolved; temperature=unresolved; buffer composition=unresolved."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction, deplete residual ATP, add ADP detection reagent, and measure luminescence according to a validated ADP-Glo protocol.",
+      "parameters": "reagent_volumes=unresolved; depletion_time=unresolved; detection_time=unresolved; exact ADP-Glo protocol must be fixed before the run."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle and background controls, fit a concentration-response curve, and report IC50 with uncertainty and assay limitations.",
+      "parameters": "fit_model=four-parameter logistic with Hill slope (provisional assumption); acceptance_criteria=unresolved, but must predefine signal window, replicate variability, curve convergence, and control performance before unblinding."
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "matched vehicle/no-compound control",
+    "no-enzyme background control",
+    "no-ATP or no-substrate negative reaction control",
+    "reference AXL kinase inhibitor positive control (identity and concentration unresolved)",
+    "compound-only luminescence interference control at top concentration"
+  ],
+  "rationale": "A cell-free AXL kinase assay with ADP-Glo detection directly measures biochemical kinase inhibition and avoids confounding cellular viability. The ordered cards satisfy prerequisites: dilution series, kinase reaction, ADP detection, then analysis. The concentration series is broad enough to span a response only as a provisional design assumption; no packet evidence supports CHEMBL118266 potency, solubility, or DMSO tolerance. Retained AXL assay examples show biochemical inhibition formats are feasible, including a peptide-substrate scintillation assay and profiler/unknown-origin AXL assays, but their IC50 values are contextual only and are not used to predict CHEMBL118266 potency.",
+  "citations": [
+    "CHEMBL5113280",
+    "CHEMBL5212755",
+    "CHEMBL5232564",
+    "CHEMBL4189000"
+  ],
+  "limitations": [
+    "No packet evidence provides CHEMBL118266 potency, solubility, DMSO tolerance, selectivity, or AXL assay parameters.",
+    "Enzyme construct/source, substrate identity and concentration, ATP concentration relative to Km, buffer, temperature, reaction time, and ADP-Glo reagent volumes/times are unresolved.",
+    "Top concentration, dilution factor, n_points, and replicates are provisional design assumptions, not sourced facts.",
+    "Reference inhibitor identity and quantitative acceptance criteria are unresolved.",
+    "Biochemical inhibition does not establish cellular activity or target-specific causality; cell viability would require a separate assay and is not used here.",
+    "Retained IC50s for other compounds are contextual evidence only and must not be treated as estimates for CHEMBL118266.",
+    "Compound-dependent luminescence interference, aggregation, and assay artifacts are not resolved by the packet."
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "assay_type": "biochemical kinase inhibition (concentration-response)",
+  "system": "Purified human Serine/threonine-protein kinase mTOR (P42345) with 4E-BP1-based substrate",
+  "readout": "ADP-Glo luminescence (ATP-depletion + ADP-detection), proportional to kinase activity",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold serial dilution of CHEMBL1078983 in assay buffer with constant vehicle, plus DMSO-only vehicle wells, no-enzyme background wells, and an uninhibited (max-activity) control.",
+      "parameters": {
+        "top_concentration_uM": "10 (assumption; no packet evidence for this compound's expected potency range)",
+        "dilution_factor": "3 (assumption)",
+        "n_points": "10 (assumption)",
+        "replicates": "3 (assumption)",
+        "vehicle_fraction": "unresolved \u2014 maximum tolerated DMSO fraction not specified in packet; keep constant across all wells and verify no vehicle effect in vehicle-only control"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound dilutions with mTOR kinase, 4E-BP1 substrate, and ATP; incubate then proceed to detection.",
+      "parameters": {
+        "enzyme_concentration": "unresolved \u2014 not specified in packet; must be titrated to give linear signal over the reaction window",
+        "substrate_concentration": "unresolved \u2014 4E-BP1 substrate supported by CHEMBL4844752 and CHEMBL4731424 (4E-BP1 used for mTOR), but concentration not given",
+        "ATP_concentration": "unresolved \u2014 ATP present in retained assays (CHEMBL4844752, CHEMBL4731424) but concentration not reported; since CHEMBL1078983 is an ATP-competitive mTOR inhibitor (assumption based on scaffold class, not packet evidence), ATP level should be near Km and reported explicitly",
+        "reaction_time": "30 min supported by CHEMBL4844752 (30 min mTOR assay); 120 min alternative per CHEMBL4731424",
+        "temperature": "unresolved \u2014 not stated in packet; ambient/room temperature assumed, must be verified for linearity"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop reaction with ADP-Glo reagent to deplete residual ATP, add kinase detection reagent, and read luminescence.",
+      "parameters": {
+        "reagent_volumes": "unresolved \u2014 follow ADP-Glo manufacturer protocol; not specified in packet",
+        "depletion_time": "unresolved \u2014 per manufacturer protocol",
+        "detection_time": "unresolved \u2014 per manufacturer protocol"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to no-enzyme background and DMSO vehicle controls (100% activity), fit percent inhibition vs log10 concentration with a four-parameter logistic model, report IC50 with 95% CI and replicate variability.",
+      "parameters": {
+        "fit_model": "4-parameter logistic (variable slope), assumption",
+        "acceptance_criteria": "unresolved \u2014 e.g., Z' factor, vehicle-control signal window, and linearity-of-enzyme-titration criteria must be defined before data collection; not supported by packet"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "DMSO vehicle control (uninhibited 100% activity)",
+    "No-enzyme background control (ADP-Glo signal floor)",
+    "No-substrate control (checks substrate-independent ATP turnover)",
+    "Reference inhibitor control on the same plate (identity/concentration unresolved \u2014 no reference compound specified in packet)",
+    "Top-concentration compound without kinase (compound interference/quench control for luminescence)"
+  ],
+  "rationale": "The question asks for biochemical inhibition of mTOR by CHEMBL1078983, so a purified-kinase ADP-Glo luminescence assay is appropriate: it directly measures kinase activity and distinguishes biochemical inhibition from cellular viability effects. Retained examples show mTOR biochemical assays using 4E-BP1 substrate with ATP and 30 min incubation (CHEMBL4844752) or 120 min (CHEMBL4731424), supporting substrate choice and a 30 min reaction time; the ADP-Glo readout is a standard adaptation compatible with ATP-containing kinase reactions. Cell-viability cards (cell-prepare/expose/detect) are excluded because they measure cellular ATP/viability, not target-specific mTOR inhibition, and cannot establish target-specific causality. The concentration series (10 \u00b5M top, 3-fold, 10 points, triplicates) is a design assumption to span likely inhibition ranges; no potency for CHEMBL1078983 is present in the packet and none is predicted.",
+  "citations": [
+    "CHEMBL4844752",
+    "CHEMBL4731424",
+    "CHEMBL5225443"
+  ],
+  "limitations": [
+    "No IC50 or Ki for CHEMBL1078983 is provided or estimated; the withheld potency is not predicted.",
+    "Enzyme, substrate, and ATP concentrations, temperature, vehicle fraction, and detection reagent volumes/times are unsupported by the packet and left unresolved; they require pilot titration (e.g., enzyme linearity, ATP Km) before the definitive run.",
+    "Retained IC50 values are for other compounds and are contextual only; they do not calibrate this compound's curve range.",
+    "ADP-Glo format differs from the retained assay formats (Lance ultra, 33P-ATP, fluorescence polarization); cross-format IC50 comparability is limited, particularly for ATP-competitive inhibitors where ATP concentration strongly affects apparent IC50.",
+    "Biochemical inhibition does not demonstrate cellular target engagement or viability effects; a separate cellular experiment would be needed and would still not alone establish target-specific causality without orthogonal evidence.",
+    "Compound luminescence quenching/interference at high concentrations is unassessed; the interference control mitigates but does not eliminate this risk."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "assay_type": "Biochemical kinase concentration-response inhibition assay",
+  "system": "Purified human Tyrosine-protein kinase Mer (Q12866) with CHEMBL1231206; enzyme construct, substrate identity, and protein source are unresolved.",
+  "readout": "ADP-Glo luminescence measuring ADP formation; decreased kinase-dependent signal indicates biochemical MER inhibition, subject to compound-interference controls.",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare CHEMBL1231206 serial dilutions and matched vehicle controls. Assumption: use a 10 \u00b5M top concentration, 3-fold dilution, 10 concentrations, and three independent replicates to span a broad range without presuming potency. Keep vehicle constant across all wells; include a reference-inhibitor series if a validated MER inhibitor is available.",
+      "parameters": {
+        "top_concentration_uM": "10 \u00b5M; provisional design assumption, not source-supported",
+        "dilution_factor": "3-fold; provisional design assumption",
+        "n_points": "10; provisional design assumption",
+        "replicates": "3 independent replicates; provisional design assumption",
+        "vehicle_fraction": "Unresolved; determine from compound solubility and an enzyme-activity vehicle tolerance pilot"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, MER, substrate, and ATP. A provisional buffer is 50 mM HEPES pH 7.4, 10 mM MgCl2, 1 mM DTT, 0.01% Triton X-100, and 0.1% BSA, adapted from the MER-compatible mobility-shift conditions in CHEMBL5731805 rather than claimed as validated ADP-Glo conditions. Use ATP near the experimentally determined MER Km as a starting principle, also described in CHEMBL5731805. Establish linear initial-rate conditions before testing inhibition.",
+      "parameters": {
+        "enzyme_concentration": "Unresolved; titrate to obtain robust kinase-dependent signal within the linear reaction range",
+        "substrate_concentration": "Unresolved; select and titrate an ADP-Glo-compatible MER substrate. The 1 \u00b5M fluorescent substrate in CHEMBL5731805 is format-specific and is not directly transferred",
+        "ATP_concentration": "Unresolved numerically; determine MER ATP Km under the final conditions and initially test ATP near Km",
+        "reaction_time": "Unresolved; determine by time-course pilot. The 180 min incubation in CHEMBL5731805 is not assumed valid for ADP-Glo",
+        "temperature": "Unresolved; select and hold constant during validation"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence using a validated ADP-Glo procedure. Include a compound-only luminescence interference assessment and, where feasible, an orthogonal kinase readout for follow-up.",
+      "parameters": {
+        "reagent_volumes": "Unresolved; depends on final reaction volume and validated ADP-Glo protocol",
+        "depletion_time": "Unresolved; validate complete ATP depletion without compromising ADP detection",
+        "detection_time": "Unresolved; validate signal stability before plate reading"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract background, normalize vehicle controls to 0% inhibition and no-enzyme controls to 100% inhibition, and fit log concentration versus response with a four-parameter logistic model where the data support it. Report the fitted IC50 with confidence intervals, replicate variability, Hill slope, and curve quality; do not extrapolate a precise IC50 from an incomplete curve.",
+      "parameters": {
+        "fit_model": "Four-parameter logistic regression on log concentration; use simpler or constrained fitting only when justified by the observed curve",
+        "acceptance_criteria": "Provisional: require concordant vehicle and no-enzyme controls, acceptable replicate agreement, kinase-dependent signal in the linear range, and an evaluable concentration-response fit. Numeric CV, signal-window, and fit-quality thresholds must be set during validation"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only, no-compound MER activity control with matched vehicle concentration",
+    "No-enzyme background/maximum-inhibition control",
+    "No-ATP or no-substrate background control to assess non-kinase signal",
+    "Reference MER inhibitor concentration series, with inhibitor identity and conditions unresolved",
+    "Compound-only detection-interference control without enzyme to test luminescence quenching or enhancement",
+    "ATP/ADP detection controls to verify ATP depletion and ADP-response performance"
+  ],
+  "rationale": "The question requires direct biochemical inhibition, so only the kinase workflow is used; cellular ATP-viability cards are inappropriate for the primary measurement. ADP-Glo provides a generic kinase-activity readout compatible with concentration-response testing. The retained mobility-shift description supports a candidate MER assay buffer and the principle of ATP near Km, but not direct transfer of its substrate, incubation time, or stopping procedure. The broad dilution series and triplicates are explicitly provisional assumptions intended to locate an unknown response range, not predictions of CHEMBL1231206 potency.",
+  "citations": [
+    "Q12866",
+    "CHEMBL1231206",
+    "CHEMBL5731805",
+    "CHEMBL4433481",
+    "CHEMBL4189001"
+  ],
+  "limitations": [
+    "No retained example measures CHEMBL1231206; IC50 values for other compounds are contextual only and were not used to set or predict its potency.",
+    "The 10 \u00b5M top concentration, 3-fold dilution, 10 points, and three replicates are provisional assumptions and may require revision for solubility, vehicle tolerance, or curve placement.",
+    "MER construct, substrate, enzyme and substrate concentrations, ATP Km, vehicle fraction, reaction time, temperature, and ADP-Glo volumes and incubation times remain unresolved.",
+    "CHEMBL5731805 describes a mobility-shift assay, not ADP-Glo; its buffer and ATP-at-Km principle require format-specific validation. CHEMBL4433481 and CHEMBL4189001 do not supply transferable detailed conditions.",
+    "A biochemical IC50 demonstrates inhibition of the isolated MER reaction only. It does not establish cellular viability effects, cellular target engagement, selectivity, or target-specific causality; apparent inhibition must also be distinguished from detection interference or aggregation."
+  ]
+}

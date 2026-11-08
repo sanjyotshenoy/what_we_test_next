@@ -1,0 +1,72 @@
+{
+  "assay_type": "Cellular concentration-response assay for growth/proliferation or viability",
+  "system": "Human RPMI-8226 cells treated with CHEMBL191003 (JNJ-7706621)",
+  "readout": "CellTiter-Glo ATP-dependent luminescence after compound exposure; ATP signal is a viability/metabolic proxy, not a direct proliferation or Aurora kinase A activity measurement.",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Prepare RPMI-8226 cells in an appropriate culture vessel and medium. Generate a 10-point, threefold dilution series from an assumed 10 µM top concentration, keeping vehicle constant across treated and control wells. Include untreated, vehicle, background, and reference-control wells. Use three independent biological experiments; technical well replication within each experiment is unresolved.",
+      "parameters": {
+        "cell_density": "Unresolved: optimize before the experiment so control cells remain in a responsive growth range and ATP luminescence remains within the assay's linear range.",
+        "medium": "Unresolved: use the supplier-recommended complete medium and culture format for RPMI-8226; no medium composition is supplied.",
+        "top_concentration_uM": "10 µM; provisional design assumption, not a sourced compound-specific condition.",
+        "dilution_factor": "3; provisional design assumption providing broad logarithmic coverage.",
+        "n_points": "10; provisional design assumption.",
+        "replicates": "3 independent biological experiments; provisional design assumption.",
+        "vehicle_fraction": "Constant across all compound and vehicle-control wells; exact fraction unresolved pending solubility and vehicle-tolerance testing."
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose cells to CHEMBL191003 for an assumed 72 hours, with parallel controls handled identically. Record actual incubation conditions and inspect control growth before accepting the experiment.",
+      "parameters": {
+        "exposure_time": "72 h; provisional design assumption intended to allow a growth/viability response, not a packet-supported optimum.",
+        "temperature": "37 °C; provisional standard culture assumption. CO2, humidity, plate format, and edge-well handling are unresolved."
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "At the endpoint, equilibrate plates and reagent as required by the selected CellTiter-Glo procedure, add reagent, mix to lyse cells, stabilize the luminescent signal, and measure luminescence. Include reagent-plus-medium wells without cells for background.",
+      "parameters": {
+        "reagent_volume": "Unresolved: follow the validated reagent procedure for the chosen well volume and format.",
+        "mix_time": "Unresolved: use the validated procedure and verify adequate lysis of the suspension culture.",
+        "stabilization_time": "Unresolved: use the validated procedure and keep timing consistent across plates."
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract no-cell background, normalize treated wells to vehicle controls, and inspect untreated-versus-vehicle responses. Fit concentration-response data only when the response range and curve quality support it; otherwise report the response descriptively or as a bound. Report individual experiments, fitted uncertainty, and any failed acceptance checks. Do not infer an Aurora kinase A IC50 from this cellular fit.",
+      "parameters": {
+        "fit_model": "Provisional four-parameter logistic model with shared fitting decisions prespecified; top and bottom constraints, weighting, and handling of incomplete curves remain unresolved.",
+        "acceptance_criteria": "Prespecify acceptable vehicle effects, background, control growth, signal linearity, replicate agreement, and curve quality; numeric thresholds are unresolved because no assay-validation data are supplied."
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Untreated cells to assess baseline growth and vehicle effects",
+    "Vehicle-treated cells matched to the compound vehicle fraction for normalization",
+    "Medium and reagent without cells for luminescence background",
+    "An assay-validated cytotoxic/reference control; identity and concentration unresolved",
+    "Optional reagent-only compound interference controls at representative concentrations to test compound effects on luminescence"
+  ],
+  "rationale": "The cell-prepare, cell-expose, cell-detect, and analyse cards match the requested cellular system and ATP-luminescence endpoint; biochemical kinase cards are omitted because they would measure a different system. The proposed 10 µM top concentration, threefold dilution, 10 points, 72-hour exposure, and three independent experiments are explicitly provisional assumptions for an initial concentration-response design, not retrieved measurements or predictions. A broad dilution series can reveal whether a response occurs without presuming its potency. ATP luminescence is practical for comparing relative viable-cell signal, but reduced signal can reflect cell death, slower proliferation, or altered ATP metabolism. Orthogonal cell counting or another viability/proliferation readout would help distinguish these interpretations.",
+  "citations": [
+    "CHEMBL191003",
+    "O14965",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "No retained measurement examples or assay-specific conditions are supplied; therefore the numeric design settings are assumptions, and no withheld IC50 is predicted.",
+    "Cell density, medium formulation, culture format, vehicle fraction, reference control, reagent volumes and timing, and quantitative acceptance thresholds require optimization or a validated external procedure.",
+    "A decrease in ATP luminescence establishes a cellular viability/metabolic response under the tested conditions, not by itself selective growth inhibition or cell death.",
+    "This assay cannot establish biochemical Aurora kinase A inhibition, cellular Aurora kinase A engagement, selectivity, or that Aurora kinase A mediates the response.",
+    "Target-specific causality would require additional evidence, such as a biochemical O14965 assay, cellular target-engagement or pathway-response measurements, and appropriately controlled genetic or orthogonal pharmacological perturbation."
+  ]
+}

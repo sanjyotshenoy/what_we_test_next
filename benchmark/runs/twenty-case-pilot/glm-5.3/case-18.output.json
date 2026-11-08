@@ -1,0 +1,73 @@
+{
+  "assay_type": "Cell proliferation/viability concentration-response (ATP-luminescence, CellTiter-Glo) in engineered BaF3 cells",
+  "system": "Mouse BaF3 cells expressing recombinant human AXL (Tyrosine-protein kinase receptor UFO, P30530), treated with CHEMBL4845957",
+  "readout": "Intracellular ATP-dependent luminescence as a proxy for metabolically active (viable/proliferating) cell number, normalized to vehicle control, reported as percent viability vs. log10 concentration",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Culture BaF3-AXL cells in the supported maintenance medium (assumption: standard BaF3 medium with IL-3 removed for the assay if IL-3-independent AXL-driven growth is the intended phenotype; this is an assumption, not sourced). Plate cells in white opaque 96/384-well plates with an 8- or 10-point dilution series of CHEMBL4845957, DMSO vehicle, and background (medium + reagent, no cells) controls.",
+      "parameters": {
+        "cell_density": "unresolved \u2014 no packet evidence; assumption: a sub-confluent density in logarithmic growth (e.g., a few thousand cells per 96-well) must be confirmed empirically",
+        "medium": "unresolved \u2014 BaF3-appropriate medium; IL-3 status must be defined by the operator based on whether the BaF3-AXL line is factor-independent",
+        "top_concentration_uM": 10,
+        "dilution_factor": 3,
+        "n_points": 10,
+        "replicates": 3,
+        "vehicle_fraction": 0.001
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Incubate cells with compound for a duration sufficient to capture growth-inhibitory effects of a kinase inhibitor on proliferating cells.",
+      "parameters": {
+        "exposure_time": "72 h (assumption: standard for BaF3 proliferation assays; not sourced from packet)",
+        "temperature": "37 \u00b0C with 5% CO2 (assumption: standard mammalian culture; not sourced)"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Equilibrate plate to room temperature, add CellTiter-Glo reagent equal to culture volume, mix, allow stabilization, then read luminescence.",
+      "parameters": {
+        "reagent_volume": "1:1 reagent-to-medium ratio per manufacturer procedure (assumption; not sourced)",
+        "mix_time": "2 min shaking (assumption)",
+        "stabilization_time": "10 min (assumption)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract background (no-cell) signal, normalize each well to the mean vehicle control, fit a four-parameter logistic concentration-response curve, and report IC50/EC50 with 95% confidence intervals. Predefine acceptance criteria: vehicle wells with adequate signal-to-background, coefficient of variation across replicates within a reasonable threshold, and a monotonic or well-fit curve.",
+      "parameters": {
+        "fit_model": "4-parameter logistic (variable slope)",
+        "acceptance_criteria": "unresolved thresholds \u2014 e.g., replicate CV and signal-to-background limits must be set by the operator; no packet evidence"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "DMSO vehicle control at matched final vehicle fraction (0.1%) defining 100% viability",
+    "Background control: medium + CellTiter-Glo reagent without cells, for luminescence subtraction",
+    "Positive cytotoxicity/anti-proliferation control (a known broadly cytotoxic agent) to confirm assay dynamic range \u2014 compound identity unresolved (no packet evidence)",
+    "Optional: parental BaF3 or BaF3 expressing an unrelated kinase, and/or IL-3 rescue condition, to help distinguish AXL-dependent from general cytotoxic effects (recommended, not sourced)"
+  ],
+  "rationale": "The question asks for growth/proliferation or viability of BaF3 cells expressing recombinant human AXL (P30530), so the cell_viability_atp step cards (cell-prepare, cell-expose, cell-detect) are the appropriate chain; the kinase_biochem_lum cards (kinase-prepare/react/detect) measure biochemical inhibition of the isolated kinase and do not answer a cellular growth question. CellTiter-Glo luminescence is proportional to ATP from metabolically active cells and is a standard proxy for viable cell number in proliferation assays. The 10-point, 3-fold dilution series spanning 10 \u00b5M to ~0.00005 \u00b5M covers a broad range so the curve can locate the IC50 without prior knowledge; triplicate wells provide within-plate replication for uncertainty estimation. The retrieval packet contains no retained measurement examples for this compound or target, so no numeric parameters (IC50, potency range, cell density, exposure time) can be justified from evidence; all specific conditions are explicitly labeled assumptions.",
+  "citations": [
+    "case-18",
+    "CHEMBL4845957",
+    "P30530",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "No retained measurement examples were provided in the packet; therefore no numeric assay parameters or expected potency are evidence-based, and no IC50 for CHEMBL4845957 is predicted.",
+    "Cell viability is a whole-cell endpoint: it can establish that CHEMBL4845957 reduces BaF3-AXL growth/viability in a concentration-dependent manner, but it cannot by itself establish that the effect is caused by inhibition of AXL (P30530). Off-target effects and general cytotoxicity are not excluded without additional controls.",
+    "Distinguishing target-specific causality requires comparator lines (e.g., parental BaF3, BaF3 expressing an unrelated driver kinase, or IL-3 rescue), which are recommended but not supported by packet evidence.",
+    "Biochemical inhibition of AXL (kinase-prepare/react/detect cards) is a distinct measurement from cellular viability; this design does not measure enzymatic inhibition directly.",
+    "Cell density, medium/IL-3 status, exposure time, reagent volumes, and acceptance thresholds are unresolved and must be empirically validated; the values given are labeled assumptions.",
+    "ATP-based readouts can be confounded by compounds that directly affect cellular ATP metabolism independently of cell number."
+  ]
+}

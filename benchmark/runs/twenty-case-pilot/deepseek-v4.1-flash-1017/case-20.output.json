@@ -1,0 +1,51 @@
+{
+  "assay_type": "cell_viability_atp (CellTiter-Glo luminescence concentration-response)",
+  "system": "Mouse BaF3 cells expressing MER; retained assay descriptions specify recombinant human Mer expressed in mouse BaF3 cells.",
+  "readout": "ATP-dependent luminescence (CellTiter-Glo) as a surrogate for viable cell number/metabolic activity; reduced signal indicates decreased viability/proliferation over the exposure period.",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Prepare MER-expressing BaF3 cells and a compound dilution series with matched vehicle, untreated, no-cell/background, and reference controls.",
+      "parameters": "cell_density: unresolved; medium: unresolved; top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved. Use matched vehicle and no-cell background; reference inhibitor identity unresolved."
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose cells to CHEMBL169390 under cell-culture conditions and include vehicle/reference arms.",
+      "parameters": "exposure_time: 2 days (supported by retained assay descriptions for CHEMBL4822428); temperature: unresolved (37\u00b0C only as an assumption if used)."
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Apply CellTiter-Glo ATP viability reagent, mix/stabilize, and measure luminescence.",
+      "parameters": "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved; follow a supported CellTiter-Glo procedure."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle and background controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+      "parameters": "fit_model: 4-parameter logistic (4PL) is a provisional assumption if sufficient concentrations are used; acceptance_criteria: unresolved and must be pre-specified."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Vehicle control matched to compound solvent",
+    "Untreated cell control",
+    "No-cell/background control",
+    "Reference inhibitor control (identity unresolved; provisional assumption)",
+    "MER-negative parental BaF3 control (provisional assumption; not specified in packet)"
+  ],
+  "rationale": "The question asks about cellular growth/proliferation or viability, so the cell-viability ATP path is appropriate. Retained examples for assay CHEMBL4822428 and document CHEMBL4819114 support the compatible context: recombinant human Mer expressed in mouse BaF3 cells, CellTiter-Glo readout, and 2-day incubation. They do not provide CHEMBL169390 potency or concentration-series parameters. Biochemical kinase cards were not selected because they measure enzyme inhibition, not cellular viability. This design can establish whether CHEMBL169390 produces a concentration-dependent change in ATP-based viability in MER-expressing BaF3 cells under the tested conditions. It cannot by itself establish that any effect is caused by Mer inhibition; target-specific causality would require orthogonal target-engagement and control experiments.",
+  "citations": [
+    "CHEMBL4822428",
+    "CHEMBL4819114"
+  ],
+  "limitations": [
+    "Exact top concentration, dilution factor, number of points, replicates, vehicle fraction, cell density, medium, temperature, and detection reagent volumes/times are not supplied in the packet; these numeric fields are left null/unresolved and must be fixed by protocol or pretest, not inferred as sourced facts.",
+    "Retained examples are contextual evidence for system/readout/2-day exposure only; they are not direct potency estimates for CHEMBL169390, and no IC50 is predicted.",
+    "CellTiter-Glo measures ATP as a viability/metabolic proxy; it does not distinguish growth arrest from cytotoxicity, nor does it directly measure proliferation rate.",
+    "Viability reduction in MER-expressing BaF3 cells alone does not establish target-specific Mer inhibition; off-target toxicity or non-Mer effects remain possible without orthogonal target-engagement, signaling, parental-cell, or rescue controls.",
+    "The recombinant human Mer/mouse BaF3 context may not fully reflect native mouse Mer biology.",
+    "Reference inhibitor identity and acceptance criteria are unresolved in the packet."
+  ]
+}

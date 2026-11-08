@@ -1,0 +1,69 @@
+{
+  "assay_type": "cell viability (ATP\u2011luminescence)",
+  "system": "mouse BaF3 cells engineered to express recombinant human AXL (Tyrosine\u2011protein kinase receptor UFO, UniProt P30530)",
+  "readout": "CellTiter\u2011Glo luminescence proportional to cellular ATP content",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Plate BaF3\u2011AXL cells in 96\u2011well white plates, add a 8\u2011point, 3\u2011fold serial dilution of CHEMBL4845957 starting at 10\u202f\u00b5M; include vehicle (0.1\u202f% DMSO) and background (no cells) wells.",
+      "parameters": {
+        "cell_density": "5\u202f\u00d7\u202f10^4\u202fcells/well (typical for BaF3 24\u202fh assay) \u2013 evidence: standard BaF3 protocol",
+        "medium": "RPMI\u20111640 + 10\u202f% FBS + IL\u20113 (required for BaF3 survival) \u2013 evidence: BaF3 culture requirements",
+        "top_concentration_uM": 10,
+        "dilution_factor": 3,
+        "n_points": 8,
+        "replicates": 3,
+        "vehicle_fraction": "0.1\u202f% DMSO v/v"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Incubate plates at 37\u202f\u00b0C, 5\u202f% CO\u2082 for 72\u202fh to allow proliferation dependent on AXL signaling.",
+      "parameters": {
+        "exposure_time": "72\u202fh \u2013 justified by BaF3 proliferation assay duration",
+        "temperature": "37\u202f\u00b0C"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter\u2011Glo reagent (100\u202f\u00b5L per well), mix for 2\u202fmin, incubate 10\u202fmin for luminescence stabilization, then read on a plate\u2011luminescence reader.",
+      "parameters": {
+        "reagent_volume": "100\u202f\u00b5L/well (per manufacturer protocol)",
+        "mix_time": "2\u202fmin",
+        "stabilization_time": "10\u202fmin"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100\u202f% viability) and background (0\u202f% viability), fit a four\u2011parameter logistic curve, report EC\u2085\u2080 with 95\u202f% confidence interval; assess assay quality by Z\u2032\u2011factor (>0.5).",
+      "parameters": {
+        "fit_model": "4\u2011parameter logistic (Hill) \u2013 standard for concentration\u2011response",
+        "acceptance_criteria": "R\u00b2\u202f>\u202f0.9, EC\u2085\u2080 confidence interval \u2264\u202f1\u202flog unit, Z\u2032\u2011factor\u202f\u2265\u202f0.5"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle control (0.1\u202f% DMSO)",
+    "background control (media only, no cells)",
+    "optional reference inhibitor (if available) \u2013 unresolved"
+  ],
+  "rationale": "BaF3 cells become IL\u20113\u2011independent when transformed by an active tyrosine\u2011kinase such as human AXL; therefore proliferation/viability measured by ATP\u2011dependent luminescence reflects the functional output of AXL signaling. A concentration\u2011response using an ATP\u2011based readout is sensitive, homogeneous, and compatible with the provided step cards. The chosen concentration range (10\u202f\u00b5M \u2192 ~0.005\u202f\u00b5M) spans typical kinase inhibitor potencies and allows detection of both potent and weak effects. Replicates and vehicle controls address plate\u2011to\u2011plate variability, while background wells correct for reagent luminescence. The analysis step normalizes data and fits a standard dose\u2011response model, providing an EC\u2085\u2080 that quantifies growth inhibition.",
+  "citations": [
+    "CHEMBL4845957",
+    "P30530",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "The assay measures overall cell viability/proliferation and cannot distinguish whether inhibition is due to on\u2011target AXL blockade or off\u2011target cytotoxicity.",
+    "No parallel biochemical kinase assay is included; therefore target engagement is inferred, not demonstrated.",
+    "If a suitable reference AXL inhibitor is unavailable, mechanistic attribution remains unresolved.",
+    "The chosen top concentration (10\u202f\u00b5M) is an assumption based on typical small\u2011molecule kinase inhibitor screens; higher concentrations may be needed if the compound is poorly permeable."
+  ]
+}

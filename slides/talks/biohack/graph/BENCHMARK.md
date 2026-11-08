@@ -1,6 +1,6 @@
 # Missing-link experiment design: 20-case diagnostic suite (v1)
 
-Status: **draft for human audit**, not a validated benchmark or a reported model run.
+Status: **draft for human audit**, not a validated benchmark. Generation results are recorded separately under `benchmark/runs/twenty-case-pilot/`.
 <!-- TODO(final): domain reviewer must approve the step abstractions, case labels, assay comparability and rubric; verify cross-database source independence before a scored run. -->
 
 ## What is being tested
@@ -23,7 +23,7 @@ Cases 1 and 2 are related diagnostic examples, not independent samples for estim
 
 ## Expansion to 20 cases
 
-The original three input packets are unchanged, including their historical scores and limitations. Cases 4–20 are **new tasks, not new model results**. The suite has **15 biochemical and 5 cellular cases**, **15 target IDs**, 20 distinct query compounds (also distinct exact stored SMILES), and pairwise-disjoint held-out document-ID sets. This is still a diagnostic collection, not a representative or statistically independent sample of all experimental design.
+The original three input packets are unchanged, including their historical scores and limitations. Cases 4–20 extend the original pilot. All 20 now have five-model outputs; see `benchmark/runs/twenty-case-pilot/RESULTS.md` for generation diagnostics, receipt accounting and limitations. The suite has **15 biochemical and 5 cellular cases**, **15 target IDs**, 20 distinct query compounds (also distinct exact stored SMILES), and pairwise-disjoint held-out document-ID sets. This is still a diagnostic collection, not a representative or statistically independent sample of all experimental design.
 
 Selection was fixed without model outputs: first select four named cellular assays with different systems/readout challenges; choose the lexicographically first eligible compound ID in each. Then consider biochemical targets by descending eligible-record count (ties by target ID), excluding the original haspin/BTK targets; select one query for each of 13 targets. Within each target, sort by compound ID then assay ID and take the first candidate with a positive finite IC50, a previously unused query compound/SMILES, and a held-out document closure disjoint from all previously selected cases. Assay eligibility is type B / single-protein BAO_0000357, which is **not sufficient proof of inhibition-readout comparability**. Selection is not potency-ranked and does not ensure balanced potency bins. The explicit frozen IDs are in `slides/tools/benchmark_case_specs.json`; rebuilding uses these IDs, never silently substitutes new cases.
 
@@ -36,7 +36,7 @@ Important reviewer challenges:
 - Cases 17 and 20 use proliferation readouts; the provided CellTiter-Glo card cannot be copied as if it were their recorded procedure. Case 19 lacks sufficient procedure details. Supported adaptation or explicit unresolved conditions is expected.
 - Different document IDs do not establish different underlying papers, chemical scaffolds or laboratories. Cross-database duplicates and source independence still require human audit. All five cellular cases must avoid target-specific causal conclusions from viability alone.
 
-`cases/manifest.json` records suite version, input SHA-256 values, source hashes, case modes and retrieval counts. All numerical scientific comparisons remain marked **not established** until assay comparability is reviewed. The existing five-model scores cover only cases 1–3. Existing paid pilot runners remain pinned to those three; this expansion does not initiate calls or spend credits.
+`cases/manifest.json` records suite version, input SHA-256 values, source hashes, case modes and retrieval counts. All numerical scientific comparisons remain marked **not established** until assay comparability is reviewed. The existing five-model scores cover only cases 1–3. Existing paid pilot runners remain pinned to those three; the separate expanded runner has completed the 20-case matrix, with costs recorded in its receipt ledger. Rebuilding this dataset makes no calls.
 
 Each case must run in a **fresh, isolated context**, without previous cases, outputs or reviewer answers. Exclusions are per-case, not a suite-wide training/test split; a source hidden in one case may be legitimate context in another. Never train or tune on the reviewer bundle and then claim held-out evaluation. The UI remains an auditor interface only.
 
@@ -126,4 +126,4 @@ Coverage is interpretable only for sufficiently comparable systems/assays. If a 
 
 Compare fixed-context LLM assembly with a deterministic, predeclared template-selection/parameter rule using the **same input**. Never tune baseline rules to the withheld measurements. Separately compare today's agent on its supported output fields; mark procedural generation N/A rather than fabricating it.
 
-Before a scored run, a reviewer must confirm source mappings, remove duplicate evidence, approve the abstractions and rubric, check retained example compatibility, and decide whether each numerical comparison is assessable. Validate the grader on human-scored proposals including wrong endpoints, reversed detection order, invalid dilution parameters and honest abstentions. No model outputs or benchmark scores are claimed by this change.
+Before a scored run, a reviewer must confirm source mappings, remove duplicate evidence, approve the abstractions and rubric, check retained example compatibility, and decide whether each numerical comparison is assessable. Validate the grader on human-scored proposals including wrong endpoints, reversed detection order, invalid dilution parameters and honest abstentions. Dataset generation itself makes no model calls; expanded-run outputs and diagnostic results are recorded separately. No validated scientific rubric scores are claimed.

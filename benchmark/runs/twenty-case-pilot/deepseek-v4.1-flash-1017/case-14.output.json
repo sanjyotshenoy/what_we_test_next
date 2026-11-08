@@ -1,0 +1,59 @@
+{
+  "assay_type": "biochemical kinase inhibition concentration-response using ADP-Glo luminescence",
+  "system": "Recombinant human MAP3K7/TAK1 (O43318); TAB cofactor requirement and substrate context are unresolved",
+  "readout": "ADP-Glo luminescence proportional to ADP produced, normalized to vehicle and no-enzyme controls",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a compound dilution series and vehicle/reference controls in assay buffer. Use a broad series to bracket an unknown biochemical IC50 without predicting potency.",
+      "parameters": "top_concentration_uM=100 (provisional design assumption, not sourced); dilution_factor=3 (provisional); n_points=10 (provisional); replicates=3 (provisional); vehicle_fraction=unresolved; keep vehicle constant across wells and confirm compound solubility and assay tolerance empirically"
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, O43318 kinase, a validated TAK1/MAP3K7 substrate and ATP. Establish linear ADP production before using the assay for IC50 determination.",
+      "parameters": "enzyme_concentration=unresolved; titrate to linear ADP production; substrate_concentration=unresolved; use a validated TAK1 substrate such as BT-MKK (supported as a TAK1 assay substrate in CHEMBL4412492) or equivalent, near an empirically determined Km; ATP_concentration=unresolved; determine near Km; reaction_time=unresolved; must be within linear range; 1 h at 25\u00b0C only as a provisional assumption if validated; temperature=unresolved; 25\u00b0C provisional assumption only"
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence. Verify that compound does not interfere with luminescence detection.",
+      "parameters": "reagent_volumes=unresolved; follow ADP-Glo kit-specific volumes and verify signal linearity; depletion_time=unresolved; detection_time=unresolved; include compound-only luminescence interference controls"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize to vehicle and no-enzyme controls, fit a concentration-response curve, and report uncertainty and assay limitations. Do not extrapolate an IC50 outside the tested range.",
+      "parameters": "fit_model=four-parameter logistic with Hill slope; report IC50 with 95% CI only if bracketed by tested concentrations and both asymptotes are supported; otherwise report as above/below tested range; acceptance_criteria=predefine no-enzyme background, vehicle signal window, ATP/ADP standard linearity, replicate precision, and curve-fit criteria; exact numeric thresholds unresolved"
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only uninhibited enzyme control",
+    "No-enzyme background control",
+    "No-substrate and/or ATP-only background controls",
+    "ADP/ATP standard curve to confirm detection linearity",
+    "Reference TAK1/MAP3K7 inhibitor control; identity unresolved",
+    "Compound-only luminescence interference control"
+  ],
+  "rationale": "The question asks for biochemical inhibition of O43318, so the biochemical kinase cards are selected and the cell-viability cards are excluded. ADP-Glo provides a direct biochemical readout of kinase activity via ADP production and avoids radioactivity. Retained TAK1 examples show biochemical assay formats using substrates such as BT-MKK, RB-S6P, and casein; BT-MKK with TAB context is supported by CHEMBL4412492, but no retained measurement directly establishes CHEMBL1077979 potency. The concentration series, dilution factor, point count, and replicates are provisional design assumptions chosen to bracket an unknown IC50, not sourced facts. Controls and normalization are needed to distinguish true biochemical inhibition from assay artifacts. A biochemical result alone does not establish cellular activity or target-specific causality.",
+  "citations": [
+    "O43318",
+    "CHEMBL1077979",
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse",
+    "CHEMBL4412492",
+    "CHEMBL5680965"
+  ],
+  "limitations": [
+    "No retained measurement directly reports inhibition of O43318 by CHEMBL1077979; no IC50 is predicted.",
+    "Top concentration, dilution factor, n_points, and replicates are provisional design assumptions, not sourced evidence.",
+    "Solubility, purity, stability, vehicle tolerance, and luminescence interference of CHEMBL1077979 are unresolved.",
+    "Enzyme cofactor requirements such as TAB, substrate identity and concentration, ATP Km, enzyme amount, reaction time, and temperature are unresolved and must be established empirically.",
+    "ADP-Glo measures ADP and cannot by itself distinguish direct O43318 inhibition from assay interference; orthogonal validation would be needed for target-specific causality.",
+    "Biochemical inhibition does not establish cellular activity; cell viability was not measured and would not alone establish target-specific mechanism.",
+    "Reference inhibitor identity and exact acceptance thresholds are unresolved."
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "assay_type": "cell viability (ATP‑luminescence)",
+  "system": "human RPMI‑8226 multiple myeloma cells",
+  "readout": "luminescence measured with CellTiter‑Glo (ATP content as proxy for viable cell number)",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Plate RPMI‑8226 cells in 96‑well white plates, add a 8‑point serial dilution of JNJ‑7706621 (CHEMBL191003) and appropriate controls.",
+      "parameters": {
+        "cell_density": "5 × 10⁴ cells well⁻¹ (typical for 24 h attachment, evidence from standard RPMI‑8226 protocols)",
+        "medium": "RPMI‑1640 + 10 % FBS, 1 % pen‑strep",
+        "top_concentration_uM": "10 µM (assumption – common upper limit for kinase inhibitors when no prior cytotoxicity data are available)",
+        "dilution_factor": "3 (standard 3‑fold dilution series)",
+        "n_points": "8 (covers ~2.5 log range)",
+        "replicates": "3 (biological replicates per concentration)",
+        "vehicle_fraction": "0.1 % DMSO v/v (kept constant across all wells)"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Incubate plates with compound under standard culture conditions.",
+      "parameters": {
+        "exposure_time": "72 h (assumption – typical endpoint for proliferation/viability assays in myeloma cells)",
+        "temperature": "37 °C, 5 % CO₂"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter‑Glo reagent, mix, allow signal stabilization, then read luminescence.",
+      "parameters": {
+        "reagent_volume": "100 µL per well (per manufacturer protocol)",
+        "mix_time": "2 min orbital shaking",
+        "stabilization_time": "10 min at room temperature"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100 % viability) and background (0 % viability), fit a four‑parameter logistic curve, report EC₅₀ with 95 % confidence intervals and assay quality metrics.",
+      "parameters": {
+        "fit_model": "four‑parameter logistic (Hill slope, bottom, top, EC₅₀)",
+        "acceptance_criteria": "R² ≥ 0.80 and %CV ≤ 20 % across replicates"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle control (0.1 % DMSO)",
+    "medium‑only background (no cells)",
+    "reference Aurora‑A inhibitor (e.g., alisertib) if available – otherwise untreated control"
+  ],
+  "rationale": "CellTiter‑Glo provides a robust, homogeneous ATP‑based readout that correlates with viable cell number and is compatible with 96‑well format. RPMI‑8226 is a human plasma‑cell line that expresses Aurora kinase A (O14965) and is commonly used to assess antiproliferative activity of kinase inhibitors. The chosen concentration range (10 µM → ~0.015 µM) spans typical IC₅₀ values for Aurora‑A inhibitors, allowing detection of both cytostatic and cytotoxic effects. Replicates and a vehicle fraction of 0.1 % DMSO minimize plate‑to‑plate variability and DMSO‑induced toxicity.",
+  "citations": [
+    "CHEMBL191003",
+    "O14965"
+  ],
+  "limitations": [
+    "The assay measures overall cell viability and cannot distinguish whether growth inhibition is due to on‑target Aurora‑A inhibition or off‑target effects of JNJ‑7706621.",
+    "No direct biochemical readout of Aurora‑A activity is included; therefore causality between target inhibition and phenotype remains unproven.",
+    "Assumed parameters (top concentration, exposure time, cell density) are not derived from prior evidence for this compound and should be validated in pilot runs.",
+    "If a reference Aurora‑A inhibitor is not available, the ability to benchmark target‑specific potency is limited."
+  ]
+}

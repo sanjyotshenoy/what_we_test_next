@@ -1,0 +1,66 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence, ADP‑Glo)",
+  "system": "recombinant human mTOR kinase domain (full‑length or catalytic fragment) expressed in baculovirus/insect cells",
+  "readout": "luminescence proportional to ADP produced (inverse of kinase activity)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10‑point, 3‑fold serial dilution of Ku‑0063794 (CHEMBL1078983) starting at 30 µM; include DMSO vehicle control (0.1 % v/v) and a known mTOR inhibitor (e.g., rapamycin) as a reference.",
+      "parameters": {
+        "top_concentration_uM": 30,
+        "dilution_factor": 3,
+        "n_points": 10,
+        "replicates": 3,
+        "vehicle_fraction": "0.1 % v/v DMSO (consistent with solubility data for similar heterocyclic kinase inhibitors)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In 384‑well plates combine: recombinant mTOR (final 5 nM), peptide substrate 4E‑BP1 (final 1 µM), ATP (final 100 µM, saturating relative to Km), and each compound dilution. Incubate 30 min at 30 °C.",
+      "parameters": {
+        "enzyme_concentration": "5 nM (typical for ADP‑Glo mTOR assays, see published mTOR ADP‑Glo protocols)",
+        "substrate_concentration": "1 µM 4E‑BP1 peptide (compatible with the U‑Light‑4E‑BP1 assay example in the retained data)",
+        "ATP_concentration": "100 µM (≥10× Km for mTOR, ensures competition‑type inhibition can be measured)",
+        "reaction_time": "30 min (matches the 30‑min incubation used for CHEMBL1081312 in the retained example)",
+        "temperature": "30 °C (standard for ADP‑Glo kinase assays)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Add ADP‑Glo™ reagent to stop the reaction and deplete remaining ATP, incubate 40 min, then add detection reagent and incubate 30 min before reading luminescence on a plate reader.",
+      "parameters": {
+        "reagent_volumes": "10 µL ADP‑Glo™ reagent per 20 µL reaction, followed by 10 µL detection reagent",
+        "depletion_time": "40 min (per ADP‑Glo™ kit protocol)",
+        "detection_time": "30 min (per ADP‑Glo™ kit protocol)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0 % activity (vehicle only) and 100 % inhibition (rapamycin reference). Fit a four‑parameter logistic curve (Hill slope unconstrained). Report IC₅₀ with 95 % confidence interval and note assay window (signal‑to‑background) and Z′‑factor.",
+      "parameters": {
+        "fit_model": "four‑parameter logistic (variable slope)",
+        "acceptance_criteria": "Z′ > 0.5, %CV < 15 % across replicates, R² > 0.9 for curve fit"
+      }
+    }
+  ],
+  "top_concentration_uM": 30,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "0.1 % DMSO vehicle",
+    "rapamycin reference inhibitor (e.g., 10 nM)",
+    "no‑enzyme blank (to assess background luminescence)"
+  ],
+  "rationale": "ADP‑Glo™ provides a homogeneous, luminescence‑based readout that directly measures kinase turnover of ATP to ADP, suitable for mTOR which is an ATP‑competitive target. The retained examples show that mTOR inhibition can be measured with peptide substrates (4E‑BP1) and 30‑min incubations, supporting the chosen substrate concentration and reaction time. A 3‑fold dilution series spanning 30 µM to ~0.02 µM captures the expected potency range for a selective ATP‑competitive inhibitor while keeping DMSO below 0.1 % to avoid enzyme artefacts. Replicates (n = 3) and the inclusion of a known inhibitor enable assessment of assay robustness and allow normalization of data.",
+  "citations": [
+    "CHEMBL1081312 (U‑Light‑4E‑BP1 peptide substrate, 30 min incubation)",
+    "CHEMBL1234354 (ATP‑competition fluorescence assay, 30 min)",
+    "step_cards (kinase-prepare, kinase-react, kinase-detect, analyse)"
+  ],
+  "limitations": [
+    "The exact Km of ATP for the recombinant mTOR preparation is not provided; ATP concentration is assumed to be saturating based on typical literature values.",
+    "Solubility of Ku‑0063794 above 30 µM in assay buffer is not experimentally confirmed; the top concentration is an assumption to ensure coverage of potential low‑nanomolar potency.",
+    "No cell‑based data are included; therefore the assay measures only biochemical inhibition and does not address cellular permeability or off‑target cytotoxicity."
+  ]
+}

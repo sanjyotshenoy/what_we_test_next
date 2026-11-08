@@ -1,0 +1,68 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence)",
+  "system": "recombinant human Aurora kinase A (UniProt O14965) expressed in baculovirus/insect cells",
+  "readout": "ADP‑Glo luminescence (measure ADP produced during kinase reaction)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10‑point, 3‑fold serial dilution of CHEMBL1092509 in assay buffer with 0.5 % DMSO (vehicle) and include a no‑compound (0 % DMSO) and a reference inhibitor control (e.g., VX‑680 at 10 µM).",
+      "parameters": {
+        "top_concentration_uM": "100",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.5 % DMSO"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In 384‑well plates add recombinant Aurora A (final 5 nM), peptide substrate (Kemptide‑derived, 10 µM), ATP (final 100 µM, Km‑approximate for Aurora A), and the compound dilutions. Incubate 30 min at 30 °C.",
+      "parameters": {
+        "enzyme_concentration": "5 nM (recombinant protein)",
+        "substrate_concentration": "10 µM (peptide substrate, compatible with published Aurora A assays)",
+        "ATP_concentration": "100 µM (≈5× Km to maintain linearity)",
+        "reaction_time": "30 min",
+        "temperature": "30 °C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Add ADP‑Glo™ detection reagent according to manufacturer’s protocol: 5 µL reagent per well, incubate 40 min for ATP depletion, then add 5 µL detection reagent and incubate 20 min before reading luminescence.",
+      "parameters": {
+        "reagent_volumes": "5 µL detection reagent per 20 µL reaction",
+        "depletion_time": "40 min",
+        "detection_time": "20 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0 % inhibition (no‑compound) and 100 % inhibition (reference inhibitor). Fit a four‑parameter logistic curve (Hill slope unconstrained) and report IC₅₀ with 95 % confidence interval. Verify assay quality (Z′ ≥ 0.5).",
+      "parameters": {
+        "fit_model": "4‑parameter logistic (variable slope)",
+        "acceptance_criteria": "Z′ ≥ 0.5, %CV ≤ 15 % across replicates"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.5 % DMSO) only",
+    "reference Aurora A inhibitor (VX‑680, 10 µM)",
+    "no‑enzyme blank (to assess background luminescence)"
+  ],
+  "rationale": "ADP‑Glo is a widely used, homogeneous luminescence format for measuring kinase activity and is compatible with Aurora A. The chosen enzyme and substrate concentrations are within the range reported for Aurora A assays (see retained examples CHEMBL1512579, CHEMBL1533728). A 3‑fold dilution series spanning 100 µM to ~0.02 µM provides sufficient resolution to capture sub‑micromolar potency while avoiding solubility issues. Replicates (n=3) and Z′ monitoring ensure statistical robustness. Vehicle and reference inhibitor controls allow accurate normalization and assay validation.",
+  "citations": [
+    "CHEMBL1512579",
+    "CHEMBL1533728",
+    "CHEMBL110381",
+    "CHEMBL1336",
+    "CHEMBL1483261"
+  ],
+  "limitations": [
+    "The exact Km for ATP with the recombinant Aurora A preparation is not provided; the chosen ATP concentration is an assumption based on typical values for this kinase.",
+    "Compound solubility above 10 µM in assay buffer has not been experimentally confirmed; high‑concentration points may suffer precipitation.",
+    "No cell‑based data are included; the assay measures direct enzymatic inhibition only and does not address cellular permeability or off‑target effects."
+  ]
+}

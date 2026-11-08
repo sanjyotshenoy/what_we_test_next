@@ -151,7 +151,7 @@ def main():
         dump(OUT / f'{cid}.review.json', item)
         cases.append(item)
     manifest = {'version': 'v1-20-diagnostic', 'case_count': len(cases),
-                'status': 'Draft / human domain review required; additions not model-evaluated',
+                'status': 'Draft / human domain review required; evaluation results are recorded separately',
                 'counts_by_mode': {mode: sum(s[-1] == mode for s in SPECS) for mode in ('biochemical', 'cellular')},
                 'source_sha256': hashes,
                 'cases': [{'id': c['id'], 'mode': SPECS[i][-1],

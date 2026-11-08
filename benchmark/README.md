@@ -38,3 +38,9 @@ It records 12 generation requests, token/cost ledgers, complete outputs, draft
 grades and explicit abstentions. Offline checks:
 `python -m benchmark.check_four_model_pilot`. The paid runner refuses to overwrite
 an existing run and checks current model availability/prices against a $1 budget.
+
+## Expanded 20-case run (2026-11-08)
+
+[Results and limitations](runs/twenty-case-pilot/RESULTS.md) cover the same five models on all 20 cases: 85 successful new completions plus 15 reused outputs with matching input bytes/settings. Three additional Kimi attempts returned no usage receipt (two timeouts, one local interruption); explicit retries completed the matrix. `manifest.json` and `USAGE.md` distinguish confirmed token receipts from conservative allowances for unknown billing.
+
+Run `python -m benchmark.summarize_twenty_case_pilot` for offline provenance, usage and diagnostic checks. These diagnostics are not new three-axis scientific grades. Existing pilot percentages still apply only to cases 1–3. The paid runner is `benchmark.run_twenty_case_pilot`; do not invoke `--execute` to inspect results.

@@ -1,0 +1,53 @@
+{
+  "assay_type": "biochemical kinase inhibition concentration-response (ADP-Glo luminescent ADP detection)",
+  "system": "Cell-free recombinant haspin (Q8TF76); no cellular viability system",
+  "readout": "Luminescent ADP signal normalized to vehicle/no-enzyme controls; concentration-response inhibition curve",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare an 8-point compound dilution series for CHEMBL4278808 with matched vehicle and no-compound controls; keep vehicle concentration constant across wells.",
+      "parameters": "top_concentration_uM=100 (provisional design assumption, not sourced); dilution_factor=3 (provisional design assumption); n_points=8 (provisional design assumption); replicates=3 (provisional design assumption); vehicle_fraction=unresolved; must be matched and within assay tolerance, but no value is supplied in the packet"
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine CHEMBL4278808, haspin, substrate and ATP; run the kinase reaction under validated conditions and include no-enzyme background and no-inhibitor controls.",
+      "parameters": "enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved; reaction_time=unresolved; temperature=unresolved. The packet supplies no assay-specific values; these must be set from a validated haspin assay."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "For ADP-Glo, stop the kinase reaction, deplete residual ATP, add ADP detection reagent, and measure luminescence.",
+      "parameters": "reagent_volumes=unresolved; depletion_time=unresolved; detection_time=unresolved. Follow a validated ADP-Glo protocol; the packet supplies no values."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence against vehicle and no-enzyme controls, fit a concentration-response curve, and report IC50 with uncertainty and assay limitations. Do not infer cellular viability or target-specific causality from this biochemical assay alone.",
+      "parameters": "fit_model=4-parameter logistic (provisional design assumption); acceptance_criteria=unresolved; signal window, curve-fit thresholds and confidence-interval criteria are not supplied in the packet"
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "matched vehicle control",
+    "no-compound/no-inhibitor control",
+    "no-enzyme background control",
+    "ATP-only/detection background control as appropriate for ADP-Glo",
+    "reference inhibitor control if identity and conditions are supplied (unresolved; none supplied)"
+  ],
+  "rationale": "The question asks for biochemical inhibition of haspin, so the cell-viability cards are excluded: they measure cellular ATP/viability and cannot establish direct haspin inhibition. The ordered biochemical path is kinase-prepare, kinase-react, kinase-detect, then analyse, respecting card prerequisites. ADP-Glo is appropriate for detecting kinase-produced ADP. The concentration series and replicate numbers are provisional design assumptions, not sourced facts; retained IC50 examples are contextual only and were not used to predict CHEMBL4278808 potency. No IC50 is predicted.",
+  "citations": [
+    "CHEMBL4278808",
+    "Q8TF76",
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "The packet provides no assay-specific values for enzyme concentration, substrate concentration, ATP concentration, reaction time, temperature, reagent volumes, depletion time, detection time, or vehicle tolerance; these are unresolved.",
+    "Top concentration, dilution factor, n_points and replicates are provisional design assumptions, not evidence-supported; they may need adjustment for compound solubility and assay window.",
+    "No reference inhibitor identity or cellular data are supplied; cellular viability and target-specific causality are not addressed by this biochemical design.",
+    "Retained IC50 examples are for other compounds and are not direct estimates for CHEMBL4278808; no potency prediction is made."
+  ]
+}

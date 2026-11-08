@@ -1,0 +1,67 @@
+{
+  "assay_type": "biochemical kinase luminescence (ADP\u2011Glo)",
+  "system": "recombinant human MAPK9 (JNK2) protein expressed in baculovirus\u2011Sf9 cells",
+  "readout": "luminescence proportional to ADP production, measured with ADP\u2011Glo\u2122 kit",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a serial dilution of CHEMBL10 in assay buffer containing 0.5\u202f% DMSO; include vehicle (0\u202f% inhibitor) and reference inhibitor controls.",
+      "parameters": {
+        "top_concentration_uM": "100\u202f\u00b5M (chosen to span >3\u202flog units above typical kinase inhibitor potency range)",
+        "dilution_factor": "3",
+        "n_points": "8",
+        "replicates": "3",
+        "vehicle_fraction": "0.5\u202f% DMSO (kept constant across all wells)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Add recombinant MAPK9, a peptide substrate (e.g., c\u2011Jun 1\u201131), and ATP to each well; incubate under conditions that keep the reaction in the linear range.",
+      "parameters": {
+        "enzyme_concentration": "unresolved \u2013 typical starting point 5\u202fng/\u00b5L; would be optimized by a pilot linearity test",
+        "substrate_concentration": "unresolved \u2013 often 10\u201150\u202f\u00b5M; select a concentration near the Km for the peptide",
+        "ATP_concentration": "unresolved \u2013 10\u202f\u00b5M (\u2248 Km for MAPK9) to maintain sensitivity to competitive inhibition",
+        "reaction_time": "30\u202fmin (commonly used for ADP\u2011Glo kinase assays)",
+        "temperature": "30\u202f\u00b0C (standard for MAPK9 activity)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Terminate the kinase reaction, deplete remaining ATP with the ADP\u2011Glo\u2122 reagent, then add the detection reagent and read luminescence.",
+      "parameters": {
+        "reagent_volumes": "as per kit protocol (e.g., 5\u202f\u00b5L ADP\u2011Glo\u2122 reagent + 5\u202f\u00b5L detection reagent per 20\u202f\u00b5L reaction)",
+        "depletion_time": "40\u202fmin at room temperature",
+        "detection_time": "10\u202fmin at room temperature before reading"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0\u202f% inhibition (max activity) and 100\u202f% inhibition (no\u2011enzyme blank); fit a four\u2011parameter logistic curve; report IC\u2085\u2080 with 95\u202f% confidence interval and note assay limitations.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic (Hill slope allowed to vary)",
+        "acceptance_criteria": "R\u00b2\u202f>\u202f0.90, Hill slope between \u20130.5 and \u20132, residuals randomly distributed"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle control (0.5\u202f% DMSO, no inhibitor)",
+    "max\u2011activity control (no inhibitor, full enzyme activity)",
+    "no\u2011enzyme blank (to define 100\u202f% inhibition)",
+    "reference inhibitor (e.g., SP600125) to confirm assay sensitivity"
+  ],
+  "rationale": "ADP\u2011Glo\u2122 provides a homogeneous, luminescence\u2011based readout that directly measures kinase turnover of ATP to ADP, which is appropriate for a purified biochemical setting and avoids interference from cell\u2011based metabolism. The chosen dilution series (100\u202f\u00b5M \u2192 ~0.05\u202f\u00b5M) covers the typical potency range of ATP\u2011competitive MAPK inhibitors. Replicates (n\u202f=\u202f3) give sufficient statistical power for curve fitting. Controls allow correction for background luminescence, DMSO effects, and assay performance. The retained measurement examples (e.g., CHEMBL1087421, CHEMBL1088633, CHEMBL118258) demonstrate that JNK2 (MAPK9) has been successfully assayed with luminescence or radiometric formats, supporting the suitability of the ADP\u2011Glo approach.",
+  "citations": [
+    "CHEMBL1087421",
+    "CHEMBL1088633",
+    "CHEMBL118258"
+  ],
+  "limitations": [
+    "Exact enzyme, substrate, and ATP concentrations are not provided in the source packet; they are marked as unresolved and would require empirical optimization.",
+    "The assay measures biochemical inhibition only; it does not address cellular permeability, off\u2011target effects, or cytotoxicity.",
+    "Potential compound interference with the luminescence readout (e.g., quenching or auto\u2011luminescence) is not evaluated here and would need a counter\u2011screen."
+  ]
+}

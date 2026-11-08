@@ -1,0 +1,57 @@
+{
+  "assay_type": "biochemical cell-free kinase inhibition assay with ADP-Glo luminescent detection",
+  "system": "Recombinant human Activin receptor type-1 (Q04771/ALK2/ACVR1) kinase; construct, activation state, and substrate identity are unresolved",
+  "readout": "Luminescence from ADP detection after the kinase reaction; inhibition normalized to vehicle and background controls",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a compound dilution series and vehicle/reference controls in assay buffer, keeping vehicle fraction constant across compound wells.",
+      "parameters": "top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved. No packet evidence supports specific values."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine Q04771 kinase, substrate, ATP, and compound; initiate the kinase reaction under conditions to be established by pilot experiments.",
+      "parameters": "enzyme_concentration: unresolved; substrate_concentration: unresolved; ATP_concentration: unresolved; reaction_time: unresolved; temperature: unresolved. Substrate choice (e.g., casein vs peptide) is unresolved."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "For ADP-Glo, stop the reaction, deplete residual ATP, add ADP detection reagent, and measure luminescence.",
+      "parameters": "reagent_volumes: unresolved; depletion_time: unresolved; detection_time: unresolved."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize against vehicle/no-enzyme controls, fit a concentration-response curve only if data support it, and report uncertainty and assay limitations.",
+      "parameters": "fit_model: unresolved; acceptance_criteria: unresolved. Do not infer cellular target-specific causality from biochemical inhibition."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "vehicle-only control with constant vehicle fraction",
+    "no-enzyme background control",
+    "no-compound maximum-activity control",
+    "reference ALK2/ACVR1 inhibitor positive control; identity and concentration unresolved",
+    "compound-only detection-interference control",
+    "ATP/detection-reagent blank"
+  ],
+  "rationale": "A cell-free biochemical kinase assay directly tests inhibition of Q04771 and avoids confounding cellular viability. ADP-Glo is a non-radiometric ATP-dependent format consistent with the supplied kinase step cards. Retained ALK2/ACVR1 examples are contextual evidence that biochemical ATP-dependent inhibition assays exist for this target, but their compounds and IC50s are not used to estimate CHEMBL1078178 potency. Cell-viability cards are excluded because viability alone would not establish target-specific inhibition. No IC50 is predicted.",
+  "citations": [
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse",
+    "CHEMBL3365510",
+    "CHEMBL4815728"
+  ],
+  "limitations": [
+    "top_concentration_uM, dilution_factor, n_points, and replicates are null because the packet provides no support for specific values; they must be set after solubility, ATP-Km, linearity, and assay-window pilots.",
+    "No packet evidence establishes that CHEMBL1078178 inhibits Q04771; no potency estimate is made.",
+    "Enzyme construct, activation state, substrate identity/concentration, ATP concentration, buffer, detergent, temperature, and reaction time are unresolved.",
+    "ADP-Glo reagent volumes, ATP-depletion time, and detection time are unresolved.",
+    "Reference inhibitor identity and acceptance criteria are unresolved.",
+    "Compound luminescence, ATP depletion, aggregation, and solubility artifacts require counter-screens.",
+    "Biochemical inhibition does not establish cellular target engagement, cellular viability effects, or target-specific causality."
+  ]
+}

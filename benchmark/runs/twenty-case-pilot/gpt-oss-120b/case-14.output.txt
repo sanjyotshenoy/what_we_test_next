@@ -1,0 +1,69 @@
+{
+  "assay_type": "biochemical kinase luminescence",
+  "system": "recombinant human MAP3K7 (O43318) expressed in baculovirus/insect cells",
+  "readout": "ADP‑Glo luminescence (measure ADP produced by kinase activity)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10‑point, 3‑fold serial dilution of CHEMBL1077979 in assay buffer with 0.5 % DMSO (vehicle) and include a no‑compound (0 % DMSO) and a known TAK1 inhibitor (e.g., 5 µM NG25) as reference controls.",
+      "parameters": {
+        "top_concentration_uM": "30 µM (chosen to span >100‑fold above typical kinase IC50s reported for related MAP3K7 inhibitors)",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.5 % DMSO (v/v) – compatible with ADP‑Glo assay buffer"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In 384‑well plates combine recombinant MAP3K7 (final 5 nM), peptide substrate (e.g., MBP‑derived peptide at 10 µM), ATP (final 100 µM) and the diluted compound solutions; incubate 30 min at 30 °C.",
+      "parameters": {
+        "enzyme_concentration": "5 nM (typical for linear range of ADP‑Glo with MAP3K7, see TAK1 assay examples)",
+        "substrate_concentration": "10 µM (saturating for MAP3K7, analogous to RB‑S6P used for TAK1)",
+        "ATP_concentration": "100 µM (near Km for ATP of MAP3K7, ensures competitive inhibition can be observed)",
+        "reaction_time": "30 min (short enough to stay in initial velocity, as used in TAK1 pre‑incubation assays)",
+        "temperature": "30 °C (standard for ADP‑Glo kinase assays)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Add ADP‑Glo reagent to stop the reaction, deplete remaining ATP (10 min), then add detection reagent and incubate 30 min before reading luminescence on a plate reader.",
+      "parameters": {
+        "reagent_volumes": "10 µL ADP‑Glo reagent per 20 µL reaction (per manufacturer protocol)",
+        "depletion_time": "10 min",
+        "detection_time": "30 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0 % inhibition (no‑compound) and 100 % inhibition (reference inhibitor), fit a four‑parameter logistic curve, report IC50 with 95 % confidence interval and flag any curve‑fit warnings.",
+      "parameters": {
+        "fit_model": "four‑parameter logistic (Hill slope variable)",
+        "acceptance_criteria": "R² > 0.90, Hill slope between 0.5 and 1.5, no systematic deviation of residuals"
+      }
+    }
+  ],
+  "top_concentration_uM": 30,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.5 % DMSO) only",
+    "no‑compound (0 % DMSO) baseline",
+    "reference inhibitor (NG25, 5 µM) for 100 % inhibition"
+  ],
+  "rationale": "The retained examples show that MAP3K7 (TAK1 family) inhibition is routinely measured with peptide substrates and ADP‑Glo or radiometric readouts. A 5 nM enzyme and 100 µM ATP provide a robust signal‑to‑background while remaining within the linear range. A 30 µM top concentration ensures coverage of the expected potency range (sub‑nanomolar to low‑micromolar) without exceeding solubility limits for the moderately lipophilic CHEMBL1077979. Three‑fold dilutions give a smooth curve with sufficient data points. Replicates of three balance statistical power and plate‑throughput. Controls allow conversion of raw luminescence to percent inhibition and detection of assay drift.",
+  "citations": [
+    "CHEMBL2012881 (MAP3K7 inhibition example)",
+    "CHEMBL1738757 (TAK1 ADP‑Glo‑type assay description)",
+    "CHEMBL3823303 (AlphaScreen TAK1 assay – supports enzyme and substrate concentrations)",
+    "CHEMBL3822835 (TAK1 inhibition with luminescence readout)",
+    "CHEMBL2013789 (MAP3K7 assay context)"
+  ],
+  "limitations": [
+    "No direct biochemical IC50 for CHEMBL1077979 on MAP3K7 is available; potency estimate will be derived solely from this experiment.",
+    "Solubility of CHEMBL1077979 above 30 µM has not been confirmed; if precipitation occurs, the top concentration must be lowered (unresolved).",
+    "The assay uses a generic peptide substrate rather than a physiological MAP3K7 substrate; off‑target effects on substrate binding cannot be excluded.",
+    "Only a single enzyme construct (recombinant baculovirus‑expressed) is tested; post‑translational modifications present in cells may alter sensitivity (unresolved)."
+  ]
+}

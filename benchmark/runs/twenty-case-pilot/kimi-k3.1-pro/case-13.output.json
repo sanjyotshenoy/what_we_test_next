@@ -1,0 +1,72 @@
+{
+  "assay_type": "Biochemical LIMK1 kinase-inhibition concentration-response assay",
+  "system": "LIMK1 (P53667) with cofilin-2 as substrate; enzyme source, construct, purity, and cofilin-2 formulation are unresolved. CHEMBL1258633 is the test compound.",
+  "readout": "ADP-Glo luminescence after ATP depletion and ADP detection, following the supplied kinase-detect card.",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, threefold CHEMBL1258633 dilution series from an assumed 100 uM top final concentration. Keep vehicle constant across compound and control wells and include vehicle, background, and reference controls. Use three independent experiments.",
+      "parameters": {
+        "top_concentration_uM": "100 uM; provisional design assumption, not a potency estimate",
+        "dilution_factor": "3; provisional design assumption",
+        "n_points": "10; provisional design assumption",
+        "replicates": "3 independent experiments; provisional design assumption",
+        "vehicle_fraction": "Unresolved; select a kinase-compatible final fraction and hold it constant in every well"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound or control, LIMK1, cofilin-2, and ATP and run the kinase reaction for 60 minutes. Include no-enzyme background and compound-only detection-interference controls.",
+      "parameters": {
+        "enzyme_concentration": "Unresolved; optimize to a linear, signal-within-range reaction before testing",
+        "substrate_concentration": "Cofilin-2 supported by CHEMBL3227038 and CHEMBL1839797; concentration unresolved",
+        "ATP_concentration": "Unresolved; no ATP concentration or Km is supplied",
+        "reaction_time": "60 min; supported by CHEMBL3227038 and CHEMBL1839797",
+        "temperature": "Unresolved"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence according to a validated ADP-Glo procedure.",
+      "parameters": {
+        "reagent_volumes": "Unresolved",
+        "depletion_time": "Unresolved",
+        "detection_time": "Unresolved"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract background, normalize vehicle-with-enzyme to 0% inhibition and no-enzyme or another validated full-inhibition control to 100% inhibition, and fit inhibition versus log10 compound concentration. Report the fitted IC50 with confidence interval, individual replicate results, residuals, and any curve-fit or interference failures; do not infer a value from other compounds.",
+      "parameters": {
+        "fit_model": "Four-parameter logistic model as a provisional analysis choice; use a simpler or constrained model only if justified by the data",
+        "acceptance_criteria": "Prespecify acceptable control separation, replicate agreement, signal linearity, and fit quality; numeric thresholds are unresolved. Flag curves without adequate inhibition coverage and wells showing compound-dependent luminescence interference"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle plus LIMK1, cofilin-2, and ATP for the uninhibited reaction",
+    "No-enzyme background/full-inhibition control with matched substrate, ATP, and vehicle",
+    "Compound-only/no-enzyme controls across concentrations to assess luminescence interference",
+    "Reference LIMK1 inhibitor control if available; identity and concentration are unresolved",
+    "Detection-system ATP/ADP controls according to a validated ADP-Glo procedure"
+  ],
+  "rationale": "The question requires direct biochemical inhibition, so only the kinase workflow is used; cellular viability cards would measure a different endpoint and could not establish LIMK1-specific causality. Cofilin-2, a 60-minute reaction, and luminescent kinase detection are compatible with the retained LIMK1 assay descriptions CHEMBL3227038 and CHEMBL1839797. ADP-Glo is the supplied detection implementation, but its reagent conditions are not established by those Kinase-Glo examples. The assumed 100 uM top with ten threefold dilutions spans approximately 100 to 0.0051 uM, allowing exploration around and beyond the micromolar contextual range without treating other compounds' IC50 values as an estimate for CHEMBL1258633. Three independent experiments support assessment of reproducibility and uncertainty.",
+  "citations": [
+    "CHEMBL3227038",
+    "CHEMBL1839797",
+    "CHEMBL3217427",
+    "CHEMBL1833960"
+  ],
+  "limitations": [
+    "The concentration series and replicate count are provisional design assumptions, not sourced parameters.",
+    "No IC50 for CHEMBL1258633 is supplied or predicted; retained measurements concern other compounds and are contextual only.",
+    "LIMK1 origin is unknown in the retained descriptions; enzyme construct, concentration, substrate and ATP concentrations, vehicle fraction, and temperature remain unresolved.",
+    "The examples use Kinase-Glo, whereas the selected card specifies ADP-Glo; ADP-Glo volumes and incubation times require a separate validated procedure.",
+    "A biochemical IC50 demonstrates inhibition under these assay conditions, not cellular viability or target-specific cellular causality.",
+    "Compound aggregation, cofilin-2 or ATP dependence, and direct effects on luminescence could confound the fitted response and require the stated controls or follow-up testing."
+  ]
+}

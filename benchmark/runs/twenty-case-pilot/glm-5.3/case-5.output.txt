@@ -1,0 +1,67 @@
+{
+  "assay_type": "biochemical kinase inhibition (concentration-response)",
+  "system": "Purified recombinant Tyrosine-protein kinase receptor UFO/AXL (P30530) kinase assayed in vitro with a peptide/protein tyrosine substrate",
+  "readout": "ADP-Glo luminescent kinase assay: residual ATP depletion followed by ADP-dependent luminescence, inversely proportional to kinase activity",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a serial dilution of CHEMBL118266 in DMSO, plus vehicle-only, no-enzyme, no-compound, and positive-inhibitor control wells.",
+      "parameters": {
+        "top_concentration_uM": {"value": 30, "unit": "uM", "evidence": "assumption; no packet evidence for this compound's potency range; 30 uM top with 3-fold dilution spans nM-to-uM to cover the 15-428 nM contextual range seen for other AXL compounds (CHEMBL5113280, CHEMBL5212755)"},
+        "dilution_factor": {"value": 3, "unit": "x", "evidence": "assumption; standard semi-log spacing"},
+        "n_points": {"value": 10, "unit": "points", "evidence": "assumption; gives ~4-log coverage"},
+        "replicates": {"value": 3, "unit": "wells/condition", "evidence": "assumption; supports uncertainty estimation"},
+        "vehicle_fraction": {"value": 0.01, "unit": "v/v DMSO", "evidence": "assumption; final DMSO held constant across all wells including controls"}
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, AXL kinase, tyrosine substrate, and ATP; preincubate compound with enzyme, then initiate with ATP and incubate.",
+      "parameters": {
+        "enzyme_concentration": {"value": null, "unit": "nM", "evidence": "unresolved; no packet evidence; should be set to give linear signal within the detection window"},
+        "substrate_concentration": {"value": null, "unit": "uM", "evidence": "unresolved; CHEMBL5113280 used peptide KKSRGDYMTMQIG for human AXL, but its concentration is not stated in the packet"},
+        "ATP_concentration": {"value": null, "unit": "uM", "evidence": "unresolved; ideally set to the apparent ATP Km of the enzyme, which is not provided"},
+        "reaction_time": {"value": 40, "unit": "min", "evidence": "CHEMBL5113280 (human AXL assay) incubated 40 min; adopted as precedent, though that assay was radiometric, not ADP-Glo"},
+        "temperature": {"value": null, "unit": "C", "evidence": "unresolved; room temperature or 30/37 C not specified in packet; must be validated for linearity"}
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent and read luminescence.",
+      "parameters": {
+        "reagent_volumes": {"value": null, "unit": "uL/well", "evidence": "unresolved; follow vendor protocol, not supplied in packet"},
+        "depletion_time": {"value": null, "unit": "min", "evidence": "unresolved; vendor-protocol dependent"},
+        "detection_time": {"value": null, "unit": "min", "evidence": "unresolved; vendor-protocol dependent"}
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to no-compound (100% activity) and no-enzyme (0% activity) controls; fit percent inhibition vs log10 concentration with a four-parameter logistic model; report IC50 with 95% CI and Hill slope.",
+      "parameters": {
+        "fit_model": {"value": "4-parameter logistic (variable-slope) on log10 concentration", "evidence": "assumption; standard for concentration-response"},
+        "acceptance_criteria": {"value": "Z' >= 0.5 between positive and negative controls; monotonic concentration response; DMSO-only wells indistinguishable from no-compound wells", "evidence": "assumption; standard assay-quality criteria"}
+      }
+    }
+  ],
+  "top_concentration_uM": 30,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only (1% DMSO, no compound) defining 100% kinase activity",
+    "No-enzyme wells defining background/0% activity",
+    "No-substrate wells for luminescence background",
+    "Positive AXL inhibitor control (identity/concentration unresolved; not supplied in packet)",
+    "Reference compound wells to confirm assay competence"
+  ],
+  "rationale": "The question asks for biochemical inhibition of purified AXL (P30530), so the kinase luminescence workflow (kinase-prepare -> kinase-react -> kinase-detect -> analyse) is used and the cell-viability cards are excluded: an ATP-based cell viability readout (CellTiter-Glo) would confound extracellular ATP with cellular ATP and measures cytotoxicity, not target-specific kinase inhibition. ADP-Glo is chosen as a homogeneous luminescent readout compatible with a purified kinase system. The 40-min reaction time is the only reaction condition with packet support (CHEMBL5113280, human AXL, 40-min incubation with peptide substrate KKSRGDYMTMQIG), though that assay used radiometric [gamma-33P]ATP detection, so the transfer to ADP-Glo is an adaptation requiring validation. The concentration series (30 uM top, 3-fold, 10 points) is an assumption designed to bracket the contextual nM-range potencies of other AXL inhibitors (CHEMBL5113280, CHEMBL5212755, CHEMBL5232564, CHEMBL4189000) while extending into the low-uM range, since no potency data for CHEMBL118266 exists in the packet.",
+  "citations": ["CHEMBL5113280", "CHEMBL5212755", "CHEMBL5232564", "CHEMBL4189000", "P30530", "CHEMBL118266"],
+  "limitations": [
+    "No IC50 or potency information for CHEMBL118266 is present in the packet; the top concentration is an assumption and may need adjustment after a scouting run.",
+    "Enzyme, substrate, and ATP concentrations are unresolved: the packet gives no AXL assay concentrations, and ATP concentration relative to Km determines whether the measured IC50 approximates Ki.",
+    "The 40-min incubation is sourced from a radiometric assay (CHEMBL5113280); linearity of the ADP-Glo signal over that time at the chosen enzyme concentration must be verified.",
+    "ADP-Glo reagent volumes and timing are vendor-protocol dependent and not supplied in the packet.",
+    "The retained IC50 values for other compounds are contextual only and were not used to estimate potency for CHEMBL118266.",
+    "This design measures biochemical inhibition only; it does not establish cellular efficacy or target-specific causality in cells, which would require orthogonal cellular target-engagement assays."
+  ]
+}

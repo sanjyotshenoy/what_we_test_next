@@ -1,0 +1,67 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence, ADP\u2011Glo)",
+  "system": "recombinant human ACVR1 (Activin receptor type\u20111, Q04771) purified kinase domain",
+  "readout": "luminescence proportional to ADP production (inverse of kinase activity)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 8\u2011point, 3\u2011fold serial dilution of MOMELOTINIB (CHEMBL1078178) in assay buffer with 0.5\u202f% DMSO final vehicle fraction; include a DMSO\u2011only vehicle control and a reference inhibitor control (e.g., LDN\u2011193189).",
+      "parameters": {
+        "top_concentration_uM": "10\u202f\u00b5M (commonly used upper limit for kinase screens)",
+        "dilution_factor": "3",
+        "n_points": "8",
+        "replicates": "3",
+        "vehicle_fraction": "0.5\u202f% (v/v) DMSO"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Add recombinant ACVR1 (enzyme), a peptide substrate (e.g., casein\u2011derived peptide), and ATP to each well; incubate under conditions justified by published ACVR1 assays.",
+      "parameters": {
+        "enzyme_concentration": "5\u202fnM (typical for linear reaction range)",
+        "substrate_concentration": "10\u202f\u00b5M (\u2248 Km for peptide substrate in ALK2 assays)",
+        "ATP_concentration": "10\u202f\u00b5M (near Km for ATP in ALK family kinases, as used in CHEMBL1614712 assay)",
+        "reaction_time": "30\u202fmin (consistent with radiometric ACVR1 assay in CHEMBL1614712)",
+        "temperature": "30\u202f\u00b0C (standard for kinase biochemical assays)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Terminate the reaction with ADP\u2011Glo\u2122 stop\u2011and\u2011detect reagents, deplete remaining ATP, then add detection reagent and measure luminescence.",
+      "parameters": {
+        "reagent_volumes": "50\u202f\u00b5L stop solution + 50\u202f\u00b5L detection solution per 50\u202f\u00b5L reaction (per ADP\u2011Glo protocol)",
+        "depletion_time": "30\u202fmin (per manufacturer recommendation)",
+        "detection_time": "10\u202fmin (luminescence stabilization period)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0\u202f% activity (no\u2011compound control) and 100\u202f% activity (vehicle control); fit a four\u2011parameter logistic curve; report IC\u2085\u2080 with 95\u202f% confidence interval and note assay limitations.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic (Hill slope constrained between 0.5\u20132)",
+        "acceptance_criteria": "R\u00b2\u202f>\u202f0.90, Hill slope within expected range, CV\u202f<\u202f15\u202f% across replicates"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "DMSO vehicle (0.5\u202f% v/v)",
+    "Reference inhibitor (LDN\u2011193189, known ACVR1 inhibitor)",
+    "No\u2011enzyme blank (background luminescence)"
+  ],
+  "rationale": "A purified ACVR1 kinase assay directly measures target\u2011specific enzymatic inhibition, matching the question\u2019s focus on biochemical inhibition. The ADP\u2011Glo luminescent format provides a homogeneous, high\u2011throughput readout compatible with the provided step cards. Concentration\u2011response parameters (10\u202f\u00b5M top, 3\u2011fold dilution, 8 points, triplicate) are standard for initial profiling and ensure coverage of the expected potency range without exceeding solubility limits. Reaction time (30\u202fmin) and ATP concentration (10\u202f\u00b5M) are taken from the only ACVR1\u2011specific example in the packet (CHEMBL1614712) and from ALK2 assays (CHEMBL1230714, CHEMBL136106) that use similar kinase families, supporting their relevance. Controls allow calculation of percent inhibition and detection of assay drift.",
+  "citations": [
+    "CHEMBL1614712",
+    "CHEMBL1230714",
+    "CHEMBL136106"
+  ],
+  "limitations": [
+    "The exact kinetic parameters (Km for ATP, substrate) of the recombinant ACVR1 preparation are not provided; ATP concentration is assumed near Km based on related ALK family data.",
+    "Solubility of MOMELOTINIB above 10\u202f\u00b5M has not been experimentally confirmed; higher concentrations may precipitate.",
+    "No cell\u2011based confirmation is included; the assay measures only biochemical inhibition and cannot address cellular permeability or off\u2011target effects.",
+    "Reference inhibitor potency on this exact ACVR1 construct is not documented in the packet; it is used as a qualitative control only."
+  ]
+}

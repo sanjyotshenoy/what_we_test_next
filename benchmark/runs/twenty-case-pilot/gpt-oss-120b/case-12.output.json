@@ -1,0 +1,66 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence)",
+  "system": "recombinant human IRAK1 (P51617) purified protein",
+  "readout": "ADP\u2011Glo luminescence (measure ADP produced)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10\u2011point, 3\u2011fold serial dilution series of REBASTINIB starting at 10\u202f\u00b5M; include DMSO vehicle control (0.1\u202f% v/v) and a reference inhibitor (staurosporine) at its reported IC50 range.",
+      "parameters": {
+        "top_concentration_uM": 10,
+        "dilution_factor": 3,
+        "n_points": 10,
+        "replicates": 3,
+        "vehicle_fraction": "0.1\u202f% DMSO (v/v) \u2013 same in all wells"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Add recombinant IRAK1, a peptide substrate (e.g., MBP), and ATP to each well; incubate under conditions compatible with the ADP\u2011Glo kit.",
+      "parameters": {
+        "enzyme_concentration": "5\u202fng/\u00b5L (typical for ADP\u2011Glo, see manufacturer guidance)",
+        "substrate_concentration": "10\u202f\u00b5M (saturating for MBP\u2011based assays)",
+        "ATP_concentration": "10\u202f\u00b5M \u2013 matches conditions used in CHEMBL256570 and CHEMBL256961 examples",
+        "reaction_time": "30\u202fmin",
+        "temperature": "30\u202f\u00b0C (standard for kinase assays)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Terminate the kinase reaction, deplete remaining ATP with the ADP\u2011Glo reagent, then add the detection reagent and read luminescence.",
+      "parameters": {
+        "reagent_volumes": "20\u202f\u00b5L detection reagent per 20\u202f\u00b5L reaction (per kit protocol)",
+        "depletion_time": "40\u202fmin (per ADP\u2011Glo kit)",
+        "detection_time": "10\u202fmin (luminescence stabilization)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0\u202f% activity (no\u2011enzyme control) and 100\u202f% activity (vehicle control), fit a four\u2011parameter logistic curve, report IC50 with 95\u202f% confidence interval, and note assay performance metrics (Z\u2032\u2011factor).",
+      "parameters": {
+        "fit_model": "4\u2011parameter logistic (Hill slope unconstrained)",
+        "acceptance_criteria": "Z\u2032\u2011factor \u2265\u202f0.5; curve R\u00b2 \u2265\u202f0.9; top/bottom asymptotes within 10\u202f% of controls"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "0\u202f% DMSO vehicle (max activity)",
+    "0\u202f% DMSO + no enzyme (background)",
+    "positive control: staurosporine (reference inhibitor)"
+  ],
+  "rationale": "IRAK1 is a serine/threonine kinase; the ADP\u2011Glo luminescent assay provides a direct measurement of catalytic activity and is widely used for kinase IC50 determinations. The chosen ATP concentration (10\u202f\u00b5M) is below the reported Km for many kinases, increasing sensitivity to competitive inhibitors while matching conditions reported for IRAK1 assays in the retained examples (CHEMBL256570, CHEMBL256961). A 10\u2011point, 3\u2011fold dilution from 10\u202f\u00b5M yields a concentration range of 10\u202f\u00b5M \u2192 ~0.02\u202f\u00b5M, covering the nanomolar\u2011micromolar window typical for kinase inhibitors. Replicates (n=3) and standard controls enable assessment of assay robustness and allow normalization of compound\u2011specific luminescence changes.",
+  "citations": [
+    "CHEMBL256570",
+    "CHEMBL256961"
+  ],
+  "limitations": [
+    "No direct biochemical IC50 for REBASTINIB on IRAK1 is provided in the source data; the experiment will generate a novel measurement.",
+    "The ATP concentration is fixed at 10\u202f\u00b5M; if IRAK1 has a much lower Km, the assay may underestimate potency of ATP\u2011competitive inhibitors.",
+    "Compound solubility above 10\u202f\u00b5M is assumed; if REBASTINIB precipitates, the effective concentration will be lower than nominal.",
+    "Luminescence readout can be affected by compound fluorescence or quenching; a counter\u2011screen (e.g., ADP\u2011Glo without enzyme) is recommended but not included in the core protocol."
+  ]
+}

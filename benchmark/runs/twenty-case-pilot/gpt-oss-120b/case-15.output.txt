@@ -1,0 +1,67 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence, ADP‑Glo)",
+  "system": "recombinant human Casein kinase I isoform alpha (CSNK1A1, UniProt P48729) expressed in E. coli and purified",
+  "readout": "luminescence proportional to ADP production (ADP‑Glo™)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 8‑point, 3‑fold serial dilution of CHEMBL1234833 in assay buffer containing 0.5 % DMSO (vehicle fraction). Include a DMSO‑only vehicle control and a no‑compound (100 % activity) control.",
+      "parameters": {
+        "top_concentration_uM": "100 µM (selected to span >3 log units and to be well above typical kinase inhibitor potencies; no direct evidence for this compound)",
+        "dilution_factor": "3",
+        "n_points": "8",
+        "replicates": "3",
+        "vehicle_fraction": "0.5 % DMSO (commonly tolerated in ADP‑Glo assays; supported by standard protocol)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In 384‑well plates add recombinant CK1α, peptide substrate, ATP and the compound dilutions. Incubate under conditions compatible with published CK1α inhibition assays.",
+      "parameters": {
+        "enzyme_concentration": "5 ng/µL (typical for ADP‑Glo; not directly cited for CK1α but within range used for other kinases)",
+        "substrate_concentration": "10 µM peptide substrate (e.g., casein‑derived peptide; standard for CK1 assays)",
+        "ATP_concentration": "10 µM (matches the ATP level used in the CHEMBL1244314 CK1 assay example)",
+        "reaction_time": "30 min (consistent with the 30‑min incubation in the CHEMBL2089673 CK1 assay)",
+        "temperature": "30 °C (commonly employed for CK1 enzymatic reactions; no specific citation)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Terminate the kinase reaction with ADP‑Glo™ stop‑and‑detect reagents, deplete remaining ATP, then add the luminescence detection reagent and read signal.",
+      "parameters": {
+        "reagent_volumes": "20 µL stop‑and‑detect mix per 20 µL reaction (per ADP‑Glo protocol)",
+        "depletion_time": "40 min (standard ADP‑Glo ATP depletion step)",
+        "detection_time": "30 min (standard ADP‑Glo luminescence development)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0 % inhibition (no‑compound) and 100 % inhibition (no‑enzyme) controls, fit a four‑parameter logistic curve, report IC₅₀ with 95 % confidence interval, and note assay performance metrics (Z′‑factor).",
+      "parameters": {
+        "fit_model": "four‑parameter logistic (Hill slope variable)",
+        "acceptance_criteria": "Z′‑factor ≥ 0.5, curve R² ≥ 0.9, residuals randomly distributed"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.5 % DMSO) control",
+    "no‑compound (100 % activity) control",
+    "no‑enzyme (0 % activity) control"
+  ],
+  "rationale": "ADP‑Glo luminescence provides a homogeneous, high‑throughput readout of kinase activity and is widely used for CK1α inhibition (e.g., CHEMBL1244314 assay with 10 µM ATP). A 3‑fold dilution series from 100 µM to ~0.05 µM covers the typical potency range of small‑molecule kinase inhibitors while keeping DMSO at a non‑inhibitory level. The chosen enzyme, substrate, and ATP concentrations reproduce conditions reported for CK1 assays, ensuring that any observed inhibition reflects competition with ATP or substrate binding rather than assay artefacts. Replicate measurements and appropriate controls allow assessment of assay robustness and enable reliable curve fitting.",
+  "citations": [
+    "CHEMBL1244314 (CK1 inhibition assay with 10 µM ATP)",
+    "CHEMBL1114223 (CK1 inhibition example, supports use of ADP‑Glo format)",
+    "CHEMBL2089673 (30 min reaction time for CK1 assay)"
+  ],
+  "limitations": [
+    "The exact kinetic parameters (Km for ATP and substrate) of the recombinant CK1α preparation are not provided; therefore the chosen ATP concentration may not be at the true Km, which could affect apparent potency.",
+    "No direct evidence exists for the solubility or stability of CHEMBL1234833 at 100 µM in assay buffer; the top concentration is an assumption and may need empirical verification.",
+    "Potential off‑target effects (e.g., compound aggregation) are not addressed; a counter‑screen with a non‑related kinase would be required to confirm selectivity.",
+    "Cell‑based viability is not included; biochemical inhibition does not guarantee cellular activity or target engagement."
+  ]
+}

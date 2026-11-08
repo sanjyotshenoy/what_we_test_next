@@ -1,0 +1,76 @@
+{
+  "assay_type": "Biochemical kinase concentration-response inhibition assay",
+  "system": "Purified recombinant human DYRK1A (Q13627); exact expression construct, catalytic domain, activation state, and buffer composition are unresolved.",
+  "readout": "ADP-Glo luminescence reporting ADP formation and thus residual kinase activity after CHEMBL1077347 treatment.",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, threefold CHEMBL1077347 dilution series from 100 uM, with matched vehicle at every concentration. Include vehicle-only, no-compound enzyme, no-enzyme background, and reference-inhibitor controls. These series settings are provisional assumptions for an initial range-finding assay, not sourced compound-specific conditions; revise the top concentration if solubility, precipitation, or assay interference is observed.",
+      "parameters": {
+        "top_concentration_uM": "100 uM; provisional assumption",
+        "dilution_factor": "3-fold; provisional assumption",
+        "n_points": "10; provisional assumption",
+        "replicates": "3 independent replicates; provisional assumption",
+        "vehicle_fraction": "Unresolved; keep constant across wells and validate vehicle tolerance. Vehicle identity and maximum tolerated fraction are not supplied."
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound or control with DYRK1A, substrate, and ATP and run the kinase reaction. Preincubation, if used, must be reported separately because it can affect apparent inhibition. Select ATP and substrate concentrations experimentally rather than transferring conditions from the retained radiometric, filter-binding, or LDH assays.",
+      "parameters": {
+        "enzyme_concentration": "Unresolved; titrate to obtain a robust signal within the approximately linear reaction range.",
+        "substrate_concentration": "Unresolved; substrate identity and concentration are not supplied.",
+        "ATP_concentration": "Unresolved; ATP concentration can influence apparent potency, especially for ATP-competitive inhibitors.",
+        "reaction_time": "Unresolved; determine by a reaction-linearity pilot.",
+        "temperature": "Unresolved."
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence according to the validated ADP-Glo procedure. Include compound-only detection controls to assess luminescence quenching, enhancement, or other interference.",
+      "parameters": {
+        "reagent_volumes": "Unresolved; dependent on plate format and validated reagent protocol.",
+        "depletion_time": "Unresolved.",
+        "detection_time": "Unresolved."
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract appropriate background, normalize vehicle-treated enzyme activity to 100% and a fully inhibited or no-enzyme reference as justified, and fit concentration-response data only if the tested range defines the curve adequately. Report individual replicates, fit uncertainty, curve constraints, and any interference or solubility observations. Do not infer an IC50 from other compounds.",
+      "parameters": {
+        "fit_model": "Four-parameter logistic concentration-response model as a provisional assumption; use a simpler or constrained model if the data do not support all parameters.",
+        "acceptance_criteria": "Require consistent vehicle controls, acceptable replicate agreement, adequate signal above background, and a reaction within its linear range. Numeric thresholds and rules for fitting incomplete curves remain unresolved."
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only control at every compound concentration",
+    "No-compound DYRK1A activity control",
+    "No-enzyme background control",
+    "Reference DYRK1A inhibitor control; inhibitor identity and concentration unresolved",
+    "Compound-only ADP-Glo interference control without enzyme",
+    "Optional ATP/ADP detection standards; implementation unresolved"
+  ],
+  "rationale": "The question requires direct biochemical inhibition, so the kinase cards are used without cellular viability steps. ADP-Glo measures kinase-dependent ADP production and is compatible with a concentration-response design, although none of the retained examples validates ADP-Glo conditions for this compound. The retained assays establish that DYRK1A inhibition has been measured biochemically using radiometric filter-binding, ATP-competition, and LDH-coupled formats. Their widely differing IC50 values concern other compounds and different assays and therefore support neither a potency estimate nor direct transfer of reaction conditions for CHEMBL1077347. The proposed concentration range and replication are explicitly provisional range-finding choices.",
+  "citations": [
+    "Q13627",
+    "CHEMBL1077347",
+    "CHEMBL4673836",
+    "CHEMBL4266682",
+    "CHEMBL3105981",
+    "CHEMBL1806286",
+    "CHEMBL2394351"
+  ],
+  "limitations": [
+    "No CHEMBL1077347-specific potency, solubility, selectivity, or assay-interference evidence is supplied; no IC50 is predicted.",
+    "The 100 uM top concentration, threefold dilution, 10 points, and three replicates are assumptions rather than sourced parameters.",
+    "Enzyme construct and concentration, substrate identity and concentration, ATP concentration, buffer, preincubation, reaction time, temperature, vehicle tolerance, plate format, and detection timings remain unresolved.",
+    "The retained measurements use other compounds and heterogeneous assay formats; they are contextual evidence only.",
+    "This biochemical assay can demonstrate inhibition of DYRK1A activity under the tested conditions but does not by itself establish cellular efficacy, selectivity, or target-specific causality.",
+    "Cell viability was not measured and would not, by itself, establish DYRK1A-specific mechanism."
+  ]
+}

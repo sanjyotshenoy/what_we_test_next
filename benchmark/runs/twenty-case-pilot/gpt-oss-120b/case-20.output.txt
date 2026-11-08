@@ -1,0 +1,73 @@
+{
+  "assay_type": "cell_viability_atp",
+  "system": "mouse BaF3 cells engineered to express human MER (Tyrosine‑protein kinase Mer)",
+  "readout": "CellTiter‑Glo luminescence (ATP‑dependent viability) after 48 h compound exposure",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Plate BaF3‑MER cells in 384‑well plates, add a serial dilution of CHEMBL169390 and appropriate controls.",
+      "parameters": {
+        "cell_density": "5 × 10^3 cells/well in 30 µL medium (evidence: standard BaF3 assay conditions in CHEMBL4822428)",
+        "medium": "RPMI‑1640 + 10 % FBS + IL‑3 (withdrawn for MER‑dependent growth) (assumption)",
+        "top_concentration_uM": 10,
+        "dilution_factor": 3,
+        "n_points": 8,
+        "replicates": 3,
+        "vehicle_fraction": 0.1,
+        "evidence": "retained measurement examples (CHEMBL4845957‑CHEMBL4849679) used identical cell system and readout"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Incubate cells with compound dilutions for 48 h at 37 °C, 5 % CO₂.",
+      "parameters": {
+        "exposure_time": "48 h (evidence: assay description in CHEMBL4822428)",
+        "temperature": "37 °C (standard cell culture)",
+        "evidence": "retained measurement examples"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter‑Glo reagent, mix for 10 min, allow 30 min stabilization, read luminescence.",
+      "parameters": {
+        "reagent_volume": "30 µL per well (manufacturer protocol)",
+        "mix_time": "10 min",
+        "stabilization_time": "30 min",
+        "evidence": "retained measurement examples"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100 % viability) and background (0 % viability), fit a four‑parameter logistic curve, report IC₅₀ with 95 % confidence intervals; flag assay window and variability.",
+      "parameters": {
+        "fit_model": "4‑parameter logistic (Hill slope, top, bottom, EC₅₀)",
+        "acceptance_criteria": "R² > 0.9, %CV < 20 % across replicates",
+        "evidence": "standard practice for CellTiter‑Glo CR‑curve analysis"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "Vehicle (0.1 % DMSO) – defines 100 % viability",
+    "No‑cell wells – defines background luminescence",
+    "Reference inhibitor (e.g., known MER inhibitor such as UNC2025) – assay validation"
+  ],
+  "rationale": "The BaF3‑MER cell line proliferates in a MER‑dependent manner; inhibition of MER activity reduces downstream survival signaling, which is captured as decreased cellular ATP measured by CellTiter‑Glo. Using the same system and readout as the retained examples (CHEMBL4845957‑CHEMBL4849679) ensures methodological compatibility and allows direct comparison of potency. A 48 h exposure captures both acute signaling inhibition and downstream effects on cell proliferation/viability. Serial dilution (3‑fold) across 8 points provides sufficient resolution to define the concentration‑response curve while keeping DMSO constant (0.1 %). Triplicate wells give statistical power for curve fitting.",
+  "citations": [
+    "CHEMBL4845957",
+    "CHEMBL4846932",
+    "CHEMBL4848604",
+    "CHEMBL4849099",
+    "CHEMBL4849679"
+  ],
+  "limitations": [
+    "Cell viability reduction does not prove that CHEMBL169390 acts through MER inhibition; off‑target cytotoxicity could produce the same phenotype.",
+    "The assay measures ATP as a proxy for viable cell number; metabolic effects unrelated to proliferation may confound interpretation.",
+    "No direct biochemical kinase inhibition data for CHEMBL169390 are included; the experiment cannot quantify target engagement or selectivity.",
+    "Assay window depends on the strength of MER‑driven growth in the BaF3 line; if MER signaling is weak, the dynamic range may be limited.",
+    "Top concentration (10 µM) is an assumption based on typical solubility and DMSO tolerance; if the compound precipitates or is toxic at this level, the concentration range would need adjustment."
+  ]
+}

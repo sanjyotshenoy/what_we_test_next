@@ -1,0 +1,52 @@
+[
+  {
+    "model": "glm-5.3",
+    "valid_json": 20,
+    "complete_contract": 20,
+    "valid_numeric_series": 20,
+    "numeric_abstentions": 0,
+    "descriptive_coverage": 19,
+    "prerequisite_issue_cases": 0,
+    "citation_format_issue_cases": 2
+  },
+  {
+    "model": "deepseek-v4.1-flash-1017",
+    "valid_json": 20,
+    "complete_contract": 20,
+    "valid_numeric_series": 14,
+    "numeric_abstentions": 6,
+    "descriptive_coverage": 11,
+    "prerequisite_issue_cases": 0,
+    "citation_format_issue_cases": 0
+  },
+  {
+    "model": "kimi-k3.1-pro",
+    "valid_json": 20,
+    "complete_contract": 20,
+    "valid_numeric_series": 17,
+    "numeric_abstentions": 3,
+    "descriptive_coverage": 16,
+    "prerequisite_issue_cases": 0,
+    "citation_format_issue_cases": 0
+  },
+  {
+    "model": "nemotron-3-super",
+    "valid_json": 20,
+    "complete_contract": 20,
+    "valid_numeric_series": 7,
+    "numeric_abstentions": 12,
+    "descriptive_coverage": 6,
+    "prerequisite_issue_cases": 0,
+    "citation_format_issue_cases": 0
+  },
+  {
+    "model": "gpt-oss-120b",
+    "valid_json": 20,
+    "complete_contract": 20,
+    "valid_numeric_series": 20,
+    "numeric_abstentions": 0,
+    "descriptive_coverage": 19,
+    "prerequisite_issue_cases": 0,
+    "citation_format_issue_cases": 5
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "assay_type": "Biochemical kinase luminescence (ADP‑Glo)",
+  "system": "Recombinant human LIM domain kinase 1 (LIMK1, UniProt P53667)",
+  "readout": "Luminescence proportional to ADP generated from ATP turnover",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a serial dilution of CHEMBL1258633 in assay buffer with DMSO vehicle; include 0 µM (vehicle) and a reference inhibitor if available.",
+      "parameters": {
+        "top_concentration_uM": "50 µM (assumption, typical upper limit for initial screening of small‑molecule kinase inhibitors)",
+        "dilution_factor": "3 (assumption, gives ~8‑point curve spanning 50 µM → ~0.02 µM)",
+        "n_points": "8 (assumption, provides sufficient resolution for curve fitting)",
+        "replicates": "3 (assumption, standard practice for biochemical assays)",
+        "vehicle_fraction": "0.5 % DMSO (assumption, kept low to avoid enzyme inhibition)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Add recombinant LIMK1, cofilin‑2 peptide substrate, and ATP to each well; incubate under conditions proven for LIMK1 assays.",
+      "parameters": {
+        "enzyme_concentration": "5 nM (assumption, yields linear product formation within the assay window)",
+        "substrate_concentration": "1 µM cofilin‑2 peptide (evidence: retained examples used cofilin‑2 as substrate) ",
+        "ATP_concentration": "10 µM (assumption, near Km for many kinases and compatible with ADP‑Glo)",
+        "reaction_time": "60 min (evidence: all retained LIMK1 examples employed a 60 min incubation) ",
+        "temperature": "30 °C (assumption, common for kinase‑Glo/ADP‑Glo assays)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Terminate the kinase reaction, deplete remaining ATP with ADP‑Glo reagent, then add detection reagent and read luminescence.",
+      "parameters": {
+        "reagent_volumes": "10 µL ADP‑Glo™ reagent + 10 µL detection reagent per 20 µL reaction (assumption, follows manufacturer protocol)",
+        "depletion_time": "30 min (assumption, sufficient for ATP consumption)",
+        "detection_time": "10 min (assumption, per ADP‑Glo kit instructions)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0 % inhibition (vehicle) and 100 % inhibition (no‑enzyme control); fit a four‑parameter logistic curve; report IC₅₀ with 95 % confidence interval and note assay constraints.",
+      "parameters": {
+        "fit_model": "4‑parameter logistic (Hill slope) ",
+        "acceptance_criteria": "R² ≥ 0.90, Hill slope between 0.5–1.5, %CV ≤ 20 % across replicates"
+      }
+    }
+  ],
+  "top_concentration_uM": 50,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "Vehicle (0 µM compound, 0.5 % DMSO)",
+    "No‑enzyme (background ADP signal)",
+    "Maximum activity (enzyme + substrate + ATP, no inhibitor)"
+  ],
+  "rationale": "The retained measurement examples (CHEMBL1269082, CHEMBL1483395, CHEMBL1488435, CHEMBL1571017, CHEMBL1581452) all used a Kinase‑Glo luminescence format with cofilin‑2 as substrate, a 60 min reaction, and reported IC₅₀ values for LIMK1. ADP‑Glo is a compatible luminescence‑based readout that directly measures ADP formation and is widely used for kinase inhibition studies. Selecting recombinant LIMK1 and a peptide substrate mirrors the published context, ensuring mechanistic relevance. The concentration range (50 µM → ~0.02 µM) and three‑fold dilution provide a broad span to capture both low‑ and high‑potency behavior while keeping DMSO below 1 % to avoid nonspecific effects. Replicates and control wells address assay variability and enable proper normalization.",
+  "citations": [
+    "CHEMBL1269082",
+    "CHEMBL1483395",
+    "CHEMBL1488435",
+    "CHEMBL1571017",
+    "CHEMBL1581452"
+  ],
+  "limitations": [
+    "The exact kinetic parameters (Km for ATP, Km for cofilin‑2) of the recombinant LIMK1 preparation are not provided; enzyme concentration is therefore an assumption.",
+    "No reference LIMK1 inhibitor is available in the packet, so the maximum‑inhibition control relies on the no‑enzyme background rather than a validated positive control.",
+    "Cell‑based viability assays are omitted because they cannot distinguish target‑specific inhibition from off‑target cytotoxicity; the design focuses solely on biochemical inhibition.",
+    "All numeric parameters (top concentration, dilution factor, enzyme and substrate concentrations, temperature, incubation times) are based on common practice and the retained assay descriptions, but are not directly sourced from experimental data for CHEMBL1258633."
+  ]
+}

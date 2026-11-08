@@ -1,0 +1,69 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence)",
+  "system": "recombinant human NUAK1 (O60285) expressed in baculovirus/insect cells",
+  "readout": "ADP\u2011Glo luminescence (measure ADP produced by kinase activity)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10\u2011point, 3\u2011fold serial dilution of CHEMBL1615278 in assay buffer containing 0.5\u202f% DMSO (vehicle fraction). Include a DMSO\u2011only vehicle control and a reference inhibitor control (e.g., staurosporine at 1\u202f\u00b5M).",
+      "parameters": {
+        "top_concentration_uM": 100,
+        "dilution_factor": 3,
+        "n_points": 10,
+        "replicates": 3,
+        "vehicle_fraction": 0.5
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In 384\u2011well plates add recombinant NUAK1 (final enzyme concentration 5\u202fnM), peptide substrate (e.g., SAMS peptide, 50\u202f\u00b5M), and ATP (final 10\u202f\u00b5M) to each well. Initiate the reaction by adding the compound dilution series and incubate for 30\u202fmin at 30\u202f\u00b0C.",
+      "parameters": {
+        "enzyme_concentration": "5\u202fnM (typical for linear range of ADP\u2011Glo, evidence from standard ADP\u2011Glo protocols)",
+        "substrate_concentration": "50\u202f\u00b5M (KM\u2011like concentration for many serine/threonine kinases)",
+        "ATP_concentration": "10\u202f\u00b5M (below Km to increase sensitivity to competitive inhibitors)",
+        "reaction_time": "30\u202fmin",
+        "temperature": "30\u202f\u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction by adding ADP\u2011Glo\u2122 reagent, incubate 40\u202fmin to deplete remaining ATP, then add the detection reagent and measure luminescence after 10\u202fmin.",
+      "parameters": {
+        "reagent_volumes": "as per kit (e.g., 5\u202f\u00b5L ADP\u2011Glo\u2122 reagent + 5\u202f\u00b5L detection reagent per 20\u202f\u00b5L reaction)",
+        "depletion_time": "40\u202fmin",
+        "detection_time": "10\u202fmin"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0\u202f% inhibition (vehicle) and 100\u202f% inhibition (reference). Fit a four\u2011parameter logistic curve (Hill slope, top, bottom, IC50) and report the IC50 with 95\u202f% confidence intervals. Verify assay quality by Z\u2032\u2011factor (\u22650.5) and signal\u2011to\u2011background (>5).",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic (4PL)",
+        "acceptance_criteria": "Z\u2032\u2011factor \u22650.5, R\u00b2 \u22650.9, consistent replicates (CV \u226415\u202f%)"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.5\u202f% DMSO)",
+    "reference inhibitor (staurosporine 1\u202f\u00b5M)",
+    "no\u2011enzyme blank (to assess background luminescence)"
+  ],
+  "rationale": "ADP\u2011Glo is a widely used, homogeneous luminescence assay for serine/threonine kinases and matches the required biochemical readout. Using a sub\u2011Km ATP concentration enhances detection of competitive inhibition, which is the most common mode for small\u2011molecule kinase inhibitors. A 10\u2011point, 3\u2011fold dilution provides sufficient resolution around the expected potency range (nanomolar\u2011micromolar) without excessive reagent consumption. Replicates (n=3) and Z\u2032\u2011factor monitoring ensure data reliability. The reference inhibitor validates assay performance, while the no\u2011enzyme control defines the assay floor.",
+  "citations": [
+    "CHEMBL201511",
+    "CHEMBL2064666",
+    "CHEMBL2333163",
+    "CHEMBL2436172",
+    "CHEMBL3104851"
+  ],
+  "limitations": [
+    "The exact kinetic parameters (KM for ATP, substrate) of recombinant NUAK1 are not provided in the packet; values used are typical for serine/threonine kinases and constitute an assumption.",
+    "No direct biochemical IC50 for CHEMBL1615278 on NUAK1 is available; the experiment is designed to generate that data.",
+    "Potential compound interference with luminescence (e.g., quenching or auto\u2011luminescence) is not pre\u2011characterized; a counter\u2011screen with the detection reagents alone is recommended.",
+    "Recombinant protein expression system (baculovirus vs. bacterial) may affect activity; the chosen system follows common practice but is not explicitly supported by the supplied evidence."
+  ]
+}

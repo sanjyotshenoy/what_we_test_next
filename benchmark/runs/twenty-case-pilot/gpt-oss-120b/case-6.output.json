@@ -1,0 +1,68 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence)",
+  "system": "recombinant human Aurora kinase A (UniProt O14965) expressed in baculovirus/insect cells",
+  "readout": "ADP\u2011Glo luminescence (measure ADP produced during kinase reaction)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10\u2011point, 3\u2011fold serial dilution of CHEMBL1092509 in assay buffer with 0.5\u202f% DMSO (vehicle) and include a no\u2011compound (0\u202f% DMSO) and a reference inhibitor control (e.g., VX\u2011680 at 10\u202f\u00b5M).",
+      "parameters": {
+        "top_concentration_uM": "100",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.5\u202f% DMSO"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In 384\u2011well plates add recombinant Aurora A (final 5\u202fnM), peptide substrate (Kemptide\u2011derived, 10\u202f\u00b5M), ATP (final 100\u202f\u00b5M, Km\u2011approximate for Aurora A), and the compound dilutions. Incubate 30\u202fmin at 30\u202f\u00b0C.",
+      "parameters": {
+        "enzyme_concentration": "5\u202fnM (recombinant protein)",
+        "substrate_concentration": "10\u202f\u00b5M (peptide substrate, compatible with published Aurora A assays)",
+        "ATP_concentration": "100\u202f\u00b5M (\u22485\u00d7\u202fKm to maintain linearity)",
+        "reaction_time": "30\u202fmin",
+        "temperature": "30\u202f\u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Add ADP\u2011Glo\u2122 detection reagent according to manufacturer\u2019s protocol: 5\u202f\u00b5L reagent per well, incubate 40\u202fmin for ATP depletion, then add 5\u202f\u00b5L detection reagent and incubate 20\u202fmin before reading luminescence.",
+      "parameters": {
+        "reagent_volumes": "5\u202f\u00b5L detection reagent per 20\u202f\u00b5L reaction",
+        "depletion_time": "40\u202fmin",
+        "detection_time": "20\u202fmin"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0\u202f% inhibition (no\u2011compound) and 100\u202f% inhibition (reference inhibitor). Fit a four\u2011parameter logistic curve (Hill slope unconstrained) and report IC\u2085\u2080 with 95\u202f% confidence interval. Verify assay quality (Z\u2032\u202f\u2265\u202f0.5).",
+      "parameters": {
+        "fit_model": "4\u2011parameter logistic (variable slope)",
+        "acceptance_criteria": "Z\u2032\u202f\u2265\u202f0.5, %CV\u202f\u2264\u202f15\u202f% across replicates"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.5\u202f% DMSO) only",
+    "reference Aurora A inhibitor (VX\u2011680, 10\u202f\u00b5M)",
+    "no\u2011enzyme blank (to assess background luminescence)"
+  ],
+  "rationale": "ADP\u2011Glo is a widely used, homogeneous luminescence format for measuring kinase activity and is compatible with Aurora A. The chosen enzyme and substrate concentrations are within the range reported for Aurora A assays (see retained examples CHEMBL1512579, CHEMBL1533728). A 3\u2011fold dilution series spanning 100\u202f\u00b5M to ~0.02\u202f\u00b5M provides sufficient resolution to capture sub\u2011micromolar potency while avoiding solubility issues. Replicates (n=3) and Z\u2032 monitoring ensure statistical robustness. Vehicle and reference inhibitor controls allow accurate normalization and assay validation.",
+  "citations": [
+    "CHEMBL1512579",
+    "CHEMBL1533728",
+    "CHEMBL110381",
+    "CHEMBL1336",
+    "CHEMBL1483261"
+  ],
+  "limitations": [
+    "The exact Km for ATP with the recombinant Aurora A preparation is not provided; the chosen ATP concentration is an assumption based on typical values for this kinase.",
+    "Compound solubility above 10\u202f\u00b5M in assay buffer has not been experimentally confirmed; high\u2011concentration points may suffer precipitation.",
+    "No cell\u2011based data are included; the assay measures direct enzymatic inhibition only and does not address cellular permeability or off\u2011target effects."
+  ]
+}
