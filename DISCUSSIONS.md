@@ -530,3 +530,11 @@ plumbing, with no data**, so it can be run on a DGX Spark rather than here.
 - Python syntax and rubric CSV structure checked (17 criteria; numeric weights total
   20.5). API 2.28 simulation, sparse-tip hardware review and automated grading remain
   pending; the README records the validation TODO.
+
+**Demo public-readiness checkpoint** (2026-11-08, `demo/public-readiness`).
+- User requested preparation for production. Added a separate explicitly published,
+  read-only results service and HTTPS/auth proxy configuration; private operator
+  services now have systemd restart/reboot configuration on Brev. No ports opened.
+- 29 tests passed on Brev. Two fresh autonomous rehearsals failed before compilation
+  on model argument/citation/JSON errors; this is not a production-ready interactive
+  planner. Hostname/access policy and independent-user requirements await the user.

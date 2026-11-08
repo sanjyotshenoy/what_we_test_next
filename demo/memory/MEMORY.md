@@ -32,3 +32,9 @@ First fresh Brev autonomous rehearsal `ses_e45b4eb34ffe2R79o5bUaLd52M` retrieved
 literature but failed: malformed context arguments, rejected proposals, then a
 provider JSON parse error. No compiled batch or successful autonomy is claimed.
 Argument errors and planner instructions have been clarified for a bounded rerun.
+
+Brev checkpoint: 29 tests pass; private systemd services are enabled and healthy.
+The second bounded autonomous run (`ses_e45ae9206ffeUX7erdKXyRnDpu`) retrieved
+context and literature but stopped after a citation rejection and malformed JSON.
+No protocol was compiled. Further retries stopped; public hostname/access policy
+and interactive model reliability remain blockers. See `deploy/README.md`.

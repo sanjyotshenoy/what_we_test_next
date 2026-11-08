@@ -31,14 +31,36 @@ repeated polling; this is a small-team demo, not a large-scale service.
    from outside the VM. A Brev-managed HTTPS URL needs a separately reviewed proxy
    configuration; do not assume its forwarding preserves the boundary above.
 
-Use a service manager with restart-on-failure and a non-root account for the Python
-services. Keep logs private and bounded. Preserve ignored credentials and artifacts
+`python3 demo/deploy/install_services.py` installs (but does not start) private
+systemd units as the VM account, using sudo only for unit installation. It refuses
+to overwrite existing units. After the checkout-owned tmux launcher is stopped,
+`sudo systemctl enable --now wwtn-opencode wwtn-stage` enables restart-on-failure
+and reboot recovery, with a private umask and loopback-only stage binding. Unit
+files record the checkout path: regenerate/review them if the checkout moves.
+
+Keep logs private and bounded. Preserve ignored credentials and artifacts
 when updating the checkout; never reset a dirty VM checkout. Pin the deployed Git
 commit, retain the preceding commit for rollback, and back up private state through
 the operator's approved storage rather than Git. The existing tmux launcher survives
 SSH disconnects, but does not provide reboot recovery.
 
 <!-- TODO(final): Deployment is not production-certified. Public hostname, audience
-policy, TLS/auth external verification, service-manager installation and a successful
+policy, TLS/auth external verification and a successful
 fresh autonomous rehearsal remain required. Independent visitor runs need per-user
 session ownership, concurrency limits and an enforced inference-spend budget. -->
+
+## Verified Brev checkpoint (2026-11-08)
+
+29 tests passed on the ARM64 VM, including public route boundaries, unpublished
+session denial, download boundaries, request limiting, browser layout and evidence
+argument validation. Private systemd services were installed, enabled, and verified
+healthy with listeners only on 127.0.0.1:7100 and 127.0.0.1:4096. Reboot/crash
+recovery is configured but has not been tested by rebooting the shared instance.
+
+Two authenticated autonomous rehearsals failed before compilation. The second,
+`ses_e45ae9206ffeUX7erdKXyRnDpu`, successfully retrieved context and literature,
+then hit citation validation followed by malformed tool-call JSON. No autonomous
+simulation success is claimed; the earlier four successful simulations were direct
+backend tests. No automatic model fallback or further model retries were started.
+The public results viewer and Caddy have not been started on the VM; the operator
+must choose the hostname/access policy and review sessions before publication.
