@@ -1,0 +1,86 @@
+{
+  "models": [
+    {
+      "id": "moonshotai/Kimi-K3.1-Pro",
+      "name": "Kimi K3.1 Pro",
+      "axes": {
+        "suitability": 6,
+        "steps": 3,
+        "numerical_soundness": 5
+      },
+      "total": 14,
+      "maximum": 18,
+      "input_tokens": 5041,
+      "output_tokens": 4977,
+      "estimated_usd": 0.059851999999999995
+    },
+    {
+      "id": "zai-org/GLM-5.3",
+      "name": "GLM 5.3",
+      "axes": {
+        "suitability": 6,
+        "steps": 3,
+        "numerical_soundness": 3
+      },
+      "total": 12,
+      "maximum": 18,
+      "input_tokens": 4674,
+      "output_tokens": 5023,
+      "estimated_usd": 0.0286448
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "name": "DeepSeek V4.1 Flash",
+      "axes": {
+        "suitability": 6,
+        "steps": 3,
+        "numerical_soundness": 2
+      },
+      "total": 11,
+      "maximum": 18,
+      "input_tokens": 4709,
+      "output_tokens": 11915,
+      "estimated_usd": 0.0157107
+    },
+    {
+      "id": "nvidia/nemotron-3-super-120b-a12b",
+      "name": "Nemotron 3 Super",
+      "axes": {
+        "suitability": 6,
+        "steps": 2,
+        "numerical_soundness": 2
+      },
+      "total": 10,
+      "maximum": 18,
+      "input_tokens": 4915,
+      "output_tokens": 2446,
+      "estimated_usd": 0.0036759
+    },
+    {
+      "id": "openai/gpt-oss-120b",
+      "name": "GPT-OSS-120B",
+      "axes": {
+        "suitability": 4,
+        "steps": 3,
+        "numerical_soundness": 3
+      },
+      "total": 10,
+      "maximum": 18,
+      "input_tokens": 4792,
+      "output_tokens": 3663,
+      "estimated_usd": 0.0029166
+    }
+  ],
+  "cases_per_model": 3,
+  "responses_per_case": 1,
+  "grader": "Provisional Codex review; uncalibrated, not expert-validated",
+  "method": "Fixed isolated input packets; same requested settings; no tools or retrieval during generation",
+  "total_tokens": 52155,
+  "estimated_total_usd": 0.1108,
+  "sources": [
+    "benchmark/runs/four-model-pilot/provisional_grades.json",
+    "benchmark/runs/four-model-pilot/manifest.json",
+    "benchmark/runs/gpt-oss-120b-pilot/RESULTS.md",
+    "benchmark/runs/gpt-oss-120b-pilot/manifest.json"
+  ]
+}

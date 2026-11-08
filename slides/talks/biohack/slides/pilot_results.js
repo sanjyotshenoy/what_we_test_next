@@ -1,0 +1,25 @@
+// Recorded pilot results: headline totals, three-axis rubric, and observed limits/cost (one step each).
+// Data is generated from committed benchmark results; no unmeasured baseline comparisons are displayed.
+{
+const notes='2026-11-08 pilot: three manually chosen, correlated case packets per model, one independent response each. Same input packets and nominal API settings (temperature 0, reasoning_effort low, JSON mode, max_tokens 8192); actual reasoning compute differs by provider. Scores are unblinded, uncalibrated Codex judgments, not a paid judge or expert review. No deterministic baseline, bare-LLM/literature/KG ablation or wet-lab validation. Kimi and Nemotron abstained on the case-3 numerical series; partial credit does not imply a completed design. Exact models: moonshotai/Kimi-K3.1-Pro; zai-org/GLM-5.3 (NOT Flash); deepseek-ai/DeepSeek-V4.1-Flash-1017 (NOT V5.1); nvidia/nemotron-3-super-120b-a12b; openai/gpt-oss-120b. Source: benchmark/runs/four-model-pilot/RESULTS.md and gpt-oss-120b-pilot/RESULTS.md. Counts and scores exported by slides/tools/prep_pilot_results.py.';
+for(const spec of [
+ {name:'pilot-scores',heading:'Five models, three diagnostic cases',max:18,ticks:3,groups:d=>[{key:'total',label:['Equal-weight rubric total','3 cases × 3 axes × 2 points'],values:Object.fromEntries(d.models.map(m=>[m.id,m.total]))}],foot:['Provisional Codex review · one response per case · rubric points, not pass rates','Fixed input packets · no measured retrieval lift or statistical ranking']},
+ {name:'pilot-rubric',heading:'Where the rubric points come from',max:6,ticks:3,groups:d=>[{key:'suitability',label:['Right assay','and biological question']},{key:'steps',label:['Procedural','soundness']},{key:'numerical_soundness',label:['Numerical','soundness']}].map(g=>({...g,values:Object.fromEntries(d.models.map(m=>[m.id,m.axes[g.key]]))})),foot:['Provisional Codex review · each axis: 0–2 per case × 3 cases (maximum 6)','Partial credit includes unresolved settings · valid arithmetic is not biological validation']}
+]){
+ Deck.section(3);
+ Deck.slide(spec.name,{before:'evidence-verification',notes,mount(frame,{data,esc}){
+  const d=data.pilotResults;
+  frame.innerHTML=`<h2 class="deck-heading">${esc(spec.heading)}</h2>`;
+  const plot=Deck.groupedBars(frame,{max:spec.max,ticks:spec.ticks,format:v=>`${v}/${spec.max}`,series:d.models.map(m=>({key:m.id,label:m.name})),groups:spec.groups(d),footnote:spec.foot});
+  return{enter:(step,animate)=>plot.show(step,animate)};
+ }});
+}
+Deck.section(3);
+Deck.slide('pilot-findings',{before:'evidence-verification',notes:notes+' Fifteen paid generation calls, no retries or paid grading. Input/output tokens are provider receipts; cost uses uncached published rates and may overestimate cached billing. Remaining account balance was not checked. Coverage is only descriptive because assay comparability is unconfirmed. DeepSeek case 2 says 11 points in prose and 10 in fields; GPT case 1 claims nonexistent pilot verification; Nemotron case 3 omits analysis.',mount(frame,{data,css,esc}){
+ const d=data.pilotResults;
+ css(`.pr-body{position:absolute;left:4.2%;right:4.2%;top:20%;display:grid;grid-template-columns:53% 42%;gap:5%;font-size:var(--t-body);line-height:1.3}.pr-body h3{font-size:var(--t-lead);color:var(--accent);margin:0 0 .5em}.pr-body p{margin:.5em 0 1em}.pr-body small{font-size:var(--t-small);color:var(--muted)}.pr-cost{width:100%;border-collapse:collapse;font-size:var(--t-small)}.pr-cost td{padding:.45em .2em;border-bottom:1px solid var(--detail)}.pr-cost td:last-child{text-align:right}.pr-link{color:var(--accent)}`);
+ frame.innerHTML=`<h2 class="deck-heading">Useful designs still need evidence checks</h2><div class="pr-body"><div><h3>What the outputs revealed</h3><p><strong>Uncertainty matters.</strong> Kimi left the unsupported cellular series unresolved.</p><p><strong>Check internal consistency.</strong> DeepSeek specified both 11 and 10 points for one series.</p><p><strong>Require source support.</strong> GPT-OSS claimed pilot verification that was never supplied.</p><small>Draft grades need domain review. These cases do not measure MIC discovery or autonomous execution.</small></div><div><h3>15 calls · ${d.total_tokens.toLocaleString()} tokens</h3><table class="pr-cost"><tbody>${d.models.map(m=>`<tr><td>${esc(m.name)}</td><td>$${m.estimated_usd.toFixed(5)}</td></tr>`).join('')}</tbody></table><p><strong>Estimated total: $${d.estimated_total_usd.toFixed(4)}</strong><br><small>About eleven cents · no paid judge calls<br>Shared account balance not verified</small></p></div></div><p class="deck-caption"><a class="pr-link" href="data/pilot_results.json" target="_blank" rel="noopener">Inspect chart data ↗</a> · <a class="pr-link" href="https://github.com/ramithuh/what_we_test_next/blob/feat/four-model-pilot/benchmark/runs/four-model-pilot/RESULTS.md" target="_blank" rel="noopener">Outputs, grading evidence and usage ledger ↗</a></p>`;
+ return{enter(){}};
+}});
+Deck.section(null);
+}
