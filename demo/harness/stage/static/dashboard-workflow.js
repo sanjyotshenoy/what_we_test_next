@@ -40,7 +40,7 @@ function renderWorkflow(snapshot, live=null) {
   if(!live) clearWorkflow();
   workflowNodes=workflowMap(snapshot);
   if(live) {
-    workflowNodes.unshift({id:'model',number:'LLM',title:'Model output',subtitle:`Turn ${live.turn||0} / 16`,badge:'Waiting',description:'Visible model output streamed from the provider. Draft actions are not validated results; internal reasoning is not displayed.'});
+    workflowNodes.unshift({id:'model',number:'LLM',title:'Model output',subtitle:`Turn ${live.turn||0} / 16`,badge:'Waiting',description:'Visible model output streamed from the provider. Draft actions are not validated results; provider-returned reasoning is shown separately in the activity log.'});
     const active=['starting','running'].includes(live.state);
     for(const node of workflowNodes) {
       const step=live.steps?.[node.id];

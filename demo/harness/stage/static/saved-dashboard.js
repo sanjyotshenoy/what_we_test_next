@@ -80,6 +80,7 @@ $('kg-all').onclick=()=>drawGraph('all');
 $('kg-focus').onclick=()=>drawGraph('focus');
 let liveCursor=0, liveModelText='', liveTimer=null, liveSnapshotKey='', liveTextBlock=null;
 const liveNodeRecords={};
+let liveReasoningText='',liveReasoningBlock=null;
 let liveRefresh=0, liveJobState='starting', liveOutputChunks=0, liveOutputCharacters=0;
 function appendLiveEvents(job) {
   const container=$('live-output-events'), scroller=$('live-output');
@@ -92,6 +93,18 @@ function appendLiveEvents(job) {
       liveNodeRecords[event.stage]=event;
       if(event.tool==='planning_submit'&&event.kind==='tool_start') liveNodeRecords.proposal=event;
     }
+    if(event.kind==='model_reasoning') {
+      if(!liveReasoningBlock) {
+        const article=document.createElement('article'),heading=document.createElement('h3');
+        heading.textContent='Provider reasoning · reported text';
+        liveReasoningBlock=document.createElement('pre');liveReasoningBlock.className='live-text';
+        article.append(heading,liveReasoningBlock);container.append(article);
+      }
+      liveReasoningBlock.append(document.createTextNode(event.text||''));
+      liveReasoningText=(liveReasoningText+(event.text||'')).slice(-200000);
+      $('reasoning-state').textContent=`— ${liveReasoningText.length.toLocaleString()} characters received`;
+      continue;
+    }
     if(event.kind==='model_delta') {
       if(!liveTextBlock) addRecord('Generated model output');
       liveTextBlock.append(document.createTextNode(event.text||''));
@@ -101,7 +114,7 @@ function appendLiveEvents(job) {
       continue;
     }
     liveTextBlock=null;
-    if(event.kind==='model_start') {liveModelText='';addRecord(`Model turn ${event.turn} · visible output`);}
+    if(event.kind==='model_start') {liveModelText='';liveReasoningText='';liveReasoningBlock=null;$('reasoning-state').textContent='— not received this turn';addRecord(`Model turn ${event.turn} · visible output`);}
     else if(event.kind==='model_end') continue;
     else {
       addRecord(`${event.elapsed??0}s · ${event.message}`);
@@ -109,6 +122,7 @@ function appendLiveEvents(job) {
       liveTextBlock=null;
     }
   }
+  $('reasoning-text').textContent=liveReasoningText||'No reasoning text returned for this turn. Some models expose only their final output.';
   $('live-preview-text').textContent=liveModelText.slice(-1600)||'Waiting for the model’s visible output…';
   $('live-preview-text').scrollTop=$('live-preview-text').scrollHeight;
   while(container.children.length>100) container.firstElementChild.remove();

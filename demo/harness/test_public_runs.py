@@ -206,6 +206,21 @@ class VisibleStreamingTests(unittest.TestCase):
         self.assertTrue(stream.closed)
         self.assertTrue(create.call_args.kwargs['stream'])
 
+    def test_provider_reasoning_is_separate_and_does_not_change_completion(self):
+        from types import SimpleNamespace as NS
+        from demo.harness.visible_stream import completion_bridge
+        class Stream:
+            def __iter__(self):
+                yield NS(choices=[NS(delta=NS(content=None,model_extra={'reasoning_content':'Test provider reasoning','api_key':'DO-NOT-FORWARD'}),finish_reason=None)])
+                yield NS(choices=[NS(delta=NS(content='{"done":true}',model_extra={}),finish_reason='stop')])
+            def close(self):pass
+        output=[];reasoning=[]
+        result=completion_bridge(Mock(return_value=Stream()),output.append,reasoning.append)()
+        self.assertEqual(reasoning,['Test provider reasoning'])
+        self.assertEqual(''.join(output),'{"done":true}')
+        self.assertEqual(result.choices[0].message.content,'{"done":true}')
+        self.assertNotIn('DO-NOT-FORWARD',''.join(output+reasoning))
+
     def test_truncated_stream_is_not_accepted_as_a_complete_action(self):
         from types import SimpleNamespace as NS
         from demo.harness.visible_stream import completion_bridge

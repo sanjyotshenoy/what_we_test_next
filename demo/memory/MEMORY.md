@@ -338,3 +338,24 @@ without restarting inference. Modifier-click keeps normal browser link behavior.
 Two browser regressions passed, covering keyboard activation, failed/successful
 interruption before home navigation, planner return, and precomputed mode. This is
 a static update with no service restart or paid inference.
+
+## Provider-returned reasoning display — 2026-11-08
+
+User requested reasoning traces only if a safe change could be completed within
+five minutes. Added an optional, separate streaming callback for the provider's
+explicit reasoning_content/reasoning string fields. New public workers enable it;
+model prompts, request parameters, action parsing and completion text are unchanged.
+No hidden provider data is requested or inferred. Other metadata/headers remain
+excluded, and the default bridge without a callback still omits reasoning.
+
+Live output now includes a labeled Provider reasoning section and an expandable
+current-turn preview. Missing reasoning is explicitly shown as not returned, never
+fabricated. Text is escaped and stays in the same bounded owner-only in-memory feed;
+it is not written to credential files or Git. This supersedes earlier notes saying
+all provider reasoning fields were excluded from the public display.
+
+Sixteen relevant tests passed, including separate reasoning/content delivery,
+unchanged completion JSON, metadata exclusion, output escaping and live controls.
+No paid inference or service restart occurred. Only newly started workers gain the
+callback; already-running sessions are left intact. Actual availability depends on
+the model/provider response and remains subject to the existing paid-rehearsal TODO.

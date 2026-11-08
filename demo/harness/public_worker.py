@@ -38,6 +38,11 @@ def emit_output(text):
         emit('running', 'Receiving model output', kind='model_delta', stage='model', text=text[offset:offset+2048])
 
 
+def emit_reasoning(text):
+    for offset in range(0, len(text), 2048):
+        emit('running', 'Receiving provider reasoning', kind='model_reasoning', stage='model', text=text[offset:offset+2048])
+
+
 def tool(name, args, session):
     if name not in TOOLS or not isinstance(args, dict):
         return {'error': 'Unknown tool or invalid argument object'}
@@ -131,7 +136,7 @@ def main():
     from demo.harness.visible_stream import completion_bridge
     client.chat.completions.create = completion_bridge(
         client.chat.completions.create,
-        emit_output)
+        emit_output, emit_reasoning)
     os.environ.pop('NEBIUS_API_KEY', None)
     del key
     run(payload, llm.chat, sys.argv[1])

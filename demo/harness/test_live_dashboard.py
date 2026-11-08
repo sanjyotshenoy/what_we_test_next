@@ -39,7 +39,7 @@ class LiveDashboardBrowserTests(unittest.TestCase):
                    'snapshot':dict(session=session,evidence=[],batches=[]),'events':[]}
             def event(kind,text='',stage='model',**kwargs):
                 state['events'].append(dict(id=len(state['events'])+1,kind=kind,text=text,stage=stage,message=kind,turn=1,elapsed=1,**kwargs))
-            event('model_start');event('model_delta','{"tool": "planning_context",')
+            event('model_start');event('model_reasoning','Provider reasoning test <script>window.reasoningInjected=true</script>');event('model_delta','{"tool": "planning_context",')
             with sync_playwright() as p:
                 browser=p.chromium.launch(headless=True,args=['--no-sandbox'])
                 try:
@@ -60,6 +60,9 @@ class LiveDashboardBrowserTests(unittest.TestCase):
                     expect(page.locator('.workflow-node')).to_have_count(8)
                     expect(page.locator('[data-workflow-node="model"]')).to_have_class('workflow-node running')
                     expect(page.locator('#live-preview')).to_be_visible()
+                    page.locator('#provider-reasoning summary').click()
+                    expect(page.locator('#reasoning-text')).to_contain_text('Provider reasoning test')
+                    self.assertIsNone(page.evaluate('window.reasoningInjected'))
                     expect(page.locator('#live-preview-text')).to_contain_text('planning_context')
                     expect(page.locator('#live-receipt')).to_contain_text('1 output chunks')
                     expect(page.get_by_role('button',name='Interrupt run',exact=True)).to_be_visible()
