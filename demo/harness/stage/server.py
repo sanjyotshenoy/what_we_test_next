@@ -10,8 +10,10 @@ API keys are never sent to the browser; the page only ever sees profile names.
 """
 import asyncio
 import base64
+import hashlib
 import json
 import os
+import re
 import subprocess
 import time
 from pathlib import Path
@@ -353,9 +355,23 @@ async def api_artifact(request):
                                           'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'})
 
 
+def versioned_html(name):
+    """Make every HTML load reference the current script and stylesheet bytes."""
+    def asset(match):
+        url = match.group('url')
+        path = (STATIC / url.removeprefix('/static/')).resolve()
+        if not path.is_relative_to(STATIC.resolve()) or not path.is_file():
+            return match.group(0)
+        version = hashlib.sha256(path.read_bytes()).hexdigest()[:16]
+        return f'{match.group("attribute")}{url}?v={version}'
+    return re.sub(r'(?P<attribute>(?:src|href)=[\"\x27])(?P<url>/static/[^\"\x27?]+\.(?:js|css))(?:\?[^\"\x27]*)?',
+                  asset, (STATIC / name).read_text())
+
+
 async def index(request):
     name = 'planner.html' if request.path == '/planner' else 'saved-dashboard.html'
-    return web.FileResponse(STATIC / name, headers={"Cache-Control": "no-cache"})
+    return web.Response(text=await asyncio.to_thread(versioned_html, name),
+                        content_type='text/html', headers={'Cache-Control': 'no-store'})
 
 
 async def api_precomputed(request):
@@ -435,8 +451,16 @@ async def operator_commands(request, handler):
         return await handler(request)
 
 
+@web.middleware
+async def revalidate_static(request, handler):
+    response = await handler(request)
+    if request.path.startswith('/static/'):
+        response.headers['Cache-Control'] = 'no-cache'
+    return response
+
+
 def make_app():
-    app = web.Application(middlewares=[replay_read_only, operator_commands], client_max_size=64 * 1024)
+    app = web.Application(middlewares=[revalidate_static, replay_read_only, operator_commands], client_max_size=64 * 1024)
     app.add_routes([
         web.get("/", index),
         web.get("/legacy", index),

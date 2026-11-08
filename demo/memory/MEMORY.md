@@ -101,6 +101,17 @@ trajectories, downloads, keyboard focus, mobile dialog bounds and a missing-repo
 case. It and the existing pane browser regression passed. Deployed map and proposal
 dialog were visually inspected. No writes, inference or service restart required.
 
+## Browser asset freshness — 2026-11-08
+
+After the user reported the old workflow list, the running origin was confirmed to
+serve the new workflow code, but static assets lacked explicit revalidation headers.
+The operator now serves HTML with `Cache-Control: no-store` and content-hashed `?v=`
+URLs for every local JS/CSS file. Static assets use `no-cache` (revalidate, including
+304 responses). Asset versions update automatically when their bytes change.
+This addresses stale browser assets; the user's exact cached state was not observed.
+The public judge viewer remains a separate application. Nine cache/API/workflow
+tests passed before reloading the idle operator. No agent session was interrupted.
+
 ## Views and access
 
 | View | URL | Behavior |

@@ -97,6 +97,27 @@ class OperatorCommandTests(AioHTTPTestCase):
             self.assertEqual(response.status, 409)
         self.assertTrue(all(call.args == ('GET', '/session/status') for call in self.backend.call_args_list))
 
+    async def test_html_versions_current_assets_and_static_revalidates(self):
+        response = await self.client.get('/')
+        self.assertEqual(response.headers['Cache-Control'], 'no-store')
+        self.assertRegex(await response.text(), r'/static/saved-dashboard.js\?v=[0-9a-f]{16}')
+        response = await self.client.get('/static/saved-dashboard.js')
+        self.assertEqual(response.headers['Cache-Control'], 'no-cache')
+        etag = response.headers['ETag']
+        response = await self.client.get('/static/saved-dashboard.js', headers={'If-None-Match': etag})
+        self.assertEqual(response.status, 304)
+        self.assertEqual(response.headers['Cache-Control'], 'no-cache')
+        with TemporaryDirectory() as directory, patch.object(server, 'STATIC', Path(directory)):
+            root = Path(directory)
+            (root/'index.html').write_text('<script src="/static/app.js"></script><link href="/static/app.css">')
+            (root/'app.js').write_text('old script')
+            (root/'app.css').write_text('style')
+            before = server.versioned_html('index.html')
+            (root/'app.js').write_text('new script')
+            after = server.versioned_html('index.html')
+            self.assertNotEqual(before, after)
+            self.assertEqual(before.split('<link')[1], after.split('<link')[1])
+
     async def test_invalid_command_body_is_a_client_error(self):
         for body in ('null', '[]', '{'):
             response = await self.client.post('/api/model', data=body, headers={'Content-Type': 'application/json'})
