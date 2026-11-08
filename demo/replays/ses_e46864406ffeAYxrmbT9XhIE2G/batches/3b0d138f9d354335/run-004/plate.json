@@ -1,0 +1,1117 @@
+{
+  "identity": {
+    "compound": "fixture-compound-B",
+    "species": {
+      "name": "fixture-species-B",
+      "id": null,
+      "role": "unknown",
+      "oxygen_tolerance": "aerobe",
+      "reason": "synthetic software-test panel"
+    },
+    "question_id": "q2"
+  },
+  "unit": "uM",
+  "allocation": {
+    "requested_rows": "AB",
+    "surplus_rows": "CDEFGH",
+    "note": "Surplus technical wells are physically filled; not counted as requested replicates."
+  },
+  "design": {
+    "wells": [
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 1,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 100.0,
+        "final_concentration": 50.0
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 2,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 50.0,
+        "final_concentration": 25.0
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 3,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 25.0,
+        "final_concentration": 12.5
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 4,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 12.5,
+        "final_concentration": 6.25
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 5,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 6.25,
+        "final_concentration": 3.125
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 6,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 3.125,
+        "final_concentration": 1.5625
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 7,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 1.5625,
+        "final_concentration": 0.78125
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 8,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.78125,
+        "final_concentration": 0.390625
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 9,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.390625,
+        "final_concentration": 0.1953125
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 10,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.1953125,
+        "final_concentration": 0.09765625
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 11,
+        "species": "fixture-species-B",
+        "role": "growth control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": 0.0
+      },
+      {
+        "plate": 1,
+        "row": "A",
+        "column": 12,
+        "species": null,
+        "role": "sterility control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": null
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 1,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 100.0,
+        "final_concentration": 50.0
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 2,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 50.0,
+        "final_concentration": 25.0
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 3,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 25.0,
+        "final_concentration": 12.5
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 4,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 12.5,
+        "final_concentration": 6.25
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 5,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 6.25,
+        "final_concentration": 3.125
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 6,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 3.125,
+        "final_concentration": 1.5625
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 7,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 1.5625,
+        "final_concentration": 0.78125
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 8,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.78125,
+        "final_concentration": 0.390625
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 9,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.390625,
+        "final_concentration": 0.1953125
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 10,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.1953125,
+        "final_concentration": 0.09765625
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 11,
+        "species": "fixture-species-B",
+        "role": "growth control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": 0.0
+      },
+      {
+        "plate": 1,
+        "row": "B",
+        "column": 12,
+        "species": null,
+        "role": "sterility control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": null
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 1,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 100.0,
+        "final_concentration": 50.0
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 2,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 50.0,
+        "final_concentration": 25.0
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 3,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 25.0,
+        "final_concentration": 12.5
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 4,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 12.5,
+        "final_concentration": 6.25
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 5,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 6.25,
+        "final_concentration": 3.125
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 6,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 3.125,
+        "final_concentration": 1.5625
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 7,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 1.5625,
+        "final_concentration": 0.78125
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 8,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.78125,
+        "final_concentration": 0.390625
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 9,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.390625,
+        "final_concentration": 0.1953125
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 10,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.1953125,
+        "final_concentration": 0.09765625
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 11,
+        "species": "fixture-species-B",
+        "role": "growth control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": 0.0
+      },
+      {
+        "plate": 1,
+        "row": "C",
+        "column": 12,
+        "species": null,
+        "role": "sterility control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": null
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 1,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 100.0,
+        "final_concentration": 50.0
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 2,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 50.0,
+        "final_concentration": 25.0
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 3,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 25.0,
+        "final_concentration": 12.5
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 4,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 12.5,
+        "final_concentration": 6.25
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 5,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 6.25,
+        "final_concentration": 3.125
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 6,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 3.125,
+        "final_concentration": 1.5625
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 7,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 1.5625,
+        "final_concentration": 0.78125
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 8,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.78125,
+        "final_concentration": 0.390625
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 9,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.390625,
+        "final_concentration": 0.1953125
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 10,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.1953125,
+        "final_concentration": 0.09765625
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 11,
+        "species": "fixture-species-B",
+        "role": "growth control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": 0.0
+      },
+      {
+        "plate": 1,
+        "row": "D",
+        "column": 12,
+        "species": null,
+        "role": "sterility control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": null
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 1,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 100.0,
+        "final_concentration": 50.0
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 2,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 50.0,
+        "final_concentration": 25.0
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 3,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 25.0,
+        "final_concentration": 12.5
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 4,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 12.5,
+        "final_concentration": 6.25
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 5,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 6.25,
+        "final_concentration": 3.125
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 6,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 3.125,
+        "final_concentration": 1.5625
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 7,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 1.5625,
+        "final_concentration": 0.78125
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 8,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.78125,
+        "final_concentration": 0.390625
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 9,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.390625,
+        "final_concentration": 0.1953125
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 10,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.1953125,
+        "final_concentration": 0.09765625
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 11,
+        "species": "fixture-species-B",
+        "role": "growth control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": 0.0
+      },
+      {
+        "plate": 1,
+        "row": "E",
+        "column": 12,
+        "species": null,
+        "role": "sterility control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": null
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 1,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 100.0,
+        "final_concentration": 50.0
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 2,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 50.0,
+        "final_concentration": 25.0
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 3,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 25.0,
+        "final_concentration": 12.5
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 4,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 12.5,
+        "final_concentration": 6.25
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 5,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 6.25,
+        "final_concentration": 3.125
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 6,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 3.125,
+        "final_concentration": 1.5625
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 7,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 1.5625,
+        "final_concentration": 0.78125
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 8,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.78125,
+        "final_concentration": 0.390625
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 9,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.390625,
+        "final_concentration": 0.1953125
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 10,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.1953125,
+        "final_concentration": 0.09765625
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 11,
+        "species": "fixture-species-B",
+        "role": "growth control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": 0.0
+      },
+      {
+        "plate": 1,
+        "row": "F",
+        "column": 12,
+        "species": null,
+        "role": "sterility control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": null
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 1,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 100.0,
+        "final_concentration": 50.0
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 2,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 50.0,
+        "final_concentration": 25.0
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 3,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 25.0,
+        "final_concentration": 12.5
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 4,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 12.5,
+        "final_concentration": 6.25
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 5,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 6.25,
+        "final_concentration": 3.125
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 6,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 3.125,
+        "final_concentration": 1.5625
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 7,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 1.5625,
+        "final_concentration": 0.78125
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 8,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.78125,
+        "final_concentration": 0.390625
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 9,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.390625,
+        "final_concentration": 0.1953125
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 10,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.1953125,
+        "final_concentration": 0.09765625
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 11,
+        "species": "fixture-species-B",
+        "role": "growth control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": 0.0
+      },
+      {
+        "plate": 1,
+        "row": "G",
+        "column": 12,
+        "species": null,
+        "role": "sterility control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": null
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 1,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 100.0,
+        "final_concentration": 50.0
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 2,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 50.0,
+        "final_concentration": 25.0
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 3,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 25.0,
+        "final_concentration": 12.5
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 4,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 12.5,
+        "final_concentration": 6.25
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 5,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 6.25,
+        "final_concentration": 3.125
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 6,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 3.125,
+        "final_concentration": 1.5625
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 7,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 1.5625,
+        "final_concentration": 0.78125
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 8,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.78125,
+        "final_concentration": 0.390625
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 9,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.390625,
+        "final_concentration": 0.1953125
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 10,
+        "species": "fixture-species-B",
+        "role": "sample",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.1953125,
+        "final_concentration": 0.09765625
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 11,
+        "species": "fixture-species-B",
+        "role": "growth control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": 0.0
+      },
+      {
+        "plate": 1,
+        "row": "H",
+        "column": 12,
+        "species": null,
+        "role": "sterility control",
+        "volume_uL": 200.0,
+        "prepared_concentration": 0.0,
+        "final_concentration": null
+      }
+    ],
+    "transfers": [
+      {
+        "what": "medium",
+        "volume_uL": 100.0,
+        "source": "reservoir:medium",
+        "dest": "A-H2-A-H10",
+        "plate": 1,
+        "note": "broth into every series column but the first"
+      },
+      {
+        "what": "medium",
+        "volume_uL": 200.0,
+        "source": "reservoir:medium",
+        "dest": "A-H12",
+        "plate": 1,
+        "note": "sterility control: medium only, no inoculum"
+      },
+      {
+        "what": "medium",
+        "volume_uL": 100.0,
+        "source": "reservoir:medium",
+        "dest": "A-H11",
+        "plate": 1,
+        "note": "growth control: medium, inoculum added later, no compound"
+      },
+      {
+        "what": "compound",
+        "volume_uL": 200.0,
+        "source": "reservoir:compound",
+        "dest": "A-H1",
+        "plate": 1,
+        "note": "compound at 2x the top assay concentration"
+      },
+      {
+        "what": "dilution",
+        "volume_uL": 100.0,
+        "source": "A-H1",
+        "dest": "A-H2",
+        "plate": 1,
+        "note": "carry half the volume on, then mix"
+      },
+      {
+        "what": "dilution",
+        "volume_uL": 100.0,
+        "source": "A-H2",
+        "dest": "A-H3",
+        "plate": 1,
+        "note": "carry half the volume on, then mix"
+      },
+      {
+        "what": "dilution",
+        "volume_uL": 100.0,
+        "source": "A-H3",
+        "dest": "A-H4",
+        "plate": 1,
+        "note": "carry half the volume on, then mix"
+      },
+      {
+        "what": "dilution",
+        "volume_uL": 100.0,
+        "source": "A-H4",
+        "dest": "A-H5",
+        "plate": 1,
+        "note": "carry half the volume on, then mix"
+      },
+      {
+        "what": "dilution",
+        "volume_uL": 100.0,
+        "source": "A-H5",
+        "dest": "A-H6",
+        "plate": 1,
+        "note": "carry half the volume on, then mix"
+      },
+      {
+        "what": "dilution",
+        "volume_uL": 100.0,
+        "source": "A-H6",
+        "dest": "A-H7",
+        "plate": 1,
+        "note": "carry half the volume on, then mix"
+      },
+      {
+        "what": "dilution",
+        "volume_uL": 100.0,
+        "source": "A-H7",
+        "dest": "A-H8",
+        "plate": 1,
+        "note": "carry half the volume on, then mix"
+      },
+      {
+        "what": "dilution",
+        "volume_uL": 100.0,
+        "source": "A-H8",
+        "dest": "A-H9",
+        "plate": 1,
+        "note": "carry half the volume on, then mix"
+      },
+      {
+        "what": "dilution",
+        "volume_uL": 100.0,
+        "source": "A-H9",
+        "dest": "A-H10",
+        "plate": 1,
+        "note": "carry half the volume on, then mix"
+      },
+      {
+        "what": "dilution",
+        "volume_uL": 100.0,
+        "source": "A-H10",
+        "dest": "trash",
+        "plate": 1,
+        "note": "discard the carry-over so every well holds the same volume"
+      },
+      {
+        "what": "inoculum",
+        "volume_uL": 100.0,
+        "source": "reservoir:inoculum",
+        "dest": "A-H1-A-H11",
+        "plate": 1,
+        "note": "equal volume of inoculum: halves every concentration"
+      }
+    ],
+    "plates": 1,
+    "rows": 8,
+    "columns": 12,
+    "series_columns": 10,
+    "working_uL": 200.0,
+    "fold": 2.0,
+    "unit": "uM",
+    "notes": [
+      "compound prepared at 2x: an equal volume of inoculum halves it, so column 1 holds 100 uM and the cells see 50"
+    ],
+    "top_final": 50.0
+  },
+  "audit_errors": []
+}

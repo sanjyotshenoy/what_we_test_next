@@ -1,0 +1,356 @@
+{
+  "template_id": "proto:bacterial_mic_broth",
+  "compounds": [
+    {
+      "compound": "fixture-compound-A",
+      "proposal": {
+        "question_id": "q1",
+        "answerable_from_kb": false,
+        "answer": null,
+        "experiment": {
+          "assay_type": "broth microdilution MIC",
+          "readout": "absorbance (OD590)",
+          "system": "bacterial growth",
+          "panel": [
+            {
+              "name": "fixture-species-A",
+              "id": null,
+              "role": "unknown",
+              "oxygen_tolerance": "aerobe",
+              "reason": "synthetic software-test panel"
+            },
+            {
+              "name": "fixture-species-B",
+              "id": null,
+              "role": "unknown",
+              "oxygen_tolerance": "aerobe",
+              "reason": "synthetic software-test panel"
+            }
+          ],
+          "top_concentration": 50.0,
+          "concentration_unit": "uM",
+          "top_concentration_uM": 50.0,
+          "dilution_factor": 2.0,
+          "n_points": 10,
+          "replicates": 2,
+          "controls": [
+            "growth control",
+            "sterility control"
+          ],
+          "medium": "cation-adjusted Mueller-Hinton broth",
+          "incubation_C": 37.0,
+          "incubation_h": 18.0,
+          "atmosphere": "aerobic",
+          "well_volume_uL": 200.0,
+          "layout": {
+            "plate_format": 96,
+            "series_axis": "columns",
+            "replicates_axis": "rows",
+            "control_columns": [
+              "growth control",
+              "sterility control"
+            ]
+          }
+        },
+        "rationale": "Software integration test – synthetic parameters for compound A across two species.",
+        "citations": [
+          "paper:PMC10347090:L80-L110:d4715830dafe",
+          "proto:bacterial_mic_broth"
+        ],
+        "model": ""
+      },
+      "evidence_links": [
+        {
+          "field": "assay_type",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Assay type taken from template default."
+        },
+        {
+          "field": "readout",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Readout from template."
+        },
+        {
+          "field": "system",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "System from template."
+        },
+        {
+          "field": "panel",
+          "kind": "input",
+          "citations": [],
+          "explanation": "Synthetic panel entries supplied by user."
+        },
+        {
+          "field": "top_concentration",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied synthetic top concentration."
+        },
+        {
+          "field": "concentration_unit",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied unit."
+        },
+        {
+          "field": "dilution_factor",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied."
+        },
+        {
+          "field": "n_points",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied."
+        },
+        {
+          "field": "replicates",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied."
+        },
+        {
+          "field": "controls",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Growth and sterility controls are default in template."
+        },
+        {
+          "field": "medium",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Medium from template."
+        },
+        {
+          "field": "incubation_C",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Incubation temperature default."
+        },
+        {
+          "field": "incubation_h",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied incubation time."
+        },
+        {
+          "field": "atmosphere",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Atmosphere default from template."
+        },
+        {
+          "field": "well_volume_uL",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Well volume default from template."
+        },
+        {
+          "field": "layout",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Layout defaults from template."
+        }
+      ]
+    },
+    {
+      "compound": "fixture-compound-B",
+      "proposal": {
+        "question_id": "q2",
+        "answerable_from_kb": false,
+        "answer": null,
+        "experiment": {
+          "assay_type": "broth microdilution MIC",
+          "readout": "absorbance (OD590)",
+          "system": "bacterial growth",
+          "panel": [
+            {
+              "name": "fixture-species-A",
+              "id": null,
+              "role": "unknown",
+              "oxygen_tolerance": "aerobe",
+              "reason": "synthetic software-test panel"
+            },
+            {
+              "name": "fixture-species-B",
+              "id": null,
+              "role": "unknown",
+              "oxygen_tolerance": "aerobe",
+              "reason": "synthetic software-test panel"
+            }
+          ],
+          "top_concentration": 50.0,
+          "concentration_unit": "uM",
+          "top_concentration_uM": 50.0,
+          "dilution_factor": 2.0,
+          "n_points": 10,
+          "replicates": 2,
+          "controls": [
+            "growth control",
+            "sterility control"
+          ],
+          "medium": "cation-adjusted Mueller-Hinton broth",
+          "incubation_C": 37.0,
+          "incubation_h": 18.0,
+          "atmosphere": "aerobic",
+          "well_volume_uL": 200.0,
+          "layout": {
+            "plate_format": 96,
+            "series_axis": "columns",
+            "replicates_axis": "rows",
+            "control_columns": [
+              "growth control",
+              "sterility control"
+            ]
+          }
+        },
+        "rationale": "Software integration test – synthetic parameters for compound B across two species.",
+        "citations": [
+          "paper:PMC10347090:L80-L110:d4715830dafe",
+          "proto:bacterial_mic_broth"
+        ],
+        "model": ""
+      },
+      "evidence_links": [
+        {
+          "field": "assay_type",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Assay type from template."
+        },
+        {
+          "field": "readout",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Readout from template."
+        },
+        {
+          "field": "system",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "System from template."
+        },
+        {
+          "field": "panel",
+          "kind": "input",
+          "citations": [],
+          "explanation": "Synthetic panel."
+        },
+        {
+          "field": "top_concentration",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied."
+        },
+        {
+          "field": "concentration_unit",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied."
+        },
+        {
+          "field": "dilution_factor",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied."
+        },
+        {
+          "field": "n_points",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied."
+        },
+        {
+          "field": "replicates",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied."
+        },
+        {
+          "field": "controls",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Growth and sterility controls default."
+        },
+        {
+          "field": "medium",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Medium default."
+        },
+        {
+          "field": "incubation_C",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Incubation temperature default."
+        },
+        {
+          "field": "incubation_h",
+          "kind": "input",
+          "citations": [],
+          "explanation": "User supplied."
+        },
+        {
+          "field": "atmosphere",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Atmosphere default."
+        },
+        {
+          "field": "well_volume_uL",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Well volume default."
+        },
+        {
+          "field": "layout",
+          "kind": "default",
+          "citations": [
+            "proto:bacterial_mic_broth"
+          ],
+          "explanation": "Layout defaults from template."
+        }
+      ]
+    }
+  ],
+  "open_questions": []
+}

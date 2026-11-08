@@ -1,0 +1,9 @@
+{
+  "package": "gxl-paperclip",
+  "version": "0.8.16",
+  "source_url": "https://paperclip.gxl.ai/paperclip.whl",
+  "wheel_filename": "gxl_paperclip-0.8.16-py3-none-any.whl",
+  "sha256": "8ff1341e1cbeaf0e733e0471fc6a754e25d2f2f5fe435ee713e793cecc986d78",
+  "environment": ".venv-paperclip",
+  "installed_date": "2026-11-07"
+}

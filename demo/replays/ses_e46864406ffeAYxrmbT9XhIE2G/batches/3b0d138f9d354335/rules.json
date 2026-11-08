@@ -1,0 +1,102 @@
+{
+  "fixture-compound-A": [
+    {
+      "rule": "rule:agm/min_points_crc",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "must",
+      "status": "passed"
+    },
+    {
+      "rule": "rule:agm/dmso_tolerance",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "must",
+      "status": "needs_review"
+    },
+    {
+      "rule": "rule:agm/vehicle_control",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "must",
+      "status": "passed"
+    },
+    {
+      "rule": "rule:agm/max_min_controls",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "must",
+      "status": "passed"
+    },
+    {
+      "rule": "rule:agm/reference_compound",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "should",
+      "status": "needs_review"
+    },
+    {
+      "rule": "rule:agm/z_prime",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "must",
+      "status": "needs_review"
+    },
+    {
+      "rule": "rule:agm/reproducibility_msr",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "should",
+      "status": "needs_review"
+    },
+    {
+      "rule": "rule:agm/four_parameter_fit",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "should",
+      "status": "needs_review"
+    }
+  ],
+  "fixture-compound-B": [
+    {
+      "rule": "rule:agm/min_points_crc",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "must",
+      "status": "passed"
+    },
+    {
+      "rule": "rule:agm/dmso_tolerance",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "must",
+      "status": "needs_review"
+    },
+    {
+      "rule": "rule:agm/vehicle_control",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "must",
+      "status": "passed"
+    },
+    {
+      "rule": "rule:agm/max_min_controls",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "must",
+      "status": "passed"
+    },
+    {
+      "rule": "rule:agm/reference_compound",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "should",
+      "status": "needs_review"
+    },
+    {
+      "rule": "rule:agm/z_prime",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "must",
+      "status": "needs_review"
+    },
+    {
+      "rule": "rule:agm/reproducibility_msr",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "should",
+      "status": "needs_review"
+    },
+    {
+      "rule": "rule:agm/four_parameter_fit",
+      "source": "NCATS Assay Guidance Manual (NCBI Bookshelf NBK53196)",
+      "severity": "should",
+      "status": "needs_review"
+    }
+  ]
+}

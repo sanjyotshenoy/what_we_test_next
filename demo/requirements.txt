@@ -1,0 +1,8 @@
+# Demo-only additions and minimal imported team runtime (not screening/GPU).
+aiohttp==3.14.5
+pydantic==2.14.3
+PyYAML==6.0.3
+networkx==3.7
+pandas==3.1.1
+openai==3.46.0
+python-dotenv==1.2.4

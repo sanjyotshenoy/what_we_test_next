@@ -1,0 +1,11 @@
+{
+  "package": "opencode",
+  "version": "1.19.5",
+  "asset": "opencode-linux-arm64.tar.gz",
+  "url": "https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-linux-arm64.tar.gz",
+  "github_digest": "sha256:fae5be262d693b7c5e562856cc473e59e741772936db0c0600ac0d5ed5bd088b",
+  "verified_sha256": "fae5be262d693b7c5e562856cc473e59e741772936db0c0600ac0d5ed5bd088b",
+  "size_bytes": 78513091,
+  "installed": "2026-11-07",
+  "binary": "v1.19.5/opencode (ELF aarch64)"
+}
