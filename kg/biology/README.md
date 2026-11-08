@@ -71,3 +71,48 @@ Worth a curator's eye:
 - **Filters:** exact (`=`) IC50s in nM, no ChEMBL validity flag (or "Manually validated"), wild-type assays only.
   Ki/Kd, % inhibition, censored (`>`) values and mutant assays are not in the graph.
 - **Only kinases, only ChEMBL:** no pathways, diseases or other targets yet; no UniProt gene names.
+
+## The bacterial MIC graph (`build_bacteria.py`)
+
+For the antimicrobial question — *which compounds inhibit pathogens but spare gut commensals*. A **sibling** to
+`build_seed.py`, not a flag on it: `chembl_db.target_info()` returns `None` unless the target is a human
+`SINGLE PROTEIN`, and every bacterium in ChEMBL is `target_type = ORGANISM` with no components and no
+protein-class chain (*S. aureus* is `CHEMBL352`).
+
+```bash
+python -m kg.biology.build_bacteria                                  # all of seed/organisms.csv
+python -m kg.biology.build_bacteria --organisms CHEMBL614411 CHEMBL352
+```
+
+Reads [`seed/organisms.csv`](seed/organisms.csv) (organism, name, role, oxygen_tolerance, gram) and writes
+`graph_bacteria/{nodes,edges}.csv`. Goes over the **REST API** (`chembl_api.py`), so it needs no local dump.
+
+**Commensal-first.** The commensal arm is pulled whole (~1,500 usable records across six species); the pathogen
+arm only for the compounds that arm found. *S. aureus* alone has 160k MIC records, and pulling pathogens first
+gives a graph that is almost entirely rows sharing no compound with any commensal. Measured overlap: 495 of the
+632 compounds with a commensal MIC also have one on *S. aureus* — an 82% pairing rate, because people measure a
+commensal precisely when they care about selectivity.
+
+Three filters differ from the kinase build, on purpose:
+
+| | `build_seed.py` (IC50) | `build_bacteria.py` (MIC) |
+| --- | --- | --- |
+| relation | `=` only | `=` **and `>`** — a `>128 ug/mL` on a commensal is the finding, not a gap; ~25% of records on every organism are censored |
+| units | `nM` only | `ug.mL-1` **and** `nM`, unconverted (converting needs a molecular weight); the edge carries value *and* unit |
+| dropped | — | `ug cm**-2` (surface-coating assays — 12% of *E. coli*'s records) and `p.p.m.` |
+
+**No year cutoff is applied.** The hold-out is a separate filter over the built graph. With 495 paired compounds
+a **document-level** split is affordable (~100 test compounds); the 2024 cutoff would leave about forty.
+
+`role`, `oxygen_tolerance` and `gram` are **hand-curated** — ChEMBL holds none of them. They are what
+`wwtn.schema.PanelMember` needs and what `execution/feasibility.py` checks against, so they live on the Organism
+node. <!-- TODO(final): source these from BacDive or KG-Microbe instead of by hand. -->
+
+Known traps in this graph:
+- **Species-level data hides resistance.** Clindamycin reads 0.125 ug/mL on *S. aureus* and **>128** on
+  *B. fragilis*, which says it spares the commensal — the opposite of the truth, since clindamycin is the
+  textbook cause of *C. difficile* colitis. That record is a resistant isolate, and ChEMBL cannot distinguish
+  "intrinsically spared" from "this strain is resistant".
+  <!-- TODO(final): take the minimum MIC per species, or parse strain from the assay description. -->
+- **There is no class chain**, so no `TargetClass` bridge to `kg/protocols/` yet. The taxonomic equivalent is
+  ChEMBL's `organism_class` table, or traits (Gram, oxygen tolerance) which map onto protocol choice directly.
