@@ -70,6 +70,7 @@ Deck.slide('title', {
     };
     frame.innerHTML = `${BACKGROUND}
       <h1 class="deck-title ti-title reveal-in" data-from="1">${esc(TITLE.title)}</h1>
+      <p class="ti-project reveal-in" data-from="1" style="--i:1">Project Ouroboros</p>
       <p class="deck-subtitle ti-subtitle reveal-in" data-from="1" style="--i:1">${esc(TITLE.subtitle)}</p>
       <p class="ti-team reveal-in" data-from="1" style="--i:2">${esc(TITLE.team)}</p>
       <p class="ti-track reveal-in" data-from="1" style="--i:2">${esc(TITLE.track)}</p>
@@ -84,7 +85,8 @@ Deck.slide('title', {
         --wv-corner: #1f6470; --wv-fill-1: #0b1824; --wv-fill-2: #0e2232; --wv-fill-3: #133149; --wv-floor: #0d1520;
         --wv-rim: #6cbde9; --wv-rim-o: .35; }
       .deck-frame .ti-title { top: 11%; width: 84%; font-size: var(--t-heading); text-wrap: balance; }
-      .deck-frame .ti-subtitle { top: 32%; width: 78%; font-size: var(--t-body); line-height: 1.4; }
+      .ti-project { position: absolute; left: 8%; top: 27%; margin: 0; font-size: var(--t-body); font-weight: 600; color: var(--accent); }
+      .deck-frame .ti-subtitle { top: 38%; width: 78%; font-size: var(--t-body); line-height: 1.4; }
       /* the team's name sits large on the wave, bottom right */
       .ti-team { position: absolute; right: 7%; top: 68%; margin: 0; font-size: var(--t-heading); font-weight: 700;
         color: var(--accent); white-space: nowrap; }
