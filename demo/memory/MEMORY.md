@@ -143,3 +143,9 @@ entity identities and explicit supplied synthetic assay settings: ciprofloxacin
 across two species, and ciprofloxacin vs tetracycline hydrochloride in E. coli.
 Private receipts track model/query/session/status. Review before publishing; no
 failed model result may be relabelled as success or silently substituted.
+
+Precompute inspection: Qwen's first antibiotic-comparison attempt submitted batch
+as a string on all attempts; strict validation rejected it and no simulation ran.
+Failure receipt preserved. Added an explicit object-serialization instruction to
+the comparison prompt before a single new-session retry; no artifact repair or
+validator relaxation. Other models' prior successful prompts remain in session logs.
