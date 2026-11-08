@@ -1,0 +1,50 @@
+// Five states: unlabeled bipartite KB, question, X/Y labels, zoom + dim context, missing link.
+// TODO(final): conceptual illustration, not an actual graph export or recorded query.
+{
+Deck.slide('missing-link',{steps:5,notes:'Abstract bipartite knowledge base: two compound nodes on the left and three strain nodes on the right. All existing edges cross the partitions. Start unlabeled; reveal the researcher question; identify X and Y; zoom and dim surrounding knowledge; highlight the missing X–Y measurement. The demonstration assumes an up-to-date KB and researcher-supplied identities. Known evidence would be returned with citations; the researcher decides whether another experiment is worthwhile. The missing link here is genuinely unanswered under an up-to-date-KB assumption, not a literature-completeness judgment. Concealing evidence is reserved for benchmark simulation. This is not an actual query trace.',mount(frame,{css,palette}){
+frame.style.setProperty('--ml-orange',palette.rainbow[4]);
+css(`.ml-question{position:absolute;left:8%;top:18%;font-size:var(--t-body);color:var(--fg);opacity:0;transition:opacity .35s}.ml-view{position:absolute;left:10%;top:25%;width:80%;height:48%;overflow:hidden}.ml-view svg{width:100%;height:100%}.ml-panels,.ml-world{transform-origin:500px 200px;transition:transform .85s ease-in-out}.ml-zoom .ml-panels{transform:scale(1.08)}.ml-zoom .ml-world{transform:scale(1.4)}.ml-context{transition:opacity .6s}.ml-zoom .ml-context{opacity:.22}.ml-group{fill:var(--accent);fill-opacity:.07;stroke:var(--accent);stroke-opacity:.3;stroke-width:2}.ml-strains{fill:var(--ml-orange);stroke:var(--ml-orange)}.ml-group-label{fill:var(--muted);font-size:var(--t-caption);font-family:Lato,sans-serif;text-anchor:middle}.ml-edge{stroke:var(--detail);stroke-width:3;fill:none}.ml-dot{fill:var(--bg);stroke:var(--accent);stroke-width:3}.ml-context .ml-dot{transition:stroke .6s}.ml-zoom .ml-context .ml-dot{stroke:var(--muted)}.ml-focus{stroke-width:3}.ml-has-labels .ml-x{stroke:var(--accent)}.ml-has-labels .ml-y{stroke:var(--ml-orange)}.ml-labels{opacity:0;transition:opacity .35s}.ml-label{fill:var(--fg);font-size:var(--t-small);font-family:Lato,sans-serif;text-anchor:middle;paint-order:stroke;stroke:var(--bg);stroke-width:8px;stroke-linejoin:round}.ml-gap{stroke:var(--plot-2);stroke-width:3;stroke-dasharray:8 8;fill:none}.ml-missing{opacity:0;transition:opacity .5s}.ml-has-question .ml-question,.ml-has-labels .ml-labels,.ml-reveal .ml-missing{opacity:1}.ml-mark{fill:var(--plot-2);font-size:var(--t-body);font-family:Lato,sans-serif;text-anchor:middle}.ml-answer{position:absolute;left:8%;top:77%;font-size:var(--t-lead);opacity:0;transition:opacity .5s}.ml-reveal .ml-answer{opacity:1}.ml-key{position:absolute;left:8%;top:89%;font-size:var(--t-caption);color:var(--muted)}.ml-jump .ml-panels,.ml-jump .ml-world,.ml-jump .ml-context,.ml-jump .ml-dot,.ml-jump .ml-question,.ml-jump .ml-labels,.ml-jump .ml-missing,.ml-jump .ml-answer{transition:none}`);
+frame.innerHTML=`<h2 class="deck-heading">A question for our knowledge base</h2><div class="ml-question">“Does compound X inhibit strain Y?”</div><div class="ml-view"><svg viewBox="0 -100 1000 600" preserveAspectRatio="xMidYMid meet" aria-label="Bipartite knowledge graph: two compounds on the left, three strains on the right."><g class="ml-scene"><g class="ml-panels"><rect class="ml-group" x="130" y="-45" width="310" height="490" rx="14"/><rect class="ml-group ml-strains" x="560" y="-45" width="310" height="490" rx="14"/><text class="ml-group-label" x="285" y="-10">Compounds</text><text class="ml-group-label" x="715" y="-10">Strains</text></g><g class="ml-world"><g class="ml-context"><path class="ml-edge" d="M310 200 L690 95 M310 200 L690 335 M310 320 L690 95 M310 320 L690 200 M310 320 L690 335"/><circle class="ml-dot" cx="310" cy="320" r="21"/><circle class="ml-dot" cx="690" cy="95" r="21"/><circle class="ml-dot" cx="690" cy="335" r="21"/></g><g class="ml-dot ml-focus"><circle class="ml-x" cx="310" cy="200" r="21"/><circle class="ml-y" cx="690" cy="200" r="21"/></g><g class="ml-labels"><text class="ml-label" x="310" y="160">X</text><text class="ml-label" x="690" y="160">Y</text></g><g class="ml-missing"><path class="ml-gap" d="M344 200 L470 200 M530 200 L656 200"/><text class="ml-mark" x="500" y="212">?</text></g></g></g></svg></div><div class="ml-answer">This measurement is missing. What experiment would answer it?</div>`;
+return{enter:(s,a)=>{frame.classList.toggle('ml-jump',!a);frame.classList.toggle('ml-has-question',s>=2);frame.classList.toggle('ml-has-labels',s>=3);frame.classList.toggle('ml-zoom',s>=4);frame.classList.toggle('ml-reveal',s>=5);}};
+}});
+}
+
+// Next slide: 1 supplied question; 2 assay selection; 3 grounded adaptation; 4 compatibility gate.
+// TODO(final): conceptual workflow, not an execution trace; enforce the gate in the runtime before hardware use.
+{
+Deck.slide('grounded-design', {
+  steps:4,
+  notes:'The researcher supplies compound X, specified bacterial strains and a question; discovering compounds and choosing strains are upstream. Assume an up-to-date KB. If it answers the question, return the evidence with citations and leave any decision to repeat an experiment to the researcher. This slide follows the genuinely unanswered branch. The query guides assay selection; an LLM may interpret it, and an optional assay preference can narrow retrieval. Existing templates, examples and lab constraints ground the steps and numerical values. LLM step assembly versus template selection and parameter filling is an open evaluation question. An incompatible proposal may be explained or stopped, but must not proceed to compilation or hardware execution. This is the agreed workflow contract, not a claim that all runtime gates are already implemented. Evaluate appropriate experiment, sound steps and reasonable numerical parameters. Concealing known evidence is a benchmark simulation of missing information, not the live premise.',
+  mount(frame,{css}) {
+    css(`
+      .gd-input {position:absolute;left:7%;right:7%;top:19%;font-size:var(--t-body);line-height:1.35;}
+      .gd-input strong {color:var(--accent);}
+      .gd-input small {display:block;margin-top:.4em;font-size:var(--t-small);color:var(--muted);}
+      .gd-flow {position:absolute;left:7%;right:7%;top:39%;display:grid;grid-template-columns:1fr 5% 1fr 5% 1fr;align-items:start;gap:1%;}
+      .gd-stage h3 {font-size:var(--t-body);color:var(--accent);margin:0 0 .55em;}
+      .gd-stage p {font-size:var(--t-small);line-height:1.35;margin:0;}
+      .gd-arrow {font-size:var(--t-lead);color:var(--muted);padding-top:.3em;text-align:center;}
+      .gd-gate {position:absolute;left:7%;right:7%;top:68%;display:grid;grid-template-columns:1fr 1fr;gap:6%;border-top:1px solid var(--detail);padding-top:.6em;}
+      .gd-gate p {font-size:var(--t-small);line-height:1.3;margin:0;}
+      .gd-gate strong {font-size:var(--t-body);display:block;margin-bottom:.35em;}
+      .gd-stop {color:var(--plot-2);}
+    `);
+    frame.innerHTML=`<h2 class="deck-heading">Ground the experiment in what already exists</h2>
+      <div class="gd-input"><strong>Compound X + specified strains + research question</strong>
+        <small>For this example, the up-to-date KB has no answer to the question.</small></div>
+      <div class="gd-flow">
+        <div class="gd-stage reveal-in" data-from="2"><h3>Select an assay</h3><p>The query guides selection.<br>An optional assay preference narrows the search.</p></div>
+        <div class="gd-arrow reveal-in" data-from="3">→</div>
+        <div class="gd-stage reveal-in" data-from="3"><h3>Adapt the design</h3><p>Use templates and examples for steps, controls and parameters.</p></div>
+        <div class="gd-arrow reveal-in" data-from="4">→</div>
+        <div class="gd-stage reveal-in" data-from="4"><h3>Check compatibility</h3><p>Compare the proposal with the lab’s capabilities and experimental constraints.</p></div>
+      </div>
+      <div class="gd-gate reveal-in" data-from="4">
+        <p><strong>Compatible</strong>A cited design for researcher review.</p>
+        <p><strong class="gd-stop">Incompatible</strong>Explain limitations or stop.<br>No compilation or hardware execution.</p>
+      </div>
+      <p class="deck-caption reveal-in" data-from="3">Open evaluation: does LLM step assembly improve on template selection and parameter filling?</p>`;
+    return {enter:(s,a)=>Deck.show(frame,s,a)};
+  }
+});
+}
