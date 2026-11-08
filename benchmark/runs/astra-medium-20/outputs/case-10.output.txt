@@ -1,0 +1,56 @@
+{
+  "assay_type": "Biochemical kinase concentration-response assay; proposed ADP-Glo adaptation pending validation",
+  "system": "Purified recombinant human DYRK1A (Q13627) with CHEMBL1077347, ATP and a validated kinase substrate; enzyme construct and preparation unresolved",
+  "readout": "ADP-dependent luminescence after residual ATP depletion, normalized to kinase activity controls",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a serial compound dilution and matched vehicle controls only after establishing compound solubility, vehicle tolerance and a suitable assay window. Use a pilot range to locate both activity plateaus, then refine the series; do not choose its center from other compounds' potencies. Include a qualified reference inhibitor and detection-interference controls.",
+      "parameters": "top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved pending a precision-based design; vehicle_fraction: unresolved, held constant across compound and vehicle wells. Assumption: use independently prepared repeat runs as well as within-run replicates to assess reproducibility; counts require pilot variability."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, recombinant human DYRK1A and validated substrate with ATP under conditions qualified in a preliminary enzyme/time-course experiment. Establish linear product formation, acceptable substrate conversion and a robust vehicle signal before measuring the concentration response. Keep ATP and other reaction conditions fixed across concentrations.",
+      "parameters": "enzyme_concentration, substrate_concentration, ATP_concentration, reaction_time and temperature: unresolved. Buffer, cofactors, reaction volume, addition order and any compound preincubation: unresolved. Recombinant human DYRK1A is supported as a system by CHEMBL4266682, but its construct and reaction settings are not supplied. YRASPSRPESPRPPA-NH2 and a 10-minute preincubation appear in CHEMBL2394351; these are candidate conditions from a different readout, not established conditions for this assay."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop kinase activity and deplete residual ATP; subsequently perform ADP detection and read luminescence. Qualify ATP/ADP standards in the reaction matrix and test compound effects on detection before interpreting signal loss as kinase inhibition.",
+      "parameters": "reagent_volumes, depletion_time and detection_time: unresolved; plate format, instrument settings and reagent procedure also unresolved. The ordered detection sequence is supported by kinase-detect; quantitative conditions require a validated procedure compatible with the chosen ATP concentration."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract appropriate background and express activity relative to vehicle-treated kinase. Compute inhibition as 100 times [1 minus (sample signal minus background)/(vehicle signal minus background)]. Inspect detection controls before fitting. Fit inhibition versus log concentration only when the range and data support a concentration response; report fitted IC50 with uncertainty, replicate variability and all reaction conditions. If the midpoint is not bracketed, report a qualified bound or an unestimable IC50 and revise the range instead of extrapolating a potency.",
+      "parameters": "fit_model: provisional assumption, four-parameter logistic with unconstrained plateaus unless data justify constraints. acceptance_criteria: numeric thresholds unresolved; prespecify using pilot precision, control separation, linear reaction behavior, compound solubility, detection-interference results and midpoint coverage."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Vehicle plus active kinase, substrate and ATP: uninhibited activity reference at matched vehicle fraction.",
+    "No-enzyme reaction with substrate and ATP: reaction/reagent background; include compound-matched wells where needed to detect concentration-dependent background.",
+    "Qualified reference DYRK1A inhibitor: assay performance control; identity, concentration and expected response unresolved. Retained examples are candidates only, not calibrated ADP-Glo controls.",
+    "Known ADP/ATP mixtures carried through detection with and without each compound concentration: check signal suppression or enhancement and coupling interference; mixture levels unresolved.",
+    "Matrix-matched ATP/ADP standards and reagent blanks: establish usable detection range and background."
+  ],
+  "rationale": "The question concerns inhibition of isolated DYRK1A, so kinase-prepare, kinase-react, kinase-detect and analyse are selected in prerequisite order; cell viability cards are inappropriate for this endpoint. CHEMBL4266682 supports a recombinant human DYRK1A biochemical system, and CHEMBL4673836 supports radiometric kinase measurement. Neither establishes an ADP-Glo protocol. ADP-Glo is an explicitly provisional adaptation offered by the supplied cards, contingent on detectable ADP production and absence of detection interference. CHEMBL3105981 motivates careful specification of ATP conditions but does not establish competitive inhibition by CHEMBL1077347. A pilot-informed concentration range and replication plan are needed because retained examples are other compounds, are not similarity-ranked and use heterogeneous assays. An orthogonal radiometric confirmation is a reasonable provisional follow-up if inhibition is observed, but its implementation is unresolved.",
+  "citations": [
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse",
+    "CHEMBL4266682",
+    "CHEMBL4673836",
+    "CHEMBL3105981",
+    "CHEMBL2394351"
+  ],
+  "limitations": [
+    "The packet does not justify numeric concentration-series or replicate settings, so those contract fields are null rather than fabricated. This is a proposed design requiring qualification, not an executable validated protocol.",
+    "No CHEMBL1077347 potency is supplied or predicted. Other compounds' IC50 values cannot be transferred to this compound or used as assay acceptance thresholds.",
+    "Enzyme construct, substrate selection, ATP dependence, buffer/cofactors, concentrations, timing, temperature, vehicle tolerance and solubility remain unresolved. The retained substrate and preincubation example uses an LDH readout and cannot validate an ADP-Glo transfer.",
+    "A concentration-dependent luminescence reduction can reflect detection interference or nonspecific assay effects. Qualified controls and, where needed, orthogonal biochemical confirmation are necessary.",
+    "Biochemical inhibition under defined conditions does not establish cellular viability effects, intracellular target engagement, selectivity or target-specific cellular causality."
+  ]
+}

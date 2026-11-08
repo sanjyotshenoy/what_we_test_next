@@ -1,0 +1,52 @@
+{
+  "assay_type": "Biochemical kinase concentration-response assay; ADP-Glo format proposed provisionally",
+  "system": "Purified catalytically active human P30530 (AXL/UFO) kinase with ATP and a validated phosphorylation substrate; construct and preparation unresolved",
+  "readout": "ADP-dependent luminescence as a proxy for kinase turnover; lower background-corrected signal indicates inhibition only after excluding detection interference",
+  "steps": [
+    {
+      "card_id": "new-assay-qualification",
+      "instruction": "Before measuring the inhibitor curve, establish active kinase turnover, time linearity, usable substrate/ATP conditions and ADP detection compatibility. This added prerequisite is necessary because the packet supplies no validated ADP-Glo protocol. Consider KKSRGDYMTMQIG as a candidate substrate and 40 minutes as a candidate time solely for qualification, not as established ADP-Glo conditions. Assess compound solubility and vehicle tolerance to determine the concentration range.",
+      "parameters": "Candidate substrate sequence and 40-minute incubation: CHEMBL5113280, a radiometric assay. Kinase construct, enzyme concentration, substrate concentration, ATP concentration, buffer, cofactors, volume, temperature, validated reaction duration and solubility limit: unresolved. ATP titration and time-course qualification: proposed design assumptions."
+    },
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare CHEMBL118266 serial dilutions after qualification establishes a soluble, assay-compatible top dose. Use a broad exploratory range, then refine if needed to bracket both response plateaus. Match final vehicle across doses and controls; distribute technical replicates across the plate.",
+      "parameters": "top_concentration_uM: unresolved; dilution_factor: 3 (provisional design assumption); n_points: 10 nonzero doses (provisional design assumption); replicates: 3 technical wells per dose/control (provisional design assumption); final vehicle fraction and stock solvent: unresolved pending solubility and tolerance tests."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, qualified P30530 kinase preparation, substrate and ATP under the conditions established in qualification. Keep addition sequence and elapsed reaction time consistent across wells and document any preincubation. Include vehicle, background and qualified inhibition controls in the same run.",
+      "parameters": "enzyme_concentration, substrate_concentration, ATP_concentration, reaction_time, temperature: unresolved until qualification; compound preincubation, buffer/cofactors and reaction volume: unresolved. CHEMBL5113280 supports a candidate substrate and a radiometric 40-minute incubation, not direct transfer of all conditions."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence. Run matched fixed-ADP/ATP detection controls with compound concentrations spanning the series to identify detection suppression or enhancement.",
+      "parameters": "reagent_volumes, depletion_time, detection_time, detection temperature, plate type and reader settings: unresolved; require a validated compatible detection procedure. Fixed-ADP/ATP interference controls: proposed design assumption."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract matched background and normalize turnover to vehicle-treated kinase. Calculate percent inhibition as 100 times one minus normalized activity. Fit inhibition versus concentration using a four-parameter logistic model if data support a sigmoid and adequate plateaus. Report fitted IC50 with confidence interval, fitted plateaus, slope, replicate variability and ATP conditions. If the midpoint is not bracketed or interference prevents interpretation, report the result as unresolved or range-limited and redesign rather than forcing an IC50.",
+      "parameters": "fit_model: four-parameter logistic (provisional analysis assumption); acceptance_criteria: require qualified linear turnover, distinguishable vehicle/background signals, functioning reference control, acceptable replicate consistency, soluble compound and no material detection interference. Numerical QC thresholds and independent-run count: unresolved and must be prespecified before the definitive run; technical triplicates do not establish between-run reproducibility."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle plus active kinase, substrate and ATP: uninhibited turnover reference.",
+    "No-enzyme wells containing substrate, ATP and matched vehicle: biochemical/detection background; include compound-matched backgrounds where necessary.",
+    "Independently qualified AXL inhibitor control: identity and concentration unresolved; retained compounds are potential candidates, not validated controls in this format.",
+    "Fixed ADP/ATP mixtures with vehicle or compound across the dilution series: detection interference and calibration controls.",
+    "Qualification checks for vehicle tolerance, compound solubility and time-linear turnover."
+  ],
+  "rationale": "A purified kinase turnover assay directly addresses biochemical inhibition. The kinase-prepare, kinase-react, kinase-detect and analyse sequence preserves card prerequisites. ADP-Glo is a provisional card-supported format that can measure ADP production; none of the retained examples validates it for this compound-target pair. CHEMBL5113280 provides the clearest target-specific procedural context, with human Axl, KKSRGDYMTMQIG and a 40-minute radiometric incubation. Its substrate is a candidate for validation, while its detection chemistry differs. Threefold spacing over ten doses offers an exploratory span, and technical triplicates assess within-run variability; both are explicit design assumptions rather than retrieved conditions. Other-compound potencies neither select a reliable top dose nor predict CHEMBL118266 potency.",
+  "citations": ["P30530", "CHEMBL118266", "CHEMBL5113280", "CHEMBL5108089", "kinase-prepare", "kinase-react", "kinase-detect", "analyse"],
+  "limitations": [
+    "No supported soluble top concentration is available, so top_concentration_uM is null. The final executable concentration range requires qualification; threefold spacing, ten doses and triplicate wells are provisional assumptions.",
+    "Kinase construct/purity/activity, enzyme and substrate concentrations, ATP concentration, buffer/cofactors, vehicle fraction, temperature, reaction volume/time and detection reagent settings remain unsupported. No numeric values are invented for these settings.",
+    "The radiometric substrate and time cannot be presumed valid for ADP-Glo. The other retained assays have sparse method details and are not similarity-ranked evidence.",
+    "Apparent IC50 depends on assay conditions, including ATP. Detection interference, precipitation or nonspecific enzyme effects can mimic inhibition; an orthogonal phosphorylation readout is a proposed follow-up if needed.",
+    "This experiment measures biochemical activity under defined conditions; it does not establish cellular viability effects, intracellular target engagement, kinase selectivity or target-specific cellular causality. No withheld potency is predicted."
+  ]
+}

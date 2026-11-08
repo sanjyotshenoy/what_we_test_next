@@ -1,0 +1,62 @@
+{
+  "assay_type": "Biochemical kinase concentration-response assay using microfluidic capillary electrophoresis (MCE)",
+  "system": "Purified human Tyrosine-protein kinase Mer (Q12866), ATP and a fluorescent peptide substrate; enzyme construct and substrate identity unresolved.",
+  "readout": "Separated phosphorylated and unphosphorylated fluorescent substrate, used to calculate substrate conversion and inhibition relative to vehicle-treated enzyme.",
+  "steps": [
+    {
+      "card_id": "justified new step: qualify biochemical conditions",
+      "instruction": "Before the definitive curve, establish a functional Mer construct and compatible peptide, ATP Km under the chosen conditions, and an enzyme/time window with linear product formation. Assess compound solubility and vehicle tolerance. This qualification is a proposed design requirement, not a reported result.",
+      "parameters": "Enzyme construct, peptide identity, enzyme concentration, ATP Km, reaction time, temperature, vehicle fraction and soluble top concentration: unresolved. CHEMBL5731805 supplies an MCE starting framework but does not resolve these settings for CHEMBL1231206."
+    },
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare CHEMBL1231206 dilutions and matched controls after qualification. Use a provisional ten-point, threefold series with three technical replicate wells per concentration; hold vehicle constant. Extend or shift the range in a subsequent experiment if the response is not bracketed.",
+      "parameters": "top_concentration_uM: unresolved pending solubility and pilot response; dilution_factor: 3, assumption for broad logarithmic coverage; n_points: 10, assumption providing nine dilution intervals; replicates: 3, assumption to assess within-run variation; vehicle_fraction: unresolved pending tolerance testing. These design choices are not sourced measurements."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, qualified Mer enzyme, peptide and ATP. Adapt this card's reaction step to the retained MCE assay rather than its luminescent template. Use the reported buffer and substrate concentration only as provisional starting conditions, contingent on Mer activity and compound compatibility; run using the qualified linear reaction interval.",
+      "parameters": "CHEMBL5731805 reports 384-well polypropylene plates, 50 uL final reaction volume, 50 mM HEPES pH 7.4, 10 mM MgCl2, 1.0 mM DTT, 0.01% Triton X-100, 0.1% BSA, and 1.0 uM fluorescent substrate. Transfer to this compound is an assumption. ATP: at the measured Km for the selected enzyme/conditions, numeric concentration unresolved. Enzyme concentration, reaction time and temperature: unresolved."
+    },
+    {
+      "card_id": "justified new step: stop and detect by MCE",
+      "instruction": "After kinase-react, stop the qualified reaction and separate phosphorylated from unphosphorylated peptide by MCE. This replaces kinase-detect because that card specifically requires ADP-Glo chemistry, which is not the retained assay format. Check peptide peak resolution and compound-associated fluorescence interference.",
+      "parameters": "CHEMBL5731805 reports addition of 20 uL of 70 mM EDTA and a LabChip EZ Reader with a 12-sipper chip and separation buffer supplemented with 1x CR-8. Their adoption is provisional. Full separation buffer composition, instrument settings and timing remain unresolved. The description mentions a 180 min incubation but does not clearly establish its position relative to quenching; do not assign it as the kinase reaction time."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract appropriate background and normalize conversion to vehicle enzyme controls. Fit inhibition versus log concentration with a four-parameter logistic model only if data support the curve and its plateaus. Report fitted IC50 with uncertainty, tested concentration range, individual replicate data and qualified assay conditions. If inhibition does not cross 50%, report an appropriate range bound rather than an extrapolated potency.",
+      "parameters": "fit_model: four-parameter logistic, proposed analysis assumption. Proposed acceptance requirements: linear reaction window, reproducible vehicle activity, resolved peptide peaks, clean backgrounds, functioning reference control and no material compound interference. Numerical acceptance thresholds: unresolved and must be prespecified after assay qualification. Technical replicates do not establish between-run reproducibility; independent repeat confirmation is proposed."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle plus active Mer, ATP and substrate: uninhibited activity reference, with identical vehicle fraction across wells.",
+    "No-enzyme wells with ATP and substrate: background and nonenzymatic conversion control.",
+    "No-ATP reaction: control for ATP-dependent peptide phosphorylation.",
+    "Qualified Mer inhibitor reference series: identity and concentration range unresolved; retained compounds are candidates for qualification, not interchangeable potency standards.",
+    "Compound-containing peptide controls, including known phosphorylated/unphosphorylated peptide mixtures where available: test fluorescence changes, co-migrating peaks and recovery across the concentration range. Availability of peptide standards is unresolved."
+  ],
+  "rationale": "MCE directly measures a biochemical phosphorylation endpoint and has a detailed same-target precedent in CHEMBL5731805, associated with CHEMBL3092765 and CHEMBL3092768. It is better supported here than an unqualified conversion to ADP-Glo. The prerequisite order is preparation, reaction, adapted detection, analysis. The ELISA precedent in CHEMBL4433481 supports a different assay format; its 90-minute incubation cannot justify this reaction time. CHEMBL4189001 lacks sufficient conditions to bind parameters. Other compounds' potencies do not estimate CHEMBL1231206 potency. The provisional dilution spacing and replicates provide a practical pilot structure without assuming a potency.",
+  "citations": [
+    "Q12866",
+    "CHEMBL1231206",
+    "CHEMBL5731805",
+    "CHEMBL5725982",
+    "CHEMBL3092765",
+    "CHEMBL3092768",
+    "CHEMBL4433481",
+    "CHEMBL4189001"
+  ],
+  "limitations": [
+    "Top concentration is null because neither a soluble, vehicle-compatible exposure ceiling nor a bracketing pilot response is supplied. The definitive concentration series cannot be finalized yet.",
+    "The reported MCE formulation is a starting precedent, not a validated procedure for CHEMBL1231206. Enzyme construct/source, peptide identity, enzyme loading, numeric ATP concentration, temperature, reaction duration, vehicle tolerance and full instrument procedure are unresolved.",
+    "The 180-minute wording is ambiguous; source clarification or empirical time-course qualification is needed. The ELISA duration cannot resolve it.",
+    "ATP conditions can affect an apparent IC50. Report the actual ATP concentration and other qualified conditions with any eventual fit; no potency is predicted here.",
+    "This experiment measures inhibition of purified Mer-catalyzed phosphorylation. It does not measure cellular viability, cellular target engagement or establish that a cellular phenotype is caused specifically by Mer inhibition. Selectivity and cellular causality require separate evidence.",
+    "Technical triplicates characterize within-run variation only. Curve uncertainty and apparent inhibition remain vulnerable to aggregation, solubility limitations and readout interference until qualified or confirmed independently."
+  ]
+}

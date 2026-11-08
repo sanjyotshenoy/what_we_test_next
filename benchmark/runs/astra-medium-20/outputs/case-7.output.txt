@@ -1,0 +1,52 @@
+{
+  "assay_type": "Biochemical kinase concentration-response assay; proposed ADP-Glo adaptation requiring validation",
+  "system": "Cell-free DNA-dependent protein kinase catalytic subunit (P78527) activity challenged with CHEMBL104468; enzyme preparation, substrate and activation conditions unresolved",
+  "readout": "Luminescence reporting ADP formation after ATP depletion and ADP detection; normalize as kinase activity and inhibition only after detection-interference controls pass",
+  "steps": [
+    {
+      "card_id": "new: qualify biochemical system and readout",
+      "instruction": "Proposed prerequisite: establish measurable P78527-dependent activity and a linear reaction window before testing potency. Resolve enzyme composition and any DNA or accessory-component requirements, substrate identity, buffer and cofactors. Validate that ADP-Glo responds to reaction product and that CHEMBL104468 does not independently perturb detection. This added step is needed because the retained explicit assay uses radioactive phosphotransfer, not ADP-Glo.",
+      "parameters": "All qualification settings unresolved. ATP starting candidate: 10 uM, supported only as a condition in CHEMBL1243970; transferring it to this luminescent assay is an assumption requiring validation. ADP/ATP calibration and compound-spiked detection controls are proposed design assumptions."
+    },
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a concentration series only after establishing soluble, vehicle-compatible exposure limits. Use a preliminary range-finding experiment to select a series spanning baseline through substantial inhibition where achievable. Keep final vehicle concentration equal across compound and vehicle wells, and include reference and background controls. Determine replicate allocation before definitive measurement.",
+      "parameters": "top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved. Proposed design assumption: use within-run replicate wells and independent runs to distinguish well variability from reproducibility; counts require an assay-precision pilot. Reference identity and concentration unresolved."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, qualified P78527 enzyme system, substrate and ATP. Run all concentrations and controls under the same qualified conditions, retaining a reaction window suitable for measuring changes in kinase activity.",
+      "parameters": "enzyme_concentration: unresolved; substrate_identity and substrate_concentration: unresolved; ATP_concentration: proposed 10 uM starting condition from CHEMBL1243970, not validated for this format; reaction_time: unresolved; temperature: unresolved; buffer, cofactors, activation components, order of addition, reaction volume and compound preincubation: unresolved."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence. Process calibration, background and compound-interference controls alongside the concentration series.",
+      "parameters": "reagent_volumes: unresolved; depletion_time: unresolved; detection_time: unresolved; instrument settings: unresolved. Sequence is supported by kinase-detect, but the packet supplies no validated operational settings."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "After control acceptance, subtract matched background and normalize compound activity to vehicle activity. Calculate percent inhibition as 100 times one minus the normalized activity. Proposed analysis assumption: fit a four-parameter concentration-response model if the data support it, reporting replicate variability and an uncertainty interval for any measured IC50. If the response fails to bracket half inhibition or detection interference is unresolved, report the limitation rather than an extrapolated potency.",
+      "parameters": "fit_model: four-parameter logistic, explicitly a provisional analysis assumption; acceptance_criteria: require qualified activity, acceptable background, precision, compound solubility and absence of material detection interference; numerical thresholds unresolved and must be prespecified from qualification. Do not force response plateaus to manufacture an IC50."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Proposed: vehicle-only complete enzyme reaction defining uninhibited activity, with constant vehicle fraction across wells.",
+    "Proposed: matched no-enzyme or otherwise qualified inactive-reaction background defining non-enzymatic signal.",
+    "Proposed: independently qualified reference inhibitor; identity, dose and expected acceptance window unresolved.",
+    "Proposed: ADP/ATP calibration controls in the assay matrix, with and without compound across the tested range, to reveal luminescence or coupling interference.",
+    "Proposed: substrate/component-omission controls during qualification to establish dependence on the intended biochemical system."
+  ],
+  "rationale": "The question concerns biochemical inhibition, so the kinase cards are selected in their prerequisite order, followed by analysis. Cell viability cards would not measure the requested enzyme inhibition. CHEMBL1243970 establishes target-related radioactive phosphotransfer assay precedent at 10 uM ATP, but it does not validate ADP-Glo or any other proposed operational settings. ADP-Glo is a provisional adaptation offered by the cards for measuring kinase-generated ADP and requires compatibility testing. CHEMBL1118579 provides additional inhibition context without sufficient procedural detail. Other-compound potencies are neither a concentration-range prescription nor a prediction for CHEMBL104468.",
+  "citations": ["P78527", "CHEMBL104468", "CHEMBL1243970", "CHEMBL1240340", "CHEMBL1118579", "CHEMBL1155542", "kinase-prepare", "kinase-react", "kinase-detect", "analyse"],
+  "limitations": [
+    "The numeric series fields are null because no query-compound solubility, usable concentration range, assay precision or supported replication scheme is supplied; inventing these would give unsupported operational specificity.",
+    "This is a conditional experimental design, not an executable validated protocol. Enzyme composition and activation requirements, substrate, buffer, cofactors, concentrations, timing, temperature, vehicle tolerance and detection settings remain unresolved.",
+    "The 10 uM ATP condition comes from a different compound in a radioactive assay. Its transfer is provisional; measured inhibition would be specific to the validated ATP and reaction conditions.",
+    "The retrieved examples are not similarity-ranked and cannot establish the query compound's potency. No IC50 is predicted.",
+    "Reduced ADP-associated signal requires interference exclusion before interpretation as biochemical inhibition. Even a validated biochemical result alone establishes neither cellular viability effects nor target-specific causality in cells or selectivity against other kinases."
+  ]
+}

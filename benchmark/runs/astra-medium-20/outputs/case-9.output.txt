@@ -1,0 +1,52 @@
+{
+  "assay_type": "Biochemical kinase concentration-response assay; provisional ADP-Glo adaptation",
+  "system": "Purified recombinant human Activin receptor type-1 / ALK2 (Q04771) with ATP and a validated substrate; enzyme construct and activation state unresolved",
+  "readout": "ADP-dependent luminescence as a measure of kinase turnover, normalized to vehicle activity and reaction background",
+  "steps": [
+    {
+      "card_id": "new: qualify reaction and detection",
+      "instruction": "Before the definitive concentration-response run, establish an active recombinant ALK2 reaction and a usable ADP-Glo signal window. Test enzyme amount and reaction duration for a linear turnover region, verify ATP/ADP calibration in the intended matrix, and check compound interference with detection. Casein is a candidate substrate supported by a radiometric ALK2 assay, but its compatibility here must be established. This additional step is needed because the packet provides no validated luminescence protocol.",
+      "parameters": "Enzyme construct, activation state, concentration, buffer, cofactors, reaction volume, ATP concentration, substrate concentration and temperature: unresolved. Casein candidate: CHEMBL4815728. Published 30 min and 45 min reaction durations are contextual radiometric conditions (CHEMBL4815728 and CHEMBL3365510), not validated ADP-Glo settings. Select final duration from the qualification experiment."
+    },
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare CHEMBL1078178 dilutions and matched vehicle controls. First establish solubility and vehicle tolerance to select the highest usable final concentration. Use a provisional broad serial series, then extend or refine the range if the response transition is not bracketed. Prepare a reference inhibitor control only after its identity and assay suitability are established.",
+      "parameters": "Top concentration: unresolved, hence null. Assumption for initial design: 10 nonzero concentrations separated by 3-fold dilution, giving a 19,683-fold range; 3 technical replicate wells per concentration to estimate within-run variation. These choices are not source-derived. Vehicle identity and final fraction: unresolved; hold constant across compound and vehicle wells."
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, qualified recombinant ALK2, validated substrate and ATP using the reaction conditions established in qualification. Keep initiation order and timing consistent across wells; document any compound-enzyme preincubation explicitly.",
+      "parameters": "Enzyme concentration, substrate concentration, ATP concentration, reaction time and temperature: unresolved pending qualification. ATP concentration must be reported with the fitted potency because inhibition can depend on it. Preincubation and initiation procedure: unresolved; no source-supported values are supplied."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction and deplete residual ATP with the ADP-Glo depletion stage, then perform the ADP detection reaction and measure luminescence. Process standards, backgrounds and interference controls in parallel using a validated procedure obtained before execution.",
+      "parameters": "Reagent volumes, depletion time, detection time, read temperature and instrument settings: unresolved. The kinase-detect card supports the stage order but supplies no numerical protocol."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Calculate percent activity as 100 × (sample signal − background)/(vehicle signal − background), then percent inhibition as 100 minus percent activity, provided interference controls support that normalization. Fit inhibition against log concentration with a provisional four-parameter logistic model. Report the fitted IC50 only if observed data bracket the transition and support an identifiable fit; otherwise report the tested range, a supported bound or an indeterminate result. Inspect residuals, replicate spread and plate controls; repeat the experiment independently to assess reproducibility.",
+      "parameters": "Fit model: four-parameter logistic, an explicit design assumption. Acceptance criteria: qualified turnover linearity, usable control separation, reproducible reference behavior, soluble compound and absence of material detection interference; numerical thresholds and number of independent runs unresolved and must be specified before the definitive run. Report confidence intervals where estimable; technical triplicates are not independent experiments."
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Complete reaction plus matched vehicle: uninhibited activity control.",
+    "No-enzyme reaction in the same matrix: reaction/detection background; include compound-matched backgrounds where needed.",
+    "Qualified reference inhibitor concentration-response: identity and concentrations unresolved. Retained compounds are candidates for validation, not guaranteed standards with transferable potency.",
+    "Fixed ADP/ATP detection controls with and without CHEMBL1078178 across the test range: identify effects on detection chemistry or luminescence independent of kinase inhibition.",
+    "ATP/ADP standards in the reaction matrix: qualify detection range and background."
+  ],
+  "rationale": "The question requires direct biochemical inhibition of Q04771. CHEMBL3365510 establishes a recombinant human ALK2 biochemical assay precedent, and CHEMBL4815728 supports casein as a substrate candidate. These precedents use radiometric readouts; they do not validate an ADP-Glo protocol. The supplied kinase cards offer a reasonable provisional ADP-generation format after qualification, with detection-interference controls essential for interpretation. The assumed dilution spacing and point count provide a broad exploratory range without using other compounds' potencies to predict CHEMBL1078178. Technical triplicates estimate within-run scatter. Cell viability cards are excluded because cellular ATP loss does not directly measure ALK2 catalytic inhibition.",
+  "citations": ["Q04771", "CHEMBL1078178", "CHEMBL3365510", "CHEMBL3352089", "CHEMBL4815728", "CHEMBL4813958", "kinase-prepare", "kinase-react", "kinase-detect", "analyse"],
+  "limitations": [
+    "The packet cannot justify a numerical top concentration: compound solubility, vehicle tolerance and an appropriate test range are absent, so that field is null. Dilution factor, point count and technical replicates are explicitly provisional design assumptions.",
+    "No fully executable ADP-Glo recipe is supplied. Reaction composition, enzyme preparation, ATP and substrate concentrations, temperature, volumes and detection timing remain unresolved until qualification.",
+    "The retained examples concern other compounds and were not similarity-ranked. Their IC50 values must not be transferred to CHEMBL1078178, and no query potency is predicted here.",
+    "Radiometric reaction durations and substrate choices may not transfer to the proposed luminescence assay. Differences in ATP concentration, construct and assay conditions can affect measured potency.",
+    "A clean concentration-dependent biochemical signal supports inhibition in this purified system. It does not establish cellular viability effects, cellular target engagement, selectivity or target-specific causality for a cellular phenotype. Orthogonal activity confirmation would strengthen interpretation."
+  ]
+}

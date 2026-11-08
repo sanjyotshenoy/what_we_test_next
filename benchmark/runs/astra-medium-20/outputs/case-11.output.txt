@@ -1,0 +1,79 @@
+{
+  "assay_type": "Proposed biochemical kinase concentration-response assay using ADP-Glo; format adaptation requiring validation",
+  "system": "Purified, catalytically active human Mitogen-activated protein kinase 9 (P45984; JNK2) with a validated substrate and ATP. A full-length N-terminal histidine-tagged JNK2-alpha-2 construct is a candidate supported by CHEMBL1108469; exact preparation and activation state remain unresolved.",
+  "readout": "Luminescence from ADP detection after stopping kinase turnover and depleting residual ATP; background-corrected ADP formation represents biochemical activity.",
+  "steps": [
+    {
+      "card_id": "new: qualify reaction and detection",
+      "instruction": "Assumption: qualify the proposed ADP-Glo adaptation before the definitive series. Establish enzyme and time conditions giving measurable, linear turnover without substantial substrate depletion. Verify ATP/ADP standards in the reaction matrix and compound effects on detection. Determine compound solubility and vehicle tolerance to set the usable concentration range.",
+      "parameters": {
+        "enzyme_construct": "Candidate: full-length N-terminal histidine-tagged human JNK2-alpha-2, supported only as a radiometric assay system by CHEMBL1108469",
+        "activation_state_and_purity": "unresolved",
+        "substrate_identity": "unresolved",
+        "buffer_pH_salts_cofactors": "unresolved",
+        "reaction_volume_plate_and_reader_settings": "unresolved",
+        "qualification_thresholds": "unresolved; predefine before definitive measurements"
+      }
+    },
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare CHEMBL10 serial dilutions across the qualified soluble range with constant final vehicle. Assumption: use an exploratory range followed by a refined series if needed to bracket both activity plateaus; independently repeat experiments to assess reproducibility and include within-run replicates to estimate technical scatter. Final range, spacing, point count and replication must be set after qualification because this packet does not justify numerical settings.",
+      "parameters": {
+        "top_concentration_uM": null,
+        "dilution_factor": null,
+        "n_points": null,
+        "replicates": null,
+        "vehicle_identity_and_fraction": "unresolved; match across compound and vehicle wells",
+        "reference_inhibitor": "unresolved; validate in this assay before use"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, active P45984 kinase, validated substrate and ATP under the qualified turnover conditions. Assumption: standardize addition order and any preincubation across wells; define these before execution. Record ATP concentration because apparent inhibition may depend on it.",
+      "parameters": {
+        "enzyme_concentration": "unresolved",
+        "substrate_concentration": "unresolved",
+        "ATP_concentration": "unresolved; qualify against reaction performance, without assuming a value or Km",
+        "reaction_time": "unresolved; select within qualified linear turnover interval",
+        "temperature": "unresolved",
+        "addition_order_and_preincubation": "unresolved"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence. Apply a validated reagent procedure once available and process standards and controls identically.",
+      "parameters": {
+        "reagent_volumes": "unresolved",
+        "depletion_time": "unresolved",
+        "detection_time": "unresolved"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract qualified background and normalize kinase activity to vehicle-treated enzyme. Assumption: calculate percent inhibition as 100 times one minus normalized activity and fit a four-parameter logistic curve against log concentration if the data support it. Report fitted IC50 and uncertainty only from observed, interpretable data. If a midpoint is unbracketed or detection interference prevents interpretation, report that limitation rather than forcing a numerical potency.",
+      "parameters": {
+        "fit_model": "Assumption: four-parameter logistic; inspect residuals, plateaus and parameter identifiability",
+        "acceptance_criteria": "unresolved numerical thresholds; predefine acceptable control separation, replicate variation, turnover linearity, detection interference and fit precision before definitive acquisition"
+      }
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Assumption: vehicle-treated complete kinase reaction as uninhibited activity control.",
+    "Assumption: no-enzyme reaction with matched matrix and vehicle as background control; include compound-matched backgrounds where needed.",
+    "Assumption: validated reference inhibitor concentration response as assay performance control; identity and concentrations unresolved.",
+    "Assumption: fixed ATP/ADP standards with and without CHEMBL10 across the tested range, carried through detection, to detect luminescence or detection-chemistry interference.",
+    "Assumption: vehicle tolerance and compound solubility checks under the final reaction conditions."
+  ],
+  "rationale": "The question concerns catalytic inhibition, so the kinase cards followed by analyse address it directly. CHEMBL1108469 supports a biochemical JNK2 catalytic assay with a specified construct but uses radiometric filter binding, not ADP-Glo. ADP-Glo is therefore an explicitly provisional adaptation from the supplied kinase cards. CHEMBL1050683 measures displacement from inactive JNK2 by enzyme fragment complementation and cannot establish catalytic conditions or transferable potency. CHEMBL820304 describes JNK2 inhibition without sufficient procedural detail. Retained compounds are contextual examples, not similarity-ranked evidence for CHEMBL10 dosing or potency. An adaptive concentration series and replication are proposed for curve coverage and uncertainty estimation, with exact numerical choices unresolved.",
+  "citations": ["P45984", "CHEMBL10", "CHEMBL1108469", "CHEMBL1050683", "CHEMBL820304", "kinase-prepare", "kinase-react", "kinase-detect", "analyse"],
+  "limitations": [
+    "Top concentration, dilution factor, point count and replicate count are null because no numerical design is justified by supplied evidence; qualification and prospective design decisions are required before execution.",
+    "The packet provides no validated ADP-Glo procedure for this enzyme. Reaction composition, concentrations, times, temperature, vehicle, volumes and detection settings remain unresolved.",
+    "Other compounds' IC50 values cannot predict CHEMBL10 potency, particularly across displacement, radiometric and proposed luminescent formats. No withheld IC50 is predicted.",
+    "A decrease in signal requires exclusion of detection interference and nonspecific effects before interpreting it as biochemical inhibition. This assay alone does not establish cellular viability effects, target selectivity, binding mechanism or target-specific causality in cells."
+  ]
+}
