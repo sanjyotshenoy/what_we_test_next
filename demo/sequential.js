@@ -12,11 +12,9 @@
   function stopTimer() { clearTimeout(timer); timer = null; }
   function schedule() {
     stopTimer();
-    if (!paused && cursor < stages.length) timer = setTimeout(advance, 3500 / Number($('speed').value));
+    if (!paused && cursor < stages.length) timer = setTimeout(advance, 3500);
   }
   function controls() {
-    $('pause').textContent = paused ? 'Resume' : 'Pause';
-    $('pause').disabled = $('next').disabled = $('all').disabled = cursor >= stages.length;
     $('message').textContent = cursor >= stages.length ? 'Experiment plan and simulation results ready.' : `${paused ? 'Paused · ' : ''}${stages[Math.max(0, cursor - 1)]?.title || 'Preparing example'}`;
   }
   function collapseLongText(container) {
@@ -49,7 +47,7 @@
     li.innerHTML = `<h3>${esc(stage.title)}</h3>${stage.html}`;
     collapseLongText(li);
     $('timeline').append(li); controls(); schedule();
-    li.style.scrollMarginTop = `${$('toolbar').getBoundingClientRect().height + 16}px`;
+    li.style.scrollMarginTop = '16px';
     li.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start'});
   }
   function evidenceSummary(e) {
@@ -89,21 +87,16 @@
   }
   function start(index) {
     stopTimer(); selected=index; cursor=0; paused=false;
-    const data=recordings[index]; stages=build(data); $('timeline').replaceChildren(); $('toolbar').hidden=false;
+    const data=recordings[index]; stages=build(data); $('timeline').replaceChildren();
     $('provenance').textContent=`Precomputed example · model and tool outputs · ${data.session}`;
     for (const b of $('queries').querySelectorAll('button')) b.setAttribute('aria-pressed',String(Number(b.dataset.index)===index));
     advance();
   }
-  $('pause').onclick=()=>{paused=!paused;controls();schedule();};
-  $('next').onclick=()=>{paused=true;advance();};
-  $('all').onclick=()=>{paused=true;stopTimer();while(cursor<stages.length)advance();};
-  $('restart').onclick=()=>{if(selected!==null)start(selected);};
-  $('speed').onchange=schedule;
   $('theme').onclick=()=>{const root=document.documentElement;root.dataset.theme=(root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';};
   $('queries').onclick=e=>{const b=e.target.closest('button');if(b)start(Number(b.dataset.index));};
   function renderQueries() {
     stopTimer(); selected=null; stages=[]; cursor=0; paused=true;
-    $('timeline').replaceChildren(); $('toolbar').hidden=true; $('provenance').textContent='';
+    $('timeline').replaceChildren(); $('provenance').textContent='';
     const visible=recordings.map((r,i)=>({r,i})).filter(({r})=>modelCatalog.sessions[r.session]===$('llm').value);
     $('queries').innerHTML=visible.map(({r,i})=>{
       const runs=r.batches.flatMap(b=>b.manifest.runs || []);

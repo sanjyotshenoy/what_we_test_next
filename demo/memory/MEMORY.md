@@ -111,3 +111,8 @@ Removed per-step Example output badges. Added the four team evaluation models to
 an LLM dropdown, backed by `sequential-models.json`. Only verified session/model
 pairs are shown; currently GLM-5.3 has the two approved trajectories. Others show
 not-ready. Changing selection cancels progression and clears the prior output.
+
+User requested a presentation-only flow: removed Pause, Next step, Show all,
+Replay, Speed and Explore full results controls. Selecting a query starts automatic
+3.5-second milestone progression and scrolling; selecting another query/model
+cancels the previous progression. Text expansion and model/query selection remain.
