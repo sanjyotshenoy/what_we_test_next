@@ -1,0 +1,14 @@
+{
+  "question_id": "mic-selectivity-001",
+  "protocol_path": "protocol.py",
+  "simulated_ok": true,
+  "error": null,
+  "run_sheet_path": "run_sheet.md",
+  "api_level": "2.27",
+  "warnings": [
+    "lab.yaml declares apiLevel 2.28, but the highest an OT-2-capable opentrons simulates is 2.27; generated at 2.27 so the protocol can be checked before it runs. Confirm the level from the robot itself",
+    "pipette p20_single_gen2 on the right mount may not be installed",
+    "capability 'shaking' is unconfirmed",
+    "capability 'incubation_atmosphere' is ASSUMED, not verified: anaerobic incubation (jars, sachets or an anaerobic incubator) assumed because the project is phenotyping anaerobic microbiome bacteria; confirm the lab has one before reporting a result"
+  ]
+}
