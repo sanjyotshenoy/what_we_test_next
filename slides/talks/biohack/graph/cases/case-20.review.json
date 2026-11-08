@@ -1,0 +1,244 @@
+{
+  "id": "case-20",
+  "title": "Proliferation endpoint does not establish target-specific causality",
+  "status": "Draft / human review required",
+  "rationale": "Proliferation endpoint does not establish target-specific causality. Tests suitability, supported step adaptation and numerical uncertainty; the hidden measurement is not a unique correct protocol.",
+  "input": {
+    "id": "case-20",
+    "question": "Design a concentration-response experiment to measure the effect of CHEMBL169390 on growth/proliferation or viability of mouse BaF3 cells expressing MER. Explain the endpoint, justify the readout and any adaptations to the step cards, and state what this can and cannot establish about Tyrosine-protein kinase Mer.",
+    "entities": [
+      {
+        "id": "CHEMBL169390",
+        "name": "CHEMBL169390",
+        "type": "Compound",
+        "smiles": "Nc1ncnc2c1c(-c1cccc(O)c1)cn2C1CCCC1"
+      },
+      {
+        "id": "Q12866",
+        "name": "Tyrosine-protein kinase Mer",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL4845957",
+        "ic50_nM": 13.0,
+        "assay": "CHEMBL4822428",
+        "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+        "document": "CHEMBL4819114",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL4846932",
+        "ic50_nM": 61.0,
+        "assay": "CHEMBL4822428",
+        "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+        "document": "CHEMBL4819114",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL4848604",
+        "ic50_nM": 8.1,
+        "assay": "CHEMBL4822428",
+        "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+        "document": "CHEMBL4819114",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL4849099",
+        "ic50_nM": 86.0,
+        "assay": "CHEMBL4822428",
+        "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+        "document": "CHEMBL4819114",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL4849679",
+        "ic50_nM": 12.0,
+        "assay": "CHEMBL4822428",
+        "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+        "document": "CHEMBL4819114",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "answer": {
+    "reference_measurement": {
+      "assay": "CHEMBL4834280",
+      "document": "CHEMBL4831559",
+      "ic50_nM": 4900.0,
+      "year": 2021
+    },
+    "assay": {
+      "id": "CHEMBL4834280",
+      "type": "Assay",
+      "name": "CHEMBL4834280",
+      "props": {
+        "assay_type": "B",
+        "bao_format": "BAO_0000219",
+        "description": "Inhibition of MER (unknown origin) expressed in mouse BaF3 cells assessed as reduction in cell proliferation incubated for 48 hrs by cell proliferation assay"
+      },
+      "source": "ChEMBL 37"
+    },
+    "document": {
+      "id": "CHEMBL4831559",
+      "title": "Antitarget Selectivity and Tolerability of Novel Pyrrolo[2,3-d]pyrimidine RET Inhibitors.",
+      "doi": "10.1021/acsmedchemlett.1c00450"
+    },
+    "expected_endpoint": "Growth/proliferation or viability in mouse BaF3 cells expressing MER; purified-enzyme inhibition alone does not answer this question. A cellular response alone does not establish target-specific causality. Justify assay adaptation; do not equate all viability readouts.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "numerical_reference": "Held-out IC50 is a contextual target for coverage, not a required prediction or a complete parameter answer key. Full conditions and optimal ranges are not established by these CSV records.",
+    "review_limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds.",
+      "Proliferation readout: do not silently substitute the ATP-luminescence detection card as the recorded method."
+    ]
+  },
+  "audit": {
+    "excluded_pair_measurements": 1,
+    "excluded_documents": [
+      "CHEMBL4831559"
+    ],
+    "excluded_assays": [
+      "CHEMBL4834280"
+    ],
+    "removed_edges": 3,
+    "remaining_edges": 19108,
+    "remaining_nodes": 15309,
+    "source_sha256": {
+      "kg/biology/graph/nodes.csv": "452155cb7ac0ae2b0a6a9149001efc5adda858febef28ef37ed88d32f644921c",
+      "kg/biology/graph/edges.csv": "e159b7a2090db3d6dde733bb40c29056188c9ab9b45e2e09ab091cf049a4f09b",
+      "kg/protocols/graph/nodes.csv": "1c13f6a5f1656ed3ee58dad0961094da8563094722ab1dfc22af4f0937b5b914",
+      "kg/protocols/graph/edges.csv": "0466153682c1740eb0fd41b6d511ad2da1ddd997dcfc74487a9d7b64dfb756b5"
+    },
+    "assertions": {
+      "no_pair_edges": true,
+      "no_excluded_sources_in_examples": true
+    }
+  }
+}

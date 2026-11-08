@@ -1,0 +1,184 @@
+{
+  "id": "case-12",
+  "question": "Design a biochemical concentration-response experiment to measure inhibition of Interleukin-1 receptor-associated kinase 1 (P51617) by CHEMBL1738757. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+  "entities": [
+    {
+      "id": "CHEMBL1738757",
+      "name": "REBASTINIB",
+      "type": "Compound",
+      "smiles": "CNC(=O)c1cc(Oc2ccc(NC(=O)Nc3cc(C(C)(C)C)nn3-c3ccc4ncccc4c3)c(F)c2)ccn1"
+    },
+    {
+      "id": "P51617",
+      "name": "Interleukin-1 receptor-associated kinase 1",
+      "type": "Target",
+      "smiles": null
+    }
+  ],
+  "step_cards": [
+    {
+      "id": "kinase-prepare",
+      "template": "proto:kinase_biochem_lum",
+      "action": "Prepare a compound dilution series and vehicle/reference controls.",
+      "slots": [
+        "top_concentration_uM",
+        "dilution_factor",
+        "n_points",
+        "replicates",
+        "vehicle_fraction"
+      ]
+    },
+    {
+      "id": "kinase-react",
+      "template": "proto:kinase_biochem_lum",
+      "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+      "slots": [
+        "enzyme_concentration",
+        "substrate_concentration",
+        "ATP_concentration",
+        "reaction_time",
+        "temperature"
+      ],
+      "requires": [
+        "kinase-prepare"
+      ]
+    },
+    {
+      "id": "kinase-detect",
+      "template": "proto:kinase_biochem_lum",
+      "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+      "slots": [
+        "reagent_volumes",
+        "depletion_time",
+        "detection_time"
+      ],
+      "requires": [
+        "kinase-react"
+      ]
+    },
+    {
+      "id": "cell-prepare",
+      "template": "proto:cell_viability_atp",
+      "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+      "slots": [
+        "cell_density",
+        "medium",
+        "top_concentration_uM",
+        "dilution_factor",
+        "n_points",
+        "replicates",
+        "vehicle_fraction"
+      ]
+    },
+    {
+      "id": "cell-expose",
+      "template": "proto:cell_viability_atp",
+      "action": "Expose cells to compound under justified culture conditions.",
+      "slots": [
+        "exposure_time",
+        "temperature"
+      ],
+      "requires": [
+        "cell-prepare"
+      ]
+    },
+    {
+      "id": "cell-detect",
+      "template": "proto:cell_viability_atp",
+      "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+      "slots": [
+        "reagent_volume",
+        "mix_time",
+        "stabilization_time"
+      ],
+      "requires": [
+        "cell-expose"
+      ]
+    },
+    {
+      "id": "analyse",
+      "template": "reviewer-authored",
+      "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+      "slots": [
+        "fit_model",
+        "acceptance_criteria"
+      ]
+    }
+  ],
+  "retained_measurement_examples": [
+    {
+      "compound": "CHEMBL2035187",
+      "ic50_nM": 39.5,
+      "assay": "CHEMBL5224519",
+      "description": "Inhibition of IRAK-1 (unknown origin)",
+      "document": "CHEMBL5223103",
+      "source": "ChEMBL 37"
+    },
+    {
+      "compound": "CHEMBL210194",
+      "ic50_nM": 750.0,
+      "assay": "CHEMBL870866",
+      "description": "Inhibition of IRAK1",
+      "document": "CHEMBL1147720",
+      "source": "ChEMBL 37"
+    },
+    {
+      "compound": "CHEMBL255873",
+      "ic50_nM": 96000.0,
+      "assay": "CHEMBL921624",
+      "description": "Inhibition of IRAK1",
+      "document": "CHEMBL1145577",
+      "source": "ChEMBL 37"
+    },
+    {
+      "compound": "CHEMBL256570",
+      "ic50_nM": 1940.0,
+      "assay": "CHEMBL5738876",
+      "description": "HotSpot Assay: Table 3 and 4: The HotSpot kinase profiling and screening assays were carried out using the method of Anastassiadis et al., Nat. Biotechnol. (2011) Vol. 29, No. 11, pp. 1039-1045 (which is herein incorporated by reference in its entirety); 10 uM was the starting concentration with a 3-fold series dilution (10 doses) and the final ATP concentration was 10 uM.",
+      "document": "CHEMBL5729521",
+      "source": "ChEMBL 37"
+    },
+    {
+      "compound": "CHEMBL256961",
+      "ic50_nM": 1480.0,
+      "assay": "CHEMBL5738897",
+      "description": "IC50 Kinase Assays: Table 8-10: Compounds were tested in 10-dose IC50 mode with 3-fold serial dilution starting at 10 uM, and are relative to DMSO, the negative control. The positive control, Staurosporine, was tested in a 10-dose IC50 mode with 4-fold serial dilution starting at 20 uM. Reactions were carried out at 10 uM ATP. Curve fits were performed to determine IC50 where the enzyme activities at the highest concentration of compounds were less than 65%.",
+      "document": "CHEMBL5729521",
+      "source": "ChEMBL 37"
+    }
+  ],
+  "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+  "guidelines": [
+    "Match the biological system and readout to the question.",
+    "Use controls and justify the concentration series and replicates.",
+    "Respect prerequisites of chosen step cards; justify any adaptations.",
+    "State unsupported conditions as unresolved; do not invent source support.",
+    "Cell viability alone does not establish a target-specific mechanism."
+  ],
+  "output_contract": {
+    "assay_type": "string",
+    "system": "string",
+    "readout": "string",
+    "steps": [
+      {
+        "card_id": "string or justified new step",
+        "instruction": "string",
+        "parameters": "value/unit/evidence or unresolved"
+      }
+    ],
+    "top_concentration_uM": "positive number",
+    "dilution_factor": "number > 1",
+    "n_points": "integer >= 2",
+    "replicates": "positive integer",
+    "controls": [
+      "string"
+    ],
+    "rationale": "string",
+    "citations": [
+      "provided evidence ID"
+    ],
+    "limitations": [
+      "string"
+    ]
+  }
+}

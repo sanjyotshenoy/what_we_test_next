@@ -1,0 +1,186 @@
+[
+  {
+    "compound": "CHEMBL1231206",
+    "target": "Q12866",
+    "assay": "CHEMBL5212756",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to Tyrosine-protein kinase Mer",
+    "id": "case-4",
+    "target_name": "Tyrosine-protein kinase Mer"
+  },
+  {
+    "compound": "CHEMBL118266",
+    "target": "P30530",
+    "assay": "CHEMBL4841505",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to Tyrosine-protein kinase receptor UFO",
+    "id": "case-5",
+    "target_name": "Tyrosine-protein kinase receptor UFO"
+  },
+  {
+    "compound": "CHEMBL1092509",
+    "target": "O14965",
+    "assay": "CHEMBL5151609",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to Aurora kinase A",
+    "id": "case-6",
+    "target_name": "Aurora kinase A"
+  },
+  {
+    "compound": "CHEMBL104468",
+    "target": "P78527",
+    "assay": "CHEMBL1767683",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to DNA-dependent protein kinase catalytic subunit",
+    "id": "case-7",
+    "target_name": "DNA-dependent protein kinase catalytic subunit"
+  },
+  {
+    "compound": "CHEMBL1078983",
+    "target": "P42345",
+    "assay": "CHEMBL4813534",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to Serine/threonine-protein kinase mTOR",
+    "id": "case-8",
+    "target_name": "Serine/threonine-protein kinase mTOR"
+  },
+  {
+    "compound": "CHEMBL1078178",
+    "target": "Q04771",
+    "assay": "CHEMBL3889143",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to Activin receptor type-1",
+    "id": "case-9",
+    "target_name": "Activin receptor type-1"
+  },
+  {
+    "compound": "CHEMBL1077347",
+    "target": "Q13627",
+    "assay": "CHEMBL1114225",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to Dual specificity tyrosine-phosphorylation-regulated kinase 1A",
+    "id": "case-10",
+    "target_name": "Dual specificity tyrosine-phosphorylation-regulated kinase 1A"
+  },
+  {
+    "compound": "CHEMBL10",
+    "target": "P45984",
+    "assay": "CHEMBL1101789",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to Mitogen-activated protein kinase 9",
+    "id": "case-11",
+    "target_name": "Mitogen-activated protein kinase 9"
+  },
+  {
+    "compound": "CHEMBL1738757",
+    "target": "P51617",
+    "assay": "CHEMBL5680983",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to Interleukin-1 receptor-associated kinase 1",
+    "id": "case-12",
+    "target_name": "Interleukin-1 receptor-associated kinase 1"
+  },
+  {
+    "compound": "CHEMBL1258633",
+    "target": "P53667",
+    "assay": "CHEMBL1259853",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to LIM domain kinase 1",
+    "id": "case-13",
+    "target_name": "LIM domain kinase 1"
+  },
+  {
+    "compound": "CHEMBL1077979",
+    "target": "O43318",
+    "assay": "CHEMBL3374134",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to Mitogen-activated protein kinase kinase kinase 7",
+    "id": "case-14",
+    "target_name": "Mitogen-activated protein kinase kinase kinase 7"
+  },
+  {
+    "compound": "CHEMBL1234833",
+    "target": "P48729",
+    "assay": "CHEMBL1806285",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to Casein kinase I isoform alpha",
+    "id": "case-15",
+    "target_name": "Casein kinase I isoform alpha"
+  },
+  {
+    "compound": "CHEMBL1615278",
+    "target": "O60285",
+    "assay": "CHEMBL960872",
+    "mode": "biochemical",
+    "system": null,
+    "focus": "Transfer biochemical design to NUAK family SNF1-like kinase 1",
+    "id": "case-16",
+    "target_name": "NUAK family SNF1-like kinase 1"
+  },
+  {
+    "compound": "CHEMBL191003",
+    "target": "O14965",
+    "assay": "CHEMBL5719093",
+    "mode": "cellular",
+    "system": "human RPMI-8226 cells",
+    "focus": "Proliferation readout is not ATP luminescence",
+    "id": "case-17",
+    "target_name": "Aurora kinase A",
+    "retrieval_terms": [
+      "rpmi-8226"
+    ]
+  },
+  {
+    "compound": "CHEMBL4845957",
+    "target": "P30530",
+    "assay": "CHEMBL4822427",
+    "mode": "cellular",
+    "system": "mouse BaF3 cells expressing recombinant human AXL",
+    "focus": "Engineered-cell viability is not purified-enzyme potency",
+    "id": "case-18",
+    "target_name": "Tyrosine-protein kinase receptor UFO",
+    "retrieval_terms": [
+      "baf3",
+      "axl"
+    ]
+  },
+  {
+    "compound": "CHEMBL5188786",
+    "target": "Q06187",
+    "assay": "CHEMBL5133843",
+    "mode": "cellular",
+    "system": "human TMD8 cells",
+    "focus": "Sparse assay description requires explicit unresolved conditions",
+    "id": "case-19",
+    "target_name": "Tyrosine-protein kinase BTK",
+    "retrieval_terms": [
+      "tmd8"
+    ]
+  },
+  {
+    "compound": "CHEMBL169390",
+    "target": "Q12866",
+    "assay": "CHEMBL4834280",
+    "mode": "cellular",
+    "system": "mouse BaF3 cells expressing MER",
+    "focus": "Proliferation endpoint does not establish target-specific causality",
+    "id": "case-20",
+    "target_name": "Tyrosine-protein kinase Mer",
+    "retrieval_terms": [
+      "baf3",
+      "mer"
+    ]
+  }
+]

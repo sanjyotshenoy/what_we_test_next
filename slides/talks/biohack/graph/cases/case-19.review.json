@@ -1,0 +1,206 @@
+{
+  "id": "case-19",
+  "title": "Sparse assay description requires explicit unresolved conditions",
+  "status": "Draft / human review required",
+  "rationale": "Sparse assay description requires explicit unresolved conditions. Tests suitability, supported step adaptation and numerical uncertainty; the hidden measurement is not a unique correct protocol.",
+  "input": {
+    "id": "case-19",
+    "question": "Design a concentration-response experiment to measure the effect of CHEMBL5188786 on growth/proliferation or viability of human TMD8 cells. Explain the endpoint, justify the readout and any adaptations to the step cards, and state what this can and cannot establish about Tyrosine-protein kinase BTK.",
+    "entities": [
+      {
+        "id": "CHEMBL5188786",
+        "name": "CHEMBL5188786",
+        "type": "Compound",
+        "smiles": "C=CC(=O)N(C)CCOc1c(N)ncnc1-c1ccc(CN2CCN(CC(C)C)CC2=O)c(C)c1"
+      },
+      {
+        "id": "Q06187",
+        "name": "Tyrosine-protein kinase BTK",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "answer": {
+    "reference_measurement": {
+      "assay": "CHEMBL5133843",
+      "document": "CHEMBL5131445",
+      "ic50_nM": 1.6,
+      "year": 2022
+    },
+    "assay": {
+      "id": "CHEMBL5133843",
+      "type": "Assay",
+      "name": "CHEMBL5133843",
+      "props": {
+        "assay_type": "B",
+        "bao_format": "BAO_0000219",
+        "description": "Inhibition of BTK-dependent human TMD8 cell proliferation"
+      },
+      "source": "ChEMBL 37"
+    },
+    "document": {
+      "id": "CHEMBL5131445",
+      "title": "Optimization of a novel piperazinone series as potent selective peripheral covalent BTK inhibitors.",
+      "doi": "10.1016/j.bmcl.2022.128549"
+    },
+    "expected_endpoint": "Growth/proliferation or viability in human TMD8 cells; purified-enzyme inhibition alone does not answer this question. A cellular response alone does not establish target-specific causality. Justify assay adaptation; do not equate all viability readouts.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "numerical_reference": "Held-out IC50 is a contextual target for coverage, not a required prediction or a complete parameter answer key. Full conditions and optimal ranges are not established by these CSV records.",
+    "review_limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds.",
+      "Sparse reference description does not establish a complete detection method or culture procedure."
+    ]
+  },
+  "audit": {
+    "excluded_pair_measurements": 3,
+    "excluded_documents": [
+      "CHEMBL5131445"
+    ],
+    "excluded_assays": [
+      "CHEMBL5133797",
+      "CHEMBL5133801",
+      "CHEMBL5133842",
+      "CHEMBL5133843"
+    ],
+    "removed_edges": 56,
+    "remaining_edges": 19055,
+    "remaining_nodes": 15306,
+    "source_sha256": {
+      "kg/biology/graph/nodes.csv": "452155cb7ac0ae2b0a6a9149001efc5adda858febef28ef37ed88d32f644921c",
+      "kg/biology/graph/edges.csv": "e159b7a2090db3d6dde733bb40c29056188c9ab9b45e2e09ab091cf049a4f09b",
+      "kg/protocols/graph/nodes.csv": "1c13f6a5f1656ed3ee58dad0961094da8563094722ab1dfc22af4f0937b5b914",
+      "kg/protocols/graph/edges.csv": "0466153682c1740eb0fd41b6d511ad2da1ddd997dcfc74487a9d7b64dfb756b5"
+    },
+    "assertions": {
+      "no_pair_edges": true,
+      "no_excluded_sources_in_examples": true
+    }
+  }
+}

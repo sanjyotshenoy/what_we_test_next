@@ -23,6 +23,7 @@
     el('h3','Held-out evidence—not a unique correct protocol',answer);
     el('p',`Recorded IC50: ${c.answer.reference_measurement.ic50_nM} nM (${c.answer.reference_measurement.ic50_nM/1000} µM). Assay: ${c.answer.assay.id}.`,answer);
     el('p',c.answer.assay.props.description,answer);el('p',c.answer.expected_endpoint,answer);el('p',c.answer.numerical_reference,answer);
+    for(const note of c.answer.review_limitations || []) el('p',note,answer).className='note';
     const doi=c.answer.document.doi;if(doi){const a=el('a',`Source: ${doi}`,answer);a.href=`https://doi.org/${encodeURI(doi)}`;a.target='_blank';a.rel='noopener noreferrer';}
     el('h3','Three-axis grading',answer);
     const list=el('ul',null,answer);

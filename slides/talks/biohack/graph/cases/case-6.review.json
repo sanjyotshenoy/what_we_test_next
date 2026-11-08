@@ -1,0 +1,244 @@
+{
+  "id": "case-6",
+  "title": "Transfer biochemical design to Aurora kinase A",
+  "status": "Draft / human review required",
+  "rationale": "Transfer biochemical design to Aurora kinase A. Tests suitability, supported step adaptation and numerical uncertainty; the hidden measurement is not a unique correct protocol.",
+  "input": {
+    "id": "case-6",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Aurora kinase A (O14965) by CHEMBL1092509. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1092509",
+        "name": "CHEMBL1092509",
+        "type": "Compound",
+        "smiles": "O=C1Nc2c(Br)cccc2/C1=C1/Nc2ccccc2/C1=N\\O"
+      },
+      {
+        "id": "O14965",
+        "name": "Aurora kinase A",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL110381",
+        "ic50_nM": 5540.0,
+        "assay": "CHEMBL2382841",
+        "description": "Inhibition of aurora-A (unknown origin)",
+        "document": "CHEMBL2380198",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1336",
+        "ic50_nM": 3800.0,
+        "assay": "CHEMBL2066306",
+        "description": "Inhibition of Aurora A",
+        "document": "CHEMBL2062390",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1483261",
+        "ic50_nM": 5.559,
+        "assay": "CHEMBL2403991",
+        "description": "Inhibition of Aurora A kinase (unknown origin) by Z'-LYTE kinase assay",
+        "document": "CHEMBL2401630",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1512579",
+        "ic50_nM": 1450.0,
+        "assay": "CHEMBL2033074",
+        "description": "Inhibition of human recombinant Aurora A kinase using biotinylated peptide substrate preincubated for 15 mins with compound measured after 30 mins by fluorescence analysis",
+        "document": "CHEMBL2029348",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1533728",
+        "ic50_nM": 2340.0,
+        "assay": "CHEMBL2033074",
+        "description": "Inhibition of human recombinant Aurora A kinase using biotinylated peptide substrate preincubated for 15 mins with compound measured after 30 mins by fluorescence analysis",
+        "document": "CHEMBL2029348",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "answer": {
+    "reference_measurement": {
+      "assay": "CHEMBL5151609",
+      "document": "CHEMBL5149994",
+      "ic50_nM": 2000.0,
+      "year": 2021
+    },
+    "assay": {
+      "id": "CHEMBL5151609",
+      "type": "Assay",
+      "name": "CHEMBL5151609",
+      "props": {
+        "assay_type": "B",
+        "bao_format": "BAO_0000357",
+        "description": "Inhibition of Aurora A (unknown origin)"
+      },
+      "source": "ChEMBL 37"
+    },
+    "document": {
+      "id": "CHEMBL5149994",
+      "title": "Anticancer potential of indirubins in medicinal chemistry: Biological activity, structural modification, and structure-activity relationship.",
+      "doi": "10.1016/j.ejmech.2021.113652"
+    },
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "numerical_reference": "Held-out IC50 is a contextual target for coverage, not a required prediction or a complete parameter answer key. Full conditions and optimal ranges are not established by these CSV records.",
+    "review_limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ]
+  },
+  "audit": {
+    "excluded_pair_measurements": 1,
+    "excluded_documents": [
+      "CHEMBL5149994"
+    ],
+    "excluded_assays": [
+      "CHEMBL5151601",
+      "CHEMBL5151609"
+    ],
+    "removed_edges": 6,
+    "remaining_edges": 19105,
+    "remaining_nodes": 15308,
+    "source_sha256": {
+      "kg/biology/graph/nodes.csv": "452155cb7ac0ae2b0a6a9149001efc5adda858febef28ef37ed88d32f644921c",
+      "kg/biology/graph/edges.csv": "e159b7a2090db3d6dde733bb40c29056188c9ab9b45e2e09ab091cf049a4f09b",
+      "kg/protocols/graph/nodes.csv": "1c13f6a5f1656ed3ee58dad0961094da8563094722ab1dfc22af4f0937b5b914",
+      "kg/protocols/graph/edges.csv": "0466153682c1740eb0fd41b6d511ad2da1ddd997dcfc74487a9d7b64dfb756b5"
+    },
+    "assertions": {
+      "no_pair_edges": true,
+      "no_excluded_sources_in_examples": true
+    }
+  }
+}

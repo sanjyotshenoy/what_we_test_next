@@ -1,0 +1,177 @@
+{
+  "version": "v1-20-diagnostic",
+  "case_count": 20,
+  "status": "Draft / human domain review required; additions not model-evaluated",
+  "counts_by_mode": {
+    "biochemical": 15,
+    "cellular": 5
+  },
+  "source_sha256": {
+    "kg/biology/graph/nodes.csv": "452155cb7ac0ae2b0a6a9149001efc5adda858febef28ef37ed88d32f644921c",
+    "kg/biology/graph/edges.csv": "e159b7a2090db3d6dde733bb40c29056188c9ab9b45e2e09ab091cf049a4f09b",
+    "kg/protocols/graph/nodes.csv": "1c13f6a5f1656ed3ee58dad0961094da8563094722ab1dfc22af4f0937b5b914",
+    "kg/protocols/graph/edges.csv": "0466153682c1740eb0fd41b6d511ad2da1ddd997dcfc74487a9d7b64dfb756b5"
+  },
+  "cases": [
+    {
+      "id": "case-1",
+      "mode": "biochemical",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "reference_document": "CHEMBL5356937",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-2",
+      "mode": "biochemical",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "reference_document": "CHEMBL5375979",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-3",
+      "mode": "cellular",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "reference_document": "CHEMBL5209897",
+      "retained_examples": 0,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-4",
+      "mode": "biochemical",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "reference_document": "CHEMBL5212743",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-5",
+      "mode": "biochemical",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "reference_document": "CHEMBL4840343",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-6",
+      "mode": "biochemical",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "reference_document": "CHEMBL5149994",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-7",
+      "mode": "biochemical",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "reference_document": "CHEMBL1765064",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-8",
+      "mode": "biochemical",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "reference_document": "CHEMBL4811304",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-9",
+      "mode": "biochemical",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "reference_document": "CHEMBL3886963",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-10",
+      "mode": "biochemical",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "reference_document": "CHEMBL1155389",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-11",
+      "mode": "biochemical",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "reference_document": "CHEMBL1154277",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-12",
+      "mode": "biochemical",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "reference_document": "CHEMBL5678804",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-13",
+      "mode": "biochemical",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "reference_document": "CHEMBL1255531",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-14",
+      "mode": "biochemical",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "reference_document": "CHEMBL3351803",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-15",
+      "mode": "biochemical",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "reference_document": "CHEMBL1800061",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-16",
+      "mode": "biochemical",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "reference_document": "CHEMBL1153318",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-17",
+      "mode": "cellular",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "reference_document": "CHEMBL5715952",
+      "retained_examples": 0,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-18",
+      "mode": "cellular",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "reference_document": "CHEMBL4819114",
+      "retained_examples": 0,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-19",
+      "mode": "cellular",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "reference_document": "CHEMBL5131445",
+      "retained_examples": 0,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    },
+    {
+      "id": "case-20",
+      "mode": "cellular",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "reference_document": "CHEMBL4831559",
+      "retained_examples": 5,
+      "numerical_comparability": "Not established; reviewer must assess assay/system compatibility"
+    }
+  ]
+}
