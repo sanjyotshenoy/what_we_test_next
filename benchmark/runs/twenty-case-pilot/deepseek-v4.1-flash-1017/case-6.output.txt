@@ -1,0 +1,57 @@
+{
+  "assay_type": "biochemical kinase inhibition concentration-response assay (ADP-Glo luminescent)",
+  "system": "Aurora kinase A (O14965) enzyme preparation; source, construct, purity and activation state unresolved",
+  "readout": "Luminescence from ADP-Glo ADP detection as a biochemical kinase-activity readout; not cell viability and not target-specific cellular causality",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a compound dilution series plus vehicle and background controls. Use a provisional broad series because no query-specific potency is supplied.",
+      "parameters": "top_concentration_uM=100 (provisional assumption, not sourced); dilution_factor=3 (provisional assumption); n_points=10 (provisional assumption); replicates=3 (provisional assumption); vehicle_fraction=1% v/v DMSO (provisional assumption; solubility and DMSO tolerance unresolved)"
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, Aurora kinase A (O14965), substrate and ATP; run the kinase reaction under conditions justified by target-specific kinetic/linearity data.",
+      "parameters": "enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved; reaction_time=unresolved; temperature=unresolved. Preincubation time, if used, is unresolved and must be labeled as an assumption."
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction, deplete residual ATP, perform ADP detection, and measure luminescence using a verified ADP-Glo-compatible procedure.",
+      "parameters": "reagent_volumes=unresolved; depletion_time=unresolved; detection_time=unresolved. Kit compatibility and compound interference are unresolved."
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize to vehicle/no-enzyme controls, fit a concentration-response curve, and report uncertainty and limitations. Do not infer cellular activity or a remembered potency.",
+      "parameters": "fit_model=four-parameter logistic with Hill slope (provisional assumption); acceptance_criteria=predefined signal window, Z-prime and curve-fit criteria; exact thresholds unresolved. Report IC50 only if the curve passes criteria, with confidence interval."
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle-only (DMSO) control",
+    "no-compound uninhibited kinase control",
+    "no-enzyme background control",
+    "detection reagent/ATP-depletion blank",
+    "reference Aurora A inhibitor control (identity and concentration unresolved; not sourced)"
+  ],
+  "rationale": "The question asks for biochemical inhibition of Aurora kinase A (O14965), so the ordered kinase cards kinase-prepare, kinase-react, kinase-detect and analyse are selected; cell-viability cards are omitted because they would not establish biochemical target inhibition. ADP-Glo luminescence is a biochemical kinase-activity readout compatible with the supplied kinase-detect card. The 100 uM top, 3-fold dilution, 10 points, n=3 and 1% DMSO are provisional design assumptions chosen to span a broad range without using a remembered query potency; they are not sourced facts. Retained Aurora A assay descriptions such as CHEMBL2033074 and CHEMBL2403991 are contextual only and are for other compounds, so their IC50s are not used as estimates for CHEMBL1092509.",
+  "citations": [
+    "O14965",
+    "CHEMBL1092509",
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse",
+    "CHEMBL2033074",
+    "CHEMBL2403991"
+  ],
+  "limitations": [
+    "No direct CHEMBL1092509 Aurora A measurement is supplied; no IC50 is predicted.",
+    "Enzyme source/construct/activation state, enzyme concentration, substrate concentration, ATP concentration, reaction time and temperature are unresolved.",
+    "ADP-Glo reagent volumes, ATP-depletion time and detection time are unresolved.",
+    "The concentration series and replicate count are provisional assumptions, not sourced; solubility, DMSO tolerance and compound interference are unresolved.",
+    "Reference inhibitor identity/concentration and assay acceptance thresholds are unresolved.",
+    "Biochemical inhibition does not establish cellular Aurora A engagement, cellular viability effects or target-specific causality."
+  ]
+}

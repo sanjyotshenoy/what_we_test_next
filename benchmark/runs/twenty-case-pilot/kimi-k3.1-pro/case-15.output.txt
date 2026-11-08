@@ -1,0 +1,78 @@
+{
+  "assay_type": "Biochemical kinase concentration-response inhibition assay using an ADP-Glo-compatible format",
+  "system": "Purified or recombinant Casein kinase I isoform alpha (P48729) with CHEMBL1234833; enzyme construct, substrate identity, and buffer composition are unresolved",
+  "readout": "Luminescence reporting ADP formation after residual-ATP depletion and ADP detection; signal is normalized to vehicle and background controls",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, threefold CHEMBL1234833 dilution series from 100 uM, keeping vehicle concentration constant across all compound and control wells. Include vehicle, no-enzyme background, and reference-inhibitor controls. These series settings are provisional design assumptions, not sourced assay conditions.",
+      "parameters": {
+        "top_concentration_uM": "100 uM; provisional assumption for an initial wide-range screen, subject to solubility and assay interference",
+        "dilution_factor": "3; provisional assumption",
+        "n_points": "10; provisional assumption",
+        "replicates": "3 independent experiments; provisional assumption, with technical within-run replication unresolved",
+        "vehicle_fraction": "Unresolved; use the lowest compatible fraction and hold it constant across wells"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound or control, P48729 kinase, a validated CK1 substrate, and ATP, then initiate and stop the reaction consistently. Determine linear-range enzyme, substrate, ATP, time, and temperature conditions in a preliminary run rather than transferring conditions from other compounds.",
+      "parameters": {
+        "enzyme_concentration": "Unresolved; select within the linear signal range",
+        "substrate_concentration": "Unresolved; substrate identity and concentration require validation",
+        "ATP_concentration": "Unresolved; CHEMBL1244314 reports 10 uM ATP only for a different compound and radioactive assay, so it does not establish the condition here",
+        "reaction_time": "Unresolved; choose a time within the linear reaction range",
+        "temperature": "Unresolved"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction, add ADP-Glo reagent to deplete residual ATP, then add the ADP detection reagent and measure luminescence after the validated incubations. Include reagent-only and nucleotide controls to assess background and compound-related optical interference.",
+      "parameters": {
+        "reagent_volumes": "Unresolved; follow the validated plate-format procedure",
+        "depletion_time": "Unresolved",
+        "detection_time": "Unresolved"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract appropriate background, normalize vehicle activity to 0% inhibition and the validated inactive/background condition to 100% inhibition, and fit concentration-response data. Report the fitted IC50 with confidence intervals, individual replicate results, curve diagnostics, and any concentrations excluded for interference or solubility problems. Do not infer an IC50 from the retained measurements for other compounds.",
+      "parameters": {
+        "fit_model": "Four-parameter logistic model as a provisional assumption; use a simpler or constrained model if the data do not support all parameters",
+        "acceptance_criteria": "Provisional: consistent controls, reaction within the linear range, adequate signal above background, and acceptable replicate agreement; numerical thresholds are unresolved"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only kinase reaction at the same vehicle fraction as compound wells",
+    "No-enzyme background control",
+    "No-substrate control to assess substrate-independent signal",
+    "Detection-reagent-only background control",
+    "Reference CK1 inhibitor control, with inhibitor identity and concentration unresolved",
+    "Compound-plus-detection-reagent interference controls without a kinase reaction",
+    "Optional ATP/ADP standard series to verify detection performance"
+  ],
+  "rationale": "The question requires direct biochemical inhibition of P48729, so only the kinase preparation, reaction, detection, and analysis cards are used. ADP-Glo couples kinase-dependent ADP production to luminescence and avoids conflating biochemical inhibition with cellular ATP viability. The wide dilution series is a provisional exploration strategy because the packet supplies no potency estimate for CHEMBL1234833. Retrieved CK1 assays demonstrate that biochemical inhibition measurements are relevant, but their compounds, readouts, and conditions differ and cannot define this assay's potency or operating parameters.",
+  "citations": [
+    "CHEMBL1234833",
+    "P48729",
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse",
+    "CHEMBL1114223",
+    "CHEMBL1244314",
+    "CHEMBL2089673"
+  ],
+  "limitations": [
+    "The 100 uM top concentration, threefold dilution, 10 points, and three independent experiments are explicitly provisional assumptions, not packet-supported measurements.",
+    "Enzyme construct and concentration, substrate identity and concentration, ATP concentration, buffer, reaction time and temperature, vehicle fraction, plate format, reagent volumes, and detection incubation times remain unresolved.",
+    "Retained IC50 values concern other compounds and sometimes generic CK1 or different assay formats; they provide no direct potency estimate for CHEMBL1234833 against P48729.",
+    "Compound solubility, aggregation, luminescence quenching or enhancement, and ADP-Glo interference must be assessed before interpreting curves.",
+    "A biochemical IC50 demonstrates inhibition under the selected assay conditions only; it does not establish cellular viability effects, cellular target engagement, selectivity, or target-specific causality in cells."
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "assay_type": "biochemical",
+  "system": "IRAK1 recombinant protein",
+  "readout": "luminescence via ADP-Glo",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a compound dilution series and vehicle/reference controls.",
+      "parameters": {
+        "top_concentration_uM": "unresolved",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.5% DMSO"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+      "parameters": {
+        "enzyme_concentration": "10 nM",
+        "substrate_concentration": "5 \u00b5M peptide substrate",
+        "ATP_concentration": "10 \u00b5M",
+        "reaction_time": "30 min",
+        "temperature": "30\u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop reaction, deplete ATP, add ADP detection reagent, measure luminescence.",
+      "parameters": {
+        "reagent_volumes": "per manufacturer protocol",
+        "depletion_time": "40 min",
+        "detection_time": "30 min"
+      }
+    }
+  ],
+  "top_concentration_uM": "unresolved",
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (DMSO)",
+    "no-enzyme blank",
+    "positive control inhibitor (e.g., staurosporine)"
+  ],
+  "rationale": "ADP-Glo measures ADP produced by kinase activity; using recombinant IRAK1 ensures target-specific biochemical readout. Concentration series and replicates follow typical kinase assay practice seen in retained examples (e.g., CHEMBL256961 uses 10\u2011point 3\u2011fold series).",
+  "citations": [
+    "CHEMBL256961"
+  ],
+  "limitations": [
+    "Top concentration not justified by solubility or selectivity data; may need empirical determination.",
+    "Assumes recombinant IRAK1 activity is linear under chosen enzyme/substrate/ATP concentrations; kinetic validation not provided.",
+    "Vehicle fraction fixed at 0.5% DMSO without evidence of tolerance for this compound."
+  ]
+}

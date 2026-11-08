@@ -1,0 +1,68 @@
+{
+  "assay_type": "Cellular concentration-response viability/proliferation assay (ATP-based luminescence, CellTiter-Glo)",
+  "system": "Human TMD8 cells (ABC-DLBCL line expressing wild-type BTK); culture details unresolved from packet",
+  "readout": "ATP-dependent luminescence as a proxy for metabolically active (viable/proliferating) cell number; percent-of-vehicle response vs. log10 concentration, fit to a four-parameter logistic curve",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Plate TMD8 cells in assay medium with a serial dilution of CHEMBL5188786, plus vehicle, reference, and background controls.",
+      "parameters": {
+        "cell_density": "unresolved \u2014 no packet evidence for TMD8 plating density; assumption: within a range that keeps vehicle wells in logarithmic growth over the exposure window (e.g., low-to-mid 10^4 cells/mL scale), must be optimized empirically",
+        "medium": "unresolved \u2014 standard TMD8 growth medium per supplier/laboratory SOP; not specified in packet",
+        "top_concentration_uM": 30,
+        "dilution_factor": 3,
+        "n_points": 10,
+        "replicates": 3,
+        "vehicle_fraction": "assumption: \u22640.3% DMSO, matched in all compound and vehicle wells; no packet evidence for solubility limit"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Incubate cells with compound under standard mammalian culture conditions.",
+      "parameters": {
+        "exposure_time": "unresolved \u2014 assumption: 72 h to capture proliferation-based effects; alternatives (24 h for acute cytotoxicity) not distinguished by packet evidence",
+        "temperature": "assumption: 37\u00b0C, 5% CO2 humidified incubator (standard practice, not packet-sourced)"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Equilibrate plates, add CellTiter-Glo reagent 1:1, mix, stabilize, and read luminescence.",
+      "parameters": {
+        "reagent_volume": "assumption: equal to culture volume per well (1:1 reagent:medium), per manufacturer-style procedure; not packet-sourced",
+        "mix_time": "assumption: 2 min orbital shaking; unresolved from packet",
+        "stabilization_time": "assumption: 10 min at room temperature; unresolved from packet"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract background (medium + reagent, no cells), normalize each well to the mean vehicle control, fit a 4-parameter logistic concentration-response curve, and report IC50/EC50 with confidence intervals.",
+      "parameters": {
+        "fit_model": "4-parameter logistic (variable slope), log10 concentration",
+        "acceptance_criteria": "assumption: vehicle wells within \u00b120% of plate-mean vehicle; background <5% of vehicle signal; Z'-like separation between vehicle and a positive reference control; no packet-sourced criteria"
+      }
+    }
+  ],
+  "top_concentration_uM": 30,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle control (DMSO at matched fraction) defining 100% viability",
+    "Background control (medium + CellTiter-Glo reagent, no cells) for luminescence subtraction",
+    "Reference cytotoxic/anti-proliferative control compound (identity unresolved \u2014 no packet evidence) to confirm assay dynamic range",
+    "Untreated control to check vehicle effect",
+    "Optional: a well-characterized BTK inhibitor as a mechanistic comparator (assumption; identity not supplied in packet)"
+  ],
+  "rationale": "The question asks for growth/proliferation or viability of human TMD8 cells, so the cell_viability_atp step cards (cell-prepare, cell-expose, cell-detect) are the appropriate chain; the kinase_biochem_lum cards (kinase-prepare/react/detect) measure direct biochemical inhibition of purified BTK and do not answer a cellular question. CellTiter-Glo luminescence is proportional to cellular ATP and thus to viable, metabolically active cell number, a standard proxy for proliferation/viability in suspension lines such as TMD8. The concentration series (30 \u00b5M top, 3-fold, 10 points, triplicates) is an assumption chosen to span likely effect ranges with adequate curve-fitting points; the packet contains no retained measurement examples (retained_measurement_examples is empty and retrieval note indicates no eligible examples), so no numeric parameters can be justified from evidence. CHEMBL5188786's structure (SMILES in packet) is consistent with a small molecule, but no potency, solubility, or selectivity data were supplied.",
+  "citations": [
+    "case-19"
+  ],
+  "limitations": [
+    "No retained measurement examples were retrieved for this compound/target, so all numeric parameters (top concentration, dilution factor, exposure time, cell density, reagent volumes) are explicitly labeled assumptions and require empirical optimization.",
+    "This assay measures cellular viability/proliferation, not biochemical inhibition of BTK; a viability IC50 cannot be equated with a BTK enzymatic IC50, and no withheld biochemical IC50 is predicted here.",
+    "Viability effects in TMD8 cells cannot establish target-specific causality: reduced ATP signal could reflect cytotoxicity, cytostasis, off-target activity of CHEMBL5188786, or compound interference with the luminescence chemistry. Establishing BTK-dependent mechanism would require orthogonal evidence (e.g., biochemical BTK inhibition assay, active BTK knockdown/rescue, pharmacologic rescue with known BTK inhibitors, or cellular BTK substrate phosphorylation readouts), none of which is supplied.",
+    "Compound solubility and stability at the top concentration are unverified; apparent plateaus at high concentration may reflect precipitation or assay interference rather than biology.",
+    "Single cell line (TMD8) and single time point limit generalization; distinguishing cytostatic from cytolytic effects would need additional readouts (e.g., cell counts, annexin V).",
+    "The reference control identity is unresolved from the packet and must be selected from local SOPs."
+  ]
+}

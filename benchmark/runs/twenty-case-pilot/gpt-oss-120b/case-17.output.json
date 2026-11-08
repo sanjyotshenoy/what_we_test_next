@@ -1,0 +1,65 @@
+{
+  "assay_type": "cell viability (ATP\u2011luminescence)",
+  "system": "human RPMI\u20118226 multiple myeloma cells",
+  "readout": "luminescence measured with CellTiter\u2011Glo (ATP content as proxy for viable cell number)",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Plate RPMI\u20118226 cells in 96\u2011well white plates, add a 8\u2011point serial dilution of JNJ\u20117706621 (CHEMBL191003) and appropriate controls.",
+      "parameters": {
+        "cell_density": "5\u202f\u00d7\u202f10\u2074\u202fcells\u202fwell\u207b\u00b9 (typical for 24\u202fh attachment, evidence from standard RPMI\u20118226 protocols)",
+        "medium": "RPMI\u20111640 + 10\u202f% FBS, 1\u202f% pen\u2011strep",
+        "top_concentration_uM": "10\u202f\u00b5M (assumption \u2013 common upper limit for kinase inhibitors when no prior cytotoxicity data are available)",
+        "dilution_factor": "3 (standard 3\u2011fold dilution series)",
+        "n_points": "8 (covers ~2.5\u202flog range)",
+        "replicates": "3 (biological replicates per concentration)",
+        "vehicle_fraction": "0.1\u202f% DMSO v/v (kept constant across all wells)"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Incubate plates with compound under standard culture conditions.",
+      "parameters": {
+        "exposure_time": "72\u202fh (assumption \u2013 typical endpoint for proliferation/viability assays in myeloma cells)",
+        "temperature": "37\u202f\u00b0C, 5\u202f% CO\u2082"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter\u2011Glo reagent, mix, allow signal stabilization, then read luminescence.",
+      "parameters": {
+        "reagent_volume": "100\u202f\u00b5L per well (per manufacturer protocol)",
+        "mix_time": "2\u202fmin orbital shaking",
+        "stabilization_time": "10\u202fmin at room temperature"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100\u202f% viability) and background (0\u202f% viability), fit a four\u2011parameter logistic curve, report EC\u2085\u2080 with 95\u202f% confidence intervals and assay quality metrics.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic (Hill slope, bottom, top, EC\u2085\u2080)",
+        "acceptance_criteria": "R\u00b2\u202f\u2265\u202f0.80 and %CV\u202f\u2264\u202f20\u202f% across replicates"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle control (0.1\u202f% DMSO)",
+    "medium\u2011only background (no cells)",
+    "reference Aurora\u2011A inhibitor (e.g., alisertib) if available \u2013 otherwise untreated control"
+  ],
+  "rationale": "CellTiter\u2011Glo provides a robust, homogeneous ATP\u2011based readout that correlates with viable cell number and is compatible with 96\u2011well format. RPMI\u20118226 is a human plasma\u2011cell line that expresses Aurora kinase A (O14965) and is commonly used to assess antiproliferative activity of kinase inhibitors. The chosen concentration range (10\u202f\u00b5M \u2192 ~0.015\u202f\u00b5M) spans typical IC\u2085\u2080 values for Aurora\u2011A inhibitors, allowing detection of both cytostatic and cytotoxic effects. Replicates and a vehicle fraction of 0.1\u202f% DMSO minimize plate\u2011to\u2011plate variability and DMSO\u2011induced toxicity.",
+  "citations": [
+    "CHEMBL191003",
+    "O14965"
+  ],
+  "limitations": [
+    "The assay measures overall cell viability and cannot distinguish whether growth inhibition is due to on\u2011target Aurora\u2011A inhibition or off\u2011target effects of JNJ\u20117706621.",
+    "No direct biochemical readout of Aurora\u2011A activity is included; therefore causality between target inhibition and phenotype remains unproven.",
+    "Assumed parameters (top concentration, exposure time, cell density) are not derived from prior evidence for this compound and should be validated in pilot runs.",
+    "If a reference Aurora\u2011A inhibitor is not available, the ability to benchmark target\u2011specific potency is limited."
+  ]
+}

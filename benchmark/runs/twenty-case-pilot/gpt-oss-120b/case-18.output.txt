@@ -1,0 +1,69 @@
+{
+  "assay_type": "cell viability (ATP‑luminescence)",
+  "system": "mouse BaF3 cells engineered to express recombinant human AXL (Tyrosine‑protein kinase receptor UFO, UniProt P30530)",
+  "readout": "CellTiter‑Glo luminescence proportional to cellular ATP content",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Plate BaF3‑AXL cells in 96‑well white plates, add a 8‑point, 3‑fold serial dilution of CHEMBL4845957 starting at 10 µM; include vehicle (0.1 % DMSO) and background (no cells) wells.",
+      "parameters": {
+        "cell_density": "5 × 10^4 cells/well (typical for BaF3 24 h assay) – evidence: standard BaF3 protocol",
+        "medium": "RPMI‑1640 + 10 % FBS + IL‑3 (required for BaF3 survival) – evidence: BaF3 culture requirements",
+        "top_concentration_uM": 10,
+        "dilution_factor": 3,
+        "n_points": 8,
+        "replicates": 3,
+        "vehicle_fraction": "0.1 % DMSO v/v"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Incubate plates at 37 °C, 5 % CO₂ for 72 h to allow proliferation dependent on AXL signaling.",
+      "parameters": {
+        "exposure_time": "72 h – justified by BaF3 proliferation assay duration",
+        "temperature": "37 °C"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter‑Glo reagent (100 µL per well), mix for 2 min, incubate 10 min for luminescence stabilization, then read on a plate‑luminescence reader.",
+      "parameters": {
+        "reagent_volume": "100 µL/well (per manufacturer protocol)",
+        "mix_time": "2 min",
+        "stabilization_time": "10 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100 % viability) and background (0 % viability), fit a four‑parameter logistic curve, report EC₅₀ with 95 % confidence interval; assess assay quality by Z′‑factor (>0.5).",
+      "parameters": {
+        "fit_model": "4‑parameter logistic (Hill) – standard for concentration‑response",
+        "acceptance_criteria": "R² > 0.9, EC₅₀ confidence interval ≤ 1 log unit, Z′‑factor ≥ 0.5"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle control (0.1 % DMSO)",
+    "background control (media only, no cells)",
+    "optional reference inhibitor (if available) – unresolved"
+  ],
+  "rationale": "BaF3 cells become IL‑3‑independent when transformed by an active tyrosine‑kinase such as human AXL; therefore proliferation/viability measured by ATP‑dependent luminescence reflects the functional output of AXL signaling. A concentration‑response using an ATP‑based readout is sensitive, homogeneous, and compatible with the provided step cards. The chosen concentration range (10 µM → ~0.005 µM) spans typical kinase inhibitor potencies and allows detection of both potent and weak effects. Replicates and vehicle controls address plate‑to‑plate variability, while background wells correct for reagent luminescence. The analysis step normalizes data and fits a standard dose‑response model, providing an EC₅₀ that quantifies growth inhibition.",
+  "citations": [
+    "CHEMBL4845957",
+    "P30530",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "The assay measures overall cell viability/proliferation and cannot distinguish whether inhibition is due to on‑target AXL blockade or off‑target cytotoxicity.",
+    "No parallel biochemical kinase assay is included; therefore target engagement is inferred, not demonstrated.",
+    "If a suitable reference AXL inhibitor is unavailable, mechanistic attribution remains unresolved.",
+    "The chosen top concentration (10 µM) is an assumption based on typical small‑molecule kinase inhibitor screens; higher concentrations may be needed if the compound is poorly permeable."
+  ]
+}

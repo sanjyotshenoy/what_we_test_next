@@ -1,0 +1,68 @@
+{
+  "assay_type": "biochemical luminescence (ADP-Glo)",
+  "system": "recombinant human mTOR kinase",
+  "readout": "luminescence proportional to ADP produced",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold serial dilution of CHEMBL1078983 starting from an unresolved top concentration, include vehicle (DMSO) control and a positive control (known mTOR inhibitor).",
+      "parameters": {
+        "top_concentration_uM": "unresolved",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.01 (1% DMSO)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Mix diluted compound, mTOR enzyme, peptide substrate, and ATP; incubate at 30\u00b0C for 30 min.",
+      "parameters": {
+        "enzyme_concentration": "unresolved",
+        "substrate_concentration": "unresolved",
+        "ATP_concentration": "unresolved",
+        "reaction_time": "30 min",
+        "temperature": "30\u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop reaction, deplete residual ATP, add ADP-Glo detection reagent, incubate, then measure luminescence.",
+      "parameters": {
+        "reagent_volumes": "manufacturer recommended ratio",
+        "depletion_time": "40 min",
+        "detection_time": "30 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100% activity) and positive control (0% activity), fit a four-parameter logistic curve, report IC50 with 95% CI and assay Z' factor.",
+      "parameters": {
+        "fit_model": "four-parameter logistic",
+        "acceptance_criteria": "Z' \u2265 0.5, R\u00b2 \u2265 0.9"
+      }
+    }
+  ],
+  "top_concentration_uM": "unresolved",
+  "dilution_factor": "3",
+  "n_points": "10",
+  "replicates": "3",
+  "controls": [
+    "vehicle (0.1% DMSO)",
+    "positive control inhibitor (e.g., Ku-0063794)"
+  ],
+  "rationale": "The ADP-Glo luminescent assay is a homogeneous, kinase\u2011activity readout that has been used for mTOR inhibition studies (see retained examples CHEMBL4844752, CHEMBL4731424, CHEMBL4821861, CHEMBL5225443, CHEMBL5347353). It directly measures biochemical inhibition, satisfying the requirement to distinguish from cellular viability.",
+  "citations": [
+    "CHEMBL4844752",
+    "CHEMBL4731424",
+    "CHEMBL4821861",
+    "CHEMBL5225443",
+    "CHEMBL5347353"
+  ],
+  "limitations": [
+    "Top concentration, enzyme, substrate, and ATP concentrations are not specified in the packet and must be determined empirically.",
+    "Assumes recombinant mTOR preparation is active and comparable to those used in cited assays.",
+    "Vehicle tolerance (1% DMSO) is assumed; actual solubility may require adjustment.",
+    "Assay duration (30\u202fmin reaction) follows typical mTOR kinase conditions but may need optimization."
+  ]
+}

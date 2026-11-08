@@ -1,0 +1,246 @@
+{
+  "id": "case-12",
+  "title": "Transfer biochemical design to Interleukin-1 receptor-associated kinase 1",
+  "status": "Draft / human review required",
+  "rationale": "Transfer biochemical design to Interleukin-1 receptor-associated kinase 1. Tests suitability, supported step adaptation and numerical uncertainty; the hidden measurement is not a unique correct protocol.",
+  "input": {
+    "id": "case-12",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Interleukin-1 receptor-associated kinase 1 (P51617) by CHEMBL1738757. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1738757",
+        "name": "REBASTINIB",
+        "type": "Compound",
+        "smiles": "CNC(=O)c1cc(Oc2ccc(NC(=O)Nc3cc(C(C)(C)C)nn3-c3ccc4ncccc4c3)c(F)c2)ccn1"
+      },
+      {
+        "id": "P51617",
+        "name": "Interleukin-1 receptor-associated kinase 1",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL2035187",
+        "ic50_nM": 39.5,
+        "assay": "CHEMBL5224519",
+        "description": "Inhibition of IRAK-1 (unknown origin)",
+        "document": "CHEMBL5223103",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL210194",
+        "ic50_nM": 750.0,
+        "assay": "CHEMBL870866",
+        "description": "Inhibition of IRAK1",
+        "document": "CHEMBL1147720",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL255873",
+        "ic50_nM": 96000.0,
+        "assay": "CHEMBL921624",
+        "description": "Inhibition of IRAK1",
+        "document": "CHEMBL1145577",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL256570",
+        "ic50_nM": 1940.0,
+        "assay": "CHEMBL5738876",
+        "description": "HotSpot Assay: Table 3 and 4: The HotSpot kinase profiling and screening assays were carried out using the method of Anastassiadis et al., Nat. Biotechnol. (2011) Vol. 29, No. 11, pp. 1039-1045 (which is herein incorporated by reference in its entirety); 10 uM was the starting concentration with a 3-fold series dilution (10 doses) and the final ATP concentration was 10 uM.",
+        "document": "CHEMBL5729521",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL256961",
+        "ic50_nM": 1480.0,
+        "assay": "CHEMBL5738897",
+        "description": "IC50 Kinase Assays: Table 8-10: Compounds were tested in 10-dose IC50 mode with 3-fold serial dilution starting at 10 uM, and are relative to DMSO, the negative control. The positive control, Staurosporine, was tested in a 10-dose IC50 mode with 4-fold serial dilution starting at 20 uM. Reactions were carried out at 10 uM ATP. Curve fits were performed to determine IC50 where the enzyme activities at the highest concentration of compounds were less than 65%.",
+        "document": "CHEMBL5729521",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "answer": {
+    "reference_measurement": {
+      "assay": "CHEMBL5680983",
+      "document": "CHEMBL5678804",
+      "ic50_nM": 39.0,
+      "year": 2011
+    },
+    "assay": {
+      "id": "CHEMBL5680983",
+      "type": "Assay",
+      "name": "CHEMBL5680983",
+      "props": {
+        "assay_type": "B",
+        "bao_format": "BAO_0000357",
+        "description": "Inhibition of human wild type IRAK1 using RB-CTF as substrate preincubated for 2 hrs followed by ATP addition and measured every 2 mins for 2.5 hrs by spectrophotometric analysis"
+      },
+      "source": "ChEMBL 37"
+    },
+    "document": {
+      "id": "CHEMBL5678804",
+      "title": "Conformational control inhibition of the BCR-ABL1 tyrosine kinase, including the gatekeeper T315I mutant, by the switch-control inhibitor DCC-2036.",
+      "doi": "10.1016/j.ccr.2011.03.003"
+    },
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "numerical_reference": "Held-out IC50 is a contextual target for coverage, not a required prediction or a complete parameter answer key. Full conditions and optimal ranges are not established by these CSV records.",
+    "review_limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ]
+  },
+  "audit": {
+    "excluded_pair_measurements": 1,
+    "excluded_documents": [
+      "CHEMBL5678804"
+    ],
+    "excluded_assays": [
+      "CHEMBL5680965",
+      "CHEMBL5680983",
+      "CHEMBL5680985",
+      "CHEMBL5681017"
+    ],
+    "removed_edges": 8,
+    "remaining_edges": 19103,
+    "remaining_nodes": 15306,
+    "source_sha256": {
+      "kg/biology/graph/nodes.csv": "452155cb7ac0ae2b0a6a9149001efc5adda858febef28ef37ed88d32f644921c",
+      "kg/biology/graph/edges.csv": "e159b7a2090db3d6dde733bb40c29056188c9ab9b45e2e09ab091cf049a4f09b",
+      "kg/protocols/graph/nodes.csv": "1c13f6a5f1656ed3ee58dad0961094da8563094722ab1dfc22af4f0937b5b914",
+      "kg/protocols/graph/edges.csv": "0466153682c1740eb0fd41b6d511ad2da1ddd997dcfc74487a9d7b64dfb756b5"
+    },
+    "assertions": {
+      "no_pair_edges": true,
+      "no_excluded_sources_in_examples": true
+    }
+  }
+}

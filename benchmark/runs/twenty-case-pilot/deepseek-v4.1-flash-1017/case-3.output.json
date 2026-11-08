@@ -1,0 +1,49 @@
+{
+  "assay_type": "Cell viability ATP luminescence concentration-response assay",
+  "system": "Rec-1 cells (as specified in the question; cell-line provenance is not in the packet)",
+  "readout": "ATP-dependent luminescence as a proxy for viable cell number/metabolic activity",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Plate Rec-1 cells and prepare an 8-point, 3-fold compound dilution series plus vehicle, no-cell background, and optional reference controls; keep vehicle concentration constant across compound wells.",
+      "parameters": "cell_density: unresolved; medium: unresolved; top_concentration_uM: 10 (provisional assumption, not sourced); dilution_factor: 3 (provisional assumption, not sourced); n_points: 8 (provisional assumption, not sourced); replicates: 3 (provisional assumption, not sourced); vehicle_fraction: unresolved; keep constant across wells (assumption: use the lowest tolerated constant vehicle level)"
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose cells to CHEMBL3936761 for a fixed exposure period under culture conditions, with vehicle-matched and untreated controls.",
+      "parameters": "exposure_time: unresolved (provisional assumption: 72 h, not sourced); temperature: unresolved (provisional assumption: 37 \u00b0C with appropriate CO2, not sourced)"
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Apply an ATP-based viability reagent, mix, stabilize, and measure luminescence; include no-cell background wells.",
+      "parameters": "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved; follow a validated reagent protocol, but no packet-supported values are available"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle and background controls, fit a concentration-response curve, and report potency with uncertainty and assay limitations; do not infer BTK inhibition from viability alone.",
+      "parameters": "fit_model: four-parameter logistic concentration-response fit (provisional assumption, not sourced); acceptance_criteria: unresolved; require replicate consistency, report confidence intervals, and flag poor or edge-limited fits"
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle-only wells with the same vehicle fraction as compound wells",
+    "no-cell background wells",
+    "untreated/vehicle-normalized cell control",
+    "optional reference inhibitor positive control (identity and concentration unresolved; not sourced)"
+  ],
+  "rationale": "This design measures whether CHEMBL3936761 produces a concentration-dependent change in Rec-1 ATP-based viability. It can establish a cellular viability/growth response and a conditional cellular potency estimate under the chosen assay conditions. It cannot establish biochemical BTK inhibition, because no BTK enzyme assay is included, and it cannot establish target-specific causality, because viability is downstream and may reflect off-target effects, assay interference, growth arrest, or cytotoxicity. Biochemical inhibition would require a BTK (Q06187) enzyme assay; target-specific causality would require cellular BTK engagement/occupancy or phospho-BTK measurements and, ideally, rescue or genetic dependence controls, none of which are supplied. The numeric concentration series, replicate count, and exposure time are provisional design assumptions, not sourced facts.",
+  "citations": [
+    "CHEMBL3936761",
+    "Q06187"
+  ],
+  "limitations": [
+    "No retained measurement examples or packet-supported values for cell density, medium, exposure time, reagent volumes/times, vehicle fraction, or acceptance thresholds.",
+    "Cell viability is not a direct measure of BTK biochemical inhibition; it cannot distinguish BTK-mediated effects from off-target cytotoxicity or nonspecific assay effects.",
+    "Target-specific causality for BTK is not established without BTK engagement, phospho-BTK, occupancy, rescue, or genetic-dependence experiments.",
+    "The top concentration, dilution factor, number of points, replicates, and exposure time are provisional assumptions and may be unsuitable for the actual compound/cell system.",
+    "No IC50 is predicted; any fitted potency is conditional on the unresolved assay conditions and controls."
+  ]
+}

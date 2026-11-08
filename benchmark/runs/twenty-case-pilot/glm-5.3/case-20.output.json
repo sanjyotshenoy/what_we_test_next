@@ -1,0 +1,54 @@
+{
+  "assay_type": "Cell viability concentration-response (ATP luminescence, CellTiter-Glo) in engineered BaF3-MER cells",
+  "system": "Mouse BaF3 cells expressing recombinant human Tyrosine-protein kinase Mer (Q12866), per assay CHEMBL4822428",
+  "readout": "ATP-content luminescence as proxy for viable cell number after 2-day compound exposure; reduction vs. vehicle indicates growth/proliferation or viability effect",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Plate BaF3-MER cells in 96-well (or 384-well) format with an interleaved dilution series of CHEMBL169390, DMSO vehicle, and background (medium + reagent, no cells) controls.",
+      "parameters": "cell_density: unresolved (not specified in packet; assumption: standard suspension BaF3 plating density per lab SOP, e.g. a few thousand cells/well \u2014 must be optimized); medium: BaF3 culture medium supporting IL-3-independent MER-driven growth (assumption; exact formulation unresolved); top_concentration_uM: 10 (assumption justified by nanomolar-range activity of analogues in CHEMBL4822428, 8.1\u201386 nM); dilution_factor: 3; n_points: 10; replicates: 3; vehicle_fraction: 0.1% DMSO (assumption; unresolved in packet)"
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose cells to the dilution series for 2 days (48 h), matching the retained assay conditions.",
+      "parameters": "exposure_time: 48 h (evidence: CHEMBL4822428 'incubated for 2 days'); temperature: 37\u00b0C, standard culture conditions (assumption; not explicitly stated in packet)"
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter-Glo reagent, mix, stabilize, and measure luminescence per manufacturer procedure.",
+      "parameters": "reagent_volume: equal to culture volume per manufacturer protocol (assumption; unresolved); mix_time: ~2 min (assumption; unresolved); stabilization_time: ~10 min (assumption; unresolved)"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract background, normalize each well to vehicle mean (100%), fit a four-parameter logistic concentration-response curve, and report IC50 with 95% CI and assay quality metrics.",
+      "parameters": "fit_model: 4-parameter logistic; acceptance_criteria: unresolved \u2014 suggest Z'-like separation of vehicle vs. high-concentration wells and monotone response, but no packet evidence supports specific thresholds"
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle (DMSO) control defining 100% viability",
+    "Background control: medium + CellTiter-Glo without cells (luminescence baseline)",
+    "Reference control compound with known BaF3-MER activity (e.g. a CHEMBL4822428-tested analogue such as CHEMBL4848604) to confirm assay performance \u2014 optional, availability unresolved",
+    "Optional parental BaF3 (non-MER) counter-screen to detect MER-independent cytotoxicity \u2014 recommended, not evidenced in packet"
+  ],
+  "rationale": "The question asks for growth/proliferation or viability effects in BaF3 cells expressing MER, which matches the retained assay CHEMBL4822428 (recombinant human Mer in mouse BaF3, 2-day incubation, CellTiter-Glo viability readout). The cell_viability_atp step cards (cell-prepare/expose/detect) are therefore the correct template; the kinase_biochem cards are excluded because they measure biochemical inhibition of isolated kinase, a different endpoint. The 48 h exposure and ATP-luminescence readout are directly supported by the retained assay descriptions. The 10 \u00b5M top concentration with 3-fold, 10-point series is an assumption chosen to span the 8\u201386 nM activity range of other compounds in the same assay by >2 orders of magnitude while remaining below typical solubility/cytotoxic ceilings; it is not a sourced fact about CHEMBL169390.",
+  "citations": [
+    "CHEMBL4822428",
+    "CHEMBL4819114",
+    "CHEMBL4848604",
+    "CHEMBL4845957",
+    "CHEMBL4846932",
+    "CHEMBL4849099",
+    "CHEMBL4849679"
+  ],
+  "limitations": [
+    "No IC50 or activity data for CHEMBL169390 itself is present in the packet; the retrieved IC50s are contextual evidence for assay format only and must not be used to predict the query compound's potency.",
+    "Cell viability reduction in BaF3-MER cells is a cellular endpoint, not biochemical inhibition of Mer; it cannot by itself establish target-specific causality (e.g. on-target Mer inhibition vs. general cytotoxicity, off-target kinases, or ATP-depleting artifacts).",
+    "Cell density, medium composition, vehicle fraction, reagent volumes, mixing/stabilization times, temperature, and acceptance criteria are not specified in the packet and are labeled as assumptions or unresolved.",
+    "A parental BaF3 or non-MER counter-screen and a Mer-selective rescue/validation experiment would be needed to attribute the effect to Mer; these are not evidenced in the retained examples.",
+    "The retained examples are not similarity-ranked to CHEMBL169390, so their potency range only weakly justifies the chosen concentration window."
+  ]
+}

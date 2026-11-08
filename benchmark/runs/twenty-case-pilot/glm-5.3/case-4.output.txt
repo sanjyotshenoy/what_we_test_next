@@ -1,0 +1,71 @@
+{
+  "assay_type": "biochemical kinase inhibition (concentration-response)",
+  "system": "Purified human Tyrosine-protein kinase Mer (Q12866) in vitro",
+  "readout": "ADP-Glo luminescence proportional to kinase activity; percent inhibition derived from compound vs vehicle controls",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point serial dilution of CHEMBL1231206 in DMSO, plus vehicle-only, no-enzyme, no-compound (100% activity), and reference inhibitor controls.",
+      "parameters": {
+        "top_concentration_uM": "30 (assumption; no packet evidence for this compound's potency range — contextual MER IC50s span ~2.9–1370 nM, so a 30 µM top with 3-fold dilution covers nM–µM)",
+        "dilution_factor": "3 (assumption)",
+        "n_points": "10 (assumption)",
+        "replicates": "3 (assumption)",
+        "vehicle_fraction": "unresolved — maximum tolerated DMSO fraction not supported by packet; keep constant across all wells and below typical kinase-assay tolerance (assumption)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound dilution, Mer kinase, tyrosine-containing substrate, and ATP in a 384-well plate using a Hepes-based buffer per the retained activity-assay conditions, and incubate.",
+      "parameters": {
+        "buffer": "50 mM HEPES pH 7.4, 10 mM MgCl2, 1.0 mM DTT, 0.01% Triton X-100, 0.1% BSA, 50 µL final volume, 384-well polypropylene plate (evidence: CHEMBL5731805)",
+        "enzyme_concentration": "unresolved — Mer enzyme concentration not stated in packet; must be titrated to give linear signal over the incubation window",
+        "substrate_concentration": "1.0 µM peptide substrate (contextual evidence: CHEMBL5731805 used 1.0 µM fluorescent substrate; substrate identity for Mer not specified — unresolved)",
+        "ATP_concentration": "ATP at the Km of Mer (evidence: CHEMBL5731805); the numeric Km value is unresolved — determine experimentally",
+        "reaction_time": "180 min (evidence: CHEMBL5731805)",
+        "temperature": "unresolved — not stated in packet; ambient/room temperature assumed (assumption)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction, deplete residual ATP, run the ADP detection reaction, and read luminescence per the ADP-Glo manufacturer protocol.",
+      "parameters": {
+        "stop_reagent": "20 µL of 70 mM EDTA is supported as a stop for the analogous assay (evidence: CHEMBL5731805); ADP-Glo-specific reagent volumes, depletion_time, and detection_time are unresolved — no packet evidence; follow vendor protocol (assumption)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100% activity) and no-enzyme (0% activity) controls, fit percent inhibition vs log10 concentration with a four-parameter logistic model, and report IC50 with 95% CI.",
+      "parameters": {
+        "fit_model": "4-parameter logistic (top/bottom constrained or free per fit quality)",
+        "acceptance_criteria": "unresolved — no packet-supported criteria; propose (assumption): vehicle-control CV <20%, reference inhibitor within historical range, Z' > 0.5"
+      }
+    }
+  ],
+  "top_concentration_uM": 30,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only (DMSO) 100% activity control",
+    "No-enzyme / no-kinase background control",
+    "No-substrate control for ADP-Glo background",
+    "Reference Mer inhibitor control (identity unresolved — no specific reference named in packet)",
+    "Luminescence blank wells (reagent-only)"
+  ],
+  "rationale": "The question asks for biochemical inhibition of purified Mer kinase, so the kinase step cards (kinase-prepare/react/detect/analyse) are used and the cell-viability cards are excluded. The ADP-Glo luminescence readout directly measures kinase activity and is mechanistically distinct from cellular ATP viability. Reaction buffer, volume, substrate concentration, ATP-at-Km strategy, 180 min incubation, and EDTA stop are supported by the retained Mer activity assay CHEMBL5731805 (document CHEMBL5725982). The concentration series (30 µM top, 3-fold, 10 points, triplicates) is an assumption chosen to span the wide contextual MER IC50 range (2.9 nM–1.37 µM from CHEMBL4433481, CHEMBL4189001, CHEMBL5731805) without asserting any potency for CHEMBL1231206. This experiment establishes biochemical inhibition only; it does not by itself demonstrate cellular target engagement or viability effects.",
+  "citations": [
+    "CHEMBL5731805",
+    "CHEMBL5725982",
+    "CHEMBL4433481",
+    "CHEMBL4189001"
+  ],
+  "limitations": [
+    "No potency measurement for CHEMBL1231206 exists in the packet; the top concentration and dilution scheme are assumptions, not sourced facts.",
+    "Mer enzyme concentration, numeric ATP Km, substrate identity, reaction temperature, and DMSO tolerance are unresolved — not supported by packet evidence.",
+    "ADP-Glo reagent volumes, depletion time, and detection time are unsupported; the retained assay CHEMBL5731805 used a LabChip mobility-shift readout, not ADP-Glo, so detection parameters must come from the vendor protocol.",
+    "The EDTA stop is cited from a different readout format; compatibility with ADP-Glo chemistry should be verified.",
+    "Retained IC50 values are contextual for other compounds and must not be used to estimate CHEMBL1231206 potency.",
+    "Biochemical inhibition does not establish target-specific causality in cells; a separate cellular target-engagement or viability experiment would be required and is not designed here."
+  ]
+}

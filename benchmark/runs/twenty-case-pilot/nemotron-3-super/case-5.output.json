@@ -1,0 +1,54 @@
+{
+  "assay_type": "biochemical kinase inhibition",
+  "system": "recombinant Tyrosine-protein kinase receptor UFO (P30530)",
+  "readout": "luminescence (ADP-Glo)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a compound dilution series and vehicle/reference controls.",
+      "parameters": {
+        "top_concentration_uM": null,
+        "dilution_factor": null,
+        "n_points": null,
+        "replicates": null,
+        "vehicle_fraction": null
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+      "parameters": {
+        "enzyme_concentration": null,
+        "substrate_concentration": null,
+        "ATP_concentration": null,
+        "reaction_time": null,
+        "temperature": null
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+      "parameters": {
+        "reagent_volumes": null,
+        "depletion_time": null,
+        "detection_time": null
+      }
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "vehicle (DMSO) control",
+    "no-enzyme blank",
+    "maximal activity control (no inhibitor)"
+  ],
+  "rationale": "ADP-Glo luminescence measures ADP produced from kinase activity, providing a homogeneous, plate\u2011based readout suitable for receptor tyrosine kinases like UFO. The assay isolates biochemical inhibition, distinct from cellular viability.",
+  "citations": [],
+  "limitations": [
+    "No empirical data provided for compound concentration range, enzyme/substrate/ATP concentrations, incubation time, temperature, or replicate number; all parameters are marked unresolved and must be empirically determined.",
+    "The assay format assumes recombinant UFO kinase is active and properly folded; if the protein requires membrane context or co\u2011factors, the biochemical assay may not reflect cellular inhibition.",
+    "Cell\u2011based assays were not performed per the request, so target\u2011specific causality in cells cannot be inferred."
+  ]
+}

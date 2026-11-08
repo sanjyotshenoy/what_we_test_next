@@ -1,0 +1,65 @@
+{
+  "assay_type": "cell_viability_atp",
+  "system": "Rec-1 B‑cell lymphoma cells (human)",
+  "readout": "CellTiter‑Glo luminescence (ATP‑dependent viability)",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Seed Rec‑1 cells in 96‑well plates, prepare a 8‑point serial dilution of ZANUBRUTINIB (CHEMBL3936761) in complete RPMI‑1640 medium, include vehicle (0.1 % DMSO) and a known BTK inhibitor reference (e.g., ibrutinib) as positive control, plus wells with medium only for background.",
+      "parameters": {
+        "cell_density": "5 × 10⁴ cells/mL (≈5 000 cells/well) – standard for 96‑well viability assays",
+        "medium": "RPMI‑1640 + 10 % FBS, 1 % pen‑strep",
+        "top_concentration_uM": 10,
+        "dilution_factor": 3,
+        "n_points": 8,
+        "replicates": 3,
+        "vehicle_fraction": "0.1 % DMSO v/v"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Incubate the plated cells with the compound series for 72 h at 37 °C, 5 % CO₂, humidified atmosphere.",
+      "parameters": {
+        "exposure_time": "72 h – typical for assessing proliferation/viability in lymphoma cells",
+        "temperature": "37 °C"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter‑Glo reagent (100 µL per well), mix for 2 min, incubate 10 min to stabilize luminescence, then read on a plate luminometer.",
+      "parameters": {
+        "reagent_volume": "100 µL/well (as per manufacturer protocol)",
+        "mix_time": "2 min",
+        "stabilization_time": "10 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle‑treated wells (100 % viability) and background wells (0 % viability), fit a four‑parameter logistic curve, report EC₅₀ with 95 % confidence interval, and compare the reference inhibitor curve to assess assay performance.",
+      "parameters": {
+        "fit_model": "four‑parameter logistic (Hill slope) – standard for concentration‑response",
+        "acceptance_criteria": "R² ≥ 0.9, EC₅₀ confidence interval ≤ 0.5 log‑units, reference inhibitor EC₅₀ within literature range"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.1 % DMSO)",
+    "positive reference BTK inhibitor (ibrutinib)",
+    "medium‑only background"
+  ],
+  "rationale": "Rec‑1 cells are BTK‑dependent lymphoma cells; measuring ATP‑dependent luminescence after 72 h exposure captures effects on proliferation and survival. The serial dilution (10 µM → ~0.005 µM) spans concentrations typical for BTK inhibitors, allowing detection of both on‑target and off‑target cytotoxicity. Including a known BTK inhibitor validates that the assay can report BTK‑mediated growth inhibition.",
+  "citations": [
+    "CHEMBL3936761",
+    "Q06187"
+  ],
+  "limitations": [
+    "Cell‑viability readout does not distinguish BTK inhibition from off‑target cytotoxic mechanisms; any observed loss of viability could be due to non‑specific toxicity.",
+    "No direct biochemical measurement of BTK activity is performed; therefore the experiment cannot confirm target engagement.",
+    "The chosen top concentration (10 µM) is an assumption based on typical kinase inhibitor ranges; without prior IC₅₀ data for ZANUBRUTINIB in Rec‑1 cells this may be above or below the effective window.",
+    "Only one cell line is tested; results may not generalize to other BTK‑dependent contexts."
+  ]
+}

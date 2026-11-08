@@ -1,0 +1,55 @@
+{
+  "assay_type": "Cellular concentration-response viability/growth assay using ATP luminescence",
+  "system": "Mouse BaF3 cells expressing recombinant human AXL (P30530); include parental/vector-control BaF3 cells if available",
+  "readout": "CellTiter-Glo ATP luminescence as a surrogate for viable cell number/metabolic activity, normalized to vehicle/untreated controls",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Prepare AXL-expressing BaF3 cells and controls; plate a compound dilution series with matched vehicle, untreated, background, and if available parental/vector-control cells.",
+      "parameters": "cell_density: unresolved; medium: unresolved, use validated BaF3 culture medium and keep IL-3/growth-factor conditions constant across arms; top_concentration_uM: 30 (provisional assumption, not sourced); dilution_factor: 3 (provisional assumption); n_points: 8 (provisional assumption); replicates: 3 (provisional assumption); vehicle_fraction: match top compound concentration, assumed <=0.3% v/v DMSO (provisional assumption)"
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose cells to compound and controls under standard culture conditions; include a vehicle-only arm and untreated arm.",
+      "parameters": "exposure_time: 72 h (provisional assumption, not sourced); temperature: 37\u00b0C (provisional assumption); CO2/humidity: unresolved, use standard cell-culture conditions"
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Apply CellTiter-Glo ATP viability reagent, mix, stabilize, and measure luminescence according to a validated vendor/lab procedure.",
+      "parameters": "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved; follow validated CellTiter-Glo procedure and keep detection timing constant across plates"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle/untreated controls, subtract background, fit a concentration-response curve, and report uncertainty and assay limitations.",
+      "parameters": "fit_model: four-parameter logistic with variable Hill slope (provisional assumption); acceptance_criteria: unresolved numeric thresholds; require acceptable vehicle/background signal, monotonic dose-response where possible, and report confidence intervals; do not report an IC50 if the curve is incomplete or poorly constrained"
+    }
+  ],
+  "top_concentration_uM": 30,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only control with matched DMSO fraction",
+    "Untreated cell control",
+    "Background control: medium plus detection reagent without cells",
+    "Parental/vector-control BaF3 cells if available",
+    "Reference AXL inhibitor/positive control: unresolved and not supplied in packet"
+  ],
+  "rationale": "The question asks about growth/proliferation or viability of BaF3 cells expressing recombinant human AXL, so the cellular ATP viability template is appropriate; biochemical kinase cards would measure enzyme inhibition, not cellular viability. A broad dilution series and replicates are needed to estimate a cellular concentration-response. This design can establish whether CHEMBL4845957 reduces BaF3-AXL viability/growth under the tested conditions, but ATP viability alone does not establish AXL target engagement, kinase inhibition, or target-specific causality. The numeric concentration series, exposure time, and replicate count are provisional design assumptions because the packet provides no retained measurement examples or source-supported values.",
+  "citations": [
+    "CHEMBL4845957",
+    "P30530",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "No retained measurement examples or source-supported assay parameters are provided; top concentration, dilution factor, n_points, replicates, exposure time, and vehicle fraction are provisional assumptions, not sourced facts.",
+    "ATP-based viability cannot distinguish cytostasis from cytotoxicity and does not measure AXL kinase activity directly.",
+    "A viability effect in BaF3-AXL cells does not establish target-specific causality; off-target toxicity or medium/growth-factor effects remain possible.",
+    "Parental/vector-control BaF3 cells and a validated reference AXL inhibitor are needed to assess AXL dependence; the reference control is unresolved in the packet.",
+    "Cell density, medium composition, IL-3/growth-factor status, reagent volumes, mixing/stabilization times, and acceptance thresholds are unresolved and must be set from validated lab procedures.",
+    "This design does not predict a withheld IC50 and cannot establish biochemical inhibition of Tyrosine-protein kinase receptor UFO."
+  ]
+}

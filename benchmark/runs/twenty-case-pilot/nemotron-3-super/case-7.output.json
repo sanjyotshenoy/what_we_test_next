@@ -1,0 +1,56 @@
+{
+  "assay_type": "biochemical luminescence (ADP-Glo)",
+  "system": "Recombinant human DNA-dependent protein kinase catalytic subunit (P78527)",
+  "readout": "Luminescence proportional to ADP produced",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold serial dilution of CHEMBL104468 starting from a top concentration, include vehicle (DMSO) control and a known inhibitor (e.g., NU7441) as positive control.",
+      "parameters": {
+        "top_concentration_uM": "unresolved",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.5% v/v"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Mix diluted compound, kinase, peptide substrate, and ATP; incubate at 30\u202f\u00b0C for 30\u202fmin.",
+      "parameters": {
+        "enzyme_concentration": "unresolved",
+        "substrate_concentration": "unresolved",
+        "ATP_concentration": "10\u202f\u00b5M (consistent with retained example CHEMBL1081312)",
+        "reaction_time": "30\u202fmin",
+        "temperature": "30\u202f\u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop reaction, deplete residual ATP, add ADP-Glo detection reagent, incubate, measure luminescence.",
+      "parameters": {
+        "reagent_volumes": "manufacturer\u2011recommended volumes",
+        "depletion_time": "40\u202fmin",
+        "detection_time": "30\u202fmin"
+      }
+    }
+  ],
+  "top_concentration_uM": "unresolved",
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle (0.5% DMSO)",
+    "Positive control inhibitor (NU7441)",
+    "No\u2011enzyme blank"
+  ],
+  "rationale": "ADP-Glo luminescence directly measures kinase activity; using ATP at 10\u202f\u00b5M mirrors a prior DNA\u2011PK inhibition assay (CHEMBL1081312) ensuring comparable conditions. Serial dilution enables IC50 estimation without assuming potency.",
+  "citations": [
+    "CHEMBL1081312"
+  ],
+  "limitations": [
+    "Top concentration, enzyme and substrate concentrations are not supported by the input packet and must be empirically determined; using arbitrary values may affect assay window.",
+    "Vehicle fraction assumed typical for DMSO\u2011soluble compounds; actual solubility of CHEMBL104468 is unknown.",
+    "Luminescence readout reports bulk ADP production; does not distinguish between inhibition of DNA\u2011PK catalytic subunit versus upstream regulators if present in the recombinant preparation."
+  ]
+}

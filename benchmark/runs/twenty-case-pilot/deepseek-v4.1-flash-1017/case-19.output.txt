@@ -1,0 +1,54 @@
+{
+  "assay_type": "cell viability ATP luminescence concentration-response",
+  "system": "human TMD8 cells",
+  "readout": "ATP-based luminescence (CellTiter-Glo) as a surrogate for viable/metabolically active cell number",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Prepare human TMD8 cells and a CHEMBL5188786 dilution series with vehicle-only, untreated, no-cell background, and reference controls; use a compatible medium and cell density.",
+      "parameters": "cell_density: unresolved; medium: unresolved; top_concentration_uM: null/unresolved; dilution_factor: null/unresolved; n_points: null/unresolved; replicates: null/unresolved; vehicle_fraction: unresolved and must be matched across wells"
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose TMD8 cells to CHEMBL5188786 for a concentration-response exposure period under cell-culture conditions.",
+      "parameters": "exposure_time: unresolved; temperature: unresolved (provisional 37°C/5% CO2 only if explicitly treated as a standard-culture assumption, not packet evidence)"
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Apply the ATP-based viability reagent, mix, stabilize, and measure luminescence according to a supported procedure.",
+      "parameters": "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence against vehicle/untreated and background controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+      "parameters": "fit_model: four-parameter logistic is a provisional assumption if sufficient points are available; acceptance_criteria: unresolved; do not report or predict a withheld IC50"
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "vehicle-only control",
+    "untreated cell control",
+    "no-cell background control",
+    "reference inhibitor control (identity and concentration unresolved)"
+  ],
+  "rationale": "The question asks for a cellular growth/proliferation or viability concentration-response for CHEMBL5188786 in human TMD8 cells. The selected cell-viability ATP template is appropriate because ATP luminescence is a bulk viable-cell surrogate and can detect concentration-dependent antiproliferative or cytotoxic effects. The step order respects prerequisites: cell-prepare, cell-expose, cell-detect, analyse. Adaptations: cell-prepare includes vehicle, untreated, no-cell background, and reference controls; cell-detect timing/volumes are left unresolved because the packet provides no protocol parameters; analyse uses a provisional 4PL fit only if the final design has enough points and adequate controls. The biochemical kinase cards (kinase-prepare, kinase-react, kinase-detect) are not selected because they measure direct BTK enzyme activity, not TMD8 cell viability. The packet supplies CHEMBL5188786 and BTK (Q06187) IDs but no cell-assay parameters or retained measurements, so numeric settings are null rather than invented.",
+  "citations": [
+    "CHEMBL5188786",
+    "Q06187",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "No retained measurement examples or protocol parameters are present in the packet; top concentration, dilution factor, number of points, replicates, cell density, medium, vehicle fraction, exposure time, and detection timing are unresolved.",
+    "ATP viability is a bulk viability/proliferation surrogate; it does not distinguish cytostasis from cytotoxicity, apoptosis, or cell-cycle effects.",
+    "A TMD8 viability concentration-response for CHEMBL5188786 cannot by itself establish BTK (Q06187) inhibition, direct binding, selectivity, or target-specific causality.",
+    "Biochemical BTK inhibition would require a separate kinase assay, and cellular target engagement/orthogonal validation would be needed before attributing any TMD8 effect to BTK.",
+    "Without verified BTK-dependent TMD8 context and a characterized reference control, even an observed viability effect cannot be attributed to BTK.",
+    "No IC50 should be inferred or predicted from this design; only a measured value with adequate curve fit and controls could be reported."
+  ]
+}

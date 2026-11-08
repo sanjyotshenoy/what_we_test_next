@@ -1,0 +1,93 @@
+{
+  "assay_type": "Biochemical kinase concentration-response assay using the ADP-Glo luminescent format specified by the kinase step cards",
+  "system": "DNA-dependent protein kinase catalytic subunit (P78527) with CHEMBL104468; enzyme construct, substrate, and any required activating cofactors are unresolved",
+  "readout": "Luminescence proportional to ADP formation after reaction termination, residual-ATP depletion, and ADP detection; interpreted as biochemical DNA-PK catalytic activity",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare CHEMBL104468 dilutions and matched vehicle, uninhibited-enzyme, background, and reference controls. Use the same final vehicle fraction in every reaction. Confirm compound solubility before treating the highest concentration as usable.",
+      "parameters": {
+        "top_concentration_uM": {
+          "value": 100,
+          "unit": "uM",
+          "evidence": "Provisional design assumption, not a sourced condition; chosen to span a wide range because no query-compound potency is supplied"
+        },
+        "dilution_factor": {
+          "value": 3,
+          "unit": "fold",
+          "evidence": "Provisional design assumption for broad concentration coverage"
+        },
+        "n_points": {
+          "value": 10,
+          "unit": "concentrations",
+          "evidence": "Provisional design assumption"
+        },
+        "replicates": {
+          "value": 3,
+          "unit": "independent reactions per concentration",
+          "evidence": "Provisional design assumption to estimate replicate variability"
+        },
+        "vehicle_fraction": "unresolved; vehicle identity and final fraction are not supplied and must be held constant across wells"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine CHEMBL104468 or control with the DNA-PK biochemical system, substrate, and ATP, then run the kinase reaction. Establish linear reaction conditions and any required preincubation empirically before the definitive curve.",
+      "parameters": {
+        "enzyme_concentration": "unresolved; construct, purity, concentration, and activating requirements are not supplied",
+        "substrate_concentration": "unresolved; substrate identity and concentration are not supplied",
+        "ATP_concentration": "unresolved; 10 uM ATP is reported only for a different compound in CHEMBL1243970 and is not adopted as a supported condition here",
+        "reaction_time": "unresolved; select empirically within the initial-rate/linear range",
+        "temperature": "unresolved"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence. Include a compound-without-enzyme detection control to assess background or compound-associated readout interference.",
+      "parameters": {
+        "reagent_volumes": "unresolved; use the validated ADP-Glo procedure and reaction volume once established",
+        "depletion_time": "unresolved",
+        "detection_time": "unresolved"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract or otherwise account for background using prespecified controls, normalize vehicle-with-enzyme to 0% inhibition and the appropriate no-activity control to 100% inhibition, and fit concentration-response data only if the curve is adequately bracketed. Report the fitted estimate with confidence intervals, replicate data, exclusions, and any solubility or interference limitations; do not infer an IC50 from the retained examples.",
+      "parameters": {
+        "fit_model": "Provisional design assumption: four-parameter logistic concentration-response model, with simpler or constrained fitting if the data do not support all parameters",
+        "acceptance_criteria": "Provisional design assumption: prespecify acceptable control separation, replicate variability, signal linearity, and fit quality before analysis; numeric thresholds are unresolved"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle control with enzyme, substrate, and ATP for uninhibited activity",
+    "No-enzyme or otherwise validated no-activity control for background and maximal-inhibition normalization",
+    "Matched vehicle at every compound concentration",
+    "Reference inhibitor control, with identity and concentration unresolved",
+    "Compound without enzyme to assess background and luminescence interference",
+    "No-compound detection control for residual-ATP depletion and detection performance"
+  ],
+  "rationale": "The selected cards provide a biochemical ADP-detection workflow, matching the requested inhibition measurement rather than cellular viability. The retained examples establish that DNA-PK inhibition has been measured biochemically, including a radioactive phosphotransfer assay at 10 uM ATP in CHEMBL1243970 and other inhibition assays in CHEMBL1118579, but they concern other compounds and do not determine CHEMBL104468 potency or validate ADP-Glo conditions. The proposed 100 uM top concentration, threefold dilution, ten points, and triplicates are explicitly provisional assumptions for an initial wide-range curve, not retrieved facts. Cellular steps are omitted because viability would not establish DNA-PK-specific causality.",
+  "citations": [
+    "P78527",
+    "CHEMBL104468",
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse",
+    "CHEMBL1243970",
+    "CHEMBL1118579"
+  ],
+  "limitations": [
+    "No CHEMBL104468 potency measurement is supplied, and no IC50 is predicted.",
+    "The retained IC50 values are for other compounds, are not similarity-ranked evidence, and cannot be transferred to CHEMBL104468.",
+    "Enzyme construct and concentration, substrate identity and concentration, ATP concentration, activating cofactors, buffer, preincubation, reaction time, temperature, and detection timings and volumes remain unresolved.",
+    "The numerical dilution-series and replication settings are provisional assumptions and may require revision for solubility, vehicle tolerance, signal linearity, or curve bracketing.",
+    "ADP-Glo compatibility with this DNA-PK system is proposed from the supplied template but is not experimentally validated by the packet.",
+    "Biochemical inhibition alone does not establish cellular target engagement or target-specific cellular causality."
+  ]
+}

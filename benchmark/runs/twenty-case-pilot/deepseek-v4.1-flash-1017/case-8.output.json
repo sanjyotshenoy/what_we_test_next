@@ -1,0 +1,55 @@
+{
+  "assay_type": "Biochemical kinase concentration-response inhibition assay using ADP-Glo luminescent ADP detection",
+  "system": "Recombinant human mTOR (P42345) biochemical kinase assay; exact construct, origin, and activation state are unresolved",
+  "readout": "Luminescence from ADP-Glo ADP detection, normalized to vehicle/no-enzyme controls as a measure of mTOR kinase activity",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a concentration series of CHEMBL1078983 and vehicle/reference controls in the same assay buffer used for the kinase reaction.",
+      "parameters": "top_concentration_uM: unresolved; dilution_factor: unresolved; n_points: unresolved; replicates: unresolved; vehicle_fraction: unresolved (must be kept constant across compound wells and matched by vehicle control)"
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine CHEMBL1078983, mTOR (P42345), an mTOR substrate, and ATP; incubate under conditions that keep substrate conversion in the initial-rate range.",
+      "parameters": "enzyme_concentration: unresolved; substrate_concentration: unresolved; ATP_concentration: unresolved; reaction_time: unresolved (30 min is a provisional assumption from CHEMBL4844752/CHEMBL5225443, not validated for ADP-Glo); temperature: unresolved"
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence.",
+      "parameters": "reagent_volumes: unresolved; depletion_time: unresolved; detection_time: unresolved"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence against vehicle and background controls, fit a concentration-response curve, and report uncertainty and assay limitations; do not report an IC50 unless acceptance criteria are met.",
+      "parameters": "fit_model: four-parameter logistic is a provisional assumption, not sourced; acceptance_criteria: unresolved"
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Vehicle control with constant vehicle fraction; exact fraction unresolved",
+    "No-enzyme background control",
+    "No-substrate or ATP-only background control",
+    "Reference mTOR inhibitor control; identity and concentration unresolved",
+    "Optional ADP standard/calibration control; unresolved"
+  ],
+  "rationale": "A biochemical mTOR assay is appropriate because the question asks for inhibition of P42345 by CHEMBL1078983, not cellular viability. ADP-Glo is selected because the supplied step cards include a kinase ADP-Glo detection path, and retained mTOR assay descriptions show ATP-dependent kinase inhibition formats with 30-120 min incubations and peptide/protein substrates. Cell-viability cards are excluded because viability alone would not establish target-specific mTOR inhibition. No retained example measures CHEMBL1078983, and the retained IC50 values are for other compounds; they are contextual only and are not used to predict potency.",
+  "citations": [
+    "P42345",
+    "CHEMBL1078983",
+    "CHEMBL4844752",
+    "CHEMBL4731424",
+    "CHEMBL5225443"
+  ],
+  "limitations": [
+    "No retained evidence provides an ADP-Glo protocol for mTOR or for CHEMBL1078983; the ADP-Glo format is supported only by the supplied step card, not by a matched mTOR example.",
+    "Top concentration, dilution factor, number of points, replicates, and vehicle fraction cannot be justified from the packet and are left null.",
+    "Enzyme concentration, substrate identity/concentration, ATP concentration, temperature, reagent volumes, depletion time, and detection time are unresolved.",
+    "The reference inhibitor identity and acceptance criteria are unresolved.",
+    "Retained mTOR IC50s are for other compounds and different assay formats; they are not direct estimates for CHEMBL1078983.",
+    "ADP-Glo measures ADP production and may be confounded by contaminating ATPases; counter-screens would be needed for target-specific attribution.",
+    "Biochemical inhibition does not establish cellular viability or target-specific causality in cells."
+  ]
+}

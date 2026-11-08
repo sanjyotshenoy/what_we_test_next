@@ -1,0 +1,52 @@
+{
+  "assay_type": "biochemical kinase inhibition concentration-response using ADP-Glo luminescent ADP detection",
+  "system": "Cell-free recombinant DNA-dependent protein kinase catalytic subunit (P78527); DNA/Ku activation requirements are unresolved in the packet.",
+  "readout": "Luminescence from ADP-Glo ADP detection, normalized to controls as a measure of P78527 kinase activity; not a cell-viability readout.",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a compound dilution series for CHEMBL104468 with matched vehicle and reference/background controls. Set the top concentration only after range-finding; do not infer potency from the packet.",
+      "parameters": "top_concentration_uM: unresolved/null (no packet support); dilution_factor: 3 (provisional assumption); n_points: 10 (provisional assumption); replicates: 3 (provisional assumption); vehicle_fraction: unresolved; match vehicle across wells (provisional assumption)"
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine CHEMBL104468, P78527, substrate and ATP. Include DNA/Ku activation if required by the P78527 preparation; exact activation conditions are unresolved.",
+      "parameters": "enzyme_concentration: unresolved; substrate_concentration: unresolved; ATP_concentration: 10 uM (contextual support from CHEMBL1243970; not direct for CHEMBL104468 or ADP-Glo); reaction_time: unresolved; temperature: unresolved; DNA/Ku activator: unresolved"
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "For ADP-Glo, stop the kinase reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence. Kit-specific volumes and times are unresolved.",
+      "parameters": "reagent_volumes: unresolved; depletion_time: unresolved; detection_time: unresolved"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize against vehicle and no-enzyme controls, fit a concentration-response curve, and report uncertainty and limitations. Do not report an IC50 outside the tested range as a determined value.",
+      "parameters": "fit_model: four-parameter logistic (provisional assumption); acceptance_criteria: curve should span inhibition with lower/upper plateaus and IC50 within tested range; otherwise report qualified/not determined; report CI and assay limitations (provisional criteria)"
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle control at matched final vehicle fraction (exact tolerance unresolved)",
+    "No-enzyme background control",
+    "No-compound activity control",
+    "Reference DNA-PK inhibitor positive control (identity and concentration unresolved)",
+    "ADP-Glo detection/background controls as required by the kit (unresolved)"
+  ],
+  "rationale": "The question asks for biochemical inhibition of P78527, so the ordered kinase-prepare, kinase-react, kinase-detect, analyse cards are appropriate; cell-viability cards are excluded because they would not establish biochemical target inhibition. ADP-Glo measures kinase-produced ADP as luminescence and is a biochemical activity readout. The only packet-supported concentration parameter is contextual ATP at 10 uM from a different DNA-PK radioactive assay (CHEMBL1243970), so it is used only as a starting point, not as a CHEMBL104468-specific fact. The dilution factor, point count, replicates and 4PL fit are provisional design assumptions, not sourced measurements. No IC50 is predicted.",
+  "citations": [
+    "P78527",
+    "CHEMBL104468",
+    "CHEMBL1243970"
+  ],
+  "limitations": [
+    "No packet evidence supports a top concentration for CHEMBL104468; top_concentration_uM is left null and must be set by range-finding or external source before execution.",
+    "ATP 10 uM is contextual from CHEMBL1243970, a radioactive DNA-PK assay, and is not direct support for CHEMBL104468 or the ADP-Glo format.",
+    "Enzyme concentration, substrate identity/concentration, DNA/Ku activation, reaction time, temperature, reagent volumes, depletion time and detection time are unresolved.",
+    "Dilution factor, n_points, replicates and 4PL fit are provisional design assumptions, not sourced facts.",
+    "ADP-Glo detects ADP and can be affected by assay artifacts; no-enzyme and detection controls are required.",
+    "Biochemical inhibition of P78527 does not establish cellular viability effects or target-specific causality in cells; cell-viability cards were intentionally not selected."
+  ]
+}

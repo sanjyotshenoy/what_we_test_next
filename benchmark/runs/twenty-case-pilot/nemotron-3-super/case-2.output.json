@@ -1,0 +1,63 @@
+{
+  "assay_type": "biochemical luminescence (ADP-Glo)",
+  "system": "recombinant human HASPIN kinase",
+  "readout": "luminescence proportional to ADP produced",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold serial dilution of CHEMBL5426285 starting at 10\u202f\u00b5M in DMSO, plus vehicle (0.1\u202f% DMSO) and reference inhibitor (CHEMBL1952329 at 1\u202f\u00b5M) controls.",
+      "parameters": {
+        "top_concentration_uM": "10",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.1% DMSO"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Add kinase (HASPIN) at 5\u202fnM, peptide substrate at 20\u202f\u00b5M, ATP at its Km (\u224850\u202f\u00b5M), and compound dilution; incubate 30\u202fmin at 30\u202f\u00b0C.",
+      "parameters": {
+        "enzyme_concentration": "5 nM",
+        "substrate_concentration": "20 \u00b5M",
+        "ATP_concentration": "50 \u00b5M",
+        "reaction_time": "30 min",
+        "temperature": "30 \u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop reaction with ADP-Glo reagent, deplete ATP for 40\u202fmin, then add detection reagent and incubate 60\u202fmin; measure luminescence.",
+      "parameters": {
+        "reagent_volumes": "per manufacturer protocol",
+        "depletion_time": "40 min",
+        "detection_time": "60 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100\u202f% activity) and reference inhibitor (0\u202f% activity); fit a four\u2011parameter logistic curve; report IC50 with 95\u202f% CI and assay Z\u2019 factor.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic",
+        "acceptance_criteria": "Z\u2019 \u2265 0.5, R\u00b2 \u2265 0.9"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.1\u202f% DMSO)",
+    "reference inhibitor CHEMBL1952329 (1\u202f\u00b5M)",
+    "no\u2011enzyme blank"
+  ],
+  "rationale": "The concentration range spans well above the highest reported IC50 for similar HASPIN inhibitors (\u2248770\u202fnM) to ensure full inhibition; a 3\u2011fold dilution yields adequate curve shape; triplicate wells provide statistical power; ADP\u2011Glo luminescent readout is validated for kinase assays.",
+  "citations": [
+    "CHEMBL2176972",
+    "CHEMBL5241090"
+  ],
+  "limitations": [
+    "Assumes recombinant HASPIN activity reflects native enzyme; does not account for cellular permeability or off\u2011target effects; ATP concentration set to approximate Km may not reflect physiological ATP levels."
+  ]
+}

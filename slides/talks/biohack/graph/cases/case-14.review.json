@@ -1,0 +1,259 @@
+{
+  "id": "case-14",
+  "title": "Transfer biochemical design to Mitogen-activated protein kinase kinase kinase 7",
+  "status": "Draft / human review required",
+  "rationale": "Transfer biochemical design to Mitogen-activated protein kinase kinase kinase 7. Tests suitability, supported step adaptation and numerical uncertainty; the hidden measurement is not a unique correct protocol.",
+  "input": {
+    "id": "case-14",
+    "question": "Design a biochemical concentration-response experiment to measure inhibition of Mitogen-activated protein kinase kinase kinase 7 (O43318) by CHEMBL1077979. Propose an ordered procedure, justify the assay format and parameters, and explicitly identify unsupported conditions; do not supply a remembered potency.",
+    "entities": [
+      {
+        "id": "CHEMBL1077979",
+        "name": "CHEMBL1077979",
+        "type": "Compound",
+        "smiles": "COc1cc(O)c2c(c1)/C=C/C[C@H](O)[C@H](O)C(=O)/C=C\\C[C@H](C)OC2=O"
+      },
+      {
+        "id": "O43318",
+        "name": "Mitogen-activated protein kinase kinase kinase 7",
+        "type": "Target",
+        "smiles": null
+      }
+    ],
+    "step_cards": [
+      {
+        "id": "kinase-prepare",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Prepare a compound dilution series and vehicle/reference controls.",
+        "slots": [
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "kinase-react",
+        "template": "proto:kinase_biochem_lum",
+        "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+        "slots": [
+          "enzyme_concentration",
+          "substrate_concentration",
+          "ATP_concentration",
+          "reaction_time",
+          "temperature"
+        ],
+        "requires": [
+          "kinase-prepare"
+        ]
+      },
+      {
+        "id": "kinase-detect",
+        "template": "proto:kinase_biochem_lum",
+        "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+        "slots": [
+          "reagent_volumes",
+          "depletion_time",
+          "detection_time"
+        ],
+        "requires": [
+          "kinase-react"
+        ]
+      },
+      {
+        "id": "cell-prepare",
+        "template": "proto:cell_viability_atp",
+        "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+        "slots": [
+          "cell_density",
+          "medium",
+          "top_concentration_uM",
+          "dilution_factor",
+          "n_points",
+          "replicates",
+          "vehicle_fraction"
+        ]
+      },
+      {
+        "id": "cell-expose",
+        "template": "proto:cell_viability_atp",
+        "action": "Expose cells to compound under justified culture conditions.",
+        "slots": [
+          "exposure_time",
+          "temperature"
+        ],
+        "requires": [
+          "cell-prepare"
+        ]
+      },
+      {
+        "id": "cell-detect",
+        "template": "proto:cell_viability_atp",
+        "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+        "slots": [
+          "reagent_volume",
+          "mix_time",
+          "stabilization_time"
+        ],
+        "requires": [
+          "cell-expose"
+        ]
+      },
+      {
+        "id": "analyse",
+        "template": "reviewer-authored",
+        "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+        "slots": [
+          "fit_model",
+          "acceptance_criteria"
+        ]
+      }
+    ],
+    "retained_measurement_examples": [
+      {
+        "compound": "CHEMBL1738757",
+        "ic50_nM": 6.3,
+        "assay": "CHEMBL5680965",
+        "description": "Inhibition of human wild type TAK1 using RB-S6P as substrate preincubated for 2 hrs followed by ATP addition and measured every 2 mins for 2.5 hrs by spectrophotometric analysis",
+        "document": "CHEMBL5678804",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL1835063",
+        "ic50_nM": 356.0,
+        "assay": "CHEMBL4629878",
+        "description": "Inhibition of human TAK1 using casein as substrate in presence of [gamma-33P]-ATP by hotspot kinase assay",
+        "document": "CHEMBL4627396",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL2012881",
+        "ic50_nM": 650.0,
+        "assay": "CHEMBL2013789",
+        "description": "Inhibition of MAP3K7",
+        "document": "CHEMBL2010637",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL3822835",
+        "ic50_nM": 156.0,
+        "assay": "CHEMBL4412493",
+        "description": "Inhibition of TAK1 (unknown origin)",
+        "document": "CHEMBL4411291",
+        "source": "ChEMBL 37"
+      },
+      {
+        "compound": "CHEMBL3823303",
+        "ic50_nM": 8.0,
+        "assay": "CHEMBL4412492",
+        "description": "Inhibition of recombinant FLAG-tagged TAK1 (unknown origin) co-expressed with TAB (unknown origin) in baculovirus using BT-MKK as substrate after 1 hr by AlphaScreen assay",
+        "document": "CHEMBL4411291",
+        "source": "ChEMBL 37"
+      }
+    ],
+    "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+    "guidelines": [
+      "Match the biological system and readout to the question.",
+      "Use controls and justify the concentration series and replicates.",
+      "Respect prerequisites of chosen step cards; justify any adaptations.",
+      "State unsupported conditions as unresolved; do not invent source support.",
+      "Cell viability alone does not establish a target-specific mechanism."
+    ],
+    "output_contract": {
+      "assay_type": "string",
+      "system": "string",
+      "readout": "string",
+      "steps": [
+        {
+          "card_id": "string or justified new step",
+          "instruction": "string",
+          "parameters": "value/unit/evidence or unresolved"
+        }
+      ],
+      "top_concentration_uM": "positive number",
+      "dilution_factor": "number > 1",
+      "n_points": "integer >= 2",
+      "replicates": "positive integer",
+      "controls": [
+        "string"
+      ],
+      "rationale": "string",
+      "citations": [
+        "provided evidence ID"
+      ],
+      "limitations": [
+        "string"
+      ]
+    }
+  },
+  "answer": {
+    "reference_measurement": {
+      "assay": "CHEMBL3374134",
+      "document": "CHEMBL3351803",
+      "ic50_nM": 80.0,
+      "year": 2015
+    },
+    "assay": {
+      "id": "CHEMBL3374134",
+      "type": "Assay",
+      "name": "CHEMBL3374134",
+      "props": {
+        "assay_type": "B",
+        "bao_format": "BAO_0000357",
+        "description": "Inhibition of TAK1 (unknown origin) using unphosphorylated GST-tagged MAP2K7 substrate protein assessed as phosphorylation by ELISA"
+      },
+      "source": "ChEMBL 37"
+    },
+    "document": {
+      "id": "CHEMBL3351803",
+      "title": "5Z-7-Oxozeaenol covalently binds to MAP2K7 at Cys218 in an unprecedented manner.",
+      "doi": "10.1016/j.bmcl.2014.12.011"
+    },
+    "expected_endpoint": "Biochemical kinase inhibition; an independently justified compatible assay is acceptable.",
+    "procedure_expectation": "A coherent ordered procedure with relevant controls, parameter bindings and explicit unresolved conditions. Step cards are scaffolding, not a validated complete reference protocol.",
+    "numerical_reference": "Held-out IC50 is a contextual target for coverage, not a required prediction or a complete parameter answer key. Full conditions and optimal ranges are not established by these CSV records.",
+    "review_limitations": [
+      "Assay comparability is not established. Numerical coverage is descriptive, not a validated scientific score.",
+      "Distinct document IDs and stored SMILES do not establish independent papers or chemical scaffolds."
+    ]
+  },
+  "audit": {
+    "excluded_pair_measurements": 6,
+    "excluded_documents": [
+      "CHEMBL3351803",
+      "CHEMBL3627640",
+      "CHEMBL3822434",
+      "CHEMBL3875204",
+      "CHEMBL4118021"
+    ],
+    "excluded_assays": [
+      "CHEMBL3374134",
+      "CHEMBL3632094",
+      "CHEMBL3632095",
+      "CHEMBL3826003",
+      "CHEMBL3826094",
+      "CHEMBL3826554",
+      "CHEMBL3826555",
+      "CHEMBL3826556",
+      "CHEMBL3826557",
+      "CHEMBL3876688",
+      "CHEMBL3876691",
+      "CHEMBL4118523",
+      "CHEMBL4118538"
+    ],
+    "removed_edges": 97,
+    "remaining_edges": 19014,
+    "remaining_nodes": 15293,
+    "source_sha256": {
+      "kg/biology/graph/nodes.csv": "452155cb7ac0ae2b0a6a9149001efc5adda858febef28ef37ed88d32f644921c",
+      "kg/biology/graph/edges.csv": "e159b7a2090db3d6dde733bb40c29056188c9ab9b45e2e09ab091cf049a4f09b",
+      "kg/protocols/graph/nodes.csv": "1c13f6a5f1656ed3ee58dad0961094da8563094722ab1dfc22af4f0937b5b914",
+      "kg/protocols/graph/edges.csv": "0466153682c1740eb0fd41b6d511ad2da1ddd997dcfc74487a9d7b64dfb756b5"
+    },
+    "assertions": {
+      "no_pair_edges": true,
+      "no_excluded_sources_in_examples": true
+    }
+  }
+}

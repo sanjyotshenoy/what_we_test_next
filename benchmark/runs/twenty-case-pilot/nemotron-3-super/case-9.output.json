@@ -1,0 +1,65 @@
+{
+  "assay_type": "biochemical kinase inhibition",
+  "system": "recombinant human Activin receptor type-1 (ACVR1/Q04771)",
+  "readout": "luminescence (ADP-Glo)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold dilution series of CHEMBL1078178 starting from a top concentration, include vehicle (DMSO) and no-compound controls.",
+      "parameters": {
+        "top_concentration_uM": "10",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.01 (1% DMSO)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Mix compound dilution with recombinant ACVR1 kinase, substrate (e.g., MBP or peptide), and ATP; incubate at 30\u202f\u00b0C for 30\u202fmin.",
+      "parameters": {
+        "enzyme_concentration": "unresolved",
+        "substrate_concentration": "unresolved",
+        "ATP_concentration": "unresolved",
+        "reaction_time": "30 min",
+        "temperature": "30\u202f\u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop reaction, deplete residual ATP, add ADP-Glo detection reagent, incubate, and measure luminescence.",
+      "parameters": {
+        "reagent_volumes": "manufacturer\u2011recommended volumes (e.g., 25\u202f\u00b5L each)",
+        "depletion_time": "40\u202fmin",
+        "detection_time": "30\u202fmin"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100\u202f% activity) and no\u2011enzyme blank (0\u202f%), fit a four\u2011parameter logistic curve, report IC50 with 95\u202f% CI and assay Z\u2032\u2011factor.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic",
+        "acceptance_criteria": "Z\u2032\u202f\u2265\u202f0.5, R\u00b2\u202f\u2265\u202f0.9"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.1\u202f% DMSO)",
+    "no\u2011enzyme blank",
+    "positive control inhibitor (if available)"
+  ],
+  "rationale": "ADP\u2011Glo luminescence directly measures ADP produced during kinase catalysis, providing a homogeneous, non\u2011radioactive readout suitable for ACVR1 inhibition. The concentration series spans ~0.001\u201310\u202f\u00b5M to capture potential potency based on analogous ALK2 inhibitors in the retrieved examples.",
+  "citations": [
+    "CHEMBL3352089",
+    "CHEMBL4813958"
+  ],
+  "limitations": [
+    "Enzyme, substrate, and ATP concentrations are not specified in the packet and must be empirically optimized; using incorrect ATP may affect apparent potency.",
+    "No specific positive control for ACVR1 is provided in the retrieved data, so assay validation relies on generic controls.",
+    "The assay measures biochemical inhibition only; cellular permeability or off\u2011target effects are not addressed."
+  ]
+}

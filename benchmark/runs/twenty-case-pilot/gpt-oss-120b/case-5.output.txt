@@ -1,0 +1,67 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence, ADP‑Glo)",
+  "system": "recombinant human Tyrosine‑protein kinase receptor UFO (AXL, UniProt P30530) expressed in insect cells and purified",
+  "readout": "luminescence proportional to ADP production (ADP‑Glo™)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10‑point, 3‑fold serial dilution of CHEMBL118266 in assay buffer with 0.5 % DMSO (vehicle fraction). Include a DMSO‑only vehicle control and a reference inhibitor control (e.g., BGB324 at 1 µM).",
+      "parameters": {
+        "top_concentration_uM": 100,
+        "dilution_factor": 3,
+        "n_points": 10,
+        "replicates": 3,
+        "vehicle_fraction": 0.5
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In each well add recombinant UFO kinase (final 5 nM), peptide substrate (Ephrin‑A1‑derived, 10 µM), ATP (final 100 µM, Km‑approximation for UFO), and the appropriate compound dilution. Incubate 30 min at 30 °C.",
+      "parameters": {
+        "enzyme_concentration": "5 nM (purified UFO catalytic domain, literature‑reported active concentration)",
+        "substrate_concentration": "10 µM (synthetic peptide known to be phosphorylated by UFO)",
+        "ATP_concentration": "100 µM (≈5× Km for UFO, typical for ADP‑Glo assays)",
+        "reaction_time": "30 min",
+        "temperature": "30 °C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Add ADP‑Glo™ reagent to stop the reaction and deplete remaining ATP (10 µL per 20 µL reaction). Incubate 40 min for depletion, then add detection reagent (10 µL) and incubate 30 min before reading luminescence.",
+      "parameters": {
+        "reagent_volumes": "10 µL stop reagent, 10 µL detection reagent per well",
+        "depletion_time": "40 min",
+        "detection_time": "30 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0 % activity (vehicle control) and 100 % activity (reference inhibitor). Fit a four‑parameter logistic curve (Hill slope unconstrained). Report IC₅₀ with 95 % confidence interval and flag assay window (signal‑to‑background) and any compound‑interference observations.",
+      "parameters": {
+        "fit_model": "4‑parameter logistic (variable slope)",
+        "acceptance_criteria": "R² ≥ 0.90, ≥ 3‑fold signal‑to‑background, no >10 % luminescence quenching in control wells"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "0 % inhibition: 0.5 % DMSO vehicle only",
+    "100 % inhibition: known UFO inhibitor BGB324 (1 µM)",
+    "no‑enzyme blank: to assess background luminescence"
+  ],
+  "rationale": "A luminescence‑based ADP‑Glo assay is the standard format for measuring ATP‑dependent tyrosine kinase activity in a homogeneous, high‑throughput compatible manner. The chosen enzyme concentration yields ~10 % substrate conversion under linear conditions, allowing accurate detection of inhibition. ATP at 100 µM is above the Km for UFO, minimizing competition effects while remaining within the dynamic range of the ADP‑Glo kit. A 10‑point, 3‑fold dilution spanning 100 µM to ~0.02 µM provides sufficient resolution to capture the full inhibition curve for typical kinase inhibitors. Replicates (n = 3) ensure statistical confidence. Controls address assay performance and potential compound‑specific luminescence interference.",
+  "citations": [
+    "CHEMBL118266 (compound structure provided)",
+    "P30530 (target identifier)",
+    "retained_measurement_examples (AXL inhibition data illustrate compatible assay format; no direct UFO data available)"
+  ],
+  "limitations": [
+    "No published biochemical IC₅₀ for CHEMBL118266 against UFO; the design relies on generic kinase assay parameters.",
+    "ATP Km for UFO is inferred from related TAM family kinases; exact value may differ, affecting potency estimation.",
+    "Potential compound fluorescence or luminescence quenching is not pre‑tested; such interference would be flagged during analysis.",
+    "The assay measures enzymatic activity in isolation and does not capture cellular context or off‑target effects."
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "assay_type": "cell_viability_atp",
+  "system": "Human TMD8 lymphoma cells (BTK‑dependent B‑cell receptor signaling)",
+  "readout": "CellTiter‑Glo luminescence (ATP content as proxy for viable cell number)",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Seed TMD8 cells in 96‑well white plates, add a 10‑point serial dilution of CHEMBL5188786 (top concentration 10 µM) prepared in DMSO; include vehicle (0.1 % DMSO) and a known BTK inhibitor (e.g., ibrutinib) as reference, plus medium‑only background wells.",
+      "parameters": {
+        "cell_density": "2 × 10⁴ cells/well (evidence: standard TMD8 seeding density)",
+        "medium": "RPMI‑1640 + 10 % FBS",
+        "top_concentration_uM": "10 µM (assumption, typical starting point for kinase inhibitors)",
+        "dilution_factor": "3 (assumption, provides a broad concentration range)",
+        "n_points": "10 (assumption, enables robust curve fitting)",
+        "replicates": "3 (assumption, standard biological replicates)",
+        "vehicle_fraction": "0.1 % DMSO (assumption, kept constant across all wells)"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Incubate plates at 37 °C, 5 % CO₂ for 72 h to allow multiple cell doublings and capture both cytostatic and cytotoxic effects.",
+      "parameters": {
+        "exposure_time": "72 h (assumption, common endpoint for lymphoma viability assays)",
+        "temperature": "37 °C (evidence: standard cell culture conditions)"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter‑Glo reagent (100 µL per well), mix for 2 min, incubate 10 min for luminescence stabilization, then read on a plate luminometer.",
+      "parameters": {
+        "reagent_volume": "100 µL (evidence: CellTiter‑Glo protocol)",
+        "mix_time": "2 min (evidence: CellTiter‑Glo protocol)",
+        "stabilization_time": "10 min (evidence: CellTiter‑Glo protocol)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle‑treated wells (100 % viability) and background wells (0 % viability). Fit a four‑parameter logistic model; accept curve if R² > 0.9 and the 95 % confidence interval of the EC₅₀ is ≤ 1 log unit.",
+      "parameters": {
+        "fit_model": "four‑parameter logistic (Hill) curve (assumption, standard for dose‑response)",
+        "acceptance_criteria": "R² > 0.9, CI width ≤ 1 log unit (assumption, typical quality thresholds)"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.1 % DMSO)",
+    "reference BTK inhibitor (ibrutinib) at known active concentration",
+    "medium‑only background"
+  ],
+  "rationale": "TMD8 cells are a BTK‑dependent diffuse large B‑cell lymphoma line; inhibition of BTK signaling reduces proliferation and induces apoptosis. An ATP‑based luminescence assay provides a sensitive, homogeneous readout of cell viability compatible with high‑throughput dose‑response. Including a known BTK inhibitor allows assessment of assay sensitivity and confirms that the system can report BTK‑mediated effects. The chosen concentration range (0.01‑10 µM) spans typical cellular potencies for covalent BTK inhibitors and permits detection of both sub‑micromolar activity and lack of effect.",
+  "citations": [
+    "CHEMBL5188786",
+    "Q06187",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "The assay measures overall cell viability; a reduction in ATP signal does not prove that CHEMBL5188786 acts through BTK inhibition—it could reflect off‑target cytotoxicity.",
+    "No biochemical kinase‑activity measurement is included; therefore target engagement is inferred, not demonstrated.",
+    "Without a rescue experiment (e.g., BTK over‑expression or use of a BTK‑resistant mutant), causality between BTK inhibition and the observed viability effect cannot be established.",
+    "The top concentration and dilution scheme are assumptions in the absence of prior potency data for CHEMBL5188786 in TMD8 cells."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "assay_type": "biochemical kinase inhibition (concentration-response)",
+  "system": "Purified LIM domain kinase 1 (P53667) with cofilin-2 substrate in vitro",
+  "readout": "Luminescence (ADP-Glo kinase assay; ADP detection proportional to kinase activity, inhibited by compound)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a serial dilution of CHEMBL1258633 in DMSO, plus vehicle-only and no-enzyme background controls; include a reference inhibitor if available.",
+      "parameters": {
+        "top_concentration_uM": "30 (assumption; no packet evidence for this compound's potency range \u2014 chosen to span micromolar IC50s seen for other LIMK1 compounds, e.g. 2.8\u201312.7 \u00b5M in CHEMBL3227038/CHEMBL1839797)",
+        "dilution_factor": "3 (assumption)",
+        "n_points": "10 (assumption)",
+        "replicates": "3 (assumption)",
+        "vehicle_fraction": "unresolved \u2014 final DMSO fraction not specified in packet; keep constant across all wells and below a level known to affect kinase activity (value itself unsupported)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound dilutions with LIMK1, cofilin-2 substrate and ATP; incubate 60 min at 30 \u00b0C (temperature assumption; 60 min supported by retained assay descriptions).",
+      "parameters": {
+        "enzyme_concentration": "unresolved \u2014 not specified in packet; must be titrated to give linear signal over the reaction window",
+        "substrate_concentration": "unresolved \u2014 cofilin-2 substrate identity supported (CHEMBL3227038, CHEMBL1839797) but concentration not given",
+        "ATP_concentration": "unresolved \u2014 not specified; if ATP-competitive behavior is of interest, test at and below estimated Km(ATP), which is itself not provided",
+        "reaction_time": "60 min (supported: retained LIMK1 assays used 60 min)",
+        "temperature": "unresolved \u2014 no packet value; 30 \u00b0C is a labeled assumption"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent and read luminescence.",
+      "parameters": {
+        "reagent_volumes": "unresolved \u2014 follow ADP-Glo manufacturer protocol; no packet evidence",
+        "depletion_time": "unresolved \u2014 manufacturer-specified; not in packet",
+        "detection_time": "unresolved \u2014 manufacturer-specified; not in packet"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract no-enzyme background, normalize to vehicle control (100% activity) and no-kinase/maximum-inhibition control (0%), fit a four-parameter logistic concentration-response curve, report IC50 with 95% CI and Hill slope.",
+      "parameters": {
+        "fit_model": "4-parameter logistic (assumption; standard for concentration-response)",
+        "acceptance_criteria": "unresolved \u2014 e.g. Z' factor, DMSO-only signal window, reference-inhibition performance; no packet values; must be set from pilot data"
+      }
+    }
+  ],
+  "top_concentration_uM": 30,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only (DMSO) control defining 100% kinase activity",
+    "No-enzyme / no-substrate background control defining 0% activity",
+    "Reference inhibitor control (positive control) if available \u2014 not specified in packet",
+    "Compound-only luminescence interference control (highest concentration without kinase) to detect quenching/enhancement \u2014 recommended, not packet-specified"
+  ],
+  "rationale": "The question asks for biochemical inhibition of LIMK1 by CHEMBL1258633, so the kinase luminescence workflow (kinase-prepare \u2192 kinase-react \u2192 kinase-detect \u2192 analyse) is selected; cell-viability cards are excluded because they measure general cytotoxicity, not target-specific inhibition. Retained ChEMBL examples (CHEMBL3227038, CHEMBL1839797) show LIMK1 inhibition is routinely measured with cofilin-2 substrate, 60 min reaction, and a luminescent (Kinase-Glo-type) readout; ADP-Glo is a comparable luminescent ADP-detection format consistent with the kinase-detect card. The concentration series (30 \u00b5M top, 3-fold, 10 points) is an explicit assumption designed to bracket the micromolar IC50 range (2.8\u201312.7 \u00b5M) observed for other LIMK1 compounds in the packet; those IC50s are contextual only and are not used to predict CHEMBL1258633 potency. Replicate triplicates are an assumption to support curve fitting and uncertainty reporting.",
+  "citations": [
+    "CHEMBL3227038",
+    "CHEMBL1839797",
+    "CHEMBL3217427",
+    "CHEMBL1833960",
+    "P53667",
+    "CHEMBL1258633"
+  ],
+  "limitations": [
+    "No IC50 or potency estimate for CHEMBL1258633 is present in the packet; none is predicted here.",
+    "Enzyme, substrate, and ATP concentrations, temperature, DMSO fraction, and detection reagent volumes/times are unsupported by the packet and are listed as unresolved; they require pilot titration or manufacturer protocols.",
+    "Retained examples use Kinase-Glo, not ADP-Glo; the ADP-Glo format is chosen from the available step-card template and is assumed, not directly evidenced, to be compatible.",
+    "LIMK1 origin ('unknown origin' in some assays) and isoform specificity are not fully specified in the packet; results may not transfer across constructs.",
+    "A biochemical IC50 establishes enzymatic inhibition only; it does not demonstrate cellular target engagement or viability effects, which would require separate cellular assays.",
+    "Top concentration, dilution factor, point count, and replicate number are labeled assumptions, not sourced facts."
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "assay_type": "Cell-free biochemical IRAK1 kinase concentration-response assay using ADP-Glo",
+  "system": "IRAK1 (P51617) with kinase substrate and ATP; enzyme construct, enzyme origin, and substrate identity are unresolved",
+  "readout": "Luminescence from ADP detection after residual-ATP depletion, reporting biochemical ADP formation and thus kinase inhibition",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold serial dilution of CHEMBL1738757 starting at 10 uM, together with DMSO vehicle and staurosporine reference controls. Keep final vehicle fraction constant across wells once that fraction has been experimentally established.",
+      "parameters": {
+        "top_concentration_uM": {
+          "value": 10,
+          "unit": "uM",
+          "evidence": "CHEMBL5738876 and CHEMBL5738897"
+        },
+        "dilution_factor": {
+          "value": 3,
+          "unit": "fold",
+          "evidence": "CHEMBL5738876 and CHEMBL5738897"
+        },
+        "n_points": {
+          "value": 10,
+          "unit": "concentrations",
+          "evidence": "CHEMBL5738876 and CHEMBL5738897"
+        },
+        "replicates": {
+          "value": null,
+          "unit": null,
+          "evidence": "unresolved; no replicate number is supplied"
+        },
+        "vehicle_fraction": {
+          "value": null,
+          "unit": null,
+          "evidence": "unresolved; DMSO is supported as the negative-control vehicle, but its final fraction is not supplied"
+        }
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound or control, IRAK1, substrate, and ATP and run the kinase reaction. Use 10 uM final ATP; determine the remaining reaction conditions and demonstrate a suitable initial-rate signal range before definitive testing.",
+      "parameters": {
+        "enzyme_concentration": {
+          "value": null,
+          "unit": null,
+          "evidence": "unresolved"
+        },
+        "substrate_concentration": {
+          "value": null,
+          "unit": null,
+          "evidence": "unresolved; substrate identity is also unresolved"
+        },
+        "ATP_concentration": {
+          "value": 10,
+          "unit": "uM final",
+          "evidence": "CHEMBL5738876 and CHEMBL5738897"
+        },
+        "reaction_time": {
+          "value": null,
+          "unit": null,
+          "evidence": "unresolved"
+        },
+        "temperature": {
+          "value": null,
+          "unit": null,
+          "evidence": "unresolved"
+        }
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction and deplete residual ATP with ADP-Glo reagent, then perform the ADP detection reaction and record luminescence. Follow a validated reagent procedure once volumes and incubation times are established.",
+      "parameters": {
+        "reagent_volumes": {
+          "value": null,
+          "unit": null,
+          "evidence": "unresolved"
+        },
+        "depletion_time": {
+          "value": null,
+          "unit": null,
+          "evidence": "unresolved"
+        },
+        "detection_time": {
+          "value": null,
+          "unit": null,
+          "evidence": "unresolved"
+        }
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract background, normalize vehicle-treated reactions to uninhibited kinase activity, and inspect staurosporine and other controls. Fit percentage remaining activity versus log compound concentration using a four-parameter logistic model as a provisional design assumption; report the fitted IC50 with confidence intervals, individual replicate data, curve diagnostics, and concentrations showing incomplete inhibition. Do not infer an IC50 where the tested range does not adequately define inhibition.",
+      "parameters": {
+        "fit_model": {
+          "value": "four-parameter logistic concentration-response model",
+          "unit": null,
+          "evidence": "provisional design assumption; the retained examples state that curve fits were performed but do not specify this model"
+        },
+        "acceptance_criteria": {
+          "value": null,
+          "unit": null,
+          "evidence": "unresolved; numeric signal-window, variability, curve-quality, and replicate criteria require assay validation"
+        }
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": null,
+  "controls": [
+    "DMSO vehicle negative control, supported by CHEMBL5738897",
+    "Staurosporine positive/reference inhibition control, supported by CHEMBL5738897",
+    "No-enzyme or equivalent background control for luminescence normalization, proposed as a design control",
+    "No-compound reaction control to define uninhibited kinase activity, proposed as a design control",
+    "Compound-only and reagent background checks where feasible to identify compound interference with luminescence, proposed as design controls"
+  ],
+  "rationale": "The question requires direct biochemical inhibition, so only the kinase preparation, reaction, ADP-Glo detection, and analysis cards are used; cellular viability steps are not appropriate. The 10 uM starting concentration, 3-fold dilution, 10-point series, and 10 uM ATP are directly supported by retained IRAK1 assay descriptions CHEMBL5738876 and CHEMBL5738897. These examples also support DMSO and staurosporine controls. ADP-Glo provides a biochemical ADP-formation readout rather than a viability measurement. The concentration series is an assay-design choice supported by those protocols, not evidence of CHEMBL1738757 potency.",
+  "citations": [
+    "CHEMBL5738876",
+    "CHEMBL5738897"
+  ],
+  "limitations": [
+    "No IC50 for CHEMBL1738757 is supplied or predicted; retained measurements concern other compounds and are contextual only.",
+    "Replicate number is unresolved, so the required numeric replicates field is null rather than invented.",
+    "Enzyme construct and origin, substrate identity and concentration, enzyme concentration, reaction time, temperature, final DMSO fraction, detection volumes, and detection incubation times are unsupported and must be resolved experimentally or from a validated protocol.",
+    "The retained protocols use a HotSpot or other kinase assay format, not explicitly ADP-Glo; transferring their concentration series and ATP concentration to ADP-Glo is a justified adaptation but requires format-specific validation.",
+    "ATP concentration relative to the IRAK1 ATP Km is unknown, so any measured IC50 will be condition-dependent and should not be treated as an intrinsic affinity constant.",
+    "The four-parameter model and additional background/interference controls are provisional design assumptions, not sourced protocol facts.",
+    "This experiment measures biochemical IRAK1 inhibition only. It does not measure cellular viability or establish target-specific cellular causality; those would require separate cellular and mechanistic experiments."
+  ]
+}

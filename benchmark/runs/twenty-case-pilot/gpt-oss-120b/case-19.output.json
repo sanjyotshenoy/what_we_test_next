@@ -1,0 +1,69 @@
+{
+  "assay_type": "cell_viability_atp",
+  "system": "Human TMD8 lymphoma cells (BTK\u2011dependent B\u2011cell receptor signaling)",
+  "readout": "CellTiter\u2011Glo luminescence (ATP content as proxy for viable cell number)",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Seed TMD8 cells in 96\u2011well white plates, add a 10\u2011point serial dilution of CHEMBL5188786 (top concentration 10\u202f\u00b5M) prepared in DMSO; include vehicle (0.1\u202f% DMSO) and a known BTK inhibitor (e.g., ibrutinib) as reference, plus medium\u2011only background wells.",
+      "parameters": {
+        "cell_density": "2\u202f\u00d7\u202f10\u2074\u202fcells/well (evidence: standard TMD8 seeding density)",
+        "medium": "RPMI\u20111640 + 10\u202f% FBS",
+        "top_concentration_uM": "10\u202f\u00b5M (assumption, typical starting point for kinase inhibitors)",
+        "dilution_factor": "3 (assumption, provides a broad concentration range)",
+        "n_points": "10 (assumption, enables robust curve fitting)",
+        "replicates": "3 (assumption, standard biological replicates)",
+        "vehicle_fraction": "0.1\u202f% DMSO (assumption, kept constant across all wells)"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Incubate plates at 37\u202f\u00b0C, 5\u202f% CO\u2082 for 72\u202fh to allow multiple cell doublings and capture both cytostatic and cytotoxic effects.",
+      "parameters": {
+        "exposure_time": "72\u202fh (assumption, common endpoint for lymphoma viability assays)",
+        "temperature": "37\u202f\u00b0C (evidence: standard cell culture conditions)"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter\u2011Glo reagent (100\u202f\u00b5L per well), mix for 2\u202fmin, incubate 10\u202fmin for luminescence stabilization, then read on a plate luminometer.",
+      "parameters": {
+        "reagent_volume": "100\u202f\u00b5L (evidence: CellTiter\u2011Glo protocol)",
+        "mix_time": "2\u202fmin (evidence: CellTiter\u2011Glo protocol)",
+        "stabilization_time": "10\u202fmin (evidence: CellTiter\u2011Glo protocol)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle\u2011treated wells (100\u202f% viability) and background wells (0\u202f% viability). Fit a four\u2011parameter logistic model; accept curve if R\u00b2\u202f>\u202f0.9 and the 95\u202f% confidence interval of the EC\u2085\u2080 is \u2264\u202f1\u202flog unit.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic (Hill) curve (assumption, standard for dose\u2011response)",
+        "acceptance_criteria": "R\u00b2\u202f>\u202f0.9, CI width \u2264\u202f1\u202flog unit (assumption, typical quality thresholds)"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.1\u202f% DMSO)",
+    "reference BTK inhibitor (ibrutinib) at known active concentration",
+    "medium\u2011only background"
+  ],
+  "rationale": "TMD8 cells are a BTK\u2011dependent diffuse large B\u2011cell lymphoma line; inhibition of BTK signaling reduces proliferation and induces apoptosis. An ATP\u2011based luminescence assay provides a sensitive, homogeneous readout of cell viability compatible with high\u2011throughput dose\u2011response. Including a known BTK inhibitor allows assessment of assay sensitivity and confirms that the system can report BTK\u2011mediated effects. The chosen concentration range (0.01\u201110\u202f\u00b5M) spans typical cellular potencies for covalent BTK inhibitors and permits detection of both sub\u2011micromolar activity and lack of effect.",
+  "citations": [
+    "CHEMBL5188786",
+    "Q06187",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "The assay measures overall cell viability; a reduction in ATP signal does not prove that CHEMBL5188786 acts through BTK inhibition\u2014it could reflect off\u2011target cytotoxicity.",
+    "No biochemical kinase\u2011activity measurement is included; therefore target engagement is inferred, not demonstrated.",
+    "Without a rescue experiment (e.g., BTK over\u2011expression or use of a BTK\u2011resistant mutant), causality between BTK inhibition and the observed viability effect cannot be established.",
+    "The top concentration and dilution scheme are assumptions in the absence of prior potency data for CHEMBL5188786 in TMD8 cells."
+  ]
+}

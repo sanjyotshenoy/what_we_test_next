@@ -1,0 +1,54 @@
+{
+  "assay_type": "cellular ATP viability concentration-response assay",
+  "system": "human RPMI-8226 cells",
+  "readout": "ATP-based luminescence (CellTiter-Glo) as a viability endpoint",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Prepare human RPMI-8226 cells and a CHEMBL191003 dilution series with vehicle, reference, untreated, and no-cell background controls.",
+      "parameters": "cell_density: unresolved; medium: unresolved; top_concentration_uM: unresolved; dilution_factor: 3 (provisional assumption); n_points: 8 (provisional assumption); replicates: 3 (provisional assumption); vehicle_fraction: unresolved"
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose RPMI-8226 cells to CHEMBL191003 under culture conditions appropriate for a viability assay.",
+      "parameters": "exposure_time: unresolved; temperature: unresolved (37°C only if locally supported; not packet-sourced)"
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Apply the ATP-based viability reagent, mix, stabilize, and measure luminescence.",
+      "parameters": "reagent_volume: unresolved; mix_time: unresolved; stabilization_time: unresolved"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle and background controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+      "parameters": "fit_model: unresolved; acceptance_criteria: unresolved"
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle control with matched solvent; vehicle fraction unresolved",
+    "no-cell background control",
+    "untreated cell control",
+    "reference inhibitor control; identity unresolved"
+  ],
+  "rationale": "The question asks for a cellular growth/proliferation or viability endpoint in RPMI-8226 cells, so the cell viability ATP step cards are selected in order: prepare, expose, detect, analyse. CellTiter-Glo measures ATP-associated viability, which is compatible with a concentration-response viability experiment. The biochemical kinase cards are not selected because they measure Aurora kinase A inhibition in a biochemical system, not cellular viability. A viability concentration-response can quantify the effect of CHEMBL191003 on RPMI-8226 viability, but it cannot by itself establish that the effect is Aurora kinase A-specific. Target-specific causality would require separate target-engagement or biochemical inhibition evidence, which is not provided in the packet.",
+  "citations": [
+    "CHEMBL191003",
+    "O14965",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "top_concentration_uM is unresolved because no packet value supports it; it must be set from solubility/toxicity pilot data rather than inferred.",
+    "dilution_factor=3, n_points=8, and replicates=3 are provisional design assumptions, not packet-sourced facts.",
+    "Cell density, medium, vehicle fraction, exposure time, temperature, reagent volume, mix time, stabilization time, fit model, and acceptance criteria are unresolved in the packet.",
+    "ATP-based viability is not a direct proliferation assay and cannot distinguish cytostatic from cytotoxic effects without orthogonal measurements.",
+    "This design cannot establish biochemical Aurora kinase A inhibition or target-specific causality; it only measures a cellular viability response to CHEMBL191003.",
+    "No withheld IC50 is predicted or inferred."
+  ]
+}

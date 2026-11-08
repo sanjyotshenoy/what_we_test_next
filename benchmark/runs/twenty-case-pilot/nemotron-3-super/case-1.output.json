@@ -1,0 +1,68 @@
+{
+  "assay_type": "biochemical luminescence (ADP-Glo)",
+  "system": "recombinant human haspin (Q8TF76)",
+  "readout": "luminescence proportional to ADP produced",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10\u202f\u00b5M top concentration dilution series of CHEMBL4278808 in DMSO, vehicle controls, and a known haspin inhibitor (CHEMBL1952329) as positive control.",
+      "parameters": {
+        "top_concentration_uM": "10 \u00b5M (justified: ~40\u00d7 highest literature IC50 of 255\u202fnM for similar chemotypes)",
+        "dilution_factor": "3 (standard 3\u2011fold serial dilution)",
+        "n_points": "8 (covers 10\u202f\u00b5M down to ~0.015\u202f\u00b5M)",
+        "replicates": "3 (technical replicates per point)",
+        "vehicle_fraction": "0.5\u202f% v/v DMSO (final DMSO concentration across series)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Mix compound (or control) with recombinant haspin kinase, peptide substrate, and ATP; incubate to allow phosphorylation.",
+      "parameters": {
+        "enzyme_concentration": "5\u202fnM (ensures signal within linear range of ADP\u2011Glo)",
+        "substrate_concentration": "20\u202f\u00b5M (\u2248 Km for haspin peptide substrate)",
+        "ATP_concentration": "100\u202f\u00b5M (\u2248 Km for ATP, saturating but not excessive)",
+        "reaction_time": "30\u202fmin (sufficient for steady\u2011state phosphorylation)",
+        "temperature": "30\u202f\u00b0C (optimal for haspin activity)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop kinase reaction, deplete residual ATP, then add ADP\u2011Glo detection reagent and measure luminescence.",
+      "parameters": {
+        "reagent_volumes": "25\u202f\u00b5L kinase stop buffer + 25\u202f\u00b5L ADP depletion mix per well",
+        "depletion_time": "40\u202fmin at room temperature",
+        "detection_time": "30\u202fmin after adding ADP\u2011Glo reagent"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100\u202f% activity) and positive control (0\u202f% activity), fit a four\u2011parameter logistic curve, report EC50/IC50 with 95\u202f% CI and assay Z\u2032\u2011factor.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic (variable slope)",
+        "acceptance_criteria": "Z\u2032\u202f\u2265\u202f0.5, R\u00b2\u202f\u2265\u202f0.9, CV of replicates \u2264\u202f15\u202f%"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.5\u202f% DMSO)",
+    "positive control (CHEMBL1952329 at 10\u202f\u00b5M)",
+    "negative control (no enzyme)"
+  ],
+  "rationale": "The ADP\u2011Glo luminescence assay directly measures haspin catalytic activity, matching the biochemical inhibition question. Concentration range spans well above and below reported IC50s for similar haspin inhibitors (34\u2013770\u202fnM), ensuring accurate curve fitting. Replicates and controls satisfy assay quality standards.",
+  "citations": [
+    "CHEMBL1952329",
+    "CHEMBL14285",
+    "CHEMBL269538",
+    "CHEMBL3774448",
+    "CHEMBL3775393"
+  ],
+  "limitations": [
+    "Assay relies on recombinant haspin; post\u2011translational modifications or native protein complexes may affect inhibitor potency.",
+    "DMSO vehicle at 0.5\u202f% may influence enzyme stability for highly hydrophobic compounds.",
+    "IC50 derived from enzymatic activity does not confirm cellular target engagement."
+  ]
+}

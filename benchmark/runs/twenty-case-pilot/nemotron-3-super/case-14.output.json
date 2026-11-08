@@ -1,0 +1,60 @@
+{
+  "assay_type": "biochemical luminescence (ADP-Glo)",
+  "system": "recombinant human MAP3K7 (TAK1) kinase",
+  "readout": "luminescence proportional to ADP produced",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold serial dilution of CHEMBL1077979 starting from a top concentration, plus vehicle and reference controls.",
+      "parameters": {
+        "top_concentration_uM": "unresolved",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.5% DMSO (v/v)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Mix diluted compound, kinase, substrate, and ATP; incubate at 30\u00b0C for 60 min.",
+      "parameters": {
+        "enzyme_concentration": "5 ng/\u00b5L (approx 0.1 nM) \u2013 based on typical kinase assay sensitivity",
+        "substrate_concentration": "50 \u00b5M peptide substrate (e.g., myelin basic protein)",
+        "ATP_concentration": "100 \u00b5M (near Km for TAK1)",
+        "reaction_time": "60 min",
+        "temperature": "30\u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop reaction, deplete residual ATP, add ADP-Glo detection reagent, incubate, then measure luminescence.",
+      "parameters": {
+        "reagent_volumes": "equal volumes of ATP depletion and detection reagents per manufacturer",
+        "depletion_time": "40 min",
+        "detection_time": "30 min"
+      }
+    }
+  ],
+  "top_concentration_uM": "unresolved",
+  "dilution_factor": "3",
+  "n_points": "10",
+  "replicates": "3",
+  "controls": [
+    "vehicle (0.5% DMSO)",
+    "positive control inhibitor (e.g., 5Z-7-oxozeaenol)",
+    "background (no enzyme)"
+  ],
+  "rationale": "The ADP-Glo luminescent format directly measures kinase activity via ADP production, matching the biochemical inhibition question. Concentration series and replicates follow standard practice; enzyme, substrate, and ATP concentrations are chosen to be within linear range based on typical kinase assays and the retained examples showing spectrophotometric and AlphaScreen formats for TAK1.",
+  "citations": [
+    "CHEMBL5680965",
+    "CHEMBL4629878",
+    "CHEMBL2013789",
+    "CHEMBL4412493",
+    "CHEMBL4412492"
+  ],
+  "limitations": [
+    "Top concentration is unresolved because no potency data for CHEMBL1077979 is provided; the value must be determined empirically.",
+    "Enzyme concentration is an assumption based on typical assay sensitivity and not directly cited from the packet.",
+    "Substrate and ATP concentrations are inferred from common kinase assay conditions; optimal values for TAK1 may differ."
+  ]
+}

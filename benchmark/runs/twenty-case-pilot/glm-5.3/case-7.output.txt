@@ -1,0 +1,72 @@
+{
+  "assay_type": "Biochemical concentration-response inhibition assay (luminescent ADP-Glo kinase assay)",
+  "system": "Purified recombinant DNA-dependent protein kinase catalytic subunit (P78527) with CHEMBL104468 in vitro",
+  "readout": "Luminescence proportional to ADP produced, converted to percent inhibition of kinase activity",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a serial dilution of CHEMBL104468 in assay buffer, plus vehicle, no-enzyme, no-compound and reference-inhibitor controls.",
+      "parameters": {
+        "top_concentration_uM": {"value": 100, "unit": "uM", "evidence": "assumption; no packet evidence for this compound's potency range"},
+        "dilution_factor": {"value": 3, "unit": "fold", "evidence": "assumption; standard semi-log spacing"},
+        "n_points": {"value": 10, "unit": "points", "evidence": "assumption; covers ~5 log units"},
+        "replicates": {"value": 3, "unit": "wells/condition", "evidence": "assumption; supports uncertainty reporting"},
+        "vehicle_fraction": {"value": 1, "unit": "% DMSO", "evidence": "assumption; keep constant across all wells including controls"}
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound dilutions with kinase, peptide/DNA substrate and ATP; incubate under linear-range conditions.",
+      "parameters": {
+        "enzyme_concentration": {"value": null, "unit": "nM", "evidence": "unresolved; must be empirically titrated to keep <10% ATP conversion"},
+        "substrate_concentration": {"value": null, "unit": "uM", "evidence": "unresolved; no packet support for substrate identity or concentration"},
+        "ATP_concentration": {"value": 10, "unit": "uM", "evidence": "supported precedent: CHEMBL1243970 measured DNA-PK inhibition at 10 uM ATP (document CHEMBL1240340)"},
+        "reaction_time": {"value": null, "unit": "min", "evidence": "unresolved; establish from enzyme titration time course"},
+        "temperature": {"value": 25, "unit": "C", "evidence": "assumption; ambient room temperature, not packet-sourced"}
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop reaction with ADP-Glo reagent to deplete residual ATP, then add kinase detection reagent and read luminescence.",
+      "parameters": {
+        "reagent_volumes": {"value": null, "unit": "uL", "evidence": "unresolved; follow manufacturer protocol, not packet-sourced"},
+        "depletion_time": {"value": null, "unit": "min", "evidence": "unresolved; manufacturer-specified"},
+        "detection_time": {"value": null, "unit": "min", "evidence": "unresolved; manufacturer-specified"}
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to no-enzyme background and no-compound (100% activity) controls, fit percent inhibition vs log concentration, report IC50 with confidence intervals.",
+      "parameters": {
+        "fit_model": {"value": "four-parameter logistic (variable slope)", "unit": null, "evidence": "assumption; standard for concentration-response"},
+        "acceptance_criteria": {"value": "Z' factor > 0.5 between positive and negative controls; monotonic response; replicates within ~20% CV", "unit": null, "evidence": "assumption; no packet-sourced criteria"}
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle control (1% DMSO, no compound) defining 100% kinase activity",
+    "No-enzyme background control",
+    "No-ATP / no-substrate background control",
+    "Reference DNA-PK inhibitor control (e.g., a compound from the retained examples such as CHEMBL1082377, assay CHEMBL1118579) to confirm assay performance",
+    "Compound interference control: compound plus detection reagents without kinase, to detect luminescence quenching/enhancement"
+  ],
+  "rationale": "The question asks for biochemical inhibition of purified DNA-PK catalytic subunit (P78527), so cell-based steps (cell-prepare, cell-expose, cell-detect) are excluded: cellular viability would not establish target-specific causality. An ADP-Glo luminescent kinase assay (proto:kinase_biochem_lum) directly measures catalytic activity via ADP generation, matching the retained measurement examples of DNA-PK inhibition assays (CHEMBL1243970, CHEMBL1118579). ATP at 10 uM is the only reaction condition with packet support (CHEMBL1243970, document CHEMBL1240340). The concentration series (100 uM top, 3-fold, 10 points, triplicate) is a design assumption chosen to span likely potency without relying on any remembered or withheld IC50 for CHEMBL104468; the retained IC50s for other compounds (60-1700 nM) are contextual only and were not used to estimate this compound's potency.",
+  "citations": [
+    "CHEMBL1243970",
+    "CHEMBL1240340",
+    "CHEMBL1118579",
+    "CHEMBL1155542"
+  ],
+  "limitations": [
+    "No IC50 or activity data for CHEMBL104468 against P78527 is present in the packet; the concentration range is an assumption and may need adjustment after a pilot run.",
+    "Enzyme concentration, substrate identity/concentration, reaction time, temperature, and detection reagent volumes/times are unsupported by the packet and must be established empirically or from manufacturer protocols.",
+    "The retained example IC50s are for different compounds and are not estimates for CHEMBL104468.",
+    "ADP-Glo luminescence can be subject to compound optical interference; the interference control mitigates but does not eliminate this risk.",
+    "This design measures biochemical inhibition only; it does not address cellular permeability, cytotoxicity, or target engagement in cells, and cannot by itself establish target-specific causality in a cellular context.",
+    "If the compound is ATP-competitive, the measured IC50 depends on the 10 uM ATP condition and is not a Ki; a Ki determination would require varying ATP."
+  ]
+}

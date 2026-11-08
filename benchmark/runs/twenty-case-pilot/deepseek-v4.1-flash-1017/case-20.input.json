@@ -1,0 +1,184 @@
+{
+  "id": "case-20",
+  "question": "Design a concentration-response experiment to measure the effect of CHEMBL169390 on growth/proliferation or viability of mouse BaF3 cells expressing MER. Explain the endpoint, justify the readout and any adaptations to the step cards, and state what this can and cannot establish about Tyrosine-protein kinase Mer.",
+  "entities": [
+    {
+      "id": "CHEMBL169390",
+      "name": "CHEMBL169390",
+      "type": "Compound",
+      "smiles": "Nc1ncnc2c1c(-c1cccc(O)c1)cn2C1CCCC1"
+    },
+    {
+      "id": "Q12866",
+      "name": "Tyrosine-protein kinase Mer",
+      "type": "Target",
+      "smiles": null
+    }
+  ],
+  "step_cards": [
+    {
+      "id": "kinase-prepare",
+      "template": "proto:kinase_biochem_lum",
+      "action": "Prepare a compound dilution series and vehicle/reference controls.",
+      "slots": [
+        "top_concentration_uM",
+        "dilution_factor",
+        "n_points",
+        "replicates",
+        "vehicle_fraction"
+      ]
+    },
+    {
+      "id": "kinase-react",
+      "template": "proto:kinase_biochem_lum",
+      "action": "Combine compound, kinase, substrate and ATP; run the reaction under justified conditions.",
+      "slots": [
+        "enzyme_concentration",
+        "substrate_concentration",
+        "ATP_concentration",
+        "reaction_time",
+        "temperature"
+      ],
+      "requires": [
+        "kinase-prepare"
+      ]
+    },
+    {
+      "id": "kinase-detect",
+      "template": "proto:kinase_biochem_lum",
+      "action": "For ADP-Glo: stop the reaction and deplete residual ATP, then perform the ADP detection reaction and measure luminescence.",
+      "slots": [
+        "reagent_volumes",
+        "depletion_time",
+        "detection_time"
+      ],
+      "requires": [
+        "kinase-react"
+      ]
+    },
+    {
+      "id": "cell-prepare",
+      "template": "proto:cell_viability_atp",
+      "action": "Prepare the specified cell system, dilution series, vehicle, reference and background controls.",
+      "slots": [
+        "cell_density",
+        "medium",
+        "top_concentration_uM",
+        "dilution_factor",
+        "n_points",
+        "replicates",
+        "vehicle_fraction"
+      ]
+    },
+    {
+      "id": "cell-expose",
+      "template": "proto:cell_viability_atp",
+      "action": "Expose cells to compound under justified culture conditions.",
+      "slots": [
+        "exposure_time",
+        "temperature"
+      ],
+      "requires": [
+        "cell-prepare"
+      ]
+    },
+    {
+      "id": "cell-detect",
+      "template": "proto:cell_viability_atp",
+      "action": "For CellTiter-Glo: apply the ATP-based viability reagent, mix and stabilize according to a supported procedure, then measure luminescence.",
+      "slots": [
+        "reagent_volume",
+        "mix_time",
+        "stabilization_time"
+      ],
+      "requires": [
+        "cell-expose"
+      ]
+    },
+    {
+      "id": "analyse",
+      "template": "reviewer-authored",
+      "action": "Normalize against appropriate controls, fit a concentration-response curve, and report uncertainty and assay limitations.",
+      "slots": [
+        "fit_model",
+        "acceptance_criteria"
+      ]
+    }
+  ],
+  "retained_measurement_examples": [
+    {
+      "compound": "CHEMBL4845957",
+      "ic50_nM": 13.0,
+      "assay": "CHEMBL4822428",
+      "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+      "document": "CHEMBL4819114",
+      "source": "ChEMBL 37"
+    },
+    {
+      "compound": "CHEMBL4846932",
+      "ic50_nM": 61.0,
+      "assay": "CHEMBL4822428",
+      "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+      "document": "CHEMBL4819114",
+      "source": "ChEMBL 37"
+    },
+    {
+      "compound": "CHEMBL4848604",
+      "ic50_nM": 8.1,
+      "assay": "CHEMBL4822428",
+      "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+      "document": "CHEMBL4819114",
+      "source": "ChEMBL 37"
+    },
+    {
+      "compound": "CHEMBL4849099",
+      "ic50_nM": 86.0,
+      "assay": "CHEMBL4822428",
+      "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+      "document": "CHEMBL4819114",
+      "source": "ChEMBL 37"
+    },
+    {
+      "compound": "CHEMBL4849679",
+      "ic50_nM": 12.0,
+      "assay": "CHEMBL4822428",
+      "description": "Inhibition of recombinant human Mer expressed in mouse BaF3 cells assessed as reduction in cell viability incubated for 2 days by cell titer glo assay",
+      "document": "CHEMBL4819114",
+      "source": "ChEMBL 37"
+    }
+  ],
+  "retrieval_note": "At most five other compounds on the same target, sorted by compound ID then assay ID. Not similarity-ranked. Assay descriptions are retained so compatibility can be assessed; their IC50s are contextual evidence, not direct estimates for the query. No eligible examples means insufficient retrieved evidence.",
+  "guidelines": [
+    "Match the biological system and readout to the question.",
+    "Use controls and justify the concentration series and replicates.",
+    "Respect prerequisites of chosen step cards; justify any adaptations.",
+    "State unsupported conditions as unresolved; do not invent source support.",
+    "Cell viability alone does not establish a target-specific mechanism."
+  ],
+  "output_contract": {
+    "assay_type": "string",
+    "system": "string",
+    "readout": "string",
+    "steps": [
+      {
+        "card_id": "string or justified new step",
+        "instruction": "string",
+        "parameters": "value/unit/evidence or unresolved"
+      }
+    ],
+    "top_concentration_uM": "positive number",
+    "dilution_factor": "number > 1",
+    "n_points": "integer >= 2",
+    "replicates": "positive integer",
+    "controls": [
+      "string"
+    ],
+    "rationale": "string",
+    "citations": [
+      "provided evidence ID"
+    ],
+    "limitations": [
+      "string"
+    ]
+  }
+}

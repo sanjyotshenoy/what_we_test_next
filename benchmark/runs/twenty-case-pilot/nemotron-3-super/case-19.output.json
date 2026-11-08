@@ -1,0 +1,61 @@
+{
+  "assay_type": "cell viability",
+  "system": "human TMD8 cells",
+  "readout": "luminescence (ATP-based CellTiter-Glo)",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Seed TMD8 cells at appropriate density in growth medium, prepare compound dilution series and vehicle controls.",
+      "parameters": {
+        "cell_density": "unresolved",
+        "medium": "unresolved",
+        "top_concentration_uM": "10 \u00b5M (assumption)",
+        "dilution_factor": "3 (assumption)",
+        "n_points": "8 (assumption)",
+        "replicates": "3 (assumption)",
+        "vehicle_fraction": "0.1% DMSO (standard)"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Add compound dilutions to seeded cells and incubate.",
+      "parameters": {
+        "exposure_time": "72 h (typical proliferation assay)",
+        "temperature": "37\u202f\u00b0C, 5% CO\u2082"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter-Glo reagent, mix, stabilize, measure luminescence.",
+      "parameters": {
+        "reagent_volume": "equal volume to culture (per manufacturer)",
+        "mix_time": "2 min",
+        "stabilization_time": "10 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle control (100%) and background (no cells), fit a four\u2011parameter logistic curve, report EC50/IC50 with confidence intervals.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic",
+        "acceptance_criteria": "R\u00b2\u202f>\u202f0.9, CV of replicates\u202f<\u202f20%"
+      }
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 8,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.1% DMSO)",
+    "background (no cells)",
+    "positive control (known cytotoxic agent if available)"
+  ],
+  "rationale": "ATP\u2011based luminescence reports viable cell number, suitable for measuring growth/proliferation effects of CHEMBL5188786 in TMD8 cells.",
+  "citations": [],
+  "limitations": [
+    "Concentration series and replicate numbers are assumptions due to lack of source\u2011specific guidance.",
+    "Cell viability readout does not prove that CHEMBL5188786 inhibits BTK; off\u2011target cytotoxicity or unrelated pathways could affect viability.",
+    "Assumes TMD8 cells express BTK and that BTK inhibition would impact proliferation; this link is not demonstrated."
+  ]
+}

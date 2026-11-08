@@ -1,0 +1,55 @@
+{
+  "assay_type": "biochemical concentration-response inhibition assay (ADP-Glo luminescence)",
+  "system": "Cell-free CK1 alpha (P48729) kinase reaction; exact enzyme construct/source unresolved",
+  "readout": "ADP-Glo luminescence; ADP production is a proxy for kinase activity, so inhibition lowers signal",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold serial dilution of CHEMBL1234833 from a provisional 100 uM top concentration in assay buffer with constant vehicle; include vehicle-only, no-enzyme background, and reference-inhibitor controls if available. Top concentration, dilution factor, point count, and replicates are design assumptions, not sourced potency or solubility data.",
+      "parameters": "top_concentration_uM=100 (provisional assumption); dilution_factor=3 (provisional assumption); n_points=10 (provisional assumption); replicates=3 (provisional assumption); vehicle_fraction=unresolved, keep constant and match vehicle control"
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine compound with CK1 alpha (P48729), substrate and ATP; run the reaction under initial-rate conditions. Establish enzyme/substrate/ATP/time/temperature by titration and time-course; do not import values from unrelated retained assays.",
+      "parameters": "enzyme_concentration=unresolved; substrate_concentration=unresolved; ATP_concentration=unresolved; reaction_time=unresolved; temperature=unresolved"
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction, deplete residual ATP, add ADP detection reagent, and measure luminescence using a validated ADP-Glo procedure.",
+      "parameters": "reagent_volumes=unresolved; depletion_time=unresolved; detection_time=unresolved"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize to vehicle-only and no-enzyme controls; fit a concentration-response curve and report uncertainty and limitations. Do not report an IC50 unless curve criteria are met.",
+      "parameters": "fit_model=4-parameter logistic (provisional analysis assumption); acceptance_criteria=unresolved; predefine signal window, replicate variability, asymptotes, and curve-fit criteria"
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only activity control with matched vehicle fraction",
+    "No-enzyme background control",
+    "No-inhibitor positive activity control",
+    "Reference CK1 inhibitor control if identity and supply are available (unresolved)",
+    "No-substrate control to confirm kinase dependence (optional)"
+  ],
+  "rationale": "The question asks for biochemical inhibition of P48729, so cell-viability cards are inappropriate. The ordered kinase-prepare, kinase-react, kinase-detect, and analyse cards respect prerequisites. ADP-Glo luminescence is a biochemical readout represented by the kinase step cards. The concentration series is provisional because the packet provides no CHEMBL1234833 potency, solubility, or CK1 alpha assay-condition evidence. Controls separate assay background from compound-dependent inhibition. This design measures direct biochemical inhibition only; it does not measure cellular viability or establish target-specific causality in cells.",
+  "citations": [
+    "CHEMBL1234833",
+    "P48729",
+    "kinase-prepare",
+    "kinase-react",
+    "kinase-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "No packet evidence supports CHEMBL1234833 potency, solubility, stability, or CK1 alpha assay conditions; 100 uM top concentration, 3-fold dilution, 10 points, and 3 replicates are provisional design assumptions, not sourced facts.",
+    "Enzyme concentration, substrate concentration, ATP concentration, reaction time, temperature, reagent volumes, depletion/detection times, and acceptance criteria are unresolved and must be established experimentally or from a validated protocol.",
+    "ADP-Glo signal can be confounded by compound interference, ATP depletion, or detection chemistry; an orthogonal counterscreen would be needed to support the biochemical result.",
+    "Biochemical inhibition does not establish cellular viability or target-specific causality; no cell-viability step is included.",
+    "Reference inhibitor identity and availability are unresolved; no IC50 is predicted.",
+    "Retained CK1 examples are contextual only and are not direct estimates for CHEMBL1234833."
+  ]
+}

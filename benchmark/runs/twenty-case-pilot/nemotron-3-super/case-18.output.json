@@ -1,0 +1,61 @@
+{
+  "assay_type": "cell viability",
+  "system": "mouse BaF3 cells expressing recombinant human AXL",
+  "readout": "luminescence (CellTiter-Glo ATP-based assay)",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Seed BaF3-AXL cells at defined density in appropriate medium, prepare compound dilution series and vehicle controls.",
+      "parameters": {
+        "cell_density": "unresolved (cells/well)",
+        "medium": "RPMI 1640 + 10% FBS + IL-3 (standard for BaF3)",
+        "top_concentration_uM": null,
+        "dilution_factor": null,
+        "n_points": null,
+        "replicates": null,
+        "vehicle_fraction": "0.5% DMSO (v/v)"
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Add compound dilutions to seeded cells and incubate.",
+      "parameters": {
+        "exposure_time": "unresolved (hours)",
+        "temperature": "37\u00b0C, 5% CO2"
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Add CellTiter-Glo reagent, mix, stabilize, measure luminescence.",
+      "parameters": {
+        "reagent_volume": "equal volume to culture (per manufacturer)",
+        "mix_time": "2 min",
+        "stabilization_time": "10 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle control (100% viability) and background (no cells), fit a four-parameter logistic curve, report EC50/IC50 with confidence intervals.",
+      "parameters": {
+        "fit_model": "four-parameter logistic (Hill slope variable)",
+        "acceptance_criteria": "Z' factor \u2265 0.5, R\u00b2 \u2265 0.8 for fits"
+      }
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "vehicle (0.5% DMSO)",
+    "background (media only, no cells)",
+    "positive control (known AXL inhibitor if available)"
+  ],
+  "rationale": "CellTiter-Glo measures intracellular ATP as a proxy for viable cell number, appropriate for assessing growth/proliferation effects of CHEMBL4845957 in BaF3-AXL cells.",
+  "citations": [],
+  "limitations": [
+    "Concentration series parameters (top concentration, dilution factor, number of points, replicates) and exposure time lack specific evidence in the packet and are therefore unresolved; values should be determined empirically.",
+    "Viability readout does not prove that CHEMBL4845957 inhibits AXL kinase activity directly; off-target cytotoxicity or cytokine withdrawal effects could contribute.",
+    "Assay does not distinguish between cytostatic and cytotoxic effects."
+  ]
+}

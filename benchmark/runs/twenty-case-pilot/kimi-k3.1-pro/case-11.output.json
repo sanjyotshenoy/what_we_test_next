@@ -1,0 +1,72 @@
+{
+  "assay_type": "Biochemical kinase concentration-response assay using the ADP-Glo luminescence format specified by the selected step cards",
+  "system": "Purified human Mitogen-activated protein kinase 9 (P45984; JNK2) with a suitable kinase substrate; enzyme construct, activation state, and substrate identity are unresolved",
+  "readout": "Luminescence proportional to ADP generated during the kinase reaction, used to calculate compound-dependent inhibition of biochemical kinase activity",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a log-spaced CHEMBL10 dilution series in a constant vehicle concentration. Include vehicle-only, no-enzyme/background, and reference-control wells. Use a pilot range intended to span negligible through near-complete inhibition, then adjust the range around the observed transition; no potency range is inferred for CHEMBL10.",
+      "parameters": {
+        "top_concentration_uM": "unresolved: no supported starting concentration is supplied",
+        "dilution_factor": "unresolved: select during pilot design to provide adequate transition coverage",
+        "n_points": "unresolved: must be sufficient to define both asymptotes and the transition",
+        "replicates": "unresolved: no supported replicate number is supplied",
+        "vehicle_fraction": "unresolved: hold constant across compound and vehicle-control wells and verify kinase tolerance"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine CHEMBL10 or control, P45984, substrate, and ATP, and run the kinase reaction within a validated initial-rate window. Keep enzyme, substrate, ATP, time, temperature, and vehicle constant across the concentration series.",
+      "parameters": {
+        "enzyme_concentration": "unresolved: requires a construct- and activity-specific linear-range titration",
+        "substrate_concentration": "unresolved: substrate identity and concentration are not supplied",
+        "ATP_concentration": "unresolved: no ATP concentration or ATP Km is supplied; report the chosen condition because it can affect apparent inhibition",
+        "reaction_time": "unresolved: establish by a reaction-time course avoiding substrate or ATP depletion",
+        "temperature": "unresolved"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction and deplete residual ATP with ADP-Glo reagent, then perform the ADP detection reaction and record luminescence. Apply identical reagent additions and incubations to all assay and control wells.",
+      "parameters": {
+        "reagent_volumes": "unresolved: dependent on the validated plate format and reaction volume",
+        "depletion_time": "unresolved: validate complete ATP depletion without altering the activity comparison",
+        "detection_time": "unresolved: use a validated stable luminescence window"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract background, normalize vehicle activity to 0% inhibition and the validated maximally inhibited/background condition to 100% inhibition, and fit concentration-response data only when the curve is adequately defined. Report individual replicates, fitted uncertainty, curve diagnostics, and any incomplete inhibition or asymptote ambiguity.",
+      "parameters": {
+        "fit_model": "Assumption, not sourced fact: use a four-parameter logistic model with log concentration; use a simpler or constrained model only if justified by the data",
+        "acceptance_criteria": "unresolved: prespecify control separation, replicate variability, residual/curve-quality requirements, and rules for reporting bounds rather than a precise IC50"
+      }
+    }
+  ],
+  "top_concentration_uM": null,
+  "dilution_factor": null,
+  "n_points": null,
+  "replicates": null,
+  "controls": [
+    "Vehicle-only kinase reaction at the same vehicle fraction as compound wells",
+    "No-enzyme or otherwise validated background control",
+    "No-compound maximum-activity control",
+    "Reference-inhibitor control, with inhibitor identity and concentration unresolved",
+    "Compound-only detection-interference control without kinase to assess luminescence artifacts"
+  ],
+  "rationale": "The question requires direct biochemical inhibition, so only the kinase preparation, reaction, ADP-Glo detection, and analysis cards are used; cellular viability cards are omitted. ADP generation measures catalytic activity rather than merely compound binding. The retained examples show that other compounds have been tested against JNK2 using displacement, radiometric activity, and other inhibition assays, but they do not supply CHEMBL10-specific potency or validate ADP-Glo reaction conditions. A pilot-defined concentration range and validated linear reaction window are therefore required.",
+  "citations": [
+    "CHEMBL10",
+    "P45984",
+    "CHEMBL1050683",
+    "CHEMBL1108469",
+    "CHEMBL820304"
+  ],
+  "limitations": [
+    "No numeric concentration-series or replicate settings are supported by the packet; the corresponding contract fields are null rather than invented values.",
+    "Enzyme construct, activation state, substrate, ATP and substrate concentrations, buffer, reaction time, temperature, plate format, and detection timings remain unresolved.",
+    "The retained IC50 values concern other compounds and, in some cases, different assay principles; they are contextual evidence only and are not used to predict a CHEMBL10 IC50.",
+    "A biochemical activity decrease establishes inhibition under the tested conditions but does not by itself establish binding mode, selectivity, cellular efficacy, or target-specific causality in cells.",
+    "Luminescence interference, compound precipitation or aggregation, and incomplete curve coverage must be assessed before interpreting a fitted potency."
+  ]
+}

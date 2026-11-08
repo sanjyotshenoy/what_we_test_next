@@ -1,0 +1,68 @@
+{
+  "assay_type": "biochemical kinase luminescence (ADP‑Glo)",
+  "system": "recombinant human DYRK1A (Q13627) expressed in baculovirus/insect cells",
+  "readout": "luminescence proportional to ADP production",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10‑point, 3‑fold serial dilution of CHEMBL1077347 in assay buffer with 0.5 % DMSO (vehicle) and include a DMSO‑only control and a known DYRK1A inhibitor reference (e.g., harmine).",
+      "parameters": {
+        "top_concentration_uM": "100 µM (chosen to span >3 log units and ensure coverage of potential IC₅₀)",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.5 % DMSO (consistent with typical kinase assays and compatible with ADP‑Glo reagents)"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In 384‑well plates, add recombinant DYRK1A, peptide substrate (e.g., DYRKtide), ATP, and the diluted compound; incubate under conditions that reflect published DYRK1A assays.",
+      "parameters": {
+        "enzyme_concentration": "5 nM (typical for ADP‑Glo assays to keep reaction in linear range)",
+        "substrate_concentration": "10 µM (≈ Km for DYRKtide, ensuring competitive inhibition can be observed)",
+        "ATP_concentration": "10 µM (≤ Km for ATP to increase sensitivity to ATP‑competitive inhibitors; supported by retained examples that used ATP‑competitive formats)",
+        "reaction_time": "30 min (sufficient for measurable ADP formation while remaining within linear kinetics)",
+        "temperature": "30 °C (standard for many kinase luminescence assays)"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Terminate the kinase reaction with ADP‑Glo™ stop‑and‑detect reagent, allow ATP depletion, then add detection reagent and read luminescence.",
+      "parameters": {
+        "reagent_volumes": "20 µL stop‑and‑detect reagent per well (per manufacturer protocol)",
+        "depletion_time": "40 min (as recommended for complete ATP consumption)",
+        "detection_time": "10 min (luminescence stabilization period)"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0 % inhibition (DMSO control) and 100 % inhibition (reference inhibitor at saturating concentration), fit a four‑parameter logistic curve, report IC₅₀ with 95 % confidence intervals, and note assay performance metrics (Z′‑factor, signal‑to‑background).",
+      "parameters": {
+        "fit_model": "four‑parameter logistic (Hill slope constrained to >0)",
+        "acceptance_criteria": "Z′‑factor ≥ 0.5, R² ≥ 0.9, Hill slope between 0.5 and 2"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "0 % inhibition: 0.5 % DMSO only",
+    "100 % inhibition: harmine at 10 µM (published DYRK1A inhibitor)",
+    "background: wells without enzyme to assess reagent background"
+  ],
+  "rationale": "The retained measurement examples for DYRK1A (e.g., CHEMBL1230165, CHEMBL1236620) employed recombinant enzyme, ATP‑competitive formats, and luminescence or radiometric readouts, indicating that a biochemical ADP‑Glo assay is appropriate for measuring direct inhibition of Q13627. A 3‑fold dilution series from 100 µM provides >3 log coverage, which is standard for IC₅₀ determination. Using low enzyme and substrate concentrations relative to their Km values enhances sensitivity to competitive inhibitors while keeping the reaction within the linear range of ADP production. The chosen controls allow robust normalization and assessment of assay quality.",
+  "citations": [
+    "CHEMBL1230165",
+    "CHEMBL1236620",
+    "CHEMBL1232500",
+    "CHEMBL1213041",
+    "CHEMBL1234833"
+  ],
+  "limitations": [
+    "The exact kinetic parameters (Km for ATP and substrate) for the recombinant DYRK1A batch are not provided; values are assumed from literature and may require empirical verification.",
+    "Potential compound interference with the luminescence detection (e.g., quenching or intrinsic fluorescence) is not pre‑tested; a counterscreen with ADP‑Glo in the absence of enzyme is recommended.",
+    "No cell‑based data are included; therefore the assay measures only direct enzymatic inhibition and does not address cellular permeability, metabolism, or off‑target effects."
+  ]
+}

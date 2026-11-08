@@ -1,0 +1,53 @@
+{
+  "assay_type": "biochemical kinase inhibition assay with ADP-Glo luminescence readout",
+  "system": "Cell-free recombinant NUAK family SNF1-like kinase 1 (O60285); enzyme source/construct unresolved",
+  "readout": "Luminescence from ADP detection after ATP depletion, used as a proxy for kinase activity",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a compound dilution series and vehicle/no-compound controls, keeping vehicle constant across wells.",
+      "parameters": "top_concentration_uM=100 (provisional design assumption, not sourced); dilution_factor=3 (provisional design assumption); n_points=10 (provisional design assumption); replicates=3 (provisional design assumption); vehicle_fraction=unresolved (vehicle identity and final % not specified in packet)"
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Combine CHEMBL1615278 with recombinant NUAK1, substrate and ATP; run the reaction under pre-validated initial-rate conditions.",
+      "parameters": "enzyme_concentration=unresolved; substrate_identity_and_concentration=unresolved; ATP_concentration=unresolved (ATP Km not in packet); reaction_time=unresolved; temperature=unresolved"
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the kinase reaction, deplete residual ATP, perform the ADP detection reaction, and measure luminescence.",
+      "parameters": "reagent_volumes=unresolved; depletion_time=unresolved; detection_time=unresolved; use an ADP-Glo-compatible procedure as indicated by the step card"
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize against vehicle and no-enzyme controls, fit a concentration-response curve, and report apparent biochemical IC50 with uncertainty and assay limitations.",
+      "parameters": "fit_model=four-parameter logistic (provisional design assumption); acceptance_criteria=unresolved (control separation, replicate precision, curve convergence, and absence of precipitation must be defined; exact thresholds not in packet)"
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle-only no-compound control",
+    "no-enzyme background control",
+    "no-compound enzyme activity control",
+    "ADP detection/ATP-only control",
+    "reference inhibitor control (identity unresolved; not sourced)"
+  ],
+  "rationale": "The question asks for biochemical inhibition of O60285, so the cell-free kinase ADP-Glo cards are selected; cell-viability cards would measure cellular ATP/viability and would not establish direct kinase inhibition. The ordered prerequisites are kinase-prepare, kinase-react, kinase-detect, then analyse. Retained assay descriptions mentioning inhibition of recombinant/human ARK5 provide contextual support for a biochemical kinase-inhibition format, but their IC50 values are for other compounds and are not used to estimate CHEMBL1615278 potency. The concentration series and replicate count are provisional design assumptions because the packet does not supply potency, solubility, or assay-range information.",
+  "citations": [
+    "CHEMBL1615278",
+    "O60285",
+    "CHEMBL962086",
+    "CHEMBL2067586"
+  ],
+  "limitations": [
+    "No packet evidence specifies NUAK1 enzyme source/construct, substrate identity, ATP Km, enzyme/substrate/ATP concentrations, reaction time, temperature, reagent volumes, depletion/detection times, vehicle tolerance, reference inhibitor, or acceptance thresholds; these remain unresolved.",
+    "Top concentration 100 uM, 3-fold dilution, 10 points, and n=3 are provisional design assumptions, not sourced facts; they should be adjusted for compound solubility and validated assay linearity.",
+    "Retained IC50 examples are for other compounds and are not direct estimates for CHEMBL1615278; no IC50 is predicted here.",
+    "Biochemical ADP-Glo inhibition supports direct in vitro kinase inhibition only; it does not establish cellular viability effects or target-specific causality in cells.",
+    "Compound-dependent luminescence interference, precipitation, and ATP-competition effects are unresolved and require counter-screens.",
+    "The retained ARK5 descriptions are treated as contextually compatible with O60285, but this equivalence is assumed from the packet context and not independently verified."
+  ]
+}

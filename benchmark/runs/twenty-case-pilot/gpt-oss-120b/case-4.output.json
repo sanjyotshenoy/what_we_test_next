@@ -1,0 +1,66 @@
+{
+  "assay_type": "biochemical kinase inhibition (ADP\u2011Glo luminescence)",
+  "system": "recombinant human Mer (TYRO3 family) kinase domain expressed in insect cells",
+  "readout": "luminescence proportional to ADP produced (inverse of kinase activity)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10\u2011point, 1:3 serial dilution of CHEMBL1231206 in assay buffer with 0.1\u202f% DMSO final; include a DMSO\u2011only vehicle control and a known Mer inhibitor (e.g., UNC2025) as a reference.",
+      "parameters": {
+        "top_concentration_uM": "100",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "3",
+        "vehicle_fraction": "0.1"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In each well add recombinant Mer kinase (final 5\u202fnM), peptide substrate (1\u202f\u00b5M, as used in CHEMBL3092765 assay), ATP at its Km (\u224810\u202f\u00b5M for Mer, inferred from typical tyrosine kinases) and the compound dilution; incubate 60\u202fmin at 30\u202f\u00b0C in 50\u202fmM HEPES pH\u202f7.4, 10\u202fmM MgCl\u2082, 1\u202fmM DTT, 0.01\u202f% Triton\u202fX\u2011100, 0.1\u202f% BSA (buffer composition taken from CHEMBL3092765 assay).",
+      "parameters": {
+        "enzyme_concentration": "5\u202fnM",
+        "substrate_concentration": "1\u202f\u00b5M",
+        "ATP_concentration": "10\u202f\u00b5M (Km approximation)",
+        "reaction_time": "60\u202fmin",
+        "temperature": "30\u202f\u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Terminate the reaction with ADP\u2011Glo\u2122 stop\u2011and\u2011detect reagents: add 5\u202f\u00b5L stop solution, incubate 40\u202fmin to deplete remaining ATP, then add 10\u202f\u00b5L detection solution and incubate 30\u202fmin before reading luminescence on a plate reader.",
+      "parameters": {
+        "reagent_volumes": "stop 5\u202f\u00b5L, detection 10\u202f\u00b5L per 25\u202f\u00b5L reaction",
+        "depletion_time": "40\u202fmin",
+        "detection_time": "30\u202fmin"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize each well to 0\u202f% inhibition (vehicle) and 100\u202f% inhibition (reference inhibitor); fit a four\u2011parameter logistic curve (Hill slope unconstrained) to obtain IC\u2085\u2080 and 95\u202f% confidence intervals; verify assay quality by Z\u2032\u2011factor \u22650.5 across replicates.",
+      "parameters": {
+        "fit_model": "4\u2011parameter logistic (variable slope)",
+        "acceptance_criteria": "Z\u2032\u2011factor \u22650.5, R\u00b2 \u22650.9, IC\u2085\u2080 confidence interval \u2264\u202f0.5\u202flog units"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "vehicle (0.1\u202f% DMSO)",
+    "reference inhibitor (known Mer inhibitor, e.g., UNC2025)",
+    "no\u2011enzyme blank (to assess background luminescence)"
+  ],
+  "rationale": "The retained MER inhibition examples (CHEMBL3092765, CHEMBL3092768) demonstrate that a homogeneous luminescence/fluorescence format in HEPES\u2011Mg\u00b2\u207a buffer with BSA and Triton X\u2011100 is compatible with Mer kinase activity measurements. ADP\u2011Glo is a widely used, commercially available luminescent assay for ATP\u2011consuming kinases and matches the requested biochemical concentration\u2011response design. The chosen enzyme concentration (5\u202fnM) and substrate level (1\u202f\u00b5M) are typical for achieving initial rates within the linear range, while ATP at its Km ensures sensitivity to competitive inhibition. A 1:3 dilution series spanning 100\u202f\u00b5M to ~0.02\u202f\u00b5M provides sufficient coverage to capture sub\u2011nanomolar to high\u2011micromolar potency, should CHEMBL1231206 be a strong inhibitor. Replicates (n=3) and Z\u2032\u2011factor monitoring address assay robustness.",
+  "citations": [
+    "CHEMBL3092765",
+    "CHEMBL3092768"
+  ],
+  "limitations": [
+    "Exact Km for ATP of the specific Mer construct is not provided; the 10\u202f\u00b5M value is an approximation based on typical tyrosine kinases.",
+    "The reference inhibitor (UNC2025) is suggested from literature but not present in the supplied packet; its inclusion is an assumption to provide a 100\u202f% inhibition control.",
+    "Potential solubility limits of CHEMBL1231206 above 100\u202f\u00b5M are not known; the top concentration is therefore provisional.",
+    "No cell\u2011based data are included because viability assays cannot confirm target\u2011specific inhibition without orthogonal readouts."
+  ]
+}

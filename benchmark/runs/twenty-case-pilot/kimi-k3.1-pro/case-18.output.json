@@ -1,0 +1,80 @@
+{
+  "assay_type": "Cellular concentration-response ATP-viability assay",
+  "system": "Mouse BaF3 cells expressing recombinant human AXL (P30530), with matched parental or non-AXL BaF3 cells as a comparator; AXL expression and any AXL-dependent growth phenotype must be verified before interpretation.",
+  "readout": "CellTiter-Glo luminescence after compound exposure, measuring intracellular ATP as a surrogate for viable cell number. This is a viability/growth-associated endpoint, not a direct measurement of proliferation, AXL phosphorylation, or kinase inhibition.",
+  "steps": [
+    {
+      "card_id": "cell-prepare",
+      "instruction": "Culture AXL-expressing and comparator BaF3 cells under their validated maintenance conditions. Confirm recombinant human AXL expression and determine whether growth or survival depends on AXL signaling. Plate cells and prepare a constant-vehicle CHEMBL4845957 dilution series, vehicle and untreated controls, no-cell background wells, and reference controls. The concentration range and replication below are provisional design assumptions because no retained measurements are available.",
+      "parameters": {
+        "cell_density": "Unresolved; optimize in a pilot so vehicle-treated cells remain in the assay's linear luminescence range throughout exposure.",
+        "medium": "Unresolved; use the validated BaF3 culture medium and required cytokine or selection conditions, held constant across compared cell lines.",
+        "top_concentration_uM": "10 uM; provisional assumption, not sourced from compound-specific evidence.",
+        "dilution_factor": "3-fold; provisional assumption.",
+        "n_points": "10; provisional assumption, spanning approximately 10 to 0.00051 uM.",
+        "replicates": "3 independent experiments; provisional assumption. Technical wells per experiment remain unresolved.",
+        "vehicle_fraction": "Unresolved; keep identical in all compound and vehicle wells and below a pilot-verified nonperturbing level."
+      }
+    },
+    {
+      "card_id": "cell-expose",
+      "instruction": "Expose cells to CHEMBL4845957 or controls without changing vehicle concentration across the series. Include a time-zero plate if distinction between reduced growth and loss of pre-existing viable cells is desired.",
+      "parameters": {
+        "exposure_time": "72 h; provisional assumption requiring pilot confirmation that the vehicle response remains within dynamic range.",
+        "temperature": "37 C; provisional standard culture assumption. Humidity and CO2 conditions are unresolved and should follow the validated BaF3 culture procedure."
+      }
+    },
+    {
+      "card_id": "cell-detect",
+      "instruction": "Apply CellTiter-Glo, mix, stabilize, and record luminescence according to a validated reagent procedure, using identical plate handling for all conditions. Include no-cell wells containing medium and reagent for background.",
+      "parameters": {
+        "reagent_volume": "Unresolved; use the validated reagent-to-culture-volume procedure.",
+        "mix_time": "Unresolved; use the validated procedure consistently.",
+        "stabilization_time": "Unresolved; use the validated procedure consistently and keep plate-reading timing consistent."
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Subtract no-cell background, normalize treated wells to vehicle controls, and inspect untreated and reference controls. Fit concentration-response curves separately for AXL-expressing and comparator cells, report effect estimates with confidence intervals and individual replicate data, and do not infer an IC50 where the response does not span an adequate range or fit quality is poor.",
+      "parameters": {
+        "fit_model": "Provisional four-parameter logistic model on log concentration, with top and bottom constrained only when supported by the observed data; otherwise report the observed response range without a forced potency estimate.",
+        "acceptance_criteria": "Provisional: acceptable background, vehicle growth within the linear range, consistent vehicle responses, acceptable replicate agreement, and no systematic plate-position artifacts. Numeric thresholds require pilot validation."
+      }
+    },
+    {
+      "card_id": "new-step: orthogonal-AXL-mechanism-test",
+      "instruction": "To strengthen target-specific interpretation, perform a separately validated orthogonal experiment such as AXL phosphorylation or pathway-signaling measurement after compound treatment, alongside viability measurements. Compare AXL-expressing and matched control cells and, where feasible, test whether modulation of AXL signaling changes the response. Exact conditions and endpoints are unresolved.",
+      "parameters": "Unresolved; this is a proposed follow-up, not evidence that CHEMBL4845957 inhibits AXL."
+    }
+  ],
+  "top_concentration_uM": 10,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "Vehicle-only wells at the same vehicle fraction as compound wells",
+    "Untreated cell wells",
+    "No-cell medium and reagent background wells",
+    "Matched parental or non-AXL BaF3 comparator cells",
+    "Time-zero viability plate, if growth inhibition versus cell loss is to be distinguished",
+    "A validated assay-performance reference control; compound identity and concentration are unresolved",
+    "Optional orthogonal AXL-signaling controls for follow-up mechanistic testing"
+  ],
+  "rationale": "The cellular cards match the requested BaF3/AXL system and ATP-luminescence endpoint; biochemical kinase cards are not needed for the primary question. A broad logarithmic series and independent replication are provisional assumptions intended to characterize the response without predicting a withheld IC50. Comparing matched cell backgrounds is necessary because AXL expression alone does not demonstrate AXL-dependent survival. The experiment can establish whether CHEMBL4845957 reduces ATP-associated viability in this engineered cellular context and quantify that response under the tested conditions. It cannot, by itself, establish direct binding to P30530, biochemical AXL kinase inhibition, target engagement, selectivity, or that AXL inhibition causes the viability effect.",
+  "citations": [
+    "CHEMBL4845957",
+    "P30530",
+    "cell-prepare",
+    "cell-expose",
+    "cell-detect",
+    "analyse"
+  ],
+  "limitations": [
+    "No retained measurement examples or compound-specific assay conditions were supplied; all numeric design settings are explicitly provisional assumptions rather than sourced facts.",
+    "ATP luminescence conflates changes in cell number, survival, and ATP content and does not directly distinguish cytostasis from cytotoxicity.",
+    "A differential response between engineered and parental BaF3 cells would support context dependence but would not alone prove AXL-specific causality.",
+    "Biochemical inhibition, cellular viability, and target-specific causality are distinct claims requiring separate evidence.",
+    "Solubility, precipitation, compound stability, vehicle tolerance, and luminescence interference are unresolved and should be assessed experimentally.",
+    "No IC50 for CHEMBL4845957 is predicted."
+  ]
+}

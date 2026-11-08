@@ -1,0 +1,68 @@
+{
+  "assay_type": "biochemical luminescence (ADP-Glo)",
+  "system": "recombinant human NUAK1 (O60285) kinase",
+  "readout": "luminescence proportional to ADP produced",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10-point, 3-fold serial dilution of CHEMBL1615278 starting from a top concentration of 100 \u00b5M in DMSO, with vehicle (DMSO) final fraction 0.5% (v/v); include duplicate wells for each concentration and vehicle-only controls.",
+      "parameters": {
+        "top_concentration_uM": "100",
+        "dilution_factor": "3",
+        "n_points": "10",
+        "replicates": "2",
+        "vehicle_fraction": "0.5% v/v"
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "Add kinase (NUAK1) at 5 nM, peptide substrate at 20 \u00b5M, and ATP at its Km (~50 \u00b5M) to each well containing compound dilution; incubate 30 min at 30\u202f\u00b0C to allow linear ADP production.",
+      "parameters": {
+        "enzyme_concentration": "5 nM",
+        "substrate_concentration": "20 \u00b5M",
+        "ATP_concentration": "50 \u00b5M",
+        "reaction_time": "30 min",
+        "temperature": "30 \u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Stop the reaction with ADP-Glo reagent, deplete residual ATP for 40 min, then add detection reagent and incubate 30 min before reading luminescence on a plate reader.",
+      "parameters": {
+        "reagent_volumes": "25 \u00b5L ADP-Glo + 25 \u00b5L detection reagent per well",
+        "depletion_time": "40 min",
+        "detection_time": "30 min"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to vehicle (100% activity) and background (no enzyme) wells, fit a four\u2011parameter logistic curve, report IC50 with 95% CI and assay Z\u2019 factor.",
+      "parameters": {
+        "fit_model": "four\u2011parameter logistic",
+        "acceptance_criteria": "Z\u2019 \u2265 0.5, R\u00b2 \u2265 0.8"
+      }
+    }
+  ],
+  "top_concentration_uM": "100",
+  "dilution_factor": "3",
+  "n_points": "10",
+  "replicates": "2",
+  "controls": [
+    "vehicle (0.5% DMSO)",
+    "no\u2011enzyme background",
+    "positive control inhibitor (if available)"
+  ],
+  "rationale": "ADP\u2011Glo provides a homogeneous, luminescence\u2011based readout suitable for kinase inhibition assays; concentrations and enzyme/substrate levels follow typical kinase assay practice to stay within linear range and near Km for ATP.",
+  "citations": [
+    "CHEMBL1157465",
+    "CHEMBL2062375",
+    "CHEMBL2331160",
+    "CHEMBL2434927",
+    "CHEMBL3102702"
+  ],
+  "limitations": [
+    "Top concentration, dilution factor, point count, and replicate number are based on common assay conventions rather than direct evidence for CHEMBL1615278 or NUAK1; actual solubility or potency may require adjustment.",
+    "No direct biochemical data for NUAK1\u2011CHEMBL1615278 pair were supplied, so the proposed conditions are assumptions.",
+    "Assumes recombinant NUAK1 is active under the chosen buffer conditions; buffer composition is not detailed in the packet."
+  ]
+}

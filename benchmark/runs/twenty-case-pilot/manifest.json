@@ -1,0 +1,3456 @@
+{
+  "started_utc": "2026-11-08T14:04:52.143192+00:00",
+  "model_mapping": {
+    "glm-5.3": "zai-org/GLM-5.3",
+    "deepseek-v4.1-flash-1017": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+    "kimi-k3.1-pro": "moonshotai/Kimi-K3.1-Pro",
+    "nemotron-3-super": "nvidia/nemotron-3-super-120b-a12b",
+    "gpt-oss-120b": "openai/gpt-oss-120b"
+  },
+  "system_prompt": "You are participating in an experiment-design pilot. Use only the supplied input packet as evidence. Do not access tools, web, raw graphs, or remembered compound-specific measurements. Select and order step cards, bind supported parameters, and state unresolved settings explicitly. Follow the output_contract. If its numeric fields cannot be justified, use null and explain in limitations rather than inventing evidence. Any provisional design choice must be explicitly labeled as an assumption, not a sourced fact. Distinguish biochemical inhibition, cellular viability, and target-specific causality. Return one valid JSON object only; keep it concise (under 1800 words). Cite only IDs present in the packet. Do not predict a withheld IC50.",
+  "settings": {
+    "temperature": 0,
+    "max_tokens": 8192,
+    "reasoning_effort": "low",
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "rates": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": {
+      "input_price_per_million_tokens": 0.3,
+      "output_price_per_million_tokens": 1.2
+    },
+    "moonshotai/Kimi-K3.1-Pro": {
+      "input_price_per_million_tokens": 2,
+      "output_price_per_million_tokens": 10
+    },
+    "nvidia/nemotron-3-super-120b-a12b": {
+      "input_price_per_million_tokens": 0.3,
+      "output_price_per_million_tokens": 0.9
+    },
+    "openai/gpt-oss-120b": {
+      "input_price_per_million_tokens": 0.15,
+      "output_price_per_million_tokens": 0.6
+    },
+    "zai-org/GLM-5.3": {
+      "input_price_per_million_tokens": 1.4,
+      "output_price_per_million_tokens": 4.4
+    }
+  },
+  "pricing_source": "https://tokenfactory.nebius.com/api/public/models_info",
+  "estimated_conservative_reservation_usd": 3.4405659,
+  "budget_ceiling_usd": 5.0,
+  "max_new_requests": 88,
+  "sdk_retries": 0,
+  "max_concurrency": 5,
+  "reuse_policy": "Original cases 1\u20133 reused only with identical packet bytes, system prompt and settings; historical receipts and source paths retained.",
+  "requests": [
+    {
+      "model": "zai-org/GLM-5.3",
+      "slug": "glm-5.3",
+      "case_id": "case-1",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "started_utc": "2026-11-08T05:39:47.472345+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "056734510e1a4779bbfb0a5c0ad372f3",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1728,
+        "prompt_tokens": 1667,
+        "total_tokens": 3395,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 46,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": null,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1667,
+        "reasoning_tokens": 46
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.009937,
+      "finished_utc": "2026-11-08T05:39:53.769969+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/glm-5.3",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "zai-org/GLM-5.3",
+      "slug": "glm-5.3",
+      "case_id": "case-2",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "started_utc": "2026-11-08T05:39:53.770119+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "9fb8345d3af0480996b0135b407542c0",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1891,
+        "prompt_tokens": 1735,
+        "total_tokens": 3626,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 72,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 128
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1607,
+        "reasoning_tokens": 72
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.010749400000000001,
+      "finished_utc": "2026-11-08T05:39:59.714594+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/glm-5.3",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "zai-org/GLM-5.3",
+      "slug": "glm-5.3",
+      "case_id": "case-3",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "started_utc": "2026-11-08T05:39:59.714905+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "83e10bf72fbf429b96666b623324604a",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1404,
+        "prompt_tokens": 1272,
+        "total_tokens": 2676,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 64,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 128
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1144,
+        "reasoning_tokens": 64
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.007958400000000001,
+      "finished_utc": "2026-11-08T05:40:05.356876+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/glm-5.3",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "slug": "deepseek-v4.1-flash-1017",
+      "case_id": "case-1",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "started_utc": "2026-11-08T05:40:05.357296+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-a2205da45515ce81",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4298,
+        "prompt_tokens": 1672,
+        "total_tokens": 5970,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3376,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0056592,
+      "finished_utc": "2026-11-08T05:40:21.097395+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/deepseek-v4.1-flash-1017",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "slug": "deepseek-v4.1-flash-1017",
+      "case_id": "case-2",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "started_utc": "2026-11-08T05:40:21.097771+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-bef770da7870e5f7",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4173,
+        "prompt_tokens": 1737,
+        "total_tokens": 5910,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3221,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0055287,
+      "finished_utc": "2026-11-08T05:40:37.675751+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/deepseek-v4.1-flash-1017",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "slug": "deepseek-v4.1-flash-1017",
+      "case_id": "case-3",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "started_utc": "2026-11-08T05:40:37.676212+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-900184dc88f737fe",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 3444,
+        "prompt_tokens": 1300,
+        "total_tokens": 4744,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 2521,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 1280,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0045228,
+      "finished_utc": "2026-11-08T05:40:51.400449+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/deepseek-v4.1-flash-1017",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "slug": "kimi-k3.1-pro",
+      "case_id": "case-1",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "started_utc": "2026-11-08T05:40:51.400976+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-b546709a1a292663",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1615,
+        "prompt_tokens": 1780,
+        "total_tokens": 3395,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 518,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.01971,
+      "finished_utc": "2026-11-08T05:41:02.330667+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/kimi-k3.1-pro",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "slug": "kimi-k3.1-pro",
+      "case_id": "case-2",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "started_utc": "2026-11-08T05:41:02.331161+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-884c83afa0524a3b",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1853,
+        "prompt_tokens": 1851,
+        "total_tokens": 3704,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 788,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.022232,
+      "finished_utc": "2026-11-08T05:41:23.767974+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/kimi-k3.1-pro",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "slug": "kimi-k3.1-pro",
+      "case_id": "case-3",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "started_utc": "2026-11-08T05:41:23.768506+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-a1e65dbdf58f28e0",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1509,
+        "prompt_tokens": 1410,
+        "total_tokens": 2919,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 344,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.01791,
+      "finished_utc": "2026-11-08T05:41:31.695536+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/kimi-k3.1-pro",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "slug": "nemotron-3-super",
+      "case_id": "case-1",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "started_utc": "2026-11-08T05:41:31.696144+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-31ff73fb-8d9b-4a78-8f48-f3b38ab6adeb",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 1019,
+        "prompt_tokens": 1767,
+        "total_tokens": 2786,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 151,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1767
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0014472,
+      "finished_utc": "2026-11-08T05:41:36.259472+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/nemotron-3-super",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "slug": "nemotron-3-super",
+      "case_id": "case-2",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "started_utc": "2026-11-08T05:41:36.260119+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-d4ca380b-4fc4-404d-9815-cdd46919fd29",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 846,
+        "prompt_tokens": 1836,
+        "total_tokens": 2682,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 148,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1836
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0013122,
+      "finished_utc": "2026-11-08T05:41:39.779812+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/nemotron-3-super",
+      "new_cost_usd": 0
+    },
+    {
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "slug": "nemotron-3-super",
+      "case_id": "case-3",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "started_utc": "2026-11-08T05:41:39.780400+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-0d625a52-d0dd-478c-93d9-41c09363558d",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 581,
+        "prompt_tokens": 1312,
+        "total_tokens": 1893,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 122,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1312
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0009165,
+      "finished_utc": "2026-11-08T05:41:42.805064+00:00",
+      "reused_from": "benchmark/runs/four-model-pilot/nemotron-3-super",
+      "new_cost_usd": 0
+    },
+    {
+      "case_id": "case-1",
+      "input_sha256": "16ede1fc8f537c34b1501962b09b5fd7ac8d9b9fe815b3b19f56e910eb90f9ad",
+      "started_utc": "2026-11-08T05:32:07.056871+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-b275ee5e-c264-4244-8c20-590edf0549a8",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1133,
+        "prompt_tokens": 1698,
+        "total_tokens": 2831,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0009345,
+      "finished_utc": "2026-11-08T05:32:10.634717+00:00",
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "reused_from": "benchmark/runs/gpt-oss-120b-pilot",
+      "new_cost_usd": 0
+    },
+    {
+      "case_id": "case-2",
+      "input_sha256": "90d49e78af31702c5c2b5aff987212d17f44302ef206eabbc57f49f9fda2f783",
+      "started_utc": "2026-11-08T05:32:10.634920+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-3c02c4f8-b8a8-4418-8b5b-09b93de19343",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1451,
+        "prompt_tokens": 1768,
+        "total_tokens": 3219,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 64
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0011358,
+      "finished_utc": "2026-11-08T05:32:14.790514+00:00",
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "reused_from": "benchmark/runs/gpt-oss-120b-pilot",
+      "new_cost_usd": 0
+    },
+    {
+      "case_id": "case-3",
+      "input_sha256": "2b6e292ecad2019d16e3e4c33bcefa44546cbd59ffaa71e98a834b280500ec3f",
+      "started_utc": "2026-11-08T05:32:14.790822+00:00",
+      "status": "reused",
+      "valid_json": true,
+      "response_id": "chatcmpl-02a9f69b-de17-47cc-84ff-9584e4af751a",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1079,
+        "prompt_tokens": 1326,
+        "total_tokens": 2405,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 208
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0008462999999999999,
+      "finished_utc": "2026-11-08T05:32:17.991415+00:00",
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "reused_from": "benchmark/runs/gpt-oss-120b-pilot",
+      "new_cost_usd": 0
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-4",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "started_utc": "2026-11-08T14:04:52.168500+00:00",
+      "status": "completed",
+      "response_id": "4d9c26677a7f48f39518b4b506c6d6f9",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1579,
+        "prompt_tokens": 2060,
+        "total_tokens": 3639,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 149,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": null,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2060,
+        "reasoning_tokens": 149
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.009831600000000001,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:04:58.923468+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-4",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "started_utc": "2026-11-08T14:04:52.171043+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-b82eeb6a52601204",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 5295,
+        "prompt_tokens": 2059,
+        "total_tokens": 7354,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 4151,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 2048,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0069717,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:27.637763+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-4",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "started_utc": "2026-11-08T14:04:52.171841+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-5adf1294-f1d2-4cde-9749-99b66b9d8e93",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1246,
+        "prompt_tokens": 2098,
+        "total_tokens": 3344,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0010623,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:04:55.923718+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-4",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "started_utc": "2026-11-08T14:04:52.173924+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-3d73c452-ba9d-412d-9a34-772c22dcf793",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 660,
+        "prompt_tokens": 2189,
+        "total_tokens": 2849,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 69,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2189
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0012506999999999998,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:04:55.944870+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-4",
+      "input_sha256": "62c5a24beca7928960d4042cf4fff1ca5371bc13c9ab12d40f46f493da8b6f9c",
+      "started_utc": "2026-11-08T14:04:52.175928+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-8456544f0686a448",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 2163,
+        "prompt_tokens": 2193,
+        "total_tokens": 4356,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 874,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.026016,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:16.067674+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-5",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "started_utc": "2026-11-08T14:04:55.925181+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-30985d3e-7fb3-414c-a6d1-1c38afc4c9f4",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1213,
+        "prompt_tokens": 1751,
+        "total_tokens": 2964,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.00099045,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:04:59.442053+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-5",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "started_utc": "2026-11-08T14:04:55.945568+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-5bf6b1ad-e5ab-466f-a2e3-911f66713063",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 534,
+        "prompt_tokens": 1821,
+        "total_tokens": 2355,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 82,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1821
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0010269,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:04:59.856340+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-5",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "started_utc": "2026-11-08T14:04:58.924192+00:00",
+      "status": "completed",
+      "response_id": "2ebece0d7b814af38e1a3671e4ea97ea",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1778,
+        "prompt_tokens": 1719,
+        "total_tokens": 3497,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 92,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": null,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1719,
+        "reasoning_tokens": 92
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0102298,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:04.210299+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-6",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "started_utc": "2026-11-08T14:04:59.442846+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-9e21b42f-7e84-4a31-9e1a-574cfaaa3e3d",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1099,
+        "prompt_tokens": 1766,
+        "total_tokens": 2865,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0009243,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:02.482780+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-6",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "started_utc": "2026-11-08T14:04:59.857188+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-8c1b7b10-1b4e-4377-b85f-4129ab52f8fd",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 822,
+        "prompt_tokens": 1838,
+        "total_tokens": 2660,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 175,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1838
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0012912,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:04.226354+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-7",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "started_utc": "2026-11-08T14:05:02.483264+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-1d68bbf5-93d9-4be7-a3e5-348cf772e3de",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1387,
+        "prompt_tokens": 1715,
+        "total_tokens": 3102,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0010894499999999998,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:06.419896+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-6",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "started_utc": "2026-11-08T14:05:04.211281+00:00",
+      "status": "completed",
+      "response_id": "d5ddf994a771412a922b9c6fe481c635",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1475,
+        "prompt_tokens": 1733,
+        "total_tokens": 3208,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 48,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1605,
+        "reasoning_tokens": 48
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0089162,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:08.989301+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-7",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "started_utc": "2026-11-08T14:05:04.227248+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-6ca53c65-85ed-4e64-a7e1-ced8e427ec42",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 672,
+        "prompt_tokens": 1785,
+        "total_tokens": 2457,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 72,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1785
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0011403000000000001,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:08.890796+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-8",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "started_utc": "2026-11-08T14:05:06.420844+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-462452ad-22e2-40fa-a0a8-bbf396dcbe09",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1294,
+        "prompt_tokens": 1800,
+        "total_tokens": 3094,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0010464,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:10.145864+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-8",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "started_utc": "2026-11-08T14:05:08.891744+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-2b1026bb-b17d-4ef6-b4e9-504adc67d023",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 889,
+        "prompt_tokens": 1874,
+        "total_tokens": 2763,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 142,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1874
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0013622999999999999,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:14.109427+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-7",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "started_utc": "2026-11-08T14:05:08.990270+00:00",
+      "status": "completed",
+      "response_id": "bebfe6b0f1334537a3a8c341fa70fec6",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1588,
+        "prompt_tokens": 1677,
+        "total_tokens": 3265,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 81,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1549,
+        "reasoning_tokens": 81
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.009335,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:13.433142+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-9",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "started_utc": "2026-11-08T14:05:10.146907+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-821035d9-1bb5-452b-862c-bb8adccbf6a8",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1306,
+        "prompt_tokens": 1799,
+        "total_tokens": 3105,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.00105345,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:14.263692+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-8",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "started_utc": "2026-11-08T14:05:13.434137+00:00",
+      "status": "completed",
+      "response_id": "3de5c86f0bec4a6988dfde946a6b554e",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1471,
+        "prompt_tokens": 1771,
+        "total_tokens": 3242,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 71,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1643,
+        "reasoning_tokens": 71
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0089518,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:18.579087+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-9",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "started_utc": "2026-11-08T14:05:14.110525+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-12827c36-b1d9-4467-923c-f66824b5e567",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 888,
+        "prompt_tokens": 1874,
+        "total_tokens": 2762,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 195,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1874
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0013614,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:19.225402+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-10",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "started_utc": "2026-11-08T14:05:14.264710+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-b3c15d9a-d022-4400-bfd9-87cb0883b3cf",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1205,
+        "prompt_tokens": 1785,
+        "total_tokens": 2990,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.00099075,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:18.462640+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-5",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "started_utc": "2026-11-08T14:05:16.068763+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-8b11cb838e2e4c22",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1754,
+        "prompt_tokens": 1835,
+        "total_tokens": 3589,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 506,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.02121,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:34.725910+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-11",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "started_utc": "2026-11-08T14:05:18.463788+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-2d73a9ae-090d-4276-b71f-36c473fa18f1",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1333,
+        "prompt_tokens": 1962,
+        "total_tokens": 3295,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0010941,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:22.365807+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-9",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "started_utc": "2026-11-08T14:05:18.580181+00:00",
+      "status": "completed",
+      "response_id": "76004011c1b04c799276341874799630",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1734,
+        "prompt_tokens": 1775,
+        "total_tokens": 3509,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 60,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1647,
+        "reasoning_tokens": 60
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0101146,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:25.089089+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-10",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "started_utc": "2026-11-08T14:05:19.226593+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-2b7f9265-8928-45fa-9963-afcc6258c61e",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 475,
+        "prompt_tokens": 1857,
+        "total_tokens": 2332,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 41,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1857
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0009846,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:22.291018+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-11",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "started_utc": "2026-11-08T14:05:22.292260+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-fa7c31ec-8211-4e93-8ac0-f3b7f815b7e9",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 439,
+        "prompt_tokens": 2012,
+        "total_tokens": 2451,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 37,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2012
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0009987000000000002,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:24.594958+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-12",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "started_utc": "2026-11-08T14:05:22.366959+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-e701c4b5-7b88-4e7f-a63f-1f0b552a4783",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1252,
+        "prompt_tokens": 1938,
+        "total_tokens": 3190,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0010419,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:26.232066+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-12",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "started_utc": "2026-11-08T14:05:24.596261+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-9d1d6b97-1107-4d8c-b999-46aa31319c0c",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 523,
+        "prompt_tokens": 2031,
+        "total_tokens": 2554,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 44,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2031
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.00108,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:27.583111+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-10",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "started_utc": "2026-11-08T14:05:25.090367+00:00",
+      "status": "completed",
+      "response_id": "fc2f1dcf6640448c8f88c14100bbe488",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1501,
+        "prompt_tokens": 1752,
+        "total_tokens": 3253,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 87,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1624,
+        "reasoning_tokens": 87
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.009057200000000001,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:31.239930+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-13",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "started_utc": "2026-11-08T14:05:26.233346+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-dce85525-8e42-48b3-bf98-0c1aa923bd52",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1476,
+        "prompt_tokens": 1812,
+        "total_tokens": 3288,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0011574,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:31.148040+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-13",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "started_utc": "2026-11-08T14:05:27.583837+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-f43500ee-943f-434a-92a7-676f593bed9d",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 608,
+        "prompt_tokens": 1899,
+        "total_tokens": 2507,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 102,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1899
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0011169,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:30.786415+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-5",
+      "input_sha256": "d09f205d9dc6a9a7d3664c283f06422adb5576f3eb14ddcf68297aad260e8a24",
+      "started_utc": "2026-11-08T14:05:27.638395+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-9014b8d7cb433306",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 2970,
+        "prompt_tokens": 1719,
+        "total_tokens": 4689,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 2005,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0040796999999999995,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:50.148332+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-14",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "started_utc": "2026-11-08T14:05:30.787805+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-d7891598-0f56-42d5-a468-7465ead82d53",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 792,
+        "prompt_tokens": 1899,
+        "total_tokens": 2691,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 142,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1899
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0012825,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:34.667192+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-14",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "started_utc": "2026-11-08T14:05:31.149519+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-abef4c32-c654-41fb-89c2-755e04444b4c",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1372,
+        "prompt_tokens": 1824,
+        "total_tokens": 3196,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0010968,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:35.247155+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-11",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "started_utc": "2026-11-08T14:05:31.241374+00:00",
+      "status": "completed",
+      "response_id": "c985c84e79cd44e0a9552873c93d7b2f",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1331,
+        "prompt_tokens": 1919,
+        "total_tokens": 3250,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 84,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1791,
+        "reasoning_tokens": 84
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.008543,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:36.081450+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-15",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "started_utc": "2026-11-08T14:05:34.668629+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-f6df09f7-bde8-48d4-9063-9cbaea902138",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 572,
+        "prompt_tokens": 2036,
+        "total_tokens": 2608,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 60,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 2036
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0011255999999999998,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:37.304832+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-6",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "started_utc": "2026-11-08T14:05:34.727255+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-bd266d06cc05bc4d",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1932,
+        "prompt_tokens": 1856,
+        "total_tokens": 3788,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 800,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.023032,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:56.504052+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-15",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "started_utc": "2026-11-08T14:05:35.248602+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-740b67bb-145b-4af9-a73d-784660b2d95d",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1376,
+        "prompt_tokens": 1960,
+        "total_tokens": 3336,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0011196,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:39.668305+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-12",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "started_utc": "2026-11-08T14:05:36.082975+00:00",
+      "status": "completed",
+      "response_id": "bf3572254fb140b4aa70f79d83e8a322",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1859,
+        "prompt_tokens": 1915,
+        "total_tokens": 3774,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 72,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1787,
+        "reasoning_tokens": 72
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0108606,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:41.783692+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-16",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "started_utc": "2026-11-08T14:05:37.306468+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-cbe3a887-b42c-49cc-b615-f9261e31791a",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 937,
+        "prompt_tokens": 1818,
+        "total_tokens": 2755,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 139,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1818
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0013887,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:42.663278+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-16",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "started_utc": "2026-11-08T14:05:39.669863+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-85aa1cb1-d94d-4bc6-aa05-3e2e085f9bd1",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1192,
+        "prompt_tokens": 1740,
+        "total_tokens": 2932,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0009762,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:43.222540+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-13",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "started_utc": "2026-11-08T14:05:41.785215+00:00",
+      "status": "completed",
+      "response_id": "9449d4db4259490fbc8aac203d8703ae",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1471,
+        "prompt_tokens": 1786,
+        "total_tokens": 3257,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 59,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1658,
+        "reasoning_tokens": 59
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0089728,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:46.442780+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-17",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "started_utc": "2026-11-08T14:05:42.664807+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-f0322ddc-ce4e-4716-b1ff-cbd9e0a1fe42",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 462,
+        "prompt_tokens": 1323,
+        "total_tokens": 1785,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 10,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1323
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0008127000000000001,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:45.174480+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-17",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "started_utc": "2026-11-08T14:05:43.224065+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-b7a931de-df4f-4d80-97de-c1ac23e95095",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1231,
+        "prompt_tokens": 1329,
+        "total_tokens": 2560,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.00093795,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:47.006295+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-18",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "started_utc": "2026-11-08T14:05:45.176113+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-273f585f-56d1-4fcc-a273-19afef8315c2",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 841,
+        "prompt_tokens": 1349,
+        "total_tokens": 2190,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 244,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1349
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0011615999999999998,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:50.166332+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-14",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "started_utc": "2026-11-08T14:05:46.444524+00:00",
+      "status": "completed",
+      "response_id": "ed2537c9ba2f4f9e9fe284f1a278f53a",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1782,
+        "prompt_tokens": 1801,
+        "total_tokens": 3583,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 68,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1673,
+        "reasoning_tokens": 68
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0103622,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:52.253012+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-18",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "started_utc": "2026-11-08T14:05:47.007949+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-ebf0ee01-1508-4328-addb-cf615a6254ef",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1236,
+        "prompt_tokens": 1361,
+        "total_tokens": 2597,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.00094575,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:50.812621+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-6",
+      "input_sha256": "15286793469d994c0365ea7a0c91347da9f83a4f33bafead74d3df1c0feb491b",
+      "started_utc": "2026-11-08T14:05:50.150081+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-9d42d609d2b04ff5",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4351,
+        "prompt_tokens": 1739,
+        "total_tokens": 6090,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3365,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0057429,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:06:21.165865+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-19",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "started_utc": "2026-11-08T14:05:50.168112+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-4c48bd9a-7b4d-4fa7-98e8-cd862305bb1f",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 702,
+        "prompt_tokens": 1335,
+        "total_tokens": 2037,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 140,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1335
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0010323,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:54.496683+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-19",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "started_utc": "2026-11-08T14:05:50.822968+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-0ae0b8d3-e051-440f-9556-57e627f307ee",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1160,
+        "prompt_tokens": 1346,
+        "total_tokens": 2506,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0008979,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:53.951727+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-15",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "started_utc": "2026-11-08T14:05:52.262946+00:00",
+      "status": "completed",
+      "response_id": "690fe52643ce473da8ff56394458dafd",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1794,
+        "prompt_tokens": 1931,
+        "total_tokens": 3725,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 113,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1803,
+        "reasoning_tokens": 113
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.010597,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:58.505549+00:00"
+    },
+    {
+      "slug": "gpt-oss-120b",
+      "model": "openai/gpt-oss-120b",
+      "case_id": "case-20",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "started_utc": "2026-11-08T14:05:53.952747+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-d6c03e2c-fef8-4a70-8a8b-5ee5753b3c1c",
+      "model_returned": "openai/gpt-oss-120b",
+      "usage": {
+        "completion_tokens": 1181,
+        "prompt_tokens": 1833,
+        "total_tokens": 3014,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 208,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.00098355,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:57.400362+00:00"
+    },
+    {
+      "slug": "nemotron-3-super",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "case_id": "case-20",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "started_utc": "2026-11-08T14:05:54.497833+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-aa56e0ac-7316-4b3b-8ef6-f68893724447",
+      "model_returned": "nvidia/nemotron-3-super-120b-a12b",
+      "usage": {
+        "completion_tokens": 830,
+        "prompt_tokens": 1887,
+        "total_tokens": 2717,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 169,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1887
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0013131,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:05:59.829128+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-7",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "started_utc": "2026-11-08T14:05:56.505942+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-b8c8e50c3fcd61e1",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 2049,
+        "prompt_tokens": 1803,
+        "total_tokens": 3852,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 639,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.024096,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:06:16.156847+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-16",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "started_utc": "2026-11-08T14:05:58.507483+00:00",
+      "status": "completed",
+      "response_id": "3c04ba560e1f477c8d2164c0e2580c35",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1426,
+        "prompt_tokens": 1711,
+        "total_tokens": 3137,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 46,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1583,
+        "reasoning_tokens": 46
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0086698,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:06:03.638595+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-17",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "started_utc": "2026-11-08T14:06:03.640564+00:00",
+      "status": "completed",
+      "response_id": "97b3df538e0b400b820deadf154d58a3",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1435,
+        "prompt_tokens": 1279,
+        "total_tokens": 2714,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 70,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1151,
+        "reasoning_tokens": 70
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0081046,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:06:08.520241+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-18",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "started_utc": "2026-11-08T14:06:08.522256+00:00",
+      "status": "completed",
+      "response_id": "e93a37f6eb914069a9ea5adf80379ce0",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1565,
+        "prompt_tokens": 1312,
+        "total_tokens": 2877,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 105,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1184,
+        "reasoning_tokens": 105
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.008722800000000001,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:06:14.247329+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-19",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "started_utc": "2026-11-08T14:06:14.249325+00:00",
+      "status": "completed",
+      "response_id": "7f34ac96b652463db2a01d4150654520",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1457,
+        "prompt_tokens": 1295,
+        "total_tokens": 2752,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 64,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1167,
+        "reasoning_tokens": 64
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0082238,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:06:20.025171+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-8",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "started_utc": "2026-11-08T14:06:16.159010+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-8ac05b5b3f01277d",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1579,
+        "prompt_tokens": 1885,
+        "total_tokens": 3464,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 509,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.01956,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:06:35.877605+00:00"
+    },
+    {
+      "slug": "glm-5.3",
+      "model": "zai-org/GLM-5.3",
+      "case_id": "case-20",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "started_utc": "2026-11-08T14:06:20.026288+00:00",
+      "status": "completed",
+      "response_id": "ff6f5d4385124454bbf940c21f5169e5",
+      "model_returned": "zai-org/GLM-5.3",
+      "usage": {
+        "completion_tokens": 1351,
+        "prompt_tokens": 1817,
+        "total_tokens": 3168,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 68,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 128,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 128,
+        "prompt_cache_miss_tokens": 1689,
+        "reasoning_tokens": 68
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.008488200000000001,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:06:24.656875+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-7",
+      "input_sha256": "1006bcc966ac668e874b0ef0cac870be5f73be4bf065fe6807b7e5b221d362b0",
+      "started_utc": "2026-11-08T14:06:21.168150+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-aa42696ad65ccbd0",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4460,
+        "prompt_tokens": 1686,
+        "total_tokens": 6146,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3437,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0058578,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:06:52.813511+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-9",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "started_utc": "2026-11-08T14:06:35.879976+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-947a3fc1dc870da6",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 2069,
+        "prompt_tokens": 1887,
+        "total_tokens": 3956,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 791,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.024464,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:07:01.623651+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-8",
+      "input_sha256": "6ea7a1e7cf35305620568d5fd7eefd22354cb50bcff53e8334875b95283d76fd",
+      "started_utc": "2026-11-08T14:06:52.815653+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-9f6c5c405232813d",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 3612,
+        "prompt_tokens": 1761,
+        "total_tokens": 5373,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 2696,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0048627,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:07:19.460449+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-10",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "started_utc": "2026-11-08T14:07:01.625862+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-b3286b1403ed7e30",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1809,
+        "prompt_tokens": 1879,
+        "total_tokens": 3688,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 525,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.021848,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:07:23.160411+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-9",
+      "input_sha256": "e93759b7a085c615e19c388e9272fab9782d14bf201201651fe8a91e3b6a6ea5",
+      "started_utc": "2026-11-08T14:07:19.462764+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-829a659ef35324f1",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4057,
+        "prompt_tokens": 1771,
+        "total_tokens": 5828,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3200,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0053996999999999995,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:07:48.065774+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-11",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "started_utc": "2026-11-08T14:07:23.162700+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-bdd1be0e56c02189",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1721,
+        "prompt_tokens": 2040,
+        "total_tokens": 3761,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 503,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.02129,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:07:46.064134+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-12",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "started_utc": "2026-11-08T14:07:46.066431+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-94f98a77657b6841",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 2300,
+        "prompt_tokens": 2032,
+        "total_tokens": 4332,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 714,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.027064,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:08:15.049521+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-10",
+      "input_sha256": "788a1589c52ce32edfadbbd985444b5cf432c147130c76e0a3336b1a50bf3f62",
+      "started_utc": "2026-11-08T14:07:48.067963+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-89095af3218bc95f",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 3740,
+        "prompt_tokens": 1758,
+        "total_tokens": 5498,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 2750,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0050154,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:08:16.323911+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-13",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "started_utc": "2026-11-08T14:08:15.051951+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-966747da05f0c58a",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 2088,
+        "prompt_tokens": 1897,
+        "total_tokens": 3985,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 837,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.024674,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:08:41.962654+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-11",
+      "input_sha256": "63eeabf81a0a76e7e4dc633e89ad5e913ae1a9c627af8bad4bfba11620ac2816",
+      "started_utc": "2026-11-08T14:08:16.326383+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-b40937ca9e32318d",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 3626,
+        "prompt_tokens": 1914,
+        "total_tokens": 5540,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 2574,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1792,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0049254,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:08:43.426349+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-14",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "started_utc": "2026-11-08T14:08:41.965094+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-aff09fb0fa7cdde7",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1787,
+        "prompt_tokens": 1915,
+        "total_tokens": 3702,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 618,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0217,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:09:11.900571+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-12",
+      "input_sha256": "a26e1a03610239cdd18971cca0432f15cc1d3dca2e04dfdd591b4e501e9299ac",
+      "started_utc": "2026-11-08T14:08:43.428770+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-a7cfa85809b46baa",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4165,
+        "prompt_tokens": 1902,
+        "total_tokens": 6067,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3186,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1792,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0055686,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:09:11.417618+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-13",
+      "input_sha256": "9a01627395830178f2ddb1643f4216f085d5b76d6bd8a67bc37b603a88af30ef",
+      "started_utc": "2026-11-08T14:09:11.420303+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-ad4fe65ab7dcb447",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 3612,
+        "prompt_tokens": 1784,
+        "total_tokens": 5396,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 2649,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.004869599999999999,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:09:36.154569+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-15",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "started_utc": "2026-11-08T14:09:11.902937+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-a27d410881f30539",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1792,
+        "prompt_tokens": 2051,
+        "total_tokens": 3843,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 518,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1984,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.022022,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:09:38.234265+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-14",
+      "input_sha256": "23ad3b9244d0e04e4f54f44bf8af294ababcfd148c101e3ae73dcd8309b6d9b5",
+      "started_utc": "2026-11-08T14:09:36.157244+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-9c443170f7c09d68",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4774,
+        "prompt_tokens": 1796,
+        "total_tokens": 6570,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3623,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1792,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.006267600000000001,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:10:14.964956+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-16",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "started_utc": "2026-11-08T14:09:38.236880+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-98844f53f7d3860c",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 2092,
+        "prompt_tokens": 1827,
+        "total_tokens": 3919,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 815,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.024574,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:10:03.702497+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-17",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "started_utc": "2026-11-08T14:10:03.705062+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-9588f952553270ba",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1827,
+        "prompt_tokens": 1415,
+        "total_tokens": 3242,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 516,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0211,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:10:47.532116+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-15",
+      "input_sha256": "b06876e35e7f9254317d61b02746511ddb045842adb9c1507dfe11ab6e40b358",
+      "started_utc": "2026-11-08T14:10:14.966376+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-a088162971127b14",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4796,
+        "prompt_tokens": 1938,
+        "total_tokens": 6734,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3806,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1920,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0063365999999999995,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:10:49.381520+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-16",
+      "input_sha256": "5a529b19b282c24eb650a90a55c978fc3131bc4e2c6fa48e3459732515c907d6",
+      "started_utc": "2026-11-08T14:10:49.384105+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-909af99b778655cf",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 3582,
+        "prompt_tokens": 1713,
+        "total_tokens": 5295,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 2613,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1664,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.004812299999999999,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:11:18.772170+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-17",
+      "input_sha256": "73d521ea7684407a8ce75429e7159489e449b48b62eb2d0910f3376bf877eb90",
+      "started_utc": "2026-11-08T14:11:18.774818+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-a421a5da56a724e2",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 3968,
+        "prompt_tokens": 1306,
+        "total_tokens": 5274,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3177,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1280,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0051534,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:11:47.889202+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-18",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "started_utc": "2026-11-08T14:11:47.891965+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-a8b249a3bb629572",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 2990,
+        "prompt_tokens": 1329,
+        "total_tokens": 4319,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 1970,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1280,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0039867,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:12:10.093539+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-19",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "started_utc": "2026-11-08T14:12:10.096384+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-bd1d992c2738583a",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 3584,
+        "prompt_tokens": 1316,
+        "total_tokens": 4900,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 2625,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1280,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0046956,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:12:38.415681+00:00"
+    },
+    {
+      "slug": "deepseek-v4.1-flash-1017",
+      "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "case_id": "case-20",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "started_utc": "2026-11-08T14:12:38.418652+00:00",
+      "status": "completed",
+      "response_id": "chatcmpl-946451b320f2eb2d",
+      "model_returned": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "usage": {
+        "completion_tokens": 4265,
+        "prompt_tokens": 1797,
+        "total_tokens": 6062,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 3312,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 1792,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.0056571,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:13:05.655415+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-18",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "started_utc": "2026-11-08T14:14:11.411959+00:00",
+      "status": "completed",
+      "timeout_seconds": 300,
+      "response_id": "chatcmpl-a73d7b1b3817fe8d",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 2141,
+        "prompt_tokens": 1449,
+        "total_tokens": 3590,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 689,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.024308,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:17:35.414807+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-19",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "started_utc": "2026-11-08T14:20:32.762258+00:00",
+      "status": "completed",
+      "timeout_seconds": 300,
+      "response_id": "chatcmpl-a16dd1cd43a97c1c",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1708,
+        "prompt_tokens": 1432,
+        "total_tokens": 3140,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 464,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.019944,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:21:58.079121+00:00"
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-20",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "started_utc": "2026-11-08T14:27:47.340275+00:00",
+      "status": "completed",
+      "timeout_seconds": 600,
+      "response_id": "chatcmpl-bfa3e91ef492e5f8",
+      "model_returned": "moonshotai/Kimi-K3.1-Pro",
+      "usage": {
+        "completion_tokens": 1861,
+        "prompt_tokens": 1927,
+        "total_tokens": 3788,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 521,
+          "rejected_prediction_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 64,
+          "image_tokens": null,
+          "text_tokens": null,
+          "created_cache_tokens": 0,
+          "multimodal_tokens": null
+        }
+      },
+      "finish_reason": "stop",
+      "estimated_cost_usd": 0.022464,
+      "valid_json": true,
+      "finished_utc": "2026-11-08T14:31:01.843821+00:00"
+    }
+  ],
+  "new_prompt_tokens": 150510,
+  "new_completion_tokens": 160321,
+  "estimated_new_cost_usd": 0.67468755,
+  "failed_attempts": [
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-18",
+      "input_sha256": "5ea7acd5e812062295187ec1993989692e901c607108fb4d39eaae3d500ce646",
+      "started_utc": "2026-11-08T14:10:47.534567+00:00",
+      "status": "failed_or_usage_unavailable",
+      "error_type": "APITimeoutError",
+      "http_status": null,
+      "finished_utc": "2026-11-08T14:13:47.643905+00:00",
+      "unconfirmed_cost_reservation_usd": 0.100836
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-19",
+      "input_sha256": "83a0f4174c6a9c70e762fd142981f76a120b05f700a9bccd962d2a0e6bc5384a",
+      "started_utc": "2026-11-08T14:17:35.416616+00:00",
+      "status": "interrupted_without_receipt",
+      "timeout_seconds": 300,
+      "finished_utc": "2026-11-08T14:20:32.747977+00:00",
+      "unconfirmed_cost_reservation_usd": 0.100706
+    },
+    {
+      "slug": "kimi-k3.1-pro",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "case_id": "case-20",
+      "input_sha256": "1d9b14a0a267ac3c803a46adb419b5a1c1cfaf76a167946497acd59c11d7e2ad",
+      "started_utc": "2026-11-08T14:21:58.080748+00:00",
+      "status": "failed_or_usage_unavailable",
+      "timeout_seconds": 300,
+      "error_type": "APITimeoutError",
+      "http_status": null,
+      "finished_utc": "2026-11-08T14:26:58.183357+00:00",
+      "unconfirmed_cost_reservation_usd": 0.104094
+    }
+  ],
+  "unconfirmed_cost_reservation_usd": 0.305636,
+  "explicit_timeout_retries": 2,
+  "explicit_interruption_retries": 1,
+  "finished_utc": "2026-11-08T14:31:01.846519+00:00"
+}

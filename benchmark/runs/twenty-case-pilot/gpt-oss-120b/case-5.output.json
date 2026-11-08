@@ -1,0 +1,67 @@
+{
+  "assay_type": "biochemical kinase inhibition (luminescence, ADP\u2011Glo)",
+  "system": "recombinant human Tyrosine\u2011protein kinase receptor UFO (AXL, UniProt P30530) expressed in insect cells and purified",
+  "readout": "luminescence proportional to ADP production (ADP\u2011Glo\u2122)",
+  "steps": [
+    {
+      "card_id": "kinase-prepare",
+      "instruction": "Prepare a 10\u2011point, 3\u2011fold serial dilution of CHEMBL118266 in assay buffer with 0.5\u202f% DMSO (vehicle fraction). Include a DMSO\u2011only vehicle control and a reference inhibitor control (e.g., BGB324 at 1\u202f\u00b5M).",
+      "parameters": {
+        "top_concentration_uM": 100,
+        "dilution_factor": 3,
+        "n_points": 10,
+        "replicates": 3,
+        "vehicle_fraction": 0.5
+      }
+    },
+    {
+      "card_id": "kinase-react",
+      "instruction": "In each well add recombinant UFO kinase (final 5\u202fnM), peptide substrate (Ephrin\u2011A1\u2011derived, 10\u202f\u00b5M), ATP (final 100\u202f\u00b5M, Km\u2011approximation for UFO), and the appropriate compound dilution. Incubate 30\u202fmin at 30\u202f\u00b0C.",
+      "parameters": {
+        "enzyme_concentration": "5\u202fnM (purified UFO catalytic domain, literature\u2011reported active concentration)",
+        "substrate_concentration": "10\u202f\u00b5M (synthetic peptide known to be phosphorylated by UFO)",
+        "ATP_concentration": "100\u202f\u00b5M (\u22485\u00d7\u202fKm for UFO, typical for ADP\u2011Glo assays)",
+        "reaction_time": "30\u202fmin",
+        "temperature": "30\u202f\u00b0C"
+      }
+    },
+    {
+      "card_id": "kinase-detect",
+      "instruction": "Add ADP\u2011Glo\u2122 reagent to stop the reaction and deplete remaining ATP (10\u202f\u00b5L per 20\u202f\u00b5L reaction). Incubate 40\u202fmin for depletion, then add detection reagent (10\u202f\u00b5L) and incubate 30\u202fmin before reading luminescence.",
+      "parameters": {
+        "reagent_volumes": "10\u202f\u00b5L stop reagent, 10\u202f\u00b5L detection reagent per well",
+        "depletion_time": "40\u202fmin",
+        "detection_time": "30\u202fmin"
+      }
+    },
+    {
+      "card_id": "analyse",
+      "instruction": "Normalize luminescence to 0\u202f% activity (vehicle control) and 100\u202f% activity (reference inhibitor). Fit a four\u2011parameter logistic curve (Hill slope unconstrained). Report IC\u2085\u2080 with 95\u202f% confidence interval and flag assay window (signal\u2011to\u2011background) and any compound\u2011interference observations.",
+      "parameters": {
+        "fit_model": "4\u2011parameter logistic (variable slope)",
+        "acceptance_criteria": "R\u00b2\u202f\u2265\u202f0.90, \u2265\u202f3\u2011fold signal\u2011to\u2011background, no >10\u202f% luminescence quenching in control wells"
+      }
+    }
+  ],
+  "top_concentration_uM": 100,
+  "dilution_factor": 3,
+  "n_points": 10,
+  "replicates": 3,
+  "controls": [
+    "0\u202f% inhibition: 0.5\u202f% DMSO vehicle only",
+    "100\u202f% inhibition: known UFO inhibitor BGB324 (1\u202f\u00b5M)",
+    "no\u2011enzyme blank: to assess background luminescence"
+  ],
+  "rationale": "A luminescence\u2011based ADP\u2011Glo assay is the standard format for measuring ATP\u2011dependent tyrosine kinase activity in a homogeneous, high\u2011throughput compatible manner. The chosen enzyme concentration yields ~10\u202f% substrate conversion under linear conditions, allowing accurate detection of inhibition. ATP at 100\u202f\u00b5M is above the Km for UFO, minimizing competition effects while remaining within the dynamic range of the ADP\u2011Glo kit. A 10\u2011point, 3\u2011fold dilution spanning 100\u202f\u00b5M to ~0.02\u202f\u00b5M provides sufficient resolution to capture the full inhibition curve for typical kinase inhibitors. Replicates (n\u202f=\u202f3) ensure statistical confidence. Controls address assay performance and potential compound\u2011specific luminescence interference.",
+  "citations": [
+    "CHEMBL118266 (compound structure provided)",
+    "P30530 (target identifier)",
+    "retained_measurement_examples (AXL inhibition data illustrate compatible assay format; no direct UFO data available)"
+  ],
+  "limitations": [
+    "No published biochemical IC\u2085\u2080 for CHEMBL118266 against UFO; the design relies on generic kinase assay parameters.",
+    "ATP Km for UFO is inferred from related TAM family kinases; exact value may differ, affecting potency estimation.",
+    "Potential compound fluorescence or luminescence quenching is not pre\u2011tested; such interference would be flagged during analysis.",
+    "The assay measures enzymatic activity in isolation and does not capture cellular context or off\u2011target effects."
+  ]
+}
