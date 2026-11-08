@@ -1,11 +1,35 @@
 # What we test next
 
-**Closing the Loop Between Knowledge and Discovery**: Team Zhang et al., Nucleate Pittsburgh BioHack 2026.
+**Evidence-grounded experiment design** · Team Zhang et al. · Nucleate Pittsburgh BioHack 2026
 
-Literature agents can answer a question when someone has already done the experiment. When the honest answer is
-**"I don't know"**, we propose the experiment that would answer it (aim 1), grounded in a knowledge graph of
-biology and one of experimental protocols, and turn it into a protocol an Opentrons OT-2 can run (aim 2). First
-domain: does compound X inhibit target Y, answered by an IC50 dose-response (a serial dilution).
+A researcher has a compound, a biological target, and a question. If existing evidence answers it, return the
+result. If the measurement is missing, help design the experiment that would answer it—with the evidence behind
+the assay choice, concentration range, controls, and procedure available for review.
+
+[View the slides](https://zhang-etal-biohack.pages.dev/) ·
+[Explore the knowledge graph and benchmark cases](https://zhang-etal-biohack.pages.dev/talks/biohack/graph/) ·
+[Download the animated pitch](https://zhang-etal-biohack.pages.dev/talks/pitch-preview/exports/wwtn-slides-1-7-animated.pptx)
+
+[![Slide 4: measured activity of related compounds, supporting papers, and protocol templates inform a structured experiment proposal.](slides/talks/pitch-preview/assets/proposal-overview.png)](https://zhang-etal-biohack.pages.dev/)
+
+*Evidence and protocol templates inform the proposal. The bacterial diagram illustrates the workflow; it is not a recorded end-to-end run.*
+
+## How it works
+
+1. **Check the evidence.** Resolve the compound and target, then check whether the knowledge base already contains the measurement.
+2. **Design the missing experiment.** Use related compounds’ measured activity and applicable protocol templates to propose an assay, concentration series, controls, and replicates with a rationale and supporting references.
+3. **Prepare for execution.** The execution component checks supplied proposals against lab constraints and generates plate layouts, human-readable instructions, and Opentrons OT-2 protocols for simulation.
+
+The current agent path uses kinase inhibition measurements (IC50). Bacterial MIC evidence and a separately
+simulated bacterial execution example are also included; that example starts from a hand-written proposal.
+Connecting those bacterial components into one agent-driven workflow remains integration work.
+
+## Explore the work
+
+- [Agent](agent/): graph lookup, related-compound retrieval, template selection, and structured proposals.
+- [Knowledge graphs](kg/): biological measurements and protocol knowledge with source information.
+- [Benchmarks](benchmark/): held-out cases, recorded model outputs, and checks of experiment choice, procedure, and numerical consistency.
+- [Execution](execution/): lab constraints, plate planning, protocol generation, and simulation.
 
 ## Layout
 
@@ -65,8 +89,8 @@ accessible with search-engine indexing disabled; old long URLs remain supported.
 `slides/README.md` and `slides/AGENTS.md`).
 
 - **Demo page:** [`demo/`](demo/) at the repo root (also the "Live demo" slide, and `demo/` next to the live deck):
-  one query through the whole pipeline, played from a trace file. Its README has the trace format and the plan for
-  making it real. Changes there don't redeploy the slides.
+  a recorded trace viewer. Its README documents the trace format and implementation status.
+  The current pitch also embeds the [graph and benchmark explorer](https://zhang-etal-biohack.pages.dev/talks/biohack/graph/).
 - **Present locally:** `cd slides && python -m http.server 8000`, then open http://localhost:8000/
   (or open `slides/talks/pitch-preview/index.html` straight from disk).
 - **Check every slide:** `python slides/tools/check_deck.py slides/talks/pitch-preview` (needs Playwright).
