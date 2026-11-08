@@ -16,7 +16,8 @@ Deck.slide('pitch-results', {steps:4,
  .pf-example small{font-size:var(--t-caption);color:var(--muted);}
  .pf-example p{font-size:var(--t-body);line-height:1.35;margin:.4em 0;}
  .pf-method{position:absolute;left:7%;right:7%;top:29%;font-size:var(--t-small);color:var(--muted);text-align:center}
- .pf-results-plot .deck-plot-key{left:7%;right:7%;top:19%;gap:1em;font-size:var(--t-small);}
+ .pf-results-plot .deck-plot-key{left:7%;right:7%;top:17%;flex-wrap:wrap;column-gap:1.6em;row-gap:.55em;font-size:var(--t-small);}
+ .pf-results-plot .deck-plot-key > span{white-space:nowrap;flex-shrink:0;}
  .pf-results-plot .deck-plot-chart{left:13%;right:9%;top:41%;height:34%;}
  .pf-results-plot .deck-plot-group{width:90%;justify-content:space-between;gap:0;}
  .pf-results-plot .deck-plot-bar{width:calc(6 * var(--u));}
