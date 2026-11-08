@@ -15,3 +15,9 @@ Biology: exclude all measurements for the query compound–target pair, every do
 Protocols: the pilot does not mutate the raw protocol graph. It withholds raw protocol text, numeric defaults and quotes from the input packet, substituting seven manually generalized step cards with parameter slots. This is not a proven automatic de-identification or numeric masking process. Retained comparison measurements may still contain numbers; those are intentional evidence.
 
 The model receives only `graph/cases/case-1.input.json`, not the remaining graph or the reviewer visualization. The reviewer toggle is not an access-control mechanism. TODO(final): complete cross-source duplicate/leakage review and expert validation. See `graph/BENCHMARK.md` for the full benchmark design.
+
+## Slides 4–6 source examples (preview revision)
+
+`slides/source_examples.js` replaces the abstract construction diagrams with three click stages each. Slide 4 uses the literal ChEMBL MIC records exported by `talks/process-prototype/prep.py` into its `data.js`: CHEMBL420452, assays CHEMBL876060 / CHEMBL875007, document CHEMBL1133633. The displayed source text is a ChEMBL assay description, not a quotation extracted from a paper PDF. Source references are edge metadata; the diagram is a small selected view.
+
+Slide 5 quotes the observed dilution evidence in `kg/protocols/templates/bacterial_mic_broth.json` (PubChem AID 449774) and shows a method summary. Slide 6 shows the actual `APPLICABLE_TO` relationship to `chembl_target_type:ORGANISM` and the broth-growth requirement from the protocol graph. Query interpretation is illustrative, not an executed routing trace. No claim is made that the earlier paper supplied this protocol or that a connected agent run produced these artifacts.
