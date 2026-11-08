@@ -1,15 +1,8 @@
 #!/usr/bin/env bash
-# Upload the decks to Cloudflare Pages at an unlisted address: the whole site (tools/build_site.sh) sits under
-# a long random path, the bare domain is a plain "Not found", and search engines are told not to index it.
-# Anyone with the link can view it; nobody can find it without the link. Never use the template's project
-# here: its production branch is the public site.
-#
-#   tools/deploy_unlisted.sh <project> [main|slides-preview]
-# Defaults to the current named deployment branch; preview URLs use slides-preview.<project>.pages.dev.
-#
-# The prefix is made on the first run and kept in .pages-prefix, committed so that every deploy (by hand or
-# from CI) keeps the same link; delete that file for a new one. Needs wrangler, logged in (wrangler login) or
-# CLOUDFLARE_API_TOKEN set.
+# Publish the current deck at the main domain and keep the original long URLs working.
+# Search engines are told not to index the site; the short URL is publicly accessible.
+# Usage: tools/deploy_unlisted.sh <project> [main|slides-preview]
+# The committed .pages-prefix preserves legacy bookmarks.
 set -euo pipefail
 
 project=${1:?usage: tools/deploy_unlisted.sh <pages project> [main|slides-preview]}
@@ -25,6 +18,7 @@ prefix=$(cat "$prefix_file")
 
 site=$(mktemp -d)
 trap 'rm -rf "$site"' EXIT
+"$repo/tools/build_site.sh" "$site"
 "$repo/tools/build_site.sh" "$site/$prefix"
 printf '<!doctype html><meta charset="utf-8"><title>Not found</title><p>Not found.</p>\n' > "$site/404.html"
 printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > "$site/_headers"
@@ -36,6 +30,7 @@ wrangler pages deploy "$site" --project-name "$project" --branch "$branch" --com
 host="$project.pages.dev"
 [ "$branch" = main ] || host="$branch.$host"
 echo
+echo "Main deck: https://$host/"
 for talk in "$repo"/talks/*/; do
   echo "https://$host/$prefix/talks/$(basename "$talk")/"
 done
