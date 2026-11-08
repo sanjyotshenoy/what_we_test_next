@@ -23,7 +23,6 @@ Deck.slide('pitch-hook', {steps:3,
  .ph-legend i{display:inline-block;width:.65em;height:.65em;border-radius:50%;margin-right:.35em;background:var(--accent);}
  .ph-legend .ph-pkey{background:var(--plot-2);}
  .ph-copy{position:absolute;left:53%;right:5%;top:23%;font-size:var(--t-lead);line-height:1.35;}
- .ph-kicker{font-size:var(--t-small);color:var(--muted);margin:0 0 .9em;}
  .ph-copy p{margin:0 0 .65em;}
  .ph-copy strong{color:var(--accent);}
  .ph-question{font-size:var(--t-body);}
@@ -40,9 +39,8 @@ Deck.slide('pitch-hook', {steps:3,
  const blobs=cells.map((c,i)=>`<g transform="translate(${c.x} ${c.y}) rotate(${i*29})"><circle class="ph-halo ${c.pathogen?'ph-pathogen':''}" r="${c.r+10}"/><path class="ph-cell ${c.pathogen?'ph-pathogen':''}" d="M ${-c.r} 0 C ${-c.r-7} ${-c.r}, ${c.r-4} ${-c.r-9}, ${c.r} -3 C ${c.r+8} ${c.r+2}, ${-c.r+3} ${c.r+8}, ${-c.r} 0 Z"/></g>`).join('');
  frame.innerHTML=`<h2 class="deck-heading">What should we test next?</h2>
  <div class="ph-scene"><svg viewBox="0 0 460 390" role="img" aria-label="Schematic community: one pathogen and six commensal blobs. No treatment outcomes shown."><circle class="ph-boundary" cx="230" cy="213" r="159"/>${blobs}<g class="ph-compound"><circle cx="230" cy="20" r="23"/><text x="230" y="21">X</text><path d="M230 46 L230 84"/></g></svg><div class="ph-legend"><span><i class="ph-pkey"></i>Pathogen</span><span><i></i>Commensals</span></div></div>
- <div class="ph-copy"><p class="ph-kicker">Researcher-supplied question</p><p class="reveal-in" data-from="1">A compound.<br>Specified bacterial strains.</p><p class="ph-question reveal-in" data-from="2">Will <strong>compound X</strong> inhibit the pathogen while sparing these commensals?</p></div>
- <div class="ph-experiment reveal-in" data-from="3"><strong>What experiment<br>would answer this?</strong><small>Turn a research question into a justified experiment.</small></div>
- <p class="deck-caption">Schematic community · outcomes unknown · compound discovery and strain selection are upstream</p>`;
+ <div class="ph-copy"><p class="reveal-in" data-from="1">A compound.<br>Specified bacterial strains.</p><p class="ph-question reveal-in" data-from="2">Will <strong>compound X</strong> inhibit the pathogen while sparing these commensals?</p></div>
+ <div class="ph-experiment reveal-in" data-from="3"><strong>What experiment<br>would answer this?</strong><small>Turn a research question into a justified experiment.</small></div>`;
  return{enter:(s,a)=>{frame.classList.toggle('ph-jump',!a);frame.classList.toggle('ph-ask',s===2);frame.classList.toggle('ph-gap',s>=3);Deck.show(frame,s,a);}};
  }});
 }
