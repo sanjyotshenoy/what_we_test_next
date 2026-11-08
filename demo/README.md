@@ -1,4 +1,30 @@
-# The demo page
+# Demo workstream
+
+Start with [current memory](memory/MEMORY.md), [remote handoff](memory/REMOTE_HANDOFF.md),
+[presentation runbook](docs/JUDGE_RUNBOOK.md), and [setup](SETUP.md).
+
+- **Sequential:** https://demo-o10eetwuq.gobrev.dev/sequential — public, light-mode
+  walkthrough of two scientific questions across four LLMs. Automatic progression,
+  processing shimmer, auto-scroll, compact expandable text and interactive plates.
+- **Judge/results:** https://demo-o10eetwuq.gobrev.dev/ — public, approved artifacts
+  and separate physical robot recording.
+- **Operator:** https://operator-o10eetwuq.gobrev.dev/ — Brev login, current org-member
+  allowlist; legacy panel layout backed by the eight saved sequential trajectories.
+  Live planning remains at `/planner` with one shared live session.
+- Brev branch: `demo/judge-rehearsal`, directory `/home/ubuntu/what_we_test_next`.
+  Codex Remote host: `brev-o10eetwuq`; daemon/login verified on 2026-11-08.
+- Eight accepted model/query trajectories, sixteen verified simulator passes.
+  [Exact results and retry history](docs/PRECOMPUTED_EXAMPLES.md). Real identities
+  and evidence; synthetic assay inputs; no newly measured biological outcomes.
+- [Deployment](deploy/README.md) records Brev forwarding and the operator socket's
+  reboot limitation. Do not start duplicate launchers or expose internal OpenCode.
+
+## Legacy slide-linked demo
+
+The sections below document the preserved `index.html` trace viewer and
+`agent.server` interface. They are historical/alternative entry points, not the
+current judge configuration or a description of the planner's graph data.
+
 
 One query through the whole pipeline, as a timeline: the knowledge base says "I don't know" → the agent queries
 the two graphs → reasons → proposes the missing experiment → writes the procedure and the OT-2 script → the
@@ -71,7 +97,9 @@ is no backend, so the page plays the recorded traces.
 up: `execution/` for `procedure`, `protocol`, `simulation` and `benchmark/` for `validation`; the natural place
 is for them to add to the same trace (JSON in `agent/out/traces/<id>.json`) before it is written as `runs/<id>.js`.
 
-## Next
+## Historical next steps for the legacy trace viewer
+
+These are legacy plans, not authorization to publish or change the active demo.
 
 1. Point the agent at the real graphs (`kg/query.py`, branch `kg-scaffolding`) instead of `agent/data/sample_kg`,
    and rerecord `runs/kit-imatinib.js`.
@@ -91,3 +119,28 @@ remain the original static/agent.server entry point; the OpenCode planner is ser
 on port 7100 by its own launcher. These are explicit alternatives, not two loops
 running for one question. The planner's `/legacy` page uses the legacy `stage` agent
 only when launched with `STAGE_AGENT=stage`; the default is `planner`.
+
+For public-access preparation and the private-operator/read-only-viewer boundary,
+see [deployment notes](deploy/README.md). The current operator interface is shared and authenticated; it is not an isolated
+multi-user application.
+
+## Sequential precomputed walkthrough
+
+The results viewer now also serves `/sequential`: select one of its approved
+trajectories, then follow saved retrievals, proposals, compiler checks and simulation
+reports with automatic progression, processing animation and scrolling.
+It uses only the published-session allowlist and read-only artifact APIs.
+No new model call, private transcript, or physical execution is triggered. Timing
+is illustrative and milestones are reconstructed from saved artifacts, not an
+exact agent transcript. Synthetic assay inputs and scientific limitations remain
+visible. The original `index.html` and slide entry point are preserved.
+
+The sequential LLM dropdown uses `sequential-models.json`: four team evaluation
+model IDs, plus a verified session-to-model mapping. It filters already published
+sessions; missing models show a not-ready state, never another model's output.
+To add a precomputed trajectory, use the independent precompute runner or a coordinated
+private operator session,
+verify the result and model identity, publish the reviewed session through the existing
+viewer allowlist, and add its exact session/model pair to this manifest. Restart
+only the viewer when its session allowlist changes. The dropdown itself never runs
+inference or changes the operator's model. All four models now have both queries; see docs/PRECOMPUTED_EXAMPLES.md.

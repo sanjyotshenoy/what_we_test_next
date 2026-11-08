@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "nebius/openai/gpt-oss-120b",
+  "model": "nebius/zai-org/GLM-5.3",
   "small_model": "nebius/openai/gpt-oss-120b",
   "provider": {
     "nebius": {
@@ -11,7 +11,11 @@
       },
       "models": {
         "openai/gpt-oss-120b": {
-          "name": "gpt-oss-120b (dev default)"
+          "name": "gpt-oss-120b (manual alternative)",
+          "limit": {
+            "context": 131072,
+            "output": 8192
+          }
         },
         "deepseek-ai/DeepSeek-V4-Pro-0813": {
           "name": "DeepSeek-V4-Pro-0813"
@@ -23,7 +27,14 @@
           "name": "Qwen3.8-27B"
         },
         "zai-org/GLM-5.3": {
-          "name": "GLM-5.3"
+          "name": "GLM-5.3 (verified demo default)",
+          "limit": {
+            "context": 1024000,
+            "output": 16384
+          },
+          "options": {
+            "reasoningEffort": "low"
+          }
         }
       }
     },
@@ -99,7 +110,9 @@
         "planning_submit": true,
         "planning_simulate": true,
         "biology_lookup": true
-      }
+      },
+      "temperature": 0,
+      "steps": 16
     }
   }
 }

@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, AsyncMock
 from aiohttp.test_utils import AioHTTPTestCase
 from demo.harness import budget, planning_pipeline as pipeline
 from demo.harness.test_planning_pipeline import fixture_batch, seed_context
@@ -56,3 +56,75 @@ class BudgetTests(unittest.TestCase):
             with self.assertRaises(ValueError): budget.consume('planning_submit', 'session')
             budget.consume('planning_submit', 'other')
             with self.assertRaises(ValueError): budget.consume('planning_submit', '../escape')
+
+
+class OperatorCommandTests(AioHTTPTestCase):
+    async def get_application(self):
+        self.backend = AsyncMock(return_value={'busy-session': {'type': 'busy'}})
+        for replacement in (patch.object(server, 'hub', server.Hub()),
+                            patch.object(server, 'oc', self.backend),
+                            patch.object(server, 'on_start', AsyncMock())):
+            replacement.start(); self.addCleanup(replacement.stop)
+        server.hub.session_id = 'busy-session'
+        return server.make_app()
+
+    async def test_saved_dashboard_does_not_touch_live_session(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'sequential-models.json').write_text(json.dumps({
+                'models': [{'id': 'model', 'label': 'Model'}],
+                'sessions': {'saved': 'model', 'missing': 'model'}}))
+            snapshots = {'saved': {'batches': [{'manifest': {'runs': [
+                {'compound': 'compound', 'species': {'name': 'species'}}]}}]},
+                'missing': {'batches': []}}
+            with patch.object(server, 'DEMO', root), patch.object(view, 'snapshot', side_effect=snapshots.get):
+                response = await self.client.get('/api/precomputed')
+                data = await response.json()
+            self.assertEqual([e['session'] for e in data['examples']], ['saved'])
+        for route in ('/', '/legacy'):
+            response = await self.client.get(route)
+            self.assertIn('saved-dashboard.js', await response.text())
+        response = await self.client.get('/planner')
+        self.assertIn('planner.js', await response.text())
+        self.assertEqual(server.hub.session_id, 'busy-session')
+        self.backend.assert_not_called()
+
+    async def test_active_run_blocks_prompt_and_configuration_changes(self):
+        for path, body in [('/api/prompt', {'text': 'second request'}),
+                           ('/api/model', {'modelID': 'other'}),
+                           ('/api/keys', {'name': 'other'})]:
+            response = await self.client.post(path, json=body)
+            self.assertEqual(response.status, 409)
+        self.assertTrue(all(call.args == ('GET', '/session/status') for call in self.backend.call_args_list))
+
+    async def test_html_versions_current_assets_and_static_revalidates(self):
+        response = await self.client.get('/')
+        self.assertEqual(response.headers['Cache-Control'], 'no-store')
+        self.assertRegex(await response.text(), r'/static/saved-dashboard.js\?v=[0-9a-f]{16}')
+        response = await self.client.get('/static/saved-dashboard.js')
+        self.assertEqual(response.headers['Cache-Control'], 'no-cache')
+        etag = response.headers['ETag']
+        response = await self.client.get('/static/saved-dashboard.js', headers={'If-None-Match': etag})
+        self.assertEqual(response.status, 304)
+        self.assertEqual(response.headers['Cache-Control'], 'no-cache')
+        with TemporaryDirectory() as directory, patch.object(server, 'STATIC', Path(directory)):
+            root = Path(directory)
+            (root/'index.html').write_text('<script src="/static/app.js"></script><link href="/static/app.css">')
+            (root/'app.js').write_text('old script')
+            (root/'app.css').write_text('style')
+            before = server.versioned_html('index.html')
+            (root/'app.js').write_text('new script')
+            after = server.versioned_html('index.html')
+            self.assertNotEqual(before, after)
+            self.assertEqual(before.split('<link')[1], after.split('<link')[1])
+
+    async def test_invalid_command_body_is_a_client_error(self):
+        for body in ('null', '[]', '{'):
+            response = await self.client.post('/api/model', data=body, headers={'Content-Type': 'application/json'})
+            self.assertEqual(response.status, 400)
+        self.backend.assert_not_called()
+
+    async def test_stop_aborts_the_selected_session(self):
+        response = await self.client.post('/api/abort', json={})
+        self.assertEqual(response.status, 200)
+        self.backend.assert_awaited_once_with('POST', '/session/busy-session/abort')

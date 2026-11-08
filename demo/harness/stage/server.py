@@ -18,7 +18,8 @@ from pathlib import Path
 
 import aiohttp
 from aiohttp import web
-from demo.harness.stage import planning_view
+from demo.harness.stage import planning_view, recording
+from demo.harness.stage.assets import versioned_html as asset_html
 
 HERE = Path(__file__).resolve().parent
 from demo.harness.paths import ROOT, DEMO
@@ -41,10 +42,14 @@ class Hub:
     def __init__(self):
         self.clients: set[asyncio.Queue] = set()
         self.session_id: str | None = None
-        self.model = {"providerID": "nebius", "modelID": os.environ.get("HARNESS_NEBIUS_MODEL", "openai/gpt-oss-120b")}
+        configured = json.loads((OC_DIR / 'opencode.json').read_text())['model']
+        provider, model = configured.split('/', 1)
+        override = os.environ.get('HARNESS_NEBIUS_MODEL')
+        self.model = {"providerID": 'nebius' if override else provider, "modelID": override or model}
         self.key_profile: str | None = None
         self.panels: dict[str, list] = {"kg": [], "structure": [], "plate": []}   # replayed on page reload (not robot)
         self.oc_ok = False
+        self.command_lock = asyncio.Lock()
 
     def send(self, ev: dict):
         for q in list(self.clients):
@@ -59,12 +64,15 @@ hub = Hub()
 async def oc(method: str, path: str, body=None, timeout=30):
     if REPLAY:
         raise web.HTTPConflict(text="Replay mode: live agent operations are disabled")
-    async with aiohttp.ClientSession(headers=oc_auth()) as s:
-        async with s.request(method, OC_URL + path, json=body, timeout=aiohttp.ClientTimeout(total=timeout)) as r:
-            text = await r.text()
-            if r.status >= 400:
-                raise web.HTTPBadGateway(text=f"OpenCode {method} {path}: {r.status} {text[:300]}")
-            return json.loads(text) if text else None
+    try:
+        async with aiohttp.ClientSession(headers=oc_auth()) as s:
+            async with s.request(method, OC_URL + path, json=body, timeout=aiohttp.ClientTimeout(total=timeout)) as r:
+                text = await r.text()
+                if r.status >= 400:
+                    raise web.HTTPBadGateway(text="Planner backend request failed.")
+                return json.loads(text) if text else None
+    except (aiohttp.ClientError, asyncio.TimeoutError, ValueError):
+        raise web.HTTPBadGateway(text='Planner backend unavailable; no result confirmed.') from None
 
 
 FORWARD = {"message.part.updated", "message.part.delta", "message.updated", "session.status", "session.idle",
@@ -95,7 +103,7 @@ async def oc_events():
                         hub.send({"type": "oc", "event": ev})
         except Exception as e:  # noqa: BLE001 - reconnect on anything
             if hub.oc_ok:
-                hub.send({"type": "status", "opencode": False, "error": repr(e)[:200]})
+                hub.send({"type": "status", "opencode": False, "error": "Planner connection unavailable"})
             hub.oc_ok = False
         await asyncio.sleep(backoff)
         backoff = min(backoff * 2, 10)
@@ -169,7 +177,7 @@ async def api_stream(request):
     resp = web.StreamResponse(headers={"Content-Type": "text/event-stream", "Cache-Control": "no-cache",
                                        "X-Accel-Buffering": "no"})
     await resp.prepare(request)
-    q: asyncio.Queue = asyncio.Queue()
+    q: asyncio.Queue = asyncio.Queue(maxsize=1000)
     hub.clients.add(q)
     try:
         hello = {"type": "hello", "opencode": hub.oc_ok, "session": hub.session_id, "model": hub.model,
@@ -190,9 +198,13 @@ async def api_stream(request):
 
 async def api_prompt(request):
     body = await request.json()
-    text = (body.get("text") or "").strip()
+    if not isinstance(body, dict) or not isinstance(body.get('text'), str):
+        raise web.HTTPBadRequest(text='A text prompt is required')
+    text = body['text'].strip()
     if not text:
         raise web.HTTPBadRequest(text="empty prompt")
+    if len(text) > 10000:
+        raise web.HTTPBadRequest(text='Prompt must be at most 10,000 characters')
     sid = await ensure_session()
     await oc("POST", f"/session/{sid}/prompt_async",
              {"agent": AGENT, "model": hub.model, "parts": [{"type": "text", "text": text}]})
@@ -270,6 +282,9 @@ async def api_model(request):
     if body.get('modelID') not in conf.get(body.get('providerID'), {}).get('models', {}):
         raise web.HTTPBadRequest(text='Unknown configured model')
     hub.model = {"providerID": body["providerID"], "modelID": body["modelID"]}
+    # A model change starts a new conversation; do not mix model histories.
+    hub.session_id = None
+    hub.send({"type": "reset"})
     hub.send({"type": "model", "model": hub.model})
     return web.json_response({"model": hub.model})
 
@@ -299,7 +314,18 @@ async def api_keys_post(request):
 
 
 async def api_health(request):
-    return web.json_response({"ok": True, "opencode": hub.oc_ok, "session": hub.session_id, "agent": AGENT})
+    status = 'idle'
+    if hub.session_id and not REPLAY:
+        try:
+            statuses = await oc('GET', '/session/status')
+            status = statuses.get(hub.session_id, {}).get('type', 'idle')
+        except web.HTTPBadGateway:
+            status = 'unavailable'
+    default = os.environ.get('DEMO_DEFAULT_SESSION', '')
+    if not planning_view.TOKEN.fullmatch(default) or not (planning_view.RUNS / default).is_dir():
+        default = None
+    return web.json_response({"ok": True, "opencode": hub.oc_ok, "session": hub.session_id,
+                              "agent": AGENT, "agent_status": status, "default_session": default})
 
 
 async def api_planning(request):
@@ -328,9 +354,37 @@ async def api_artifact(request):
                                           'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'})
 
 
+def versioned_html(name):
+    return asset_html(name, STATIC)
+
+
 async def index(request):
-    name = 'index.html' if request.path == '/legacy' else 'planner.html'
-    return web.FileResponse(STATIC / name, headers={"Cache-Control": "no-cache"})
+    name = 'planner.html' if request.path == '/planner' else 'saved-dashboard.html'
+    return web.Response(text=await asyncio.to_thread(versioned_html, name),
+                        content_type='text/html', headers={'Cache-Control': 'no-store'})
+
+
+async def api_precomputed(request):
+    """The sequential model/session catalog, without changing the live session."""
+    catalog = json.loads((DEMO / 'sequential-models.json').read_text())
+    examples = []
+    for session, model in catalog['sessions'].items():
+        data = await asyncio.to_thread(planning_view.snapshot, session)
+        runs = [r for b in data['batches'] for r in b['manifest']['runs']]
+        if not runs:
+            continue
+        compounds = list(dict.fromkeys(r['compound'] for r in runs))
+        species = list(dict.fromkeys(r['species']['name'] for r in runs))
+        examples.append({'session': session, 'model': model,
+                         'question': ' / '.join(compounds) + ' · ' + ' / '.join(species)})
+    return web.json_response({'models': catalog['models'], 'examples': examples},
+                             headers={'Cache-Control': 'no-store'})
+
+
+async def api_graph_overview(request):
+    from demo.harness.dashboard_graph import overview
+    return web.json_response(await asyncio.to_thread(overview),
+                             headers={'Cache-Control': 'no-cache'})
 
 
 async def on_cleanup(app):
@@ -351,6 +405,8 @@ async def on_start(app):
 
 def bind_hosts() -> list[str]:
     hosts = ["127.0.0.1"]
+    if os.environ.get('STAGE_LOOPBACK_ONLY') == '1':
+        return hosts
     try:
         ts = subprocess.run(["tailscale", "ip", "-4"], capture_output=True, text=True, timeout=5).stdout.split()
         hosts += ts[:1]
@@ -366,11 +422,41 @@ async def replay_read_only(request, handler):
     return await handler(request)
 
 
+@web.middleware
+async def operator_commands(request, handler):
+    if request.method != 'POST' or request.path not in {
+            '/api/prompt', '/api/model', '/api/keys', '/api/new', '/api/abort'}:
+        return await handler(request)
+    async with hub.command_lock:
+        try:
+            body = await request.json()
+        except (ValueError, UnicodeDecodeError):
+            raise web.HTTPBadRequest(text='Expected a JSON object') from None
+        if not isinstance(body, dict):
+            raise web.HTTPBadRequest(text='Expected a JSON object')
+        if hub.session_id and request.path in {'/api/prompt', '/api/model', '/api/keys'}:
+            statuses = await oc('GET', '/session/status')
+            if statuses.get(hub.session_id, {}).get('type', 'idle') != 'idle':
+                raise web.HTTPConflict(text='Agent is running. Stop it before submitting or changing settings.')
+        return await handler(request)
+
+
+@web.middleware
+async def revalidate_static(request, handler):
+    response = await handler(request)
+    if request.path.startswith('/static/'):
+        response.headers['Cache-Control'] = 'no-cache'
+    return response
+
+
 def make_app():
-    app = web.Application(middlewares=[replay_read_only])
+    app = web.Application(middlewares=[revalidate_static, replay_read_only, operator_commands], client_max_size=64 * 1024)
     app.add_routes([
         web.get("/", index),
         web.get("/legacy", index),
+        web.get("/planner", index),
+        web.get("/api/precomputed", api_precomputed),
+        web.get("/api/graph/overview", api_graph_overview),
         web.get("/api/planning", api_planning),
         web.get("/api/planning/sessions", api_planning_sessions),
         web.get("/api/artifacts/{session}/{batch}/{filename:.*}", api_artifact),
@@ -389,6 +475,7 @@ def make_app():
         web.static("/static", STATIC, show_index=False),
     ])
     app.on_startup.append(on_start)
+    app.add_routes(recording.routes())
     app.on_cleanup.append(on_cleanup)
     return app
 

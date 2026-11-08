@@ -86,6 +86,9 @@ for(const id of ['valid',19,null]){
 for(const mutate of [d=>delete d.choices,d=>d.choices=[],d=>delete d.choices[0].message,
  d=>d.choices[0].message.tool_calls[0].function.name='',
  d=>d.choices[0].message.tool_calls[0].function.arguments='{',
+ d=>d.choices[0].message.tool_calls[0].function.arguments='null',
+ d=>d.choices[0].message.tool_calls[0].function.arguments='[]',
+ d=>{d.choices[0].message.tool_calls=[];d.choices[0].finish_reason='length'},
  d=>d.choices[0].finish_reason='length']){
  let data=message('a');mutate(data);let failed=false
  try{await completeToolResponse(async()=>Response.json(data),'url',init)}catch{failed=true}

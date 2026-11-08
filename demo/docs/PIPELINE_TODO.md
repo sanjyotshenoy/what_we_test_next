@@ -1,11 +1,11 @@
-> Migrated planning record. Current progress and verification: [memory](../memory/MEMORY.md).
-
 # Real-data demo — adaptable TODOs
 
 Updated 2026-11-08. Scope: big-picture points **2 (planning)** and **3 (execution)**.
 The user expects schemas and team implementations to change. This is an outcome
 checklist, not a commitment to today's field names, model, assay, or plate layout.
-Current implementation/proof: [agent and stage handoff](../memory/agent_stage_handoff.md).
+Current implementation/proof: [memory](../memory/MEMORY.md),
+[judge runbook](JUDGE_RUNBOOK.md), and [verification log](11-08-2026.md).
+The earlier agent handoff is historical.
 
 ## Preserve these principles as the implementation changes
 
@@ -21,13 +21,20 @@ Current implementation/proof: [agent and stage handoff](../memory/agent_stage_ha
 - Team contracts stay team-owned. Adapt at the harness boundary instead of freezing
   or silently modifying shared schemas to fit this demo.
 
-## Progress this migration
+## Verified progress
 
 Installed and tested from a relocated source-only checkout; packaged explicit replay;
 added tool budgets, complete-response tests, API boundary/stale/corrupt-artifact tests,
 atomic writes and schema-version provenance. See [verification](11-08-2026.md).
-Fresh autonomous live rehearsal awaits demo-local credentials. User confirmed keeping
-the synthetic 2×2 case for now. Remaining items below are not claimed complete.
+Nebius and Paperclip are authenticated on Brev. Three consecutive autonomous runs
+with the final GLM settings completed eight simulations; 34 tests pass. One run
+exercised rejection and agent correction of duplicate question IDs. The private
+judge viewer opens reviewed results, and the fixed 30-second robot recording plays
+independently. User chose view-only judges while the team operates privately.
+Brev now publishes the read-only judge/sequential viewer; the shared operator is
+authenticated for the current org-member allowlist. Eight new four-model sessions
+provide sixteen additional simulator passes (see PRECOMPUTED_EXAMPLES.md). Assay
+parameters remain supplied synthetic inputs, including real-identity examples.
 
 ## Next useful work, in order
 
@@ -61,30 +68,44 @@ the synthetic 2×2 case for now. Remaining items below are not claimed complete.
   Current separate sequential pair runs are one implementation, not a permanent
   multi-species design constraint. Expand layouts/controls only with corresponding
   compiler and audit support.
-- [ ] **Harden agent orchestration.** Add focused tests for the complete-response
-  transport, including malformed responses, cancellation, IDs and usage. Remove or
-  clearly isolate the earlier unused streaming experiment. Verify dependency setup
-  from a clean installation. Enforce tool/correction budgets in code; prompts alone
-  did not prevent repeated failed submissions in an earlier run. Recheck compatibility
-  when OpenCode/provider versions change. Never guess missing function names/arguments.
-- [ ] **Finish stage reliability checks.** Add automated API tests for session isolation,
-  stale protocol/report detection, artifact path boundaries, interrupted writes and
-  absent/corrupt artifacts. Rehearse abort/new-session/model/key changes and reconnects.
-  Fetch selected-run details rather than all simulator logs every poll as batches grow.
-  Clarify legacy-page behavior under the new default planner before stage use.
-- [ ] **Package a dependable fallback.** Preserve a reviewed, sanitized real trace with
-  explicit fixture/live/saved provenance and input versions. The sanitized historical rehearsal is packaged under `demo/replays/`; new runtime
-  artifacts remain ignored by Git. A saved manifest alone does not establish that an
-  agent completed it autonomously. Rehearse service failures and an explicit replay
-  path; test local Qwen only when requested. No silent fake data or automatic success.
-- [ ] **Rehearse the final story and explain it together.** Run the chosen real case
-  through the actual stage page, verify laptop access, and explain who does what:
-  Paperclip/KG → planning agent → checks → compiler → simulator → UI. Keep the
-  recorded physical proof of concept visibly separate. User-facing walkthrough is
-  still pending; this session switched to documentation/handoff before that discussion.
+- [x] **Verify the bounded demo agent loop.** Typed submission schema, exact citation-ID
+  feedback, malformed/truncated response rejection, finite tool/model-step budgets,
+  cancellation transport checks and explicit model configuration are implemented.
+  Three consecutive final-settings rehearsals passed. Keep earlier failures visible;
+  this does not guarantee every future model response will succeed.
+- [x] **Verify current UI and artifact boundaries.** Tests cover session isolation,
+  stale/corrupt artifacts, download boundaries, busy-run guards, stop dispatch,
+  desktop/mobile layout and video playback/seeking. The final live browser run kept
+  video playing and restored controls after simulation. Private services and their
+  prepared defaults were checked after restart.
+- [ ] **Broaden reliability coverage as needed.** A clean installation of the newest
+  dependency changes, full outage/reconnect and active-run recovery drills, physical
+  reboot recovery, and larger-batch polling optimization are not established by the
+  current checks. Recheck provider/tool compatibility when versions change.
+- [x] **Prepare an explicit saved-results fallback.** The private judge viewer serves
+  only reviewed successful sessions without depending on live inference/retrieval.
+  Historical packaged replay remains in `demo/replays/`. New artifacts and media are
+  ignored local files and must be transferred separately when moving hosts. Saved
+  results are labelled saved; no automatic model or fabricated-result fallback.
+- [ ] **Rehearse the presentation with the team.** The software and browser walkthrough
+  is verified and documented in the runbook. Confirm the presenter's private laptop
+  connection and narrative with the team. Keep real KG evidence, synthetic assay
+  settings, simulated execution and the separate physical recording distinct.
 
 ## Parked until the scope calls for them
 
 Screening/ranking integration (point 1), GNN work and its evaluation decisions,
-physical robot execution, additional assay families, and publication/deployment.
-Existing records cover those topics; this checklist does not authorize expanding scope.
+physical robot execution and additional assay families. Public read-only viewing and
+authenticated operator access are now configured; see the current handoff. This
+checklist does not authorize expanding the audience or exposing new endpoints.
+
+## Public access update — 2026-11-08
+
+The user subsequently authorized public operator-layout viewing plus live runs
+with a visitor-supplied Nebius key. `/sequential` remains intact. Public `/planner`
+is a separate bounded worker path, without saved/inherited Nebius credentials or
+private OpenCode access. Browser ownership, cancellation, key transport and 28
+affected regression tests passed. See MEMORY.md and the dated verification log.
+TODO(final): Rehearse this new public transport with a visitor-supplied key; no
+paid end-to-end public run has been claimed. Existing private operator credentials
+remain isolated and were not copied to the public path.

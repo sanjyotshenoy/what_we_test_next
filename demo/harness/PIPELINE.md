@@ -9,7 +9,7 @@
 5. `planning_simulate`: run the isolated OT-2 simulator, stopping on the first failure.
 
 ```bash
-demo/harness/opencode_server.sh run --agent planner --model nebius/openai/gpt-oss-120b 'YOUR QUESTION AND SUPPLIED COMPOUNDS/SPECIES'
+demo/harness/opencode_server.sh run --agent planner --model nebius/zai-org/GLM-5.3 'YOUR QUESTION AND SUPPLIED COMPOUNDS/SPECIES'
 ```
 
 The Nebius provider uses a complete-response transport to avoid malformed streamed
@@ -66,7 +66,7 @@ Artifacts live under ignored `demo/harness/planning_runs/<session>/batches/<batc
 
 Simulation state is explicitly `not_run`, `passed`, `failed` or `timeout`.
 Changed protocol hashes cannot reuse a simulation result. No tool connects to a robot.
-The recorded single-species OT-2 run is a separate proof of concept, not execution
+The recorded OT-2 run is a separate proof of concept, not execution
 of any newly proposed batch. Incubation and measurement remain off-robot steps.
 
 ## Verification and environment

@@ -62,6 +62,7 @@ class StrictProposal(ExperimentProposal):
     model_config = ConfigDict(extra='forbid')
     experiment: StrictExperiment
     answerable_from_kb: Literal[False]
+    citations: list[str] = Field(description='Include proto:bacterial_mic_broth and exact retrieved evidence_id strings. Copy IDs verbatim; never rebuild them from sha256 or use search result IDs.')
 
 
 class EvidenceLink(BaseModel):
@@ -176,7 +177,8 @@ def validate(batch, evidence):
         if TEMPLATE_ID not in cited:
             reject('Cite the selected protocol template')
         if cited - evidence.keys():
-            reject('Unknown/unread citation IDs: ' + ', '.join(sorted(cited - evidence.keys())))
+            reject('Unknown/unread citation IDs: ' + ', '.join(sorted(cited - evidence.keys()))
+                   + '. Copy exact retrieved evidence_id strings from: ' + ', '.join(sorted(evidence)))
         linked = {link.field for link in item.evidence_links}
         unknown = linked - FIELDS - OPTIONAL_FIELDS
         if FIELDS - linked or unknown:

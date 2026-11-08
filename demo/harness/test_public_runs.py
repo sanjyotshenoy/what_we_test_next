@@ -1,0 +1,173 @@
+"""BYOK boundaries with fake model responses; never spends a provider key."""
+import asyncio
+import io
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import unittest
+from unittest.mock import patch, Mock
+
+from aiohttp import ClientSession, CookieJar
+from aiohttp.test_utils import AioHTTPTestCase
+from demo.harness import public_worker
+from demo.harness.stage import planning_view, public_runs, public_view
+
+
+class RunBoundaryTests(AioHTTPTestCase):
+    async def get_application(self):
+        self.temp = TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
+        override = patch.object(planning_view, 'RUNS', Path(self.temp.name))
+        override.start(); self.addCleanup(override.stop)
+        self.received = []
+        async def fake_execute(manager, job, payload):
+            self.received.append(dict(payload))
+            payload.clear()
+            job.update(state='running', message='Test worker')
+            try:
+                await asyncio.Event().wait()
+            finally:
+                job.update(state='stopped', message='Stopped')
+        override = patch.object(public_runs.PublicRuns, 'execute', fake_execute)
+        override.start(); self.addCleanup(override.stop)
+        return public_view.make_app(['published'])
+
+    async def start_run(self):
+        return await self.client.post('/api/runs', json={'key': 'test-key-only', 'question': 'A test scientific question',
+            'model': 'zai-org/GLM-5.3'}, headers={'X-Demo-Run': '1'})
+
+    async def test_requires_key_and_same_origin_and_does_not_fall_back(self):
+        for body in ({}, {'key': '', 'question': 'A test question', 'model': 'zai-org/GLM-5.3'}):
+            r = await self.client.post('/api/runs', json=body, headers={'X-Demo-Run': '1'})
+            self.assertEqual(r.status, 400)
+        r = await self.client.post('/api/runs', json={'key': 'test-key-only'})
+        self.assertEqual(r.status, 403)
+        r = await self.client.post('/api/runs', json={}, headers={'X-Demo-Run': '1', 'Origin': 'https://other.example'})
+        self.assertEqual(r.status, 403)
+        self.assertEqual(self.received, [])
+
+    async def test_ownership_busy_guard_stop_and_no_secret_in_responses(self):
+        r = await self.start_run()
+        self.assertEqual(r.status, 202)
+        self.assertTrue(r.cookies[public_runs.COOKIE]['httponly'])
+        data = await r.json(); session = data['session']
+        self.assertNotIn('test-key-only', json.dumps(data))
+        self.assertEqual((await self.start_run()).status, 429)
+        for route in (f'/api/runs/{session}', f'/api/planning?session={session}'):
+            self.assertEqual((await self.client.get(route)).status, 200)
+            async with ClientSession(cookie_jar=CookieJar(unsafe=True)) as stranger:
+                response = await stranger.get(self.client.make_url(route))
+                self.assertEqual(response.status, 404)
+        batch = 'a' * 16
+        directory = planning_view.RUNS / session / 'batches' / batch
+        directory.mkdir(parents=True)
+        (directory / 'batch.json').write_text('{}')
+        route = f'/api/artifacts/{session}/{batch}/batch.json'
+        self.assertEqual((await self.client.get(route)).status, 200)
+        async with ClientSession() as stranger:
+            response = await stranger.get(self.client.make_url(route))
+            self.assertEqual(response.status, 404)
+            response = await stranger.post(self.client.make_url(f'/api/runs/{session}/stop'), json={}, headers={'X-Demo-Run': '1'})
+            self.assertEqual(response.status, 404)
+        response = await self.client.get('/api/planning/sessions')
+        self.assertEqual([s['session'] for s in await response.json()], ['published'])
+        response = await self.client.post(f'/api/runs/{session}/stop', json={}, headers={'X-Demo-Run': '1'})
+        self.assertEqual((await response.json())['state'], 'stopped')
+        self.assertEqual(self.received[0]['key'], 'test-key-only')
+
+    async def test_public_dashboard_assets_and_old_sequential(self):
+        for url in ('/', '/planner', '/results', '/static/dashboard-workflow.js', '/static/vendor/cytoscape.min.js',
+                    '/static/vendor/smiles-drawer-2.0.0.min.js', '/static/data/molecules/CHEMBL8.svg', '/sequential'):
+            response = await self.client.get(url)
+            self.assertEqual(response.status, 200, url)
+            self.assertEqual(response.headers['Cache-Control'], 'no-store')
+        response = await self.client.get('/')
+        html = await response.text()
+        self.assertIn('Agent workflow', html)
+        self.assertRegex(html, r'dashboard-workflow.js\?v=[0-9a-f]{16}')
+        response = await self.client.get('/api/precomputed')
+        self.assertEqual((await response.json())['examples'], [])
+
+
+class WorkerTests(unittest.TestCase):
+    def test_environment_cannot_inherit_provider_credentials(self):
+        with patch.dict('os.environ', {'NEBIUS_API_KEY': 'never-inherit', 'OPENAI_API_KEY': 'never-inherit',
+                                     'OPENCODE_CONFIG': '/private', 'NEBIUS_BASE_URL': 'https://evil.example'}):
+            env = public_runs.worker_environment()
+        self.assertFalse(set(env) & {'NEBIUS_API_KEY', 'OPENAI_API_KEY', 'NEBIUS_BASE_URL', 'OPENCODE_CONFIG'})
+        self.assertEqual(env['PYTHON_DOTENV_DISABLED'], '1')
+
+    def test_bounded_real_tool_dispatch_and_simulation_completion(self):
+        chat = Mock(side_effect=[json.dumps({'tool': 'planning_context', 'args': {}}),
+                                 json.dumps({'tool': 'planning_simulate', 'args': {'batch_id': 'a'*16}})])
+        with patch.object(public_worker, 'tool', side_effect=[{'submission_schema': {}}, {'status': 'simulated'}]) as tool, \
+                patch('sys.stdout', new_callable=io.StringIO) as out:
+            public_worker.run({'question': 'Test question', 'model': 'test-model'}, chat, 'test-session')
+        self.assertEqual(tool.call_count, 2)
+        self.assertEqual(json.loads(out.getvalue().splitlines()[-1])['state'], 'finished')
+        self.assertEqual(chat.call_args.kwargs['timeout'], 120)
+
+    def test_invalid_actions_stop_and_no_key_fallback(self):
+        for response in ('not JSON', '{"tool":"bash","args":{"cmd":"bad"}}'):
+            with patch.object(public_worker, 'tool') as tool, patch('sys.stdout', new_callable=io.StringIO) as out:
+                public_worker.run({'question': 'Test question', 'model': 'test'}, Mock(return_value=response), 'test-session')
+            tool.assert_not_called()
+            self.assertEqual(json.loads(out.getvalue().splitlines()[-1])['state'], 'failed')
+        with patch('sys.stdin', io.StringIO('{"key":""}\n')), patch.dict('os.environ', {'NEBIUS_API_KEY': 'saved-key'}):
+            with self.assertRaises(ValueError): public_worker.main()
+
+    def test_turn_limit(self):
+        chat = Mock(return_value='{"tool":"planning_context","args":{}}')
+        with patch.object(public_worker, 'tool', return_value={'error': 'budget exhausted'}), patch('sys.stdout', new_callable=io.StringIO):
+            public_worker.run({'question': 'Test question', 'model': 'test'}, chat, 'test-session')
+        self.assertEqual(chat.call_count, 16)
+
+
+class ProcessTests(unittest.IsolatedAsyncioTestCase):
+    async def test_key_pipe_and_worker_exit(self):
+        import sys
+        original = asyncio.create_subprocess_exec
+        calls = []
+        # Exercise the real worker entry point with an in-process fake provider.
+        # Neither provider network access nor the six production tools are invoked.
+        code = '''import sys, types, os
+from demo.harness import public_worker
+client=types.SimpleNamespace(max_retries=2)
+def get_client():
+    assert os.environ['NEBIUS_API_KEY']=='pipe-test-key'
+    return client
+def chat(*args, **kwargs):
+    assert 'NEBIUS_API_KEY' not in os.environ
+    return '{"done":true}'
+sys.modules['wwtn.llm']=types.SimpleNamespace(client=get_client,chat=chat)
+public_worker.main()
+'''
+        async def spawn(*args, **kwargs):
+            calls.append((args, kwargs['env']))
+            return await original(sys.executable, '-c', code, 'test-session', **kwargs)
+        payload = dict(key='pipe-test-key',question='A test question',model='test-model')
+        job = dict(session='test-session',state='starting',message='')
+        with patch.object(asyncio, 'create_subprocess_exec', spawn):
+            await public_runs.PublicRuns().execute(job, payload)
+        self.assertEqual(job['state'], 'finished')
+        self.assertEqual(payload, {})
+        self.assertNotIn('pipe-test-key', repr(calls))
+        self.assertNotIn('pipe-test-key', repr(job))
+
+    async def test_cancel_terminates_worker(self):
+        import sys
+        original = asyncio.create_subprocess_exec
+        processes = []
+        ready = asyncio.Event()
+        async def spawn(*args, **kwargs):
+            process = await original(sys.executable, '-c', 'import sys,time; sys.stdin.readline(); time.sleep(60)', **kwargs)
+            processes.append(process); ready.set()
+            return process
+        job = dict(session='test-session',state='starting',message='')
+        with patch.object(asyncio, 'create_subprocess_exec', spawn):
+            task = asyncio.create_task(public_runs.PublicRuns().execute(job, dict(key='test-key')))
+            await ready.wait()
+            await asyncio.sleep(.05)
+            task.cancel()
+            await asyncio.gather(task, return_exceptions=True)
+        self.assertEqual(job['state'], 'stopped')
+        self.assertIsNotNone(processes[0].returncode)

@@ -1,0 +1,9 @@
+{
+  "name": "smiles-drawer",
+  "version": "2.0.0",
+  "source": "https://registry.npmjs.org/smiles-drawer/-/smiles-drawer-2.0.0.tgz",
+  "repository": "https://github.com/reymond-group/smilesDrawer",
+  "license": "MIT",
+  "archive_sha256": "00135d0c6427f79b314ae567395fce40532986e5ab9df0dc5f7e45eafbfb2bbf",
+  "script_sha256": "53f0d7ac1af82498160156e00c655a6e40256609ee1c9064236e6d4f4de08748"
+}

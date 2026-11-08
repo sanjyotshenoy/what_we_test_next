@@ -6,8 +6,37 @@ const api = async (path, body) => {
   if (!response.ok) throw Error((await response.text()).slice(0,500))
   return response.json()
 }
+const health = await api('/api/health')
+const viewer = health.read_only === true
+if (!health.session && health.default_session) saved = health.default_session
+if (viewer) {
+  saved = health.default_session
+  document.querySelector('.composer').hidden = true
+  $('keys').hidden = true; $('model').closest('label').hidden = true
+  document.querySelector('footer a').hidden = true
+  $('connection').textContent = 'Prepared results · view only'
+  $('activity-description').textContent = 'Prepared results selected by the operator.'
+  $('activity').textContent = 'Inspect published evidence and simulation artifacts. Running new experiments requires operator access.'
+}
+// Fixed physical recording is independent of agent state, selection, and simulation.
+try {
+  const recording = await api('/api/recording')
+  if (recording.available) {
+    const video = $('robot-video')
+    video.src = recording.url; video.poster = recording.poster
+    $('recording-caption').textContent = `${recording.duration_seconds.toFixed(0)} seconds · ${recording.speed_multiplier.toFixed(1)}× speed · silent playback`
+    video.onerror = () => { $('recording-error').hidden = false }
+    $('recording-card').hidden = false
+  }
+} catch { /* Recording availability must not block evidence or simulation views. */ }
 const alert = message => { $('alert').textContent = message; $('alert').hidden = !message }
 const guard = fn => async (...args) => { try { await fn(...args) } catch (e) { alert(e.message) } }
+let agentBusy = false
+const setBusy = busy => {
+  agentBusy = Boolean(busy)
+  for (const id of ['submit','model','keys']) $(id).disabled = viewer || busy
+}
+setBusy(health.agent_status && health.agent_status !== 'idle')
 const badge = (text, status) => `<span class="badge ${['failed','error','rejected','stale','timeout'].includes(status)?'error':status==='passed'||status==='simulated'?'':'neutral'}">${esc(text)}</span>`
 function evidence(records) {
   const count = records.filter(r => r.tool !== 'literature_search').length
@@ -41,7 +70,9 @@ function renderDesign() {
   const detail=selected.runs.find(r=>r.run_id===runID)||{}, plate=detail.plate, report=detail.simulation
   const pass=runs.filter(r=>r.simulation?.status==='passed').length
   const compoundCount=new Set(runs.map(r=>r.compound)).size, speciesCount=new Set(runs.map(r=>r.species.name)).size
+  const rationales=[...new Set((selected.batch?.compounds||[]).map(c=>c.proposal?.rationale).filter(Boolean))]
   $('design').innerHTML=`<div class="facts"><div class="fact"><b>${compoundCount} × ${speciesCount}</b><span>compounds × species</span></div><div class="fact"><b>${runs.length}</b><span>separate sequential runs</span></div><div class="fact"><b>${pass}/${runs.length}</b><span>simulations passed</span></div></div>
+  ${rationales.map(r=>`<p class="small warning-text">${esc(r)}</p>`).join('')}
   <label>Inspect run <select id="run-select" class="run-select">${runs.map(r=>`<option value="${esc(r.run_id)}" ${r.run_id===runID?'selected':''}>${esc(r.run_id)} · ${esc(r.compound)} × ${esc(r.species.name)} · ${esc(r.simulation.status)}</option>`).join('')}</select></label>
   <div class="source-map">${Object.entries(detail.sources||{}).map(([well,s])=>`<span><b>${esc(well)}</b> · ${esc(s.identity||s.role)}</span>`).join('')}</div>
   <div id="plate" class="plate" aria-label="96-well plate map"></div><div class="legend"><span><i></i>Sample</span><span><i class="growth"></i>Growth control</span><span><i class="sterility"></i>Sterility control</span><span>Dashed = surplus technical wells</span></div>
@@ -92,12 +123,16 @@ async function refresh() {
     if (!saved) {
       const activity=await api('/api/activity'), text=JSON.stringify(activity)
       if(text!==lastActivity){lastActivity=text;renderActivity(activity)}
+      if (!agentBusy && activity.items.length) {
+        const outcomes=activity.items.filter(i=>i.type==='tool').map(i=>i.outcome)
+        $('run-state').textContent=outcomes.includes('simulated')?'Simulation complete':outcomes.includes('compiled')?'Compiled · not simulated':'Stopped before compilation'
+      }
     }
   } catch(e) {alert(e.message)} finally {polling=false}
 }
 async function loadSessions() {
   const sessions=await api('/api/planning/sessions')
-  $('saved').innerHTML='<option value="">Current live session</option>'+sessions.map(s=>`<option value="${esc(s.session)}">${esc(s.session)} · ${s.run_count} runs · saved</option>`).join('')
+  $('saved').innerHTML=(viewer?'':'<option value="">Current live session</option>')+sessions.map(s=>`<option value="${esc(s.session)}">${esc(s.session)} · ${s.run_count} runs · saved</option>`).join('')
   $('saved').value=saved
 }
 $('saved').onchange=guard(async e=>{
@@ -107,13 +142,14 @@ $('saved').onchange=guard(async e=>{
 })
 $('prompt-form').onsubmit=guard(async e=>{
   e.preventDefault(); const text=$('prompt').value.trim(); if(!text)return
-  alert('');$('submit').disabled=true
+  alert('');setBusy(true)
   try {await api('/api/prompt',{text});saved='';$('saved').value='';lastSnapshot='';$('run-state').textContent='Agent running';await refresh()}
-  finally{$('submit').disabled=false}
+  catch(e){setBusy(false);throw e}
 })
 $('stop').onclick=guard(async()=>{await api('/api/abort',{});$('run-state').textContent='Stopped';await refresh()})
 $('new').onclick=guard(async()=>{await api('/api/new',{});saved='';batchID=null;runID=null;lastSnapshot='';lastActivity='';alert('');$('run-state').textContent='Ready';await loadSessions();await refresh()})
 $('example').onclick=guard(async()=>{const r=await fetch('/static/data/rehearsal.txt');if(!r.ok)throw Error('Rehearsal prompt unavailable');$('prompt').value=await r.text()})
+$('graph-example').onclick=guard(async()=>{const r=await fetch('/static/data/graph-rehearsal.txt');if(!r.ok)throw Error('Graph rehearsal prompt unavailable');$('prompt').value=await r.text()})
 $('model').onchange=guard(async e=>{const [providerID,...rest]=e.target.value.split('/');await api('/api/model',{providerID,modelID:rest.join('/')})})
 $('keys').onclick=guard(async()=>{const d=await api('/api/keys');$('key-profile').innerHTML=d.profiles.map(n=>`<option ${n===d.active?'selected':''}>${esc(n)}</option>`).join('');$('key-dialog').showModal()})
 $('key-close').onclick=()=>$('key-dialog').close()
@@ -122,6 +158,7 @@ $('key-form').onsubmit=async e=>{
   try {await api('/api/keys',{name:$('key-name').value||$('key-profile').value,key:$('key-value').value,save:true});$('key-value').value='';$('key-dialog').close();lastSnapshot='';lastActivity='';await refresh()}
   catch(e){$('key-error').textContent=e.message}
 }
+if (!viewer) {
 const events=new EventSource('/api/stream')
 events.onmessage=e=>{
   const data=JSON.parse(e.data)
@@ -129,13 +166,14 @@ events.onmessage=e=>{
   if(data.type==='hello'||data.type==='status'){$('connection').textContent=data.opencode?'OpenCode connected':'OpenCode offline';$('connection').className='badge '+(data.opencode?'':'error')}
   if(data.type==='oc'){
     const ev=data.event,pr=ev.properties||{}
-    if(ev.type==='session.status')$('run-state').textContent=pr.status?.type==='idle'?'Agent finished':`Agent ${pr.status?.type||'working'}`
-    if(ev.type==='session.error'){$('run-state').textContent='Agent error';alert(pr.error?.data?.message||'Agent error; inspect activity')}
-    if(ev.type==='session.idle'){loadSessions().catch(e=>alert(e.message));refresh()}
+    if(ev.type==='session.status'){setBusy(pr.status?.type!=='idle');$('run-state').textContent=pr.status?.type==='idle'?'Agent finished':`Agent ${pr.status?.type||'working'}`}
+    if(ev.type==='session.error'){setBusy(false);$('run-state').textContent='Agent error';alert(pr.error?.data?.message||'Agent error; inspect activity')}
+    if(ev.type==='session.idle'){setBusy(false);loadSessions().catch(e=>alert(e.message));refresh()}
   }
   if(data.type==='reset'){lastSnapshot='';lastActivity='';refresh()}
 }
 events.onerror=()=>{$('connection').textContent='Reconnecting';$('connection').className='badge warning'}
+}
 await guard(async()=>{
   const data=await api('/api/models')
   $('model').innerHTML=data.models.map(m=>`<option value="${esc(m.providerID+'/'+m.modelID)}" ${m.providerID===data.current.providerID&&m.modelID===data.current.modelID?'selected':''}>${esc(m.name)}</option>`).join('')
