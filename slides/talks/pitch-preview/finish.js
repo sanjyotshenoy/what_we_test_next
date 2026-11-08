@@ -37,7 +37,7 @@ Deck.slide('pitch-results', {steps:4,
  plot.root.classList.add('reveal-in','pf-results-plot');
  plot.root.style.setProperty('--plot-6','var(--fg)');
  plot.root.dataset.from='4';
- frame.insertAdjacentHTML('beforeend',`<div class="pf-method reveal-in" data-from="4">${d.cases_per_model} cases per model · same fixed inputs · no live retrieval<br><small>*Astra: same-model judging; different serving settings and reasoning effort</small></div>`);
+ frame.insertAdjacentHTML('beforeend',`<div class="pf-method reveal-in" data-from="4"><small>*Astra: same-model judging; different serving settings and reasoning effort</small></div>`);
  return{enter:(s,a)=>{Deck.show(frame,s,a);plot.show(s>=4?1:0,a);}};
  }});
 Deck.slide('pitch-demo', {interactive:true,steps:2,
