@@ -112,3 +112,15 @@
 [data-theme="light"] .deck-slot.active rect {fill:#dcecff}
 [data-theme="light"] #feed li.now {color:var(--accent);background:#e5effb}
 [data-theme="light"] #feed li.done {color:var(--muted)}
+
+#trace-switch {max-width:min(300px,100%);font-size:.78rem}
+#live-stop {margin-left:0;border-color:var(--bad);color:var(--bad);font-weight:650}
+#live-stop:disabled {opacity:.6;cursor:default}
+#live-preview {padding:8px 12px;border-bottom:1px solid var(--line);background:var(--panel2);flex-shrink:0}
+.live-preview-heading {display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.76rem}
+#live-connection {color:var(--accent)}
+#live-receipt,#live-preview > p {font-size:.67rem;margin:5px 0;color:var(--muted)}
+#live-preview-text {max-height:90px;overflow:auto;margin:6px 0;font-size:.7rem}
+#live-preview[hidden],#trace-switch[hidden],#live-stop[hidden] {display:none!important}
+
+header .controls {flex-wrap:wrap}

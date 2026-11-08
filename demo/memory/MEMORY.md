@@ -276,3 +276,27 @@ Deployed-origin Chromium checks passed for both themes, reload persistence, grap
 colors/zoom, selected molecule preservation, workflow details and mobile width,
 with no JS errors or write requests. Light screenshot visually reviewed. Static
 assets update without a service restart; sequential assets remain unchanged.
+
+## Visible live output, interruption and saved-trace switch — 2026-11-08
+
+Live mode now keeps a compact model-output preview visible alongside the workflow.
+It displays received chunk/character counts and the last output's run-relative
+time; the connected indicator reflects successful polling, not invented model
+activity. The Full activity log retains tool inputs/results and generated output.
+Provider reasoning fields remain excluded. No token count is estimated or faked.
+
+Interrupt run is now prominent in the top banner and remains accessible when a
+pane is focused. It uses the existing owner-authorized worker cancellation API.
+The banner also lists all published model/query traces. Selecting a saved trace
+first interrupts an active run, then opens exactly that session/model with the
+Precomputed label. If interruption fails, navigation is blocked and the live page
+shows the failure; completed/stopped runs switch without another stop request.
+Trace switching does not start inference or change the sequential walkthrough.
+
+Verification: 16 relevant tests passed, including received-output display, live
+interrupt, removal of active highlights, failed-stop navigation guard, cross-model
+saved-trace selection, worker cancellation and existing dashboard behavior. These
+are static UI changes; no service restart or paid inference was needed.
+
+Deployed-origin mobile check also verified all eight published choices, fallback
+from an expired run, and exact cross-model selection without writes or inference.

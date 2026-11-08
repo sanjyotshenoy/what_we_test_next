@@ -67,9 +67,10 @@ async function selectSession() {
     drawGraph();drawMolecules();drawRun();
   } catch(e) {if(token===generation) {clearResult();$('status').textContent=e.message+' No live run was started.';}}
 }
-function selectModel() {
+function selectModel(preferred) {
   const entries=catalog.examples.filter(e=>e.model===$('model').value);
   $('query').innerHTML=entries.map(e=>`<option value="${esc(e.session)}">${esc(e.question)}</option>`).join('');
+  if(typeof preferred==='string'&&entries.some(e=>e.session===preferred)) $('query').value=preferred;
   $('query').disabled=!entries.length;selectSession();
 }
 $('model').onchange=selectModel;$('query').onchange=selectSession;$('run-select').onchange=drawRun;
@@ -78,7 +79,7 @@ $('kg-all').onclick=()=>drawGraph('all');
 $('kg-focus').onclick=()=>drawGraph('focus');
 let liveCursor=0, liveModelText='', liveTimer=null, liveSnapshotKey='', liveTextBlock=null;
 const liveNodeRecords={};
-let liveRefresh=0;
+let liveRefresh=0, liveJobState='starting', liveOutputChunks=0, liveOutputCharacters=0;
 function appendLiveEvents(job) {
   const container=$('live-output-events'), scroller=$('live-output');
   const follow=scroller.scrollHeight-scroller.scrollTop-scroller.clientHeight<90;
@@ -94,6 +95,8 @@ function appendLiveEvents(job) {
       if(!liveTextBlock) addRecord('Generated model output');
       liveTextBlock.append(document.createTextNode(event.text||''));
       liveModelText=(liveModelText+(event.text||'')).slice(-200000);
+      liveOutputChunks++;liveOutputCharacters+=(event.text||'').length;
+      $('live-receipt').textContent=`${liveOutputChunks} output chunks · ${liveOutputCharacters.toLocaleString()} characters received · last output at run +${event.elapsed??0}s`;
       continue;
     }
     liveTextBlock=null;
@@ -105,6 +108,8 @@ function appendLiveEvents(job) {
       liveTextBlock=null;
     }
   }
+  $('live-preview-text').textContent=liveModelText.slice(-1600)||'Waiting for the model’s visible output…';
+  $('live-preview-text').scrollTop=$('live-preview-text').scrollHeight;
   while(container.children.length>100) container.firstElementChild.remove();
   const modelView=$('workflow-model-output');
   if(modelView) {
@@ -154,38 +159,78 @@ async function pollLive() {
     if(refresh!==liveRefresh) return;
     appendLiveEvents(job);await updateLiveArtifacts(snapshot,job);
     if(refresh!==liveRefresh) return;
-    $('run-tag').textContent=job.state;$('status').textContent=`${job.message} · ${job.session}`;
+    updateLiveState(job);$('status').textContent=`${job.message} · ${job.session}`;
     const active=['starting','running'].includes(job.state);
     $('live-stop').disabled=!active;
     if(active) liveTimer=setTimeout(pollLive,1000);
   } catch(e) {
     if(refresh!==liveRefresh) return;
-    if(e.status===404) {renderWorkflow(data,{state:'expired'});$('status').textContent='This private run has expired or is unavailable to this browser.';$('live-stop').disabled=true;return;}
+    if(e.status===404) {updateLiveState({state:'expired'});renderWorkflow(data,{state:'expired'});$('status').textContent='This private run has expired or is unavailable to this browser.';$('live-stop').disabled=true;return;}
+    $('live-connection').textContent='Disconnected · reconnecting…';
     $('status').textContent=`Live updates interrupted: ${e.message} Retrying…`;
     liveTimer=setTimeout(pollLive,5000);
   }
 }
+function updateLiveState(job) {
+  liveJobState=job.state;
+  const active=['starting','running'].includes(job.state);
+  $('run-tag').textContent=job.state;
+  $('live-connection').textContent=active?`Live · turn ${job.turn||0} · connected`:`Run ${job.state}`;
+  $('source-tag').textContent=active?'Live run':`Live run · ${job.state}`;
+  $('live-stop').disabled=!active;
+  $('live-stop').textContent=active?'Interrupt run':`Run ${job.state}`;
+}
+async function interruptLive() {
+  ++liveRefresh;clearTimeout(liveTimer);
+  $('live-stop').disabled=true;$('live-stop').textContent='Interrupting…';
+  $('status').textContent='Interrupting the model and active tools…';
+  const response=await fetch(`/api/runs/${encodeURIComponent(liveSession)}/stop`,{method:'POST',headers:{'Content-Type':'application/json','X-Demo-Run':'1'},body:'{}'});
+  if(!response.ok) throw new Error(`Interrupt unavailable (${response.status}). The run may still be active.`);
+  const job=await response.json();
+  updateLiveState(job);renderWorkflow(data,job);$('status').textContent=job.message;
+  return job;
+}
+function interruptFailed(error) {
+  $('status').textContent=error.message;$('live-stop').disabled=false;$('live-stop').textContent='Interrupt run';
+  liveTimer=setTimeout(pollLive,1000);
+}
+async function loadTraceSwitcher() {
+  const menu=$('trace-switch');menu.hidden=false;
+  try {
+    const choices=await api('/api/precomputed');
+    for(const entry of choices.examples) {
+      const option=document.createElement('option');option.value=entry.session;
+      option.textContent=`${choices.models.find(m=>m.id===entry.model)?.label||entry.model} · ${entry.question}`;
+      menu.append(option);
+    }
+    menu.disabled=!choices.examples.length;
+    menu.onchange=async()=>{
+      const selected=menu.value;if(!selected) return;
+      menu.disabled=true;
+      try {
+        if(['starting','running'].includes(liveJobState)) await interruptLive();
+        location.assign(`/?trace=${encodeURIComponent(selected)}`);
+      } catch(e) {menu.value='';menu.disabled=false;interruptFailed(e);}
+    };
+  } catch(e) {menu.options[0].textContent='Precomputed traces unavailable';}
+}
 function setupLive() {
-  $('live-toolbar').hidden=false;
+  $('live-toolbar').hidden=false;$('live-preview').hidden=false;$('live-stop').hidden=false;
   for(const [id,output] of [['live-workflow-tab',false],['live-output-tab',true]]) $(id).onclick=()=>{
-    $('log').hidden=output;$('live-output').hidden=!output;
+    $('log').hidden=output;$('live-output').hidden=!output;$('live-preview').hidden=output;
     $('live-workflow-tab').setAttribute('aria-pressed',String(!output));$('live-output-tab').setAttribute('aria-pressed',String(output));
   };
+  $('live-expand').onclick=()=>$('live-output-tab').click();
   $('live-stop').onclick=async()=>{
-    ++liveRefresh;clearTimeout(liveTimer);
-    $('live-stop').disabled=true;
-    try {
-      const response=await fetch(`/api/runs/${encodeURIComponent(liveSession)}/stop`,{method:'POST',headers:{'Content-Type':'application/json','X-Demo-Run':'1'},body:'{}'});
-      if(!response.ok) throw new Error(`Stop unavailable (${response.status})`);
-      const job=await response.json();renderWorkflow(data,job);$('status').textContent=job.message;$('run-tag').textContent=job.state;
-      await pollLive();
-    } catch(e) {$('status').textContent=e.message;$('live-stop').disabled=false;liveTimer=setTimeout(pollLive,1000);}
+    try {await interruptLive();await pollLive();} catch(e) {interruptFailed(e);}
   };
+  loadTraceSwitcher();
   addEventListener('pagehide',()=>clearTimeout(liveTimer),{once:true});
 }
 
 (async()=>{try {
   if(liveSession) {
+    data={session:liveSession,evidence:[],batches:[]};setupLive();
     const job=await api(`/api/runs/${encodeURIComponent(liveSession)}`);
     liveQuestion=job.question;
     $('source-tag').textContent='Your run';$('run-tag').textContent=job.state;
@@ -196,13 +241,16 @@ function setupLive() {
     data={session:liveSession,evidence:[],batches:[]};
     $('question').textContent=liveQuestion.split('\n')[0].replace(/^Scientist question: /,'');
     $('live-inputs').hidden=false;$('live-input-text').textContent=liveQuestion;
-    renderWorkflow(data,job);setupLive();
+    renderWorkflow(data,job);updateLiveState(job);
     await pollLive();return;
   }
   catalog=await api('/api/precomputed');
   $('model').innerHTML=catalog.models.map(m=>`<option value="${esc(m.id)}">${esc(m.label)}</option>`).join('');
-  $('model').disabled=false;selectModel();
-} catch(e){$('status').textContent=e.message;}})();
+  const requestedTrace=new URLSearchParams(location.search).get('trace');
+  const selected=catalog.examples.find(e=>e.session===requestedTrace);
+  if(selected) $('model').value=selected.model;
+  $('model').disabled=false;selectModel(selected?.session);
+} catch(e){if(liveSession&&e.status===404) {updateLiveState({state:'expired'});renderWorkflow(data,{state:'expired'});$('live-preview-text').textContent='This run expired or is unavailable. Choose a precomputed trace to continue.';}$('status').textContent=e.message;}})();
 (async()=>{try {
   const r=await api('/api/recording');
   if(r.available) {$('vid').src=r.url;$('vid').poster=r.poster;showSimulationTab(simulationTab);}
