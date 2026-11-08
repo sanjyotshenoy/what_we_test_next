@@ -25,10 +25,8 @@ Two sources, as the team agreed (see DISCUSSIONS.md, "What each source is for"):
 | [`extract.py`](extract.py) | LLM extraction of one AID's protocol text into the pydantic schema (closed verb set, units normalized in code, provenance per field), via `wwtn.llm.chat`. **Never run for real: no API key here**; unit-tested with a stubbed client |
 | [`defaults.py`](defaults.py) | how a parameter's **default** is chosen from its observations: one reference exemplar for the concentration series, nearest-to-centre for the rest, canonical snapping for fold-spacings, a derivation and a dispersion flag on every default (see below) |
 | [`build_db.py`](build_db.py) | assembles everything into `graph/nodes.csv` + `graph/edges.csv` in the [kg/README.md](../README.md) format |
-| [`graph/`](graph/) | the built graph, committed: 140 nodes / 353 edges |
-| [`tests/`](tests/) | 74 tests, no network: two trimmed real PubChem JSONs in `tests/fixtures/` |
 | [`graph/`](graph/) | the built graph, committed: 141 nodes / 367 edges |
-| [`tests/`](tests/) | 45 tests, no network: two trimmed real PubChem JSONs in `tests/fixtures/` |
+| [`tests/`](tests/) | 76 tests, no network: two trimmed real PubChem JSONs in `tests/fixtures/` |
 
 `seed.py` (three hand-written templates) is gone: `build_db.py` replaces it and writes the same `graph/` folder,
 with `APPLICABLE_TO`, `ANSWERS`, `HAS_PARAM`, `MEASURES`, `HAS_STEP`, `NEXT` and `USES` unchanged, so
@@ -144,7 +142,6 @@ python -m kg.query conditions proto:cell_viability_atp                # when tha
 python -m kg.query steps proto:cell_viability_atp                     # its steps, with their sub-steps
 python -m kg.protocols.pubchem candidates proto:kinase_biochem_lum    # needs network; caches under data/raw/
 python -m kg.protocols.pubchem show 623998                            # one AID's protocol text and series
-python -m pytest -q kg                          # 113 tests, no network (1 GPU test skipped)
 python -m pytest -q kg                          # no network (1 GPU test skipped)
 ```
 
