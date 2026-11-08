@@ -40,4 +40,4 @@ The offline recorded output at `data/deepseek-case-2.output.json` is copied unch
 
 ## PowerPoint export
 
-[Animated first seven slides](exports/wwtn-slides-1-7-animated.pptx) follows the current order, with the overall workflow before the benchmark. Present in Slide Show mode: click to reveal the captured HTML states. The images preserve the design; smooth HTML motion is represented by discrete reveals. Click the demo image to open the live explorer.
+The animated PowerPoint export follows the current order, with the overall workflow before the benchmark. Present in Slide Show mode: click to reveal the captured HTML states. The images preserve the design; smooth HTML motion is represented by discrete reveals. Click the demo image to open the live explorer.

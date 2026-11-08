@@ -7,8 +7,7 @@ result. If the measurement is missing, help design the experiment that would ans
 the assay choice, concentration range, controls, and procedure available for review.
 
 [View the slides](https://zhang-etal-biohack.pages.dev/) ·
-[Explore the knowledge graph and benchmark cases](https://zhang-etal-biohack.pages.dev/talks/biohack/graph/) ·
-[Download the animated pitch](https://zhang-etal-biohack.pages.dev/talks/pitch-preview/exports/wwtn-slides-1-7-animated.pptx)
+[Explore the knowledge graph and benchmark cases](https://zhang-etal-biohack.pages.dev/talks/biohack/graph/)
 
 [![Slide 4: measured activity of related compounds, supporting papers, and protocol templates inform a structured experiment proposal.](slides/talks/pitch-preview/assets/proposal-overview.png)](https://zhang-etal-biohack.pages.dev/)
 
