@@ -146,7 +146,11 @@ def tip_columns(ops: Sequence[Op]) -> int:
 
 
 def reservoir_plan(design: PlateDesign, ops: Sequence[Op], lab: Lab | None = None) -> dict[str, float]:
-    """mL to put in each reservoir channel, including the dead volume the tips cannot reach."""
+    """mL to put in each reservoir channel, including the dead volume the tips cannot reach.
+
+    Multiplied by every row of the plate, not by the rows the panel uses: an 8-channel pipette draws on all
+    eight channels whatever the map says, so a short panel costs the same reagent as a full one.
+    """
     lab = lab or Lab.load()
     dead = float((lab.labware("reservoir") or [{}])[0].get("dead_mL", 0) or 0)
     needed: dict[str, float] = {}
@@ -168,7 +172,7 @@ def unimplemented_steps(template: dict | None, ops: Sequence[Op]) -> list[str]:
     if any(op.kind == "transfer" and op.mix_after for op in ops):
         performed.add("mix")
     if any(op.liquid == "dilution" for op in ops):
-            performed |= {"serial_dilute", "dispense"}
+        performed |= {"serial_dilute", "dispense"}
     if any(op.liquid == INOCULUM for op in ops):
         performed.add("add")
 
@@ -188,8 +192,7 @@ def _check_against_transfers(design: PlateDesign, ops: Sequence[Op]) -> list[str
     the set of (liquid, volume) movements: dispensing the broth in 150 uL steps when the plan says 100, or
     moving a liquid the plan never mentions, shows up here.
     """
-    planned = {(t.what, round(t.volume_uL, 6)) for t in design.transfers if t.dest != "trash"}
-    planned |= {(t.what, round(t.volume_uL, 6)) for t in design.transfers if t.dest == "trash"}
+    planned = {(t.what, round(t.volume_uL, 6)) for t in design.transfers}
     ours = {(op.liquid, round(op.volume_uL, 6)) for op in ops if op.kind in ("transfer", "waste")}
 
     problems = []
@@ -198,6 +201,30 @@ def _check_against_transfers(design: PlateDesign, ops: Sequence[Op]) -> list[str
     for liquid, volume in sorted(planned - ours):
         problems.append(f"plate.py plans a {volume:g} uL {liquid} movement the protocol does not perform")
     return problems
+
+
+def rows_in_use(design: PlateDesign, plate: int = 1) -> int:
+    """How many of the plate's rows the panel actually occupies."""
+    return len({w.row for w in design.wells if w.plate == plate})
+
+
+def _column_at_a_time(design: PlateDesign) -> list[str]:
+    """Warn where the 8-channel pipette fills rows the plate map leaves empty.
+
+    An 8-channel pipette has no way to dispense into four of its eight channels: a command addressed at a
+    column fills all eight wells of it. So a panel of two species at n=2 occupies rows A-D in the map while the
+    robot also fills E-H. They are not wrong - they hold the same series, so they are spare replicates - but
+    they are liquid and tips nobody planned for, and someone reading the map would not expect them.
+    """
+    short = [plate for plate in range(1, design.plates + 1)
+             if 0 < rows_in_use(design, plate) < design.rows]
+    if not short:
+        return []
+    used = rows_in_use(design, short[0])
+    spare = [chr(ord("A") + i) for i in range(used, design.rows)]
+    return [f"the panel fills {used} of the plate's {design.rows} rows, but an 8-channel pipette fills a whole "
+            f"column: rows {spare[0]}-{spare[-1]} will receive the same series as spare replicates. Reduce the "
+            f"panel to a multiple of {design.rows}, or record them as replicates"]
 
 
 def fit_deck(plates_wanted: int, columns_per_plate: int, columns_per_rack: int) -> tuple[int, int]:
@@ -252,6 +279,7 @@ def to_ot2(design: PlateDesign, experiment: Any = None, lab: Lab | None = None,
     warnings += _check_against_transfers(design, ops)
     # a protocol generated from a design whose own arithmetic does not hold is worse than no protocol
     warnings += [f"the plate map does not survive its own audit - {p}" for p in audit(design)]
+    warnings += _column_at_a_time(design)
     if declared and _level(declared) > _level(ceiling):
         warnings.append(f"lab.yaml declares apiLevel {declared}, but the highest an OT-2-capable opentrons "
                         f"simulates is {ceiling}; generated at {level} so the protocol can be checked before "
@@ -348,8 +376,10 @@ def _render(design: PlateDesign, protocol: OT2Protocol, pipette: dict, experimen
             if not open_tip:
                 lines.append("    pipette.pick_up_tip()")
                 open_tip = True
+            # dispensed into the trash rather than carried there inside the tip, which drips
             lines += [f"    pipette.aspirate({op.volume_uL:g}, {source})",
-                      "    pipette.drop_tip()    # the carry-over leaves with the tip", ""]
+                      "    pipette.dispense(%g, protocol.fixed_trash)" % op.volume_uL,
+                      "    pipette.drop_tip()", ""]
             open_tip = False
             continue
         if op.new_tip == "never":

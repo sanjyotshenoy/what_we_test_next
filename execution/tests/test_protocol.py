@@ -156,6 +156,30 @@ def test_write_protocol_puts_both_halves_on_disk(design, lab, tmp_path):
     assert written["api_level"] == max_api_level()
 
 
+def test_a_panel_that_does_not_fill_the_plate_says_which_rows_get_filled_anyway(lab):
+    # an 8-channel pipette cannot dispense into four of its eight channels: a command fills the whole column,
+    # so two species at n=2 occupies rows A-D in the map while the robot also fills E-H
+    short = experiment(replicates=2)                       # 2 species x 2 = 4 of 8 rows
+    protocol = to_ot2(plate_design(short, lab), short, lab)
+    assert any("rows E-H" in w for w in protocol.warnings)
+    full = experiment(replicates=4)                        # 2 species x 4 = all 8 rows
+    assert not any("rows" in w for w in to_ot2(plate_design(full, lab), full, lab).warnings)
+
+
+def test_the_reagent_estimate_counts_every_row_not_just_the_used_ones(lab):
+    # the same reason: a short panel costs the same medium as a full one
+    short, full = experiment(replicates=2), experiment(replicates=4)
+    a = to_ot2(plate_design(short, lab), short, lab).reservoir_mL
+    b = to_ot2(plate_design(full, lab), full, lab).reservoir_mL
+    assert a[MEDIUM] == b[MEDIUM]
+
+
+def test_the_carry_over_is_dispensed_into_the_trash_not_carried_there_in_the_tip(design, lab):
+    code = to_ot2(design, experiment(), lab).code
+    assert "pipette.dispense(100, protocol.fixed_trash)" in code
+    assert code.index("pipette.aspirate(100") < code.index("pipette.dispense(100, protocol.fixed_trash)")
+
+
 def test_a_design_that_fails_its_own_audit_is_reported_not_generated_over(design, lab):
     design.wells[0].final_uM = 999.0        # the kind of mistake audit() exists to catch
     protocol = to_ot2(design, experiment(), lab)

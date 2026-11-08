@@ -143,3 +143,11 @@ python -m venv .venv-sim
 `lab.yaml` records `api_level: "2.28"`, which is what the team's own protocol declares, and which no
 OT-2-capable simulator understands. `max_api_level()` returns the level we can both generate and check, the
 generator drops to it, and says so in a warning. `TODO(final)`: confirm the level from the robot itself.
+
+**One thing the generator cannot work around, and warns about instead.** An 8-channel pipette has no way to
+dispense into four of its eight channels: a command addressed at a column fills all eight wells of it. So a
+panel of two species at n=2 occupies rows A–D in the plate map while the robot also fills E–H. Those wells are
+not wrong — they hold the same series, so they are spare replicates — but they are liquid and tips nobody
+planned for, and a person reading the map would not expect them. The same fact is why the reagent estimate
+multiplies by every row of the plate rather than the rows the panel uses: a short panel costs as much medium as
+a full one. Panels that are a multiple of 8 rows avoid it entirely.
