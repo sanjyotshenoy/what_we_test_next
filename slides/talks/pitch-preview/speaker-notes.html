@@ -4,9 +4,9 @@
 <h1>Pitch speaker notes</h1>
 <p><a href="index.html">Open preview deck</a> · Working script in slide order. Target 8:15, leaving time for transitions and recovery within the ten-minute slot.</p>
 <h2>1. Title</h2>
-<p>Briefly introduce the project and team, then advance to the bacterial question. Keep this introduction within the existing opening time.</p>
-<h2>2. What should we test next? <small>0:00–0:50</small></h2>
-<p>“Imagine a researcher studying a bacterial community. They already have a compound and a set of strains. Will that compound inhibit the pathogen while sparing the commensals? What experiment would answer that question?”</p>
+<p>“Given a hypothesis, what experiment should we run next? We help researchers turn an unanswered question into an evidence-grounded proposal they can review. Our motivating use case is microbiome selectivity.” Briefly introduce the team, then advance to the bacterial question.</p>
+<h2>2. Inhibit the pathogen. Spare the commensals? <small>0:00–0:50</small></h2>
+<p>“Imagine a microbiome researcher studying a bacterial community. They already have a compound and a set of strains. Will that compound inhibit the pathogen while sparing the commensals? Activity against the pathogen alone is not enough: the experiment must also measure what happens to the commensals. What experiment would answer that question?”</p>
 <p>Start with the plate alone. Reveal the bacterial groups, then the compound and proposed inhibitory effect, then the experiment question. The grey pathogen illustrates the hypothesis, not an observed result. Compound discovery and strain selection happen upstream.</p>
 <h2>3. The missing measurement <small>0:50–2:00</small></h2>
 <p>“Some compound–strain relationships already have measurements. For this question, the connection we need is missing. That is where we want to help: turning an unanswered question into a justified experiment.”</p>
@@ -23,6 +23,7 @@
 <p>Show both implemented branches and the researcher/lab handoff together at the start. Reveal the feedback loop on the next click, then hypothesis refinement on the final click. The accented region, labeled “Our system · implemented,” includes both returning an existing answer and proposing an experiment when a measurement is missing. Solid internal connections indicate these implemented paths. The muted dotted connections indicate hypothesis refinement and measured-result ingestion. This distinction is about implementation status, not which branch the benchmark evaluates. Researcher review and laboratory execution sit outside the box; the solid handoff does not imply autonomous execution. This is a workflow overview, not a replay of an implemented end-to-end bacterial run. Ingestion should preserve assay conditions, units, strain identity and provenance, including negative results; a proposed or simulated result is not a measured result. The bacterial execution demonstration still begins with a hand-written proposal. An unresolved compound or organism is not evidence that its measurement is absent.</p>
 <p>Keep the proposed connections brief, then advance to how we evaluate the experiment proposals.</p>
 <h2>6. Can the model design the missing experiment? <small>4:00–5:15</small></h2>
+<p><strong>Transition:</strong> “Microbiome selectivity motivates our use case. Our current proposal benchmark tests kinase and cell-based questions; it is not a demonstration of selective bacterial inhibition.”</p>
 <p><strong>Setup:</strong> “We test this by hiding a known measurement and its source papers. Each model gets the same remaining evidence and protocol steps with unfilled parameters. We ask it to design the experiment that would fill the gap.”</p>
 <p><strong>Criteria:</strong> “We assess three things: does the assay answer the question, are the steps sound and complete, and are the numbers justified and consistent?”</p>
 <p><strong>Example:</strong> “One case asks for an experiment to measure how compound CHEMBL4278808 inhibits the kinase haspin. The task is to design the procedure and justify its settings, not recall the hidden potency.”</p>

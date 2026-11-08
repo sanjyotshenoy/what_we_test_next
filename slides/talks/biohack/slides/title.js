@@ -47,11 +47,11 @@ const BACKGROUND = `
   </svg>`;
 
 Deck.slide('title', {
-  notes: 'Title slide.',
+  notes: 'Open with the researcher’s decision: given a hypothesis, what experiment should we run next? Our motivating user is a microbiome researcher testing whether a supplied compound inhibits a pathogen while sparing commensals. We propose evidence-grounded experiments for researcher review; selective inhibition is the hypothesis, not a demonstrated outcome.',
   mount(frame, { css, esc }) {
     const TITLE = {
-      title: 'What Should We Test Next?',
-      subtitle: 'Antimicrobial discovery · BioHack 2026',
+      title: 'Given a hypothesis, what experiment should we run next?',
+      subtitle: 'Helping microbiome researchers test whether a compound inhibits a pathogen while sparing commensal bacteria.',
       team: 'Team Zhang et al.',
       track: '(Biotech Track: Problem #2)',
       names: ['Aidan Zhang', 'Emmy Nguyen', 'Jimmy Hsu', 'Ramith Hettiarachchi', 'Sanjyot Shenoy',   // by first name
@@ -83,8 +83,8 @@ Deck.slide('title', {
       :root[data-theme="dark"] { --wv-base-1: #0f1218; --wv-base-2: #121a24; --wv-base-3: #173144; --wv-glow: #1d5d84;
         --wv-corner: #1f6470; --wv-fill-1: #0b1824; --wv-fill-2: #0e2232; --wv-fill-3: #133149; --wv-floor: #0d1520;
         --wv-rim: #6cbde9; --wv-rim-o: .35; }
-      .deck-frame .ti-title { top: 16%; width: 60%; text-wrap: balance; }
-      .deck-frame .ti-subtitle { top: 40%; width: 60%; }
+      .deck-frame .ti-title { top: 11%; width: 84%; font-size: var(--t-heading); text-wrap: balance; }
+      .deck-frame .ti-subtitle { top: 32%; width: 78%; font-size: var(--t-body); line-height: 1.4; }
       /* the team's name sits large on the wave, bottom right */
       .ti-team { position: absolute; right: 7%; top: 68%; margin: 0; font-size: var(--t-heading); font-weight: 700;
         color: var(--accent); white-space: nowrap; }
