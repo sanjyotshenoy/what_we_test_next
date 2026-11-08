@@ -1,8 +1,23 @@
 # Demo memory — 2026-11-08
 
-Active source: this repository's `demo/`, branch `codex/consolidate-demo`, based on
-team main `30886d3`. No push or merge authorized. The old external harness is
-historical; do further demo work here.
+**Start with [the current Brev / Codex Remote handoff](REMOTE_HANDOFF.md).** It records
+workspace/branch state, private service operation, credentials locations (not values),
+verification, failed live rehearsals and the next decisions. It supersedes historical
+migration notes where they disagree about branch, authorization or credentials.
+
+Active development: `demo/public-readiness`, deployed privately on Brev at runtime
+commit `2717540` plus subsequent documentation updates. The permanent companion
+clone is `/home/ruh/what_we_test_next_demo`; Brev uses
+`/home/ubuntu/what_we_test_next`. Recheck Git status before editing either clone.
+
+The consolidation branch is already merged into GitHub main (`f329771`). Subsequent
+reference/public-readiness changes are on the development branch. Other contributors'
+original workspaces were preserved; do not collect their unfinished work implicitly.
+
+Nebius and Paperclip are authenticated on Brev. 29 tests pass. Four direct synthetic
+simulations passed, but both fresh autonomous runs failed before compilation. No
+public ports were opened. Private systemd services are enabled and healthy; a public
+results viewer and HTTPS/auth configuration are prepared but not deployed.
 
 - [Setup and operation](../SETUP.md): isolated installs, credentials, live/replay,
   tests, platform limits and failures.
@@ -16,25 +31,7 @@ historical; do further demo work here.
 - [Packaged replay](../replays/README.md): synthetic inputs, real historical retrieval
   and simulations, no claim of physical execution or independent proof of autonomy.
 
-The user confirmed keeping the synthetic 2×2 case for now. A reviewed real compound/
-strain question remains pending. No live credentials were copied into the migration.
-Fresh autonomous rehearsal requires configuring Nebius and Paperclip in this runtime.
-Local Qwen, GPU work, physical robot execution and publication remain outside this turn.
 
-## Public-readiness work (2026-11-08)
-
-Development branch: `demo/public-readiness`. A separate loopback results viewer
-allows only explicitly published sessions and read-only routes; the operator remains
-private. HTTPS/basic-auth proxy configuration and private systemd unit installer
-are in `deploy/`. See `deploy/README.md` for pending publication requirements.
-
-First fresh Brev autonomous rehearsal `ses_e45b4eb34ffe2R79o5bUaLd52M` retrieved
-literature but failed: malformed context arguments, rejected proposals, then a
-provider JSON parse error. No compiled batch or successful autonomy is claimed.
-Argument errors and planner instructions have been clarified for a bounded rerun.
-
-Brev checkpoint: 29 tests pass; private systemd services are enabled and healthy.
-The second bounded autonomous run (`ses_e45ae9206ffeUX7erdKXyRnDpu`) retrieved
-context and literature but stopped after a citation rejection and malformed JSON.
-No protocol was compiled. Further retries stopped; public hostname/access policy
-and interactive model reliability remain blockers. See `deploy/README.md`.
+The synthetic 2×2 case remains a software fixture. A reviewed real compound/strain
+question, reference-protocol validation, reliable autonomous completion and public
+access decisions remain pending. The local 5090 endpoint has not been identified.

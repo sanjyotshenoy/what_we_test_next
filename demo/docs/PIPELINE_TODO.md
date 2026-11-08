@@ -1,3 +1,7 @@
+> Current operational state: [Brev / Codex Remote handoff](../memory/REMOTE_HANDOFF.md).
+> Nebius and Paperclip are now configured on Brev; the blocker is failed autonomous
+> model/tool execution, not missing credentials. Older migration wording below is historical.
+
 > Migrated planning record. Current progress and verification: [memory](../memory/MEMORY.md).
 
 # Real-data demo — adaptable TODOs

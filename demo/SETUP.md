@@ -4,6 +4,14 @@ This is the active Ouroboros runtime. It uses this repository's `wwtn`, `executi
 and `kg` modules without modifying them. No second checkout, inherited virtualenv,
 OpenCode profile, model weights or local Qwen server is required.
 
+## Existing Brev deployment
+
+For the already configured `biohackdemo` VM, read the
+[current remote handoff](memory/REMOTE_HANDOFF.md) first. It uses systemd services,
+not the tmux launcher below. Do not start both. Authentication is configured on that
+VM; the fresh live rehearsals have failed before compilation. The installation and
+historical verification instructions below also apply to new clean deployments.
+
 ## Install
 
 Verified target: Linux aarch64 (DGX Spark), Python 3.12. Other OS/architectures are

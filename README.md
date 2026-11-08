@@ -7,6 +7,11 @@ Literature agents can answer a question when someone has already done the experi
 biology and one of experimental protocols, and turn it into a protocol an Opentrons OT-2 can run (aim 2). First
 domain: does compound X inhibit target Y, answered by an IC50 dose-response (a serial dilution).
 
+For the demo on Brev and continuation through Codex Remote, start with the
+[current demo handoff](demo/memory/REMOTE_HANDOFF.md) and
+[demo memory](demo/memory/MEMORY.md). They distinguish verified setup from the
+remaining live-planning and public-access work.
+
 ## Layout
 
 Each workstream owns a folder; folders exchange files whose formats are fixed in `wwtn/schema.py` (JSON Lines)
