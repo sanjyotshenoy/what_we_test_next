@@ -1,0 +1,80 @@
+# What this lab can actually do: the instruments, the labware on hand, and the conditions available.
+#
+# This is a capability model, not an equipment list. `execution/feasibility.py` reads it to answer "can we run
+# this experiment, and if not, why not" as arithmetic rather than judgement, and the agent can read it so that it
+# proposes experiments this lab can run instead of ones it cannot.
+#
+# Most of it is taken from the team's real OT-2 protocol (Opentrons/MIC_2Fold_Dilution_1Antibiotic_1Strain_200uL
+# _modified.py and its write-up), which is the only verified record of the deck we have. Anything not visible in
+# that protocol is marked TODO(final) and should be confirmed by whoever is standing next to the robot.
+
+instruments:
+  - id: ot2
+    kind: liquid_handler
+    model: Opentrons OT-2
+    api_level: "2.28"              # the level Emmy's protocol targets; the robot software must be at least this
+    deck_slots: 11                 # 1-11 usable, 12 is the fixed trash
+    pipettes:
+      # from the protocol: load_instrument("p300_multi", "left")
+      - mount: left
+        model: p300_multi
+        channels: 8                # one command moves a whole column
+        min_uL: 20
+        max_uL: 300
+      # the write-up says the P20 "is not used and can stay mounted on the right"
+      # TODO(final): confirm it is mounted, and whether it is a gen2 and single or multi
+      - mount: right
+        model: p20_single_gen2
+        channels: 1
+        min_uL: 1
+        max_uL: 20
+        mounted: unconfirmed
+
+  - id: cytation
+    kind: plate_reader
+    # TODO(final): the team has a Cytation1 and/or Cytation5 - confirm which, and which modules are fitted
+    model: BioTek Cytation (1 or 5)
+    modes: [absorbance, fluorescence, luminescence, imaging]
+    absorbance_nm: [200, 999]      # OD600 for turbidity, OD530/590 for the MIC read, all within range
+    plate_formats: [6, 12, 24, 48, 96, 384]
+    reads_lidded: false            # the lid comes off to read
+
+labware:
+  # every count is TODO(final): the protocol shows what one run uses, not what is in the cupboard
+  - load_name: corning_96_wellplate_360ul_flat
+    kind: wellplate
+    rows: 8
+    cols: 12
+    max_uL: 360                    # physical capacity
+    working_uL: 200                # what the protocol actually fills; leaves headroom for mixing
+    count: 10
+
+  - load_name: opentrons_96_tiprack_300ul
+    kind: tiprack
+    tips: 96                       # 12 columns for an 8-channel pipette
+    uL: 300
+    count: 4
+
+  - load_name: usascientific_12_reservoir_22ml
+    kind: reservoir
+    channels: 12
+    max_mL: 22
+    dead_mL: 2                     # tips aspirate 1 mm off the bottom and cannot reach the last few mL
+    count: 2
+
+capabilities:
+  # TODO(final): confirm. Assumed aerobic-only, which is the safe default: if it is wrong the checks are
+  # needlessly strict, whereas assuming an anaerobic chamber we do not have would silently produce protocols
+  # that cannot be run. Most gut commensals are obligate anaerobes, so this decides whether a panel is runnable.
+  atmosphere: [aerobic]
+  incubation_C: [30, 37]
+  shaking: unconfirmed             # TODO(final)
+  solvent_limits:
+    dmso_percent: 1.0              # the assay's ceiling, not the instrument's
+
+reagents:
+  # what is routinely on hand; a proposal naming something else needs a human
+  - {id: camhb, name: "cation-adjusted Mueller-Hinton broth", kind: medium}
+  - {id: dmso, name: "DMSO", kind: solvent}
+  - {id: water, name: "sterile water", kind: diluent}
+  - {id: food_colouring, name: "food colouring", kind: dye}   # the dry-run stand-in for the demo

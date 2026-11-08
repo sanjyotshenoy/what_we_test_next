@@ -1,6 +1,6 @@
 # execution/: aim 2, turn the proposal into a protocol the robot runs
 
-**Owner:** _(fill in)_ <!-- TODO(final): owner -->
+**Owner:** Seh Na <!-- TODO(final): confirm -->
 
 From an `ExperimentProposal`, generate an Opentrons OT-2 protocol (Python API v2), check that it runs in the
 simulator, and, for the demo, run it on the real OT-2 (food colouring into water).
@@ -15,3 +15,41 @@ simulator, and, for the demo, run it on the real OT-2 (food colouring into water
 - **Ground truth:** a hand-written protocol for the same experiment in `ground_truth/`; compare final per-well
   concentrations with the generated one.
 - **Run:** `python -m execution.generate --proposals agent/out/kg.jsonl` _(to write)_
+
+## What the lab can do, and whether an experiment fits it
+
+`lab.yaml` describes this lab as a **capability model, not an equipment list**: the instruments, the labware on
+hand with its physical limits, and the conditions available. Most of it is read off the team's real OT-2
+protocol in [`Opentrons/`](../Opentrons/); everything else carries a `TODO(final)` for whoever is standing next
+to the robot. The line that does the most work is `capabilities.atmosphere`, which is **assumed aerobic-only** —
+deliberately the safe default, since assuming a chamber we do not have would quietly produce protocols that
+cannot be run, and most gut commensals are obligate anaerobes.
+
+`feasibility.py` answers "can we run this, and if not, why not" as arithmetic, never a model's opinion:
+
+```python
+from execution.feasibility import check_feasible
+from execution.lab import Lab
+print(check_feasible(experiment, Lab.load(), panel=[{"id": "...", "atmosphere": "anaerobic"}, ...]).sentence())
+```
+
+```
+Not runnable as proposed: 1 problem(s).
+  - 2 species need anaerobic incubation and this lab is aerobic-only: B. fragilis, B. theta
+  suggestions:
+    * drop the 2 anaerobe(s), or run them by hand (CLSI M11 agar dilution) and flag them for a person
+  ! pipette p20_single_gen2 on the right mount may not be installed
+```
+
+It checks: atmosphere and temperature against the panel, columns and rows against the plate (so `n_points` +
+control columns must fit, and species x replicates decides the plate count), volumes against the plate's working
+volume and the pipettes' ranges, tip columns against the racks on hand, medium against the reservoir's usable
+capacity (max minus the dead volume the tips cannot reach), and the readout against the reader's modes. A
+verdict is never a bare boolean: it names each violation with its numbers, suggests repairs, and reports
+anything `lab.yaml` admits is unconfirmed.
+
+`feasible_panel_size(lab, replicates, plates)` is the trade-off in one call: 1 species at n=8 (the current MIC
+protocol's layout), or 8 species at n=1, on one plate.
+
+The panel is passed in rather than read off `Experiment`, because the shared schema has no panel field yet
+(`TODO(final)`); each entry is `{id, name?, atmosphere?}`.

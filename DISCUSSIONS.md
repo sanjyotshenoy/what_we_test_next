@@ -241,3 +241,17 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   free text), and most gut commensals are **anaerobes** needing CLSI M11 agar dilution, not the M07 broth
   microdilution we generate — a scientific-credibility issue, cheap to fix in the prompt and the protocol KG.
 - Open: whether to pivot at all given the clock; nothing has been rebuilt.
+
+**`execution/` scaffolding: what the lab can do** (Seh Na, 00:24, branch `execution-lab` off `integration`).
+- Decided scope: assume the species panel is given, MIC units (ug/mL or mg/mL), OT-2 + Cytation on hand; focus on
+  describing the lab's capabilities and translating an experiment into something runnable on it.
+- Built: `lab.yaml` (a capability model, not an equipment list: instruments, labware with physical limits,
+  conditions; most values read off Emmy's real protocol, the rest `TODO(final)`), `lab.py` (typed reader; a
+  pipette marked `mounted: unconfirmed` is excluded from planning), `feasibility.py` (`check_feasible` -> a
+  verdict with violations, suggestions, plate/tip/volume arithmetic; `feasible_panel_size` for the
+  breadth-vs-replication trade-off). 9 tests; 151 pass overall.
+- `capabilities.atmosphere` is assumed **aerobic-only** on purpose: the safe default, and it turns the anaerobe
+  problem (most gut commensals need CLSI M11 agar dilution, not the M07 broth microdilution we generate) into a
+  check that fails loudly instead of a thing someone has to remember.
+- Open: confirm the real hardware (which pipettes are mounted, labware counts, any anaerobic capability, which
+  Cytation); the panel is passed in because `Experiment` has no panel field yet.
