@@ -1,0 +1,11 @@
+{
+ "_note": "The record held out of the KB (the answer). Page-only: shown at the reveal. TODO(final): real held-out ChEMBL assay ID.",
+ "edges": [
+  {
+   "src": "CHEMBL941",
+   "rel": "HELD_OUT",
+   "dst": "P10721",
+   "held_out": true
+  }
+ ]
+}

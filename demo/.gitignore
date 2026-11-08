@@ -1,0 +1,13 @@
+.env
+private/
+.venv*/
+__pycache__/
+*.pyc
+.opencode/node_modules/
+.opencode/.gitignore
+harness/opencode/xdg/
+harness/opencode/v*/
+harness/planning_runs/
+harness/stage/check/
+harness/stage/static/media/
+.downloads/

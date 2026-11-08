@@ -81,3 +81,13 @@ is for them to add to the same trace (JSON in `agent/out/traces/<id>.json`) befo
    outside the network before the talk.
 
 Pacing (how long each stage "works", reading pauses) is set by the constants at the top of `demo.js`.
+
+## Ouroboros planner (consolidated runtime)
+
+The portable planning/execution backend now lives in `demo/harness/`. Start with
+[installation and operation](SETUP.md), [architecture](harness/PIPELINE.md), and
+[current memory and TODOs](memory/MEMORY.md). `demo/index.html` and the slide symlink
+remain the original static/agent.server entry point; the OpenCode planner is served
+on port 7100 by its own launcher. These are explicit alternatives, not two loops
+running for one question. The planner's `/legacy` page uses the legacy `stage` agent
+only when launched with `STAGE_AGENT=stage`; the default is `planner`.

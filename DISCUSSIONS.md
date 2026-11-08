@@ -512,3 +512,13 @@ plumbing, with no data**, so it can be run on a DGX Spark rather than here.
 - Needs a person: **Maier et al. 2021**'s 815 commensal MICs (10.1038/s41586-021-03986-2) are in a supplementary
   spreadsheet that cannot be fetched programmatically, and they are the only sizeable set of gut commensal MICs
   anywhere. Without them a `cold_species` score on ChEMBL's 1,812 commensal pairs is measured on almost nothing.
+
+**Portable Ouroboros planner under demo/** (2026-11-08, branch `codex/consolidate-demo`).
+- User requested one repository; migrated runtime, pinned installation, focused memory,
+  and sanitized synthetic rehearsal replay into `demo/`. Existing static entry point
+  and slide symlink stay intact. Shared contracts and other workstreams are unchanged.
+- Fresh and relocated installs, 21 non-UI tests, replay browser smoke, and four real
+  simulator runs per location passed. Direct-backend tests are labeled as such;
+  fresh autonomous live verification still needs demo-local Nebius/Paperclip auth.
+- Continued bounded MIC graph lookup and orchestration/API reliability work. See
+  `demo/SETUP.md`, `demo/memory/MEMORY.md`, and `demo/docs/11-08-2026.md`. No push/main merge.

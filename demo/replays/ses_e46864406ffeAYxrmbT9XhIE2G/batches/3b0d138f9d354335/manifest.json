@@ -1,0 +1,192 @@
+{
+  "batch_id": "3b0d138f9d354335",
+  "status": "simulated",
+  "runs": [
+    {
+      "run_id": "run-001",
+      "compound": "fixture-compound-A",
+      "species": {
+        "name": "fixture-species-A",
+        "id": null,
+        "role": "unknown",
+        "oxygen_tolerance": "aerobe",
+        "reason": "synthetic software-test panel"
+      },
+      "question_id": "q1",
+      "allocation": {
+        "requested_rows": "AB",
+        "surplus_rows": "CDEFGH",
+        "note": "Surplus technical wells are physically filled; not counted as requested replicates."
+      },
+      "protocol": "run-001/protocol.py",
+      "protocol_sha256": "e0db4b473db53ecb2d6a99435e96d990a4dcd0a784e1b107ae8f0731bf57ab84",
+      "plate": "run-001/plate.json",
+      "sources": "run-001/sources.json",
+      "run_sheet": "run-001/run_sheet.md",
+      "tip_columns": 14,
+      "tip_racks_loaded": 2,
+      "reservoir_mL": {
+        "medium": 11.6,
+        "compound": 3.6,
+        "inoculum": 10.8
+      },
+      "warnings": [
+        "lab.yaml declares apiLevel 2.28, but the highest an OT-2-capable opentrons simulates is 2.27; generated at 2.27 so the protocol can be checked before it runs. Confirm the level from the robot itself",
+        "pipette p20_single_gen2 on the right mount may not be installed",
+        "capability 'shaking' is unconfirmed",
+        "capability 'incubation_atmosphere' is ASSUMED, not verified: anaerobic incubation (jars, sachets or an anaerobic incubator) assumed because the project is phenotyping anaerobic microbiome bacteria; confirm the lab has one before reporting a result"
+      ],
+      "simulation": {
+        "status": "passed",
+        "report": "batches/3b0d138f9d354335/run-001/simulation.json",
+        "commands": 267,
+        "error": null
+      }
+    },
+    {
+      "run_id": "run-002",
+      "compound": "fixture-compound-A",
+      "species": {
+        "name": "fixture-species-B",
+        "id": null,
+        "role": "unknown",
+        "oxygen_tolerance": "aerobe",
+        "reason": "synthetic software-test panel"
+      },
+      "question_id": "q1",
+      "allocation": {
+        "requested_rows": "AB",
+        "surplus_rows": "CDEFGH",
+        "note": "Surplus technical wells are physically filled; not counted as requested replicates."
+      },
+      "protocol": "run-002/protocol.py",
+      "protocol_sha256": "2bb9bea2fb83ce953d6598e47e16ef632e9b3118cc88c2885517fc1c67113ebb",
+      "plate": "run-002/plate.json",
+      "sources": "run-002/sources.json",
+      "run_sheet": "run-002/run_sheet.md",
+      "tip_columns": 14,
+      "tip_racks_loaded": 2,
+      "reservoir_mL": {
+        "medium": 11.6,
+        "compound": 3.6,
+        "inoculum": 10.8
+      },
+      "warnings": [
+        "lab.yaml declares apiLevel 2.28, but the highest an OT-2-capable opentrons simulates is 2.27; generated at 2.27 so the protocol can be checked before it runs. Confirm the level from the robot itself",
+        "pipette p20_single_gen2 on the right mount may not be installed",
+        "capability 'shaking' is unconfirmed",
+        "capability 'incubation_atmosphere' is ASSUMED, not verified: anaerobic incubation (jars, sachets or an anaerobic incubator) assumed because the project is phenotyping anaerobic microbiome bacteria; confirm the lab has one before reporting a result"
+      ],
+      "simulation": {
+        "status": "passed",
+        "report": "batches/3b0d138f9d354335/run-002/simulation.json",
+        "commands": 267,
+        "error": null
+      }
+    },
+    {
+      "run_id": "run-003",
+      "compound": "fixture-compound-B",
+      "species": {
+        "name": "fixture-species-A",
+        "id": null,
+        "role": "unknown",
+        "oxygen_tolerance": "aerobe",
+        "reason": "synthetic software-test panel"
+      },
+      "question_id": "q2",
+      "allocation": {
+        "requested_rows": "AB",
+        "surplus_rows": "CDEFGH",
+        "note": "Surplus technical wells are physically filled; not counted as requested replicates."
+      },
+      "protocol": "run-003/protocol.py",
+      "protocol_sha256": "f00c8190f5103eb0c97637ea4e5c0c6e46115b1b99bf7d34a9672ecbd4952dda",
+      "plate": "run-003/plate.json",
+      "sources": "run-003/sources.json",
+      "run_sheet": "run-003/run_sheet.md",
+      "tip_columns": 14,
+      "tip_racks_loaded": 2,
+      "reservoir_mL": {
+        "medium": 11.6,
+        "compound": 3.6,
+        "inoculum": 10.8
+      },
+      "warnings": [
+        "lab.yaml declares apiLevel 2.28, but the highest an OT-2-capable opentrons simulates is 2.27; generated at 2.27 so the protocol can be checked before it runs. Confirm the level from the robot itself",
+        "pipette p20_single_gen2 on the right mount may not be installed",
+        "capability 'shaking' is unconfirmed",
+        "capability 'incubation_atmosphere' is ASSUMED, not verified: anaerobic incubation (jars, sachets or an anaerobic incubator) assumed because the project is phenotyping anaerobic microbiome bacteria; confirm the lab has one before reporting a result"
+      ],
+      "simulation": {
+        "status": "passed",
+        "report": "batches/3b0d138f9d354335/run-003/simulation.json",
+        "commands": 267,
+        "error": null
+      }
+    },
+    {
+      "run_id": "run-004",
+      "compound": "fixture-compound-B",
+      "species": {
+        "name": "fixture-species-B",
+        "id": null,
+        "role": "unknown",
+        "oxygen_tolerance": "aerobe",
+        "reason": "synthetic software-test panel"
+      },
+      "question_id": "q2",
+      "allocation": {
+        "requested_rows": "AB",
+        "surplus_rows": "CDEFGH",
+        "note": "Surplus technical wells are physically filled; not counted as requested replicates."
+      },
+      "protocol": "run-004/protocol.py",
+      "protocol_sha256": "b3a358e3e6bb2048424b9f8eb0628d866c7b1ad8a25221e9799f0a5dbe033f3f",
+      "plate": "run-004/plate.json",
+      "sources": "run-004/sources.json",
+      "run_sheet": "run-004/run_sheet.md",
+      "tip_columns": 14,
+      "tip_racks_loaded": 2,
+      "reservoir_mL": {
+        "medium": 11.6,
+        "compound": 3.6,
+        "inoculum": 10.8
+      },
+      "warnings": [
+        "lab.yaml declares apiLevel 2.28, but the highest an OT-2-capable opentrons simulates is 2.27; generated at 2.27 so the protocol can be checked before it runs. Confirm the level from the robot itself",
+        "pipette p20_single_gen2 on the right mount may not be installed",
+        "capability 'shaking' is unconfirmed",
+        "capability 'incubation_atmosphere' is ASSUMED, not verified: anaerobic incubation (jars, sachets or an anaerobic incubator) assumed because the project is phenotyping anaerobic microbiome bacteria; confirm the lab has one before reporting a result"
+      ],
+      "simulation": {
+        "status": "passed",
+        "report": "batches/3b0d138f9d354335/run-004/simulation.json",
+        "commands": 267,
+        "error": null
+      }
+    }
+  ],
+  "team_commit": "5363a6f2e4236457af5e64e199d3a1079c28b52d",
+  "input_hashes": {
+    "batch": "60a4beada1677ec155a866c88562bf3e124e1b77081426a0f94c909029ddd240",
+    "lab": "31bc27d7bd58df5530a60277527ec3ddbb32d473b73432500af288974e35c4a6",
+    "template": "ff26184b61d072c131c68945409ab6f0e0082b7617e7c050ab77e0a962ea4cb8",
+    "protocol_nodes": "1c13f6a5f1656ed3ee58dad0961094da8563094722ab1dfc22af4f0937b5b914",
+    "protocol_edges": "0466153682c1740eb0fd41b6d511ad2da1ddd997dcfc74487a9d7b64dfb756b5"
+  },
+  "execution": "separate sequential run per compound–species pair; reload sources and consumables between runs",
+  "review": [
+    "Citation identity/field coverage checked; scientific entailment and user-input claims are not automatically verified.",
+    "See rules.json: uncheckable rules require review; they are not counted as passed.",
+    "Lab assumptions remain warnings. No physical robot run or measurement performed.",
+    "Reference-antibiotic control from the source template is not included; biological review remains required."
+  ],
+  "resources": {
+    "plates_total": 4,
+    "tip_columns_total": 56,
+    "fresh_tip_rack_loads": 8,
+    "listed_tip_racks": 4,
+    "note": "Resource feasibility is checked per run. Aggregate supplies must be available; tips are consumed, not reused."
+  }
+}

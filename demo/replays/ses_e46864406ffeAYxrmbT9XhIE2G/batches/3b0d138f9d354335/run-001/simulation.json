@@ -1,0 +1,3197 @@
+{
+  "status": "passed",
+  "protocol_sha256": "e0db4b473db53ecb2d6a99435e96d990a4dcd0a784e1b107ae8f0731bf57ab84",
+  "commands": 267,
+  "runlog": [
+    {
+      "level": 0,
+      "payload": {
+        "text": "plate 1 of 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A1 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A1 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=104.37, y=74.24, z=4.552), labware=A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A12 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 200,
+        "source": "A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A12 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 200.0 from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A12 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 200.0,
+        "location": "Location(point=Point(x=14.38, y=133.21, z=3.45), labware=A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 200.0 uL from A1 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 200.0,
+        "location": "Location(point=Point(x=113.37, y=74.24, z=4.552), labware=A12 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 200.0 uL into A12 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A2 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 200,
+        "source": "A2 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 200.0 from A2 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A2 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A2 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 200.0,
+        "location": "Location(point=Point(x=23.38, y=133.21, z=3.45), labware=A2 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 200.0 uL from A2 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 200.0,
+        "location": "Location(point=Point(x=14.37, y=74.24, z=4.552), labware=A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 200.0 uL into A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A3 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A3 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+          "A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "dest": "A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 to A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.37, y=74.24, z=4.552), labware=A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+          "A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "dest": "A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 to A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+          "A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "dest": "A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 to A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+          "A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "dest": "A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 to A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+          "A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "dest": "A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 to A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+          "A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "dest": "A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 to A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+          "A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "dest": "A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 to A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+          "A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "dest": "A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 to A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+          "A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "dest": "A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 to A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into Trash Bin on slot 12 at 300.0 uL/sec"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A4 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A4 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=14.37, y=74.24, z=4.552), labware=A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=14.37, y=74.24, z=4.552), labware=A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=14.37, y=74.24, z=4.552), labware=A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=14.37, y=74.24, z=4.552), labware=A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=14.37, y=74.24, z=4.552), labware=A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=14.37, y=74.24, z=4.552), labware=A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=14.37, y=74.24, z=4.552), labware=A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A1 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A5 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A5 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=23.37, y=74.24, z=4.552), labware=A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A2 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A6 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A6 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=32.37, y=74.24, z=4.552), labware=A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A3 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A7 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A7 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=41.37, y=74.24, z=4.552), labware=A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A4 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A8 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A8 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=50.37, y=74.24, z=4.552), labware=A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A5 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A9 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A9 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=59.37, y=74.24, z=4.552), labware=A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A6 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A10 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A10 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=68.37, y=74.24, z=4.552), labware=A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A7 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A11 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A11 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=77.37, y=74.24, z=4.552), labware=A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A8 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A12 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2",
+        "text": "Picking up tip from A12 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 2"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=86.37, y=74.24, z=4.552), labware=A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A9 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A1 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 3",
+        "text": "Picking up tip from A1 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 3"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=95.37, y=74.24, z=4.552), labware=A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A10 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    },
+    {
+      "level": 0,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "locations": [
+          "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+          "A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+        ],
+        "volume": 100,
+        "source": "A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4",
+        "dest": "A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "text": "Transferring 100.0 from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 to A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A2 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 3",
+        "text": "Picking up tip from A2 of Opentrons OT-2 96 Tip Rack 300 \u00b5L on slot 3"
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=32.38, y=133.21, z=3.45), labware=A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A3 of USA Scientific 12 Well Reservoir 22 mL on slot 4 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100.0,
+        "location": "Location(point=Point(x=104.37, y=74.24, z=4.552), labware=A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1",
+        "volume": 100,
+        "repetitions": 3,
+        "text": "Mixing 3 times with a volume of 100.0 ul"
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=104.37, y=74.24, z=4.552), labware=A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=104.37, y=74.24, z=4.552), labware=A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=104.37, y=74.24, z=4.552), labware=A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=104.37, y=74.24, z=4.552), labware=A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=104.37, y=74.24, z=4.552), labware=A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Aspirating 100.0 uL from A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 150.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 2,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "volume": 100,
+        "location": "Location(point=Point(x=104.37, y=74.24, z=4.552), labware=A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1, meniscus_tracking=None)",
+        "rate": 1.0,
+        "text": "Dispensing 100.0 uL into A11 of Corning 96 Well Plate 360 \u00b5L Flat on slot 1 at 300.0 uL/sec",
+        "end_location": null
+      },
+      "logs": []
+    },
+    {
+      "level": 1,
+      "payload": {
+        "instrument": "P300 8-Channel GEN1 on left mount",
+        "location": "<opentrons.protocol_api.disposal_locations.TrashBin object at 0xefdd6bab6960>",
+        "text": "Dropping tip into Trash Bin on slot 12"
+      },
+      "logs": []
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What we test next</title>
+<link rel="stylesheet" href="/static/app.css">
+<script src="/static/vendor/cytoscape.min.js"></script>
+<script src="/static/vendor/cola.min.js"></script>
+<script src="/static/vendor/cytoscape-cola.js"></script>
+<script src="/static/vendor/3Dmol-min.js"></script>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">⟲</span> What we test next <span class="sub">closing the loop between knowledge and discovery</span></div>
+  <div class="controls">
+    <span id="agent-dot" class="dot" title="agent connection"></span><span id="agent-state" class="muted">connecting…</span>
+    <select id="model" title="model"></select>
+    <button id="key-btn" title="whose Nebius credits">🔑 <span id="key-name">key</span></button>
+    <button id="new-btn" title="clear the run">New run</button>
+  </div>
+</header>
+
+<main>
+  <section id="agent" class="panel">
+    <h2>Agent <span class="tag" id="run-tag">idle</span></h2>
+    <div id="log"></div>
+    <form id="ask">
+      <textarea id="q" rows="2" placeholder="Ask a question the knowledge base can't answer…">Does imatinib inhibit the KIT kinase, and how potently? If the knowledge graph can't answer, propose the experiment.</textarea>
+      <div class="row"><button type="submit" id="send">Ask</button><button type="button" id="stop">Stop</button>
+      <span id="cost" class="muted"></span></div>
+    </form>
+  </section>
+
+  <section id="kg" class="panel">
+    <h2>Knowledge graph <span class="tag warn" id="kg-seed">seed graph</span>
+      <span class="spacer"></span><button id="kg-fit" class="small">fit</button><button id="kg-reveal" class="small">reveal held-out</button></h2>
+    <div id="cy"></div>
+    <div id="kg-legend" class="legend"></div>
+  </section>
+
+  <section id="plate" class="panel">
+    <h2>96-well plate <span class="tag" id="plate-mode">empty</span><span class="spacer"></span><span id="plate-legend" class="legend inline"></span></h2>
+    <div id="plate-svg"></div>
+  </section>
+
+  <section id="structure" class="panel">
+    <h2>Structure <span class="tag" id="pdb-tag">—</span></h2>
+    <div id="mol"></div>
+    <div id="mol-caption" class="caption"></div>
+  </section>
+
+  <section id="video" class="panel">
+    <h2>OT-2 run <span class="tag">recorded</span></h2>
+    <video id="vid" src="/static/media/run.mp4" controls preload="auto" playsinline muted></video>
+    <div id="vid-missing" class="placeholder hidden">No video yet: put the recording at<br><code>harness/stage/static/media/run.mp4</code><br><button id="sim-play" class="small">play feed without video</button></div>
+  </section>
+
+  <section id="robot" class="panel">
+    <h2>Robot status <span class="tag" id="robot-state">idle</span><span class="spacer"></span><span id="robot-src" class="muted small"></span></h2>
+    <div id="robot-summary"></div>
+    <ol id="feed"></ol>
+  </section>
+</main>
+
+<dialog id="key-dlg">
+  <form method="dialog" id="key-form">
+    <h3>Whose Nebius credits?</h3>
+    <div id="key-profiles"></div>
+    <details><summary>Add a key</summary>
+      <label>Name <input id="key-new-name" autocomplete="off" placeholder="e.g. Seh Na"></label>
+      <label>Key <input id="key-new-key" type="password" autocomplete="off" placeholder="never shown again"></label>
+      <label class="inline"><input id="key-save" type="checkbox" checked> remember on this machine</label>
+      <button type="button" id="key-add">Use this key</button>
+    </details>
+    <p id="key-msg" class="muted"></p>
+    <button value="close">Close</button>
+  </form>
+</dialog>
+
+<dialog id="note-dlg">
+  <form method="dialog">
+    <h3>Annotate <span id="note-target"></span></h3>
+    <input id="note-text" autocomplete="off" placeholder="note on the graph">
+    <div class="row"><button value="ok" id="note-ok">Pin note</button><button value="cancel">Cancel</button></div>
+  </form>
+</dialog>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
