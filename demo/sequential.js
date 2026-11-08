@@ -39,6 +39,10 @@
       el.after(button);
     }
   }
+  function followStage(li) {
+    li.style.scrollMarginTop = '16px';
+    li.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start'});
+  }
   function advance() {
     stopTimer();
     if (cursor >= stages.length) return;
@@ -46,11 +50,13 @@
     const li = document.createElement('li'); li.className = 'stage';
     li.innerHTML = `<h3 class="shine">${esc(stage.title)}</h3><div class="processing" aria-label="Processing step"><i></i><i></i><i></i></div>`;
     $('timeline').append(li); controls();
-    li.style.scrollMarginTop = '16px';
-    li.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start'});
+    followStage(li);
     timer = setTimeout(() => {
       li.innerHTML = `<h3>${esc(stage.title)}</h3>${stage.html}`;
-      collapseLongText(li); controls(); schedule();
+      collapseLongText(li); controls();
+      // The loading placeholder may be too short to reach the target scroll
+      // position. Align again after the result gives the document its full height.
+      followStage(li); schedule();
     }, cursor === 1 ? 0 : 1100);
   }
   function plateVisual(plate, run) {

@@ -155,3 +155,7 @@ hash-verified simulator passes. `docs/PRECOMPUTED_EXAMPLES.md` records identitie
 elapsed times and Qwen's failed first comparison attempt / successful explicit-object
 retry. Sequential selector now maps only these eight real-entity design trajectories.
 Original judge sessions remain published for existing links; operator unchanged.
+
+Auto-scroll now realigns after each result replaces the short processing placeholder.
+Previously the initial scroll could be clamped at the document bottom, leaving new
+result content below the fold. Both phases honor reduced-motion preferences.
