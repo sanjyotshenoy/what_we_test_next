@@ -395,3 +395,32 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   template's 9-point series is below `rule:agm/min_points_enzyme_ic50`'s 10, which the anchor deliberately does not
   fix (it takes the shape as given); `expected_ic50_uM` and `analog_median_ic50_uM` are the same number today, kept
   apart so a future prior (class-wide spread, a literature value) can differ from the analogs' median.
+**`execution/` scaffolding: what the lab can do** (Seh Na, 00:24, branch `execution-lab` off `integration`).
+- Decided scope: assume the species panel is given, MIC units (ug/mL or mg/mL), OT-2 + Cytation on hand; focus on
+  describing the lab's capabilities and translating an experiment into something runnable on it.
+- Built: `lab.yaml` (a capability model, not an equipment list: instruments, labware with physical limits,
+  conditions; most values read off Emmy's real protocol, the rest `TODO(final)`), `lab.py` (typed reader; a
+  pipette marked `mounted: unconfirmed` is excluded from planning), `feasibility.py` (`check_feasible` -> a
+  verdict with violations, suggestions, plate/tip/volume arithmetic; `feasible_panel_size` for the
+  breadth-vs-replication trade-off). 9 tests; 151 pass overall.
+- `capabilities.atmosphere` is assumed **aerobic-only** on purpose: the safe default, and it turns the anaerobe
+  problem (most gut commensals need CLSI M11 agar dilution, not the M07 broth microdilution we generate) into a
+  check that fails loudly instead of a thing someone has to remember.
+- Open: confirm the real hardware (which pipettes are mounted, labware counts, any anaerobic capability, which
+  Cytation); the panel is passed in because `Experiment` has no panel field yet.
+- Update (00:31): at Seh Na's request `lab.yaml` now claims **both atmospheres**, on the assumption the OT-2 sits
+  in an anaerobic chamber. Recorded under `capabilities.assumed` and surfaced as a warning on *every* verdict, so
+  nothing can quietly rest on it (drop it before reporting a real result). The atmosphere check now runs **both
+  ways** - an obligate aerobe fails in an anaerobic-only setup as surely as an anaerobe fails in air - and a
+  species marked `facultative` passes either way.
+- Next (00:37, Seh Na): `plate.py` — experiment + lab + panel -> the well map (one row per species per replicate,
+  series along the columns, controls last, spilling onto further plates), plus `audit()` which **replays the
+  transfer plan independently** to check it. Every well carries both `prepared_uM` (2x, during the dilution) and
+  `final_uM` (what the cells see after the inoculum halves it); conflating them would double every reported MIC,
+  so the audit tests break the map on purpose and require it to object. 24 execution tests, 166 overall.
+- Correction (01:20, Emmy): atmosphere belongs to a **step**, not the lab. The OT-2 builds the plate on the bench
+  in minutes; the overnight incubation is where oxygen decides whether an anaerobe grows. So `lab.yaml` now has
+  `liquid_handling_atmosphere` (aerobic, no chamber needed) and `incubation_atmosphere` (aerobic + anaerobic,
+  **assumed** - jars or an anaerobic incubator - because the project phenotypes anaerobic microbiome bacteria).
+  A panel entry may declare `oxygen_tolerance`: aerotolerant anaerobes survive the bench, strictly sensitive ones
+  (F. prausnitzii) are refused with the reason. The agreed four-species panel passes as 1 plate at n=2.
