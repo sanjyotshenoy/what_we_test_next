@@ -97,7 +97,7 @@ class BrowserTests(unittest.TestCase):
                     try:
                         page=browser.new_page(viewport={'width':1600,'height':1000})
                         errors=[]; page.on('pageerror',lambda e:errors.append(str(e)))
-                        page.goto(url)
+                        page.goto(url+'/planner')
                         page.wait_for_function("document.querySelector('#saved').options.length > 1")
                         page.select_option('#saved','ses_e46864406ffeAYxrmbT9XhIE2G')
                         page.wait_for_selector('.well')

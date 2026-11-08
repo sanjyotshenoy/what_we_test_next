@@ -68,6 +68,27 @@ class OperatorCommandTests(AioHTTPTestCase):
         server.hub.session_id = 'busy-session'
         return server.make_app()
 
+    async def test_saved_dashboard_does_not_touch_live_session(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'sequential-models.json').write_text(json.dumps({
+                'models': [{'id': 'model', 'label': 'Model'}],
+                'sessions': {'saved': 'model', 'missing': 'model'}}))
+            snapshots = {'saved': {'batches': [{'manifest': {'runs': [
+                {'compound': 'compound', 'species': {'name': 'species'}}]}}]},
+                'missing': {'batches': []}}
+            with patch.object(server, 'DEMO', root), patch.object(view, 'snapshot', side_effect=snapshots.get):
+                response = await self.client.get('/api/precomputed')
+                data = await response.json()
+            self.assertEqual([e['session'] for e in data['examples']], ['saved'])
+        for route in ('/', '/legacy'):
+            response = await self.client.get(route)
+            self.assertIn('saved-dashboard.js', await response.text())
+        response = await self.client.get('/planner')
+        self.assertIn('planner.js', await response.text())
+        self.assertEqual(server.hub.session_id, 'busy-session')
+        self.backend.assert_not_called()
+
     async def test_active_run_blocks_prompt_and_configuration_changes(self):
         for path, body in [('/api/prompt', {'text': 'second request'}),
                            ('/api/model', {'modelID': 'other'}),

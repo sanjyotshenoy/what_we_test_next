@@ -1,0 +1,25 @@
+header {height:auto; min-height:52px; flex-wrap:wrap; gap:8px}
+a {color:var(--accent)}
+.panel {min-width:0}
+select {max-width:100%; min-width:0}
+#selection {padding:10px 12px; border-bottom:1px solid var(--line)}
+#selection select {width:100%; margin-top:6px}
+#selection p {font-size:.83rem; margin:8px 0}
+#log {overflow-wrap:anywhere}
+#log details {flex-shrink:0; background:var(--panel2); padding:8px; border-radius:6px}
+summary {cursor:pointer}
+pre {white-space:pre-wrap; overflow-wrap:anywhere; font-size:.75rem}
+.scroll {overflow:auto; padding:10px; overflow-wrap:anywhere}
+#run-select {margin:5px 8px}
+#plate-svg {display:grid; grid-template-columns:18px repeat(12,minmax(0,1fr)); gap:3px; overflow:auto; align-content:center}
+#plate-svg span {font-size:.65rem; text-align:center}
+.well {padding:0; border-radius:50%; aspect-ratio:1; min-height:10px; width:100%; font-size:.6rem}
+.well.sample {background:#8c303b}.well.growth {background:#285e41}.well.sterility {background:#3e5679}
+.well.surplus {border-style:dashed; border-color:#ccc}
+#robot-summary {display:block}
+#downloads {line-height:1.7}
+#graph-detail {max-height:130px; overflow:auto; white-space:pre-wrap}
+#video video[hidden] {display:none}
+@media(max-width:1100px){header .controls {flex-wrap:wrap; width:100%} main {grid-auto-rows:minmax(340px,70vh)} #agent {max-height:80vh} #plate {min-height:440px}}
+#plate-svg {grid-auto-rows:20px; align-content:start; flex-shrink:0}
+.well {width:18px; height:18px; min-height:18px; justify-self:center; max-width:100%; aspect-ratio:auto}

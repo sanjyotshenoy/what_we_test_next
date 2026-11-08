@@ -21,7 +21,9 @@ The video is fixed, not live, and does not prove physical execution of the displ
 protocol. The sequential view does not play that video.
 
 For a fresh run, trusted members use https://operator-o10eetwuq.gobrev.dev/ and
-sign in with their allowlisted Brev account. It is one shared operator session:
+sign in with their allowlisted Brev account and follow **Live planning** (`/planner`).
+The operator root uses the legacy panel layout to inspect the same eight saved
+examples without starting inference. Live planning is one shared operator session:
 coordinate before changing models, starting or stopping a run. The default is GLM-5.3.
 New runs are private until reviewed/published; judges keep seeing approved results.
 The older operator rehearsal presets remain software fixtures; they are distinct

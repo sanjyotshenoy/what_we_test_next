@@ -22,6 +22,21 @@ lives at sanjyotshenoy/what_we_test_next; the old Git URL redirects.
 GitHub main previously received consolidate-demo at `f329771`; do not assume it
 contains this deployment. Brev's repo deploy key is read-only.
 
+## Operator dashboard update — 2026-11-08
+
+The operator root and `/legacy` now use the original six-panel dashboard layout
+with the eight precomputed sequential trajectories. Model/query selection is
+browser-local and read-only; it does not change or start the shared agent session.
+The live planner remains at `/planner`. Graph measurements, SMILES identities,
+proposal/evidence details, pair-specific plates, protocol downloads and hash-checked
+simulator logs come from saved artifacts. No 3D molecular coordinates are available;
+the molecule panel displays saved SMILES. The physical video remains separate.
+
+Verification: 15 HTTP/browser regression tests passed; a separate Chromium check
+covered all eight trajectories / sixteen protocol pairs, wells, downloads and
+desktop/mobile layout with no JavaScript errors or write requests. The initial
+plate overlap was corrected before the successful check. No paid inference ran.
+
 ## Views and access
 
 | View | URL | Behavior |

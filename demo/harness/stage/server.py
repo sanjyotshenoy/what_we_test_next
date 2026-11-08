@@ -354,8 +354,25 @@ async def api_artifact(request):
 
 
 async def index(request):
-    name = 'index.html' if request.path == '/legacy' else 'planner.html'
+    name = 'planner.html' if request.path == '/planner' else 'saved-dashboard.html'
     return web.FileResponse(STATIC / name, headers={"Cache-Control": "no-cache"})
+
+
+async def api_precomputed(request):
+    """The sequential model/session catalog, without changing the live session."""
+    catalog = json.loads((DEMO / 'sequential-models.json').read_text())
+    examples = []
+    for session, model in catalog['sessions'].items():
+        data = await asyncio.to_thread(planning_view.snapshot, session)
+        runs = [r for b in data['batches'] for r in b['manifest']['runs']]
+        if not runs:
+            continue
+        compounds = list(dict.fromkeys(r['compound'] for r in runs))
+        species = list(dict.fromkeys(r['species']['name'] for r in runs))
+        examples.append({'session': session, 'model': model,
+                         'question': ' / '.join(compounds) + ' · ' + ' / '.join(species)})
+    return web.json_response({'models': catalog['models'], 'examples': examples},
+                             headers={'Cache-Control': 'no-store'})
 
 
 async def on_cleanup(app):
@@ -417,6 +434,8 @@ def make_app():
     app.add_routes([
         web.get("/", index),
         web.get("/legacy", index),
+        web.get("/planner", index),
+        web.get("/api/precomputed", api_precomputed),
         web.get("/api/planning", api_planning),
         web.get("/api/planning/sessions", api_planning_sessions),
         web.get("/api/artifacts/{session}/{batch}/{filename:.*}", api_artifact),

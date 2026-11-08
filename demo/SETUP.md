@@ -130,9 +130,9 @@ needs a reviewed panel, evidence applicability and required controls.
 The active sequential UI is served at `/sequential` by the public viewer, using
 the catalog in `sequential-models.json` and reviewed VM artifacts. It is light-only
 and uses no live inference. The original `demo/index.html?theme=dark` and slide symlink remain unchanged.
-They use the existing trace/agent.server interface. Port 7100 serves the planner;
-`/legacy` retains the seed demo UI and needs `STAGE_AGENT=stage` to use its tools.
-Do not use the legacy page with the planner and expect its panels to populate.
+They use the existing trace/agent.server interface. Port 7100 serves the saved legacy-layout dashboard at `/` and `/legacy`;
+`/planner` retains live planning. The saved dashboard uses the sequential catalog
+and planning artifacts without calling live agent endpoints.
 
 ## Failures and limits
 

@@ -9,7 +9,8 @@ Start with [current memory](memory/MEMORY.md), [remote handoff](memory/REMOTE_HA
 - **Judge/results:** https://demo-o10eetwuq.gobrev.dev/ — public, approved artifacts
   and separate physical robot recording.
 - **Operator:** https://operator-o10eetwuq.gobrev.dev/ — Brev login, current org-member
-  allowlist, one shared live session. Independent from the read-only viewer.
+  allowlist; legacy panel layout backed by the eight saved sequential trajectories.
+  Live planning remains at `/planner` with one shared live session.
 - Brev branch: `demo/judge-rehearsal`, directory `/home/ubuntu/what_we_test_next`.
   Codex Remote host: `brev-o10eetwuq`; daemon/login verified on 2026-11-08.
 - Eight accepted model/query trajectories, sixteen verified simulator passes.
