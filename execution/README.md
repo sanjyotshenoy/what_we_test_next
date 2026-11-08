@@ -6,15 +6,16 @@ From an `ExperimentProposal`, generate an Opentrons OT-2 protocol (Python API v2
 simulator, and, for the demo, run it on the real OT-2 (food colouring into water).
 
 - **Reads:** `agent/out/<run>.jsonl` (`ExperimentProposal`).
-- **Writes:** `out/<run>/<question_id>.py` (the protocol) and `out/<run>/results.jsonl` (`ExecutionResult`).
-- **Approach:** fill a fixed template built from the official serial-dilution tutorial
-  (docs.opentrons.com/v2/tutorial.html) with the proposal's parameters, rather than letting the LLM write free
-  code.
-- **Checks:** `opentrons_simulate` (`pip install opentrons`) must run it to completion; also volume ≤ the
-  pipette's maximum, ≤ 96 wells, enough tips. The simulator catches API and deck errors, not wrong biology.
-- **Ground truth:** a hand-written protocol for the same experiment in `ground_truth/`; compare final per-well
-  concentrations with the generated one.
-- **Run:** `python -m execution.generate --proposals agent/out/kg.jsonl` _(to write)_
+- **Writes:** `out/<run>/<question_id>/protocol.py` (the protocol), `.../protocol_run_sheet.md` (the steps the
+  robot cannot do) and `out/<run>/results.jsonl` (`ExecutionResult`).
+- **Approach:** compute the plate map arithmetically from the proposal and the lab's capabilities, then render
+  the transfers as Opentrons API v2 calls — the LLM never writes protocol code.
+- **Checks:** `opentrons_simulate` must run it to completion; also volume ≤ the pipette's maximum, enough tip
+  columns, enough deck slots, reservoir capacity, and the reader's modes. The simulator catches API and deck
+  errors, not wrong biology — and **do not `pip install opentrons`** into the main environment; see
+  "Running the simulator" below for why and what to do instead.
+- **Run:** `python -m execution.generate agent/out/kg.jsonl --out execution/out/kg --simulate`
+  (or `execution/examples/mic_selectivity.jsonl`, which needs no API key).
 
 ## What the lab can do, and whether an experiment fits it
 
@@ -90,5 +91,114 @@ final) and require the audit to object.
 `feasible_panel_size(lab, replicates, plates)` is the trade-off in one call: 1 species at n=8 (the current MIC
 protocol's layout), or 8 species at n=1, on one plate.
 
-The panel is passed in rather than read off `Experiment`, because the shared schema has no panel field yet
-(`TODO(final)`); each entry is `{id, name?, atmosphere?}`.
+The panel comes from `Experiment.panel` and can still be passed in to override it. An entry is a `PanelMember`
+or a plain dict; `atmosphere` may be given directly, or derived from `oxygen_tolerance`.
+
+## The protocol, and the run sheet beside it
+
+`protocol.py` is the last link: the plate map becomes a file the OT-2 accepts.
+
+```python
+from execution.protocol import to_ot2, run_sheet, write_protocol, simulate
+protocol = to_ot2(design, experiment, Lab.load())
+print(protocol.api_level, protocol.tip_columns, protocol.deck, protocol.warnings)
+write_protocol(design, "execution/out/q001", experiment, Lab.load(), template)
+ok, output = simulate("execution/out/q001/protocol.py")
+```
+
+**Two files, not one.** Nothing in the Opentrons API incubates for 18 h at 37 °C in an anaerobic jar, reads
+OD590 on the Cytation, or calls the MIC. The robot sets the plate up on the bench in a few minutes and stops.
+So `write_protocol` emits `protocol.py` *and* `protocol_run_sheet.md` — the reservoir volumes to pour, the
+off-robot steps quoted from the template, the MIC rule, and every assumption `lab.yaml` admits to. A generator
+that emitted only the `.py` would be shipping an experiment with no measurement in it.
+
+Everything the generator decides is reported on the result rather than buried in the source: the API level, the
+tip columns, the deck assignment, the reservoir volumes, and the warnings. Three checks run on the way:
+
+- `_check_against_transfers` compares the (liquid, volume) movements against the plan `plate.py` made.
+- `audit(design)` runs on the map and every disagreement it finds is **reported as a warning**, prefixed
+  "the plate map does not survive its own audit". It does **not** stop the protocol being written: the
+  file is still produced and `ExecutionResult.simulated_ok` can still be true, so a caller that ignores
+  `warnings` will happily pipette a map that failed its own arithmetic. Check them.
+  `TODO(final)`: make this a hard gate. It is a warning only because `plate.py` produces a failing audit
+  for any `dilution_factor` other than 2 (see the caveat below), and refusing those outright would have
+  been a behaviour change smuggled in with this branch.
+- `unimplemented_steps(template, ops)` names any **on-robot** verb the template asks for that the command
+  sequence does not perform. For `bacterial_mic_broth` this is empty. `TODO(final)`: the command order still
+  comes from `plate.py`'s hard-coded MIC sequence, so this reports the gap for other archetypes rather than
+  closing it — closing it means driving the order off the template's `steps` tree.
+
+`fit_deck` is the slot arithmetic: plates and tip racks compete for the same 11 slots and grow together, since
+each extra plate costs its own tips (14 tip columns at 10 concentrations, so about two racks). Four plates is
+the most that fits, and the reservoir is reserved first because it is never the thing to drop.
+
+### Running the simulator
+
+`opentrons` is **not** in `requirements.txt` on purpose — it would break everyone's numpy. It needs its own
+environment, and two separate ceilings get confused here:
+
+```sh
+python -m venv .venv-sim
+.venv-sim/bin/pip install -r execution/requirements-sim.txt
+.venv-sim/bin/opentrons_simulate execution/out/q001/protocol.py
+```
+
+- `opentrons` imports fail against **numpy ≥ 2** (`cannot import name 'trapz'`), so numpy is pinned below 2.
+- `opentrons` **10.x has dropped the OT-2 entirely** — it reports apiLevel 2.31 and then refuses to simulate an
+  OT-2 protocol at all. 8.8.2 is the newest release that still runs one, and its ceiling is **2.27**.
+
+`lab.yaml` records `api_level: "2.28"`, which is what the team's own protocol declares, and which no
+OT-2-capable simulator understands. `max_api_level()` returns the level we can both generate and check, the
+generator drops to it, and says so in a warning. `TODO(final)`: confirm the level from the robot itself.
+
+**One thing the generator cannot work around, and warns about instead.** An 8-channel pipette has no way to
+dispense into four of its eight channels: a command addressed at a column fills all eight wells of it. So a
+panel of two species at n=2 occupies rows A–D in the plate map while the robot also fills E–H. Those wells are
+not wrong — they hold the same series, so they are spare replicates — but they are liquid and tips nobody
+planned for, and a person reading the map would not expect them. The same fact is why the reagent estimate
+multiplies by every row of the plate rather than the rows the panel uses: a short panel costs as much medium as
+a full one. Panels that are a multiple of 8 rows avoid it entirely.
+
+## The whole chain, runnable today
+
+`generate.py` is the executable end of the contract `wwtn/schema.py` already described: proposals in,
+protocols out.
+
+```sh
+python -m execution.generate agent/out/run1.jsonl --out execution/out/run1 --simulate
+python -m execution.generate execution/examples/mic_selectivity.jsonl --simulate     # no API key needed
+```
+
+For each `ExperimentProposal` that proposes an experiment it writes `<out>/<question_id>/protocol.py` and
+`protocol_run_sheet.md`, and one `ExecutionResult` line into `<out>/results.jsonl`. A proposal the KB already
+answers produces nothing — there is no experiment to run. A proposal the lab cannot run produces no protocol
+either: `check_feasible`'s violations go into `error`, so the reason is recorded rather than a file that would
+fail on the robot.
+
+`execution/examples/mic_selectivity.jsonl` is a hand-written proposal for the four-species selectivity panel —
+*C. difficile*, *E. faecalis*, *B. fragilis*, *B. longum* at n=2, which is exactly 8 rows — topped at
+256 µg/mL. Ten two-fold steps from there reach 0.5, which sits above the commensals' censored ">128" and below
+a typical pathogen MIC, so **one ladder brackets both arms**; it has to, because every row of a plate shares the
+same series. 256 rather than a round 200 keeps every rung on the doubling ladder MICs are reported on. It exists
+because `agent/` needs `NEBIUS_API_KEY` and no machine here has one: this is how the rest of the chain gets
+exercised end to end in the meantime, and it does — the generated protocol simulates clean.
+
+## Two caveats this layer does not fix
+
+**A `dilution_factor` other than 2 produces a plate map that lies.** `plate.py:159` computes each well as
+`top / fold**(column-1)`, for any `fold`; the transfer plan at `plate.py:188` and the generated commands in
+`protocol.py` hard-code a **half-volume carry**, which is always 2-fold. At `dilution_factor=3` the map says
+27 µg/mL in A2 and the robot makes 40.5 — a 50% error in every concentration after the first, and `audit()`
+reports 27 disagreements for a 10-point series. `plate.py:185` likewise prints "compound at {fold}x" where it is
+always 2×. This is **pre-existing on `main`**, not introduced here, and nothing in the repo generates a non-2-fold
+MIC series today, so it is latent rather than live — but this is the layer that turns it into a file someone
+pipettes. `TODO(final)`: either make the carry volume follow `fold` (`carry = working/fold`), or refuse a
+`dilution_factor` the half-carry cannot produce.
+
+**Oxygen tolerance is not being checked for real.** A `PanelMember` left at the schema default
+`oxygen_tolerance="unknown"` is treated as an aerobe and passes `check_feasible` with **no violation and no
+warning about the assumption** — only the species that declare `strict anaerobe` are refused. So a panel assembled
+without that field set gets no protection at all, which is the wrong failure direction for a project about gut
+anaerobes. Deliberately left as-is for now (team decision, 2026-11-08: not a priority before the hackathon demo).
+`TODO(final)`: either warn on every `unknown`, or default the panel's tolerance from the biology KG instead of
+from an optimistic constant.
