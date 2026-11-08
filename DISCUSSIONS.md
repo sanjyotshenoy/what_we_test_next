@@ -260,3 +260,30 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   pinned "one potency template" loosened, since the protocol DB now has luminescence *and* TR-FRET). 191 tests pass.
 - Open: the one-dilution-step tolerance in the grader check is unreviewed; `integration` and `anchor-rule` still
   need merging into main.
+**Agent on the real graphs** (`agent-on-kg`, 2026-11-07).
+- Decided: the agent's tools run on `kg/query.py`. `agent/kg_backend.py` holds one `kg.query.KG` for both graphs
+  (loaded once) and everything graph-shaped; `agent/tools.py` only shapes results, so `agent/data/sample_kg` and
+  `kg/*/graph` go through the same code path. Tool names and the result shape (`summary`, `columns`, `rows`, detail
+  keys) are unchanged, so the trace format in [demo/README.md](demo/README.md) and the ouroboros repo still hold.
+- The four problems from "Merging kg-scaffolding": (1) `protocol_kg_templates` walks the target's class chain, so
+  templates on `chembl_class:1100` are found for a target that is `MEMBER_OF chembl_class:143`, and takes `target`
+  as well as `target_class`; `bio_kg_resolve` returns the whole chain and which classes carry templates. (2) Routing
+  is by `ANSWERS` edges (the sample KG's `question_type` prop reads the same way), normalised through aliases
+  (`cellular_activity` → `cellular_potency`); a type nothing answers returns **no** templates and says which types
+  do apply. (3) `bio_kg_analogs` computes RDKit Morgan r2 / 2048-bit Tanimoto between the query compound and the
+  compounds measured **on that target**, top-k with similarities plus `potency_summary` as the spread, fingerprints
+  cached per load; no usable structure falls back to the most potent compounds and says so. (4) The demo question is
+  now **CHEMBL5593141 × BTK** (`TODO(final)`: confirm with Seh Na's candidate list) — a structure-only candidate with
+  no IC50 edge, whose nearest BTK-measured analogs are BTK inhibitors at Tanimoto 0.53–0.60 (ibrutinib among them,
+  IC50 0.72–55 nM) against a target-wide n=1936, median 20 nM. The recorded traces in `demo/runs/` are untouched
+  (imatinib × KIT; they cannot be re-recorded without a key), so the page still has its fallback.
+- Also: `agent/compounds.py` resolves a compound the graph lacks (graph → local ChEMBL dump → ChEMBL REST API cached
+  in `data/raw/`), **structure fields only** — pulling activities from the live release would leak the benchmark's
+  held-out measurements — and the similarity then runs off that SMILES, so an unknown compound still gets ranked
+  analogs. `kb.lookup()` splits "I don't know" into `kind: no_measurement` vs `unresolved` for the benchmark's
+  abstain metric (an added field; `verdict` unchanged).
+- Tests: `agent/tests/` with a tiny fixture KG in the `kg/README.md` format, plus a stubbed-LLM run of the propose
+  loop and a smoke test against `kg/*/graph` that skips when absent; the suite makes no network calls
+  (`WWTN_OFFLINE`). `python -m pytest -q kg agent` → 97 passed, 1 skipped. `kg/query.py` was **not** changed.
+- Open: rerecord a demo trace for the new pair when a key is available; whether same-target RDKit analogs belong in
+  `kg/query.py` rather than the agent; gene symbols for the 19 seed kinases belong on the Target nodes (UniProt).
