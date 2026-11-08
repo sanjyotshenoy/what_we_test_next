@@ -19,3 +19,11 @@ edges individually. Node/edge inspection uses text rendering, not source HTML.
 Hiding an edge is a reversible, browser-memory-only exploration aid. It is not an
 evaluation split: alternate paths and duplicate evidence may still expose the fact.
 No held-out labels or scoring results are invented. Source caveats are displayed.
+
+## Benchmark tab
+
+`#cases` opens three draft cases with per-case reference-answer toggles. See
+[BENCHMARK.md](BENCHMARK.md) for the exact input contract, exclusions, scoring and
+limitations. Rebuild with `python3 -m slides.tools.prep_benchmark_cases`.
+The answers are public to anyone with this audit-page link, including in page
+source; only the separate `.input.json` packets are intended for model input.
