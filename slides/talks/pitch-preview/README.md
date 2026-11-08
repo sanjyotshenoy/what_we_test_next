@@ -6,7 +6,7 @@ Preview branch: `pitch-story-preview`. Entry: `index.html`. Six slides; technica
 
 | Time | Slide | Job |
 | --- | --- | --- |
-| 0:00–0:50 | Relatable question + gap | Three beats: community, compound/question, then “What experiment would answer this?” No survival outcome is shown. |
+| 0:00–0:50 | Relatable question + gap | Four beats: centered neutral plate; colors/labels and shift left; question with a hypothesized inhibitory connection and grey pathogen; “What experiment would answer this?” The grey state is hypothetical, not a measured outcome. |
 | 0:50–2:00 | Missing link | Reuse the accepted five-state bipartite animation; compound and strains are supplied. |
 | 2:00–3:00 | Grounded design | Select assay, adapt templates/examples, enforce compatibility. |
 | 3:00–4:15 | Hold-out pilot | Five models, three kinase/cell cases, provisional grades and one concrete inconsistency. |
