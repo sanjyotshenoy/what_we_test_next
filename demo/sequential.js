@@ -150,7 +150,6 @@
     for (const b of $('queries').querySelectorAll('button')) b.setAttribute('aria-pressed',String(Number(b.dataset.index)===index));
     advance();
   }
-  $('theme').onclick=()=>{const root=document.documentElement;root.dataset.theme=(root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))==='dark'?'light':'dark';};
   $('queries').onclick=e=>{const b=e.target.closest('button');if(b)start(Number(b.dataset.index));};
   function renderQueries() {
     stopTimer(); selected=null; stages=[]; cursor=0; paused=true;
