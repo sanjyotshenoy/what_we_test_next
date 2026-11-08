@@ -1,0 +1,13 @@
+organism,name,role,oxygen_tolerance,gram
+CHEMBL614411,Bacteroides fragilis,commensal,strict anaerobe,negative
+CHEMBL614412,Bacteroides thetaiotaomicron,commensal,strict anaerobe,negative
+CHEMBL613911,Bifidobacterium longum,commensal,strict anaerobe,positive
+CHEMBL614413,Parabacteroides distasonis,commensal,strict anaerobe,negative
+CHEMBL612622,Bacteroides uniformis,commensal,strict anaerobe,negative
+CHEMBL612692,Collinsella aerofaciens,commensal,strict anaerobe,positive
+CHEMBL352,Staphylococcus aureus,pathogen,facultative,positive
+CHEMBL354,Escherichia coli,pathogen,facultative,negative
+CHEMBL348,Pseudomonas aeruginosa,pathogen,aerobe,negative
+CHEMBL350,Klebsiella pneumoniae,pathogen,facultative,negative
+CHEMBL362,Enterococcus faecalis,pathogen,facultative,positive
+CHEMBL614965,Clostridioides difficile,pathogen,strict anaerobe,positive
