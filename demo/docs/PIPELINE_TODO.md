@@ -98,3 +98,14 @@ Screening/ranking integration (point 1), GNN work and its evaluation decisions,
 physical robot execution and additional assay families. Public read-only viewing and
 authenticated operator access are now configured; see the current handoff. This
 checklist does not authorize expanding the audience or exposing new endpoints.
+
+## Public access update — 2026-11-08
+
+The user subsequently authorized public operator-layout viewing plus live runs
+with a visitor-supplied Nebius key. `/sequential` remains intact. Public `/planner`
+is a separate bounded worker path, without saved/inherited Nebius credentials or
+private OpenCode access. Browser ownership, cancellation, key transport and 28
+affected regression tests passed. See MEMORY.md and the dated verification log.
+TODO(final): Rehearse this new public transport with a visitor-supplied key; no
+paid end-to-end public run has been claimed. Existing private operator credentials
+remain isolated and were not copied to the public path.
