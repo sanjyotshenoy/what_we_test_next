@@ -40,11 +40,35 @@ Deck.slide('pitch-demo', {interactive:true,
  frame.innerHTML=`<h2 class="deck-heading">Inspect the evidence, design and checks</h2><iframe class="pd-frame" src="../biohack/graph/index.html" title="Committed graph and benchmark case viewer"></iframe><div class="pd-links"><a href="../biohack/graph/index.html" target="_blank" rel="noopener">Case viewer ↗</a><a href="data/deepseek-case-2.output.json" target="_blank" rel="noopener">Recorded output ↗</a><a href="../biohack/evidence/run_sheet.md" target="_blank" rel="noopener">Separate MIC run sheet ↗</a></div><p class="deck-caption">Recorded case review · MIC execution example starts from a separate hand-written proposal · 3-minute demo</p>`;
  return{enter(){}};
  }});
-Deck.slide('pitch-close',{
- notes:'7:15–8:15. Close on what is demonstrated: sourced graph and protocol artifacts, recorded hold-out pilot responses and an independently simulated MIC execution example. The MIC graph still needs a MIC-aware agent path; the runtime must enforce compatibility and audit gates before compilation/execution. Next validate one connected MIC experiment and measure design quality and reviewer effort. Do not present the separate components as one autonomous completed workflow. 8:15–9:00 is available for natural transitions; keep the final minute of the ten-minute slot as recovery buffer. Open qa.html only if asked.',
+Deck.slide('pitch-close',{steps:3,
+ notes:'7:15–8:15. Return to the opening question. Beat 1: three demonstrated components—source-linked evidence, generated and reviewed proposals, and a separately simulated bacterial protocol. These are not one completed end-to-end bacterial run. Beat 2: the next proof is to connect and validate one bacterial question through proposal generation and checked execution. Enforce compatibility and audit gates; evaluate scientific design quality and researcher review effort. Beat 3: the intended researcher benefit is a proposed experiment whose evidence and design choices can be inspected; the researcher decides what to run. This benefit is the product aim, not a measured time saving. Full script: speaker-notes.html. Keep Q/A detail for questions.',
  mount(frame,{css}) {
- css(`.pc-body{position:absolute;left:7%;right:7%;top:21%;font-size:var(--t-body);line-height:1.4}.pc-body h3{font-size:var(--t-lead);color:var(--accent);margin:0 0 .5em}.pc-body p{margin:.5em 0 1.1em}.pc-link{color:var(--accent)}`);
- frame.innerHTML=`<h2 class="deck-heading">A research question → a justified experiment</h2><div class="pc-body"><h3>Built and demonstrated</h3><p>Source-linked evidence and protocol knowledge.<br>Recorded hold-out proposals with inspectable failures.<br>A separately generated MIC protocol that passed simulation.</p><h3>The next proof</h3><p>Connect MIC-aware retrieval to grounded design and enforced execution checks.<br>Measure design quality and researcher review effort.</p><p><strong>The researcher keeps the decision. The design carries its evidence.</strong></p></div><p class="deck-caption"><a class="pc-link" href="qa.html" target="_blank" rel="noopener">Q/A backup: methods, detailed results, graph construction and execution checks ↗</a></p>`;
- return{enter(){}};
+ css(`
+ .pc-content{position:absolute;left:7%;right:7%;top:19%;bottom:13%;}
+ .pc-eyebrow{font-size:var(--t-small);color:var(--muted);margin:0 0 1em;}
+ .pc-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:4%;}
+ .pc-proof div{border-top:2px solid var(--accent);padding-top:.65em;}
+ .pc-proof h3{font-size:var(--t-body);color:var(--fg);margin:0 0 .45em;}
+ .pc-proof p{font-size:var(--t-small);color:var(--muted);line-height:1.4;margin:0;}
+ .pc-next{position:absolute;top:48%;left:0;right:0;}
+ .pc-next strong{display:block;font-size:var(--t-small);color:var(--accent);margin-bottom:.4em;}
+ .pc-next p{font-size:var(--t-body);line-height:1.4;margin:0;}
+ .pc-benefit{position:absolute;top:76%;left:0;right:0;font-size:var(--t-lead);line-height:1.3;color:var(--accent);}
+ .pc-benefit small{display:block;font-size:var(--t-small);color:var(--fg);margin-top:.5em;}
+ .pc-link{color:var(--muted);}
+ `);
+ frame.innerHTML=`<h2 class="deck-heading">What should we test next?</h2>
+ <div class="pc-content">
+ <p class="pc-eyebrow">What we have demonstrated</p>
+ <div class="pc-proof">
+ <div><h3>Evidence with sources</h3><p>Biological measurements.<br>Protocol knowledge.</p></div>
+ <div><h3>Proposals reviewed</h3><p>Assay choice, steps<br>and parameters.</p></div>
+ <div><h3>Protocols simulated</h3><p>Separate bacterial example:<br>proposal → robot instructions.</p></div>
+ </div>
+ <div class="pc-next reveal-in" data-from="2"><strong>The next proof</strong><p>Connect and validate one bacterial question<br>through experiment design and checked execution.</p></div>
+ <div class="pc-benefit reveal-in" data-from="3">A proposed experiment you can understand and question.<small>The evidence and design choices are visible. The researcher decides what to run.</small></div>
+ </div>
+ <p class="deck-caption"><a class="pc-link" href="qa.html" target="_blank" rel="noopener">Q/A backup ↗</a></p>`;
+ return{enter(s,a){Deck.show(frame,s,a);}};
  }});
 }
