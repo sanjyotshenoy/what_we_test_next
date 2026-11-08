@@ -57,7 +57,6 @@ model is `NEBIUS_MODEL` in `.env`.
 **Live deck:** https://zhang-etal-biohack.pages.dev/
 
 - [Standalone Q/A](https://zhang-etal-biohack.pages.dev/talks/pitch-preview/qa.html)
-- [Speaker notes](https://zhang-etal-biohack.pages.dev/talks/pitch-preview/speaker-notes.html)
 
 The main URL opens the current pitch with the original slides appended as backup. The site is publicly
 accessible with search-engine indexing disabled; old long URLs remain supported. The combined deck is in

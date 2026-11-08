@@ -4,7 +4,6 @@ Main URL: https://zhang-etal-biohack.pages.dev/ — opens this combined deck. Or
 
 Preview branch: `slides-preview`. Entry: `index.html`. The original title slide opens the deck, followed by six pitch slides, a backup divider and the remaining nineteen original slides. Stop at the pitch close during the timed presentation; the standalone technical backup remains at `qa.html`. The existing main and question-prototype decks are unchanged.
 
-Presenter script: [speaker-notes.html](speaker-notes.html). Maintain it alongside slide changes; it holds spoken explanations, examples and Q/A caveats.
 
 ## Running order
 

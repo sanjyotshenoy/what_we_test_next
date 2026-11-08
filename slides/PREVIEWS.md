@@ -4,7 +4,6 @@ Push slide changes to `slides-preview` to deploy a shared review version. GitHub
 
 - Production: https://zhang-etal-biohack.pages.dev/
 - Standalone Q/A: https://zhang-etal-biohack.pages.dev/talks/pitch-preview/qa.html
-- Speaker notes: https://zhang-etal-biohack.pages.dev/talks/pitch-preview/speaker-notes.html
 - Original deck: https://zhang-etal-biohack.pages.dev/talks/biohack/
 
 The current deployment script publishes short paths and preserves legacy long URLs using `slides/.pages-prefix`. Search-engine indexing is disabled; these URLs are not authentication. After bringing the current deployment changes into `slides-preview`, its short entry URL is `https://slides-preview.zhang-etal-biohack.pages.dev/`. Older preview deployments retain their previous URL layout.
