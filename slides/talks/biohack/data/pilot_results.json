@@ -59,6 +59,18 @@
       "total": 2.35,
       "maximum": 6,
       "critical_failures": 19
+    },
+    {
+      "id": "astra-medium",
+      "name": "Astra medium*",
+      "axes": {
+        "suitability": 2.0,
+        "steps": 1.0,
+        "numerical_soundness": 1.1
+      },
+      "total": 4.1,
+      "maximum": 6,
+      "critical_failures": 0
     }
   ],
   "cases_per_model": 20,
@@ -69,6 +81,8 @@
   "new_generation_estimate_usd": 0.67468755,
   "unconfirmed_allowance_usd": 0.305636,
   "judge_usage": "Token counts and billing unavailable; no additional Nebius calls",
+  "extension_source_commit": "aff33ef",
+  "extension_caveat": "Astra generated and judged in fresh contexts; different serving settings and medium rather than low generation reasoning. Token/billing receipts unavailable.",
   "source_commit": "c1a0e32",
   "source_report": "https://github.com/sanjyotshenoy/what_we_test_next/blob/c1a0e32/benchmark/judge/RESULTS.md"
 }
