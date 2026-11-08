@@ -7,7 +7,7 @@
   const detail = (title, value) => `<details><summary>${esc(title)}</summary><pre>${esc(typeof value === 'string' ? value : JSON.stringify(value, null, 2))}</pre></details>`;
   const card = content => `<div class="card record">${content}</div>`;
   const paragraph = text => `<p>${esc(text)}</p>`;
-  let modelCatalog = {models: [], sessions: {}}, recordings = [], selected = null, stages = [], cursor = 0, timer = null, paused = false;
+  let gapExample = null, modelCatalog = {models: [], sessions: {}}, recordings = [], selected = null, stages = [], cursor = 0, timer = null, paused = false;
   const api = async path => { const r = await fetch(path); if (!r.ok) throw new Error(`Could not load saved results (${r.status}).`); return r.json(); };
   function stopTimer() { clearTimeout(timer); timer = null; }
   function schedule() {
@@ -15,7 +15,7 @@
     if (!paused && cursor < stages.length) timer = setTimeout(advance, 3500);
   }
   function controls() {
-    $('message').textContent = cursor >= stages.length ? 'Experiment plan and simulation results ready.' : `${paused ? 'Paused · ' : ''}${stages[Math.max(0, cursor - 1)]?.title || 'Preparing example'}`;
+    $('message').textContent = cursor >= stages.length ? (selected === 'gap' ? 'Missing-link example ready to inspect.' : 'Experiment plan and simulation results ready.') : `${paused ? 'Paused · ' : ''}${stages[Math.max(0, cursor - 1)]?.title || 'Preparing example'}`;
   }
   function collapseLongText(container) {
     for (const el of container.querySelectorAll('p, pre')) {
@@ -44,18 +44,46 @@
     if (cursor >= stages.length) return;
     const stage = stages[cursor++];
     const li = document.createElement('li'); li.className = 'stage';
-    li.innerHTML = `<h3>${esc(stage.title)}</h3>${stage.html}`;
-    collapseLongText(li);
-    $('timeline').append(li); controls(); schedule();
+    li.innerHTML = `<h3 class="shine">${esc(stage.title)}</h3><div class="processing" aria-label="Processing step"><i></i><i></i><i></i></div>`;
+    $('timeline').append(li); controls();
     li.style.scrollMarginTop = '16px';
     li.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start'});
+    timer = setTimeout(() => {
+      li.innerHTML = `<h3>${esc(stage.title)}</h3>${stage.html}`;
+      collapseLongText(li); controls(); schedule();
+    }, cursor === 1 ? 0 : 1100);
   }
+  function plateVisual(plate, run) {
+    if (!plate?.design?.wells) return '';
+    const unit=plate.unit || plate.design.unit || '';
+    let cells='<span></span>'+Array.from({length:12},(_,i)=>`<span>${i+1}</span>`).join('');
+    for (const row of 'ABCDEFGH') {
+      cells+=`<span>${row}</span>`;
+      for(let col=1;col<=12;col++) {
+        const w=plate.design.wells.find(w=>w.row===row&&w.column===col);
+        const role=w?.role || 'empty', value=w?.final_concentration ?? w?.final_uM;
+        const surplus=(run.allocation?.surplus_rows || '').includes(row);
+        const label=`${row}${col} · ${role} · ${value ?? '—'} ${unit} · ${w?.volume_uL ?? '—'} µL${surplus?' · surplus technical well':''}`;
+        const kind=role.includes('growth')?'growth':role.includes('steril')?'sterility':role==='sample'?'sample':'empty';
+        cells+=`<button type="button" class="plate-well ${kind}${surplus?' surplus':''}" style="--shade:${Math.round(25+55*(col-1)/9)}%" title="${esc(label)}" aria-label="${esc(label)}" data-well="${esc(label)}">${kind==='growth'?'G':kind==='sterility'?'S':''}</button>`;
+      }
+    }
+    return `<section class="plate-visual"><h4>96-well plate · ${esc(run.run_id)}</h4><div class="well-grid">${cells}</div><p class="muted">Dilution series → · G growth control · S sterility control · dashed: surplus wells</p><p class="well-info" role="status">Select a well to inspect its concentration and volume.</p></section>`;
+  }
+  function graphVisual(compound, target, neighbors, missing=false) {
+    const nodes=neighbors.slice(0,5), height=140+nodes.length*62;
+    const targetY=height/2;
+    const box=(x,y,label)=>`<rect x="${x}" y="${y-20}" width="180" height="40" rx="10"/><text x="${x+90}" y="${y+5}" text-anchor="middle">${esc(label)}</text>`;
+    const edge=(y,label,gap=false)=>`<path class="${gap?'gap-edge':''}" d="M200 ${y} C280 ${y}, 320 ${targetY}, 400 ${targetY}"/><text class="edge-label" x="280" y="${y-8}">${esc(label)}</text>`;
+    return `<div class="evidence-graph"><svg viewBox="0 0 610 ${height}" role="img" aria-label="${esc(missing?'Masked query link with retained measurements':'Retrieved compound and organism evidence')}">${edge(55,missing?'Held out':'Known MIC evidence',missing)}${nodes.map((n,i)=>edge(130+i*62,n.label)).join('')}${box(20,55,compound)}${nodes.map((n,i)=>box(20,130+i*62,n.name)).join('')}${box(400,targetY,target)}</svg><p class="muted">${missing?'Dashed edge: deliberately masked in this benchmark example. Solid edges: retained measurements, not predicted potency.':'Solid edge: retrieved measurements exist for this pair; this is not a missing-link claim.'}</p></div>`;
+  }
+
   function evidenceSummary(e) {
     const r = e.result || {};
     if (e.tool === 'planning_context') return paragraph(r.template?.purpose || 'Saved protocol context and compiler capabilities loaded.');
     if (e.tool === 'literature_search') return (r.papers || []).map(p=>paragraph(`${p.document_id}: ${p.title}`)).join('') + paragraph(r.note || '');
     if (e.tool === 'literature_read') return paragraph(r.passage || r.note || '');
-    if (e.tool === 'biology_lookup') return paragraph([...(r.compound_matches || []), ...(r.species_matches || [])].map(x=>`${x.name} (${x.id})`).join(' → ')) +
+    if (e.tool === 'biology_lookup') return graphVisual(r.compound_matches?.[0]?.name || 'Compound', r.species_matches?.[0]?.name || 'Organism', [], false) + paragraph([...(r.compound_matches || []), ...(r.species_matches || [])].map(x=>`${x.name} (${x.id})`).join(' → ')) +
       (r.measurements || []).map(m=>paragraph(`MIC ${m.props?.relation || ''} ${m.props?.mic} ${m.props?.unit} · assay ${m.props?.assay} · document ${m.props?.document}`)).join('') +
       paragraph(`Showing ${r.measurements?.length || 0} saved measurements; ${r.total_measurements ?? 'unknown'} total matches. Original units preserved; these values are background evidence, not chosen assay settings.`);
     return '';
@@ -85,7 +113,7 @@
       for (const run of m.runs || []) {
         const snapshot = b.runs.find(r=>r.run_id===run.run_id);
         const base = `/api/artifacts/${encodeURIComponent(data.session)}/${encodeURIComponent(m.batch_id)}/${encodeURIComponent(run.run_id)}/`;
-        out.push({title:`Compile ${run.run_id} · ${run.compound} / ${run.species?.name || ''}`,html:card(paragraph('A separate OT-2 protocol was generated for this compound–species pair.') + `<p><a href="${base}protocol.py">Download protocol</a> · <a href="${base}run_sheet.md">Run sheet</a> · <a href="${base}plate.json">Plate map</a></p>` + detail('Sources and well layout',{sources:snapshot?.sources,plate:snapshot?.plate}) + detail('Compiler warnings',run.warnings || []))});
+        out.push({title:`Compile ${run.run_id} · ${run.compound} / ${run.species?.name || ''}`,html:card(plateVisual(snapshot?.plate,run) + paragraph('A separate OT-2 protocol was generated for this compound–species pair.') + `<p><a href="${base}protocol.py">Download protocol</a> · <a href="${base}run_sheet.md">Run sheet</a> · <a href="${base}plate.json">Plate map</a></p>` + detail('Sources and well layout',{sources:snapshot?.sources,plate:snapshot?.plate}) + detail('Compiler warnings',run.warnings || []))});
         const pass = !!snapshot?.simulation && run.simulation?.status === 'passed';
         out.push({title:`Simulator result · ${run.run_id}`,html:card(`<p class="${pass ? 'ok' : 'bad'}">${pass ? 'Saved simulation passed (protocol hash verified by the viewer).' : 'No verified simulation pass available.'}</p>` + detail('Saved simulator report',snapshot?.simulation || run.simulation) + paragraph('No physical execution or biological outcome is implied.'))});
       }
@@ -115,8 +143,24 @@
     $('message').textContent=visible.length?'Choose an example query to see the workflow.':'Trajectories for this model have not been precomputed and published yet.';
   }
   $('llm').onchange=renderQueries;
+  $('timeline').onclick=e=>{
+    const well=e.target.closest('[data-well]');
+    if(well) well.closest('.plate-visual').querySelector('.well-info').textContent=well.dataset.well;
+  };
+  $('gap-example').onclick=()=>{
+    if(!gapExample)return;
+    stopTimer(); selected='gap'; cursor=0; paused=false; $('timeline').replaceChildren();
+    for(const b of $('queries').querySelectorAll('button'))b.setAttribute('aria-pressed','false');
+    $('provenance').textContent='Missing-link benchmark input · separate from the MIC model trajectories · draft case for review';
+    stages=[{title:'Scientist’s query',html:card(paragraph(gapExample.question))},
+      {title:'Find the missing link',html:card(graphVisual('CHEMBL4278808','Haspin · Q8TF76',gapExample.retained_measurement_examples.map(m=>({name:m.compound,label:`${m.ic50_nM} nM`})),true))},
+      {title:'Inspect neighboring evidence',html:card(paragraph(gapExample.retrieval_note)+detail('Retained measurements and sources',gapExample.retained_measurement_examples))},
+      {title:'Define the experiment needed',html:card(paragraph('Measure biochemical inhibition with a concentration-response experiment. The held-out query potency is not supplied; neighboring measurements are context, not an answer.')+detail('Experiment design input',gapExample.output_contract)+paragraph('This graph example has no attached model trajectory or OT-2 simulation.'))}];
+    advance();
+  };
   (async()=>{
     try {
+      gapExample=await api('/sequential-assets/sequential-gap.json');
       const sessions=await api('/api/planning/sessions');
       recordings=await Promise.all(sessions.map(s=>api(`/api/planning?session=${encodeURIComponent(s.session)}`)));
       recordings=recordings.filter(r=>r.batches?.length);

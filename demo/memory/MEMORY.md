@@ -121,3 +121,11 @@ First sequential milestone is now Scientist’s query: a concise request reconst
 from the saved compound, assay and panel, with supplied experiment inputs expandable.
 Removed introductory explanatory copy and About this example. This is a display
 summary of saved inputs, not a claim to quote the original user prompt verbatim.
+
+Visual additions: xymol.ai-style text shimmer and processing dots between steps;
+interactive 96-well maps from each generated plate artifact, retaining control roles
+and surplus-row accounting; known-evidence diagrams for MIC graph lookups. Separate
+haspin missing-link example copies only the existing benchmark input packet (case 1),
+labels its edge as deliberately masked, and does not imply a MIC trajectory or a
+new model/simulator result. No held-out answer is imported. Source remains in slides;
+all new code/data stays in demo/.
