@@ -7,6 +7,7 @@
   function activate(index){tabs.forEach((t,i)=>{t.setAttribute('aria-selected',String(i===index));t.tabIndex=i===index?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=i!==index;});history.replaceState(null,'',index?'#cases':'#graph');}
   tabs.forEach((t,i)=>{t.onclick=()=>activate(i);t.onkeydown=e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const n=e.key==='Home'?0:e.key==='End'?1:1-i;activate(n);tabs[n].focus();}};});
   if(location.hash==='#cases')activate(1);
+  tabs[1].textContent = `Benchmark cases · ${window.BENCHMARK_CASES.length}`;
   const host=document.getElementById('case-cards');
   for(const c of window.BENCHMARK_CASES){
     const article=el('article',null,host);article.className='case-card';
