@@ -91,3 +91,7 @@ remain the original static/agent.server entry point; the OpenCode planner is ser
 on port 7100 by its own launcher. These are explicit alternatives, not two loops
 running for one question. The planner's `/legacy` page uses the legacy `stage` agent
 only when launched with `STAGE_AGENT=stage`; the default is `planner`.
+
+For public-access preparation and the private-operator/read-only-viewer boundary,
+see [deployment notes](deploy/README.md). The current operator interface is shared
+and must not be published as a multi-user application.

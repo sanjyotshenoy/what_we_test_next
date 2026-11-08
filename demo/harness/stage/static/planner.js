@@ -6,6 +6,16 @@ const api = async (path, body) => {
   if (!response.ok) throw Error((await response.text()).slice(0,500))
   return response.json()
 }
+const health = await api('/api/health')
+const viewer = health.read_only === true
+if (viewer) {
+  saved = health.default_session
+  document.querySelector('.composer').hidden = true
+  $('keys').hidden = true; $('model').closest('label').hidden = true
+  document.querySelector('footer a').hidden = true
+  $('connection').textContent = 'Published results · view only'
+  $('activity').textContent = 'Inspect published evidence and simulation artifacts. Running new experiments requires operator access.'
+}
 const alert = message => { $('alert').textContent = message; $('alert').hidden = !message }
 const guard = fn => async (...args) => { try { await fn(...args) } catch (e) { alert(e.message) } }
 const badge = (text, status) => `<span class="badge ${['failed','error','rejected','stale','timeout'].includes(status)?'error':status==='passed'||status==='simulated'?'':'neutral'}">${esc(text)}</span>`
@@ -97,7 +107,7 @@ async function refresh() {
 }
 async function loadSessions() {
   const sessions=await api('/api/planning/sessions')
-  $('saved').innerHTML='<option value="">Current live session</option>'+sessions.map(s=>`<option value="${esc(s.session)}">${esc(s.session)} · ${s.run_count} runs · saved</option>`).join('')
+  $('saved').innerHTML=(viewer?'':'<option value="">Current live session</option>')+sessions.map(s=>`<option value="${esc(s.session)}">${esc(s.session)} · ${s.run_count} runs · saved</option>`).join('')
   $('saved').value=saved
 }
 $('saved').onchange=guard(async e=>{
@@ -122,6 +132,7 @@ $('key-form').onsubmit=async e=>{
   try {await api('/api/keys',{name:$('key-name').value||$('key-profile').value,key:$('key-value').value,save:true});$('key-value').value='';$('key-dialog').close();lastSnapshot='';lastActivity='';await refresh()}
   catch(e){$('key-error').textContent=e.message}
 }
+if (!viewer) {
 const events=new EventSource('/api/stream')
 events.onmessage=e=>{
   const data=JSON.parse(e.data)
@@ -136,6 +147,7 @@ events.onmessage=e=>{
   if(data.type==='reset'){lastSnapshot='';lastActivity='';refresh()}
 }
 events.onerror=()=>{$('connection').textContent='Reconnecting';$('connection').className='badge warning'}
+}
 await guard(async()=>{
   const data=await api('/api/models')
   $('model').innerHTML=data.models.map(m=>`<option value="${esc(m.providerID+'/'+m.modelID)}" ${m.providerID===data.current.providerID&&m.modelID===data.current.modelID?'selected':''}>${esc(m.name)}</option>`).join('')

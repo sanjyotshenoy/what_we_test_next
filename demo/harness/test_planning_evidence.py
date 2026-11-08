@@ -13,6 +13,12 @@ CLIENT_SPEC = PaperclipClient(auth=Mock(), base_url='https://example.invalid')
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_malformed_context_arguments_are_actionable_without_echoing_values(self):
+        with patch('demo.harness.budget.consume'), patch.object(evidence, 'planning_context'):
+            with self.assertRaisesRegex(ValueError, r'none; use \{\}') as caught:
+                evidence.run('planning_context', {'': {'private': 'do-not-echo'}}, 'test')
+            self.assertNotIn('do-not-echo', str(caught.exception))
+
     def test_invalid_requests_do_not_reach_service(self):
         with patch.object(evidence, 'client') as client:
             for args in [('../private/credentials.json', 1, 10), ('PMC1', 1, 100), ('PMC1', 0, 2)]:

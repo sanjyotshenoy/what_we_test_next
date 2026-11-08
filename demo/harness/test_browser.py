@@ -13,6 +13,49 @@ from demo.harness.paths import ROOT, DEMO
 
 
 class BrowserTests(unittest.TestCase):
+    def test_public_view_hides_controls_and_loads_only_published_results(self):
+        with socket.socket() as sock:
+            sock.bind(('127.0.0.1', 0)); port = sock.getsockname()[1]
+        with tempfile.TemporaryDirectory() as directory, tempfile.TemporaryFile() as logs:
+            published = Path(directory) / 'sessions.json'
+            published.write_text('["ses_e46864406ffeAYxrmbT9XhIE2G"]')
+            process = subprocess.Popen([sys.executable, '-m', 'demo.harness.stage.public_view'], cwd=ROOT,
+                env={**os.environ, 'DEMO_REPLAY': '1', 'PUBLIC_VIEW_PORT': str(port),
+                     'DEMO_PUBLISHED_SESSIONS_FILE': str(published)}, stdout=logs, stderr=logs)
+            try:
+                url = f'http://127.0.0.1:{port}'
+                for _ in range(50):
+                    if process.poll() is not None:
+                        self.fail('Public viewer exited during startup')
+                    try:
+                        urllib.request.urlopen(url + '/api/health', timeout=1); break
+                    except OSError:
+                        time.sleep(.1)
+                with sync_playwright() as playwright:
+                    browser = playwright.chromium.launch(headless=True, args=['--no-sandbox'])
+                    try:
+                        page = browser.new_page(viewport={'width': 390, 'height': 844})
+                        errors, failures = [], []
+                        page.on('pageerror', lambda e: errors.append(str(e)))
+                        page.on('response', lambda r: failures.append(r.status) if r.status >= 400 else None)
+                        page.goto(url)
+                        page.wait_for_selector('.well')
+                        self.assertEqual(page.locator('.well').count(), 96)
+                        self.assertFalse(page.locator('.composer').is_visible())
+                        self.assertFalse(page.locator('#keys').is_visible())
+                        self.assertFalse(page.locator('#model').is_visible())
+                        self.assertEqual(page.locator('#saved option').count(), 1)
+                        self.assertIn('view only', page.locator('#connection').inner_text())
+                        self.assertFalse(page.evaluate('document.documentElement.scrollWidth > innerWidth'))
+                        self.assertEqual(errors, [])
+                        self.assertEqual(failures, [])
+                    finally:
+                        browser.close()
+            finally:
+                process.terminate()
+                try: process.wait(timeout=10)
+                except subprocess.TimeoutExpired: process.kill(); process.wait()
+
     def test_replay_desktop_mobile_downloads_and_slide_entry(self):
         with socket.socket() as sock:
             sock.bind(('127.0.0.1',0)); port=sock.getsockname()[1]

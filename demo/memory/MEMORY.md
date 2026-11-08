@@ -20,3 +20,15 @@ The user confirmed keeping the synthetic 2×2 case for now. A reviewed real comp
 strain question remains pending. No live credentials were copied into the migration.
 Fresh autonomous rehearsal requires configuring Nebius and Paperclip in this runtime.
 Local Qwen, GPU work, physical robot execution and publication remain outside this turn.
+
+## Public-readiness work (2026-11-08)
+
+Development branch: `demo/public-readiness`. A separate loopback results viewer
+allows only explicitly published sessions and read-only routes; the operator remains
+private. HTTPS/basic-auth proxy configuration and private systemd unit installer
+are in `deploy/`. See `deploy/README.md` for pending publication requirements.
+
+First fresh Brev autonomous rehearsal `ses_e45b4eb34ffe2R79o5bUaLd52M` retrieved
+literature but failed: malformed context arguments, rejected proposals, then a
+provider JSON parse error. No compiled batch or successful autonomy is claimed.
+Argument errors and planner instructions have been clarified for a bounded rerun.

@@ -3,6 +3,10 @@ Given supplied compounds and species, propose checkable experiments. Multiple
 compounds and species are in scope, e.g. a 3 × 3 design. Screening is upstream.
 
 Use planning_context to read the team's source-backed MIC template and lab facts.
+Its argument object is exactly {} (no fields, including no empty-string field).
+Do not submit a design until planning_context has returned its submission_schema
+successfully in this session. For a malformed tool argument, correct the argument
+within the existing attempt budget; never guess the missing schema.
 Call exactly one tool per turn and wait for its result before choosing the next.
 Use literature_search (at most 3 searches, at most 5 results each) to find relevant
 papers, then literature_read (at most 6 passages) to inspect actual source text.
@@ -33,6 +37,9 @@ not column numbers. The compiler assigns the physical column numbers itself.
 Use unknown for
 unknown roles/tolerance. If evidence or inputs cannot support a parameter, put the
 gap in open_questions and mark the design incomplete rather than guessing a value.
+citations is a list of evidence-ID strings, never objects or search result IDs.
+Use exactly template_id "proto:bacterial_mic_broth". Evidence-link field names
+are top-level experiment fields, including "panel" and "layout", not dotted paths.
 Do not claim a measurement has been established simply because a proposal exists.
 
 One proposed experiment per compound, sharing the intended species panel, keeps

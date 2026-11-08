@@ -1,0 +1,9 @@
+# Dedicated hostname with DNS pointing to this VM. Never proxy the operator ports.
+# Missing hostname/hash must be resolved before validating or starting Caddy.
+{$DEMO_HOSTNAME} {
+    basic_auth {
+        judge {$DEMO_VIEWER_PASSWORD_HASH}
+    }
+    header Strict-Transport-Security "max-age=31536000"
+    reverse_proxy 127.0.0.1:7200
+}

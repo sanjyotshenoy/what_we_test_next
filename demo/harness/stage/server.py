@@ -63,7 +63,7 @@ async def oc(method: str, path: str, body=None, timeout=30):
         async with s.request(method, OC_URL + path, json=body, timeout=aiohttp.ClientTimeout(total=timeout)) as r:
             text = await r.text()
             if r.status >= 400:
-                raise web.HTTPBadGateway(text=f"OpenCode {method} {path}: {r.status} {text[:300]}")
+                raise web.HTTPBadGateway(text="Planner backend request failed.")
             return json.loads(text) if text else None
 
 
@@ -95,7 +95,7 @@ async def oc_events():
                         hub.send({"type": "oc", "event": ev})
         except Exception as e:  # noqa: BLE001 - reconnect on anything
             if hub.oc_ok:
-                hub.send({"type": "status", "opencode": False, "error": repr(e)[:200]})
+                hub.send({"type": "status", "opencode": False, "error": "Planner connection unavailable"})
             hub.oc_ok = False
         await asyncio.sleep(backoff)
         backoff = min(backoff * 2, 10)
@@ -169,7 +169,7 @@ async def api_stream(request):
     resp = web.StreamResponse(headers={"Content-Type": "text/event-stream", "Cache-Control": "no-cache",
                                        "X-Accel-Buffering": "no"})
     await resp.prepare(request)
-    q: asyncio.Queue = asyncio.Queue()
+    q: asyncio.Queue = asyncio.Queue(maxsize=1000)
     hub.clients.add(q)
     try:
         hello = {"type": "hello", "opencode": hub.oc_ok, "session": hub.session_id, "model": hub.model,
@@ -190,9 +190,13 @@ async def api_stream(request):
 
 async def api_prompt(request):
     body = await request.json()
-    text = (body.get("text") or "").strip()
+    if not isinstance(body, dict) or not isinstance(body.get('text'), str):
+        raise web.HTTPBadRequest(text='A text prompt is required')
+    text = body['text'].strip()
     if not text:
         raise web.HTTPBadRequest(text="empty prompt")
+    if len(text) > 10000:
+        raise web.HTTPBadRequest(text='Prompt must be at most 10,000 characters')
     sid = await ensure_session()
     await oc("POST", f"/session/{sid}/prompt_async",
              {"agent": AGENT, "model": hub.model, "parts": [{"type": "text", "text": text}]})
@@ -351,6 +355,8 @@ async def on_start(app):
 
 def bind_hosts() -> list[str]:
     hosts = ["127.0.0.1"]
+    if os.environ.get('STAGE_LOOPBACK_ONLY') == '1':
+        return hosts
     try:
         ts = subprocess.run(["tailscale", "ip", "-4"], capture_output=True, text=True, timeout=5).stdout.split()
         hosts += ts[:1]
@@ -367,7 +373,7 @@ async def replay_read_only(request, handler):
 
 
 def make_app():
-    app = web.Application(middlewares=[replay_read_only])
+    app = web.Application(middlewares=[replay_read_only], client_max_size=64 * 1024)
     app.add_routes([
         web.get("/", index),
         web.get("/legacy", index),

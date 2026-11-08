@@ -5,6 +5,7 @@ Only passages actually returned carry evidence IDs. Saved artifacts are scoped
 by OpenCode session; they contain source material, never authentication headers.
 """
 import hashlib
+import inspect
 import json
 import os
 from pathlib import Path
@@ -120,6 +121,14 @@ def run(name, args, session):
     from demo.harness.budget import consume
     if name in TOOLS and name in ("planning_context", "literature_search", "literature_read", "biology_lookup"):
         consume(name, session)
+    if name not in TOOLS or not isinstance(args, dict):
+        raise ValueError('Expected a known evidence tool and a JSON object of arguments')
+    try:
+        inspect.signature(TOOLS[name]).bind(**args)
+    except TypeError:
+        # Never echo supplied values: they may contain credentials or source text.
+        expected = ', '.join(inspect.signature(TOOLS[name]).parameters) or 'none; use {}'
+        raise ValueError(f'Invalid arguments for {name}. Accepted fields: {expected}') from None
     result = TOOLS[name](**args)
     record = {'tool': name, 'args': args, 'result': result, 'mode': 'demo',
               'retrieved_at': datetime.now(timezone.utc).isoformat()}
