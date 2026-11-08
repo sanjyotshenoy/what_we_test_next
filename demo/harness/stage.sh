@@ -17,11 +17,13 @@ case "${1:-}" in
   tmux new-session -d -s "$S" -n opencode -c "$DEMO" "$command"
   ready=false
   for i in $(seq 1 30); do
-    if curl -fsS -o /dev/null -m 1 "http://127.0.0.1:$OCP/global/health" 2>/dev/null; then ready=true; break; fi
+    if [ -s "$H/opencode/private/server_password" ] &&
+       printf 'user = "opencode:%s"\n' "$(cat "$H/opencode/private/server_password")" |
+       curl --config - -fsS -o /dev/null -m 1 "http://127.0.0.1:$OCP/global/health" 2>/dev/null; then ready=true; break; fi
     sleep 1
   done
   if [ "$ready" != true ]; then tmux kill-session -t "$S" 2>/dev/null || true; echo 'OpenCode did not become ready; run its launcher in foreground' >&2; exit 1; fi
-  printf -v command 'OPENCODE_PORT=%q STAGE_PORT=%q %q -m demo.harness.stage.server' "$OCP" "$PORT" "$DEMO/.venv/bin/python"
+  printf -v command 'OPENCODE_PORT=%q STAGE_PORT=%q STAGE_AGENT=%q HARNESS_NEBIUS_MODEL=%q %q -m demo.harness.stage.server' "$OCP" "$PORT" "${STAGE_AGENT:-planner}" "${HARNESS_NEBIUS_MODEL:-openai/gpt-oss-120b}" "$DEMO/.venv/bin/python"
   tmux new-window -t "$S" -n stage -c "$ROOT" "$command"
   echo "Planner: http://127.0.0.1:$PORT/ ; logs: tmux attach -t $S"
   ;;
