@@ -5,8 +5,12 @@ __pycache__/
 data/raw/
 out/
 
-# screening/: regenerable or too big to commit. The gzipped matrix, the SMILES cache and the
-# species table ARE committed; these are the files you can rebuild from them (see screening/README.md).
-screening/data/mic_matrix.csv
-screening/data/mic_matrix.part*
-screening/data/ecfp4.npz
+# screening/: NO data is committed, on purpose - screening/ ships as the plumbing and the plan, and the
+# matrix is built on the machine that has the ChEMBL dump (see screening/README.md). The generated
+# splits and results are not committed either, because they are cut from that matrix.
+screening/data/*
+!screening/data/.gitkeep
+screening/splits/*
+!screening/splits/.gitkeep
+screening/results/*
+!screening/results/.gitkeep

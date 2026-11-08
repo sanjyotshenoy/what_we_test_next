@@ -1,22 +1,26 @@
 """Every MIC activity in ChEMBL as one long table: screening/data/mic_matrix.csv.
 
-    python -m screening.fetch_mic                     # local SQLite dump if there is one, else the REST API
-    python -m screening.fetch_mic --source rest       # force the REST pull (~45 min over 6 sharded streams)
-    python -m screening.fetch_mic --sqlite <path>     # force the local dump at that path (seconds)
+    python -m screening.fetch_mic                     # local ChEMBL 37 dump if there is one, else the REST API
+    python -m screening.fetch_mic --sqlite <path>     # the dump at that path: one query, seconds (PREFERRED)
+    python -m screening.fetch_mic --source rest       # the fallback: ~45 min over 6 sharded REST streams
     python -m screening.fetch_mic --limit-pages 3     # REST only: a taste of it (3 x 1000 rows per shard)
     python -m screening.fetch_mic --restart           # REST only: throw away saved progress and start over
 
 One row per (compound, species, measurement), which is the long form of the compound x species MIC matrix the
 screening stage learns on.
 
-**Two sources for the same table.** A local ChEMBL SQLite dump answers the whole thing in one query and brings the
-SMILES with it, which also replaces the ~116k molecule lookups features.py would otherwise make; the REST API
-needs no 30 GB download. `--source auto` (the default) prefers the dump when one is present. The committed CSV was
-produced by the **REST** path - see screening/README.md, which records when.
+**The local SQLite dump is the route to use.** It answers the whole table in one query, brings canonical SMILES
+and molecular weights with it (so it also replaces the ~116k molecule lookups features.py would otherwise make),
+takes seconds rather than 45 minutes, and is reproducible - the same dump gives the same table forever. The REST
+path is the **fallback**, for a machine where downloading 5.8 GB (30 GB unpacked) is not worth it.
+`--source auto` (the default) uses the dump when one is present and falls back to REST when not.
 
 The dump is the same one kg/biology/chembl_db.py uses, at the same path and honouring the same `CHEMBL_SQLITE`
-environment variable, and pinned to the same release (**ChEMBL 37**): "latest" would shift the counts and the
-committed splits would stop being comparable.
+environment variable, and pinned to the same release (**ChEMBL 37**): "latest" would shift the counts, and the
+splits cut from the matrix would stop being comparable between machines.
+
+**No matrix is committed to this repo** (screening/README.md says why), so this script has to be run before
+anything else in the folder works.
 
 The REST endpoint answers a page of 1000 in ~8s whatever the offset, so one stream would take ~2h for 799 pages. The
 offset range is therefore cut into `--workers` contiguous **shards**, each written to its own part file and

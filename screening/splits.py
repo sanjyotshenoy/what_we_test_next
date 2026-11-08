@@ -1,19 +1,23 @@
 """The committed train/val/test splits over the MIC matrix, and the loader everything downstream must use.
 
-    python -m screening.splits                      # regenerate both split files from screening/data/mic_matrix.csv
-    python -m screening.splits --show               # what is in the committed files
+    python -m screening.splits                      # write both split files from screening/data/mic_matrix.csv
+    python -m screening.splits --show               # what is in the split files
 
     from screening.splits import Split, load_matrix
     split = Split.load("cold_compound")
     frame = load_matrix()
     train = split.subset(frame, "train")            # rows whose compound is in the train fold
 
-**These files are the artifact, not the code that makes them.** A split generated per machine, even from the same
-seed, drifts the moment pandas, Python's hash or the matrix changes by a row, and then two people's numbers are no
-longer comparable. So `screening/splits/*.json` carry the **explicit ID lists** and are committed; nothing
-downstream may re-randomise. Regenerating them is a deliberate act that changes every number in the repo, so the
-files record the seed, the matrix row count and its sha256 - a mismatch is a warning, not a crash, because the
-matrix grows whenever someone re-runs fetch_mic.py and the old split is still the one the published numbers used.
+**These files are the artifact, not the code that makes them.** A split regenerated per machine, even from the
+same seed, drifts the moment pandas, Python's hash or the matrix changes by a row, and then two people's numbers
+are no longer comparable. So each file carries the **explicit ID lists**, and whoever first builds the matrix
+should generate them **once** and share them; nothing downstream may re-randomise. Each file records the seed, the
+scoped row count and the matrix's sha256, so a mismatch is caught - as a warning, not a crash, because the matrix
+changes whenever someone re-runs fetch_mic.py against a newer ChEMBL and the older split is still the one that any
+published number was measured on.
+
+Nothing in `screening/splits/` is committed today, because the matrix it would be cut from is not in the repo
+either - see screening/README.md.
 
 Two split kinds, because the screening stage has two different generalisation questions:
 
@@ -200,8 +204,18 @@ def cold_compound(frame: pd.DataFrame, path: Path = DATA, seed: int = SEED,
             "ids": ids}
 
 
-def choose_holdouts(frame: pd.DataFrame, n_extra: int = 3, min_rows: int = 150,
-                    min_compounds: int = 60) -> tuple[list[str], list[dict]]:
+def bacteria(table: pd.DataFrame | None) -> set[str] | None:
+    """The species in a `features.species_features()` table that ChEMBL classifies as Bacteria, or None.
+
+    None means "no taxonomy was supplied", which the callers treat as "do not filter by kingdom" and record.
+    """
+    if table is None or "chembl_l1" not in table.columns:
+        return None
+    return set(table.loc[table["chembl_l1"] == "Bacteria", "species"])
+
+
+def choose_holdouts(frame: pd.DataFrame, n_extra: int = 3, min_rows: int = 150, min_compounds: int = 60,
+                    only: set[str] | None = None) -> tuple[list[str], list[dict]]:
     """Species to hold out as cold_species test: the required ones plus `n_extra` chosen from the data.
 
     "Enough data to be measurable" is the whole constraint. A held-out species with 9 measurements gives a Spearman
@@ -210,6 +224,11 @@ def choose_holdouts(frame: pd.DataFrame, n_extra: int = 3, min_rows: int = 150,
     holding out Staphylococcus aureus would remove a tenth of the training data and measure generalisation to a
     species unlike anything left, while a mid-sized species leaves the training pool intact and is the realistic
     case - a species somebody has looked at a little, which is what a new panel member looks like.
+
+    `only` restricts the extras to a set of species - in practice `bacteria(species_features())`. It matters: run
+    without it on the real matrix, the mid-sized band is full of *fungi* (Penicillium chrysogenum, Lichtheimia
+    corymbifera, Trichoderma viride), because ChEMBL's MIC rows include antifungal assays. Holding those out would
+    measure generalisation across kingdoms, which is not the question this stage asks.
     """
     per_species = frame.groupby("species").agg(rows=("value", "size"),
                                                compounds=("molecule_chembl_id", "nunique")).sort_values("rows")
@@ -222,6 +241,8 @@ def choose_holdouts(frame: pd.DataFrame, n_extra: int = 3, min_rows: int = 150,
                                  "commensal-sparing question is about. Sparse on purpose - this is the hard case."})
     eligible = per_species[(per_species["rows"] >= min_rows) & (per_species["compounds"] >= min_compounds)]
     eligible = eligible.drop(index=[s for s in REQUIRED_TEST_SPECIES if s in eligible.index])
+    if only is not None:
+        eligible = eligible[eligible.index.isin(only)]
     if eligible.empty:
         return list(REQUIRED_TEST_SPECIES), rationale
     # Nearest the median row count, taking the larger side first so the picks stay comfortably measurable.
@@ -238,16 +259,18 @@ def choose_holdouts(frame: pd.DataFrame, n_extra: int = 3, min_rows: int = 150,
     return list(REQUIRED_TEST_SPECIES) + extra, rationale
 
 
-def cold_species(frame: pd.DataFrame, path: Path = DATA, seed: int = SEED, n_extra: int = 3,
-                 n_val: int = 3) -> dict:
+def cold_species(frame: pd.DataFrame, path: Path = DATA, seed: int = SEED, n_extra: int = 3, n_val: int = 3,
+                 only: set[str] | None = None) -> dict:
     """Whole species held out. Test = the chosen holdouts; val = `n_val` more (for model selection, so nothing is
     tuned on test); train = every other species."""
-    test, rationale = choose_holdouts(frame, n_extra=n_extra)
+    test, rationale = choose_holdouts(frame, n_extra=n_extra, only=only)
     per_species = frame.groupby("species").agg(rows=("value", "size"),
                                                compounds=("molecule_chembl_id", "nunique"))
     remaining = per_species.drop(index=[s for s in test if s in per_species.index])
     # Val species are picked the same way as the test extras, so the two are comparable in size.
     pool = remaining[(remaining["rows"] >= 150) & (remaining["compounds"] >= 60)]
+    if only is not None:
+        pool = pool[pool.index.isin(only)]
     median = pool["rows"].median() if not pool.empty else 0
     val = list((pool["rows"] - median).abs().sort_values(kind="stable").index[:n_val])
     train = sorted(set(per_species.index) - set(test) - set(val))
@@ -257,17 +280,27 @@ def cold_species(frame: pd.DataFrame, path: Path = DATA, seed: int = SEED, n_ext
             "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "source": _source(path, frame),
             "question": "a species we have no MIC data for (the commensal-sparing case)",
             "row_counts": rows, "test_rationale": rationale,
+            "restricted_to_bacteria": only is not None,
+            "warning": None if only is not None else
+            "no taxonomy was supplied, so the extra holdouts are NOT restricted to bacteria - run "
+            "`python -m screening.features --species` first, or check the picks by hand",
             "note": "`species` is screening.splits.species_key(target_organism): a species is held out under every "
                     "spelling of its name, strains and subspecies included",
             "panel": PANEL, "ids": ids}
 
 
-def generate(path: Path = DATA, folder: Path = SPLITS, seed: int = SEED) -> dict[str, Path]:
+def generate(path: Path = DATA, folder: Path = SPLITS, seed: int = SEED,
+             taxonomy: pd.DataFrame | None = None) -> dict[str, Path]:
+    """Both splits. `taxonomy` is a `features.species_features()` table; without one the cold_species holdouts
+    are not restricted to bacteria and the written file says so."""
     frame = load_matrix(path)
     print(f"{len(frame)} scoped rows, {frame['molecule_chembl_id'].nunique()} compounds, "
           f"{frame['species'].nunique()} species")
+    only = bacteria(taxonomy)
+    if only is None:
+        print("  no species table: cold_species holdouts are not restricted to bacteria (see the file's warning)")
     return {spec["name"]: _write(spec, folder)
-            for spec in (cold_compound(frame, path, seed), cold_species(frame, path, seed))}
+            for spec in (cold_compound(frame, path, seed), cold_species(frame, path, seed, only=only))}
 
 
 def show(folder: Path = SPLITS) -> None:
@@ -288,9 +321,19 @@ def main() -> None:
     parser.add_argument("--data", type=Path, default=DATA)
     parser.add_argument("--folder", type=Path, default=SPLITS)
     parser.add_argument("--seed", type=int, default=SEED)
-    parser.add_argument("--show", action="store_true", help="print the committed splits instead of regenerating")
+    parser.add_argument("--show", action="store_true", help="print the split files instead of regenerating them")
     args = parser.parse_args()
-    show(args.folder) if args.show else generate(args.data, args.folder, args.seed)
+    if args.show:
+        show(args.folder)
+        return
+    # Imported here, not at module scope: features.py reads this module, and splits.py works without a species
+    # table (it just cannot restrict the holdouts to bacteria, which the written file then warns about).
+    try:
+        from screening.features import species_features
+        taxonomy = species_features()
+    except (ImportError, FileNotFoundError):
+        taxonomy = None
+    generate(args.data, args.folder, args.seed, taxonomy)
 
 
 if __name__ == "__main__":

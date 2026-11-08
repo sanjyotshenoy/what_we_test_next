@@ -98,18 +98,42 @@ def test_loader_round_trips_a_written_split(frame, tmp_path):
             split.subset(frame, "no-such-fold")
 
 
-def test_committed_splits_exist_and_are_internally_consistent():
-    """The committed files are the artifact. If these are missing or self-contradictory, every number in
-    results/baseline.json is uncomparable."""
-    for name in ("cold_compound", "cold_species"):
-        path = COMMITTED / f"{name}.json"
-        assert path.exists(), f"{path} must be committed, not regenerated per machine"
+def test_any_split_file_present_is_internally_consistent():
+    """No split files are committed - the matrix they are cut from is not in the repo either (see
+    screening/README.md). But once somebody generates them on the machine that has the data, they are the
+    artifact everyone shares, so check any that are there rather than skipping silently."""
+    found = sorted(COMMITTED.glob("*.json"))
+    for path in found:
         spec = json.loads(path.read_text())
         ids = [i for fold in spec["ids"].values() for i in fold]
-        assert len(ids) == len(set(ids)), f"{name}: an ID is in two folds"
+        assert len(ids) == len(set(ids)), f"{path.name}: an ID is in two folds"
         assert spec["seed"] and spec["source"]["sha256"]
-        if name == "cold_species":
+        if spec["name"] == "cold_species":
             assert "Bifidobacterium longum" in spec["ids"]["test"]
+            assert spec["restricted_to_bacteria"], f"{path.name}: holdouts were picked without a species table"
+
+
+def test_holdouts_can_be_restricted_to_bacteria(frame):
+    """Run on the real matrix without a species table, the mid-sized band is full of fungi, because ChEMBL's MIC
+    rows include antifungal assays. `only` is what keeps cold_species measuring what this stage actually asks."""
+    unfiltered, _ = S.choose_holdouts(frame, n_extra=4, min_rows=1, min_compounds=1)
+    assert "Escherichia coli" in unfiltered           # eligible on data alone
+    taxonomy = pd.DataFrame({"species": ["Staphylococcus aureus", "Escherichia coli"],
+                             "chembl_l1": ["Bacteria", "Eukaryotes"]})   # E. coli mislabelled on purpose
+    only = S.bacteria(taxonomy)
+    assert only == {"Staphylococcus aureus"}
+    filtered, _ = S.choose_holdouts(frame, n_extra=4, min_rows=1, min_compounds=1, only=only)
+    assert "Escherichia coli" not in filtered
+    assert "Bifidobacterium longum" in filtered       # the required holdout is never filtered out
+    assert S.bacteria(None) is None                   # no table: do not filter, and say so
+    assert S.bacteria(pd.DataFrame({"species": ["x"]})) is None
+
+
+def test_cold_species_records_whether_it_had_a_taxonomy(frame):
+    without = S.cold_species(frame, MATRIX)
+    assert without["restricted_to_bacteria"] is False and "NOT restricted to bacteria" in without["warning"]
+    with_taxonomy = S.cold_species(frame, MATRIX, only={"Staphylococcus aureus"})
+    assert with_taxonomy["restricted_to_bacteria"] is True and with_taxonomy["warning"] is None
 
 
 def test_check_matrix_warns_rather_than_raising_on_a_changed_matrix(frame, tmp_path):
