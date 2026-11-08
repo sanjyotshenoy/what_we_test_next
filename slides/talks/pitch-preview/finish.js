@@ -15,7 +15,6 @@ Deck.slide('pitch-results', {steps:4,
  .pf-example{position:absolute;top:68%;left:0;right:0;border-left:3px solid var(--accent);padding-left:1.1em;}
  .pf-example small{font-size:var(--t-caption);color:var(--muted);}
  .pf-example p{font-size:var(--t-body);line-height:1.35;margin:.4em 0;}
- .pf-method{position:absolute;left:7%;right:7%;top:29%;font-size:var(--t-small);color:var(--muted);text-align:center}
  .pf-results-plot .deck-plot-key{left:7%;right:7%;top:17%;flex-wrap:wrap;column-gap:1.6em;row-gap:.55em;font-size:var(--t-small);}
  .pf-results-plot .deck-plot-key > span{white-space:nowrap;flex-shrink:0;}
  .pf-results-plot .deck-plot-chart{left:13%;right:9%;top:41%;height:34%;}
@@ -33,11 +32,10 @@ Deck.slide('pitch-results', {steps:4,
  </div>
  <div class="pf-example reveal-in" data-from="3"><small>EXAMPLE · KINASE BENCHMARK</small><p>Design a concentration–response experiment to measure<br>haspin inhibition by CHEMBL4278808.</p></div>
  </div>`;
- const plot=Deck.groupedBars(frame,{max:d.models[0].maximum,ticks:3,format:v=>`${v}/${d.models[0].maximum}`,series:d.models.map(m=>({key:m.id,label:m.name})),groups:[{key:'total',label:[`Mean score across ${d.cases_per_model} cases · 3 criteria, 0–2 each`],values:Object.fromEntries(d.models.map(m=>[m.id,m.total]))}],footnote:[]});
+ const plot=Deck.groupedBars(frame,{max:d.models[0].maximum,ticks:3,format:v=>`${v}/${d.models[0].maximum}`,series:d.models.map(m=>({key:m.id,label:m.name.replace(/\*$/,'')})),groups:[{key:'total',label:[`Mean score across ${d.cases_per_model} cases · 3 criteria, 0–2 each`],values:Object.fromEntries(d.models.map(m=>[m.id,m.total]))}],footnote:[]});
  plot.root.classList.add('reveal-in','pf-results-plot');
  plot.root.style.setProperty('--plot-6','var(--fg)');
  plot.root.dataset.from='4';
- frame.insertAdjacentHTML('beforeend',`<div class="pf-method reveal-in" data-from="4"><small>*Astra: same-model judging; different serving settings and reasoning effort</small></div>`);
  return{enter:(s,a)=>{Deck.show(frame,s,a);plot.show(s>=4?1:0,a);}};
  }});
 Deck.slide('pitch-demo', {interactive:true,steps:2,
