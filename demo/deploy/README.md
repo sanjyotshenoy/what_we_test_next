@@ -16,8 +16,10 @@ The viewer has no OpenCode connection. Saved viewing serves only explicitly
 published sessions and allowlisted assets/downloads. `/planner` accepts a visitor's
 Nebius key for a bounded isolated process, with no credential persistence or
 fallback to private team keys. Only `/api/runs` and owner-authorized stop routes
-accept POST; old private operator command routes remain unavailable. Global read
-limit: 600 requests/minute. Public runs: two concurrent, one per browser, sixteen
+accept POST; old private operator command routes remain unavailable. Public admission: 30 active browser sessions, a 30-second visible-page heartbeat,
+and a two-minute idle expiry. Extra visitors receive a busy page with 15-second
+automatic retries. Read limit: 600 requests/minute per admitted browser; static
+dashboard assets are excluded. Owned cancellation remains available at capacity. Public runs: two concurrent, one per browser, sixteen
 model turns, fifteen minutes; five starts/browser/hour and twenty globally/hour.
 Results belong to an HttpOnly-cookie browser identity and expire after an hour or
 service restart. No raw transcripts or simulator stderr logs are exposed.

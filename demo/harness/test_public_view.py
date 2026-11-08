@@ -84,3 +84,77 @@ class RateLimitTests(AioHTTPTestCase):
         response = await self.client.get('/api/health')
         self.assertEqual(response.status, 429)
         self.assertEqual(response.headers['Retry-After'], '60')
+
+
+class VisitorAdmissionTests(AioHTTPTestCase):
+    async def get_application(self):
+        from demo.harness.stage.visitors import Visitors
+        self.now = 1000
+        self.visitors = Visitors(clock=lambda: self.now)
+        return public_view.make_app(['published'], visitors=self.visitors)
+
+    async def test_thirty_browsers_then_busy_and_expiry(self):
+        tokens = []
+        for _ in range(30):
+            self.client.session.cookie_jar.clear()
+            response = await self.client.get('/')
+            self.assertEqual(response.status, 200)
+            self.assertIn('/static/visitor-session.js', await response.text())
+            tokens.append(response.cookies['demo_visitor'].value)
+        self.client.session.cookie_jar.clear()
+        response = await self.client.get('/')
+        self.assertEqual(response.status, 429)
+        self.assertEqual(response.headers['Retry-After'], '15')
+        self.assertIn('retry automatically', await response.text())
+        self.assertNotIn('demo_visitor', response.cookies)
+        self.assertEqual((await self.client.get('/api/visitor')).status, 429)
+        self.assertEqual((await self.client.get('/api/health')).status, 200)
+        self.assertEqual((await self.client.get('/sequential')).status, 429)
+        self.assertEqual((await self.client.get('/static/visitor-session.js')).status, 200)
+        # An admitted browser's other tabs and navigation reuse the same slot.
+        self.now += 90
+        self.client.session.cookie_jar.update_cookies({'demo_visitor': tokens[0]})
+        response = await self.client.get('/api/visitor')
+        self.assertEqual(response.status, 200)
+        self.assertEqual(response.cookies['demo_visitor'].value, tokens[0])
+        self.assertEqual(len(self.visitors.sessions), 30)
+        self.now += 31
+        self.client.session.cookie_jar.clear()
+        self.assertEqual((await self.client.get('/')).status, 200)
+        self.assertEqual(len(self.visitors.sessions), 2)
+        self.assertIn(tokens[0], self.visitors.sessions)
+
+    async def test_simultaneous_arrivals_do_not_overbook(self):
+        import asyncio
+        from aiohttp import ClientSession, DummyCookieJar
+        async with ClientSession(cookie_jar=DummyCookieJar()) as clients:
+            async def arrive():
+                async with clients.get(self.server.make_url('/api/visitor')) as response:
+                    await response.read()
+                    return response.status
+            statuses = await asyncio.gather(*(arrive() for _ in range(100)))
+        self.assertEqual(statuses.count(200), 30)
+        self.assertEqual(statuses.count(429), 70)
+        self.assertEqual(len(self.visitors.sessions), 30)
+
+    async def test_full_gate_does_not_block_owned_stop_route(self):
+        self.visitors.limit = 1
+        self.assertEqual((await self.client.get('/')).status, 200)
+        self.client.session.cookie_jar.clear()
+        response = await self.client.post('/api/runs/unknown/stop', json={}, headers={'X-Demo-Run': '1'})
+        self.assertEqual(response.status, 404)  # Ownership handler, not admission rejection.
+        self.assertEqual((await self.client.get('/planner')).status, 429)
+        self.assertEqual((await self.client.get('/results')).status, 429)
+
+
+class VisitorRateTests(AioHTTPTestCase):
+    async def get_application(self):
+        return public_view.make_app(['published'], request_limit=2)
+
+    async def test_each_visitor_has_a_separate_budget(self):
+        for _ in range(2):
+            self.assertEqual((await self.client.get('/api/visitor')).status, 200)
+        self.assertEqual((await self.client.get('/api/visitor')).status, 429)
+        self.assertEqual((await self.client.get('/static/visitor-session.js')).status, 200)
+        self.client.session.cookie_jar.clear()
+        self.assertEqual((await self.client.get('/api/visitor')).status, 200)
