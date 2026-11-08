@@ -10,7 +10,7 @@ from pathlib import Path
 import time
 
 from aiohttp import web
-from demo.harness.stage import planning_view
+from demo.harness.stage import planning_view, recording
 
 STATIC = Path(__file__).parent / 'static'
 STATIC_FILES = {'planner.css', 'planner.js'}
@@ -104,6 +104,7 @@ def make_app(published, *, request_limit=600):
                     web.get('/api/health', health), web.get('/api/models', models),
                     web.get('/api/planning/sessions', sessions), web.get('/api/planning', planning),
                     web.get('/api/artifacts/{session}/{batch}/{filename:.*}', artifact)])
+    app.add_routes(recording.routes())
     return app
 
 

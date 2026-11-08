@@ -18,7 +18,7 @@ from pathlib import Path
 
 import aiohttp
 from aiohttp import web
-from demo.harness.stage import planning_view
+from demo.harness.stage import planning_view, recording
 
 HERE = Path(__file__).resolve().parent
 from demo.harness.paths import ROOT, DEMO
@@ -45,6 +45,7 @@ class Hub:
         self.key_profile: str | None = None
         self.panels: dict[str, list] = {"kg": [], "structure": [], "plate": []}   # replayed on page reload (not robot)
         self.oc_ok = False
+        self.command_lock = asyncio.Lock()
 
     def send(self, ev: dict):
         for q in list(self.clients):
@@ -274,6 +275,9 @@ async def api_model(request):
     if body.get('modelID') not in conf.get(body.get('providerID'), {}).get('models', {}):
         raise web.HTTPBadRequest(text='Unknown configured model')
     hub.model = {"providerID": body["providerID"], "modelID": body["modelID"]}
+    # A model change starts a new conversation; do not mix model histories.
+    hub.session_id = None
+    hub.send({"type": "reset"})
     hub.send({"type": "model", "model": hub.model})
     return web.json_response({"model": hub.model})
 
@@ -372,8 +376,27 @@ async def replay_read_only(request, handler):
     return await handler(request)
 
 
+@web.middleware
+async def operator_commands(request, handler):
+    if request.method != 'POST' or request.path not in {
+            '/api/prompt', '/api/model', '/api/keys', '/api/new', '/api/abort'}:
+        return await handler(request)
+    async with hub.command_lock:
+        try:
+            body = await request.json()
+        except (ValueError, UnicodeDecodeError):
+            raise web.HTTPBadRequest(text='Expected a JSON object') from None
+        if not isinstance(body, dict):
+            raise web.HTTPBadRequest(text='Expected a JSON object')
+        if hub.session_id and request.path in {'/api/prompt', '/api/model', '/api/keys'}:
+            statuses = await oc('GET', '/session/status')
+            if statuses.get(hub.session_id, {}).get('type', 'idle') != 'idle':
+                raise web.HTTPConflict(text='Agent is running. Stop it before submitting or changing settings.')
+        return await handler(request)
+
+
 def make_app():
-    app = web.Application(middlewares=[replay_read_only], client_max_size=64 * 1024)
+    app = web.Application(middlewares=[replay_read_only, operator_commands], client_max_size=64 * 1024)
     app.add_routes([
         web.get("/", index),
         web.get("/legacy", index),
@@ -395,6 +418,7 @@ def make_app():
         web.static("/static", STATIC, show_index=False),
     ])
     app.on_startup.append(on_start)
+    app.add_routes(recording.routes())
     app.on_cleanup.append(on_cleanup)
     return app
 

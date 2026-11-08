@@ -14,8 +14,20 @@ if (viewer) {
   $('keys').hidden = true; $('model').closest('label').hidden = true
   document.querySelector('footer a').hidden = true
   $('connection').textContent = 'Published results · view only'
+  $('activity-description').textContent = 'Prepared results selected by the operator.'
   $('activity').textContent = 'Inspect published evidence and simulation artifacts. Running new experiments requires operator access.'
 }
+// Fixed physical recording is independent of agent state, selection, and simulation.
+try {
+  const recording = await api('/api/recording')
+  if (recording.available) {
+    const video = $('robot-video')
+    video.src = recording.url; video.poster = recording.poster
+    $('recording-caption').textContent = `${recording.duration_seconds.toFixed(0)} seconds · ${recording.speed_multiplier.toFixed(1)}× speed · silent playback`
+    video.onerror = () => { $('recording-error').hidden = false }
+    $('recording-card').hidden = false
+  }
+} catch { /* Recording availability must not block evidence or simulation views. */ }
 const alert = message => { $('alert').textContent = message; $('alert').hidden = !message }
 const guard = fn => async (...args) => { try { await fn(...args) } catch (e) { alert(e.message) } }
 const badge = (text, status) => `<span class="badge ${['failed','error','rejected','stale','timeout'].includes(status)?'error':status==='passed'||status==='simulated'?'':'neutral'}">${esc(text)}</span>`

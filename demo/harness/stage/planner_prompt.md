@@ -63,6 +63,14 @@ when that tool returns simulated. Summarize all pairs, the actual run count,
 artifact paths, citation IDs, simulation status and remaining lab assumptions.
 Machine validation checks citation identity/coverage, not scientific entailment.
 No physical robot execution occurs through these tools.
+For a software rehearsal, classify explicitly supplied parameters as input, not
+as paper-derived defaults. Each proposal.citations MUST include the exact string
+"proto:bacterial_mic_broth" as well as any read paper IDs used in evidence_links.
+After a rejected submission, fix the listed errors and invoke planning_submit
+again within its budget. Writing JSON or a tool-call-shaped string in your final
+answer does not execute a tool. Do not end the task with an unsubmitted batch.
+After acceptance invoke planning_simulate with the returned batch_id, then report
+the actual result. If a tool cannot be called, state that the run is incomplete.
 The recorded OT-2 run is a separate single-species proof of concept. Do not play it
 or represent it as execution of this proposal. Keep responses short and cited.
 

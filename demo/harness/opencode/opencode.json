@@ -11,7 +11,11 @@
       },
       "models": {
         "openai/gpt-oss-120b": {
-          "name": "gpt-oss-120b (dev default)"
+          "name": "gpt-oss-120b (dev default)",
+          "limit": {
+            "context": 131072,
+            "output": 8192
+          }
         },
         "deepseek-ai/DeepSeek-V4-Pro-0813": {
           "name": "DeepSeek-V4-Pro-0813"
@@ -99,7 +103,9 @@
         "planning_submit": true,
         "planning_simulate": true,
         "biology_lookup": true
-      }
+      },
+      "temperature": 0,
+      "steps": 16
     }
   }
 }

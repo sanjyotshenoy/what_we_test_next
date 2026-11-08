@@ -35,3 +35,12 @@ results viewer and HTTPS/auth configuration are prepared but not deployed.
 The synthetic 2×2 case remains a software fixture. A reviewed real compound/strain
 question, reference-protocol validation, reliable autonomous completion and public
 access decisions remain pending. The local 5090 endpoint has not been identified.
+
+### In-progress judge preparation (supersedes branch above)
+
+Active branch: `demo/judge-rehearsal`. User approved a 30-second fixed robot
+recording and prepared results for judges while the team operates privately.
+Public access remains closed; no push requested. Typed submission arguments now
+produce a successful fresh autonomous four-pair fixture run:
+`ses_e45901b2dffe04QPF45PTp2S7u`. Real-graph rehearsal and final viewer checks are
+in progress; see the latest entries in `../docs/11-08-2026.md`.
