@@ -37,11 +37,11 @@ Deck.slide('evidence-proposal', {
  <g class="reveal-in" data-from="2"><path class="ep-flow" stroke-dasharray="4 5" d="M205 120 Q280 40 435 65"/><path class="ep-flow" d="M190 115 L205 115 L205 285 L190 285"/></g>
  <g class="reveal-in" data-from="4"><path class="ep-flow" marker-end="url(#ep-arrow)" d="M610 75 Q655 75 690 180 L715 180"/><path class="ep-flow" marker-end="url(#ep-arrow)" d="M610 280 Q655 280 690 220 L715 220"/></g>
  </svg>
- <div class="ep-label" style="left:0;top:-7%;width:20%">Related compounds</div>
+ <div class="ep-label" style="left:0;top:0%;width:19%"><strong>Related<br>compounds</strong></div>
  <div class="ep-node" style="left:9%;top:20%">A</div><div class="ep-node" style="left:9%;top:50%">B</div><div class="ep-node" style="left:9%;top:80%">C</div>
  <div class="ep-node ep-strain" style="left:28%;top:50%">Y</div>
  <div class="ep-label" style="left:22%;top:64%;width:18%"><strong>Strain of interest</strong></div>
- <div class="ep-label" style="left:0;top:96%;width:37%">Known activity</div>
+ <div class="ep-label" style="left:14%;top:83%;width:23%">Known activity</div>
  ${stack(44,4,'Supporting papers',2)}
  ${stack(44,57,'Protocol templates',3)}
  <div class="ep-proposal reveal-in" data-from="4"><h3>Proposal</h3><small>Compound X · supplied strains</small><p>Assay &amp; readout</p><p>Concentration series</p><p>Controls &amp; replicates</p><hr><p>Rationale &amp; citations</p></div>
