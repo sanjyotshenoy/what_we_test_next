@@ -9,7 +9,8 @@ OpenCode profile, model weights or local Qwen server is required.
 For the already configured `biohackdemo` VM, read the
 [current remote handoff](memory/REMOTE_HANDOFF.md) first. It uses systemd services,
 not the tmux launcher below. Do not start both. Authentication is configured on that
-VM; the fresh live rehearsals have failed before compilation. The installation and
+VM; three consecutive fresh autonomous rehearsals now pass with the final GLM
+settings. Earlier failures are preserved in the verification log. The installation and
 historical verification instructions below also apply to new clean deployments.
 
 ## Install
@@ -38,8 +39,8 @@ requirements separately for other workstreams. No GPU libraries are required.
 OpenCode 1.19.5 and GXL Paperclip 0.8.16 downloads are checked against the manifests
 in `harness/{opencode,paperclip}/`. A changed Paperclip wheel URL fails with a hash
 mismatch; do not bypass it or silently upgrade. OpenCode's embedded dependency
-installer bootstraps `.opencode/package-lock.json`; plugin 1.19.5 and SDK 2.0.41
-are pinned. `OPENCODE_CONFIG_DIR` plus disabled project/Claude discovery prevents
+installer bootstraps `.opencode/package-lock.json`; plugin 1.19.5, SDK 2.0.41 and Zod 4.6.7
+are pinned. The launcher derives the submission tool schema from the Python validator. `OPENCODE_CONFIG_DIR` plus disabled project/Claude discovery prevents
 loading contributor or parent-workspace tools. The runtime config is generated
 with this checkout's provider URL and prompts, never a committed absolute path.
 
@@ -73,7 +74,10 @@ The launcher owns a checkout-specific tmux session; `stage.sh status` and
 `demo/.venv/bin/python -m demo.harness.stage.server` from the repo root in another.
 Stop both with Ctrl-C. No local model or robot is started.
 
-Default agent/model: OpenCode `planner`, Nebius `openai/gpt-oss-120b`. The custom
+Default agent/model: OpenCode `planner`, Nebius `zai-org/GLM-5.3`, low reasoning
+effort, temperature 0, 16,384 output tokens and at most 16 model steps. GPT-OSS
+remains a manual alternative; it is not an automatic fallback. See the
+[judge runbook](docs/JUDGE_RUNBOOK.md) for the verified private configuration. The custom
 provider requests one complete response and adapts it to SSE because upstream
 streaming omitted tool metadata. No retry/model substitution occurs. Activity
 updates per tool/model turn. Attempt limits persist per session: context 3,

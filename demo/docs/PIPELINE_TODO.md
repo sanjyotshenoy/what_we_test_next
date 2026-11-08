@@ -1,3 +1,7 @@
+> Current judge preparation: [runbook](JUDGE_RUNBOOK.md). Three consecutive autonomous
+> GLM rehearsals passed; public access remains closed. Older blocked-run and
+> credential statements below are historical.
+
 > Current operational state: [Brev / Codex Remote handoff](../memory/REMOTE_HANDOFF.md).
 > Nebius and Paperclip are now configured on Brev; the blocker is failed autonomous
 > model/tool execution, not missing credentials. Older migration wording below is historical.

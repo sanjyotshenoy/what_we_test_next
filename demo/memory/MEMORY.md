@@ -1,46 +1,76 @@
-# Demo memory — 2026-11-08
+# Demo memory — current checkpoint, 2026-11-08
 
-**Start with [the current Brev / Codex Remote handoff](REMOTE_HANDOFF.md).** It records
-workspace/branch state, private service operation, credentials locations (not values),
-verification, failed live rehearsals and the next decisions. It supersedes historical
-migration notes where they disagree about branch, authorization or credentials.
+Active branch: `demo/judge-rehearsal`. Runtime implementation commit: `0f946db`;
+subsequent documentation commits record verification. No push or main merge was
+requested or performed. Work stayed within `demo/`.
 
-Active development: `demo/public-readiness`, deployed privately on Brev at runtime
-commit `2717540` plus subsequent documentation updates. The permanent companion
-clone is `/home/ruh/what_we_test_next_demo`; Brev uses
-`/home/ubuntu/what_we_test_next`. Recheck Git status before editing either clone.
+Start with the [judge runbook](../docs/JUDGE_RUNBOOK.md). The
+[remote handoff](REMOTE_HANDOFF.md) retains the Brev/credential/history details;
+its earlier default model and unstarted viewer descriptions are historical.
 
-The consolidation branch is already merged into GitHub main (`f329771`). Subsequent
-reference/public-readiness changes are on the development branch. Other contributors'
-original workspaces were preserved; do not collect their unfinished work implicitly.
+## What is ready privately
 
-Nebius and Paperclip are authenticated on Brev. 29 tests pass. Four direct synthetic
-simulations passed, but both fresh autonomous runs failed before compilation. No
-public ports were opened. Private systemd services are enabled and healthy; a public
-results viewer and HTTPS/auth configuration are prepared but not deployed.
+- Operator: `127.0.0.1:7100`, `wwtn-stage.service`.
+- Internal OpenCode: `127.0.0.1:4096`, `wwtn-opencode.service`.
+- Prepared judge view: `127.0.0.1:7200`, `wwtn-viewer.service`.
+- All three are systemd-managed and enabled. No public listeners, proxy, TLS or
+  firewall changes. Public access must stay closed until explicitly authorized.
+- User chose a view-only judge experience while the team operates privately.
+- User's fixed robot recording is locally prepared: 30 seconds, silent, 25.1×,
+  H.264/720p. The UI labels it recorded and unrelated to the selected simulation.
 
-- [Setup and operation](../SETUP.md): isolated installs, credentials, live/replay,
-  tests, platform limits and failures.
-- [Migration verification](../docs/11-08-2026.md): measured checks and remaining gaps.
-- [Pipeline](../harness/PIPELINE.md): contract boundary, validation and compilation.
-- [Scope](../docs/PROJECT_SCOPE.md): supplied inputs → planning → OT-2; screening separate.
-- [Remaining TODOs](../docs/PIPELINE_TODO.md): outcome checklist and current progress.
-- [Consolidation plan](../docs/DEMO_CONSOLIDATION.md): original acceptance criteria.
-- [Historical agent handoff](agent_stage_handoff.md): original autonomous 2×2 rehearsal.
-- [Historical pipeline record](pipeline_execution.md) and [real-data plan](real_pipeline_plan.md).
-- [Packaged replay](../replays/README.md): synthetic inputs, real historical retrieval
-  and simulations, no claim of physical execution or independent proof of autonomy.
+Default planning model is now **Nebius `zai-org/GLM-5.3`**, temperature 0,
+`reasoning_effort=low`, 16,384 output tokens, at most 16 model steps. Request metadata
+confirmed these settings reach the provider. GPT-OSS remains a manual alternative;
+there is no automatic model switch. The existing custom provider adapter remains
+the documented exception to the shared `wwtn.llm.chat` convention.
 
+The submission tool now exposes the validator's actual nested schema. Citation
+rejections list exact retrieved IDs; validation remains strict. Truncation is an
+explicit error. Busy runs reject additional prompts and key/model changes; model
+changes start a new conversation. The UI restores controls after completion and
+labels a stopped-before-compilation run distinctly.
 
-The synthetic 2×2 case remains a software fixture. A reviewed real compound/strain
-question, reference-protocol validation, reliable autonomous completion and public
-access decisions remain pending. The local 5090 endpoint has not been identified.
+## Verified
 
-### In-progress judge preparation (supersedes branch above)
+34 tests pass: 27 main/browser/transport/recording/boundary tests plus 7 evidence
+checks. Fresh authenticated Paperclip searches and full-text reads succeeded
+standalone and inside the autonomous loops. Browser checks verified desktop/mobile
+layout, plate/run selection, downloads, video playback/seeking, and no JS errors.
 
-Active branch: `demo/judge-rehearsal`. User approved a 30-second fixed robot
-recording and prepared results for judges while the team operates privately.
-Public access remains closed; no push requested. Typed submission arguments now
-produce a successful fresh autonomous four-pair fixture run:
-`ses_e45901b2dffe04QPF45PTp2S7u`. Real-graph rehearsal and final viewer checks are
-in progress; see the latest entries in `../docs/11-08-2026.md`.
+Three consecutive autonomous rehearsals with the final GLM settings succeeded:
+
+| Session | Case | Runs | Elapsed |
+| --- | --- | ---: | ---: |
+| `ses_e4584faa3ffe1IRLWBu4RnowCT` | Real graph identities, synthetic assay settings | 2 | 24.1 s |
+| `ses_e45849c51ffeAj4a8dVLJkTK2M` | Synthetic 2×2 fixture | 4 | 33.1 s |
+| `ses_e45830dcdffec6BtfRHpmnGmZo` | Real graph, operated through browser with video playing | 2 | 35.7 s |
+
+All eight simulations passed (267 commands each). The fixture's first submission
+was rejected for duplicate question IDs; the agent corrected it and succeeded
+within the existing budget. No manual argument or artifact repair was performed.
+These are software checks, not biological validation or physical execution.
+
+The viewer allowlist contains the last two sessions above, with the real-graph
+session first. Operator `DEMO_DEFAULT_SESSION` selects that same completed session
+on startup. A fresh prompt still creates a fresh live session. Approved results,
+rehearsal receipts and media are ignored local files, not supplied by a Git clone.
+
+Earlier GPT-OSS failures and a GLM 8,192-token reasoning-limit failure are preserved.
+One model run is not guaranteed to succeed; the prepared view works without live
+LLM or Paperclip access. Do not retry a failed run without inspecting its outcome.
+
+## Remaining scope
+
+A reviewed biological question/strain, reference-protocol hardware review, four-
+antibiotic single-plate compiler support, automated step-3 benchmark grading,
+and public hostname/auth/TLS decisions remain open. The demo does not support
+arbitrary experimental protocols. No local 5090 endpoint was identified.
+
+- [Setup](../SETUP.md), [verification log](../docs/11-08-2026.md),
+  [pipeline](../harness/PIPELINE.md), [remaining TODOs](../docs/PIPELINE_TODO.md).
+- [Packaged historical replay](../replays/README.md) remains distinct from the new
+  live runs; no physical robot is controlled by the app.
+
+<!-- TODO(final): Domain review and external access decisions are still required
+before describing this as a biological or publicly deployed production system. -->

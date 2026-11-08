@@ -64,3 +64,17 @@ simulation success is claimed; the earlier four successful simulations were dire
 backend tests. No automatic model fallback or further model retries were started.
 The public results viewer and Caddy have not been started on the VM; the operator
 must choose the hostname/access policy and review sessions before publication.
+
+## Current judge checkpoint (supersedes the earlier service state)
+
+The loopback-only viewer is now installed/enabled as `wwtn-viewer.service`, alongside
+the operator and OpenCode. It serves two explicitly reviewed successful autonomous
+sessions, with the real-graph software rehearsal selected first. The operator also
+opens that saved result after restart through `DEMO_DEFAULT_SESSION` in its systemd
+`presentation.conf` drop-in. See [judge runbook](../docs/JUDGE_RUNBOOK.md).
+
+For a new host, `python -m demo.deploy.install_viewer` validates that the reviewed
+allowlist has completed, hash-verified simulations, then installs (but does not
+start) the loopback viewer unit. It refuses to overwrite an existing unit. Copy
+approved artifacts/media through private storage; credentials are not viewer data.
+No Caddy, public hostname, TLS certificate or external access was configured.

@@ -1,5 +1,14 @@
 # Brev / Codex Remote handoff — 2026-11-08
 
+**Current checkpoint:** read [MEMORY.md](MEMORY.md) and the
+[judge runbook](../docs/JUDGE_RUNBOOK.md) first. Judge preparation now lives on
+`demo/judge-rehearsal` (runtime `0f946db`), with GLM-5.3 low reasoning as the default,
+three consecutive successful autonomous rehearsals, 34 passing tests, a fixed
+30-second robot recording, and the prepared viewer running on loopback port 7200.
+Public access remains closed; nothing was pushed.
+
+## Historical checkpoint before judge preparation
+
 Start here for the demo workstream. This is a verified checkpoint, not a claim of
 production readiness. Recheck Git status and service health before changing anything:
 another teammate or remote Codex session may now be working here.

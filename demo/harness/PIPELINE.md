@@ -9,7 +9,7 @@
 5. `planning_simulate`: run the isolated OT-2 simulator, stopping on the first failure.
 
 ```bash
-demo/harness/opencode_server.sh run --agent planner --model nebius/openai/gpt-oss-120b 'YOUR QUESTION AND SUPPLIED COMPOUNDS/SPECIES'
+demo/harness/opencode_server.sh run --agent planner --model nebius/zai-org/GLM-5.3 'YOUR QUESTION AND SUPPLIED COMPOUNDS/SPECIES'
 ```
 
 The Nebius provider uses a complete-response transport to avoid malformed streamed
