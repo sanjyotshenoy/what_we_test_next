@@ -4,12 +4,12 @@
 // these are explicitly presented as goals, not measured outcomes.
 Deck.slide('story', {
   steps: 3,
-  notes: 'Our immediate end-user is an antimicrobial discovery researcher moving a candidate from a virtual '
-    + 'screen into experimental testing. Given a researcher-selected species panel, the question is how to '
+  notes: 'Grounding agreement: assume the KB is up to date. Known evidence is returned with citations; the researcher decides whether to run another experiment. The demo follows a genuinely unanswered question, not incomplete-literature meta-analysis. An incompatible proposal must stop before compilation or hardware execution, even if its limitations are displayed. This is the required workflow, not proof that current runtime gates implement it. Whether LLM step assembly improves on template selection and parameter filling remains open. Evaluate appropriate experiment, sound steps and reasonable numerical parameters. Hiding known evidence simulates the missing-information case only in evaluation. Our immediate end-user is an antimicrobial discovery researcher moving a candidate from a virtual '
+    + 'screen into experimental testing. Given specified bacterial strains, the question is how to '
     + 'measure pathogen inhibition and effects on commensals with an appropriate MIC experiment. '
     + 'The intended immediate benefit is less manual translation from evidence to a reviewable assay plan; '
-    + 'time savings and biological selectivity have not been measured. Species-panel recommendation is a '
-    + 'future extension, not an implemented capability claimed here. MIC means minimum inhibitory concentration. '
+    + 'time savings and biological selectivity have not been measured. Strain selection is '
+    + 'upstream of this workflow, alongside compound discovery. MIC means minimum inhibitory concentration. '
     + 'Our contribution is the combination of biological evidence, protocol knowledge and explicit lab constraints '
     + 'in one traceable workflow. We do not claim a new foundation model or a demonstrated first-in-industry algorithm. '
     + 'Industry context: Benchling offers AI experimental design and instrument-connected automation; Opentrons '
@@ -38,13 +38,13 @@ Deck.slide('story', {
       <div class="st-rows">
         <div class="st-row reveal-in" data-from="1">
           <div class="st-label">For the researcher</div>
-          <p class="st-copy">Antimicrobial discovery scientists testing a candidate.
-            <small>Activity against a pathogen alone does not answer the selectivity question.</small></p>
+          <p class="st-copy">A researcher with compound X, specified strains and a question.
+            <small>Compound discovery and strain selection happen upstream.</small></p>
         </div>
         <div class="st-row reveal-in" data-from="2">
           <div class="st-label">Immediate benefit</div>
-          <p class="st-copy">A cited MIC plan for a chosen panel, checked for lab feasibility.
-            <small>Goal: less manual translation from evidence to OT-2 preparation.</small></p>
+          <p class="st-copy">A cited experiment design grounded in templates and lab constraints.
+            <small>The query guides assay selection; an optional assay preference narrows the search.</small></p>
         </div>
         <div class="st-row reveal-in" data-from="3">
           <div class="st-label">Our contribution</div>
@@ -52,7 +52,7 @@ Deck.slide('story', {
             <small>The proposed distinction is a traceable antimicrobial evidence-to-assay handoff.</small></p>
         </div>
       </div>
-      <p class="deck-caption reveal-in" data-from="3">Research prototype · commensal-sparing is illustrative · benefit and comparative performance remain to be measured</p>`;
+      <p class="deck-caption reveal-in" data-from="3">Known evidence → citations · unanswered question → grounded design · researcher decides whether to run</p>`;
     return { enter: (step, animate) => Deck.show(frame, step, animate) };
   },
 });

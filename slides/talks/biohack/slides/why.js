@@ -11,7 +11,7 @@ Deck.slide('why', {
     + 'The authors report activity against more than 130 multidrug-resistant clinical isolates and efficacy '
     + 'in mouse infection models, with microbiome preservation and prevention of secondary C. difficile infection '
     + 'in mice. These are separate in-vitro and animal findings, not human efficacy or results from our system. '
-    + 'Our researcher has a candidate and selects a species panel. The proposed workflow connects available '
+    + 'Our researcher supplies a candidate and specified bacterial strains; selecting either is upstream. The proposed workflow connects available '
     + 'biological evidence to an appropriate concentration series, culture requirements and a lab-feasible MIC '
     + 'plan. A panel MIC assay is an early selectivity screen; it cannot establish whole-microbiome safety, '
     + 'human exposure, clinical benefit or efficacy. The immediate output is a reviewable experiment, '
@@ -42,7 +42,7 @@ Deck.slide('why', {
             <em>C. difficile</em> infection <strong>in mice</strong>.</p></div>
       </div>
       <div class="wy-action reveal-in" data-from="3"><strong>Our next experiment must test both sides of selectivity.</strong>
-        <small>A candidate + a chosen species panel → an evidence-grounded, lab-feasible MIC plan.</small></div>
+        <small>A candidate + specified strains + a question → a grounded experiment design.</small></div>
       <p class="deck-caption">Muñoz et al., Nature (2024) · doi:10.1038/s41586-024-07502-0 · Published evidence, not our results</p>`;
     return { enter: (step, animate) => Deck.show(frame, step, animate) };
   },
