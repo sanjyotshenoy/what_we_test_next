@@ -41,8 +41,8 @@ Deck.slide('pitch-demo', {interactive:true,
  return{enter(){}};
  }});
 // TODO(final): hypothesis refinement and ingestion of experimental results are proposed integrations; this diagram is not an end-to-end run.
-Deck.slide('pitch-close',{steps:4,
- notes:'7:15–8:15. The accented region identifies implemented system behavior: both returning an existing answer and proposing an experiment when a measurement is missing. Solid internal connections represent these implemented paths; the distinction is implementation status, not benchmark coverage. The researcher supplies the question and reviews a proposed experiment before the lab runs it. Reveal the existing-answer route, the missing-measurement route, the result feedback loop, then upstream hypothesis refinement. Muted dotted arrows identify proposed connections: hypothesis refinement and measured-result ingestion. Researcher/lab review and execution remain outside the system box; the solid handoff does not claim autonomous experimental execution. The feedback loop adds measured results, assay conditions and provenance, including negative results, to the KB. Hypothesis refinement sharpens an existing idea into a testable question. The current connected agent is IC50-based; this conceptual diagram does not establish an end-to-end bacterial run. Existing evidence does not prevent confirmatory experiments. Full script: speaker-notes.html.',
+Deck.slide('pitch-close',{steps:3,
+ notes:'7:15–8:15. The accented region identifies implemented system behavior: both returning an existing answer and proposing an experiment when a measurement is missing. Solid internal connections represent these implemented paths; the distinction is implementation status, not benchmark coverage. The researcher supplies the question and reviews a proposed experiment before the lab runs it. Show both implemented branches and the researcher/lab handoff on arrival; then reveal the result feedback loop, followed by upstream hypothesis refinement. Muted dotted arrows identify proposed connections: hypothesis refinement and measured-result ingestion. Researcher/lab review and execution remain outside the system box; the solid handoff does not claim autonomous experimental execution. The feedback loop adds measured results, assay conditions and provenance, including negative results, to the KB. Hypothesis refinement sharpens an existing idea into a testable question. The current connected agent is IC50-based; this conceptual diagram does not establish an end-to-end bacterial run. Existing evidence does not prevent confirmatory experiments. Full script: speaker-notes.html.',
  mount(frame,{css}) {
  css(`
  .cl-description{position:absolute;left:4.2%;right:4.2%;top:16%;font-size:var(--t-body);line-height:1.4;color:var(--muted);}
@@ -63,8 +63,6 @@ Deck.slide('pitch-close',{steps:4,
  .cl-map [data-from]{opacity:0;transition:opacity .32s ease;}
  .cl-map [data-from].in{opacity:1;}
  .instant .cl-map [data-from]{transition:none;}
- .cl-legend{position:absolute;left:80%;top:5%;width:20%;font-size:var(--t-caption);line-height:1.3;color:var(--muted);}
- .cl-legend i{display:block;width:3em;border-top:3px dotted var(--muted);margin-bottom:.5em;}
  .cl-link{color:var(--muted);}
  `);
  frame.innerHTML=`<h2 class="deck-heading">Propose an experiment—and show why</h2>
@@ -75,22 +73,21 @@ Deck.slide('pitch-close',{steps:4,
  <rect class="cl-zone" x="235" y="0" width="520" height="350" rx="10"/>
  <path class="cl-line cl-external" marker-end="url(#cl-outer-arrow)" d="M160 190 H260"/>
  <path class="cl-line" marker-end="url(#cl-arrow)" d="M435 190 H475 V110 H530"/>
- <path data-from="2" class="cl-line" marker-end="url(#cl-arrow)" d="M475 190 V270 H530"/>
- <path data-from="2" class="cl-line cl-external" marker-end="url(#cl-outer-arrow)" d="M710 270 H825"/>
- <path data-from="3" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M910 355 V430 H340 V255"/>
- <path data-from="4" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M70 80 V150"/>
+ <path class="cl-line" marker-end="url(#cl-arrow)" d="M475 190 V270 H530"/>
+ <path class="cl-line cl-external" marker-end="url(#cl-outer-arrow)" d="M710 270 H825"/>
+ <path data-from="2" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M910 355 V430 H340 V255"/>
+ <path data-from="3" class="cl-line cl-future" marker-end="url(#cl-outer-arrow)" d="M70 80 V150"/>
  </svg>
  <div class="cl-system">Our system · implemented</div>
- <div class="cl-legend" data-from="3"><i></i>Proposed connections</div>
  <div class="cl-node" style="left:0;top:35%;width:17%"><strong>Researcher’s<br>question</strong></div>
  <div class="cl-node" style="left:27%;top:35%;width:19%"><strong>Check the<br>knowledge base</strong></div>
  <div class="cl-branch" style="left:54%;top:12%">Answer exists</div>
  <div class="cl-node" style="left:54%;top:22%;width:20%"><strong>Return result<br>and sources</strong></div>
- <div class="cl-branch" data-from="2" style="left:54%;top:46%">Measurement missing</div>
- <div class="cl-node" data-from="2" style="left:54%;top:57%;width:20%"><strong>Propose an<br>experiment</strong></div>
- <div class="cl-node" data-from="2" style="left:84%;top:49%;width:17%"><small>Researcher / lab</small><strong>Review<br>and run</strong></div>
- <div class="cl-loop-label" data-from="3">Add measured results<br>and sources to the KB</div>
- <div class="cl-node cl-upstream" data-from="4" style="left:0;top:0;width:22%"><strong>Hypothesis<br>refinement</strong></div>
+ <div class="cl-branch" style="left:54%;top:46%">Measurement missing</div>
+ <div class="cl-node" style="left:54%;top:57%;width:20%"><strong>Propose an<br>experiment</strong></div>
+ <div class="cl-node" style="left:84%;top:49%;width:17%"><small>Researcher / lab</small><strong>Review<br>and run</strong></div>
+ <div class="cl-loop-label" data-from="2">Add measured results<br>and sources to the KB</div>
+ <div class="cl-node cl-upstream" data-from="3" style="left:0;top:0;width:22%"><strong>Hypothesis<br>refinement</strong></div>
  </div>
  <p class="deck-caption"><a class="cl-link" href="qa.html" target="_blank" rel="noopener">Q/A backup ↗</a></p>`;
  return{enter(s,a){Deck.show(frame,s,a);}};
