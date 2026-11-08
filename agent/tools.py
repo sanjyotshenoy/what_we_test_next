@@ -143,6 +143,12 @@ class KnowledgeBase(GraphBackend):
                 "compound_id": c["id"], "compound_source": where, "ic50_nM": [a["ic50_nM"] for a in analogs],
                 "similarity": [round(a["similarity"], 3) for a in analogs] if ranked else None,
                 "ranked_by_similarity": ranked, "fingerprint": "Morgan r=2, 2048 bits, Tanimoto",
+                # one entry per analog, with its node ID: what `agent/anchor.py` derives the concentration
+                # anchor from, and what the grader checks the cited analogs against. Added field; `ic50_nM`
+                # and `similarity` keep their old parallel-list shape.
+                "analogs": [{"compound": a["compound"], "name": a["name"], "ic50_nM": a["ic50_nM"],
+                             "similarity": round(a["similarity"], 3) if ranked else None,
+                             "n_measurements": a["n_measurements"]} for a in analogs],
                 "target_potency_spread_nM": spread}
 
     def bio_kg_similar(self, compound: str, k: int = 5) -> dict:

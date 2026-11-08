@@ -15,7 +15,9 @@ def experiment(**overrides) -> dict:
         top_concentration_uM=10.0, dilution_factor=3.0, n_points=10, replicates=3,
         controls=["DMSO vehicle", "no-enzyme wells"],
     )
-    return {**base.model_dump(), "expected_ic50_uM": 0.05, **overrides}
+    # context the rules need beyond an Experiment: the potency prior, and the analogs' median potency that
+    # agent/anchor.py anchors the series on (Anchor.rule_context() supplies both)
+    return {**base.model_dump(), "expected_ic50_uM": 0.05, "analog_median_ic50_uM": 0.05, **overrides}
 
 
 def test_rules_are_well_formed():
@@ -51,6 +53,8 @@ def test_a_sound_design_passes_every_checkable_rule():
     ("rule:agm/max_min_controls", {"controls": ["DMSO vehicle"]}),
     # a series topping out at 10 uM is far above a 0.1 nM inhibitor: the curve has no bottom
     ("rule:agm/bracket_expected_ic50", {"expected_ic50_uM": 0.0001}),
+    # the analogs sit at 0.5 nM but the series still tops out where the generic template put it
+    ("rule:agm/anchor_series_on_analogs", {"analog_median_ic50_uM": 0.0005}),
 ])
 def test_each_check_catches_its_own_failure(rule_id, bad):
     assert check_rule(RULES[rule_id], experiment()) is True
@@ -62,6 +66,16 @@ def test_check_returns_none_when_context_is_missing_or_nonsensical():
     del missing["expected_ic50_uM"]
     assert check_rule(RULES["rule:agm/bracket_expected_ic50"], missing) is None
     assert check_rule(RULES["rule:agm/bracket_expected_ic50"], experiment(expected_ic50_uM=0.0)) is None
+
+
+def test_the_analog_anchor_rule_is_a_judge_item_when_there_are_no_analogs():
+    """No analog with a usable IC50 -> no `analog_median_ic50_uM` -> None, a judge item, which is right: the
+    design is then the template default and there is nothing measured to centre it on."""
+    no_analogs = experiment()
+    del no_analogs["analog_median_ic50_uM"]
+    assert check_rule(RULES["rule:agm/anchor_series_on_analogs"], no_analogs) is None
+    # the rule and agent/anchor.py are two implementations of one binding; the test that they do not drift
+    # lives on the agent side (agent/tests/test_anchor.py), which is the side that may import kg/
 
 
 def test_mic_archetype_is_exempt_from_the_three_fold_spacing_rule():

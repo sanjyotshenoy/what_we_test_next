@@ -70,6 +70,28 @@
     nbk: NBK92007
     quote: "Ideally, half the data points on the IC50 curve are above the IC50 value and half are below the IC50 value, including a minimum and maximum signal."
 
+- id: rule:agm/anchor_series_on_analogs
+  text: >-
+    Centre the series on the measured potency of the compound's structural analogs, not on the template's
+    generic default: the top concentration should be the analogs' median IC50 times the series' own centring
+    multiplier (dilution_factor ** ((n_points - 1) / 2)), within one dilution step. The multiplier follows from
+    the half-above / half-below rule plus the template's shape; the AGM states no numeric multiplier of its own
+    (TODO(final): the "100x the expected IC50" rule of thumb is a heuristic, not an AGM number). Derived
+    deterministically by agent/anchor.py, which records which analogs it used; a proposal may depart from it
+    with a stated reason.
+  applies_to: [proto:kinase_biochem_lum, proto:kinase_biochem_trfret, proto:kinase_binding_competition,
+               proto:cell_viability_atp, proto:kinase_cellular_target_engagement, proto:gpcr_camp_functional,
+               proto:protease_fret_activity]
+  # Needs one context value beyond an Experiment: analog_median_ic50_uM, the median potency of the analogs
+  # bio_kg_analogs returned (Anchor.rule_context() supplies it). Missing -> None, a judge item, which is the
+  # right outcome when no analog has a usable IC50.
+  check: abs(log10(top_concentration_uM) - log10(analog_median_ic50_uM * dilution_factor ** ((n_points - 1) / 2))) <= log10(dilution_factor)
+  severity: should
+  source:
+    chapter: Basics of Enzymatic Assays for HTS
+    nbk: NBK92007
+    quote: "Ideally, half the data points on the IC50 curve are above the IC50 value and half are below the IC50 value, including a minimum and maximum signal."
+
 - id: rule:agm/report_ic50_criteria
   text: >-
     Report an IC50 only if maximum inhibition exceeds 50%, top and bottom are within 15% of theory, and the 95%
