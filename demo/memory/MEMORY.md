@@ -116,3 +116,8 @@ User requested a presentation-only flow: removed Pause, Next step, Show all,
 Replay, Speed and Explore full results controls. Selecting a query starts automatic
 3.5-second milestone progression and scrolling; selecting another query/model
 cancels the previous progression. Text expansion and model/query selection remain.
+
+First sequential milestone is now Scientist’s query: a concise request reconstructed
+from the saved compound, assay and panel, with supplied experiment inputs expandable.
+Removed introductory explanatory copy and About this example. This is a display
+summary of saved inputs, not a claim to quote the original user prompt verbatim.

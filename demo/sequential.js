@@ -61,7 +61,15 @@
     return '';
   }
   function build(data) {
-    const out = [{title:'Plan the experiment', html:card(paragraph('Follow the stack as it gathers evidence, proposes an experiment, generates OT-2 protocols and checks them in the simulator.') + detail('About this example', 'Precomputed model and tool outputs, presented step by step. Assay settings are synthetic test inputs. Simulation is a software check, not a physical experiment or biological validation; pacing does not reproduce original tool durations.'))}];
+    const compounds = (data.batches || []).flatMap(b => b.batch?.compounds || []);
+    const requests = compounds.map(c => {
+      const e = c.proposal?.experiment || {};
+      const panel = (e.panel || []).map(s => s.name).join(' and ');
+      return card(paragraph(`Plan a ${e.assay_type || 'MIC'} experiment for ${c.compound}${panel ? ` against ${panel}` : ''}. Generate the OT-2 protocols and check them in the simulator.`) +
+        detail('Supplied experiment inputs', e));
+    }).join('');
+    const out = [{title: "Scientist’s query", html: requests || card(paragraph('Inspect the experiment request and its supporting evidence.'))}];
+
     for (const e of data.evidence || []) {
       const r = e.result || {};
       const titles = {planning_context:'Load protocol context', biology_lookup:'Look up biological evidence', literature_search:'Search the literature', literature_read:'Read a retrieved passage'};
