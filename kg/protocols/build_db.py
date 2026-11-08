@@ -18,8 +18,12 @@ give the stages and HAS_SUBSTEP the detail under a stage, so a grading tree can 
 TODO(final): 3 of the 8 archetypes have a curated template, and those three are agent-curated, not yet checked by
 a person; the other five contribute a Protocol node with no steps or parameters. See kg/protocols/README.md.
 
-A Parameter's props hold the normalized value and unit plus `aid` (the exemplar it was read from) and `observed`
+A Parameter's props hold the default value and unit plus `aid` (the exemplar it was read from) and `observed`
 (every value seen across the exemplars, each with its AID and quote), so nothing in the graph is unattributable.
+The default itself is *derived* from the observations by `kg/protocols/defaults.py` - one reference exemplar for
+the parameters that describe one concentration series, the observation nearest the centre for the rest,
+canonical snapping for fold-spacings - and every Parameter carries that derivation (`default_rule`,
+`derivation`, `centre`, `spread`, `exemplars_disagree`) so no number in the graph is unexplained.
 Archetypes without a curated template contribute a Protocol node with its purpose, BAO tags, question type and
 rules, but no steps or parameters.
 
@@ -33,6 +37,7 @@ from pathlib import Path
 import yaml
 
 from kg.graph_io import write_graph
+from kg.protocols.defaults import resolve_parameters
 
 HERE = Path(__file__).parent
 OUT = HERE / "graph"
@@ -67,11 +72,6 @@ def load_templates(folder: Path = TEMPLATES) -> dict[str, dict]:
         template = json.loads(file.read_text())
         found[template["id"]] = template
     return found
-
-
-def _first(observed: list[dict]) -> dict:
-    """The default value for a parameter: the first observation (the exemplars are listed most-canonical first)."""
-    return observed[0]
 
 
 def check_rule(rule: dict, experiment: dict) -> bool | None:
@@ -179,15 +179,11 @@ def build(archetypes: dict | None = None, templates: dict | None = None, rules: 
         aids = ", ".join(str(e["aid"]) for e in template["exemplars"] if "aid" in e)
         source = f"agent-curated from PubChem AIDs {aids}"
 
-        for name, parameter in template["parameters"].items():
-            observed = parameter["observed"]
-            default = _first(observed)
+        # Defaults are derived, not "the first observation": see kg/protocols/defaults.py and the README's
+        # "How a default is chosen". Each Parameter's props carry the derivation alongside value/unit/aid/quote.
+        for name, props in resolve_parameters(template).items():
             param_id = f"{id}/param/{name}"
-            node(param_id, "Parameter", name, {
-                "value": default["value"], "unit": default.get("unit"),
-                "aid": default.get("aid"), "quote": default.get("quote"),
-                "observed": observed, "n_exemplars": len(observed),
-            }, source)
+            node(param_id, "Parameter", name, props, source)
             edge(id, "HAS_PARAM", param_id, {}, source)
 
         previous = None
