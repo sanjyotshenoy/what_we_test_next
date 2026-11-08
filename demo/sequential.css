@@ -12,3 +12,5 @@ details { margin-top: 12px; } summary { cursor:pointer; color:var(--accent); }
 .record { margin-bottom: 12px; } .stage .card { overflow-wrap:anywhere; } .stage h3 { flex-wrap:wrap; }
 #provenance { font-size:.85rem; overflow-wrap:anywhere; } button:disabled { opacity:.55; cursor:default; }
 @media (prefers-reduced-motion: reduce) { *, *::before { animation:none!important; scroll-behavior:auto!important; } }
+
+.expand-text { display: block; font-size: .85rem; padding: 6px 10px; margin: 8px 0 12px; }

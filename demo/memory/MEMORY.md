@@ -97,3 +97,7 @@ The original slide-linked demo is preserved. Source is `sequential.html`,
 Later access setup (after the historical checkpoint above): the judge viewer is
 public via Brev HTTPS; the separate operator requires the current org-member email
 allowlist. This change does not alter either access rule.
+
+Sequential UI refinement: no header playback badge; new milestones scroll into
+view, and long prose/detail blocks collapse at 100 words with expandable text.
+Saved-result provenance remains in the introductory copy and session description.

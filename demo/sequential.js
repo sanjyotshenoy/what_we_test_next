@@ -19,13 +19,38 @@
     $('pause').disabled = $('next').disabled = $('all').disabled = cursor >= stages.length;
     $('message').textContent = cursor >= stages.length ? 'Playback complete · saved software results, not biological validation.' : `${paused ? 'Paused' : 'Playing recording'} · ${cursor} / ${stages.length} milestones`;
   }
+  function collapseLongText(container) {
+    for (const el of container.querySelectorAll('p, pre')) {
+      const full = el.textContent;
+      const words = [...full.matchAll(/\S+/g)];
+      // Preserve links and other markup; these short navigational paragraphs
+      // are not prose bodies. Text-only paragraphs and raw details are safe.
+      if (words.length <= 100 || el.children.length) continue;
+      const last = words[99];
+      const preview = full.slice(0, last.index + last[0].length) + '…';
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = 'quiet expand-text';
+      button.textContent = 'Show more'; button.setAttribute('aria-expanded', 'false');
+      el.textContent = preview;
+      button.onclick = () => {
+        const expand = button.getAttribute('aria-expanded') !== 'true';
+        el.textContent = expand ? full : preview;
+        button.textContent = expand ? 'Show less' : 'Show more';
+        button.setAttribute('aria-expanded', String(expand));
+      };
+      el.after(button);
+    }
+  }
   function advance() {
     stopTimer();
     if (cursor >= stages.length) return;
     const stage = stages[cursor++];
     const li = document.createElement('li'); li.className = 'stage';
     li.innerHTML = `<h3>${esc(stage.title)} <span class="pill unknown">Saved</span></h3>${stage.html}`;
+    collapseLongText(li);
     $('timeline').append(li); controls(); schedule();
+    li.style.scrollMarginTop = `${$('toolbar').getBoundingClientRect().height + 16}px`;
+    li.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start'});
   }
   function evidenceSummary(e) {
     const r = e.result || {};
