@@ -265,3 +265,9 @@ would answer it, grounded in KGs, then run it on the OT-2. Aim 1 = propose, aim 
   transfer plan independently** to check it. Every well carries both `prepared_uM` (2x, during the dilution) and
   `final_uM` (what the cells see after the inoculum halves it); conflating them would double every reported MIC,
   so the audit tests break the map on purpose and require it to object. 24 execution tests, 166 overall.
+- Correction (01:20, Emmy): atmosphere belongs to a **step**, not the lab. The OT-2 builds the plate on the bench
+  in minutes; the overnight incubation is where oxygen decides whether an anaerobe grows. So `lab.yaml` now has
+  `liquid_handling_atmosphere` (aerobic, no chamber needed) and `incubation_atmosphere` (aerobic + anaerobic,
+  **assumed** - jars or an anaerobic incubator - because the project phenotypes anaerobic microbiome bacteria).
+  A panel entry may declare `oxygen_tolerance`: aerotolerant anaerobes survive the bench, strictly sensitive ones
+  (F. prausnitzii) are refused with the reason. The agreed four-species panel passes as 1 plate at n=2.

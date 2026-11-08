@@ -76,8 +76,14 @@ class Lab:
     def capabilities(self) -> dict:
         return self.spec.get("capabilities", {})
 
-    def atmospheres(self) -> set[str]:
-        return set(self.capabilities.get("atmosphere", []))
+    def atmospheres(self, step: str = "incubation") -> set[str]:
+        """The atmospheres available for a step: 'incubation' (overnight, where oxygen decides whether an
+        anaerobe grows) or 'liquid_handling' (the few minutes of setup on the bench)."""
+        key = "incubation_atmosphere" if step == "incubation" else "liquid_handling_atmosphere"
+        found = self.capabilities.get(key)
+        if found is None:
+            found = self.capabilities.get("atmosphere", [])   # older lab.yaml with one lab-wide value
+        return set(found)
 
     def assumed(self) -> dict[str, str]:
         """Capabilities the file claims but flags as not yet true, so a verdict can say which of its answers

@@ -21,13 +21,20 @@ simulator, and, for the demo, run it on the real OT-2 (food colouring into water
 `lab.yaml` describes this lab as a **capability model, not an equipment list**: the instruments, the labware on
 hand with its physical limits, and the conditions available. Most of it is read off the team's real OT-2
 protocol in [`Opentrons/`](../Opentrons/); everything else carries a `TODO(final)` for whoever is standing next
-to the robot. The line that does the most work is `capabilities.atmosphere`. It currently claims **both aerobic and
-anaerobic**, on the assumption that the OT-2 sits in a chamber — a real arrangement, but not yet true of this
-lab. Assumed capabilities are listed under `capabilities.assumed` and surface as a warning on **every** verdict,
-so no result can quietly rest on one. Drop `anaerobic` back out before reporting anything real, or install the
-chamber. The check runs in **both directions**: an obligate aerobe (*P. aeruginosa*) fails in an anaerobic-only
-setup exactly as an obligate anaerobe (*B. fragilis*) fails in air, and a species marked `facultative` passes
-either way.
+to the robot. **Atmosphere belongs to a step, not to the lab** — the correction that matters most here. The robot builds the
+plate on the bench in a few minutes; a person then carries it to an incubator overnight. Oxygen decides whether
+an anaerobe *grows* during the second step, so the panel is checked against `incubation_atmosphere`, while
+`liquid_handling_atmosphere` stays plain aerobic because the OT-2 sits on the bench and needs no chamber.
+
+Anaerobic incubation (jars, sachets or an anaerobic incubator) is **assumed**, because the project is
+phenotyping anaerobic microbiome bacteria. Assumed capabilities live under `capabilities.assumed` and surface as
+a warning on **every** verdict, including the ones that pass, so no result quietly rests on one.
+
+The check runs in **both directions** — an obligate aerobe fails where only anaerobic incubation exists, exactly
+as an obligate anaerobe fails with only aerobic — and a species marked `facultative` passes either way. A panel
+entry may also declare `oxygen_tolerance`: an **aerotolerant** anaerobe (*B. fragilis*, *C. difficile*,
+*B. longum*) survives the minutes on the bench, while a **strictly** oxygen-sensitive one (*F. prausnitzii*) does
+not, and is refused with the reason rather than being quietly plated into air.
 
 `feasibility.py` answers "can we run this, and if not, why not" as arithmetic, never a model's opinion:
 

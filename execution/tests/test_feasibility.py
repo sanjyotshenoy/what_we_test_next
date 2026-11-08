@@ -34,15 +34,35 @@ def test_a_small_aerobic_panel_is_runnable(lab):
     assert v.plates_needed == 1
 
 
-def only(lab: Lab, *atmospheres: str) -> Lab:
-    """The same lab with its atmosphere replaced, so the check can be tested in both directions whatever
-    lab.yaml currently claims."""
+def only(lab: Lab, *atmospheres: str, bench: tuple[str, ...] = ("aerobic",)) -> Lab:
+    """The same lab with its *incubation* atmosphere replaced, so the check can be tested in both directions
+    whatever lab.yaml currently claims. `bench` is what the liquid handler sits in."""
     spec = copy.deepcopy(lab.spec)
-    spec["capabilities"]["atmosphere"] = list(atmospheres)
+    spec["capabilities"]["incubation_atmosphere"] = list(atmospheres)
+    spec["capabilities"]["liquid_handling_atmosphere"] = list(bench)
     return Lab(spec)
 
 
-def test_an_anaerobe_in_an_aerobic_lab_is_refused(lab):
+def test_atmosphere_belongs_to_the_step_not_the_lab(lab):
+    """Emmy's correction: the robot builds the plate on the bench in minutes, then it goes to an incubator
+    overnight. Oxygen decides whether an anaerobe grows during the second step, not the first."""
+    assert lab.atmospheres("liquid_handling") == {"aerobic"}
+    assert "anaerobic" in lab.atmospheres("incubation")
+    v = check_feasible(mic(), lab, panel=[*AEROBE, ANAEROBE])
+    assert v.feasible, v.sentence()          # anaerobes are fine: the incubator can do it
+
+
+def test_a_strictly_oxygen_sensitive_species_cannot_be_set_up_in_air(lab):
+    """An aerotolerant anaerobe survives the bench; F. prausnitzii does not."""
+    fragile = {"id": "fp", "name": "F. prausnitzii", "atmosphere": "anaerobic", "oxygen_tolerance": "strict"}
+    v = check_feasible(mic(), lab, panel=[fragile])
+    assert not v.feasible
+    assert any("oxygen-sensitive" in x and "F. prausnitzii" in x for x in v.violations)
+    # the panel we actually chose is all aerotolerant, so it passes
+    assert check_feasible(mic(), lab, panel=[ANAEROBE]).feasible
+
+
+def test_an_anaerobe_with_no_anaerobic_incubation_is_refused(lab):
     v = check_feasible(mic(), only(lab, "aerobic"), panel=[*AEROBE, ANAEROBE])
     assert not v.feasible
     assert any("B. fragilis" in x and "anaerobic" in x for x in v.violations)
@@ -64,8 +84,8 @@ def test_a_facultative_species_runs_either_way(lab):
     assert check_feasible(mic(), only(lab, "anaerobic"), panel=panel).feasible
 
 
-def test_the_assumed_chamber_is_reported_in_every_verdict(lab):
-    """lab.yaml currently claims anaerobic as an ASSUMPTION; no verdict may hide that."""
+def test_the_assumed_anaerobic_incubation_is_reported_in_every_verdict(lab):
+    """lab.yaml claims anaerobic incubation as an ASSUMPTION; no verdict may hide that."""
     v = check_feasible(mic(), lab, panel=[*AEROBE, ANAEROBE])
     assert v.feasible
     assert any("ASSUMED" in w for w in v.warnings)

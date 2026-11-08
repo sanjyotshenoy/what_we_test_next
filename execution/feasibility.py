@@ -74,7 +74,8 @@ def check_feasible(experiment: Any, lab: Lab | None = None, panel: Sequence[dict
     well_uL, carry_uL = _series_volumes(experiment)
 
     # --- the conditions the panel needs -----------------------------------------------------------------
-    have = lab.atmospheres()
+    have = lab.atmospheres("incubation")
+    bench = lab.atmospheres("liquid_handling")
     # a species may name one atmosphere, several, or "facultative" (grows either way); it is runnable if any of
     # the ones it will tolerate is available. Checked in both directions: an obligate aerobe such as
     # P. aeruginosa is as unrunnable in an anaerobic-only setup as B. fragilis is in air.
@@ -84,10 +85,20 @@ def check_feasible(experiment: Any, lab: Lab | None = None, panel: Sequence[dict
         if any(str(w).startswith("facult") for w in wanted):
             continue
         tolerates = {str(w) for w in wanted}
+        name = species.get("name") or species.get("id", "?")
         if not (tolerates & have):
-            name = species.get("name") or species.get("id", "?")
             v.violations.append(f"{name} needs {'/'.join(sorted(tolerates))} incubation; this lab has "
                                 f"{'/'.join(sorted(have)) or 'nothing specified'}")
+        # the plate is built on the bench before it reaches the incubator: a strictly oxygen-sensitive species
+        # may not survive even that. Aerotolerant anaerobes and spore-formers are fine.
+        if "anaerobic" in tolerates and "anaerobic" not in bench:
+            tolerance = str(species.get("oxygen_tolerance", "aerotolerant")).lower()
+            if tolerance.startswith("strict") or tolerance.startswith("sensitive"):
+                minutes = lab.capabilities.get("setup_air_exposure_minutes", "the setup")
+                v.violations.append(f"{name} is strictly oxygen-sensitive and the plate is built in air "
+                                    f"(~{minutes} min): it needs a chamber, or pre-reduced media and speed")
+                v.suggestions.append(f"set {name} up by hand in a chamber, or choose an aerotolerant "
+                                     "anaerobe (B. fragilis, C. difficile, B. longum all tolerate the bench)")
     if any("incubation" in x for x in v.violations):
         v.suggestions.append("drop the species that do not fit the available atmosphere, or run them by hand "
                              "(anaerobes: CLSI M11 agar dilution) and flag them for a person")

@@ -63,13 +63,17 @@ labware:
     count: 2
 
 capabilities:
-  # ASSUMED for the demo (Seh Na, 2026-11-08): the OT-2 sits in an anaerobic chamber, so both atmospheres are
-  # available. This is a real arrangement - people do put liquid handlers in Coy-style chambers - but it is not
-  # yet true of this lab, so every verdict carries it as a stated assumption rather than letting it pass silently.
-  # TODO(final): make this true, or drop `anaerobic` back out before anyone reports a result from it.
-  atmosphere: [aerobic, anaerobic]
+  # Atmosphere belongs to a step, not to the lab (Emmy, 2026-11-08): the robot sets the plate up on the bench in
+  # a few minutes, then a person carries it to an incubator overnight. Oxygen matters for the second of those.
+  liquid_handling_atmosphere: [aerobic]     # the OT-2 is on the bench; no chamber, and none needed
+  incubation_atmosphere: [aerobic, anaerobic]
   assumed:
-    atmosphere: "anaerobic requires the OT-2 to be inside a chamber; assumed for the demo, not yet installed"
+    incubation_atmosphere: "anaerobic incubation (jars, sachets or an anaerobic incubator) assumed because the
+      project is phenotyping anaerobic microbiome bacteria; confirm the lab has one before reporting a result"
+  # How much air a species tolerates during the few minutes of setup. Aerotolerant anaerobes (B. fragilis) and
+  # spore-formers are fine on the bench; the most oxygen-sensitive gut commensals (F. prausnitzii) are not, and
+  # need either a chamber or pre-reduced media and speed. A panel entry may set `oxygen_tolerance` to say which.
+  setup_air_exposure_minutes: 15            # TODO(final): time the real run
   incubation_C: [30, 37]
   shaking: unconfirmed             # TODO(final)
   solvent_limits:
