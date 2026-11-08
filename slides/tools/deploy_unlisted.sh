@@ -4,14 +4,20 @@
 # Anyone with the link can view it; nobody can find it without the link. Never use the template's project
 # here: its production branch is the public site.
 #
-#   tools/deploy_unlisted.sh <project>      prints https://<project>.pages.dev/<prefix>/talks/<talk>/
+#   tools/deploy_unlisted.sh <project> [main|slides-preview]
+# Defaults to the current named deployment branch; preview URLs use slides-preview.<project>.pages.dev.
 #
 # The prefix is made on the first run and kept in .pages-prefix, committed so that every deploy (by hand or
 # from CI) keeps the same link; delete that file for a new one. Needs wrangler, logged in (wrangler login) or
 # CLOUDFLARE_API_TOKEN set.
 set -euo pipefail
 
-project=${1:?usage: tools/deploy_unlisted.sh <pages project>}
+project=${1:?usage: tools/deploy_unlisted.sh <pages project> [main|slides-preview]}
+branch=${2:-$(git rev-parse --abbrev-ref HEAD)}
+case "$branch" in
+  main|slides-preview) ;;
+  *) echo "Choose an explicit deployment branch: main or slides-preview" >&2; exit 1 ;;
+esac
 repo=$(cd "$(dirname "$0")/.." && pwd)
 prefix_file="$repo/.pages-prefix"
 [ -s "$prefix_file" ] || python3 -c 'import secrets; print(secrets.token_hex(24))' > "$prefix_file"
@@ -25,9 +31,11 @@ printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > "$site/_headers"
 
 # a new project the first time (an existing one just answers that it exists)
 wrangler pages project create "$project" --production-branch main >/dev/null 2>&1 || true
-wrangler pages deploy "$site" --project-name "$project" --branch main --commit-dirty=true
+wrangler pages deploy "$site" --project-name "$project" --branch "$branch" --commit-dirty=true
 
+host="$project.pages.dev"
+[ "$branch" = main ] || host="$branch.$host"
 echo
 for talk in "$repo"/talks/*/; do
-  echo "https://$project.pages.dev/$prefix/talks/$(basename "$talk")/"
+  echo "https://$host/$prefix/talks/$(basename "$talk")/"
 done
