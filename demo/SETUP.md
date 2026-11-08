@@ -62,7 +62,9 @@ demo/harness/paperclip.sh search -s papers 'broth microdilution' -n 1 --json
 demo/harness/stage.sh start
 ```
 
-Open `http://127.0.0.1:7100/`, or the host's Tailscale IP on port 7100. The server
+For a fresh launcher-based installation, open `http://127.0.0.1:7100/`, or the
+host's Tailscale IP if separately configured. Brev's current systemd configuration
+forces loopback only; Tailscale was not configured by this work. The server
 binds loopback and an available Tailscale IPv4, not public interfaces. Treat access
 to that tailnet as access to the demo (including key management). The backend
 OpenCode API binds loopback with a generated password. Alternate ports:
@@ -92,10 +94,10 @@ No GPU downloads or machine-specific Qwen launcher are part of this demo.
 ## Verification and fallback
 
 ```bash
-demo/.venv/bin/python -m unittest demo.harness.test_planning_pipeline demo.harness.test_reliability demo.harness.test_biology demo.harness.test_tool_stream
+demo/.venv/bin/python -m unittest demo.harness.test_public_view demo.harness.test_planning_pipeline demo.harness.test_reliability demo.harness.test_biology demo.harness.test_tool_stream demo.harness.test_recording demo.harness.test_browser
 demo/.venv-paperclip/bin/python -m unittest demo.harness.test_planning_evidence
 demo/.venv/bin/python -m demo.harness.smoke --simulate
-DEMO_REPLAY=1 demo/.venv/bin/python -m demo.harness.stage.server
+DEMO_REPLAY=1 STAGE_LOOPBACK_ONLY=1 STAGE_PORT=7102 demo/.venv/bin/python -m demo.harness.stage.server
 ```
 
 The smoke test compiles/simulates four synthetic compound/species pairs through
@@ -103,6 +105,10 @@ the real team compiler. It is a **direct backend test, not autonomous success**.
 Outputs live in ignored `demo/harness/planning_runs/<session>/`: proposal JSONL,
 field evidence, source maps, plate maps, run sheets, protocols, rule checks and
 simulator reports. Each protocol/report hash must match to display a pass.
+
+The first two commands reproduce the 34-test verification suite. The smoke and
+replay commands are optional; the replay example uses port 7102 to avoid the
+existing operator on 7100.
 
 Replay mode needs no live backend or credentials. Select the recorded session
 in View; it displays the real 2026-11-07 retrieval/simulation artifacts with

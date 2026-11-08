@@ -1,4 +1,26 @@
-# The demo page
+# Demo workstream
+
+The current judge demo is the Ouroboros planner and prepared-results viewer on
+Brev. Start with the [judge runbook](docs/JUDGE_RUNBOOK.md),
+[current memory](memory/MEMORY.md), and [setup](SETUP.md).
+
+- Private operator: loopback port 7100; prepared judge view: loopback port 7200.
+- Default: GLM-5.3 with low reasoning effort, 16,384 output tokens and bounded tool
+  attempts. Three consecutive autonomous rehearsals passed, producing eight
+  simulator passes. The verification checkpoint has 34 passing tests.
+- Biology lookup reads the real ChEMBL bacterial graph. Rehearsal assay settings
+  are explicitly synthetic; literature retrieval and simulator runs are real.
+- The supplied robot video is a fixed 30-second recording, independent of the
+  generated protocols. It is labelled recorded, not a live feed.
+- Public access remains closed. Do not start another launcher alongside the
+  systemd services, publish the operator, or deploy slides as part of this setup.
+
+## Legacy slide-linked demo
+
+The sections below document the preserved `index.html` trace viewer and
+`agent.server` interface. They are historical/alternative entry points, not the
+current judge configuration or a description of the planner's graph data.
+
 
 One query through the whole pipeline, as a timeline: the knowledge base says "I don't know" → the agent queries
 the two graphs → reasons → proposes the missing experiment → writes the procedure and the OT-2 script → the
@@ -71,7 +93,9 @@ is no backend, so the page plays the recorded traces.
 up: `execution/` for `procedure`, `protocol`, `simulation` and `benchmark/` for `validation`; the natural place
 is for them to add to the same trace (JSON in `agent/out/traces/<id>.json`) before it is written as `runs/<id>.js`.
 
-## Next
+## Historical next steps for the legacy trace viewer
+
+These are legacy plans, not authorization to publish or change the active demo.
 
 1. Point the agent at the real graphs (`kg/query.py`, branch `kg-scaffolding`) instead of `agent/data/sample_kg`,
    and rerecord `runs/kit-imatinib.js`.

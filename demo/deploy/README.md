@@ -49,7 +49,7 @@ policy, TLS/auth external verification and a successful
 fresh autonomous rehearsal remain required. Independent visitor runs need per-user
 session ownership, concurrency limits and an enforced inference-spend budget. -->
 
-## Verified Brev checkpoint (2026-11-08)
+## Historical Brev checkpoint before judge preparation (2026-11-08)
 
 29 tests passed on the ARM64 VM, including public route boundaries, unpublished
 session denial, download boundaries, request limiting, browser layout and evidence

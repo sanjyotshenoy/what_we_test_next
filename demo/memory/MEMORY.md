@@ -74,3 +74,14 @@ arbitrary experimental protocols. No local 5090 endpoint was identified.
 
 <!-- TODO(final): Domain review and external access decisions are still required
 before describing this as a biological or publicly deployed production system. -->
+
+
+## Documentation maintenance
+
+The demo README now leads with the active judge configuration and labels the old
+slide-linked trace workflow as legacy. `docs/PIPELINE_TODO.md` separates completed
+software verification from pending scientific review and broader reliability work.
+`SETUP.md` contains the full 34-test command set and uses a separate loopback port
+for optional replay, avoiding the running operator. Historical failures remain in
+the handoff and verification log. This documentation-only reconciliation did not
+rerun paid rehearsals, restart services, or change access settings.
