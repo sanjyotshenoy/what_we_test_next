@@ -411,3 +411,30 @@ remain and the original cookie still works while a new visitor is rejected.
 
 Ten public-boundary tests passed. Deployed with zero active public workers;
 wwtn-viewer is active and its health check passed. No inference was started.
+
+## Dashboard visitor cap removed — 2026-11-09
+
+User requested removing the 30-slot cap, documenting the change and committing.
+Public dashboard, planner, results and sequential pages now admit visitors without
+an occupancy limit or inactivity expiry. Removed the busy page, slot registry and
+injected admission heartbeat. The old heartbeat asset is a no-op and its endpoint
+remains compatible for already-open pages. Refreshing loads the current behavior.
+
+The visitor cookie now serves only per-browser rate accounting (600 requests per
+minute). Accounting older than one minute is discarded to avoid retaining an
+unbounded history of visitors; this does not expire dashboard access. Live-run
+limits remain two concurrent globally, one per browser, 20 starts/hour globally,
+five starts/hour per browser, 16 model turns and 15 minutes. Owner checks, key
+handling, cancellation and private-result expiry are unchanged. No shared code or
+original sequential assets were edited.
+
+Validation: 24 public-boundary, worker and browser tests passed. An isolated test
+issued 100 simultaneous dashboard requests from cookie-free clients; all returned
+200. This verifies removal of admission blocking, not full 100-user load capacity.
+No paid inference was started. This supersedes the earlier visitor-cap policies.
+
+Deployment: restarted only wwtn-viewer after verifying zero active public workers.
+The deployed origin passed its health check and Chromium verification: saved runs
+rendered, no admission heartbeat included, and no page JS errors. The initial probe
+used an eval-based readiness check rejected by the existing CSP; the DOM-locator
+probe passed without changing the CSP. No paid inference or push was performed.

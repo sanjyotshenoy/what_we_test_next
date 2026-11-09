@@ -10,7 +10,7 @@ from aiohttp import web
 from demo.harness.stage import planning_view, recording
 from demo.harness.stage.assets import versioned_html
 from demo.harness.stage.public_runs import PublicRuns
-from demo.harness.stage.visitors import Visitors
+from demo.harness.stage.visitors import VisitorRequests
 
 STATIC = Path(__file__).parent / 'static'
 DEMO_STATIC = Path(__file__).resolve().parents[2]
@@ -25,13 +25,13 @@ STATIC_FILES |= {f'data/molecules/{compound}.{suffix}' for compound in ('CHEMBL8
 DOWNLOAD_FILES = planning_view.BATCH_FILES | (planning_view.RUN_FILES - {'simulator.log'})
 
 
-def make_app(published, *, request_limit=600, visitors=None):
+def make_app(published, *, request_limit=600, visitor_requests=None):
     published = tuple(published)
     if not published or any(not planning_view.TOKEN.fullmatch(s) for s in published):
         raise ValueError('Explicit published session IDs are required')
     live = PublicRuns()
     requests = deque()
-    visitors = visitors or Visitors()
+    visitor_requests = visitor_requests or VisitorRequests()
     cache = {}
     lock = asyncio.Lock()
 
@@ -72,7 +72,6 @@ def make_app(published, *, request_limit=600, visitors=None):
         html = await asyncio.to_thread(versioned_html, name)
         if name == 'saved-dashboard.html':
             html = html.replace('<a href="/planner">Live planning</a>', '<a href="/sequential">Walkthrough</a><a href="/planner">Live planning</a>')
-        html = html.replace('</body>', '<script src="/static/visitor-session.js" defer></script></body>')
         return web.Response(text=html, content_type='text/html')
 
     async def static(request):
@@ -82,9 +81,7 @@ def make_app(published, *, request_limit=600, visitors=None):
         return web.FileResponse(STATIC / name)
 
     async def sequential(request):
-        html = await asyncio.to_thread((DEMO_STATIC / 'sequential.html').read_text)
-        html = html.replace('</body>', '<script src="/static/visitor-session.js" defer></script></body>')
-        return web.Response(text=html, content_type='text/html')
+        return web.FileResponse(DEMO_STATIC / 'sequential.html')
 
     async def sequential_asset(request):
         name = request.match_info['name']
@@ -162,7 +159,7 @@ def make_app(published, *, request_limit=600, visitors=None):
         from demo.harness.dashboard_graph import overview
         return web.json_response(await asyncio.to_thread(overview))
 
-    app = web.Application(middlewares=[visitors.middleware, boundary], client_max_size=20000)
+    app = web.Application(middlewares=[visitor_requests.middleware, boundary], client_max_size=20000)
     app.cleanup_ctx.append(live.lifecycle)
     app.add_routes([web.get('/results', index), web.get('/planner', index),
                     web.get('/api/precomputed', precomputed), web.get('/api/graph/overview', graph),

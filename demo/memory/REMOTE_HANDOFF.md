@@ -1,6 +1,6 @@
 # Brev / Codex Remote handoff
 
-Current as of 2026-11-08. Read [MEMORY.md](MEMORY.md) first; earlier deployment and
+Current as of 2026-11-09. Read [MEMORY.md](MEMORY.md) first; earlier deployment and
 credential-setup history is in [REMOTE_HANDOFF_HISTORY.md](REMOTE_HANDOFF_HISTORY.md).
 This file is operational guidance, not permission to change access policies.
 
@@ -101,3 +101,13 @@ Public BYOK ownership is in memory. Restarting wwtn-viewer cancels active public
 runs and expires their private results; coordinate before future restarts. Public
 workers never use private OpenCode credentials. See MEMORY.md for bounds and the
 uncompleted paid rehearsal. No credential file is required for public Nebius use.
+
+## Current public visitor policy — 2026-11-09
+
+No dashboard visitor-slot cap or inactivity expiry. Earlier 30-slot admission and
+its heartbeat/busy page were removed at user request. Per-browser request
+throttling (600/minute) remains, with stale accounting discarded independently of
+access. The two concurrent public live-run cap, start-rate limits, visitor-owned
+results, private-result expiry and key isolation remain unchanged. See the
+[verification log](../docs/11-09-2026.md). Do not restore the old visitor cap from
+historical notes. Service restart still loses in-memory private live results.
