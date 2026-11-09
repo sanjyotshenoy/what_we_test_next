@@ -1,5 +1,9 @@
 # Demo workstream
 
+For a fresh machine, start with the **[new-device setup guide](NEW_DEVICE_SETUP.md)**.
+It covers source-only replay, restoring saved results, visitor-key planning and
+optional private services. Git alone does not contain the full saved presentation.
+
 Start with [current memory](memory/MEMORY.md), [remote handoff](memory/REMOTE_HANDOFF.md),
 [presentation runbook](docs/JUDGE_RUNBOOK.md), and [setup](SETUP.md).
 

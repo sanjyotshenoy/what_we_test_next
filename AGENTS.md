@@ -14,3 +14,8 @@ first. In short:
   the team can follow progress; never push to `main` without the person's OK.
 - Pushing to `main` redeploys the slides if `slides/` changed; for slide work follow `slides/AGENTS.md` and run
   `check_deck.py` before pushing. Push only when the person asks.
+
+For demo setup or migration, start with [demo/NEW_DEVICE_SETUP.md](demo/NEW_DEVICE_SETUP.md)
+and [demo/AGENTS.md](demo/AGENTS.md). Keep the setup guide current when changing
+installation, deployment or runtime asset requirements; a Git clone alone does
+not include the current saved demo artifacts.

@@ -1,5 +1,8 @@
 # Demo deployment
 
+For a new host, follow [the complete setup guide](../NEW_DEVICE_SETUP.md), including
+reviewed artifact transfer and verification before installing services.
+
 The active deployment is Brev-managed HTTPS, with a public dashboard/sequential
 viewer with visitor-key planning and an authenticated shared operator. See the authoritative
 [handoff](../memory/REMOTE_HANDOFF.md) for exact endpoints, ports, IDs, health commands

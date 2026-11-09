@@ -4,6 +4,10 @@ Current as of 2026-11-09. Read [MEMORY.md](MEMORY.md) first; earlier deployment 
 credential-setup history is in [REMOTE_HANDOFF_HISTORY.md](REMOTE_HANDOFF_HISTORY.md).
 This file is operational guidance, not permission to change access policies.
 
+For migration or a fresh device, follow [NEW_DEVICE_SETUP.md](../NEW_DEVICE_SETUP.md).
+It distinguishes tracked source from the ignored saved artifacts/media and includes
+reviewed export/import and validation. Do not clone private credential directories.
+
 ## Resume work
 
 Host `brev-o10eetwuq`, Brev instance `biohackdemo`, directory
