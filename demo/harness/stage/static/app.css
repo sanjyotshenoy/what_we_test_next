@@ -98,3 +98,8 @@ code { background: var(--panel2); padding: 1px 5px; border-radius: 4px; }
   main { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-rows: 70vh;
     grid-template-areas: "agent" "kg" "plate" "structure" "video" "robot"; height: auto; }
 }
+
+/* IDEAL is the dashboard within Project Ouroboros. Keep header controls on one row. */
+a.brand-ideal {display:flex;align-items:center;gap:8px;min-width:0}
+.brand-copy {display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.brand-subtitle {display:block;max-width:clamp(100px,24vw,340px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.65rem;font-weight:400;color:var(--muted);letter-spacing:0}

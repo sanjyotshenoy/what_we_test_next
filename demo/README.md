@@ -1,4 +1,8 @@
-# Demo workstream
+# IDEAL — Project Ouroboros dashboard
+
+**IDEAL** stands for **Integrated Development Environment for Autonomous Labs**.
+It is the operator dashboard within **Project Ouroboros**, the broader scientific
+discovery project.
 
 For a fresh machine, start with the **[new-device setup guide](NEW_DEVICE_SETUP.md)**.
 It covers source-only replay, restoring saved results, visitor-key planning and

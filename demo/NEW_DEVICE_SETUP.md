@@ -1,4 +1,7 @@
-# Set up Project Ouroboros on a new device
+# Set up IDEAL (Project Ouroboros) on a new device
+
+**IDEAL** means **Integrated Development Environment for Autonomous Labs**.
+Project Ouroboros remains the name of the broader discovery project.
 
 This guide describes the repository as of 2026-11-09. Run commands from the
 **repository root**, not from `demo/`. Read this before following old deployment
@@ -296,7 +299,7 @@ Open these routes:
 
 | URL | Expected behavior |
 | --- | --- |
-| `http://127.0.0.1:7200/` | Ouroboros operator-layout dashboard with saved traces |
+| `http://127.0.0.1:7200/` | IDEAL operator dashboard with saved traces |
 | `http://127.0.0.1:7200/sequential` | Original sequential walkthrough |
 | `http://127.0.0.1:7200/planner` | Two editable query presets and visitor API-key form |
 | `http://127.0.0.1:7200/results` | Older read-only artifact/results view |
