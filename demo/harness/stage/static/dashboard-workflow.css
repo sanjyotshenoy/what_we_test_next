@@ -145,3 +145,17 @@ header .controls > #trace-switch {width:clamp(150px,17vw,210px);flex:0 1 210px}
 header a.brand {color:var(--text);text-decoration:none} header a.brand:hover {color:var(--accent)} header a.brand:focus-visible {outline:2px solid var(--accent);outline-offset:4px;border-radius:3px}
 
 #provider-reasoning {font-size:.7rem;margin:6px 0} #reasoning-state {color:var(--muted)} #reasoning-text {max-height:120px;overflow:auto}
+
+#dashboard-help {background:#157347;border-color:#157347;color:#fff;font-weight:700}
+#dashboard-help:hover {background:#115c39}
+#dashboard-help:focus-visible {outline:3px solid #6ee7a5;outline-offset:2px}
+#dashboard-help-dialog {box-sizing:border-box;width:min(640px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto;padding:24px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--text);box-shadow:0 20px 80px #0006;line-height:1.6}
+#dashboard-help-dialog::backdrop {background:#0009}
+.help-heading {display:flex;align-items:center;justify-content:space-between;gap:16px}
+.help-heading h2 {margin:0;font-size:1.35rem}
+#dashboard-help-intro,.help-note {color:var(--muted);font-size:.85rem}
+.help-instructions {padding-left:24px}
+.help-instructions li {padding-left:4px;margin:18px 0}
+.help-instructions a {color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+#dashboard-help-done {background:#157347;border-color:#157347;color:white;font-weight:700}
+@media(max-width:480px){header .brand-subtitle {display:none}header .brand-ideal {gap:4px}#dashboard-help-dialog {padding:18px}header .controls > button {padding-left:6px;padding-right:6px}}

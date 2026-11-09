@@ -24,6 +24,7 @@ class DashboardLayoutTests(unittest.TestCase):
           page.on('pageerror',lambda e:errors.append(str(e)))
           page.on('request',lambda r:writes.append(r.url) if r.method!='GET' else None)
           page.on('request',lambda r:external.append(r.url) if not r.url.startswith(url) else None)
+          page.add_init_script("localStorage.setItem('ideal-dashboard-help-seen-v1','1')")
           page.goto(url);page.wait_for_function('graph && graph.nodes().length===605')
           boxes={name:page.locator('#'+name).bounding_box() for name in ['kg','structure','plate','video','robot']}
           assert abs(boxes['kg']['x']-boxes['structure']['x'])<1

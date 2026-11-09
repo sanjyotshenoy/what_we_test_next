@@ -491,3 +491,25 @@ Three public/live/layout browser regressions passed. An isolated browser check
 verified titles, subtitle and page/header bounds at widths 320, 390, 768, 1100,
 1440 and 1920 on both pages; desktop screenshot was visually reviewed. Static
 changes need no service restart or paid inference.
+
+## First-visit dashboard help — 2026-11-09
+
+Added an accessible first-visit IDEAL welcome dialog with the requested prototype
+instructions, Nebius BYOK live-planning link, simulator Play-controls link and
+focused robot-recording link. The recording is explicitly prerecorded and separate
+from selected-protocol execution. A green Help button stays outside the More menu
+and remains visible during panel focus and at mobile widths. Instructions use the
+existing menu's live-planning URL so current live-session context is retained.
+
+Closing via Close, Got it, Escape or a help link remembers dismissal using
+ideal-dashboard-help-seen-v1 in browser localStorage. Storage failures are caught;
+help still works, though automatic display can recur after reload. Simulator links
+focus controls without starting playback; recording links select the recording tab
+and focus its panel. Keyboard focus is restored appropriately. Small-screen brand
+subtitles are hidden to keep Help and Interrupt available without banner overflow.
+
+Four public/live/layout/workflow browser regressions passed, covering initial show,
+remembered dismissal, reopening, panel destinations, playback controls, navigation,
+and header/dialog bounds from 320px upward. A deployed-origin check also verified
+storage-disabled fallback; the popup screenshot was visually reviewed. Updated the
+fresh-device guide. Static-only deployment; no restart or paid inference.

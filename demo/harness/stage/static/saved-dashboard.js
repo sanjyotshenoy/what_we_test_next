@@ -10,6 +10,7 @@ initializeDashboardHeader();
 initializeDashboardTheme();
 initializeVisuals();
 initializeDashboardLayout();
+initializeDashboardHelp();
 initializeWorkflow();
 function clearResult() {
   stopSimulation(); hideGraphTooltip(); clearWorkflow();

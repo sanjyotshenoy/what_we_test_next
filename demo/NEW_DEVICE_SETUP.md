@@ -304,6 +304,11 @@ Open these routes:
 | `http://127.0.0.1:7200/planner` | Two editable query presets and visitor API-key form |
 | `http://127.0.0.1:7200/results` | Older read-only artifact/results view |
 
+On first dashboard visit, a welcome dialog explains the prototype and links to
+live planning, simulator controls and the focused prerecorded robot view. Closing
+it remembers dismissal in this browser; the green navbar Help button reopens it.
+If browser storage is unavailable it may reappear on reload, but remains usable.
+
 Check all four model choices and both traces per model, KG, compound structures,
 plates, generated-protocol animation and simulator status. The physical video is
 optional and distinct from the selected generated protocol. A missing video must

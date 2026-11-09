@@ -123,3 +123,45 @@ function initializeDashboardHeader() {
   document.addEventListener('click',event=>{if(!more.contains(event.target)) more.open=false;});
   more.addEventListener('keydown',event=>{if(event.key==='Escape') {more.open=false;more.querySelector('summary').focus();event.stopPropagation();}});
 }
+
+function initializeDashboardHelp() {
+  const dialog=$('dashboard-help-dialog'),help=$('dashboard-help');
+  const key='ideal-dashboard-help-seen-v1';
+  function remember() {try {localStorage.setItem(key,'1');} catch {}}
+  function close() {remember();dialog.close();}
+  function open() {
+    $('header-more').open=false;
+    if(!dialog.open) dialog.showModal();
+  }
+  dialog.addEventListener('close',()=>{
+    remember();
+    help.focus({preventScroll:true});
+  });
+  help.onclick=open;
+  $('dashboard-help-close').onclick=close;
+  $('dashboard-help-done').onclick=close;
+  $('help-live-planning').onclick=event=>{
+    if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey) return;
+    event.preventDefault();close();
+    window.location.assign(document.querySelector('#header-menu a[href*="/planner"]').href);
+  };
+  function reveal(panelId, controlId) {
+    close();
+    const panel=$(panelId),current=document.querySelector('.panel-focus[aria-pressed="true"]');
+    // Restore a different focused panel before focusing the requested destination.
+    if(current&&!panel.contains(current)) current.click();
+    const focus=panel.querySelector('.panel-focus');
+    if(focus.getAttribute('aria-pressed')!=='true') focus.click();
+    if(panelId==='video') $('show-recording').click();
+    requestAnimationFrame(()=>{
+      panel.scrollIntoView({block:'nearest'});
+      const control=$(controlId);
+      if(!control.disabled) control.focus({preventScroll:true});
+    });
+  }
+  $('help-simulator').onclick=event=>{event.preventDefault();reveal('robot','sim-play');};
+  $('help-recording').onclick=event=>{event.preventDefault();reveal('video','show-recording');};
+  let seen=false;
+  try {seen=localStorage.getItem(key)==='1';} catch {}
+  if(!seen) open();
+}

@@ -34,6 +34,7 @@ class WorkflowBrowserTests(unittest.TestCase):
                 browser=playwright.chromium.launch(headless=True,args=['--no-sandbox'])
                 try:
                     page=browser.new_page(viewport={'width':1600,'height':1000})
+                    page.add_init_script("localStorage.setItem('ideal-dashboard-help-seen-v1','1')")
                     errors=[];writes=[]
                     page.on('pageerror',lambda e:errors.append(str(e)))
                     page.on('request',lambda r:writes.append(r.url) if r.method!='GET' else None)
