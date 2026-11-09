@@ -1,5 +1,8 @@
 # Demo deployment
 
+For a new host, follow [the complete setup guide](../NEW_DEVICE_SETUP.md), including
+reviewed artifact transfer and verification before installing services.
+
 The active deployment is Brev-managed HTTPS, with a public dashboard/sequential
 viewer with visitor-key planning and an authenticated shared operator. See the authoritative
 [handoff](../memory/REMOTE_HANDOFF.md) for exact endpoints, ports, IDs, health commands
@@ -16,8 +19,12 @@ The viewer has no OpenCode connection. Saved viewing serves only explicitly
 published sessions and allowlisted assets/downloads. `/planner` accepts a visitor's
 Nebius key for a bounded isolated process, with no credential persistence or
 fallback to private team keys. Only `/api/runs` and owner-authorized stop routes
-accept POST; old private operator command routes remain unavailable. Global read
-limit: 600 requests/minute. Public runs: two concurrent, one per browser, sixteen
+accept POST; old private operator command routes remain unavailable. Dashboard viewing has no visitor-slot cap or inactivity expiry. There is no
+admission heartbeat or busy-page queue. The visitor cookie only identifies a
+600 requests/minute browser budget; stale rate-accounting entries are discarded
+without restricting access. Static dashboard assets are excluded from that budget,
+and owned cancellation bypasses throttling while retaining authorization checks.
+Public runs: two concurrent, one per browser, sixteen
 model turns, fifteen minutes; five starts/browser/hour and twenty globally/hour.
 Results belong to an HttpOnly-cookie browser identity and expire after an hour or
 service restart. No raw transcripts or simulator stderr logs are exposed.

@@ -39,8 +39,45 @@ class PublicRuns:
         job = self.jobs.get(session)
         return bool(job and job['owner'] == owner(request) and job['expires'] > time.monotonic())
 
-    def public(self, job):
-        return {k: job[k] for k in ('session', 'state', 'message', 'model', 'question')}
+    def public(self, job, after=None):
+        result = {k: job[k] for k in ('session', 'state', 'message', 'model', 'question')}
+        result.update(stage=job.get('stage'), turn=job.get('turn', 0), steps=job.get('steps', {}))
+        if after is not None:
+            events = job.get('events', [])
+            result.update(events=[e for e in events if e['id'] > after], last_event=job.get('sequence', 0),
+                          events_truncated=bool(events and after < events[0]['id'] - 1))
+        return result
+
+    def record(self, job, event):
+        if event.get('state') not in ('running', 'finished', 'failed'):
+            return
+        job.update(state=event['state'], message=str(event.get('message', ''))[:500])
+        previous_stage = job.get('stage')
+        stage = event.get('stage')
+        if stage in ('model', 'context', 'biology', 'literature', 'proposal', 'checks', 'protocols', 'simulation'):
+            job['stage'] = stage
+        if isinstance(event.get('turn'), int):
+            job['turn'] = event['turn']
+        kind = event.get('kind', 'status')
+        steps = job.setdefault('steps', {})
+        if kind in ('model_start', 'tool_start', 'stage') and stage:
+            steps[stage] = 'running'
+        elif kind in ('model_end', 'proposal') and stage:
+            steps[stage] = 'returned'
+        elif kind == 'tool_result' and stage:
+            steps[stage] = 'failed' if event.get('outcome') == 'failed' else 'returned'
+            if event.get('tool') == 'planning_submit' and (event.get('outcome') != 'failed' or previous_stage == 'protocols'):
+                steps['protocols'] = steps[stage]
+        job['sequence'] = job.get('sequence', 0) + 1
+        clean = {k: event[k] for k in ('kind', 'tool', 'stage', 'turn', 'outcome', 'truncated') if k in event}
+        clean.update(id=job['sequence'], message=job['message'], state=job['state'],
+                     elapsed=round(time.monotonic()-job.setdefault('started', time.monotonic()), 1))
+        clean['text'] = str(event.get('text', ''))[:6000]
+        events = job.setdefault('events', deque())
+        events.append(clean)
+        job['event_chars'] = job.get('event_chars', 0) + len(clean['text'])
+        while len(events) > 2000 or job['event_chars'] > 2_000_000:
+            job['event_chars'] -= len(events.popleft()['text'])
 
     async def start(self, request):
         try:
@@ -67,7 +104,7 @@ class PublicRuns:
         identity = hashlib.sha256(token.encode()).hexdigest()
         session = 'public_' + secrets.token_hex(16)
         job = dict(session=session, owner=identity, state='starting', message='Starting isolated run…',
-                   model=model, question=question.strip(), expires=now + TTL)
+                   model=model, question=question.strip(), expires=now + TTL, started=now)
         self.jobs[session] = job
         self.starts.append((now, identity))
         job['task'] = asyncio.create_task(self.execute(job, {'key': key.strip(), 'question': question.strip(), 'model': model}))
@@ -90,8 +127,7 @@ class PublicRuns:
                 process.stdin.close()
                 while line := await process.stdout.readline():
                     event = json.loads(line)
-                    if event.get('state') in ('running', 'finished', 'failed'):
-                        job.update(state=event['state'], message=event['message'])
+                    self.record(job, event)
                 await process.wait()
                 if job['state'] not in ('finished', 'failed'):
                     job.update(state='failed', message='The worker exited before completion.')
@@ -115,7 +151,11 @@ class PublicRuns:
         session = request.match_info['session']
         if not self.visible(request, session):
             raise web.HTTPNotFound()
-        return web.json_response(self.public(self.jobs[session]))
+        try:
+            after = max(0, int(request.query['after'])) if 'after' in request.query else None
+        except ValueError:
+            raise web.HTTPBadRequest(text='Invalid event cursor.') from None
+        return web.json_response(self.public(self.jobs[session], after))
 
     async def stop(self, request):
         session = request.match_info['session']

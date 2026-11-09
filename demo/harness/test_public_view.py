@@ -84,3 +84,33 @@ class RateLimitTests(AioHTTPTestCase):
         response = await self.client.get('/api/health')
         self.assertEqual(response.status, 429)
         self.assertEqual(response.headers['Retry-After'], '60')
+
+
+class VisitorAdmissionTests(AioHTTPTestCase):
+    async def get_application(self):
+        return public_view.make_app(['published'])
+
+    async def test_one_hundred_simultaneous_visitors_can_open_dashboard(self):
+        import asyncio
+        from aiohttp import ClientSession, DummyCookieJar
+        async with ClientSession(cookie_jar=DummyCookieJar()) as clients:
+            async def arrive():
+                async with clients.get(self.server.make_url('/')) as response:
+                    html = await response.text()
+                    self.assertNotIn('/static/visitor-session.js', html)
+                    return response.status
+            statuses = await asyncio.gather(*(arrive() for _ in range(100)))
+        self.assertEqual(statuses.count(200), 100)
+
+
+class VisitorRateTests(AioHTTPTestCase):
+    async def get_application(self):
+        return public_view.make_app(['published'], request_limit=2)
+
+    async def test_each_visitor_has_a_separate_budget(self):
+        for _ in range(2):
+            self.assertEqual((await self.client.get('/api/visitor')).status, 200)
+        self.assertEqual((await self.client.get('/api/visitor')).status, 429)
+        self.assertEqual((await self.client.get('/static/visitor-session.js')).status, 200)
+        self.client.session.cookie_jar.clear()
+        self.assertEqual((await self.client.get('/api/visitor')).status, 200)

@@ -238,7 +238,13 @@ def validate(batch, evidence):
     return errors
 
 
+def public_progress(stage):
+    if os.environ.get('WWTN_PUBLIC_PROGRESS') == '1':
+        print(json.dumps({'_public_progress': stage}), flush=True)
+
+
 def submit(batch, session):
+    public_progress('checks')
     try:
         parsed = Batch.model_validate(batch)
     except ValidationError as exc:
@@ -250,6 +256,7 @@ def submit(batch, session):
     lab = Lab.load(LAB)
     template = json.loads(TEMPLATE.read_text())
     prepared = []
+    public_progress('protocols')
     for item in parsed.compounds:
         ex = item.proposal.experiment
         for member in ex.panel:

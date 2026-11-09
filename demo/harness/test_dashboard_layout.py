@@ -51,7 +51,7 @@ class DashboardLayoutTests(unittest.TestCase):
            page.keyboard.press('Escape');page.wait_for_timeout(100)
            assert page.locator('main.panel-focused').count()==0
           assert abs(width()-before)<2
-          page.click('#reset-layout');page.wait_for_timeout(100);assert abs(width()-changed)>40
+          page.click('#header-more summary');page.click('#reset-layout');page.wait_for_timeout(100);assert abs(width()-changed)>40
           # Actual pointer click on a full-KG compound selects its SMILES/drawing.
           pos=page.evaluate("() => {const p=graph.getElementById('CHEMBL8').renderedPosition(),r=document.querySelector('#cy').getBoundingClientRect();return {x:r.x+p.x,y:r.y+p.y}}")
           page.mouse.click(pos['x'],pos['y']);page.wait_for_selector('.molecule-drawing')

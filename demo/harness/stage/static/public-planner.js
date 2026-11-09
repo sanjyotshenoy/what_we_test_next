@@ -3,7 +3,7 @@ const el = id => document.getElementById(id);
 let session=null, timer=null, lastMessage='';
 async function request(url, body) {
   const response=await fetch(url, body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json','X-Demo-Run':'1'},body:JSON.stringify(body)});
-  if(!response.ok) throw new Error((await response.text()).slice(0,220));
+  if(!response.ok) throw Object.assign(new Error((await response.text()).slice(0,220)),{status:response.status});
   return response.json();
 }
 function show(job) {
@@ -26,7 +26,8 @@ el('live-form').onsubmit=async event=>{
   try {
     const job=await request('/api/runs',body);session=job.session;body.key='';
     history.replaceState(null,'',`/planner?run=${encodeURIComponent(session)}`);
-    el('live-events').replaceChildren();lastMessage='';show(job);timer=setTimeout(poll,1000);
+    el('live-events').replaceChildren();lastMessage='';show(job);
+    location.assign(`/?run=${encodeURIComponent(session)}`);
   } catch(e) {el('live-status').textContent=e.message;el('start').disabled=false;}
   finally {body.key='';}
 };
@@ -34,5 +35,30 @@ el('stop').onclick=async()=>{el('stop').disabled=true;try{clearTimeout(timer);sh
 (async()=>{try {
   const catalog=await request('/api/precomputed');
   for(const m of catalog.models) {const option=document.createElement('option');option.value=m.id;option.textContent=m.label;el('live-model').append(option);}
-  session=new URLSearchParams(location.search).get('run');if(session) await poll();
+  const queries=catalog.queries||[];
+  for(const query of queries) {const option=document.createElement('option');option.value=query.id;option.textContent=query.label;el('live-example').append(option);}
+  el('live-example').disabled=!queries.length;
+  const selectQuery=()=>{const query=queries.find(q=>q.id===el('live-example').value);if(query) el('live-question').value=query.prompt;};
+  el('live-example').onchange=selectQuery;
+  session=new URLSearchParams(location.search).get('run');
+  if(session) {
+    const job=await request(`/api/runs/${encodeURIComponent(session)}`);
+    el('live-question').value=job.question;el('live-model').value=job.model;
+    el('live-example').value=queries.find(q=>q.prompt.trim()===job.question.trim())?.id||'';
+    if(show(job)) timer=setTimeout(poll,3000);
+  } else selectQuery();
 }catch(e){el('live-status').textContent=e.message;el('start').disabled=true;}})();
+
+document.querySelector('a.brand').onclick=async event=>{
+  if(!session||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey) return;
+  event.preventDefault();
+  try {
+    clearTimeout(timer);
+    await request(`/api/runs/${encodeURIComponent(session)}/stop`,{});
+    location.assign('/');
+  } catch(e) {
+    if(e.status===404) {location.assign('/');return;}
+    el('live-status').textContent=`Could not interrupt the run: ${e.message}`;
+    timer=setTimeout(poll,1000);
+  }
+};

@@ -10,12 +10,13 @@ from aiohttp import web
 from demo.harness.stage import planning_view, recording
 from demo.harness.stage.assets import versioned_html
 from demo.harness.stage.public_runs import PublicRuns
+from demo.harness.stage.visitors import VisitorRequests
 
 STATIC = Path(__file__).parent / 'static'
 DEMO_STATIC = Path(__file__).resolve().parents[2]
 SEQUENTIAL_FILES = {'sequential-models.json', 'demo.css', 'sequential.css', 'sequential.js',
                     'fonts/Lato-Regular.woff2', 'fonts/Lato-Semibold.woff2', 'fonts/Lato-Bold.woff2'}
-STATIC_FILES = {'planner.css', 'planner.js', 'app.css', 'saved-dashboard.css', 'saved-dashboard.js',
+STATIC_FILES = {'visitor-session.js', 'planner.css', 'planner.js', 'app.css', 'saved-dashboard.css', 'saved-dashboard.js',
                 'dashboard-visuals.js', 'dashboard-layout.js', 'dashboard-workflow.js', 'dashboard-workflow.css',
                 'public-planner.js', 'public-planner.css', 'vendor/cytoscape.min.js',
                 'vendor/smiles-drawer-2.0.0.min.js', 'data/molecules/provenance.json'}
@@ -24,23 +25,26 @@ STATIC_FILES |= {f'data/molecules/{compound}.{suffix}' for compound in ('CHEMBL8
 DOWNLOAD_FILES = planning_view.BATCH_FILES | (planning_view.RUN_FILES - {'simulator.log'})
 
 
-def make_app(published, *, request_limit=600):
+def make_app(published, *, request_limit=600, visitor_requests=None):
     published = tuple(published)
     if not published or any(not planning_view.TOKEN.fullmatch(s) for s in published):
         raise ValueError('Explicit published session IDs are required')
     live = PublicRuns()
     requests = deque()
+    visitor_requests = visitor_requests or VisitorRequests()
     cache = {}
     lock = asyncio.Lock()
 
     @web.middleware
     async def boundary(request, handler):
         now = time.monotonic()
-        while requests and requests[0] < now - 60:
-            requests.popleft()
-        if len(requests) >= request_limit:
+        bucket = request.get('visitor_requests', requests)
+        while bucket and bucket[0] < now - 60:
+            bucket.popleft()
+        if len(bucket) >= request_limit and not request.path.startswith('/static/') and not request.path.endswith('/stop'):
             return web.Response(status=429, text='Please wait before refreshing.', headers={'Retry-After': '60'})
-        requests.append(now)
+        if not request.path.startswith('/static/'):
+            bucket.append(now)
         if request.method not in {'GET', 'HEAD'}:
             if request.method != 'POST' or not (request.path == '/api/runs' or
                     request.path.startswith('/api/runs/') and request.path.endswith('/stop')):
@@ -84,6 +88,9 @@ def make_app(published, *, request_limit=600):
         if name not in SEQUENTIAL_FILES:
             raise web.HTTPNotFound()
         return web.FileResponse(DEMO_STATIC / name)
+
+    async def visitor(request):
+        return web.json_response({'admitted': True})
 
     async def health(request):
         return web.json_response({'ok': True, 'opencode': False, 'replay': True,
@@ -141,13 +148,18 @@ def make_app(published, *, request_limit=600):
                 compounds = list(dict.fromkeys(r['compound'] for r in runs))
                 species = list(dict.fromkeys(r['species']['name'] for r in runs))
                 examples.append(dict(session=session, model=model, question=' / '.join(compounds) + ' · ' + ' / '.join(species)))
-        return web.json_response(dict(models=catalog['models'], examples=examples))
+        queries = []
+        for name in ('ciprofloxacin-panel', 'antibiotic-comparison'):
+            prompt = (DEMO_STATIC / 'examples' / f'{name}.txt').read_text()
+            label = prompt.splitlines()[0].removeprefix('Scientist question: ').split('?')[0] + '?'
+            queries.append(dict(id=name, label=label, prompt=prompt))
+        return web.json_response(dict(models=catalog['models'], examples=examples, queries=queries))
 
     async def graph(request):
         from demo.harness.dashboard_graph import overview
         return web.json_response(await asyncio.to_thread(overview))
 
-    app = web.Application(middlewares=[boundary], client_max_size=20000)
+    app = web.Application(middlewares=[visitor_requests.middleware, boundary], client_max_size=20000)
     app.cleanup_ctx.append(live.lifecycle)
     app.add_routes([web.get('/results', index), web.get('/planner', index),
                     web.get('/api/precomputed', precomputed), web.get('/api/graph/overview', graph),
@@ -155,7 +167,7 @@ def make_app(published, *, request_limit=600):
                     web.post('/api/runs/{session}/stop', live.stop)])
     app.add_routes([web.get('/sequential', sequential),
                     web.get('/sequential-assets/{name:.*}', sequential_asset), web.get('/', index), web.get('/static/{name:.*}', static),
-                    web.get('/api/health', health), web.get('/api/models', models),
+                    web.get('/api/health', health), web.get('/api/visitor', visitor), web.get('/api/models', models),
                     web.get('/api/planning/sessions', sessions), web.get('/api/planning', planning),
                     web.get('/api/artifacts/{session}/{batch}/{filename:.*}', artifact)])
     app.add_routes(recording.routes())

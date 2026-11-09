@@ -1,5 +1,9 @@
 # Portable planner setup
 
+**New device:** follow [NEW_DEVICE_SETUP.md](NEW_DEVICE_SETUP.md) for the complete
+installation and asset-restoration sequence. This file is the runtime reference;
+the new-device guide distinguishes the public BYOK app from the private operator.
+
 This is the active Ouroboros runtime. It uses this repository's `wwtn`, `execution`
 and `kg` modules without modifying them. No second checkout, inherited virtualenv,
 OpenCode profile, model weights or local Qwen server is required.
